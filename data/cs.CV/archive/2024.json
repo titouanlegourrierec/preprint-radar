@@ -15435,6 +15435,73 @@
    "pdf_url": "https://arxiv.org/pdf/2412.12861"
   },
   {
+   "arxiv_id": "2412.12725",
+   "announced": "2024-12-01",
+   "title": "RaCFormer: Towards High-Quality 3D Object Detection via Query-based Radar-Camera Fusion",
+   "authors": [
+    "Xiaomeng Chu",
+    "Jiajun Deng",
+    "Guoliang You",
+    "Yifan Duan",
+    "Houqiang Li",
+    "Yanyong Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to CVPR 2025",
+   "journal_ref": null,
+   "venue": "CVPR 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We propose Radar-Camera fusion transformer (RaCFormer) to boost the accuracy of 3D object detection by the following insight. The Radar-Camera fusion in outdoor 3D scene perception is capped by the image-to-BEV transformation--if the depth of pixels is not accurately estimated, the naive combination of BEV features actually integrates unaligned visual content. To avoid this problem, we propose a query-based framework that enables adaptive sampling of instance-relevant features from both the bird's-eye view (BEV) and the original image view. Furthermore, we enhance system performance by two key designs: optimizing query initialization and strengthening the representational capacity of BEV. For the former, we introduce an adaptive circular distribution in polar coordinates to refine the initialization of object queries, allowing for a distance-based adjustment of query density. For the latter, we initially incorporate a radar-guided depth head to refine the transformation from image view to BEV. Subsequently, we focus on leveraging the Doppler effect of radar and introduce an implicit dynamic catcher to capture the temporal elements within the BEV. Extensive experiments on nuScenes and View-of-Delft (VoD) datasets validate the merits of our design. Remarkably, our method achieves superior results of 64.9% mAP and 70.2% NDS on nuScenes. RaCFormer also secures the state-of-the-art performance on the VoD dataset. Code is available at https://github.com/cxmomo/RaCFormer.",
+   "affiliations": [
+    "University of Science and Technology of China",
+    "University of Adelaide"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Science and Technology of China",
+    "University of Adelaide"
+   ],
+   "institution_ids": [
+    "04c4dkn09",
+    "00892tw58"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2412.12725",
+   "pdf_url": "https://arxiv.org/pdf/2412.12725"
+  },
+  {
    "arxiv_id": "2412.12507",
    "announced": "2024-12-01",
    "title": "3DGUT: Enabling Distorted Cameras and Secondary Rays in Gaussian Splatting",
@@ -20284,6 +20351,58 @@
    "pdf_url": "https://arxiv.org/pdf/2412.04802"
   },
   {
+   "arxiv_id": "2412.04616",
+   "announced": "2024-12-01",
+   "title": "Assessing and Learning Alignment of Unimodal Vision and Language Models",
+   "authors": [
+    "Le Zhang",
+    "Qian Yang",
+    "Aishwarya Agrawal"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "CVPR 2025 Highlight",
+   "journal_ref": null,
+   "venue": "CVPR 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "How well are unimodal vision and language models aligned? Although prior work have approached answering this question, their assessment methods do not directly translate to how these models are used in practical vision-language tasks. In this paper, we propose a direct assessment method, inspired by linear probing, to assess vision-language alignment. We identify that the degree of alignment of the SSL vision models depends on their SSL training objective, and we find that the clustering quality of SSL representations has a stronger impact on alignment performance than their linear separability. Next, we introduce Swift Alignment of Image and Language (SAIL), a efficient transfer learning framework that aligns pretrained unimodal vision and language models for downstream vision-language tasks. Since SAIL leverages the strengths of pretrained unimodal models, it requires significantly fewer (6%) paired image-text data for the multimodal alignment compared to models like CLIP which are trained from scratch. SAIL training only requires a single A100 GPU, 5 hours of training and can accommodate a batch size up to 32,768. SAIL achieves 73.4% zero-shot accuracy on ImageNet (vs. CLIP's 72.7%) and excels in zero-shot retrieval, complex reasoning, and semantic segmentation. Additionally, SAIL improves the language-compatibility of vision encoders that in turn enhance the performance of multimodal large language models. The entire codebase and model weights are open-source: https://lezhang7.github.io/sail.github.io/",
+   "affiliations": [
+    "Mila - Quebec Artificial Intelligence Institute"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Mila - Quebec Artificial Intelligence Institute"
+   ],
+   "institution_ids": [
+    "05c22rx21"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2412.04616",
+   "pdf_url": "https://arxiv.org/pdf/2412.04616"
+  },
+  {
    "arxiv_id": "2412.04472",
    "announced": "2024-12-01",
    "title": "Stereo Anywhere: Robust Zero-Shot Deep Stereo Matching Even Where Either Stereo or Mono Fail",
@@ -21616,6 +21735,62 @@
    },
    "abs_url": "https://arxiv.org/abs/2412.04204",
    "pdf_url": "https://arxiv.org/pdf/2412.04204"
+  },
+  {
+   "arxiv_id": "2412.04077",
+   "announced": "2024-12-01",
+   "title": "SoMA: Singular Value Decomposed Minor Components Adaptation for Domain Generalizable Representation Learning",
+   "authors": [
+    "Seokju Yun",
+    "Seunghye Chae",
+    "Dongheon Lee",
+    "Youngmin Ro"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "CVPR 2025 Project page: https://ysj9909.github.io/SoRA.github.io/",
+   "journal_ref": null,
+   "venue": "CVPR 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Domain generalization (DG) aims to adapt a model using one or multiple source domains to ensure robust performance in unseen target domains. Recently, Parameter-Efficient Fine-Tuning (PEFT) of foundation models has shown promising results in the context of DG problem. Nevertheless, existing PEFT methods still struggle to strike a balance between preserving generalizable components of the pre-trained model and learning task-specific features. To gain insights into the distribution of generalizable components, we begin by analyzing the pre-trained weights through the lens of singular value decomposition. Building on these insights, we introduce Singular Value Decomposed Minor Components Adaptation (SoMA), an approach that selectively tunes minor singular components while keeping the residual parts frozen. SoMA effectively retains the generalization ability of the pre-trained model while efficiently acquiring task-specific skills. Moreover, we freeze domain-generalizable blocks and employ an annealing weight decay strategy, thereby achieving an optimal balance in the delicate trade-off between generalizability and discriminability. SoMA attains state-of-the-art results on multiple benchmarks that span both domain generalized semantic segmentation to domain generalized object detection. In addition, our methods introduce no additional inference overhead or regularization loss, maintain compatibility with any backbone or head, and are designed to be versatile, allowing easy integration into a wide range of tasks.",
+   "affiliations": [
+    "University of Seoul"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Seoul"
+   ],
+   "institution_ids": [
+    "05en5nh73"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2412.04077",
+   "pdf_url": "https://arxiv.org/pdf/2412.04077"
   },
   {
    "arxiv_id": "2412.03934",
@@ -23530,6 +23705,73 @@
    "pdf_url": "https://arxiv.org/pdf/2412.02193"
   },
   {
+   "arxiv_id": "2412.02168",
+   "announced": "2024-12-01",
+   "title": "Generative Photography: Scene-Consistent Camera Control for Realistic Text-to-Image Synthesis",
+   "authors": [
+    "Yu Yuan",
+    "Xijun Wang",
+    "Yichen Sheng",
+    "Prateek Chennuri",
+    "Xingguang Zhang",
+    "Stanley Chan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by CVPR 2025. Project page: https://generative-photography.github.io/project/",
+   "journal_ref": null,
+   "venue": "CVPR 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Image generation today can produce somewhat realistic images from text prompts. However, if one asks the generator to synthesize a specific camera setting such as creating different fields of view using a 24mm lens versus a 70mm lens, the generator will not be able to interpret and generate scene-consistent images. This limitation not only hinders the adoption of generative tools in professional photography but also highlights the broader challenge of aligning data-driven models with real-world physical settings. In this paper, we introduce Generative Photography, a framework that allows controlling camera intrinsic settings during content generation. The core innovation of this work are the concepts of Dimensionality Lifting and Differential Camera Intrinsics Learning, enabling smooth and consistent transitions across different camera settings. Experimental results show that our method produces significantly more scene-consistent photorealistic images than state-of-the-art models such as Stable Diffusion 3 and FLUX. Our code and additional results are available at https://generative-photography.github.io/project.",
+   "affiliations": [
+    "Purdue University West Lafayette",
+    "Nvidia"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Purdue University West Lafayette",
+    "NVIDIA"
+   ],
+   "institution_ids": [
+    "02dqehb95",
+    "02kr42612"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2412.02168",
+   "pdf_url": "https://arxiv.org/pdf/2412.02168"
+  },
+  {
    "arxiv_id": "2412.02141",
    "announced": "2024-12-01",
    "title": "WSI-LLaVA: A Multimodal Large Language Model for Whole Slide Image",
@@ -24367,6 +24609,66 @@
    },
    "abs_url": "https://arxiv.org/abs/2412.01169",
    "pdf_url": "https://arxiv.org/pdf/2412.01169"
+  },
+  {
+   "arxiv_id": "2412.01095",
+   "announced": "2024-12-01",
+   "title": "VERA: Explainable Video Anomaly Detection via Verbalized Learning of Vision-Language Models",
+   "authors": [
+    "Muchao Ye",
+    "Weiyang Liu",
+    "Pan He"
+   ],
+   "primary_subject": "Artificial Intelligence (cs.AI)",
+   "subjects": [
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Accepted in CVPR 2025",
+   "journal_ref": null,
+   "venue": "CVPR 2025",
+   "cross_list_from": "cs.AI",
+   "html_url": null,
+   "abstract": "The rapid advancement of vision-language models (VLMs) has established a new paradigm in video anomaly detection (VAD): leveraging VLMs to simultaneously detect anomalies and provide comprehendible explanations for the decisions. Existing work in this direction often assumes the complex reasoning required for VAD exceeds the capabilities of pretrained VLMs. Consequently, these approaches either incorporate specialized reasoning modules during inference or rely on instruction tuning datasets through additional training to adapt VLMs for VAD. However, such strategies often incur substantial computational costs or data annotation overhead. To address these challenges in explainable VAD, we introduce a verbalized learning framework named VERA that enables VLMs to perform VAD without model parameter modifications. Specifically, VERA automatically decomposes the complex reasoning required for VAD into reflections on simpler, more focused guiding questions capturing distinct abnormal patterns. It treats these reflective questions as learnable parameters and optimizes them through data-driven verbal interactions between learner and optimizer VLMs, using coarsely labeled training data. During inference, VERA embeds the learned questions into model prompts to guide VLMs in generating segment-level anomaly scores, which are then refined into frame-level scores via the fusion of scene and temporal contexts. Experimental results on challenging benchmarks demonstrate that the learned questions of VERA are highly adaptable, significantly improving both detection performance and explainability of VLMs for VAD.",
+   "affiliations": [
+    "University of Iowa",
+    "Max Planck Institute for Intelligent Systems",
+    "Auburn University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "University of Iowa",
+    "Max Planck Institute for Intelligent Systems",
+    "Auburn University"
+   ],
+   "institution_ids": [
+    "036jqmy94",
+    "04fq9j139",
+    "02v80fc35"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2412.01095",
+   "pdf_url": "https://arxiv.org/pdf/2412.01095"
   },
   {
    "arxiv_id": "2412.01064",
@@ -28482,6 +28784,55 @@
    },
    "abs_url": "https://arxiv.org/abs/2411.13677",
    "pdf_url": "https://arxiv.org/pdf/2411.13677"
+  },
+  {
+   "arxiv_id": "2411.13503",
+   "announced": "2024-11-20",
+   "title": "VBench++: Comprehensive and Versatile Benchmark Suite for Video Generative Models",
+   "authors": [
+    "Ziqi Huang",
+    "Fan Zhang",
+    "Xiaojie Xu",
+    "Yinan He",
+    "Jiashuo Yu",
+    "Ziyue Dong",
+    "Qianli Ma",
+    "Nattapol Chanpaisit",
+    "Chenyang Si",
+    "Yuming Jiang",
+    "Yaohui Wang",
+    "Xinyuan Chen",
+    "Ying-Cong Chen",
+    "Limin Wang",
+    "Dahua Lin",
+    "Yu Qiao",
+    "Ziwei Liu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Leaderboard: https://huggingface.co/spaces/Vchitect/VBench_Leaderboard Code: https://github.com/Vchitect/VBench Project page: https://vchitect.github.io/VBench-project/ extension of arXiv:2311.17982. arXiv admin note: substantial text overlap with arXiv:2311.17982",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Video generation has witnessed significant advancements, yet evaluating these models remains a challenge. A comprehensive evaluation benchmark for video generation is indispensable for two reasons: 1) Existing metrics do not fully align with human perceptions; 2) An ideal evaluation system should provide insights to inform future developments of video generation. To this end, we present VBench, a comprehensive benchmark suite that dissects \"video generation quality\" into specific, hierarchical, and disentangled dimensions, each with tailored prompts and evaluation methods. VBench has several appealing properties: 1) Comprehensive Dimensions: VBench comprises 16 dimensions in video generation (e.g., subject identity inconsistency, motion smoothness, temporal flickering, and spatial relationship, etc). The evaluation metrics with fine-grained levels reveal individual models' strengths and weaknesses. 2) Human Alignment: We also provide a dataset of human preference annotations to validate our benchmarks' alignment with human perception, for each evaluation dimension respectively. 3) Valuable Insights: We look into current models' ability across various evaluation dimensions, and various content types. We also investigate the gaps between video and image generation models. 4) Versatile Benchmarking: VBench++ supports evaluating text-to-video and image-to-video. We introduce a high-quality Image Suite with an adaptive aspect ratio to enable fair evaluations across different image-to-video generation settings. Beyond assessing technical quality, VBench++ evaluates the trustworthiness of video generative models, providing a more holistic view of model performance. 5) Full Open-Sourcing: We fully open-source VBench++ and continually add new video generation models to our leaderboard to drive forward the field of video generation.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2411.13503",
+   "pdf_url": "https://arxiv.org/pdf/2411.13503"
   },
   {
    "arxiv_id": "2411.13136",
@@ -36056,7 +36407,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -45869,6 +46220,43 @@
    "pdf_url": "https://arxiv.org/pdf/2410.20314"
   },
   {
+   "arxiv_id": "2410.20294",
+   "announced": "2024-10-27",
+   "title": "Harmony4D: A Video Dataset for In-The-Wild Close Human Interactions",
+   "authors": [
+    "Rawal Khirodkar",
+    "Jyun-Ting Song",
+    "Jinkun Cao",
+    "Zhengyi Luo",
+    "Kris Kitani"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "NeurIPS 2024",
+   "journal_ref": null,
+   "venue": "NeurIPS 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Understanding how humans interact with each other is key to building realistic multi-human virtual reality systems. This area remains relatively unexplored due to the lack of large-scale datasets. Recent datasets focusing on this issue mainly consist of activities captured entirely in controlled indoor environments with choreographed actions, significantly affecting their diversity. To address this, we introduce Harmony4D, a multi-view video dataset for human-human interaction featuring in-the-wild activities such as wrestling, dancing, MMA, and more. We use a flexible multi-view capture system to record these dynamic activities and provide annotations for human detection, tracking, 2D/3D pose estimation, and mesh recovery for closely interacting subjects. We propose a novel markerless algorithm to track 3D human poses in severe occlusion and close interaction to obtain our annotations with minimal manual intervention. Harmony4D consists of 1.66 million images and 3.32 million human instances from more than 20 synchronized cameras with 208 video sequences spanning diverse environments and 24 unique subjects. We rigorously evaluate existing state-of-the-art methods for mesh recovery and highlight their significant limitations in modeling close interaction scenarios. Additionally, we fine-tune a pre-trained HMR2.0 model on Harmony4D and demonstrate an improved performance of 54.8% PVE in scenes with severe occlusion and contact. Code and data are available at https://jyuntins.github.io/harmony4d/.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2410.20294",
+   "pdf_url": "https://arxiv.org/pdf/2410.20294"
+  },
+  {
    "arxiv_id": "2410.18822",
    "announced": "2024-10-27",
    "title": "Binocular-Guided 3D Gaussian Splatting with View Consistency for Sparse View Synthesis",
@@ -51691,6 +52079,47 @@
    },
    "abs_url": "https://arxiv.org/abs/2410.06806",
    "pdf_url": "https://arxiv.org/pdf/2410.06806"
+  },
+  {
+   "arxiv_id": "2410.07273",
+   "announced": "2024-10-09",
+   "title": "BELM: Bidirectional Explicit Linear Multi-step Sampler for Exact Inversion in Diffusion Models",
+   "authors": [
+    "Fangyikang Wang",
+    "Hubery Yin",
+    "Yuejiang Dong",
+    "Huminhao Zhu",
+    "Chao Zhang",
+    "Hanbin Zhao",
+    "Hui Qian",
+    "Chen Li"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "accepted paper by NeurIPS",
+   "journal_ref": null,
+   "venue": "NeurIPS",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The inversion of diffusion model sampling, which aims to find the corresponding initial noise of a sample, plays a critical role in various tasks. Recently, several heuristic exact inversion samplers have been proposed to address the inexact inversion issue in a training-free manner. However, the theoretical properties of these heuristic samplers remain unknown and they often exhibit mediocre sampling quality. In this paper, we introduce a generic formulation, Bidirectional Explicit Linear Multi-step (BELM) samplers, of the exact inversion samplers, which includes all previously proposed heuristic exact inversion samplers as special cases. The BELM formulation is derived from the variable-stepsize-variable-formula linear multi-step method via integrating a bidirectional explicit constraint. We highlight this bidirectional explicit constraint is the key of mathematically exact inversion. We systematically investigate the Local Truncation Error (LTE) within the BELM framework and show that the existing heuristic designs of exact inversion samplers yield sub-optimal LTE. Consequently, we propose the Optimal BELM (O-BELM) sampler through the LTE minimization approach. We conduct additional analysis to substantiate the theoretical stability and global convergence property of the proposed optimal sampler. Comprehensive experiments demonstrate our O-BELM sampler establishes the exact inversion property while achieving high-quality sampling. Additional experiments in image editing and image interpolation highlight the extensive potential of applying O-BELM in varying applications.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2410.07273",
+   "pdf_url": "https://arxiv.org/pdf/2410.07273"
   },
   {
    "arxiv_id": "2410.06756",
@@ -76644,6 +77073,87 @@
    "pdf_url": "https://arxiv.org/pdf/2409.10161"
   },
   {
+   "arxiv_id": "2409.09724",
+   "announced": "2024-09-01",
+   "title": "MFCLIP: Multi-modal Fine-grained CLIP for Generalizable Diffusion Face Forgery Detection",
+   "authors": [
+    "Yaning Zhang",
+    "Tianyi Wang",
+    "Zitong Yu",
+    "Zan Gao",
+    "Linlin Shen",
+    "Shengyong Chen"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by IEEE Transactions on Information Forensics and Security 2025",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The rapid development of photo-realistic face generation methods has raised significant concerns in society and academia, highlighting the urgent need for robust and generalizable face forgery detection (FFD) techniques. Although existing approaches mainly capture face forgery patterns using image modality, other modalities like fine-grained noises and texts are not fully explored, which limits the generalization capability of the model. In addition, most FFD methods tend to identify facial images generated by GAN, but struggle to detect unseen diffusion-synthesized ones. To address the limitations, we aim to leverage the cutting-edge foundation model, contrastive language-image pre-training (CLIP), to achieve generalizable diffusion face forgery detection (DFFD). In this paper, we propose a novel multi-modal fine-grained CLIP (MFCLIP) model, which mines comprehensive and fine-grained forgery traces across image-noise modalities via language-guided face forgery representation learning, to facilitate the advancement of DFFD. Specifically, we devise a fine-grained language encoder (FLE) that extracts fine global language features from hierarchical text prompts. We design a multi-modal vision encoder (MVE) to capture global image forgery embeddings as well as fine-grained noise forgery patterns extracted from the richest patch, and integrate them to mine general visual forgery traces. Moreover, we build an innovative plug-and-play sample pair attention (SPA) method to emphasize relevant negative pairs and suppress irrelevant ones, allowing cross-modality sample pairs to conduct more flexible alignment. Extensive experiments and visualizations show that our model outperforms the state of the arts on different settings like cross-generator, cross-forgery, and cross-dataset evaluations.",
+   "affiliations": [
+    "Qilu University of Technology",
+    "Shandong Academy of Sciences",
+    "National University of Singapore",
+    "Great Bay University",
+    "Shenzhen University",
+    "Tianjin University of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     4
+    ],
+    [
+     5
+    ]
+   ],
+   "institutions": [
+    "Qilu University of Technology",
+    "Shandong Academy of Sciences",
+    "National University of Singapore",
+    "Great Bay University",
+    "Shenzhen University",
+    "Tianjin University of Technology"
+   ],
+   "institution_ids": [
+    "04hyzq608",
+    "04y8d6y55",
+    "01tgyzw49",
+    "01hdgge16",
+    "01vy4gh70",
+    "00zbe0w13"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2409.09724",
+   "pdf_url": "https://arxiv.org/pdf/2409.09724"
+  },
+  {
    "arxiv_id": "2409.09350",
    "announced": "2024-09-01",
    "title": "OPUS: Occupancy Prediction Using a Sparse Set",
@@ -77489,6 +77999,47 @@
    },
    "abs_url": "https://arxiv.org/abs/2409.04410",
    "pdf_url": "https://arxiv.org/pdf/2409.04410"
+  },
+  {
+   "arxiv_id": "2409.04368",
+   "announced": "2024-09-01",
+   "title": "The Impact of Scanner Domain Shift on Deep Learning Performance in Medical Imaging: an Experimental Study",
+   "authors": [
+    "Brian Guo",
+    "Darui Lu",
+    "Gregory Szumel",
+    "Rongze Gui",
+    "Tingyu Wang",
+    "Nicholas Konz",
+    "Maciej A. Mazurowski"
+   ],
+   "primary_subject": "Image and Video Processing (eess.IV)",
+   "subjects": [
+    "Image and Video Processing (eess.IV)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "eess.IV",
+   "html_url": null,
+   "abstract": "Purpose: Medical images acquired using different scanners and protocols can differ substantially in their appearance. This phenomenon, scanner domain shift, can result in a drop in the performance of deep neural networks which are trained on data acquired by one scanner and tested on another. This significant practical issue is well-acknowledged, however, no systematic study of the issue is available across different modalities and diagnostic tasks. Materials and Methods: In this paper, we present a broad experimental study evaluating the impact of scanner domain shift on convolutional neural network performance for different automated diagnostic tasks. We evaluate this phenomenon in common radiological modalities, including X-ray, CT, and MRI. Results: We find that network performance on data from a different scanner is almost always worse than on same-scanner data, and we quantify the degree of performance drop across different datasets. Notably, we find that this drop is most severe for MRI, moderate for X-ray, and quite small for CT, on average, which we attribute to the standardized nature of CT acquisition systems which is not present in MRI or X-ray. We also study how injecting varying amounts of target domain data into the training set, as well as adding noise to the training data, helps with generalization. Conclusion: Our results provide extensive experimental evidence and quantification of the extent of performance drop caused by scanner domain shift in deep learning across different modalities, with the goal of guiding the future development of robust deep learning models for medical image analysis.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2409.04368",
+   "pdf_url": "https://arxiv.org/pdf/2409.04368"
   },
   {
    "arxiv_id": "2409.03757",
@@ -80683,6 +81234,61 @@
    },
    "abs_url": "https://arxiv.org/abs/2408.13770",
    "pdf_url": "https://arxiv.org/pdf/2408.13770"
+  },
+  {
+   "arxiv_id": "2408.12990",
+   "announced": "2024-08-23",
+   "title": "A Survey on Drowsiness Detection -- Modern Applications and Methods",
+   "authors": [
+    "Biying Fu",
+    "Fadi Boutros",
+    "Chin-Teng Lin",
+    "Naser Damer"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Human-Computer Interaction (cs.HC)"
+   ],
+   "comments": "accepted at the IEEE Transactions on Intelligent Vehicles 2024",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Drowsiness detection holds paramount importance in ensuring safety in workplaces or behind the wheel, enhancing productivity, and healthcare across diverse domains. Therefore accurate and real-time drowsiness detection plays a critical role in preventing accidents, enhancing safety, and ultimately saving lives across various sectors and scenarios. This comprehensive review explores the significance of drowsiness detection in various areas of application, transcending the conventional focus solely on driver drowsiness detection. We delve into the current methodologies, challenges, and technological advancements in drowsiness detection schemes, considering diverse contexts such as public transportation, healthcare, workplace safety, and beyond. By examining the multifaceted implications of drowsiness, this work contributes to a holistic understanding of its impact and the crucial role of accurate and real-time detection techniques in enhancing safety and performance. We identified weaknesses in current algorithms and limitations in existing research such as accurate and real-time detection, stable data transmission, and building bias-free systems. Our survey frames existing works and leads to practical recommendations like mitigating the bias issue by using synthetic data, overcoming the hardware limitations with model compression, and leveraging fusion to boost model performance. This is a pioneering work to survey the topic of drowsiness detection in such an entirely and not only focusing on one single aspect. We consider the topic of drowsiness detection as a dynamic and evolving field, presenting numerous opportunities for further exploration.",
+   "affiliations": [
+    "Fraunhofer Institute for Computer Graphics Research"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Fraunhofer Institute for Computer Graphics Research"
+   ],
+   "institution_ids": [
+    "04gmsar03"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2408.12990",
+   "pdf_url": "https://arxiv.org/pdf/2408.12990"
   },
   {
    "arxiv_id": "2408.12879",
@@ -108002,7 +108608,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -113575,6 +114181,89 @@
    },
    "abs_url": "https://arxiv.org/abs/2407.00634",
    "pdf_url": "https://arxiv.org/pdf/2407.00634"
+  },
+  {
+   "arxiv_id": "2407.00569",
+   "announced": "2024-07-01",
+   "title": "Investigating and Mitigating the Multimodal Hallucination Snowballing in Large Vision-Language Models",
+   "authors": [
+    "Weihong Zhong",
+    "Xiaocheng Feng",
+    "Liang Zhao",
+    "Qiming Li",
+    "Lei Huang",
+    "Yuxuan Gu",
+    "Weitao Ma",
+    "Yuan Xu",
+    "Bing Qin"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Computation and Language (cs.CL)"
+   ],
+   "comments": "Accepted to ACL 2024 Main Conference. 21 pages, 20 figures",
+   "journal_ref": null,
+   "venue": "ACL 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Though advanced in understanding visual information with human languages, Large Vision-Language Models (LVLMs) still suffer from multimodal hallucinations. A natural concern is that during multimodal interaction, the generated hallucinations could influence the LVLMs' subsequent generation. Thus, we raise a question: When presented with a query relevant to the previously generated hallucination, will LVLMs be misled and respond incorrectly, even though the ground visual information exists? To answer this, we propose a framework called MMHalSnowball to evaluate LVLMs' behaviors when encountering generated hallucinations, where LVLMs are required to answer specific visual questions within a curated hallucinatory conversation. Crucially, our experiment shows that the performance of open-source LVLMs drops by at least 31%, indicating that LVLMs are prone to accept the generated hallucinations and make false claims that they would not have supported without distractions. We term this phenomenon Multimodal Hallucination Snowballing. To mitigate this, we further propose a training-free method called Residual Visual Decoding, where we revise the output distribution of LVLMs with the one derived from the residual visual input, providing models with direct access to the visual information. Experiments show that our method can mitigate more than 24% of the snowballed multimodal hallucination while maintaining capabilities.",
+   "affiliations": [
+    "Harbin Institute of Technology",
+    "Peng Cheng Laboratory"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Harbin Institute of Technology",
+    "Peng Cheng Laboratory"
+   ],
+   "institution_ids": [
+    "01yqg2h08",
+    "03qdqbt06"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2407.00569",
+   "pdf_url": "https://arxiv.org/pdf/2407.00569"
   },
   {
    "arxiv_id": "2407.00224",
@@ -133334,6 +134023,97 @@
    "pdf_url": "https://arxiv.org/pdf/2406.06949"
   },
   {
+   "arxiv_id": "2406.06579",
+   "announced": "2024-06-01",
+   "title": "From Redundancy to Relevance: Information Flow in LVLMs Across Reasoning Tasks",
+   "authors": [
+    "Xiaofeng Zhang",
+    "Yihao Quan",
+    "Chen Shen",
+    "Xiaosong Yuan",
+    "Shaotian Yan",
+    "Liang Xie",
+    "Wenxiao Wang",
+    "Chaochen Gu",
+    "Hao Tang",
+    "Jieping Ye"
+   ],
+   "primary_subject": "Computation and Language (cs.CL)",
+   "subjects": [
+    "Computation and Language (cs.CL)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.CL",
+   "html_url": null,
+   "abstract": "Large Vision Language Models (LVLMs) achieve great performance on visual-language reasoning tasks, however, the black-box nature of LVLMs hinders in-depth research on the reasoning mechanism. As all images need to be converted into image tokens to fit the input format of large language models (LLMs) along with natural language prompts, sequential visual representation is essential to the performance of LVLMs, and the information flow analysis approach can be an effective tool for determining interactions between these representations. In this paper, we propose integrating attention analysis with LLaVA-CAM, concretely, attention scores highlight relevant regions during forward propagation, while LLaVA-CAM captures gradient changes through backward propagation, revealing key image features. By exploring the information flow from the perspective of visual representation contribution, we observe that it tends to converge in shallow layers but diversify in deeper layers. To validate our analysis, we conduct comprehensive experiments with truncation strategies across various LVLMs for visual question answering and image captioning tasks, and experimental results not only verify our hypothesis but also reveal a consistent pattern of information flow convergence in the corresponding layers, and the information flow cliff layer will be different due to different contexts. The paper's source code can be accessed from https://github.com/zhangbaijin/From-Redundancy-to-Relevance",
+   "affiliations": [
+    "Shanghai Jiao Tong University",
+    "Beijing Jiaotong University",
+    "Alibaba Group",
+    "Carnegie Mellon University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "Beijing Jiaotong University",
+    "Alibaba Group",
+    "Carnegie Mellon University"
+   ],
+   "institution_ids": [
+    "0220qvk04",
+    "01yj56c84",
+    "00k642b80",
+    "05x2bcf33"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2406.06579",
+   "pdf_url": "https://arxiv.org/pdf/2406.06579"
+  },
+  {
    "arxiv_id": "2406.06539",
    "announced": "2024-06-01",
    "title": "MatFusion: A Generative Diffusion Model for SVBRDF Capture",
@@ -146595,6 +147375,95 @@
    },
    "abs_url": "https://arxiv.org/abs/2405.05259",
    "pdf_url": "https://arxiv.org/pdf/2405.05259"
+  },
+  {
+   "arxiv_id": "2405.05237",
+   "announced": "2024-05-08",
+   "title": "EVA-X: A Foundation Model for General Chest X-ray Analysis with Self-supervised Learning",
+   "authors": [
+    "Jingfeng Yao",
+    "Xinggang Wang",
+    "Yuehao Song",
+    "Huangxuan Zhao",
+    "Jun Ma",
+    "Yajie Chen",
+    "Wenyu Liu",
+    "Bo Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "codes available at: https://github.com/hustvl/EVA-X",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The diagnosis and treatment of chest diseases play a crucial role in maintaining human health. X-ray examination has become the most common clinical examination means due to its efficiency and cost-effectiveness. Artificial intelligence analysis methods for chest X-ray images are limited by insufficient annotation data and varying levels of annotation, resulting in weak generalization ability and difficulty in clinical dissemination. Here we present EVA-X, an innovative foundational model based on X-ray images with broad applicability to various chest disease detection tasks. EVA-X is the first X-ray image based self-supervised learning method capable of capturing both semantic and geometric information from unlabeled images for universal X-ray image representation. Through extensive experimentation, EVA-X has demonstrated exceptional performance in chest disease analysis and localization, becoming the first model capable of spanning over 20 different chest diseases and achieving leading results in over 11 different detection tasks in the medical field. Additionally, EVA-X significantly reduces the burden of data annotation in the medical AI field, showcasing strong potential in the domain of few-shot learning. The emergence of EVA-X will greatly propel the development and application of foundational medical models, bringing about revolutionary changes in future medical research and clinical practice. Our codes and models are available at: https://github.com/hustvl/EVA-X.",
+   "affiliations": [
+    "Huazhong University of Science and Technology",
+    "Wuhan Union Hospital",
+    "University Health Network",
+    "University of Toronto",
+    "Vector Institute"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     3,
+     4
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2,
+     3,
+     4
+    ]
+   ],
+   "institutions": [
+    "Huazhong University of Science and Technology",
+    "Wuhan Union Hospital",
+    "University Health Network",
+    "University of Toronto",
+    "Vector Institute"
+   ],
+   "institution_ids": [
+    "00p991c53",
+    "0371fqr87",
+    "042xt5161",
+    "03dbr7087",
+    "03kqdja62"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2405.05237",
+   "pdf_url": "https://arxiv.org/pdf/2405.05237"
   },
   {
    "arxiv_id": "2405.05216",
@@ -162031,6 +162900,63 @@
    "pdf_url": "https://arxiv.org/pdf/2404.18873"
   },
   {
+   "arxiv_id": "2404.18746",
+   "announced": "2024-04-29",
+   "title": "Enhancing Interactive Image Retrieval With Query Rewriting Using Large Language Models and Vision Language Models",
+   "authors": [
+    "Hongyi Zhu",
+    "Jia-Hong Huang",
+    "Stevan Rudinac",
+    "Evangelos Kanoulas"
+   ],
+   "primary_subject": "Multimedia (cs.MM)",
+   "subjects": [
+    "Multimedia (cs.MM)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.MM",
+   "html_url": null,
+   "abstract": "Image search stands as a pivotal task in multimedia and computer vision, finding applications across diverse domains, ranging from internet search to medical diagnostics. Conventional image search systems operate by accepting textual or visual queries, retrieving the top-relevant candidate results from the database. However, prevalent methods often rely on single-turn procedures, introducing potential inaccuracies and limited recall. These methods also face the challenges, such as vocabulary mismatch and the semantic gap, constraining their overall effectiveness. To address these issues, we propose an interactive image retrieval system capable of refining queries based on user relevance feedback in a multi-turn setting. This system incorporates a vision language model (VLM) based image captioner to enhance the quality of text-based queries, resulting in more informative queries with each iteration. Moreover, we introduce a large language model (LLM) based denoiser to refine text-based query expansions, mitigating inaccuracies in image descriptions generated by captioning models. To evaluate our system, we curate a new dataset by adapting the MSR-VTT video retrieval dataset to the image retrieval task, offering multiple relevant ground truth images for each query. Through comprehensive experiments, we validate the effectiveness of our proposed system against baseline methods, achieving state-of-the-art performance with a notable 10% improvement in terms of recall. Our contributions encompass the development of an innovative interactive image retrieval system, the integration of an LLM-based denoiser, the curation of a meticulously designed evaluation dataset, and thorough experimental validation.",
+   "affiliations": [
+    "University of Amsterdam"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Amsterdam"
+   ],
+   "institution_ids": [
+    "04dkp9463"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2404.18746",
+   "pdf_url": "https://arxiv.org/pdf/2404.18746"
+  },
+  {
    "arxiv_id": "2404.18630",
    "announced": "2024-04-29",
    "title": "4D-DRESS: A 4D Dataset of Real-world Human Clothing with Semantic Annotations",
@@ -163629,6 +164555,62 @@
    },
    "abs_url": "https://arxiv.org/abs/2404.16006",
    "pdf_url": "https://arxiv.org/pdf/2404.16006"
+  },
+  {
+   "arxiv_id": "2404.15955",
+   "announced": "2024-04-24",
+   "title": "Beyond Deepfake Images: Detecting AI-Generated Videos",
+   "authors": [
+    "Danial Samadi Vahdati",
+    "Tai D. Nguyen",
+    "Aref Azizpour",
+    "Matthew C. Stamm"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "To be published in CVPRW24",
+   "journal_ref": null,
+   "venue": "CVPR 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recent advances in generative AI have led to the development of techniques to generate visually realistic synthetic video. While a number of techniques have been developed to detect AI-generated synthetic images, in this paper we show that synthetic image detectors are unable to detect synthetic videos. We demonstrate that this is because synthetic video generators introduce substantially different traces than those left by image generators. Despite this, we show that synthetic video traces can be learned, and used to perform reliable synthetic video detection or generator source attribution even after H.264 re-compression. Furthermore, we demonstrate that while detecting videos from new generators through zero-shot transferability is challenging, accurate detection of videos from a new generator can be achieved through few-shot learning.",
+   "affiliations": [
+    "Drexel University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Drexel University"
+   ],
+   "institution_ids": [
+    "04bdffz58"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2404.15955",
+   "pdf_url": "https://arxiv.org/pdf/2404.15955"
   },
   {
    "arxiv_id": "2404.05726",
@@ -169066,6 +170048,62 @@
    },
    "abs_url": "https://arxiv.org/abs/2404.02668",
    "pdf_url": "https://arxiv.org/pdf/2404.02668"
+  },
+  {
+   "arxiv_id": "2404.06637",
+   "announced": "2024-04-09",
+   "title": "GeoSynth: Contextually-Aware High-Resolution Satellite Image Synthesis",
+   "authors": [
+    "Srikumar Sastry",
+    "Subash Khanal",
+    "Aayush Dhakal",
+    "Nathan Jacobs"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We present GeoSynth, a model for synthesizing satellite images with global style and image-driven layout control. The global style control is via textual prompts or geographic location. These enable the specification of scene semantics or regional appearance respectively, and can be used together. We train our model on a large dataset of paired satellite imagery, with automatically generated captions, and OpenStreetMap data. We evaluate various combinations of control inputs, including different types of layout controls. Results demonstrate that our model can generate diverse, high-quality images and exhibits excellent zero-shot generalization. The code and model checkpoints are available at https://github.com/mvrl/GeoSynth.",
+   "affiliations": [
+    "Washington University in St. Louis"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Washington University in St. Louis"
+   ],
+   "institution_ids": [
+    "01yc7t268"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2404.06637",
+   "pdf_url": "https://arxiv.org/pdf/2404.06637"
   },
   {
    "arxiv_id": "2404.06542",
@@ -182421,6 +183459,76 @@
    "pdf_url": "https://arxiv.org/pdf/2404.03384"
   },
   {
+   "arxiv_id": "2404.03214",
+   "announced": "2024-04-01",
+   "title": "LeGrad: An Explainability Method for Vision Transformers via Feature Formation Sensitivity",
+   "authors": [
+    "Walid Bousselham",
+    "Angie Boggust",
+    "Sofian Chaybouti",
+    "Hendrik Strobelt",
+    "Hilde Kuehne"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Code available at https://github.com/WalBouss/LeGrad",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Vision Transformers (ViTs), with their ability to model long-range dependencies through self-attention mechanisms, have become a standard architecture in computer vision. However, the interpretability of these models remains a challenge. To address this, we propose LeGrad, an explainability method specifically designed for ViTs. LeGrad computes the gradient with respect to the attention maps of ViT layers, considering the gradient itself as the explainability signal. We aggregate the signal over all layers, combining the activations of the last as well as intermediate tokens to produce the merged explainability map. This makes LeGrad a conceptually simple and an easy-to-implement tool for enhancing the transparency of ViTs. We evaluate LeGrad in challenging segmentation, perturbation, and open-vocabulary settings, showcasing its versatility compared to other SotA explainability methods demonstrating its superior spatial fidelity and robustness to perturbations. A demo and the code is available at https://github.com/WalBouss/LeGrad.",
+   "affiliations": [
+    "Goethe University Frankfurt",
+    "MIT Computer Science and Artificial Intelligence Laboratory",
+    "Massachusetts Institute of Technology",
+    "IBM"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Goethe University Frankfurt",
+    "MIT Computer Science and Artificial Intelligence Laboratory",
+    "Massachusetts Institute of Technology",
+    "IBM"
+   ],
+   "institution_ids": [
+    "04cvxnb49",
+    "01e85r662",
+    "042nb2s44",
+    "05hh8d621"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2404.03214",
+   "pdf_url": "https://arxiv.org/pdf/2404.03214"
+  },
+  {
    "arxiv_id": "2404.03010",
    "announced": "2024-04-01",
    "title": "Skeleton Recall Loss for Connectivity Conserving and Resource Efficient Segmentation of Thin Tubular Structures",
@@ -183069,6 +184177,81 @@
    },
    "abs_url": "https://arxiv.org/abs/2404.02059",
    "pdf_url": "https://arxiv.org/pdf/2404.02059"
+  },
+  {
+   "arxiv_id": "2404.01933",
+   "announced": "2024-04-01",
+   "title": "PREGO: online mistake detection in PRocedural EGOcentric videos",
+   "authors": [
+    "Alessandro Flaborea",
+    "Guido Maria D'Amely di Melendugno",
+    "Leonardo Plini",
+    "Luca Scofano",
+    "Edoardo De Matteis",
+    "Antonino Furnari",
+    "Giovanni Maria Farinella",
+    "Fabio Galasso"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted at CVPR 2024",
+   "journal_ref": null,
+   "venue": "CVPR 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Promptly identifying procedural errors from egocentric videos in an online setting is highly challenging and valuable for detecting mistakes as soon as they happen. This capability has a wide range of applications across various fields, such as manufacturing and healthcare. The nature of procedural mistakes is open-set since novel types of failures might occur, which calls for one-class classifiers trained on correctly executed procedures. However, no technique can currently detect open-set procedural mistakes online. We propose PREGO, the first online one-class classification model for mistake detection in PRocedural EGOcentric videos. PREGO is based on an online action recognition component to model the current action, and a symbolic reasoning module to predict the next actions. Mistake detection is performed by comparing the recognized current action with the expected future one. We evaluate PREGO on two procedural egocentric video datasets, Assembly101 and Epic-tent, which we adapt for online benchmarking of procedural mistake detection to establish suitable benchmarks, thus defining the Assembly101-O and Epic-tent-O datasets, respectively.",
+   "affiliations": [
+    "Sapienza University of Rome",
+    "University of Catania"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Sapienza University of Rome",
+    "University of Catania"
+   ],
+   "institution_ids": [
+    "02be6w209",
+    "03a64bh57"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2404.01933",
+   "pdf_url": "https://arxiv.org/pdf/2404.01933"
   },
   {
    "arxiv_id": "2404.01810",
@@ -187596,6 +188779,74 @@
    },
    "abs_url": "https://arxiv.org/abs/2403.18548",
    "pdf_url": "https://arxiv.org/pdf/2403.18548"
+  },
+  {
+   "arxiv_id": "2403.18471",
+   "announced": "2024-03-27",
+   "title": "DiffusionFace: Towards a Comprehensive Dataset for Diffusion-Based Face Forgery Analysis",
+   "authors": [
+    "Zhongxi Chen",
+    "Ke Sun",
+    "Ziyin Zhou",
+    "Xianming Lin",
+    "Xiaoshuai Sun",
+    "Liujuan Cao",
+    "Rongrong Ji"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The rapid progress in deep learning has given rise to hyper-realistic facial forgery methods, leading to concerns related to misinformation and security risks. Existing face forgery datasets have limitations in generating high-quality facial images and addressing the challenges posed by evolving generative techniques. To combat this, we present DiffusionFace, the first diffusion-based face forgery dataset, covering various forgery categories, including unconditional and Text Guide facial image generation, Img2Img, Inpaint, and Diffusion-based facial exchange algorithms. Our DiffusionFace dataset stands out with its extensive collection of 11 diffusion models and the high-quality of the generated images, providing essential metadata and a real-world internet-sourced forgery facial image dataset for evaluation. Additionally, we provide an in-depth analysis of the data and introduce practical evaluation protocols to rigorously assess discriminative models' effectiveness in detecting counterfeit facial images, aiming to enhance security in facial image authentication processes. The dataset is available for download at https://github.com/Rapisurazurite/DiffFace.",
+   "affiliations": [
+    "Xiamen University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Xiamen University"
+   ],
+   "institution_ids": [
+    "00mcjh785"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2403.18471",
+   "pdf_url": "https://arxiv.org/pdf/2403.18471"
   },
   {
    "arxiv_id": "2403.18452",
@@ -202256,6 +203507,46 @@
    },
    "abs_url": "https://arxiv.org/abs/2403.19780",
    "pdf_url": "https://arxiv.org/pdf/2403.19780"
+  },
+  {
+   "arxiv_id": "2403.19655",
+   "announced": "2024-03-01",
+   "title": "GaussianCube: A Structured and Explicit Radiance Representation for 3D Generative Modeling",
+   "authors": [
+    "Bowen Zhang",
+    "Yiji Cheng",
+    "Jiaolong Yang",
+    "Chunyu Wang",
+    "Feng Zhao",
+    "Yansong Tang",
+    "Dong Chen",
+    "Baining Guo"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "NIPS 2024 camera-ready version; Project page: https://gaussiancube.github.io/",
+   "journal_ref": null,
+   "venue": "NeurIPS 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We introduce a radiance representation that is both structured and fully explicit and thus greatly facilitates 3D generative modeling. Existing radiance representations either require an implicit feature decoder, which significantly degrades the modeling power of the representation, or are spatially unstructured, making them difficult to integrate with mainstream 3D diffusion methods. We derive GaussianCube by first using a novel densification-constrained Gaussian fitting algorithm, which yields high-accuracy fitting using a fixed number of free Gaussians, and then rearranging these Gaussians into a predefined voxel grid via Optimal Transport. Since GaussianCube is a structured grid representation, it allows us to use standard 3D U-Net as our backbone in diffusion modeling without elaborate designs. More importantly, the high-accuracy fitting of the Gaussians allows us to achieve a high-quality representation with orders of magnitude fewer parameters than previous structured representations for comparable quality, ranging from one to two orders of magnitude. The compactness of GaussianCube greatly eases the difficulty of 3D generative modeling. Extensive experiments conducted on unconditional and class-conditioned object generation, digital avatar creation, and text-to-3D synthesis all show that our model achieves state-of-the-art generation results both qualitatively and quantitatively, underscoring the potential of GaussianCube as a highly accurate and versatile radiance representation for 3D generative modeling. Project page: https://gaussiancube.github.io/.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2403.19655",
+   "pdf_url": "https://arxiv.org/pdf/2403.19655"
   },
   {
    "arxiv_id": "2403.19652",
@@ -225840,6 +227131,42 @@
    "pdf_url": "https://arxiv.org/pdf/2402.14654"
   },
   {
+   "arxiv_id": "2402.14545",
+   "announced": "2024-02-01",
+   "title": "Less is More: Mitigating Multimodal Hallucination from an EOS Decision Perspective",
+   "authors": [
+    "Zihao Yue",
+    "Liang Zhang",
+    "Qin Jin"
+   ],
+   "primary_subject": "Computation and Language (cs.CL)",
+   "subjects": [
+    "Computation and Language (cs.CL)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to ACL 2024",
+   "journal_ref": null,
+   "venue": "ACL 2024",
+   "cross_list_from": "cs.CL",
+   "html_url": null,
+   "abstract": "Large Multimodal Models (LMMs) often suffer from multimodal hallucinations, wherein they may create content that is not present in the visual inputs. In this paper, we explore a new angle of this issue: overly detailed training data hinders the model's ability to timely terminate generation, leading to continued outputs beyond visual perception limits. By investigating how the model decides to terminate generation with EOS, the special end-of-sentence token, we find that the model assesses the completeness of the entire sequence by comparing the generated text with the image. This observation suggests that the model possesses an inherent potential of making proper EOS decisions based on its visual perception to avoid overly lengthy outputs. To take advantage of such potential, we explore two methods to mitigate multimodal hallucinations: a training objective that enables the model to reduce hallucinations by learning from regular instruction data, and a data filtering strategy to prevent harmful training data from exacerbating model hallucinations. Both methods significantly improve the hallucination performance of LMMs, without requiring any additional data or knowledge.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2402.14545",
+   "pdf_url": "https://arxiv.org/pdf/2402.14545"
+  },
+  {
    "arxiv_id": "2402.14505",
    "announced": "2024-02-01",
    "title": "Towards Seamless Adaptation of Pre-trained Models for Visual Place Recognition",
@@ -226639,7 +227966,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -236290,7 +237617,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"

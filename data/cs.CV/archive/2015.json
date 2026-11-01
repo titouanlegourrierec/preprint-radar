@@ -763,6 +763,65 @@
    "pdf_url": "https://arxiv.org/pdf/1512.03012"
   },
   {
+   "arxiv_id": "1512.02311",
+   "announced": "2015-12-08",
+   "title": "Direct Intrinsics: Learning Albedo-Shading Decomposition by Convolutional Regression",
+   "authors": [
+    "Takuya Narihira",
+    "Michael Maire",
+    "Stella X. Yu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "International Conference on Computer Vision (ICCV), 2015",
+   "journal_ref": null,
+   "venue": "ICCV 2015",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We introduce a new approach to intrinsic image decomposition, the task of decomposing a single image into albedo and shading components. Our strategy, which we term direct intrinsics, is to learn a convolutional neural network (CNN) that directly predicts output albedo and shading channels from an input RGB image patch. Direct intrinsics is a departure from classical techniques for intrinsic image decomposition, which typically rely on physically-motivated priors and graph-based inference algorithms. The large-scale synthetic ground-truth of the MPI Sintel dataset plays a key role in training direct intrinsics. We demonstrate results on both the synthetic images of Sintel and the real images of the classic MIT intrinsic image dataset. On Sintel, direct intrinsics, using only RGB input, outperforms all prior work, including methods that rely on RGB+Depth input. Direct intrinsics also generalizes across modalities; it produces quite reasonable decompositions on the real images of the MIT dataset. Our results indicate that the marriage of CNNs with synthetic training data may be a powerful new technique for tackling classic problems in computer vision.",
+   "affiliations": [
+    "University of California, Berkeley",
+    "Toyota Technological Institute at Chicago",
+    "International Computer Science Institute"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Berkeley",
+    "Toyota Technological Institute at Chicago",
+    "International Computer Science Institute"
+   ],
+   "institution_ids": [
+    "01an7q238",
+    "02sn5gb64",
+    "01ewh7m12"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1512.02311",
+   "pdf_url": "https://arxiv.org/pdf/1512.02311"
+  },
+  {
    "arxiv_id": "1512.02134",
    "announced": "2015-12-07",
    "title": "A Large Dataset to Train Convolutional Networks for Disparity, Optical Flow, and Scene Flow Estimation",
@@ -6055,6 +6114,58 @@
    "pdf_url": "https://arxiv.org/pdf/1511.04491"
   },
   {
+   "arxiv_id": "1511.04458",
+   "announced": "2015-11-01",
+   "title": "Transductive Zero-Shot Action Recognition by Word-Vector Embedding",
+   "authors": [
+    "Xun Xu",
+    "Timothy Hospedales",
+    "Shaogang Gong"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by IJCV",
+   "journal_ref": null,
+   "venue": "IJCV",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The number of categories for action recognition is growing rapidly and it has become increasingly hard to label sufficient training data for learning conventional models for all categories. Instead of collecting ever more data and labelling them exhaustively for all categories, an attractive alternative approach is zero-shot learning\" (ZSL). To that end, in this study we construct a mapping between visual features and a semantic descriptor of each action category, allowing new categories to be recognised in the absence of any visual training data. Existing ZSL studies focus primarily on still images, and attribute-based semantic representations. In this work, we explore word-vectors as the shared semantic space to embed videos and category labels for ZSL action recognition. This is a more challenging problem than existing ZSL of still images and/or attributes, because the mapping between video spacetime features of actions and the semantic space is more complex and harder to learn for the purpose of generalising over any cross-category domain shift. To solve this generalisation problem in ZSL action recognition, we investigate a series of synergistic strategies to improve upon the standard ZSL pipeline. Most of these strategies are transductive in nature which means access to testing data in the training phase.",
+   "affiliations": [
+    "Queen Mary University of London"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Queen Mary University of London"
+   ],
+   "institution_ids": [
+    "026zzn846"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1511.04458",
+   "pdf_url": "https://arxiv.org/pdf/1511.04458"
+  },
+  {
    "arxiv_id": "1511.04196",
    "announced": "2015-11-01",
    "title": "Structure Inference Machines: Recurrent Neural Networks for Analyzing Relations in Group Activity Recognition",
@@ -7608,7 +7719,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -7903,6 +8014,58 @@
    },
    "abs_url": "https://arxiv.org/abs/1510.02927",
    "pdf_url": "https://arxiv.org/pdf/1510.02927"
+  },
+  {
+   "arxiv_id": "1510.02413",
+   "announced": "2015-10-08",
+   "title": "Learning Data-driven Reflectance Priors for Intrinsic Image Decomposition",
+   "authors": [
+    "Tinghui Zhou",
+    "Philipp Krähenbühl",
+    "Alexei A. Efros"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "International Conference on Computer Vision (ICCV) 2015",
+   "journal_ref": null,
+   "venue": "ICCV 2015",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We propose a data-driven approach for intrinsic image decomposition, which is the process of inferring the confounding factors of reflectance and shading in an image. We pose this as a two-stage learning problem. First, we train a model to predict relative reflectance ordering between image patches (`brighter', `darker', `same') from large-scale human annotations, producing a data-driven reflectance prior. Second, we show how to naturally integrate this learned prior into existing energy minimization frameworks for intrinsic image decomposition. We compare our method to the state-of-the-art approach of Bell et al. on both decomposition and image relighting tasks, demonstrating the benefits of the simple relative reflectance prior, especially for scenes under challenging lighting conditions.",
+   "affiliations": [
+    "University of California, Berkeley"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "01an7q238"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1510.02413",
+   "pdf_url": "https://arxiv.org/pdf/1510.02413"
   },
   {
    "arxiv_id": "1510.02192",
@@ -13713,7 +13876,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -19758,7 +19921,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"

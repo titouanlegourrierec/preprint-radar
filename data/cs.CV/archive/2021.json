@@ -2308,7 +2308,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -9658,7 +9658,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -12193,6 +12193,45 @@
    },
    "abs_url": "https://arxiv.org/abs/2112.04417",
    "pdf_url": "https://arxiv.org/pdf/2112.04417"
+  },
+  {
+   "arxiv_id": "2112.04283",
+   "announced": "2021-12-01",
+   "title": "Adverse Weather Image Translation with Asymmetric and Uncertainty-aware GAN",
+   "authors": [
+    "Jeong-gi Kwak",
+    "Youngsaeng Jin",
+    "Yuanming Li",
+    "Dongsik Yoon",
+    "Donghyeon Kim",
+    "Hanseok Ko"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Graphics (cs.GR)"
+   ],
+   "comments": "BMVC 2021, codes are available in here: https://github.com/jgkwak95/AU-GAN",
+   "journal_ref": null,
+   "venue": "BMVC 2021",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Adverse weather image translation belongs to the unsupervised image-to-image (I2I) translation task which aims to transfer adverse condition domain (eg, rainy night) to standard domain (eg, day). It is a challenging task because images from adverse domains have some artifacts and insufficient information. Recently, many studies employing Generative Adversarial Networks (GANs) have achieved notable success in I2I translation but there are still limitations in applying them to adverse weather enhancement. Symmetric architecture based on bidirectional cycle-consistency loss is adopted as a standard framework for unsupervised domain transfer methods. However, it can lead to inferior translation result if the two domains have imbalanced information. To address this issue, we propose a novel GAN model, i.e., AU-GAN, which has an asymmetric architecture for adverse domain translation. We insert a proposed feature transfer network (${T}$-net) in only a normal domain generator (i.e., rainy night-> day) to enhance encoded features of the adverse domain image. In addition, we introduce asymmetric feature matching for disentanglement of encoded features. Finally, we propose uncertainty-aware cycle-consistency loss to address the regional uncertainty of a cyclic reconstructed image. We demonstrate the effectiveness of our method by qualitative and quantitative comparisons with state-of-the-art models. Codes are available at https://github.com/jgkwak95/AU-GAN.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2112.04283",
+   "pdf_url": "https://arxiv.org/pdf/2112.04283"
   },
   {
    "arxiv_id": "2112.04267",
@@ -15841,6 +15880,85 @@
    },
    "abs_url": "https://arxiv.org/abs/2112.00639",
    "pdf_url": "https://arxiv.org/pdf/2112.00639"
+  },
+  {
+   "arxiv_id": "2112.00484",
+   "announced": "2021-12-01",
+   "title": "Both Style and Fog Matter: Cumulative Domain Adaptation for Semantic Foggy Scene Understanding",
+   "authors": [
+    "Xianzheng Ma",
+    "Zhixiang Wang",
+    "Yacheng Zhan",
+    "Yinqiang Zheng",
+    "Zheng Wang",
+    "Dengxin Dai",
+    "Chia-Wen Lin"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Although considerable progress has been made in semantic scene understanding under clear weather, it is still a tough problem under adverse weather conditions, such as dense fog, due to the uncertainty caused by imperfect observations. Besides, difficulties in collecting and labeling foggy images hinder the progress of this field. Considering the success in semantic scene understanding under clear weather, we think it is reasonable to transfer knowledge learned from clear images to the foggy domain. As such, the problem becomes to bridge the domain gap between clear images and foggy images. Unlike previous methods that mainly focus on closing the domain gap caused by fog -- defogging the foggy images or fogging the clear images, we propose to alleviate the domain gap by considering fog influence and style variation simultaneously. The motivation is based on our finding that the style-related gap and the fog-related gap can be divided and closed respectively, by adding an intermediate domain. Thus, we propose a new pipeline to cumulatively adapt style, fog and the dual-factor (style and fog). Specifically, we devise a unified framework to disentangle the style factor and the fog factor separately, and then the dual-factor from images in different domains. Furthermore, we collaborate the disentanglement of three factors with a novel cumulative loss to thoroughly disentangle these three factors. Our method achieves the state-of-the-art performance on three benchmarks and shows generalization ability in rainy and snowy scenes.",
+   "affiliations": [
+    "Wuhan University",
+    "University of Tokyo",
+    "Max Planck Institute for Informatics",
+    "National Tsing Hua University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ]
+   ],
+   "institutions": [
+    "Wuhan University",
+    "University of Tokyo",
+    "Max Planck Institute for Informatics",
+    "National Tsing Hua University"
+   ],
+   "institution_ids": [
+    "033vjfk17",
+    "057zh3y96",
+    "01w19ak89",
+    "00zdnkx70"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2112.00484",
+   "pdf_url": "https://arxiv.org/pdf/2112.00484"
   },
   {
    "arxiv_id": "2112.00463",
@@ -21004,6 +21122,65 @@
    "pdf_url": "https://arxiv.org/pdf/2111.02114"
   },
   {
+   "arxiv_id": "2111.02078",
+   "announced": "2021-11-03",
+   "title": "FaceQvec: Vector Quality Assessment for Face Biometrics based on ISO Compliance",
+   "authors": [
+    "Javier Hernandez-Ortega",
+    "Julian Fierrez",
+    "Luis F. Gomez",
+    "Aythami Morales",
+    "Jose Luis Gonzalez-de-Suso",
+    "Francisco Zamora-Martinez"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this paper we develop FaceQvec, a software component for estimating the conformity of facial images with each of the points contemplated in the ISO/IEC 19794-5, a quality standard that defines general quality guidelines for face images that would make them acceptable or unacceptable for use in official documents such as passports or ID cards. This type of tool for quality assessment can help to improve the accuracy of face recognition, as well as to identify which factors are affecting the quality of a given face image and to take actions to eliminate or reduce those factors, e.g., with postprocessing techniques or re-acquisition of the image. FaceQvec consists of the automation of 25 individual tests related to different points contemplated in the aforementioned standard, as well as other characteristics of the images that have been considered to be related to facial quality. We first include the results of the quality tests evaluated on a development dataset captured under realistic conditions. We used those results to adjust the decision threshold of each test. Then we checked again their accuracy on a evaluation database that contains new face images not seen during development. The evaluation results demonstrate the accuracy of the individual tests for checking compliance with ISO/IEC 19794-5. FaceQvec is available online (https://github.com/uam-biometrics/FaceQvec).",
+   "affiliations": [
+    "Universidad Autónoma de Madrid"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "Universidad Autónoma de Madrid"
+   ],
+   "institution_ids": [
+    "01cby8j38"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2111.02078",
+   "pdf_url": "https://arxiv.org/pdf/2111.02078"
+  },
+  {
    "arxiv_id": "2111.03472",
    "announced": "2021-11-02",
    "title": "BiosecurID: a multimodal biometric database",
@@ -23838,6 +24015,85 @@
    },
    "abs_url": "https://arxiv.org/abs/2111.13489",
    "pdf_url": "https://arxiv.org/pdf/2111.13489"
+  },
+  {
+   "arxiv_id": "2111.13475",
+   "announced": "2021-11-01",
+   "title": "QMagFace: Simple and Accurate Quality-Aware Face Recognition",
+   "authors": [
+    "Philipp Terhörst",
+    "Malte Ihlefeld",
+    "Marco Huber",
+    "Naser Damer",
+    "Florian Kirchbuchner",
+    "Kiran Raja",
+    "Arjan Kuijper"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Face recognition systems have to deal with large variabilities (such as different poses, illuminations, and expressions) that might lead to incorrect matching decisions. These variabilities can be measured in terms of face image quality which is defined over the utility of a sample for recognition. Previous works on face recognition either do not employ this valuable information or make use of non-inherently fit quality estimates. In this work, we propose a simple and effective face recognition solution (QMagFace) that combines a quality-aware comparison score with a recognition model based on a magnitude-aware angular margin loss. The proposed approach includes model-specific face image qualities in the comparison process to enhance the recognition performance under unconstrained circumstances. Exploiting the linearity between the qualities and their comparison scores induced by the utilized loss, our quality-aware comparison function is simple and highly generalizable. The experiments conducted on several face recognition databases and benchmarks demonstrate that the introduced quality-awareness leads to consistent improvements in the recognition performance. Moreover, the proposed QMagFace approach performs especially well under challenging circumstances, such as cross-pose, cross-age, or cross-quality. Consequently, it leads to state-of-the-art performances on several face recognition benchmarks, such as 98.50% on AgeDB, 83.95% on XQLFQ, and 98.74% on CFP-FP. The code for QMagFace is publicly available",
+   "affiliations": [
+    "Norwegian University of Science and Technology",
+    "Fraunhofer Institute for Computer Graphics Research",
+    "Technische Universität Darmstadt"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "Norwegian University of Science and Technology",
+    "Fraunhofer Institute for Computer Graphics Research",
+    "Technische Universität Darmstadt"
+   ],
+   "institution_ids": [
+    "05xg72x27",
+    "04gmsar03",
+    "05n911h24"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2111.13475",
+   "pdf_url": "https://arxiv.org/pdf/2111.13475"
   },
   {
    "arxiv_id": "2111.13300",
@@ -34167,6 +34423,67 @@
    },
    "abs_url": "https://arxiv.org/abs/2110.06042",
    "pdf_url": "https://arxiv.org/pdf/2110.06042"
+  },
+  {
+   "arxiv_id": "2110.05877",
+   "announced": "2021-10-12",
+   "title": "OpenHands: Making Sign Language Recognition Accessible with Pose-based Pretrained Models across Languages",
+   "authors": [
+    "Prem Selvaraj",
+    "Gokul NC",
+    "Pratyush Kumar",
+    "Mitesh Khapra"
+   ],
+   "primary_subject": "Computation and Language (cs.CL)",
+   "subjects": [
+    "Computation and Language (cs.CL)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Submitted to AAAI22, 13 pages, 9 figures, 6 tables",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.CL",
+   "html_url": null,
+   "abstract": "AI technologies for Natural Languages have made tremendous progress recently. However, commensurate progress has not been made on Sign Languages, in particular, in recognizing signs as individual words or as complete sentences. We introduce OpenHands, a library where we take four key ideas from the NLP community for low-resource languages and apply them to sign languages for word-level recognition. First, we propose using pose extracted through pretrained models as the standard modality of data to reduce training time and enable efficient inference, and we release standardized pose datasets for 6 different sign languages - American, Argentinian, Chinese, Greek, Indian, and Turkish. Second, we train and release checkpoints of 4 pose-based isolated sign language recognition models across all 6 languages, providing baselines and ready checkpoints for deployment. Third, to address the lack of labelled data, we propose self-supervised pretraining on unlabelled data. We curate and release the largest pose-based pretraining dataset on Indian Sign Language (Indian-SL). Fourth, we compare different pretraining strategies and for the first time establish that pretraining is effective for sign language recognition by demonstrating (a) improved fine-tuning performance especially in low-resource settings, and (b) high crosslingual transfer from Indian-SL to few other sign languages. We open-source all models and datasets in OpenHands with a hope that it makes research in sign languages more accessible, available here at https://github.com/AI4Bharat/OpenHands .",
+   "affiliations": [
+    "Indian Institute of Technology Madras",
+    "Microsoft"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Indian Institute of Technology Madras",
+    "Microsoft"
+   ],
+   "institution_ids": [
+    "03v0r5n49",
+    "00d0nc645"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2110.05877",
+   "pdf_url": "https://arxiv.org/pdf/2110.05877"
   },
   {
    "arxiv_id": "2110.05803",
@@ -44629,6 +44946,85 @@
    },
    "abs_url": "https://arxiv.org/abs/2109.05923",
    "pdf_url": "https://arxiv.org/pdf/2109.05923"
+  },
+  {
+   "arxiv_id": "2109.05885",
+   "announced": "2021-09-13",
+   "title": "Graph-Based 3D Multi-Person Pose Estimation Using Multi-View Images",
+   "authors": [
+    "Size Wu",
+    "Sheng Jin",
+    "Wentao Liu",
+    "Lei Bai",
+    "Chen Qian",
+    "Dong Liu",
+    "Wanli Ouyang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by ICCV'2021",
+   "journal_ref": null,
+   "venue": "ICCV 2021",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This paper studies the task of estimating the 3D human poses of multiple persons from multiple calibrated camera views. Following the top-down paradigm, we decompose the task into two stages, i.e. person localization and pose estimation. Both stages are processed in coarse-to-fine manners. And we propose three task-specific graph neural networks for effective message passing. For 3D person localization, we first use Multi-view Matching Graph Module (MMG) to learn the cross-view association and recover coarse human proposals. The Center Refinement Graph Module (CRG) further refines the results via flexible point-based prediction. For 3D pose estimation, the Pose Regression Graph Module (PRG) learns both the multi-view geometry and structural relations between human joints. Our approach achieves state-of-the-art performance on CMU Panoptic and Shelf datasets with significantly lower computation complexity.",
+   "affiliations": [
+    "University of Science and Technology of China",
+    "Sensetime",
+    "University of Hong Kong",
+    "University of Sydney"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1
+    ],
+    [
+     3
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ]
+   ],
+   "institutions": [
+    "University of Science and Technology of China",
+    "SenseTime",
+    "University of Hong Kong",
+    "University of Sydney"
+   ],
+   "institution_ids": [
+    "04c4dkn09",
+    "049wsmj07",
+    "02zhqgq86",
+    "0384j8v12"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2109.05885",
+   "pdf_url": "https://arxiv.org/pdf/2109.05885"
   },
   {
    "arxiv_id": "2109.02497",
@@ -58995,6 +59391,73 @@
    "pdf_url": "https://arxiv.org/pdf/2108.05997"
   },
   {
+   "arxiv_id": "2108.05930",
+   "announced": "2021-08-12",
+   "title": "A Systematic Benchmarking Analysis of Transfer Learning for Medical Image Analysis",
+   "authors": [
+    "Mohammad Reza Hosseinzadeh Taher",
+    "Fatemeh Haghighi",
+    "Ruibin Feng",
+    "Michael B. Gotway",
+    "Jianming Liang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Image and Video Processing (eess.IV)"
+   ],
+   "comments": "International Conference on Medical Image Computing and Computer Assisted Intervention (MICCAI 2021); Domain Adaptation and Representation Transfer (DART)",
+   "journal_ref": null,
+   "venue": "MICCAI 2021",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Transfer learning from supervised ImageNet models has been frequently used in medical image analysis. Yet, no large-scale evaluation has been conducted to benchmark the efficacy of newly-developed pre-training techniques for medical image analysis, leaving several important questions unanswered. As the first step in this direction, we conduct a systematic study on the transferability of models pre-trained on iNat2021, the most recent large-scale fine-grained dataset, and 14 top self-supervised ImageNet models on 7 diverse medical tasks in comparison with the supervised ImageNet model. Furthermore, we present a practical approach to bridge the domain gap between natural and medical images by continually (pre-)training supervised ImageNet models on medical images. Our comprehensive evaluation yields new insights: (1) pre-trained models on fine-grained data yield distinctive local representations that are more suitable for medical segmentation tasks, (2) self-supervised ImageNet models learn holistic features more effectively than supervised ImageNet models, and (3) continual pre-training can bridge the domain gap between natural and medical images. We hope that this large-scale open evaluation of transfer learning can direct the future research of deep learning for medical imaging. As open science, all codes and pre-trained models are available on our GitHub page https://github.com/JLiangLab/BenchmarkTransferLearning.",
+   "affiliations": [
+    "Arizona State University",
+    "Stanford University",
+    "Mayo Clinic in Arizona"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Arizona State University",
+    "Stanford University",
+    "Mayo Clinic in Arizona"
+   ],
+   "institution_ids": [
+    "03efmqc40",
+    "00f54p054",
+    "03jp40720"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2108.05930",
+   "pdf_url": "https://arxiv.org/pdf/2108.05930"
+  },
+  {
    "arxiv_id": "2108.05894",
    "announced": "2021-08-12",
    "title": "MicroNet: Improving Image Recognition with Extremely Low FLOPs",
@@ -60583,7 +61046,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -95074,7 +95537,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -98444,7 +98907,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -98730,7 +99193,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -99770,7 +100233,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -101346,78 +101809,6 @@
    "pdf_url": "https://arxiv.org/pdf/2105.00637"
   },
   {
-   "arxiv_id": "2105.02357",
-   "announced": "2021-05-05",
-   "title": "Explainable Artificial Intelligence for Human Decision-Support System in Medical Domain",
-   "authors": [
-    "Samanta Knapič",
-    "Avleen Malhi",
-    "Rohit Saluja",
-    "Kary Främling"
-   ],
-   "primary_subject": "Artificial Intelligence (cs.AI)",
-   "subjects": [
-    "Artificial Intelligence (cs.AI)",
-    "Computer Vision and Pattern Recognition (cs.CV)",
-    "Human-Computer Interaction (cs.HC)",
-    "Machine Learning (cs.LG)"
-   ],
-   "comments": null,
-   "journal_ref": null,
-   "venue": null,
-   "cross_list_from": "cs.AI",
-   "html_url": null,
-   "abstract": "In the present paper we present the potential of Explainable Artificial Intelligence methods for decision-support in medical image analysis scenarios. With three types of explainable methods applied to the same medical image data set our aim was to improve the comprehensibility of the decisions provided by the Convolutional Neural Network (CNN). The visual explanations were provided on in-vivo gastral images obtained from a Video capsule endoscopy (VCE), with the goal of increasing the health professionals' trust in the black box predictions. We implemented two post-hoc interpretable machine learning methods LIME and SHAP and the alternative explanation approach CIU, centered on the Contextual Value and Utility (CIU). The produced explanations were evaluated using human evaluation. We conducted three user studies based on the explanations provided by LIME, SHAP and CIU. Users from different non-medical backgrounds carried out a series of tests in the web-based survey setting and stated their experience and understanding of the given explanations. Three user groups (n=20, 20, 20) with three distinct forms of explanations were quantitatively analyzed. We have found that, as hypothesized, the CIU explainable method performed better than both LIME and SHAP methods in terms of increasing support for human decision-making as well as being more transparent and thus understandable to users. Additionally, CIU outperformed LIME and SHAP by generating explanations more rapidly. Our findings suggest that there are notable differences in human decision-making between various explanation support settings. In line with that, we present three potential explainable methods that can with future improvements in implementation be generalized on different medical data sets and can provide great decision-support for medical experts.",
-   "affiliations": [
-    "Umeå University",
-    "Aalto University",
-    "Bournemouth University",
-    "KTH Royal Institute of Technology"
-   ],
-   "author_affiliations": [
-    [
-     0,
-     1
-    ],
-    [
-     2,
-     1
-    ],
-    [
-     3,
-     1
-    ],
-    [
-     0,
-     1
-    ]
-   ],
-   "institutions": [
-    "Umeå University",
-    "Aalto University",
-    "Bournemouth University",
-    "KTH Royal Institute of Technology"
-   ],
-   "institution_ids": [
-    "05kb8h459",
-    "020hwjq30",
-    "05wwcw481",
-    "026vcq606"
-   ],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-08"
-    },
-    "institutions": {
-     "source": "openalex",
-     "at": "2026-10-08"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/2105.02357",
-   "pdf_url": "https://arxiv.org/pdf/2105.02357"
-  },
-  {
    "arxiv_id": "2105.02340",
    "announced": "2021-05-05",
    "title": "DeepSMOTE: Fusing Deep Learning and SMOTE for Imbalanced Data",
@@ -101972,6 +102363,55 @@
    },
    "abs_url": "https://arxiv.org/abs/2105.00999",
    "pdf_url": "https://arxiv.org/pdf/2105.00999"
+  },
+  {
+   "arxiv_id": "2105.00558",
+   "announced": "2021-05-02",
+   "title": "An Examination of Fairness of AI Models for Deepfake Detection",
+   "authors": [
+    "Loc Trinh",
+    "Yan Liu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "To appear in the 30th International Joint Conference on Artificial Intelligence (IJCAI-21)",
+   "journal_ref": null,
+   "venue": "IJCAI",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recent studies have demonstrated that deep learning models can discriminate based on protected classes like race and gender. In this work, we evaluate bias present in deepfake datasets and detection models across protected subgroups. Using facial datasets balanced by race and gender, we examine three popular deepfake detectors and find large disparities in predictive performances across races, with up to 10.7% difference in error rate between subgroups. A closer look reveals that the widely used FaceForensics++ dataset is overwhelmingly composed of Caucasian subjects, with the majority being female Caucasians. Our investigation of the racial distribution of deepfakes reveals that the methods used to create deepfakes as positive training signals tend to produce \"irregular\" faces - when a person's face is swapped onto another person of a different race or gender. This causes detectors to learn spurious correlations between the foreground faces and fakeness. Moreover, when detectors are trained with the Blended Image (BI) dataset from Face X-Rays, we find that those detectors develop systematic discrimination towards certain racial subgroups, primarily female Asians.",
+   "affiliations": [
+    "University of Southern California"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Southern California"
+   ],
+   "institution_ids": [
+    "03taz7m60"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2105.00558",
+   "pdf_url": "https://arxiv.org/pdf/2105.00558"
   },
   {
    "arxiv_id": "2105.00363",
@@ -103376,7 +103816,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -108168,6 +108608,59 @@
    "pdf_url": "https://arxiv.org/pdf/2105.00203"
   },
   {
+   "arxiv_id": "2105.00187",
+   "announced": "2021-05-01",
+   "title": "One Detector to Rule Them All: Towards a General Deepfake Attack Detection Framework",
+   "authors": [
+    "Shahroz Tariq",
+    "Sangyup Lee",
+    "Simon S. Woo"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Cryptography and Security (cs.CR)"
+   ],
+   "comments": "14 pages, 8 Figures, 6 Tables, Accepted for publication in The Web Conference WWW 2021",
+   "journal_ref": null,
+   "venue": "WWW 2021",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Deep learning-based video manipulation methods have become widely accessible to the masses. With little to no effort, people can quickly learn how to generate deepfake (DF) videos. While deep learning-based detection methods have been proposed to identify specific types of DFs, their performance suffers for other types of deepfake methods, including real-world deepfakes, on which they are not sufficiently trained. In other words, most of the proposed deep learning-based detection methods lack transferability and generalizability. Beyond detecting a single type of DF from benchmark deepfake datasets, we focus on developing a generalized approach to detect multiple types of DFs, including deepfakes from unknown generation methods such as DeepFake-in-the-Wild (DFW) videos. To better cope with unknown and unseen deepfakes, we introduce a Convolutional LSTM-based Residual Network (CLRNet), which adopts a unique model training strategy and explores spatial as well as the temporal information in deepfakes. Through extensive experiments, we show that existing defense methods are not ready for real-world deployment. Whereas our defense method (CLRNet) achieves far better generalization when detecting various benchmark deepfake methods (97.57% on average). Furthermore, we evaluate our approach with a high-quality DeepFake-in-the-Wild dataset, collected from the Internet containing numerous videos and having more than 150,000 frames. Our CLRNet model demonstrated that it generalizes well against high-quality DFW videos by achieving 93.86% detection accuracy, outperforming existing state-of-the-art defense methods by a considerable margin.",
+   "affiliations": [
+    "Sungkyunkwan University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Sungkyunkwan University"
+   ],
+   "institution_ids": [
+    "04q78tk20"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2105.00187",
+   "pdf_url": "https://arxiv.org/pdf/2105.00187"
+  },
+  {
    "arxiv_id": "2105.00097",
    "announced": "2021-05-01",
    "title": "Self-supervised Augmentation Consistency for Adapting Semantic Segmentation",
@@ -109488,7 +109981,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -113761,7 +114254,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -118394,6 +118887,54 @@
    "pdf_url": "https://arxiv.org/pdf/2104.02300"
   },
   {
+   "arxiv_id": "2104.02273",
+   "announced": "2021-04-06",
+   "title": "Multi-View Multi-Person 3D Pose Estimation with Plane Sweep Stereo",
+   "authors": [
+    "Jiahao Lin",
+    "Gim Hee Lee"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "10 pages, 5 figures. Accepted in CVPR 2021",
+   "journal_ref": null,
+   "venue": "CVPR 2021",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Existing approaches for multi-view multi-person 3D pose estimation explicitly establish cross-view correspondences to group 2D pose detections from multiple camera views and solve for the 3D pose estimation for each person. Establishing cross-view correspondences is challenging in multi-person scenes, and incorrect correspondences will lead to sub-optimal performance for the multi-stage pipeline. In this work, we present our multi-view 3D pose estimation approach based on plane sweep stereo to jointly address the cross-view fusion and 3D pose reconstruction in a single shot. Specifically, we propose to perform depth regression for each joint of each 2D pose in a target camera view. Cross-view consistency constraints are implicitly enforced by multiple reference camera views via the plane sweep algorithm to facilitate accurate depth regression. We adopt a coarse-to-fine scheme to first regress the person-level depth followed by a per-person joint-level relative depth estimation. 3D poses are obtained from a simple back-projection given the estimated depths. We evaluate our approach on benchmark datasets where it outperforms previous state-of-the-arts while being remarkably efficient. Our code is available at https://github.com/jiahaoLjh/PlaneSweepPose.",
+   "affiliations": [
+    "National University of Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore"
+   ],
+   "institution_ids": [
+    "01tgyzw49"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2104.02273",
+   "pdf_url": "https://arxiv.org/pdf/2104.02273"
+  },
+  {
    "arxiv_id": "2104.02096",
    "announced": "2021-04-05",
    "title": "Compressing Visual-linguistic Model via Knowledge Distillation",
@@ -119303,6 +119844,73 @@
    },
    "abs_url": "https://arxiv.org/abs/2104.01148",
    "pdf_url": "https://arxiv.org/pdf/2104.01148"
+  },
+  {
+   "arxiv_id": "2104.00990",
+   "announced": "2021-04-02",
+   "title": "Visual Semantic Role Labeling for Video Understanding",
+   "authors": [
+    "Arka Sadhu",
+    "Tanmay Gupta",
+    "Mark Yatskar",
+    "Ram Nevatia",
+    "Aniruddha Kembhavi"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Computation and Language (cs.CL)"
+   ],
+   "comments": "CVPR21 camera-ready including appendix. Project Page at https://vidsitu.org/",
+   "journal_ref": null,
+   "venue": "CVPR 2021",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We propose a new framework for understanding and representing related salient events in a video using visual semantic role labeling. We represent videos as a set of related events, wherein each event consists of a verb and multiple entities that fulfill various roles relevant to that event. To study the challenging task of semantic role labeling in videos or VidSRL, we introduce the VidSitu benchmark, a large-scale video understanding data source with 29K 10-second movie clips richly annotated with a verb and semantic-roles every 2 seconds. Entities are co-referenced across events within a movie clip and events are connected to each other via event-event relations. Clips in VidSitu are drawn from a large collection of movies (${~}3K$) and have been chosen to be both complex (${~}4.2$ unique verbs within a video) as well as diverse (${~}200$ verbs have more than 100 annotations each). We provide a comprehensive analysis of the dataset in comparison to other publicly available video understanding benchmarks, several illustrative baselines and evaluate a range of standard video recognition models. Our code and dataset is available at vidsitu.org.",
+   "affiliations": [
+    "University of Southern California",
+    "Allen Institute for Artificial Intelligence",
+    "University of Pennsylvania"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Southern California",
+    "Allen Institute for Artificial Intelligence",
+    "University of Pennsylvania"
+   ],
+   "institution_ids": [
+    "03taz7m60",
+    "05w520734",
+    "00b30xv10"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2104.00990",
+   "pdf_url": "https://arxiv.org/pdf/2104.00990"
   },
   {
    "arxiv_id": "2104.00985",
@@ -121303,6 +121911,70 @@
    },
    "abs_url": "https://arxiv.org/abs/2104.13478",
    "pdf_url": "https://arxiv.org/pdf/2104.13478"
+  },
+  {
+   "arxiv_id": "2104.13454",
+   "announced": "2021-04-01",
+   "title": "Estimating Egocentric 3D Human Pose in Global Space",
+   "authors": [
+    "Jian Wang",
+    "Lingjie Liu",
+    "Weipeng Xu",
+    "Kripasindhu Sarkar",
+    "Christian Theobalt"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "ICCV 2021",
+   "journal_ref": null,
+   "venue": "ICCV 2021",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Egocentric 3D human pose estimation using a single fisheye camera has become popular recently as it allows capturing a wide range of daily activities in unconstrained environments, which is difficult for traditional outside-in motion capture with external cameras. However, existing methods have several limitations. A prominent problem is that the estimated poses lie in the local coordinate system of the fisheye camera, rather than in the world coordinate system, which is restrictive for many applications. Furthermore, these methods suffer from limited accuracy and temporal instability due to ambiguities caused by the monocular setup and the severe occlusion in a strongly distorted egocentric perspective. To tackle these limitations, we present a new method for egocentric global 3D body pose estimation using a single head-mounted fisheye camera. To achieve accurate and temporally stable global poses, a spatio-temporal optimization is performed over a sequence of frames by minimizing heatmap reprojection errors and enforcing local and global body motion priors learned from a mocap dataset. Experimental results show that our approach outperforms state-of-the-art methods both quantitatively and qualitatively.",
+   "affiliations": [
+    "Max Planck Society",
+    "Meta"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Max Planck Society",
+    "Meta"
+   ],
+   "institution_ids": [
+    "01hhn8329",
+    "01zbnvs85"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2104.13454",
+   "pdf_url": "https://arxiv.org/pdf/2104.13454"
   },
   {
    "arxiv_id": "2104.13415",
@@ -126371,7 +127043,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -128601,7 +129273,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -130150,7 +130822,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -131411,7 +132083,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -132956,6 +133628,73 @@
    },
    "abs_url": "https://arxiv.org/abs/2103.15916",
    "pdf_url": "https://arxiv.org/pdf/2103.15916"
+  },
+  {
+   "arxiv_id": "2103.15910",
+   "announced": "2021-03-29",
+   "title": "Sign Language Production: A Review",
+   "authors": [
+    "Razieh Rastgoo",
+    "Kourosh Kiani",
+    "Sergio Escalera",
+    "Mohammad Sabokrou"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Sign Language is the dominant yet non-primary form of communication language used in the deaf and hearing-impaired community. To make an easy and mutual communication between the hearing-impaired and the hearing communities, building a robust system capable of translating the spoken language into sign language and vice versa is fundamental. To this end, sign language recognition and production are two necessary parts for making such a two-way system. Sign language recognition and production need to cope with some critical challenges. In this survey, we review recent advances in Sign Language Production (SLP) and related areas using deep learning. This survey aims to briefly summarize recent achievements in SLP, discussing their advantages, limitations, and future directions of research.",
+   "affiliations": [
+    "Institute for Research in Fundamental Sciences",
+    "Semnan University",
+    "Computer Vision Center",
+    "Universitat de Barcelona"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Institute for Research in Fundamental Sciences",
+    "Semnan University",
+    "Computer Vision Center",
+    "Universitat de Barcelona"
+   ],
+   "institution_ids": [
+    "04xreqs31",
+    "029gksw03",
+    "00s0nnj93",
+    "021018s57"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2103.15910",
+   "pdf_url": "https://arxiv.org/pdf/2103.15910"
   },
   {
    "arxiv_id": "2103.15808",
@@ -136822,7 +137561,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -139423,7 +140162,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -139598,6 +140337,91 @@
    "pdf_url": "https://arxiv.org/pdf/2103.06495"
   },
   {
+   "arxiv_id": "2103.04263",
+   "announced": "2021-03-11",
+   "title": "Deepfake Videos in the Wild: Analysis and Detection",
+   "authors": [
+    "Jiameng Pu",
+    "Neal Mangaokar",
+    "Lauren Kelly",
+    "Parantapa Bhattacharya",
+    "Kavya Sundaram",
+    "Mobin Javed",
+    "Bolun Wang",
+    "Bimal Viswanath"
+   ],
+   "primary_subject": "Cryptography and Security (cs.CR)",
+   "subjects": [
+    "Cryptography and Security (cs.CR)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to The Web Conference 2021; First two authors contributed equally to this work; 12 pages, 6 tables",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.CR",
+   "html_url": null,
+   "abstract": "AI-manipulated videos, commonly known as deepfakes, are an emerging problem. Recently, researchers in academia and industry have contributed several (self-created) benchmark deepfake datasets, and deepfake detection algorithms. However, little effort has gone towards understanding deepfake videos in the wild, leading to a limited understanding of the real-world applicability of research contributions in this space. Even if detection schemes are shown to perform well on existing datasets, it is unclear how well the methods generalize to real-world deepfakes. To bridge this gap in knowledge, we make the following contributions: First, we collect and present the largest dataset of deepfake videos in the wild, containing 1,869 videos from YouTube and Bilibili, and extract over 4.8M frames of content. Second, we present a comprehensive analysis of the growth patterns, popularity, creators, manipulation strategies, and production methods of deepfake content in the real-world. Third, we systematically evaluate existing defenses using our new dataset, and observe that they are not ready for deployment in the real-world. Fourth, we explore the potential for transfer learning schemes and competition-winning techniques to improve defenses.",
+   "affiliations": [
+    "Virginia Tech",
+    "University of Michigan",
+    "University of Virginia",
+    "Lahore University of Management Sciences",
+    "Meta"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Virginia Tech",
+    "University of Michigan",
+    "University of Virginia",
+    "Lahore University of Management Sciences",
+    "Meta"
+   ],
+   "institution_ids": [
+    "02smfhw86",
+    "00jmfr291",
+    "0153tk833",
+    "05b5x4a35",
+    "01zbnvs85"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2103.04263",
+   "pdf_url": "https://arxiv.org/pdf/2103.04263"
+  },
+  {
    "arxiv_id": "2103.06360",
    "announced": "2021-03-10",
    "title": "A Computed Tomography Vertebral Segmentation Dataset with Anatomical Variations and Multi-Vendor Scanner Data",
@@ -139707,7 +140531,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -152012,7 +152836,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -156732,7 +157556,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -161428,7 +162252,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -170944,7 +171768,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"

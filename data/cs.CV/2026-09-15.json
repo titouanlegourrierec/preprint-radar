@@ -8831,9 +8831,9 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Accepted to NeurIPS 2026 PriGM",
    "journal_ref": null,
-   "venue": null,
+   "venue": "NeurIPS 2026",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.15187v2",
    "abstract": "Object-Centric Learning (OCL) aims to decompose images into objects without human annotations. A major family of mainstream methods uses Slot Attention to aggregate image features into object-level representations and then from them reconstructs masked image content, i.e., Random Masking (RM), to provide self-supervision. The recent method DIAS simply masks image patches at uniform randomness yet achieves competitive object discovery accuracy. Since attention during aggregation already possesses object discovery ability, we explore using it to develop a better image patch masking strategy, i.e., Attention Guided Masking (AGM), thereby providing better self-supervision. Results on six recognized datasets show that AGM does not always outperform RM. Under unconditional slot initialization, AGM substantially improves background segmentation on datasets with realistic textures (COCO and VOC); Regardless of conditional or unconditional slot initialization and across datasets, foreground object discovery remains comparable or decreases. We suggest peer researchers in the OCL community that attempts to exploit internal attention semantics to improve OCL with masked decoding are risky. Our source code, model checkpoints and evaluation logs is available on https://github.com/und-entropy/Does-Attention-Guided-Masking-Really-Help-Object-Discovery-in-Object-Centric-Learning-.",

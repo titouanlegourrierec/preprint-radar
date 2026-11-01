@@ -3785,7 +3785,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -6623,7 +6623,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -6988,7 +6988,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -12388,7 +12388,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -14442,6 +14442,71 @@
    },
    "abs_url": "https://arxiv.org/abs/2011.12490",
    "pdf_url": "https://arxiv.org/pdf/2011.12490"
+  },
+  {
+   "arxiv_id": "2011.12438",
+   "announced": "2020-11-24",
+   "title": "Continuous Surface Embeddings",
+   "authors": [
+    "Natalia Neverova",
+    "David Novotny",
+    "Vasil Khalidov",
+    "Marc Szafraniec",
+    "Patrick Labatut",
+    "Andrea Vedaldi"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "NeurIPS, 2020",
+   "journal_ref": null,
+   "venue": "NeurIPS 2020",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this work, we focus on the task of learning and representing dense correspondences in deformable object categories. While this problem has been considered before, solutions so far have been rather ad-hoc for specific object types (i.e., humans), often with significant manual work involved. However, scaling the geometry understanding to all objects in nature requires more automated approaches that can also express correspondences between related, but geometrically different objects. To this end, we propose a new, learnable image-based representation of dense correspondences. Our model predicts, for each pixel in a 2D image, an embedding vector of the corresponding vertex in the object mesh, therefore establishing dense correspondences between image pixels and 3D object geometry. We demonstrate that the proposed approach performs on par or better than the state-of-the-art methods for dense pose estimation for humans, while being conceptually simpler. We also collect a new in-the-wild dataset of dense correspondences for animal classes and demonstrate that our framework scales naturally to the new deformable object categories.",
+   "affiliations": [
+    "Meta",
+    "University of Oxford"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Meta",
+    "University of Oxford"
+   ],
+   "institution_ids": [
+    "02388em19",
+    "052gg0110"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2011.12438",
+   "pdf_url": "https://arxiv.org/pdf/2011.12438"
   },
   {
    "arxiv_id": "2011.11778",
@@ -17263,6 +17328,81 @@
    },
    "abs_url": "https://arxiv.org/abs/2011.02272",
    "pdf_url": "https://arxiv.org/pdf/2011.02272"
+  },
+  {
+   "arxiv_id": "2011.01519",
+   "announced": "2020-11-02",
+   "title": "SelfPose: 3D Egocentric Pose Estimation from a Headset Mounted Camera",
+   "authors": [
+    "Denis Tome",
+    "Thiemo Alldieck",
+    "Patrick Peluse",
+    "Gerard Pons-Moll",
+    "Lourdes Agapito",
+    "Hernan Badino",
+    "Fernando De la Torre"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "14 pages. arXiv admin note: substantial text overlap with arXiv:1907.10045",
+   "journal_ref": "IEEE Transactions on Pattern Analysis and Machine Intelligence, 2020",
+   "venue": "TPAMI 2020",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We present a solution to egocentric 3D body pose estimation from monocular images captured from downward looking fish-eye cameras installed on the rim of a head mounted VR device. This unusual viewpoint leads to images with unique visual appearance, with severe self-occlusions and perspective distortions that result in drastic differences in resolution between lower and upper body. We propose an encoder-decoder architecture with a novel multi-branch decoder designed to account for the varying uncertainty in 2D predictions. The quantitative evaluation, on synthetic and real-world datasets, shows that our strategy leads to substantial improvements in accuracy over state of the art egocentric approaches. To tackle the lack of labelled data we also introduced a large photo-realistic synthetic dataset. xR-EgoPose offers high quality renderings of people with diverse skintones, body shapes and clothing, performing a range of actions. Our experiments show that the high variability in our new synthetic training corpus leads to good generalization to real world footage and to state of theart results on real world datasets with ground truth. Moreover, an evaluation on the Human3.6M benchmark shows that the performance of our method is on par with top performing approaches on the more classic problem of 3D human pose from a third person viewpoint.",
+   "affiliations": [
+    "University College London",
+    "Technische Universität Braunschweig",
+    "Meta",
+    "Carnegie Mellon University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ]
+   ],
+   "institutions": [
+    "University College London",
+    "Technische Universität Braunschweig",
+    "Meta",
+    "Carnegie Mellon University"
+   ],
+   "institution_ids": [
+    "02jx3x895",
+    "010nsgg66",
+    "01zbnvs85",
+    "05x2bcf33"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2011.01519",
+   "pdf_url": "https://arxiv.org/pdf/2011.01519"
   },
   {
    "arxiv_id": "2011.01355",
@@ -24005,7 +24145,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -31876,7 +32016,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -34094,6 +34234,75 @@
    },
    "abs_url": "https://arxiv.org/abs/2009.13318",
    "pdf_url": "https://arxiv.org/pdf/2009.13318"
+  },
+  {
+   "arxiv_id": "2009.12975",
+   "announced": "2020-09-27",
+   "title": "VATLD: A Visual Analytics System to Assess, Understand and Improve Traffic Light Detection",
+   "authors": [
+    "Liang Gou",
+    "Lincan Zou",
+    "Nanxiang Li",
+    "Michael Hofmann",
+    "Arvind Kumar Shekar",
+    "Axel Wendt",
+    "Liu Ren"
+   ],
+   "primary_subject": "Human-Computer Interaction (cs.HC)",
+   "subjects": [
+    "Human-Computer Interaction (cs.HC)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.HC",
+   "html_url": null,
+   "abstract": "Traffic light detection is crucial for environment perception and decision-making in autonomous driving. State-of-the-art detectors are built upon deep Convolutional Neural Networks (CNNs) and have exhibited promising performance. However, one looming concern with CNN based detectors is how to thoroughly evaluate the performance of accuracy and robustness before they can be deployed to autonomous vehicles. In this work, we propose a visual analytics system, VATLD, equipped with a disentangled representation learning and semantic adversarial learning, to assess, understand, and improve the accuracy and robustness of traffic light detectors in autonomous driving applications. The disentangled representation learning extracts data semantics to augment human cognition with human-friendly visual summarization, and the semantic adversarial learning efficiently exposes interpretable robustness risks and enables minimal human interaction for actionable insights. We also demonstrate the effectiveness of various performance improvement strategies derived from actionable insights with our visual analytics system, VATLD, and illustrate some practical implications for safety-critical applications in autonomous driving.",
+   "affiliations": [
+    "Robert Bosch"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Robert Bosch"
+   ],
+   "institution_ids": [
+    "02venad53"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2009.12975",
+   "pdf_url": "https://arxiv.org/pdf/2009.12975"
   },
   {
    "arxiv_id": "2009.12836",
@@ -39622,7 +39831,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -42168,6 +42377,72 @@
    },
    "abs_url": "https://arxiv.org/abs/2008.11714",
    "pdf_url": "https://arxiv.org/pdf/2008.11714"
+  },
+  {
+   "arxiv_id": "2008.11469",
+   "announced": "2020-08-26",
+   "title": "SMAP: Single-Shot Multi-Person Absolute 3D Pose Estimation",
+   "authors": [
+    "Jianan Zhen",
+    "Qi Fang",
+    "Jiaming Sun",
+    "Wentao Liu",
+    "Wei Jiang",
+    "Hujun Bao",
+    "Xiaowei Zhou"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "ECCV 2020, project page: https://zju3dv.github.io/SMAP/",
+   "journal_ref": null,
+   "venue": "ECCV 2020",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recovering multi-person 3D poses with absolute scales from a single RGB image is a challenging problem due to the inherent depth and scale ambiguity from a single view. Addressing this ambiguity requires to aggregate various cues over the entire image, such as body sizes, scene layouts, and inter-person relationships. However, most previous methods adopt a top-down scheme that first performs 2D pose detection and then regresses the 3D pose and scale for each detected person individually, ignoring global contextual cues. In this paper, we propose a novel system that first regresses a set of 2.5D representations of body parts and then reconstructs the 3D absolute poses based on these 2.5D representations with a depth-aware part association algorithm. Such a single-shot bottom-up scheme allows the system to better learn and reason about the inter-person depth relationship, improving both 3D and 2D pose estimation. The experiments demonstrate that the proposed approach achieves the state-of-the-art performance on the CMU Panoptic and MuPoTS-3D datasets and is applicable to in-the-wild videos.",
+   "affiliations": [
+    "Zhejiang University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Zhejiang University"
+   ],
+   "institution_ids": [
+    "00a2xv884"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2008.11469",
+   "pdf_url": "https://arxiv.org/pdf/2008.11469"
   },
   {
    "arxiv_id": "2008.11459",
@@ -52222,7 +52497,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -53558,7 +53833,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -66008,6 +66283,70 @@
    "pdf_url": "https://arxiv.org/pdf/2007.10538"
   },
   {
+   "arxiv_id": "2007.10469",
+   "announced": "2020-07-01",
+   "title": "Active MR k-space Sampling with Reinforcement Learning",
+   "authors": [
+    "Luis Pineda",
+    "Sumana Basu",
+    "Adriana Romero",
+    "Roberto Calandra",
+    "Michal Drozdzal"
+   ],
+   "primary_subject": "Image and Video Processing (eess.IV)",
+   "subjects": [
+    "Image and Video Processing (eess.IV)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Presented at the 23rd International Conference on Medical Image Computing and Computer Assisted Intervention, MICCAI 2020",
+   "journal_ref": "LNCS vol. 12262 (2020) 23-33",
+   "venue": "MICCAI 2020",
+   "cross_list_from": "eess.IV",
+   "html_url": null,
+   "abstract": "Deep learning approaches have recently shown great promise in accelerating magnetic resonance image (MRI) acquisition. The majority of existing work have focused on designing better reconstruction models given a pre-determined acquisition trajectory, ignoring the question of trajectory optimization. In this paper, we focus on learning acquisition trajectories given a fixed image reconstruction model. We formulate the problem as a sequential decision process and propose the use of reinforcement learning to solve it. Experiments on a large scale public MRI dataset of knees show that our proposed models significantly outperform the state-of-the-art in active MRI acquisition, over a large range of acceleration factors.",
+   "affiliations": [
+    "Meta",
+    "McGill University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Meta",
+    "McGill University"
+   ],
+   "institution_ids": [
+    "01zbnvs85",
+    "01pxwe438"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2007.10469",
+   "pdf_url": "https://arxiv.org/pdf/2007.10469"
+  },
+  {
    "arxiv_id": "2007.10453",
    "announced": "2020-07-01",
    "title": "Points2Surf: Learning Implicit Surfaces from Point Cloud Patches",
@@ -69572,6 +69911,62 @@
    },
    "abs_url": "https://arxiv.org/abs/2007.03260",
    "pdf_url": "https://arxiv.org/pdf/2007.03260"
+  },
+  {
+   "arxiv_id": "2007.03200",
+   "announced": "2020-07-01",
+   "title": "ReMOTS: Self-Supervised Refining Multi-Object Tracking and Segmentation",
+   "authors": [
+    "Fan Yang",
+    "Xin Chang",
+    "Chenyu Dang",
+    "Ziqiang Zheng",
+    "Sakriani Sakti",
+    "Satoshi Nakamura",
+    "Yang Wu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "4 pages",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We aim to improve the performance of Multiple Object Tracking and Segmentation (MOTS) by refinement. However, it remains challenging for refining MOTS results, which could be attributed to that appearance features are not adapted to target videos and it is also difficult to find proper thresholds to discriminate them. To tackle this issue, we propose a self-supervised refining MOTS (i.e., ReMOTS) framework. ReMOTS mainly takes four steps to refine MOTS results from the data association perspective. (1) Training the appearance encoder using predicted masks. (2) Associating observations across adjacent frames to form short-term tracklets. (3) Training the appearance encoder using short-term tracklets as reliable pseudo labels. (4) Merging short-term tracklets to long-term tracklets utilizing adopted appearance features and thresholds that are automatically obtained from statistical information. Using ReMOTS, we reached the $1^{st}$ place on CVPR 2020 MOTS Challenge 1, with an sMOTSA score of 69.9.",
+   "affiliations": [
+    "Nara Institute of Science and Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "Nara Institute of Science and Technology"
+   ],
+   "institution_ids": [
+    "05bhada84"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2007.03200",
+   "pdf_url": "https://arxiv.org/pdf/2007.03200"
   },
   {
    "arxiv_id": "2007.02915",
@@ -88495,7 +88890,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -94050,7 +94445,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -100744,7 +101139,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -104156,7 +104551,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -108653,6 +109048,70 @@
    "pdf_url": "https://arxiv.org/pdf/2004.01113"
   },
   {
+   "arxiv_id": "2004.01019",
+   "announced": "2020-04-01",
+   "title": "Face Quality Estimation and Its Correlation to Demographic and Non-Demographic Bias in Face Recognition",
+   "authors": [
+    "Philipp Terhörst",
+    "Jan Niklas Kolf",
+    "Naser Damer",
+    "Florian Kirchbuchner",
+    "Arjan Kuijper"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted at IJCB2020",
+   "journal_ref": null,
+   "venue": "IJCB 2020",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Face quality assessment aims at estimating the utility of a face image for the purpose of recognition. It is a key factor to achieve high face recognition performances. Currently, the high performance of these face recognition systems come with the cost of a strong bias against demographic and non-demographic sub-groups. Recent work has shown that face quality assessment algorithms should adapt to the deployed face recognition system, in order to achieve highly accurate and robust quality estimations. However, this could lead to a bias transfer towards the face quality assessment leading to discriminatory effects e.g. during enrolment. In this work, we present an in-depth analysis of the correlation between bias in face recognition and face quality assessment. Experiments were conducted on two publicly available datasets captured under controlled and uncontrolled circumstances with two popular face embeddings. We evaluated four state-of-the-art solutions for face quality assessment towards biases to pose, ethnicity, and age. The experiments showed that the face quality assessment solutions assign significantly lower quality values towards subgroups affected by the recognition bias demonstrating that these approaches are biased as well. This raises ethical questions towards fairness and discrimination which future works have to address.",
+   "affiliations": [
+    "Technische Universität Darmstadt",
+    "Fraunhofer-Gesellschaft"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Technische Universität Darmstadt",
+    "Fraunhofer-Gesellschaft"
+   ],
+   "institution_ids": [
+    "05n911h24",
+    "05hkkdn48"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2004.01019",
+   "pdf_url": "https://arxiv.org/pdf/2004.01019"
+  },
+  {
    "arxiv_id": "2004.00849",
    "announced": "2020-04-01",
    "title": "Pixel-BERT: Aligning Image Pixels with Text by Deep Multi-Modal Transformers",
@@ -110893,7 +111352,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -116210,7 +116669,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -117539,7 +117998,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -124943,6 +125402,74 @@
    "pdf_url": "https://arxiv.org/pdf/2003.07853"
   },
   {
+   "arxiv_id": "2003.07833",
+   "announced": "2020-03-01",
+   "title": "Latent Embedding Feedback and Discriminative Features for Zero-Shot Classification",
+   "authors": [
+    "Sanath Narayan",
+    "Akshita Gupta",
+    "Fahad Shahbaz Khan",
+    "Cees G. M. Snoek",
+    "Ling Shao"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted for publication at ECCV 2020",
+   "journal_ref": null,
+   "venue": "ECCV 2020",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Zero-shot learning strives to classify unseen categories for which no data is available during training. In the generalized variant, the test samples can further belong to seen or unseen categories. The state-of-the-art relies on Generative Adversarial Networks that synthesize unseen class features by leveraging class-specific semantic embeddings. During training, they generate semantically consistent features, but discard this constraint during feature synthesis and classification. We propose to enforce semantic consistency at all stages of (generalized) zero-shot learning: training, feature synthesis and classification. We first introduce a feedback loop, from a semantic embedding decoder, that iteratively refines the generated features during both the training and feature synthesis stages. The synthesized features together with their corresponding latent embeddings from the decoder are then transformed into discriminative features and utilized during classification to reduce ambiguities among categories. Experiments on (generalized) zero-shot object and action classification reveal the benefit of semantic consistency and iterative feedback, outperforming existing methods on six zero-shot learning benchmarks. Source code at https://github.com/akshitac8/tfvaegan.",
+   "affiliations": [
+    "Inception Institute of Artificial Intelligence",
+    "Mohamed bin Zayed University of Artificial Intelligence",
+    "University of Amsterdam"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "institutions": [
+    "Inception Institute of Artificial Intelligence",
+    "Mohamed bin Zayed University of Artificial Intelligence",
+    "University of Amsterdam"
+   ],
+   "institution_ids": [
+    "02664zk40",
+    "0258gkt32",
+    "04dkp9463"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2003.07833",
+   "pdf_url": "https://arxiv.org/pdf/2003.07833"
+  },
+  {
    "arxiv_id": "2003.07758",
    "announced": "2020-03-01",
    "title": "Multi-modal Dense Video Captioning",
@@ -125380,7 +125907,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -128638,7 +129165,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -130836,7 +131363,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -133732,7 +134259,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -137744,7 +138271,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -140779,7 +141306,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -141081,7 +141608,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -141515,7 +142042,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"

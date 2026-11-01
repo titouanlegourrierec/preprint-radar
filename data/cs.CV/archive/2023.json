@@ -24427,6 +24427,54 @@
    "pdf_url": "https://arxiv.org/pdf/2312.02696"
   },
   {
+   "arxiv_id": "2312.02625",
+   "announced": "2023-12-01",
+   "title": "Diffusion Noise Feature: Accurate and Fast Generated Image Detection",
+   "authors": [
+    "Yichi Zhang",
+    "Xiaogang Xu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by ECAI 2025",
+   "journal_ref": "ECAI 2025",
+   "venue": "ECAI 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Generative models now produce images with such stunning realism that they can easily deceive the human eye. While this progress unlocks vast creative potential, it also presents significant risks, such as the spread of misinformation. Consequently, detecting generated images has become a critical research challenge. However, current detection methods are often plagued by low accuracy and poor generalization. In this paper, to address these limitations and enhance the detection of generated images, we propose a novel representation, Diffusion Noise Feature (DNF). Derived from the inverse process of diffusion models, DNF effectively amplifies the subtle, high-frequency artifacts that act as fingerprints of artificial generation. Our key insight is that real and generated images exhibit distinct DNF signatures, providing a robust basis for differentiation. By training a simple classifier such as ResNet-50 on DNF, our approach achieves remarkable accuracy, robustness, and generalization in detecting generated images, including those from unseen generators or with novel content. Extensive experiments across four training datasets and five test sets confirm that DNF establishes a new state-of-the-art in generated image detection. The code is available at https://github.com/YichiCS/Diffusion-Noise-Feature.",
+   "affiliations": [
+    "Zhejiang University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Zhejiang University"
+   ],
+   "institution_ids": [
+    "00a2xv884"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2312.02625",
+   "pdf_url": "https://arxiv.org/pdf/2312.02625"
+  },
+  {
    "arxiv_id": "2312.02439",
    "announced": "2023-12-01",
    "title": "Let's Think Outside the Box: Exploring Leap-of-Thought in Large Language Models with Creative Humor Generation",
@@ -68907,6 +68955,86 @@
    "pdf_url": "https://arxiv.org/pdf/2310.00227"
   },
   {
+   "arxiv_id": "2310.00196",
+   "announced": "2023-10-01",
+   "title": "The Sem-Lex Benchmark: Modeling ASL Signs and Their Phonemes",
+   "authors": [
+    "Lee Kezar",
+    "Elana Pontecorvo",
+    "Adele Daniels",
+    "Connor Baer",
+    "Ruth Ferster",
+    "Lauren Berger",
+    "Jesse Thomason",
+    "Zed Sevcikova Sehyr",
+    "Naomi Caselli"
+   ],
+   "primary_subject": "Computation and Language (cs.CL)",
+   "subjects": [
+    "Computation and Language (cs.CL)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "In Proceedings of the ACM Conference on Accessibility (ASSETS) 2023",
+   "journal_ref": null,
+   "venue": "ASSETS 2023",
+   "cross_list_from": "cs.CL",
+   "html_url": null,
+   "abstract": "Sign language recognition and translation technologies have the potential to increase access and inclusion of deaf signing communities, but research progress is bottlenecked by a lack of representative data. We introduce a new resource for American Sign Language (ASL) modeling, the Sem-Lex Benchmark. The Benchmark is the current largest of its kind, consisting of over 84k videos of isolated sign productions from deaf ASL signers who gave informed consent and received compensation. Human experts aligned these videos with other sign language resources including ASL-LEX, SignBank, and ASL Citizen, enabling useful expansions for sign and phonological feature recognition. We present a suite of experiments which make use of the linguistic information in ASL-LEX, evaluating the practicality and fairness of the Sem-Lex Benchmark for isolated sign recognition (ISR). We use an SL-GCN model to show that the phonological features are recognizable with 85% accuracy, and that they are effective as an auxiliary target to ISR. Learning to recognize phonological features alongside gloss results in a 6% improvement for few-shot ISR accuracy and a 2% improvement for ISR accuracy overall. Instructions for downloading the data can be found at https://github.com/leekezar/SemLex.",
+   "affiliations": [
+    "University of Southern California",
+    "Boston University",
+    "Wheelock College",
+    "Chapman University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    null,
+    null,
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "University of Southern California",
+    "Boston University",
+    "Wheelock College",
+    "Chapman University"
+   ],
+   "institution_ids": [
+    "03taz7m60",
+    "05qwgg493",
+    "00mnwwq78",
+    "0452jzg20"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2310.00196",
+   "pdf_url": "https://arxiv.org/pdf/2310.00196"
+  },
+  {
    "arxiv_id": "2310.00108",
    "announced": "2023-10-01",
    "title": "Practical Membership Inference Attacks Against Large-Scale Multi-Modal Models: A Pilot Study",
@@ -73449,7 +73577,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -75591,6 +75719,58 @@
    },
    "abs_url": "https://arxiv.org/abs/2309.02436",
    "pdf_url": "https://arxiv.org/pdf/2309.02436"
+  },
+  {
+   "arxiv_id": "2309.02218",
+   "announced": "2023-09-05",
+   "title": "Robustness and Generalizability of Deepfake Detection: A Study with Diffusion Models",
+   "authors": [
+    "Haixu Song",
+    "Shiyu Huang",
+    "Yinpeng Dong",
+    "Wei-Wei Tu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "8 pages, 5 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The rise of deepfake images, especially of well-known personalities, poses a serious threat to the dissemination of authentic information. To tackle this, we present a thorough investigation into how deepfakes are produced and how they can be identified. The cornerstone of our research is a rich collection of artificial celebrity faces, titled DeepFakeFace (DFF). We crafted the DFF dataset using advanced diffusion models and have shared it with the community through online platforms. This data serves as a robust foundation to train and test algorithms designed to spot deepfakes. We carried out a thorough review of the DFF dataset and suggest two evaluation methods to gauge the strength and adaptability of deepfake recognition tools. The first method tests whether an algorithm trained on one type of fake images can recognize those produced by other methods. The second evaluates the algorithm's performance with imperfect images, like those that are blurry, of low quality, or compressed. Given varied results across deepfake methods and image changes, our findings stress the need for better deepfake detectors. Our DFF dataset and tests aim to boost the development of more effective tools against deepfakes.",
+   "affiliations": [
+    "Tsinghua University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "03cve4549"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2309.02218",
+   "pdf_url": "https://arxiv.org/pdf/2309.02218"
   },
   {
    "arxiv_id": "2309.01958",
@@ -82902,7 +83082,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -87680,6 +87860,82 @@
    "pdf_url": "https://arxiv.org/pdf/2308.10330"
   },
   {
+   "arxiv_id": "2308.10175",
+   "announced": "2023-08-20",
+   "title": "BAVS: Bootstrapping Audio-Visual Segmentation by Integrating Foundation Knowledge",
+   "authors": [
+    "Chen Liu",
+    "Peike Li",
+    "Hu Zhang",
+    "Lincheng Li",
+    "Zi Huang",
+    "Dadong Wang",
+    "Xin Yu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Given an audio-visual pair, audio-visual segmentation (AVS) aims to locate sounding sources by predicting pixel-wise maps. Previous methods assume that each sound component in an audio signal always has a visual counterpart in the image. However, this assumption overlooks that off-screen sounds and background noise often contaminate the audio recordings in real-world scenarios. They impose significant challenges on building a consistent semantic mapping between audio and visual signals for AVS models and thus impede precise sound localization. In this work, we propose a two-stage bootstrapping audio-visual segmentation framework by incorporating multi-modal foundation knowledge. In a nutshell, our BAVS is designed to eliminate the interference of background noise or off-screen sounds in segmentation by establishing the audio-visual correspondences in an explicit manner. In the first stage, we employ a segmentation model to localize potential sounding objects from visual data without being affected by contaminated audio signals. Meanwhile, we also utilize a foundation audio classification model to discern audio semantics. Considering the audio tags provided by the audio foundation model are noisy, associating object masks with audio tags is not trivial. Thus, in the second stage, we develop an audio-visual semantic integration strategy (AVIS) to localize the authentic-sounding objects. Here, we construct an audio-visual tree based on the hierarchical correspondence between sounds and object categories. We then examine the label concurrency between the localized objects and classified audio tags by tracing the audio-visual tree. With AVIS, we can effectively segment real-sounding objects. Extensive experiments demonstrate the superiority of our method on AVS datasets, particularly in scenarios involving background noise. Our project website is https://yenanliu.github.io/AVSS.github.io/.",
+   "affiliations": [
+    "University of Queensland",
+    "NetEase",
+    "Commonwealth Scientific and Industrial Research Organisation",
+    "Data61"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Queensland",
+    "NetEase",
+    "Commonwealth Scientific and Industrial Research Organisation",
+    "Data61"
+   ],
+   "institution_ids": [
+    "00rqy9422",
+    "00fp6fj05",
+    "03qn8fb07",
+    "03q397159"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2308.10175",
+   "pdf_url": "https://arxiv.org/pdf/2308.10175"
+  },
+  {
    "arxiv_id": "2308.10141",
    "announced": "2023-08-20",
    "title": "March in Chat: Interactive Prompting for Remote Embodied Referring Expression",
@@ -88743,7 +88999,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -96969,6 +97225,68 @@
    "pdf_url": "https://arxiv.org/pdf/2308.11157"
   },
   {
+   "arxiv_id": "2308.11063",
+   "announced": "2023-08-01",
+   "title": "MetaGCD: Learning to Continually Learn in Generalized Category Discovery",
+   "authors": [
+    "Yanan Wu",
+    "Zhixiang Chi",
+    "Yang Wang",
+    "Songhe Feng"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "This paper has been accepted by ICCV2023",
+   "journal_ref": null,
+   "venue": "ICCV 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this paper, we consider a real-world scenario where a model that is trained on pre-defined classes continually encounters unlabeled data that contains both known and novel classes. The goal is to continually discover novel classes while maintaining the performance in known classes. We name the setting Continual Generalized Category Discovery (C-GCD). Existing methods for novel class discovery cannot directly handle the C-GCD setting due to some unrealistic assumptions, such as the unlabeled data only containing novel classes. Furthermore, they fail to discover novel classes in a continual fashion. In this work, we lift all these assumptions and propose an approach, called MetaGCD, to learn how to incrementally discover with less forgetting. Our proposed method uses a meta-learning framework and leverages the offline labeled data to simulate the testing incremental learning process. A meta-objective is defined to revolve around two conflicting learning objectives to achieve novel class discovery without forgetting. Furthermore, a soft neighborhood-based contrastive network is proposed to discriminate uncorrelated images while attracting correlated images. We build strong baselines and conduct extensive experiments on three widely used benchmarks to demonstrate the superiority of our method.",
+   "affiliations": [
+    "Beijing Jiaotong University",
+    "University of Toronto",
+    "Concordia University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Beijing Jiaotong University",
+    "University of Toronto",
+    "Concordia University"
+   ],
+   "institution_ids": [
+    "01yj56c84",
+    "03dbr7087",
+    "0420zvk78"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2308.11063",
+   "pdf_url": "https://arxiv.org/pdf/2308.11063"
+  },
+  {
    "arxiv_id": "2308.10820",
    "announced": "2023-08-01",
    "title": "Pixel Adaptive Deep Unfolding Transformer for Hyperspectral Image Reconstruction",
@@ -99509,7 +99827,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -108412,7 +108730,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -111347,6 +111665,73 @@
    },
    "abs_url": "https://arxiv.org/abs/2307.13925",
    "pdf_url": "https://arxiv.org/pdf/2307.13925"
+  },
+  {
+   "arxiv_id": "2307.12964",
+   "announced": "2023-07-01",
+   "title": "Audio-Enhanced Text-to-Video Retrieval using Text-Conditioned Feature Alignment",
+   "authors": [
+    "Sarah Ibrahimi",
+    "Xiaohang Sun",
+    "Pichao Wang",
+    "Amanmeet Garg",
+    "Ashutosh Sanan",
+    "Mohamed Omar"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Proceedings of the IEEE/CVF International Conference on Computer Vision. 2023",
+   "journal_ref": null,
+   "venue": "ICCV",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Text-to-video retrieval systems have recently made significant progress by utilizing pre-trained models trained on large-scale image-text pairs. However, most of the latest methods primarily focus on the video modality while disregarding the audio signal for this task. Nevertheless, a recent advancement by ECLIPSE has improved long-range text-to-video retrieval by developing an audiovisual video representation. Nonetheless, the objective of the text-to-video retrieval task is to capture the complementary audio and video information that is pertinent to the text query rather than simply achieving better audio and video alignment. To address this issue, we introduce TEFAL, a TExt-conditioned Feature ALignment method that produces both audio and video representations conditioned on the text query. Instead of using only an audiovisual attention block, which could suppress the audio information relevant to the text query, our approach employs two independent cross-modal attention blocks that enable the text to attend to the audio and video representations separately. Our proposed method's efficacy is demonstrated on four benchmark datasets that include audio: MSR-VTT, LSMDC, VATEX, and Charades, and achieves better than state-of-the-art performance consistently across the four datasets. This is attributed to the additional text-query-conditioned audio representation and the complementary information it adds to the text-query-conditioned video representation.",
+   "affiliations": [
+    "University of Amsterdam",
+    "Amazon"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Amsterdam",
+    "Amazon"
+   ],
+   "institution_ids": [
+    "04dkp9463",
+    "04mv4n011"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2307.12964",
+   "pdf_url": "https://arxiv.org/pdf/2307.12964"
   },
   {
    "arxiv_id": "2307.12907",
@@ -116109,7 +116494,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -120894,7 +121279,7 @@
     "Machine Learning (cs.LG)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "ICML 2023",
+   "comments": "Published in ICML 2023; Code is available on the project page: https://yingheng-wang.com/infodiffusion-page/",
    "journal_ref": null,
    "venue": "ICML 2023",
    "cross_list_from": "cs.LG",
@@ -124918,6 +125303,50 @@
    },
    "abs_url": "https://arxiv.org/abs/2306.15670",
    "pdf_url": "https://arxiv.org/pdf/2306.15670"
+  },
+  {
+   "arxiv_id": "2306.15668",
+   "announced": "2023-06-01",
+   "title": "Physion++: Evaluating Physical Scene Understanding that Requires Online Inference of Different Physical Properties",
+   "authors": [
+    "Hsiao-Yu Tung",
+    "Mingyu Ding",
+    "Zhenfang Chen",
+    "Daniel Bear",
+    "Chuang Gan",
+    "Joshua B. Tenenbaum",
+    "Daniel LK Yamins",
+    "Judith E Fan",
+    "Kevin A. Smith"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Graphics (cs.GR)",
+    "Robotics (cs.RO)"
+   ],
+   "comments": "Accepted by NeurIPS 2023 Datasets and Benchmarks Track",
+   "journal_ref": null,
+   "venue": "NeurIPS 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "General physical scene understanding requires more than simply localizing and recognizing objects -- it requires knowledge that objects can have different latent properties (e.g., mass or elasticity), and that those properties affect the outcome of physical events. While there has been great progress in physical and video prediction models in recent years, benchmarks to test their performance typically do not require an understanding that objects have individual physical properties, or at best test only those properties that are directly observable (e.g., size or color). This work proposes a novel dataset and benchmark, termed Physion++, that rigorously evaluates visual physical prediction in artificial systems under circumstances where those predictions rely on accurate estimates of the latent physical properties of objects in the scene. Specifically, we test scenarios where accurate prediction relies on estimates of properties such as mass, friction, elasticity, and deformability, and where the values of those properties can only be inferred by observing how objects move and interact with other objects or fluids. We evaluate the performance of a number of state-of-the-art prediction models that span a variety of levels of learning vs. built-in knowledge, and compare that performance to a set of human predictions. We find that models that have been trained using standard regimes and datasets do not spontaneously learn to make inferences about latent properties, but also that models that encode objectness and physical states tend to make better predictions. However, there is still a huge gap between all models and human performance, and all models' predictions correlate poorly with those made by humans, suggesting that no state-of-the-art model is learning to make physical predictions in a human-like way. Project page: https://dingmyu.github.io/physion_v2/",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2306.15668",
+   "pdf_url": "https://arxiv.org/pdf/2306.15668"
   },
   {
    "arxiv_id": "2306.15667",
@@ -143814,6 +144243,46 @@
    "pdf_url": "https://arxiv.org/pdf/2305.06356"
   },
   {
+   "arxiv_id": "2305.00666",
+   "announced": "2023-05-11",
+   "title": "Part Aware Contrastive Learning for Self-Supervised Action Recognition",
+   "authors": [
+    "Yilei Hua",
+    "Wenhan Wu",
+    "Ce Zheng",
+    "Aidong Lu",
+    "Mengyuan Liu",
+    "Chen Chen",
+    "Shiqian Wu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "7 pages, 4 figures, accepted by IJCAI 2023",
+   "journal_ref": null,
+   "venue": "IJCAI 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In recent years, remarkable results have been achieved in self-supervised action recognition using skeleton sequences with contrastive learning. It has been observed that the semantic distinction of human action features is often represented by local body parts, such as legs or hands, which are advantageous for skeleton-based action recognition. This paper proposes an attention-based contrastive learning framework for skeleton representation learning, called SkeAttnCLR, which integrates local similarity and global features for skeleton-based action representations. To achieve this, a multi-head attention mask module is employed to learn the soft attention mask features from the skeletons, suppressing non-salient local features while accentuating local salient features, thereby bringing similar local features closer in the feature space. Additionally, ample contrastive pairs are generated by expanding contrastive pairs based on salient and non-salient features with global features, which guide the network to learn the semantic representations of the entire skeleton. Therefore, with the attention mask mechanism, SkeAttnCLR learns local features under different data augmentation views. The experiment results demonstrate that the inclusion of local feature similarity significantly enhances skeleton-based action representation. Our proposed SkeAttnCLR outperforms state-of-the-art methods on NTURGB+D, NTU120-RGB+D, and PKU-MMD datasets.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2305.00666",
+   "pdf_url": "https://arxiv.org/pdf/2305.00666"
+  },
+  {
    "arxiv_id": "2305.06386",
    "announced": "2023-05-10",
    "title": "Text-To-Concept (and Back) via Cross-Model Alignment",
@@ -150565,7 +151034,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -156455,7 +156924,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -178082,6 +178551,71 @@
    "pdf_url": "https://arxiv.org/pdf/2304.04909"
   },
   {
+   "arxiv_id": "2304.04748",
+   "announced": "2023-04-01",
+   "title": "Exploring Effective Factors for Improving Visual In-Context Learning",
+   "authors": [
+    "Yanpeng Sun",
+    "Qiang Chen",
+    "Xiaofan Li",
+    "Jian Wang",
+    "Jingdong Wang",
+    "Zechao Li"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The In-Context Learning (ICL) is to understand a new task via a few demonstrations (aka. prompt) and predict new inputs without tuning the models. While it has been widely studied in NLP, it is still a relatively new area of research in computer vision. To reveal the factors influencing the performance of visual in-context learning, this paper shows that prompt selection and prompt fusion are two major factors that have a direct impact on the inference performance of visual context learning. Prompt selection is the process of identifying the most appropriate prompt or example to help the model understand new tasks. This is important because providing the model with relevant prompts can help it learn more effectively and efficiently. Prompt fusion involves combining knowledge from different positions within the large-scale visual model. By doing this, the model can leverage the diverse knowledge stored in different parts of the model to improve its performance on new tasks. Based these findings, we propose a simple framework prompt-SelF for visual in-context learning. Specifically, we first use the pixel-level retrieval method to select a suitable prompt, and then use different prompt fusion methods to activate all the knowledge stored in the large-scale model, and finally ensemble the prediction results obtained from different prompt fusion methods to obtain the final prediction results. And we conduct extensive experiments on single-object segmentation and detection tasks to demonstrate the effectiveness of prompt-SelF. Remarkably, the prompt-SelF has outperformed OSLSM based meta-learning in 1-shot segmentation for the first time. This indicated the great potential of visual in-context learning. The source code and models will be available at https://github.com/syp2ysy/prompt-SelF.",
+   "affiliations": [
+    "Nanjing University of Science and Technology",
+    "Baidu"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Nanjing University of Science and Technology",
+    "Baidu"
+   ],
+   "institution_ids": [
+    "00xp9wg62",
+    "03vs3wt56"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2304.04748",
+   "pdf_url": "https://arxiv.org/pdf/2304.04748"
+  },
+  {
    "arxiv_id": "2304.04589",
    "announced": "2023-04-01",
    "title": "Hyperspectral Image Super-Resolution via Dual-domain Network Based on Hybrid Convolution",
@@ -182984,6 +183518,97 @@
    },
    "abs_url": "https://arxiv.org/abs/2303.16406",
    "pdf_url": "https://arxiv.org/pdf/2303.16406"
+  },
+  {
+   "arxiv_id": "2303.07634",
+   "announced": "2023-03-29",
+   "title": "I$^2$-SDF: Intrinsic Indoor Scene Reconstruction and Editing via Raytracing in Neural SDFs",
+   "authors": [
+    "Jingsen Zhu",
+    "Yuchi Huo",
+    "Qi Ye",
+    "Fujun Luan",
+    "Jifan Li",
+    "Dianbing Xi",
+    "Lisha Wang",
+    "Rui Tang",
+    "Wei Hua",
+    "Hujun Bao",
+    "Rui Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Graphics (cs.GR)"
+   ],
+   "comments": "Accepted by CVPR 2023, project page: https://jingsenzhu.github.io/i2-sdf",
+   "journal_ref": null,
+   "venue": "CVPR 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this work, we present I$^2$-SDF, a new method for intrinsic indoor scene reconstruction and editing using differentiable Monte Carlo raytracing on neural signed distance fields (SDFs). Our holistic neural SDF-based framework jointly recovers the underlying shapes, incident radiance and materials from multi-view images. We introduce a novel bubble loss for fine-grained small objects and error-guided adaptive sampling scheme to largely improve the reconstruction quality on large-scale indoor scenes. Further, we propose to decompose the neural radiance field into spatially-varying material of the scene as a neural field through surface-based, differentiable Monte Carlo raytracing and emitter semantic segmentations, which enables physically based and photorealistic scene relighting and editing applications. Through a number of qualitative and quantitative experiments, we demonstrate the superior quality of our method on indoor scene reconstruction, novel view synthesis, and scene editing compared to state-of-the-art baselines.",
+   "affiliations": [
+    "Zhejiang University",
+    "Zhejiang Lab",
+    "Adobe Systems"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Zhejiang University",
+    "Zhejiang Lab",
+    "Adobe"
+   ],
+   "institution_ids": [
+    "00a2xv884",
+    "02m2h7991",
+    "059tvcg64"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2303.07634",
+   "pdf_url": "https://arxiv.org/pdf/2303.07634"
   },
   {
    "arxiv_id": "2303.16320",
@@ -202601,7 +203226,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -203801,6 +204426,58 @@
    },
    "abs_url": "https://arxiv.org/abs/2303.13867",
    "pdf_url": "https://arxiv.org/pdf/2303.13867"
+  },
+  {
+   "arxiv_id": "2303.13845",
+   "announced": "2023-03-01",
+   "title": "Anomaly Detection under Distribution Shift",
+   "authors": [
+    "Tri Cao",
+    "Jiawen Zhu",
+    "Guansong Pang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted at ICCV 2023",
+   "journal_ref": null,
+   "venue": "ICCV 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Anomaly detection (AD) is a crucial machine learning task that aims to learn patterns from a set of normal training samples to identify abnormal samples in test data. Most existing AD studies assume that the training and test data are drawn from the same data distribution, but the test data can have large distribution shifts arising in many real-world applications due to different natural variations such as new lighting conditions, object poses, or background appearances, rendering existing AD methods ineffective in such cases. In this paper, we consider the problem of anomaly detection under distribution shift and establish performance benchmarks on four widely-used AD and out-of-distribution (OOD) generalization datasets. We demonstrate that simple adaptation of state-of-the-art OOD generalization methods to AD settings fails to work effectively due to the lack of labeled anomaly data. We further introduce a novel robust AD approach to diverse distribution shifts by minimizing the distribution gap between in-distribution and OOD normal samples in both the training and inference stages in an unsupervised way. Our extensive empirical results on the four datasets show that our approach substantially outperforms state-of-the-art AD methods and OOD generalization methods on data with various distribution shifts, while maintaining the detection accuracy on in-distribution data. Code and data are available at https://github.com/mala-lab/ADShift.",
+   "affiliations": [
+    "Singapore Management University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Singapore Management University"
+   ],
+   "institution_ids": [
+    "050qmg959"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2303.13845",
+   "pdf_url": "https://arxiv.org/pdf/2303.13845"
   },
   {
    "arxiv_id": "2303.13764",
@@ -225862,6 +226539,53 @@
    },
    "abs_url": "https://arxiv.org/abs/2302.00402",
    "pdf_url": "https://arxiv.org/pdf/2302.00402"
+  },
+  {
+   "arxiv_id": "2302.00225",
+   "announced": "2023-02-01",
+   "title": "The Past, Current, and Future of Neonatal Intensive Care Units with Artificial Intelligence",
+   "authors": [
+    "Elif Keles",
+    "Ulas Bagci"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "90 pages, review article",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Machine learning and deep learning are two subsets of artificial intelligence that involve teaching computers to learn and make decisions from any sort of data. Most recent developments in artificial intelligence are coming from deep learning, which has proven revolutionary in almost all fields, from computer vision to health sciences. The effects of deep learning in medicine have changed the conventional ways of clinical application significantly. Although some sub-fields of medicine, such as pediatrics, have been relatively slow in receiving the critical benefits of deep learning, related research in pediatrics has started to accumulate to a significant level, too. Hence, in this paper, we review recently developed machine learning and deep learning-based solutions for neonatology applications. We systematically evaluate the roles of both classical machine learning and deep learning in neonatology applications, define the methodologies, including algorithmic developments, and describe the remaining challenges in the assessment of neonatal diseases by using PRISMA 2020 guidelines. To date, the primary areas of focus in neonatology regarding AI applications have included survival analysis, neuroimaging, analysis of vital parameters and biosignals, and retinopathy of prematurity diagnosis. We have categorically summarized 106 research articles from 1996 to 2022 and discussed their pros and cons, respectively. In this systematic review, we aimed to further enhance the comprehensiveness of the study. We also discuss possible directions for new AI models and the future of neonatology with the rising power of AI, suggesting roadmaps for the integration of AI into neonatal intensive care units.",
+   "affiliations": [
+    "Northwestern University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "Northwestern University"
+   ],
+   "institution_ids": [
+    "000e0be47"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2302.00225",
+   "pdf_url": "https://arxiv.org/pdf/2302.00225"
   },
   {
    "arxiv_id": "2302.00070",

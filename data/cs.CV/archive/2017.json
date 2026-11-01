@@ -651,6 +651,70 @@
    "pdf_url": "https://arxiv.org/pdf/1712.07384"
   },
   {
+   "arxiv_id": "1712.07271",
+   "announced": "2017-12-20",
+   "title": "Learning Sight from Sound: Ambient Sound Provides Supervision for Visual Learning",
+   "authors": [
+    "Andrew Owens",
+    "Jiajun Wu",
+    "Josh H. McDermott",
+    "William T. Freeman",
+    "Antonio Torralba"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Journal preprint of arXiv:1608.07017 (unpublished submission to IJCV)",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The sound of crashing waves, the roar of fast-moving cars -- sound conveys important information about the objects in our surroundings. In this work, we show that ambient sounds can be used as a supervisory signal for learning visual models. To demonstrate this, we train a convolutional neural network to predict a statistical summary of the sound associated with a video frame. We show that, through this process, the network learns a representation that conveys information about objects and scenes. We evaluate this representation on several recognition tasks, finding that its performance is comparable to that of other state-of-the-art unsupervised learning methods. Finally, we show through visualizations that the network learns units that are selective to objects that are often associated with characteristic sounds. This paper extends an earlier conference paper, Owens et al. 2016, with additional experiments and discussion.",
+   "affiliations": [
+    "Massachusetts Institute of Technology",
+    "University of California, Berkeley"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Massachusetts Institute of Technology",
+    "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "042nb2s44",
+    "01an7q238"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1712.07271",
+   "pdf_url": "https://arxiv.org/pdf/1712.07271"
+  },
+  {
    "arxiv_id": "1712.09382",
    "announced": "2017-12-19",
    "title": "Audio to Body Dynamics",
@@ -11851,6 +11915,70 @@
    "pdf_url": "https://arxiv.org/pdf/1711.09001"
   },
   {
+   "arxiv_id": "1711.08998",
+   "announced": "2017-11-01",
+   "title": "Visual Feature Attribution using Wasserstein GANs",
+   "authors": [
+    "Christian F. Baumgartner",
+    "Lisa M. Koch",
+    "Kerem Can Tezcan",
+    "Jia Xi Ang",
+    "Ender Konukoglu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to CVPR 2018",
+   "journal_ref": null,
+   "venue": "CVPR 2018",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Attributing the pixels of an input image to a certain category is an important and well-studied problem in computer vision, with applications ranging from weakly supervised localisation to understanding hidden effects in the data. In recent years, approaches based on interpreting a previously trained neural network classifier have become the de facto state-of-the-art and are commonly used on medical as well as natural image datasets. In this paper, we discuss a limitation of these approaches which may lead to only a subset of the category specific features being detected. To address this problem we develop a novel feature attribution technique based on Wasserstein Generative Adversarial Networks (WGAN), which does not suffer from this limitation. We show that our proposed method performs substantially better than the state-of-the-art for visual attribution on a synthetic dataset and on real 3D neuroimaging data from patients with mild cognitive impairment (MCI) and Alzheimer's disease (AD). For AD patients the method produces compellingly realistic disease effect maps which are very close to the observed effects.",
+   "affiliations": [
+    "ETH Zurich",
+    "Computer Vision Laboratory"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "ETH Zurich",
+    "Computer Vision Laboratory"
+   ],
+   "institution_ids": [
+    "05a28rw58",
+    "059ygsz90"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1711.08998",
+   "pdf_url": "https://arxiv.org/pdf/1711.08998"
+  },
+  {
    "arxiv_id": "1711.08995",
    "announced": "2017-11-01",
    "title": "Unsupervised Domain Adaptation with Similarity Learning",
@@ -15550,6 +15678,46 @@
    "pdf_url": "https://arxiv.org/pdf/1711.04322"
   },
   {
+   "arxiv_id": "1711.03678",
+   "announced": "2017-11-01",
+   "title": "Self-Supervised Intrinsic Image Decomposition",
+   "authors": [
+    "Michael Janner",
+    "Jiajun Wu",
+    "Tejas D. Kulkarni",
+    "Ilker Yildirim",
+    "Joshua B. Tenenbaum"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Graphics (cs.GR)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "NIPS 2017 camera-ready version, project page: http://rin.csail.mit.edu/",
+   "journal_ref": null,
+   "venue": "NeurIPS 2017",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Intrinsic decomposition from a single image is a highly challenging task, due to its inherent ambiguity and the scarcity of training data. In contrast to traditional fully supervised learning approaches, in this paper we propose learning intrinsic image decomposition by explaining the input image. Our model, the Rendered Intrinsics Network (RIN), joins together an image decomposition pipeline, which predicts reflectance, shape, and lighting conditions given a single image, with a recombination function, a learned shading model used to recompose the original input based off of intrinsic image predictions. Our network can then use unsupervised reconstruction error as an additional signal to improve its intermediate representations. This allows large-scale unlabeled data to be useful during training, and also enables transferring learned knowledge to images of unseen object categories, lighting conditions, and shapes. Extensive experiments demonstrate that our method performs well on both intrinsic image decomposition and knowledge transfer.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1711.03678",
+   "pdf_url": "https://arxiv.org/pdf/1711.03678"
+  },
+  {
    "arxiv_id": "1711.03213",
    "announced": "2017-11-01",
    "title": "CyCADA: Cycle-Consistent Adversarial Domain Adaptation",
@@ -18463,7 +18631,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -30825,7 +30993,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -32895,6 +33063,54 @@
    },
    "abs_url": "https://arxiv.org/abs/1707.09405",
    "pdf_url": "https://arxiv.org/pdf/1707.09405"
+  },
+  {
+   "arxiv_id": "1707.09145",
+   "announced": "2017-07-28",
+   "title": "Spatial-Aware Object Embeddings for Zero-Shot Localization and Classification of Actions",
+   "authors": [
+    "Pascal Mettes",
+    "Cees G. M. Snoek"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "ICCV",
+   "journal_ref": null,
+   "venue": "ICCV",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We aim for zero-shot localization and classification of human actions in video. Where traditional approaches rely on global attribute or object classification scores for their zero-shot knowledge transfer, our main contribution is a spatial-aware object embedding. To arrive at spatial awareness, we build our embedding on top of freely available actor and object detectors. Relevance of objects is determined in a word embedding space and further enforced with estimated spatial preferences. Besides local object awareness, we also embed global object awareness into our embedding to maximize actor and object interaction. Finally, we exploit the object positions and sizes in the spatial-aware embedding to demonstrate a new spatio-temporal action retrieval scenario with composite queries. Action localization and classification experiments on four contemporary action video datasets support our proposal. Apart from state-of-the-art results in the zero-shot localization and classification settings, our spatial-aware embedding is even competitive with recent supervised action localization alternatives.",
+   "affiliations": [
+    "University of Amsterdam"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Amsterdam"
+   ],
+   "institution_ids": [
+    "04dkp9463"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1707.09145",
+   "pdf_url": "https://arxiv.org/pdf/1707.09145"
   },
   {
    "arxiv_id": "1707.08347",
@@ -37558,7 +37774,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -40740,6 +40956,69 @@
    },
    "abs_url": "https://arxiv.org/abs/1706.08502",
    "pdf_url": "https://arxiv.org/pdf/1706.08502"
+  },
+  {
+   "arxiv_id": "1706.08249",
+   "announced": "2017-06-01",
+   "title": "Few-Example Object Detection with Model Communication",
+   "authors": [
+    "Xuanyi Dong",
+    "Liang Zheng",
+    "Fan Ma",
+    "Yi Yang",
+    "Deyu Meng"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI) 2018",
+   "journal_ref": null,
+   "venue": "TPAMI 2018",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this paper, we study object detection using a large pool of unlabeled images and only a few labeled images per category, named \"few-example object detection\". The key challenge consists in generating trustworthy training samples as many as possible from the pool. Using few training examples as seeds, our method iterates between model training and high-confidence sample selection. In training, easy samples are generated first and, then the poorly initialized model undergoes improvement. As the model becomes more discriminative, challenging but reliable samples are selected. After that, another round of model improvement takes place. To further improve the precision and recall of the generated training samples, we embed multiple detection models in our framework, which has proven to outperform the single model baseline and the model ensemble method. Experiments on PASCAL VOC'07, MS COCO'14, and ILSVRC'13 indicate that by using as few as three or four samples selected for each category, our method produces very competitive results when compared to the state-of-the-art weakly-supervised approaches using a large number of image-level labels.",
+   "affiliations": [
+    "University of Technology Sydney",
+    "Xi'an Jiaotong University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Technology Sydney",
+    "Xi'an Jiaotong University"
+   ],
+   "institution_ids": [
+    "03f0f6041",
+    "017zhmm22"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1706.08249",
+   "pdf_url": "https://arxiv.org/pdf/1706.08249"
   },
   {
    "arxiv_id": "1706.08033",
@@ -49297,7 +49576,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -53319,7 +53598,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -55063,7 +55342,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -58767,7 +59046,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -59183,7 +59462,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -59550,7 +59829,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -66583,7 +66862,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"

@@ -1306,6 +1306,45 @@
    "pdf_url": "https://arxiv.org/pdf/1311.5591"
   },
   {
+   "arxiv_id": "1311.4158",
+   "announced": "2013-11-01",
+   "title": "Unsupervised Learning of Invariant Representations in Hierarchical Architectures",
+   "authors": [
+    "Fabio Anselmi",
+    "Joel Z. Leibo",
+    "Lorenzo Rosasco",
+    "Jim Mutch",
+    "Andrea Tacchetti",
+    "Tomaso Poggio"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "23 pages, 10 figures. November 21 2013: Added acknowledgment of NSF funding. No other changes. December 18 (2013): Fixed a figure. January 10 (2014): Fixed a figure and some math in SI. March 10 2014: modified abstract and implementation section (main and SI); added a paragraph about sample complexity in SI",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The present phase of Machine Learning is characterized by supervised learning algorithms relying on large sets of labeled examples (n →∞). The next phase is likely to focus on algorithms capable of learning from very few labeled examples (n →1), like humans seem able to do. We propose an approach to this problem and describe the underlying theory, based on the unsupervised, automatic learning of a ``good'' representation for supervised learning, characterized by small sample complexity (n). We consider the case of visual object recognition though the theory applies to other domains. The starting point is the conjecture, proved in specific cases, that image representations which are invariant to translations, scaling and other transformations can considerably reduce the sample complexity of learning. We prove that an invariant and unique (discriminative) signature can be computed for each image patch, I, in terms of empirical distributions of the dot-products between I and a set of templates stored during unsupervised learning. A module performing filtering and pooling, like the simple and complex cells described by Hubel and Wiesel, can compute such estimates. Hierarchical architectures consisting of this basic Hubel-Wiesel moduli inherit its properties of invariance, stability, and discriminability while capturing the compositional organization of the visual world in terms of wholes and parts. The theory extends existing deep learning convolutional architectures for image and speech recognition. It also suggests that the main computational goal of the ventral stream of visual cortex is to provide a hierarchical representation of new objects/images which is invariant to transformations, stable, and discriminative for recognition—and that this representation may be continuously learned in an unsupervised way during development and visual experience.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1311.4158",
+   "pdf_url": "https://arxiv.org/pdf/1311.4158"
+  },
+  {
    "arxiv_id": "1311.3715",
    "announced": "2013-11-01",
    "title": "Recognizing Image Style",
@@ -1928,62 +1967,6 @@
    },
    "abs_url": "https://arxiv.org/abs/1309.1853",
    "pdf_url": "https://arxiv.org/pdf/1309.1853"
-  },
-  {
-   "arxiv_id": "1309.7643",
-   "announced": "2013-09-01",
-   "title": "Rotationally Invariant Image Representation for Viewing Direction Classification in Cryo-EM",
-   "authors": [
-    "Zhizhen Zhao",
-    "Amit Singer"
-   ],
-   "primary_subject": "Biomolecules (q-bio.BM)",
-   "subjects": [
-    "Biomolecules (q-bio.BM)",
-    "Computer Vision and Pattern Recognition (cs.CV)"
-   ],
-   "comments": null,
-   "journal_ref": null,
-   "venue": null,
-   "cross_list_from": "q-bio.BM",
-   "html_url": null,
-   "abstract": "We introduce a new rotationally invariant viewing angle classification method for identifying, among a large number of Cryo-EM projection images, similar views without prior knowledge of the molecule. Our rotationally invariant features are based on the bispectrum. Each image is denoised and compressed using steerable principal component analysis (PCA) such that rotating an image is equivalent to phase shifting the expansion coefficients. Thus we are able to extend the theory of bispectrum of 1D periodic signals to 2D images. The randomized PCA algorithm is then used to efficiently reduce the dimensionality of the bispectrum coefficients, enabling fast computation of the similarity between any pair of images. The nearest neighbors provide an initial classification of similar viewing angles. In this way, rotational alignment is only performed for images with their nearest neighbors. The initial nearest neighbor classification and alignment are further improved by a new classification method called vector diffusion maps. Our pipeline for viewing angle classification and alignment is experimentally shown to be faster and more accurate than reference-free alignment with rotationally invariant K-means clustering, MSA/MRA 2D classification, and their modern approximations.",
-   "affiliations": [
-    "Courant Institute of Mathematical Sciences",
-    "New York University",
-    "Princeton University"
-   ],
-   "author_affiliations": [
-    [
-     0,
-     1
-    ],
-    [
-     2
-    ]
-   ],
-   "institutions": [
-    "Courant Institute of Mathematical Sciences",
-    "New York University",
-    "Princeton University"
-   ],
-   "institution_ids": [
-    "037tm7f56",
-    "0190ak572",
-    "00hx57361"
-   ],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-25"
-    },
-    "institutions": {
-     "source": "openalex",
-     "at": "2026-10-25"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/1309.7643",
-   "pdf_url": "https://arxiv.org/pdf/1309.7643"
   },
   {
    "arxiv_id": "1309.6487",

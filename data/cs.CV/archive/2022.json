@@ -6816,6 +6816,57 @@
    "pdf_url": "https://arxiv.org/pdf/2212.09748"
   },
   {
+   "arxiv_id": "2212.09713",
+   "announced": "2022-12-01",
+   "title": "A Probabilistic Framework for Lifelong Test-Time Adaptation",
+   "authors": [
+    "Dhanajit Brahma",
+    "Piyush Rai"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": "Accepted in CVPR 2023",
+   "journal_ref": null,
+   "venue": "CVPR 2023",
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "Test-time adaptation (TTA) is the problem of updating a pre-trained source model at inference time given test input(s) from a different target domain. Most existing TTA approaches assume the setting in which the target domain is stationary, i.e., all the test inputs come from a single target domain. However, in many practical settings, the test input distribution might exhibit a lifelong/continual shift over time. Moreover, existing TTA approaches also lack the ability to provide reliable uncertainty estimates, which is crucial when distribution shifts occur between the source and target domain. To address these issues, we present PETAL (Probabilistic lifElong Test-time Adaptation with seLf-training prior), which solves lifelong TTA using a probabilistic approach, and naturally results in (1) a student-teacher framework, where the teacher model is an exponential moving average of the student model, and (2) regularizing the model updates at inference time using the source model as a regularizer. To prevent model drift in the lifelong/continual TTA setting, we also propose a data-driven parameter restoration technique which contributes to reducing the error accumulation and maintaining the knowledge of recent domains by restoring only the irrelevant parameters. In terms of predictive error rate as well as uncertainty based metrics such as Brier score and negative log-likelihood, our method achieves better results than the current state-of-the-art for online lifelong test-time adaptation across various benchmarks, such as CIFAR-10C, CIFAR-100C, ImageNetC, and ImageNet3DCC datasets. The source code for our approach is accessible at https://github.com/dhanajitb/petal.",
+   "affiliations": [
+    "Indian Institute of Technology Kanpur"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Indian Institute of Technology Kanpur"
+   ],
+   "institution_ids": [
+    "05pjsgx75"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2212.09713",
+   "pdf_url": "https://arxiv.org/pdf/2212.09713"
+  },
+  {
    "arxiv_id": "2212.09662",
    "announced": "2022-12-01",
    "title": "MatCha: Enhancing Visual Language Pretraining with Math Reasoning and Chart Derendering",
@@ -13254,6 +13305,86 @@
    },
    "abs_url": "https://arxiv.org/abs/2212.01789",
    "pdf_url": "https://arxiv.org/pdf/2212.01789"
+  },
+  {
+   "arxiv_id": "2212.01758",
+   "announced": "2022-12-01",
+   "title": "Improving Zero-shot Generalization and Robustness of Multi-modal Models",
+   "authors": [
+    "Yunhao Ge",
+    "Jie Ren",
+    "Andrew Gallagher",
+    "Yuxiao Wang",
+    "Ming-Hsuan Yang",
+    "Hartwig Adam",
+    "Laurent Itti",
+    "Balaji Lakshminarayanan",
+    "Jiaping Zhao"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "CVPR 2023",
+   "journal_ref": null,
+   "venue": "CVPR 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Multi-modal image-text models such as CLIP and LiT have demonstrated impressive performance on image classification benchmarks and their zero-shot generalization ability is particularly exciting. While the top-5 zero-shot accuracies of these models are very high, the top-1 accuracies are much lower (over 25% gap in some cases). We investigate the reasons for this performance gap and find that many of the failure cases are caused by ambiguity in the text prompts. First, we develop a simple and efficient zero-shot post-hoc method to identify images whose top-1 prediction is likely to be incorrect, by measuring consistency of the predictions w.r.t. multiple prompts and image transformations. We show that our procedure better predicts mistakes, outperforming the popular max logit baseline on selective prediction tasks. Next, we propose a simple and efficient way to improve accuracy on such uncertain images by making use of the WordNet hierarchy; specifically we augment the original class by incorporating its parent and children from the semantic label hierarchy, and plug the augmentation into text prompts. We conduct experiments on both CLIP and LiT models with five different ImageNet-based datasets. For CLIP, our method improves the top-1 accuracy by 17.13% on the uncertain subset and 3.6% on the entire ImageNet validation set. We also show that our method improves across ImageNet shifted datasets, four other datasets, and other model architectures such as LiT. The proposed method is hyperparameter-free, requires no additional model training and can be easily scaled to other large multi-modal architectures. Code is available at https://github.com/gyhandy/Hierarchy-CLIP.",
+   "affiliations": [
+    "University of Southern California",
+    "Google"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Southern California",
+    "Google"
+   ],
+   "institution_ids": [
+    "03taz7m60",
+    "00njsd438"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2212.01758",
+   "pdf_url": "https://arxiv.org/pdf/2212.01758"
   },
   {
    "arxiv_id": "2212.01593",
@@ -33015,6 +33146,46 @@
    "pdf_url": "https://arxiv.org/pdf/2210.15176"
   },
   {
+   "arxiv_id": "2210.15127",
+   "announced": "2022-10-27",
+   "title": "Rethinking the Reverse-engineering of Trojan Triggers",
+   "authors": [
+    "Zhenting Wang",
+    "Kai Mei",
+    "Hailun Ding",
+    "Juan Zhai",
+    "Shiqing Ma"
+   ],
+   "primary_subject": "Cryptography and Security (cs.CR)",
+   "subjects": [
+    "Cryptography and Security (cs.CR)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.CR",
+   "html_url": null,
+   "abstract": "Deep Neural Networks are vulnerable to Trojan (or backdoor) attacks. Reverse-engineering methods can reconstruct the trigger and thus identify affected models. Existing reverse-engineering methods only consider input space constraints, e.g., trigger size in the input space. Expressly, they assume the triggers are static patterns in the input space and fail to detect models with feature space triggers such as image style transformations. We observe that both input-space and feature-space Trojans are associated with feature space hyperplanes. Based on this observation, we design a novel reverse-engineering method that exploits the feature space constraint to reverse-engineer Trojan triggers. Results on four datasets and seven different attacks demonstrate that our solution effectively defends both input-space and feature-space Trojans. It outperforms state-of-the-art reverse-engineering methods and other types of defenses in both Trojaned model detection and mitigation tasks. On average, the detection accuracy of our method is 93%. For Trojan mitigation, our method can reduce the ASR (attack success rate) to only 0.26% with the BA (benign accuracy) remaining nearly unchanged. Our code can be found at https://github.com/RU-System-Software-and-Security/FeatureRE.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2210.15127",
+   "pdf_url": "https://arxiv.org/pdf/2210.15127"
+  },
+  {
    "arxiv_id": "2210.14831",
    "announced": "2022-10-26",
    "title": "Streaming Radiance Fields for 3D Video Synthesis",
@@ -41026,6 +41197,72 @@
    "pdf_url": "https://arxiv.org/pdf/2210.10352"
   },
   {
+   "arxiv_id": "2210.10175",
+   "announced": "2022-10-01",
+   "title": "Intra-Source Style Augmentation for Improved Domain Generalization",
+   "authors": [
+    "Yumeng Li",
+    "Dan Zhang",
+    "Margret Keuper",
+    "Anna Khoreva"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Accepted at WACV 2023. Code is available at https://github.com/boschresearch/ISSA",
+   "journal_ref": null,
+   "venue": "WACV 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The generalization with respect to domain shifts, as they frequently appear in applications such as autonomous driving, is one of the remaining big challenges for deep learning models. Therefore, we propose an intra-source style augmentation (ISSA) method to improve domain generalization in semantic segmentation. Our method is based on a novel masked noise encoder for StyleGAN2 inversion. The model learns to faithfully reconstruct the image preserving its semantic layout through noise prediction. Random masking of the estimated noise enables the style mixing capability of our model, i.e. it allows to alter the global appearance without affecting the semantic layout of an image. Using the proposed masked noise encoder to randomize style and content combinations in the training set, ISSA effectively increases the diversity of training data and reduces spurious correlation. As a result, we achieve up to 12.4% mIoU improvements on driving-scene semantic segmentation under different types of data shifts, i.e., changing geographic locations, adverse weather conditions, and day to night. ISSA is model-agnostic and straightforwardly applicable with CNNs and Transformers. It is also complementary to other domain generalization techniques, e.g., it improves the recent state-of-the-art solution RobustNet by 3% mIoU in Cityscapes to Dark Zürich.",
+   "affiliations": [
+    "University of Siegen",
+    "Robert Bosch",
+    "Max Planck Institute for Informatics"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Siegen",
+    "Robert Bosch",
+    "Max Planck Institute for Informatics"
+   ],
+   "institution_ids": [
+    "02azyry73",
+    "02venad53",
+    "01w19ak89"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2210.10175",
+   "pdf_url": "https://arxiv.org/pdf/2210.10175"
+  },
+  {
    "arxiv_id": "2210.10047",
    "announced": "2022-10-01",
    "title": "From Play to Policy: Conditional Behavior Generation from Uncurated Robot Data",
@@ -43404,6 +43641,69 @@
    },
    "abs_url": "https://arxiv.org/abs/2210.05335",
    "pdf_url": "https://arxiv.org/pdf/2210.05335"
+  },
+  {
+   "arxiv_id": "2210.05174",
+   "announced": "2022-10-01",
+   "title": "BoxTeacher: Exploring High-Quality Pseudo Labels for Weakly Supervised Instance Segmentation",
+   "authors": [
+    "Tianheng Cheng",
+    "Xinggang Wang",
+    "Shaoyu Chen",
+    "Qian Zhang",
+    "Wenyu Liu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to CVPR 2023. Code and models: https://github.com/hustvl/BoxTeacher",
+   "journal_ref": null,
+   "venue": "CVPR 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Labeling objects with pixel-wise segmentation requires a huge amount of human labor compared to bounding boxes. Most existing methods for weakly supervised instance segmentation focus on designing heuristic losses with priors from bounding boxes. While, we find that box-supervised methods can produce some fine segmentation masks and we wonder whether the detectors could learn from these fine masks while ignoring low-quality masks. To answer this question, we present BoxTeacher, an efficient and end-to-end training framework for high-performance weakly supervised instance segmentation, which leverages a sophisticated teacher to generate high-quality masks as pseudo labels. Considering the massive noisy masks hurt the training, we present a mask-aware confidence score to estimate the quality of pseudo masks and propose the noise-aware pixel loss and noise-reduced affinity loss to adaptively optimize the student with pseudo masks. Extensive experiments can demonstrate the effectiveness of the proposed BoxTeacher. Without bells and whistles, BoxTeacher remarkably achieves 35.0 mask AP and 36.5 mask AP with ResNet-50 and ResNet-101 respectively on the challenging COCO dataset, which outperforms the previous state-of-the-art methods by a significant margin and bridges the gap between box-supervised and mask-supervised methods. The code and models will be available at https://github.com/hustvl/BoxTeacher.",
+   "affiliations": [
+    "Huazhong University of Science and Technology",
+    "Horizon Robotics"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Huazhong University of Science and Technology",
+    "Horizon Robotics"
+   ],
+   "institution_ids": [
+    "00p991c53",
+    "05cmv6g68"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2210.05174",
+   "pdf_url": "https://arxiv.org/pdf/2210.05174"
   },
   {
    "arxiv_id": "2210.04936",
@@ -48770,6 +49070,72 @@
    },
    "abs_url": "https://arxiv.org/abs/2209.07947",
    "pdf_url": "https://arxiv.org/pdf/2209.07947"
+  },
+  {
+   "arxiv_id": "2209.09019",
+   "announced": "2022-09-15",
+   "title": "LAVIS: A Library for Language-Vision Intelligence",
+   "authors": [
+    "Dongxu Li",
+    "Junnan Li",
+    "Hung Le",
+    "Guangsen Wang",
+    "Silvio Savarese",
+    "Steven C. H. Hoi"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Computation and Language (cs.CL)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Preprint of LAVIS technical report",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We introduce LAVIS, an open-source deep learning library for LAnguage-VISion research and applications. LAVIS aims to serve as a one-stop comprehensive library that brings recent advancements in the language-vision field accessible for researchers and practitioners, as well as fertilizing future research and development. It features a unified interface to easily access state-of-the-art image-language, video-language models and common datasets. LAVIS supports training, evaluation and benchmarking on a rich variety of tasks, including multimodal classification, retrieval, captioning, visual question answering, dialogue and pre-training. In the meantime, the library is also highly extensible and configurable, facilitating future development and customization. In this technical report, we describe design principles, key components and functionalities of the library, and also present benchmarking results across common language-vision tasks. The library is available at: https://github.com/salesforce/LAVIS.",
+   "affiliations": [
+    "Salesforce"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Salesforce"
+   ],
+   "institution_ids": [
+    "057315g56"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2209.09019",
+   "pdf_url": "https://arxiv.org/pdf/2209.09019"
   },
   {
    "arxiv_id": "2209.07522",
@@ -58187,7 +58553,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -65186,6 +65552,44 @@
    "pdf_url": "https://arxiv.org/pdf/2208.00449"
   },
   {
+   "arxiv_id": "2208.00368",
+   "announced": "2022-08-01",
+   "title": "Skeleton-Parted Graph Scattering Networks for 3D Human Motion Prediction",
+   "authors": [
+    "Maosen Li",
+    "Siheng Chen",
+    "Zijing Zhang",
+    "Lingxi Xie",
+    "Qi Tian",
+    "Ya Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by ECCV 2022",
+   "journal_ref": null,
+   "venue": "ECCV 2022",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Graph convolutional network based methods that model the body-joints' relations, have recently shown great promise in 3D skeleton-based human motion prediction. However, these methods have two critical issues: first, deep graph convolutions filter features within only limited graph spectrums, losing sufficient information in the full band; second, using a single graph to model the whole body underestimates the diverse patterns on various body-parts. To address the first issue, we propose adaptive graph scattering, which leverages multiple trainable band-pass graph filters to decompose pose features into richer graph spectrum bands. To address the second issue, body-parts are modeled separately to learn diverse dynamics, which enables finer feature extraction along the spatial dimensions. Integrating the above two designs, we propose a novel skeleton-parted graph scattering network (SPGSN). The cores of the model are cascaded multi-part graph scattering blocks (MPGSBs), building adaptive graph scattering on diverse body-parts, as well as fusing the decomposed features based on the inferred spectrum importance and body-part interactions. Extensive experiments have shown that SPGSN outperforms state-of-the-art methods by remarkable margins of 13.8%, 9.3% and 2.7% in terms of 3D mean per joint position error (MPJPE) on Human3.6M, CMU Mocap and 3DPW datasets, respectively.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2208.00368",
+   "pdf_url": "https://arxiv.org/pdf/2208.00368"
+  },
+  {
    "arxiv_id": "2208.00277",
    "announced": "2022-08-01",
    "title": "MobileNeRF: Exploiting the Polygon Rasterization Pipeline for Efficient Neural Field Rendering on Mobile Architectures",
@@ -69233,6 +69637,43 @@
    "pdf_url": "https://arxiv.org/pdf/2207.05342"
   },
   {
+   "arxiv_id": "2207.10213",
+   "announced": "2022-07-20",
+   "title": "Spotting Temporally Precise, Fine-Grained Events in Video",
+   "authors": [
+    "James Hong",
+    "Haotian Zhang",
+    "Michaël Gharbi",
+    "Matthew Fisher",
+    "Kayvon Fatahalian"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "ECCV 2022; Website URL: https://jhong93.github.io/projects/spot.html",
+   "journal_ref": null,
+   "venue": "ECCV 2022",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We introduce the task of spotting temporally precise, fine-grained events in video (detecting the precise moment in time events occur). Precise spotting requires models to reason globally about the full-time scale of actions and locally to identify subtle frame-to-frame appearance and motion differences that identify events during these actions. Surprisingly, we find that top performing solutions to prior video understanding tasks such as action detection and segmentation do not simultaneously meet both requirements. In response, we propose E2E-Spot, a compact, end-to-end model that performs well on the precise spotting task and can be trained quickly on a single GPU. We demonstrate that E2E-Spot significantly outperforms recent baselines adapted from the video action detection, segmentation, and spotting literature to the precise spotting task. Finally, we contribute new annotations and splits to several fine-grained sports action datasets to make these datasets suitable for future work on precise spotting.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2207.10213",
+   "pdf_url": "https://arxiv.org/pdf/2207.10213"
+  },
+  {
    "arxiv_id": "2207.09953",
    "announced": "2022-07-20",
    "title": "Learning Pedestrian Group Representations for Multi-modal Trajectory Prediction",
@@ -71736,6 +72177,41 @@
    },
    "abs_url": "https://arxiv.org/abs/2207.07097",
    "pdf_url": "https://arxiv.org/pdf/2207.07097"
+  },
+  {
+   "arxiv_id": "2207.06985",
+   "announced": "2022-07-14",
+   "title": "ObjectBox: From Centers to Boxes for Anchor-Free Object Detection",
+   "authors": [
+    "Mohsen Zand",
+    "Ali Etemad",
+    "Michael Greenspan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "ECCV 2022 Oral",
+   "journal_ref": null,
+   "venue": "ECCV 2022",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We present ObjectBox, a novel single-stage anchor-free and highly generalizable object detection approach. As opposed to both existing anchor-based and anchor-free detectors, which are more biased toward specific object scales in their label assignments, we use only object center locations as positive samples and treat all objects equally in different feature levels regardless of the objects' sizes or shapes. Specifically, our label assignment strategy considers the object center locations as shape- and size-agnostic anchors in an anchor-free fashion, and allows learning to occur at all scales for every object. To support this, we define new regression targets as the distances from two corners of the center cell location to the four sides of the bounding box. Moreover, to handle scale-variant objects, we propose a tailored IoU loss to deal with boxes with different sizes. As a result, our proposed object detector does not need any dataset-dependent hyperparameters to be tuned across datasets. We evaluate our method on MS-COCO 2017 and PASCAL VOC 2012 datasets, and compare our results to state-of-the-art methods. We observe that ObjectBox performs favorably in comparison to prior works. Furthermore, we perform rigorous ablation experiments to evaluate different components of our method. Our code is available at: https://github.com/MohsenZand/ObjectBox.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2207.06985",
+   "pdf_url": "https://arxiv.org/pdf/2207.06985"
   },
   {
    "arxiv_id": "2207.06966",
@@ -81778,7 +82254,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -81859,6 +82335,61 @@
    },
    "abs_url": "https://arxiv.org/abs/2206.08009",
    "pdf_url": "https://arxiv.org/pdf/2206.08009"
+  },
+  {
+   "arxiv_id": "2206.07835",
+   "announced": "2022-06-15",
+   "title": "Disentangling visual and written concepts in CLIP",
+   "authors": [
+    "Joanna Materzynska",
+    "Antonio Torralba",
+    "David Bau"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The CLIP network measures the similarity between natural text and images; in this work, we investigate the entanglement of the representation of word images and natural images in its image encoder. First, we find that the image encoder has an ability to match word images with natural images of scenes described by those words. This is consistent with previous research that suggests that the meaning and the spelling of a word might be entangled deep within the network. On the other hand, we also find that CLIP has a strong ability to match nonsense words, suggesting that processing of letters is separated from processing of their meaning. To explicitly determine whether the spelling capability of CLIP is separable, we devise a procedure for identifying representation subspaces that selectively isolate or eliminate spelling capabilities. We benchmark our methods against a range of retrieval tasks, and we also test them by measuring the appearance of text in CLIP-guided generated images. We find that our methods are able to cleanly separate spelling capabilities of CLIP from the visual processing of natural images.",
+   "affiliations": [
+    "Massachusetts Institute of Technology",
+    "Harvard University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Massachusetts Institute of Technology",
+    "Harvard University"
+   ],
+   "institution_ids": [
+    "042nb2s44",
+    "03vek6s52"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2206.07835",
+   "pdf_url": "https://arxiv.org/pdf/2206.07835"
   },
   {
    "arxiv_id": "2206.07707",
@@ -83907,6 +84438,66 @@
    },
    "abs_url": "https://arxiv.org/abs/2206.04325",
    "pdf_url": "https://arxiv.org/pdf/2206.04325"
+  },
+  {
+   "arxiv_id": "2206.04246",
+   "announced": "2022-06-09",
+   "title": "SwinCheX: Multi-label classification on chest X-ray images with transformers",
+   "authors": [
+    "Sina Taslimi",
+    "Soroush Taslimi",
+    "Nima Fathi",
+    "Mohammadreza Salehi",
+    "Mohammad Hossein Rohban"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "According to the considerable growth in the avail of chest X-ray images in diagnosing various diseases, as well as gathering extensive datasets, having an automated diagnosis procedure using deep neural networks has occupied the minds of experts. Most of the available methods in computer vision use a CNN backbone to acquire high accuracy on the classification problems. Nevertheless, recent researches show that transformers, established as the de facto method in NLP, can also outperform many CNN-based models in vision. This paper proposes a multi-label classification deep model based on the Swin Transformer as the backbone to achieve state-of-the-art diagnosis classification. It leverages Multi-Layer Perceptron, also known as MLP, for the head architecture. We evaluate our model on one of the most widely-used and largest x-ray datasets called \"Chest X-ray14,\" which comprises more than 100,000 frontal/back-view images from over 30,000 patients with 14 famous chest diseases. Our model has been tested with several number of MLP layers for the head setting, each achieves a competitive AUC score on all classes. Comprehensive experiments on Chest X-ray14 have shown that a 3-layer head attains state-of-the-art performance with an average AUC score of 0.810, compared to the former SOTA average AUC of 0.799. We propose an experimental setup for the fair benchmarking of existing methods, which could be used as a basis for the future studies. Finally, we followed up our results by confirming that the proposed method attends to the pathologically relevant areas of the chest.",
+   "affiliations": [
+    "Sharif University of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Sharif University of Technology"
+   ],
+   "institution_ids": [
+    "024c2fq17"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2206.04246",
+   "pdf_url": "https://arxiv.org/pdf/2206.04246"
   },
   {
    "arxiv_id": "2206.03429",
@@ -97922,6 +98513,76 @@
    },
    "abs_url": "https://arxiv.org/abs/2205.07439",
    "pdf_url": "https://arxiv.org/pdf/2205.07439"
+  },
+  {
+   "arxiv_id": "2205.07179",
+   "announced": "2022-05-15",
+   "title": "Promoting Saliency From Depth: Deep Unsupervised RGB-D Saliency Detection",
+   "authors": [
+    "Wei Ji",
+    "Jingjing Li",
+    "Qi Bi",
+    "Chuan Guo",
+    "Jie Liu",
+    "Li Cheng"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "This paper appeared at ICLR 2022",
+   "journal_ref": null,
+   "venue": "ICLR 2022",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Growing interests in RGB-D salient object detection (RGB-D SOD) have been witnessed in recent years, owing partly to the popularity of depth sensors and the rapid progress of deep learning techniques. Unfortunately, existing RGB-D SOD methods typically demand large quantity of training images being thoroughly annotated at pixel-level. The laborious and time-consuming manual annotation has become a real bottleneck in various practical scenarios. On the other hand, current unsupervised RGB-D SOD methods still heavily rely on handcrafted feature representations. This inspires us to propose in this paper a deep unsupervised RGB-D saliency detection approach, which requires no manual pixel-level annotation during training. It is realized by two key ingredients in our training pipeline. First, a depth-disentangled saliency update (DSU) framework is designed to automatically produce pseudo-labels with iterative follow-up refinements, which provides more trustworthy supervision signals for training the saliency network. Second, an attentive training strategy is introduced to tackle the issue of noisy pseudo-labels, by properly re-weighting to highlight the more reliable pseudo-labels. Extensive experiments demonstrate the superior efficiency and effectiveness of our approach in tackling the challenging unsupervised RGB-D SOD scenarios. Moreover, our approach can also be adapted to work in fully-supervised situation. Empirical studies show the incorporation of our approach gives rise to notably performance improvement in existing supervised RGB-D SOD models.",
+   "affiliations": [
+    "University of Alberta",
+    "Wuhan University",
+    "Dalian University of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Alberta",
+    "Wuhan University",
+    "Dalian University of Technology"
+   ],
+   "institution_ids": [
+    "0160cpw27",
+    "033vjfk17",
+    "023hj5876"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2205.07179",
+   "pdf_url": "https://arxiv.org/pdf/2205.07179"
   },
   {
    "arxiv_id": "2205.05076",
@@ -116613,6 +117274,74 @@
    "pdf_url": "https://arxiv.org/pdf/2204.01046"
   },
   {
+   "arxiv_id": "2204.01018",
+   "announced": "2022-04-03",
+   "title": "TransRAC: Encoding Multi-scale Temporal Correlation with Transformers for Repetitive Action Counting",
+   "authors": [
+    "Huazhang Hu",
+    "Sixun Dong",
+    "Yiqun Zhao",
+    "Dongze Lian",
+    "Zhengxin Li",
+    "Shenghua Gao"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "(Revised) CVPR 2022 Oral. RepCount dataset: https://svip-lab.github.io/dataset/RepCount_dataset.html , Code: https://github.com/SvipRepetitionCounting/TransRAC",
+   "journal_ref": null,
+   "venue": "CVPR 2022",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Counting repetitive actions are widely seen in human activities such as physical exercise. Existing methods focus on performing repetitive action counting in short videos, which is tough for dealing with longer videos in more realistic scenarios. In the data-driven era, the degradation of such generalization capability is mainly attributed to the lack of long video datasets. To complement this margin, we introduce a new large-scale repetitive action counting dataset covering a wide variety of video lengths, along with more realistic situations where action interruption or action inconsistencies occur in the video. Besides, we also provide a fine-grained annotation of the action cycles instead of just counting annotation along with a numerical value. Such a dataset contains 1,451 videos with about 20,000 annotations, which is more challenging. For repetitive action counting towards more realistic scenarios, we further propose encoding multi-scale temporal correlation with transformers that can take into account both performance and efficiency. Furthermore, with the help of fine-grained annotation of action cycles, we propose a density map regression-based method to predict the action period, which yields better performance with sufficient interpretability. Our proposed method outperforms state-of-the-art methods on all datasets and also achieves better performance on the unseen dataset without fine-tuning. The dataset and code are available.",
+   "affiliations": [
+    "ShanghaiTech University",
+    "National University of Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "ShanghaiTech University",
+    "National University of Singapore"
+   ],
+   "institution_ids": [
+    "030bhh786",
+    "01tgyzw49"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2204.01018",
+   "pdf_url": "https://arxiv.org/pdf/2204.01018"
+  },
+  {
    "arxiv_id": "2204.00987",
    "announced": "2022-04-03",
    "title": "BinsFormer: Revisiting Adaptive Bins for Monocular Depth Estimation",
@@ -122190,6 +122919,77 @@
    },
    "abs_url": "https://arxiv.org/abs/2204.03634",
    "pdf_url": "https://arxiv.org/pdf/2204.03634"
+  },
+  {
+   "arxiv_id": "2204.03609",
+   "announced": "2022-04-01",
+   "title": "Pin the Memory: Learning to Generalize Semantic Segmentation",
+   "authors": [
+    "Jin Kim",
+    "Jiyoung Lee",
+    "Jungin Park",
+    "Dongbo Min",
+    "Kwanghoon Sohn"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Accepted to CVPR 2022",
+   "journal_ref": null,
+   "venue": "CVPR 2022",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The rise of deep neural networks has led to several breakthroughs for semantic segmentation. In spite of this, a model trained on source domain often fails to work properly in new challenging domains, that is directly concerned with the generalization capability of the model. In this paper, we present a novel memory-guided domain generalization method for semantic segmentation based on meta-learning framework. Especially, our method abstracts the conceptual knowledge of semantic classes into categorical memory which is constant beyond the domains. Upon the meta-learning concept, we repeatedly train memory-guided networks and simulate virtual test to 1) learn how to memorize a domain-agnostic and distinct information of classes and 2) offer an externally settled memory as a class-guidance to reduce the ambiguity of representation in the test data of arbitrary unseen domain. To this end, we also propose memory divergence and feature cohesion losses, which encourage to learn memory reading and update processes for category-aware domain generalization. Extensive experiments for semantic segmentation demonstrate the superior generalization capability of our method over state-of-the-art works on various benchmarks.",
+   "affiliations": [
+    "Yonsei University",
+    "NAVER Cloud",
+    "Naver",
+    "Ewha Womans University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Yonsei University",
+    "NAVER Cloud",
+    "Naver",
+    "Ewha Womans University"
+   ],
+   "institution_ids": [
+    "01wjejq96",
+    "041051y78",
+    "04nzrnx83",
+    "053fp5c05"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2204.03609",
+   "pdf_url": "https://arxiv.org/pdf/2204.03609"
   },
   {
    "arxiv_id": "2204.03574",
@@ -162712,7 +163512,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -170568,7 +171368,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"

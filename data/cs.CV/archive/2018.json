@@ -2474,7 +2474,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -6509,7 +6509,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -10202,7 +10202,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -12698,7 +12698,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -13255,7 +13255,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -13871,7 +13871,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -27205,7 +27205,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -41736,6 +41736,66 @@
    "pdf_url": "https://arxiv.org/pdf/1807.06132"
   },
   {
+   "arxiv_id": "1807.06067",
+   "announced": "2018-07-16",
+   "title": "Weakly Supervised Deep Learning for Thoracic Disease Classification and Localization on Chest X-rays",
+   "authors": [
+    "Chaochao Yan",
+    "Jiawen Yao",
+    "Ruoyu Li",
+    "Zheng Xu",
+    "Junzhou Huang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "10 pages. Accepted by the ACM BCB 2018",
+   "journal_ref": null,
+   "venue": "BCB 2018",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Chest X-rays is one of the most commonly available and affordable radiological examinations in clinical practice. While detecting thoracic diseases on chest X-rays is still a challenging task for machine intelligence, due to 1) the highly varied appearance of lesion areas on X-rays from patients of different thoracic disease and 2) the shortage of accurate pixel-level annotations by radiologists for model training. Existing machine learning methods are unable to deal with the challenge that thoracic diseases usually happen in localized disease-specific areas. In this article, we propose a weakly supervised deep learning framework equipped with squeeze-and-excitation blocks, multi-map transfer, and max-min pooling for classifying thoracic diseases as well as localizing suspicious lesion regions. The comprehensive experiments and discussions are performed on the ChestX-ray14 dataset. Both numerical and visual results have demonstrated the effectiveness of the proposed model and its better performance against the state-of-the-art pipelines.",
+   "affiliations": [
+    "University of Texas at Arlington"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Texas at Arlington"
+   ],
+   "institution_ids": [
+    "019kgqr73"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1807.06067",
+   "pdf_url": "https://arxiv.org/pdf/1807.06067"
+  },
+  {
    "arxiv_id": "1807.06010",
    "announced": "2018-07-16",
    "title": "EC-Net: an Edge-aware Point set Consolidation Network",
@@ -44787,6 +44847,70 @@
    "pdf_url": "https://arxiv.org/pdf/1807.07155"
   },
   {
+   "arxiv_id": "1807.06708",
+   "announced": "2018-07-01",
+   "title": "A Modulation Module for Multi-task Learning with Applications in Image Retrieval",
+   "authors": [
+    "Xiangyun Zhao",
+    "Haoxiang Li",
+    "Xiaohui Shen",
+    "Xiaodan Liang",
+    "Ying Wu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "To appear in ECCV 2018",
+   "journal_ref": null,
+   "venue": "ECCV 2018",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Multi-task learning has been widely adopted in many computer vision tasks to improve overall computation efficiency or boost the performance of individual tasks, under the assumption that those tasks are correlated and complementary to each other. However, the relationships between the tasks are complicated in practice, especially when the number of involved tasks scales up. When two tasks are of weak relevance, they may compete or even distract each other during joint training of shared parameters, and as a consequence undermine the learning of all the tasks. This will raise destructive interference which decreases learning efficiency of shared parameters and lead to low quality loss local optimum w.r.t. shared parameters. To address the this problem, we propose a general modulation module, which can be inserted into any convolutional neural network architecture, to encourage the coupling and feature sharing of relevant tasks while disentangling the learning of irrelevant tasks with minor parameters addition. Equipped with this module, gradient directions from different tasks can be enforced to be consistent for those shared parameters, which benefits multi-task joint training. The module is end-to-end learnable without ad-hoc design for specific tasks, and can naturally handle many tasks at the same time. We apply our approach on two retrieval tasks, face retrieval on the CelebA dataset [1] and product retrieval on the UT-Zappos50K dataset [2, 3], and demonstrate its advantage over other multi-task learning methods in both accuracy and storage efficiency.",
+   "affiliations": [
+    "Northwestern University",
+    "ByteDance",
+    "Carnegie Mellon University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Northwestern University",
+    "ByteDance",
+    "Carnegie Mellon University"
+   ],
+   "institution_ids": [
+    "000e0be47",
+    "04m8av638",
+    "05x2bcf33"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1807.06708",
+   "pdf_url": "https://arxiv.org/pdf/1807.06708"
+  },
+  {
    "arxiv_id": "1807.06699",
    "announced": "2018-07-01",
    "title": "Adaptive Neural Trees",
@@ -44893,7 +45017,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -44942,7 +45066,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -46840,6 +46964,72 @@
    "pdf_url": "https://arxiv.org/pdf/1807.01216"
   },
   {
+   "arxiv_id": "1807.00980",
+   "announced": "2018-07-01",
+   "title": "MetaAnchor: Learning to Detect Objects with Customized Anchors",
+   "authors": [
+    "Tong Yang",
+    "Xiangyu Zhang",
+    "Zeming Li",
+    "Wenqiang Zhang",
+    "Jian Sun"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We propose a novel and flexible anchor mechanism named MetaAnchor for object detection frameworks. Unlike many previous detectors model anchors via a predefined manner, in MetaAnchor anchor functions could be dynamically generated from the arbitrary customized prior boxes. Taking advantage of weight prediction, MetaAnchor is able to work with most of the anchor-based object detection systems such as RetinaNet. Compared with the predefined anchor scheme, we empirically find that MetaAnchor is more robust to anchor settings and bounding box distributions; in addition, it also shows the potential on transfer tasks. Our experiment on COCO detection task shows that MetaAnchor consistently outperforms the counterparts in various scenarios.",
+   "affiliations": [
+    "Fudan University",
+    "Peking University",
+    "Tsinghua University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Fudan University",
+    "Peking University",
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "013q1eq08",
+    "02v51f717",
+    "03cve4549"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1807.00980",
+   "pdf_url": "https://arxiv.org/pdf/1807.00980"
+  },
+  {
    "arxiv_id": "1807.00652",
    "announced": "2018-07-01",
    "title": "PointSIFT: A SIFT-like Network Module for 3D Point Cloud Semantic Segmentation",
@@ -47793,7 +47983,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -51709,6 +51899,58 @@
    },
    "abs_url": "https://arxiv.org/abs/1806.06621",
    "pdf_url": "https://arxiv.org/pdf/1806.06621"
+  },
+  {
+   "arxiv_id": "1806.06575",
+   "announced": "2018-06-01",
+   "title": "RenderNet: A deep convolutional network for differentiable rendering from 3D shapes",
+   "authors": [
+    "Thu Nguyen-Phuoc",
+    "Chuan Li",
+    "Stephen Balaban",
+    "Yong-Liang Yang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "14 pages, 9 figures",
+   "journal_ref": "32nd Conference on Neural Information Processing Systems (NeurIPS 2018)",
+   "venue": "NeurIPS 2018",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Traditional computer graphics rendering pipeline is designed for procedurally generating 2D quality images from 3D shapes with high performance. The non-differentiability due to discrete operations such as visibility computation makes it hard to explicitly correlate rendering parameters and the resulting image, posing a significant challenge for inverse rendering tasks. Recent work on differentiable rendering achieves differentiability either by designing surrogate gradients for non-differentiable operations or via an approximate but differentiable renderer. These methods, however, are still limited when it comes to handling occlusion, and restricted to particular rendering effects. We present RenderNet, a differentiable rendering convolutional network with a novel projection unit that can render 2D images from 3D shapes. Spatial occlusion and shading calculation are automatically encoded in the network. Our experiments show that RenderNet can successfully learn to implement different shaders, and can be used in inverse rendering tasks to estimate shape, pose, lighting and texture from a single image.",
+   "affiliations": [
+    "University of Bath"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Bath"
+   ],
+   "institution_ids": [
+    "002h8g185"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1806.06575",
+   "pdf_url": "https://arxiv.org/pdf/1806.06575"
   },
   {
    "arxiv_id": "1806.06397",
@@ -56248,6 +56490,58 @@
    "pdf_url": "https://arxiv.org/pdf/1805.07549"
   },
   {
+   "arxiv_id": "1805.07036",
+   "announced": "2018-05-18",
+   "title": "LiteFlowNet: A Lightweight Convolutional Neural Network for Optical Flow Estimation",
+   "authors": [
+    "Tak-Wai Hui",
+    "Xiaoou Tang",
+    "Chen Change Loy"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to CVPR 2018 (spotlight). Project page: http://mmlab.ie.cuhk.edu.hk/projects/LiteFlowNet/",
+   "journal_ref": null,
+   "venue": "CVPR 2018",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "FlowNet2, the state-of-the-art convolutional neural network (CNN) for optical flow estimation, requires over 160M parameters to achieve accurate flow estimation. In this paper we present an alternative network that outperforms FlowNet2 on the challenging Sintel final pass and KITTI benchmarks, while being 30 times smaller in the model size and 1.36 times faster in the running speed. This is made possible by drilling down to architectural details that might have been missed in the current frameworks: (1) We present a more effective flow inference approach at each pyramid level through a lightweight cascaded network. It not only improves flow estimation accuracy through early correction, but also permits seamless incorporation of descriptor matching in our network. (2) We present a novel flow regularization layer to ameliorate the issue of outliers and vague flow boundaries by using a feature-driven local convolution. (3) Our network owns an effective structure for pyramidal feature extraction and embraces feature warping rather than image warping as practiced in FlowNet2. Our code and trained models are available at https://github.com/twhui/LiteFlowNet .",
+   "affiliations": [
+    "Chinese University of Hong Kong"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Chinese University of Hong Kong"
+   ],
+   "institution_ids": [
+    "00t33hh48"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1805.07036",
+   "pdf_url": "https://arxiv.org/pdf/1805.07036"
+  },
+  {
    "arxiv_id": "1805.06605",
    "announced": "2018-05-18",
    "title": "Defense-GAN: Protecting Classifiers Against Adversarial Attacks Using Generative Models",
@@ -57983,6 +58277,81 @@
    },
    "abs_url": "https://arxiv.org/abs/1805.01328",
    "pdf_url": "https://arxiv.org/pdf/1805.01328"
+  },
+  {
+   "arxiv_id": "1805.01266",
+   "announced": "2018-05-03",
+   "title": "Learning-Based Compressive MRI",
+   "authors": [
+    "Baran Gözcü",
+    "Rabeeh Karimi Mahabadi",
+    "Yen-Huan Li",
+    "Efe Ilıcak",
+    "Tolga Çukur",
+    "Jonathan Scarlett",
+    "Volkan Cevher"
+   ],
+   "primary_subject": "Image and Video Processing (eess.IV)",
+   "subjects": [
+    "Image and Video Processing (eess.IV)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "13 pages, 6 figures. IEEE TMI (Transactions of Medical Imaging)",
+   "journal_ref": null,
+   "venue": "TMI",
+   "cross_list_from": "eess.IV",
+   "html_url": null,
+   "abstract": "In the area of magnetic resonance imaging (MRI), an extensive range of non-linear reconstruction algorithms have been proposed that can be used with general Fourier subsampling patterns. However, the design of these subsampling patterns has typically been considered in isolation from the reconstruction rule and the anatomy under consideration. In this paper, we propose a learning-based framework for optimizing MRI subsampling patterns for a specific reconstruction rule and anatomy, considering both the noiseless and noisy settings. Our learning algorithm has access to a representative set of training signals, and searches for a sampling pattern that performs well on average for the signals in this set. We present a novel parameter-free greedy mask selection method, and show it to be effective for a variety of reconstruction rules and performance metrics. Moreover we also support our numerical findings by providing a rigorous justification of our framework via statistical learning theory.",
+   "affiliations": [
+    "École Polytechnique Fédérale de Lausanne",
+    "Bilkent University",
+    "National University of Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "École Polytechnique Fédérale de Lausanne",
+    "Bilkent University",
+    "National University of Singapore"
+   ],
+   "institution_ids": [
+    "02s376052",
+    "02vh8a032",
+    "01tgyzw49"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1805.01266",
+   "pdf_url": "https://arxiv.org/pdf/1805.01266"
   },
   {
    "arxiv_id": "1805.01195",
@@ -66089,6 +66458,57 @@
    "pdf_url": "https://arxiv.org/pdf/1804.04488"
   },
   {
+   "arxiv_id": "1804.04458",
+   "announced": "2018-04-12",
+   "title": "CubeNet: Equivariance to 3D Rotation and Translation",
+   "authors": [
+    "Daniel Worrall",
+    "Gabriel Brostow"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Machine Learning (cs.LG)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": "Preprint",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "3D Convolutional Neural Networks are sensitive to transformations applied to their input. This is a problem because a voxelized version of a 3D object, and its rotated clone, will look unrelated to each other after passing through to the last layer of a network. Instead, an idealized model would preserve a meaningful representation of the voxelized object, while explaining the pose-difference between the two inputs. An equivariant representation vector has two components: the invariant identity part, and a discernable encoding of the transformation. Models that can't explain pose-differences risk \"diluting\" the representation, in pursuit of optimizing a classification or regression loss function. We introduce a Group Convolutional Neural Network with linear equivariance to translations and right angle rotations in three dimensions. We call this network CubeNet, reflecting its cube-like symmetry. By construction, this network helps preserve a 3D shape's global and local signature, as it is transformed through successive layers. We apply this network to a variety of 3D inference problems, achieving state-of-the-art on the ModelNet10 classification challenge, and comparable performance on the ISBI 2012 Connectome Segmentation Benchmark. To the best of our knowledge, this is the first 3D rotation equivariant CNN for voxel representations.",
+   "affiliations": [
+    "University College London"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University College London"
+   ],
+   "institution_ids": [
+    "02jx3x895"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1804.04458",
+   "pdf_url": "https://arxiv.org/pdf/1804.04458"
+  },
+  {
    "arxiv_id": "1804.04412",
    "announced": "2018-04-12",
    "title": "Unsupervised Discovery of Object Landmarks as Structural Representations",
@@ -71683,7 +72103,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -74275,7 +74695,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -80772,7 +81192,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -87422,7 +87842,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -90446,7 +90866,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
@@ -92500,6 +92920,73 @@
    },
    "abs_url": "https://arxiv.org/abs/1801.09749",
    "pdf_url": "https://arxiv.org/pdf/1801.09749"
+  },
+  {
+   "arxiv_id": "1801.09086",
+   "announced": "2018-01-27",
+   "title": "A Generative Approach to Zero-Shot and Few-Shot Action Recognition",
+   "authors": [
+    "Ashish Mishra",
+    "Vinay Kumar Verma",
+    "M Shiva Krishna Reddy",
+    "Arulkumar S",
+    "Piyush Rai",
+    "Anurag Mittal"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted in WACV 2018",
+   "journal_ref": null,
+   "venue": "WACV 2018",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We present a generative framework for zero-shot action recognition where some of the possible action classes do not occur in the training data. Our approach is based on modeling each action class using a probability distribution whose parameters are functions of the attribute vector representing that action class. In particular, we assume that the distribution parameters for any action class in the visual space can be expressed as a linear combination of a set of basis vectors where the combination weights are given by the attributes of the action class. These basis vectors can be learned solely using labeled data from the known (i.e., previously seen) action classes, and can then be used to predict the parameters of the probability distributions of unseen action classes. We consider two settings: (1) Inductive setting, where we use only the labeled examples of the seen action classes to predict the unseen action class parameters; and (2) Transductive setting which further leverages unlabeled data from the unseen action classes. Our framework also naturally extends to few-shot action recognition where a few labeled examples from unseen classes are available. Our experiments on benchmark datasets (UCF101, HMDB51 and Olympic) show significant performance improvements as compared to various baselines, in both standard zero-shot (disjoint seen and unseen classes) and generalized zero-shot learning settings.",
+   "affiliations": [
+    "Indian Institute of Technology Madras",
+    "Indian Institute of Technology Kanpur"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Indian Institute of Technology Madras",
+    "Indian Institute of Technology Kanpur"
+   ],
+   "institution_ids": [
+    "03v0r5n49",
+    "05pjsgx75"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-01"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1801.09086",
+   "pdf_url": "https://arxiv.org/pdf/1801.09086"
   },
   {
    "arxiv_id": "1801.09555",
@@ -96155,7 +96642,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-25"
+     "at": "2026-11-01"
     },
     "institutions": {
      "source": "openalex"
