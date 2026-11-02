@@ -25,7 +25,7 @@ from preprint_radar.config import (
 from preprint_radar.console import progress
 from preprint_radar.exceptions import FetchError, ParseError, SchemaVersionError, StoreError
 from preprint_radar.http import HttpClient
-from preprint_radar.institutions import name_institutions
+from preprint_radar.institutions import name_institutions, unique_ids, with_known_ids
 from preprint_radar.models import CodeRecord, Institution, Listing, Paper, Provenance, ScholarRecord
 from preprint_radar.names import same_person
 from preprint_radar.openalex_affiliations import (
@@ -1020,8 +1020,10 @@ def add_institutions(
         named = sum(match is not None for match in looked_up.values())
         logger.info("ROR named %s of %s affiliations", f"{named:,}", f"{len(looked_up):,}")
         matches |= looked_up
+    # The id each name ROR gave a single one of, for the rules' names (AQ-6).
+    ids = unique_ids((match.name, match.ror_id) for match in matches.values() if match is not None)
     return [
-        _with_institutions(paper, [matches[affiliation] for affiliation in paper.affiliations or ()])
+        _with_institutions(paper, [matches[affiliation] for affiliation in paper.affiliations or ()], ids)
         if _needs_institutions(paper) and all(a in matches for a in paper.affiliations or ())
         else paper
         for paper in papers
@@ -1056,18 +1058,25 @@ def _needs_institutions(paper: Paper) -> bool:
     return bool(paper.affiliations) and paper.institutions is None
 
 
-def _with_institutions(paper: Paper, matches: Sequence[Institution | None]) -> Paper:
-    """The paper with the institutions ROR matched, the rules' for the rest, and ROR's ids."""
+def _with_institutions(
+    paper: Paper, matches: Sequence[Institution | None], known: Mapping[str, str] | None = None
+) -> Paper:
+    """The paper with the institutions ROR matched, the rules' for the rest, and the ids.
+
+    ROR's ids, and for a name of the rules, the id ROR gives that name elsewhere when it gives
+    a single one (``known``, AQ-6).
+    """
     names = name_institutions(
         paper.affiliations or (), [match.name if match else None for match in matches], paper.authors
+    )
+    ids = tuple(
+        match.ror_id if match is not None and name is not None else None
+        for match, name in zip(matches, names, strict=True)
     )
     return replace(
         paper,
         institutions=names,
-        institution_ids=tuple(
-            match.ror_id if match is not None and name is not None else None
-            for match, name in zip(matches, names, strict=True)
-        ),
+        institution_ids=with_known_ids(names, ids, known or {}) or ids,
         institutions_provenance=Provenance("ror", today()),
     )
 

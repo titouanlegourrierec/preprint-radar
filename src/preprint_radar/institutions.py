@@ -14,7 +14,7 @@ unless a company or an acronym is written anywhere in it.
 
 import re
 import unicodedata
-from collections.abc import Sequence
+from collections.abc import Iterable, Mapping, Sequence
 
 from preprint_radar.sources.arxiv_html import COUNTRIES
 
@@ -361,6 +361,48 @@ def ids_where_named(
     if not ids:
         return None
     return tuple(ror_id if name else None for ror_id, name in zip(ids, names, strict=True))
+
+
+def unique_ids(named: Iterable[tuple[str | None, str | None]]) -> dict[str, str]:
+    """The ROR id of each institution name written with exactly one (AQ-6).
+
+    A name written with two ids is two institutions ("Northeastern University", in China and
+    the United States), which no id may stand for.
+
+    Args:
+        named: Institution names, each with its ROR id where one was given.
+
+    Returns:
+        Each name's id, for the names of a single id.
+    """
+    ids: dict[str, set[str]] = {}
+    for name, ror_id in named:
+        if name and ror_id:
+            ids.setdefault(name, set()).add(ror_id)
+    return {name: next(iter(found)) for name, found in ids.items() if len(found) == 1}
+
+
+def with_known_ids(
+    names: Sequence[str | None], ids: Sequence[str | None] | None, known: Mapping[str, str]
+) -> tuple[str | None, ...] | None:
+    """The ids of the institutions named, those the rules named given the id their name has elsewhere.
+
+    The map and the country filter count institutions by their ROR id: "University of Hong
+    Kong", named by the rules 176 times without one, was missing from them (AQ-6).
+
+    Args:
+        names: The institutions named.
+        ids: Their ids, ``None`` when not known.
+        known: The id of each name written with a single one (:func:`unique_ids`).
+
+    Returns:
+        The ids, or ``None`` when none is known.
+    """
+    filled = tuple(
+        ror_id or (known.get(name) if name else None)
+        for name, ror_id in zip(names, ids or (None,) * len(names), strict=True)
+    )
+    return filled if any(filled) else None
 
 
 def name_institutions(

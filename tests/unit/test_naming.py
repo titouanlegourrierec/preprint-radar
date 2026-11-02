@@ -6,7 +6,7 @@ import pytest
 
 from preprint_radar.cli import main
 from preprint_radar.models import Paper, Provenance
-from preprint_radar.store.naming import NamingReport, name_institutions_again, named_again
+from preprint_radar.store.naming import NamingReport, known_ids, name_institutions_again, named_again
 from preprint_radar.store.paper_store import PaperStore
 
 PAPER = Paper(
@@ -41,6 +41,29 @@ def test_openalex_names_are_registry_names_without_ids() -> None:
     )
 
     assert named_again(archived).institutions == ("Tencent", "Peking University")
+
+
+def test_a_name_of_the_rules_takes_the_id_its_name_has_elsewhere() -> None:
+    # CMU is named by the rules here, with its id elsewhere; Google has two (AQ-6).
+    elsewhere = [
+        replace(
+            PAPER,
+            institutions=("Carnegie Mellon University", None, "Google", None),
+            institution_ids=("05x2bcf33", None, "00njsd438", None),
+        ),
+        replace(
+            PAPER, institutions=("Google", None, None, None), institution_ids=("00971b260", None, None, None)
+        ),
+    ]
+    known = known_ids(elsewhere)
+
+    assert known == {"Carnegie Mellon University": "05x2bcf33"}
+    named = named_again(PAPER, known)
+    assert named.institution_ids == ("02v51f717", "05x2bcf33", "00njsd438", None)
+    assert named_again(named, known) is named
+    # Without any id, none is made up.
+    unknown = replace(PAPER, institution_ids=None)
+    assert named_again(unknown).institution_ids is None
 
 
 @pytest.mark.parametrize(

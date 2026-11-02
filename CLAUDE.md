@@ -292,7 +292,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   Python's), and the affiliation filter matches both.
 - `institution_ids` (optional, written only when known) is parallel to `institutions`: the
   ROR id of each ("03vek6s52"), `null` without one. In day files, an institution without an
-  id is the rules' (`make institutions-again` names those again). `Paper` refuses ids
+  id is the rules' (`make institutions-again` names those again), which takes the id its
+  name has elsewhere when it has a single one (AQ-6). `Paper` refuses ids
   without institutions or not one per affiliation, so wherever `institutions` is set or
   reset, the ids go with it (a forgotten reset fails the tests); the archive asks OpenAlex
   again for papers archived before ids were kept (`docs/archive.md`).

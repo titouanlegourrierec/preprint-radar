@@ -732,6 +732,18 @@ def test_add_institutions_keeps_ror_ids(fake: FakeArxiv) -> None:
     assert fake.ror_requests == []
 
 
+def test_a_name_of_the_rules_takes_the_id_ror_gives_it(fake: FakeArxiv) -> None:
+    # ROR matches nothing for "PKU", which the rules name Peking University, whose id ROR
+    # gave the other string (AQ-6).
+    with fake.client() as ror:
+        [named] = add_institutions([_paper("1", ("School of CS, Peking University", "PKU"))], ror, limit=None)
+
+    assert named.institutions == ("Peking University", "Peking University")
+    assert named.institution_ids is not None
+    assert named.institution_ids[0]
+    assert named.institution_ids[1] == named.institution_ids[0]
+
+
 def test_add_institutions_asks_ror_only_for_strings_it_never_answered(fake: FakeArxiv) -> None:
     with fake.client() as ror:
         earlier = add_institutions(

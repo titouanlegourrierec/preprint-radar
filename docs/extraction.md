@@ -334,7 +334,10 @@ department, school or faculty is no institution; a cut-off "Institute of" would 
 itself, but none is stored (`make reclean` drops them from day files).
 
 An institution with a ROR id came from ROR (or OpenAlex, in the archive, whose registry
-names may have none); one without, from the rules. `make institutions-again` names stored
+names may have none); one without, from the rules. A name of the rules takes the id its
+name has elsewhere, in ROR's answers or the store, when it has a single one (AQ-6):
+"University of Hong Kong", 176 times without, was missing from the map; a name of two ids
+("Northeastern University", in China and the United States) takes none. `make institutions-again` names stored
 institutions again after a change to the rules: registry names are only made canonical
 again, the others named again from their affiliation.
 

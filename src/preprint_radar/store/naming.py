@@ -8,9 +8,10 @@ none (``institutions.name_institutions``). After a change to those rules, ``inst
 only made canonical again), and the rest is named again from its affiliation string.
 """
 
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, replace
 
-from preprint_radar.institutions import ids_where_named, name_institutions
+from preprint_radar.institutions import ids_where_named, name_institutions, unique_ids, with_known_ids
 from preprint_radar.models import Paper
 from preprint_radar.store.paper_store import PaperStore
 
@@ -54,10 +55,13 @@ def name_institutions_again(store: PaperStore, category: str) -> NamingReport:
     Returns:
         What was looked at and changed.
     """
+    known = known_ids(
+        [*store.iter_papers(category), *store.iter_archive(category), *store.iter_top_recent(category)]
+    )
     papers = before = after = changed = days = 0
     for day in store.days(category):
         stored = store.load_day(category, day)
-        named = [named_again(paper) for paper in stored]
+        named = [named_again(paper, known) for paper in stored]
         updated = [new for old, new in zip(stored, named, strict=True) if new != old]
         papers += len(stored)
         before += sum(_unnamed(paper) for paper in stored)
@@ -69,8 +73,8 @@ def name_institutions_again(store: PaperStore, category: str) -> NamingReport:
     archive = list(store.iter_archive(category))
     top_recent = store.load_top_recent(category)
     recent = top_recent.papers if top_recent else []
-    new_archive = [named_again(paper) for paper in archive]
-    new_recent = [named_again(paper) for paper in recent]
+    new_archive = [named_again(paper, known) for paper in archive]
+    new_recent = [named_again(paper, known) for paper in recent]
     if new_archive != archive:
         store.write_archive(category, new_archive)
     if top_recent and new_recent != recent:
@@ -89,14 +93,25 @@ def name_institutions_again(store: PaperStore, category: str) -> NamingReport:
     )
 
 
-def named_again(paper: Paper) -> Paper:
+def known_ids(papers: Iterable[Paper]) -> dict[str, str]:
+    """The ROR id of each institution name the stored papers write with exactly one (AQ-6)."""
+    return unique_ids(
+        (name, ror_id)
+        for paper in papers
+        for name, ror_id in zip(paper.institutions or (), paper.institution_ids or (), strict=False)
+    )
+
+
+def named_again(paper: Paper, known: Mapping[str, str] | None = None) -> Paper:
     """The paper with its institutions named again by today's rules.
 
     A name with a ROR id, or from OpenAlex, came from a registry: it stays, made canonical
-    again. Any other was the rules': it is named again from its affiliation string.
+    again. Any other was the rules': it is named again from its affiliation string, and
+    takes the id its name has elsewhere when it has a single one (``known``, AQ-6).
 
     Args:
         paper: A stored paper.
+        known: The id of each name written with a single one (:func:`known_ids`).
 
     Returns:
         The paper, its institutions named again.
@@ -111,9 +126,10 @@ def named_again(paper: Paper) -> Paper:
         for name, ror_id in zip(paper.institutions, ids, strict=True)
     ]
     names = name_institutions(paper.affiliations, registered, paper.authors)
-    if names == paper.institutions:
+    ids_named = with_known_ids(names, ids_where_named(paper.institution_ids, names), known or {})
+    if names == paper.institutions and ids_named == paper.institution_ids:
         return paper
-    return replace(paper, institutions=names, institution_ids=ids_where_named(paper.institution_ids, names))
+    return replace(paper, institutions=names, institution_ids=ids_named)
 
 
 def _unnamed(paper: Paper) -> int:
