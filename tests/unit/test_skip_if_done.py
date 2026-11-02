@@ -19,8 +19,14 @@ BASH = shutil.which("bash")
 pytestmark = pytest.mark.skipif(BASH is None or shutil.which("jq") is None, reason="needs bash and jq")
 
 # Stands in for the GitHub CLI: records each command's arguments and prints what the test
-# asks for, whether the repository is a fork for `gh api`, a count of runs for `gh run`.
+# asks for: a run's jobs and their annotations' titles, whether the repository is a fork for
+# the other `gh api`, a count of dispatched runs, and the id of a successful run, if any.
 FAKE_GH = """#!/bin/sh
+case "$*" in
+  *"/jobs "*) printf '%s\\n' 7; exit 0 ;;
+  *"/annotations "*) printf '%s\\n' "$FAKE_GH_ANNOTATIONS"; exit 0 ;;
+  *workflow_dispatch*) printf '%s\\n' "$FAKE_GH_DISPATCHED"; exit 0 ;;
+esac
 if [ "$1" = api ]; then
   printf '%s\\n' "$@" > "$FAKE_GH_API_ARGS"
   if [ -n "$FAKE_GH_API_FAIL" ]; then exit 1; fi
@@ -62,8 +68,10 @@ def run_guard(tmp_path: Path) -> Callable[..., Guard]:
     def run(
         event: str,
         *,
-        prints: str = "0",
+        prints: str = "",
         fail: bool = False,
+        annotations: str = "",
+        dispatched: str = "1",
         payload: Mapping[str, object] | str | None = NOT_A_FORK,
         api_fork: str | None = "false",
         days_back: str | None = None,
@@ -87,6 +95,8 @@ def run_guard(tmp_path: Path) -> Callable[..., Guard]:
             "FAKE_GH_API_ARGS": str(api_args_file),
             "FAKE_GH_FORK": api_fork or "",
             "FAKE_GH_API_FAIL": "1" if api_fork is None else "",
+            "FAKE_GH_ANNOTATIONS": annotations,
+            "FAKE_GH_DISPATCHED": dispatched,
         }
         # Set or removed in every case: in Actions, the test run's own payload is there.
         env.pop("GITHUB_EVENT_PATH", None)
@@ -143,7 +153,7 @@ def test_a_scheduled_run_stops_after_a_successful_run_today(run_guard: Callable[
         assert guard.gh_args[guard.gh_args.index(flag) + 1] == value
 
 
-@pytest.mark.parametrize(("prints", "run"), [("1", "false"), ("0", "true")], ids=["done", "not done"])
+@pytest.mark.parametrize(("prints", "run"), [("1", "false"), ("", "true")], ids=["done", "not done"])
 def test_a_catch_up_stops_after_a_successful_run_of_the_last_days(
     run_guard: Callable[..., Guard], prints: str, run: str
 ) -> None:
@@ -161,7 +171,7 @@ def test_a_catch_up_stops_after_a_successful_run_of_the_last_days(
 
 
 def test_a_scheduled_run_goes_on_without_a_successful_run_today(run_guard: Callable[..., Guard]) -> None:
-    guard = run_guard("schedule", prints="0")
+    guard = run_guard("schedule")
 
     assert guard.returncode == 0
     assert guard.output == {"run": "true"}
@@ -225,3 +235,20 @@ def test_a_repository_neither_says_is_a_fork_is_not_one(
     assert "::notice title=Fork::" not in guard.log
     assert guard.api_args is not None
     assert guard.gh_args is not None
+
+
+def test_a_scheduled_run_reads_again_a_day_taken_from_a_catchup_page(run_guard: Callable[..., Guard]) -> None:
+    # Today's run succeeded, but arXiv was still filling the catchup page it read (OPS-3).
+    guard = run_guard("schedule", prints="41013192676", annotations="Out of time\nListing out of date")
+
+    assert guard.output == {"run": "true"}
+    assert "::notice title=Day read again::" in guard.log
+
+
+def test_a_scheduled_run_says_when_the_workflow_was_not_dispatched(run_guard: Callable[..., Guard]) -> None:
+    # The outside scheduler's token expired, or it failed (OPS-5).
+    guard = run_guard("schedule", dispatched="0")
+
+    assert guard.output == {"run": "true"}
+    assert "::warning title=Dispatch missing::No dispatch of update.yml today" in guard.log
+    assert "::warning" not in run_guard("schedule", dispatched="0", prints="1").log

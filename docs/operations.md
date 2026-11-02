@@ -49,8 +49,9 @@ Normal: the day's dispatched run (or Sunday's) succeeded.
 
 ### A scheduled run did the work
 
-**Signal.** No run with the event `workflow_dispatch` for the day, and a scheduled run
-after 10:17 UTC (09:41 on Sundays) that did the work.
+**Signal.** Warning annotation `Dispatch missing` on a scheduled run (OPS-5): no run with
+the event `workflow_dispatch` that day, and the scheduled run after 10:17 UTC (09:41 on
+Sundays) did the work.
 
 The dispatch failed; see the job's history on cron-job.org. `401`: the token expired or was
 revoked (make a new one). `403` or `404`: it lacks this repository or its permission.
@@ -202,8 +203,10 @@ day, reading cannot keep up (more than 600 papers a day at 15 s a page): drop ca
 `papers come from its catchup page`), or `whose catchup page could not be read`.
 
 arXiv's cache served the listing hours old, without a day announced late at night: the run
-read that day's catchup page instead. Nothing to do; if that page could not be read, the
-next run's listing has the day, or dispatch *Update data* with the day as *since*.
+read that day's catchup page instead, which arXiv may still have been filling (26 of
+2026-10-30's 233 papers). The scheduled fallback then reads the day again (notice `Day read
+again`, OPS-3), from a listing that has it. If the page could not be read, the next run's
+listing has the day, or dispatch *Update data* with the day as *since*.
 
 ### Semantic Scholar keeps refusing
 

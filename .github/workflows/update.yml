@@ -31,6 +31,8 @@ jobs:
     timeout-minutes: 5
     permissions:
       actions: read
+      # The annotations of today's run: a day taken from a catchup page is read again (OPS-3).
+      checks: read
       contents: read
     outputs:
       run: ${{ steps.check.outputs.run }}
