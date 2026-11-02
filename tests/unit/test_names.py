@@ -27,6 +27,11 @@ def test_same_person(listed: str, named: str) -> None:
         ("Mahdi Hosseini", "Mahdi Rezaei"),
         ("Mahdi Hosseini", ""),
         ("", "Mahdi Hosseini"),
+        # Given names written out that start alike are two people (AQ-8).
+        ("Wen Li", "Wei Li"),
+        ("Chaoyue Wang", "Chaohui Wang"),
+        ("Xiaohong Liu", "Xiaoming Liu"),
+        ("Yichao Yan", "Yan Yan"),
     ],
 )
 def test_other_people(listed: str, named: str) -> None:

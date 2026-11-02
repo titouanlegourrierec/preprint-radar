@@ -246,12 +246,24 @@ def published_affiliations(
         paper's (a wrong DOI).
     """
     unmatched = list(published)
-    per_author: list[tuple[Institution, ...] | None] = []
-    for author in authors:
-        match = next((candidate for candidate in unmatched if same_person(author, candidate.name)), None)
-        if match is not None:
-            unmatched.remove(match)
-        per_author.append(None if match is None else match.institutions)
+    per_author: list[tuple[Institution, ...] | None] = [None] * len(authors)
+    # Names written out first, then initials, so that "W. Li" takes no "Wei Li" another
+    # author's whole name matches (AQ-8).
+    for initials in (False, True):
+        for position, author in enumerate(authors):
+            if per_author[position] is not None:
+                continue
+            match = next(
+                (
+                    candidate
+                    for candidate in unmatched
+                    if same_person(author, candidate.name, initials=initials)
+                ),
+                None,
+            )
+            if match is not None:
+                unmatched.remove(match)
+                per_author[position] = match.institutions
     if 2 * sum(institutions is not None for institutions in per_author) < len(authors):
         return None
     distinct: dict[str, Institution] = {}

@@ -181,8 +181,10 @@ papers. `collect.update_archive_affiliations` fills those of the archive and of 
 
 - **The published version** (AFF-20; weekly, after `scholar`): OpenAlex's record of the
   DOI in `scholar.json`, 50 a request, two minutes the first time. Each arXiv author takes
-  the institutions of the published author of the same name (`names.same_person`); fewer
-  than half found means a wrong DOI, and nothing is taken. A paper it gives nothing is
+  the institutions of the published author of the same name (`names.same_person`): the
+  whole names first, then an initial for a given name, never two given names written out
+  that start alike ("Wen Li", "Wei Li", AQ-8); fewer than half found means a wrong DOI,
+  and nothing is taken. A paper it gives nothing is
   asked again each week, as is a DOI learned later.
 - **The HTML page** (AFF-28, `MAX_HTML=N`): the papers still without any that arXiv
   renders (since December 2023, the first version) or, before, ar5iv (AFF-37, arXiv

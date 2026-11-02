@@ -165,6 +165,20 @@ def test_published_affiliations_match_the_authors_by_name() -> None:
     assert found.author_affiliations == ((0, 1), (1,), None)
 
 
+def test_a_name_written_out_comes_before_an_initial() -> None:
+    # "W. Li" would take Wei Li's institutions, listed first, from Wei Li himself (AQ-8).
+    published = [
+        PublishedAuthor("Wei Li", (GOOGLE_INSTITUTION,)),
+        PublishedAuthor("Wen Li", (ETH_INSTITUTION,)),
+    ]
+
+    found = published_affiliations(["W. Li", "Wei Li"], published)
+
+    assert found is not None
+    assert found.affiliations == ("ETH Zurich", "Google")
+    assert found.author_affiliations == ((0,), (1,))
+
+
 def test_published_affiliations_of_another_paper() -> None:
     published = [PublishedAuthor("Ada Lovelace", (GOOGLE_INSTITUTION,)), PublishedAuthor("Someone Else", ())]
 
