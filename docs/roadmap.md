@@ -578,7 +578,7 @@ P1 findings reproduced, all lowered to P2.
 | AQ-1 | The affiliation quality report misses most real defects and has no gold set | P2 | todo |
 | AQ-2 | Footnotemark digits in the author block are read as affiliation markers | P2 | todo |
 | AQ-3 | Numbered affiliations keep only their first line, so table-set blocks lose their institution | P2 | todo |
-| AQ-4 | The institution rules name places, streets, notes and name lists as institutions | P2 | todo |
+| AQ-4 | The institution rules name places, streets, notes and name lists as institutions. `institution_name` names nothing for a part without an institution word that is a street before its city, a city of one or two words before a US state or Canadian province (not DE), a note or link label, or a mailbox name (not a domain, `valeo.ai`), nor for an independent researcher's town unless an acronym (NAAMII); `name_institutions` none for a list of the authors with their own spellings. A city alone stays named: nothing tells it from an institution (IIT Delhi). `institutions-again`: 78 strings of 68 papers changed, all checked | P2 | done |
 | AQ-5 | Authors are placed at a place when LaTeXML spreads one shared block over several creators | P2 | todo |
 | AQ-6 | ROR ids are missing where the same canonical name has one, so papers drop off the map | P2 | todo |
 | AQ-7 | Different institutions with the same name are merged on the site | P2 | todo |

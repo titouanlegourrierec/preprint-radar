@@ -87,6 +87,25 @@ from preprint_radar.institutions import (
         ("Luca Gandolfi and Chiara Plizzari are with Bocconi University", "Bocconi University"),
         # JavaScript's word boundaries, which the rules were written with: ASCII only.
         ("Laboratório de Visão, Brasil", "Laboratório de Visão"),
+        # What a part without an institution word names when it is none (AQ-4): a street, a
+        # city before its state or province, a note, a list of mailbox names, a town.
+        ("Kifer Rd, Sunnyvale, California, USA", None),
+        ("Kexueyuan Nanlu, Haidian Qu, Beijing", None),
+        ("Afari Intelligent Drive", "Afari Intelligent Drive"),
+        ("BMW Group, DE", "BMW Group"),
+        ("valeo.ai", "valeo.ai"),
+        ("Independent Researcher, NAAMII, Nepal", "NAAMII"),
+        ("Pittsburgh, PA 15213", None),
+        ("Kingston, ON, Canada", None),
+        ("Equal supervision", None),
+        ("Project webpage", None),
+        ("jane.doe, jroe", None),
+        ("Independent, Jerusalem, Israel", None),
+        # But not a company or an institution beside them.
+        ("Kitware, Clifton Park, NY", "Kitware"),
+        ("Children's Health Orange County, CA, USA", "Children's Health Orange County"),
+        ("Stanford University, Johns Hopkins University, Independent Researcher", "Stanford University"),
+        ("IIT Delhi, India", "IIT Delhi"),
     ],
 )
 def test_institution_name(affiliation: str, institution: str | None) -> None:
@@ -115,6 +134,23 @@ def test_the_registry_comes_first_and_the_rules_name_the_rest() -> None:
         "Microsoft",
         None,
     )
+
+
+@pytest.mark.parametrize(
+    ("affiliation", "named"),
+    [
+        # The paper's authors, spelled their own way (AQ-4, 2510.26125).
+        ("Kate Tolstaya, Sarah Tang, Drago Anguelov", None),
+        ("Wang, Hongzhou Zhu, Li Chen", None),
+        # One name only, or names that are not the authors': as before.
+        ("Waymo, Sarah Tang", "Waymo"),
+        ("Ada Byron, Charles Babbage", "Ada Byron"),
+    ],
+)
+def test_a_list_of_the_authors_names_no_institution(affiliation: str, named: str | None) -> None:
+    authors = ("Ekaterina Tolstaya", "Sarah Tang", "Dragomir Anguelov", "Wei Wang", "Hongzhou Zhu", "Li Chen")
+
+    assert name_institutions((affiliation,), (None,), authors=authors) == (named,)
 
 
 # The site's tests (web/tests/text.test.ts) read the same cases.

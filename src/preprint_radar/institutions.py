@@ -59,6 +59,31 @@ _JUNK_RE = re.compile(
     re.IGNORECASE,
 )
 _COUNTRY_RE = re.compile(rf"^(?:{COUNTRIES})\.?$", re.IGNORECASE)
+# What a part without any institution word names when it is no institution (AQ-4): a street
+# before its city ("Kifer Rd, Sunnyvale", "Kexueyuan Nanlu, Haidian Qu"; "Afari Intelligent
+# Drive" alone is a company), a city of one or two words before its state or province
+# ("Pittsburgh, PA 15213", "Kingston, ON"; not DE, Germany as often as Delaware), a note or
+# a link's label leading the string ("Equal supervision", "Project webpage"), a mailbox name
+# ("jane.doe"; not a domain, "valeo.ai" a lab). A city alone ("Seoul, Korea") is left:
+# nothing tells it from an institution ("IIT Delhi").
+_STREET_RE = re.compile(
+    r"\b(?:st|street|ave|avenue|rd|road|blvd|boulevard|dr|drive|hwy|highway|lane|ln|nanlu|beilu|lu)\.?$",
+    re.IGNORECASE,
+)
+_STATES = (
+    "AL|AK|AZ|AR|CA|CO|CT|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH"
+    "|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|DC|AB|BC|MB|NB|NL|NS|ON|PE|QC|SK"
+)
+_STATE_RE = re.compile(rf"^(?:{_STATES})(?:\s+\d{{5}}(?:-\d{{4}})?)?$")
+_CITY_WORDS = 2
+_NOTE_RE = re.compile(
+    r"^(?:project|code|demo|equal|lead\s+author|project\s+advisors?|web\s*page|home\s*page)\b", re.IGNORECASE
+)
+_MAILBOX_RE = re.compile(
+    r"^[a-z0-9]+(?:[._][a-z0-9]+)*[._](?!(?:ai|com|io|net|org|media|gr|cn|edu)$)[a-z0-9]+$"
+)
+# A person's name: two or three capitalized words.
+_PERSON_RE = re.compile(r"^[A-Z][\w'\u2019-]*\.?(?:\s+[A-Z][\w'\u2019-]*\.?){1,2}$")
 # Two letters in a row: what a part of an affiliation needs to name anything.
 _LETTERS_RE = re.compile(r"[^\W\d_]{2}")
 _DIGIT_RE = re.compile(r"\d")
@@ -226,6 +251,7 @@ def institution_name(affiliation: str) -> str | None:
     """
     text = _ARE_WITH_RE.sub("", _LEGAL_SUFFIX_RE.sub(r" \1", affiliation), count=1)
     parts = [_LEADING_THE_RE.sub("", part.strip()) for part in _SEPARATOR_RE.split(text)]
+    independent = any(_INDEPENDENT_RE.match(part) for part in parts)
     parts = [
         part
         for part in parts
@@ -248,12 +274,31 @@ def institution_name(affiliation: str) -> str | None:
         for pattern, brand in _BRANDS:
             if any(pattern.search(part) and not _NOT_A_BRAND_RE.search(part) for part in parts):
                 return brand
-    if best_score <= 0.5:  # noqa: PLR2004 - a unit or an address alone names nothing
-        return None
     campus = parts[best_index + 1] if best_index + 1 < len(parts) else None
+    if _names_nothing(affiliation, best, best_score, campus, independent=independent):
+        return None
     if _UNIVERSITY_OF_CALIFORNIA_RE.match(best) and campus is not None and _UC_CAMPUS_RE.match(campus):
         return f"{best}, {campus}"
     return best
+
+
+def _names_nothing(
+    affiliation: str, best: str, score: float, after: str | None, *, independent: bool
+) -> bool:
+    """Whether the best part of a string names no institution.
+
+    A unit or an address alone; an independent researcher's town ("Independent,
+    Jerusalem"); and, when it has no institution word, a street, a city before its state, a
+    note or a list of mailbox names (AQ-4).
+    """
+    if score <= 0.5 or (independent and score < 2 and not best.isupper()):  # noqa: PLR2004 - a unit, an address, a town
+        return True
+    return score == 1 and (
+        (_STREET_RE.search(best) is not None and after is not None)
+        or (len(best.split()) <= _CITY_WORDS and after is not None and _STATE_RE.match(after) is not None)
+        or _NOTE_RE.match(affiliation.strip()) is not None
+        or _MAILBOX_RE.match(best) is not None
+    )
 
 
 def _led_by_acronym(part: str) -> str | None:
@@ -335,8 +380,25 @@ def name_institutions(
         One name or ``None`` per affiliation.
     """
     people = {search_key(author) for author in authors}
+    surnames = {key.split()[-1] for key in people if key}
     names = (
-        canonical(name) if name else institution_name(affiliation)
+        None
+        if _lists_authors(affiliation, surnames)
+        else canonical(name)
+        if name
+        else institution_name(affiliation)
         for affiliation, name in zip(affiliations, registered, strict=True)
     )
     return tuple(name if name and search_key(name) not in people | {""} else None for name in names)
+
+
+def _lists_authors(affiliation: str, surnames: set[str]) -> bool:
+    """Whether a string is a list of the paper's authors, spelled their own way (AQ-4).
+
+    "Kate Tolstaya, Sarah Tang, ..." for "Ekaterina Tolstaya": two parts at least, each a
+    person's name, two of them ending with an author's surname.
+    """
+    parts = [part.strip() for part in _SEPARATOR_RE.split(affiliation) if part.strip()]
+    if len(parts) < 2 or not all(_PERSON_RE.match(part) or part.split()[-1:] == [part] for part in parts):  # noqa: PLR2004
+        return False
+    return sum(search_key(part).split()[-1:][0] in surnames for part in parts if search_key(part)) >= 2  # noqa: PLR2004

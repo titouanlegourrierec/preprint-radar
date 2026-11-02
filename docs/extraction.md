@@ -323,7 +323,12 @@ company mentioned anywhere is the company ("ARC Lab, Tencent IEG" is Tencent), n
 hospital named after it; a University of California campus keeps its city. ROR's and
 OpenAlex's names go through `canonical` too, a company's subsidiaries ("Google
 (Switzerland)") being the company. One of the paper's own authors is never an
-institution. What `_JUNK_RE` now rejects, in records extracted before it, mostly names
+institution, nor a list of them spelled their own way ("Kate Tolstaya, Sarah Tang" for
+"Ekaterina Tolstaya"). A part without an institution word names none when it is a street
+before its city ("Kifer Rd, Sunnyvale"), a city before its US state or Canadian province
+("Pittsburgh, PA 15213"), a note or a link's label ("Equal supervision", "Project
+webpage") or a mailbox name, nor does an independent researcher's town (AQ-4); a city
+alone ("Seoul, Korea") still names itself, which nothing tells from "IIT Delhi". What `_JUNK_RE` now rejects, in records extracted before it, mostly names
 none: `institution_name` has its own narrower `_JUNK_RE` and `_COUNTRY_RE`, and a
 department, school or faculty is no institution; a cut-off "Institute of" would name
 itself, but none is stored (`make reclean` drops them from day files).
