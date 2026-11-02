@@ -167,6 +167,7 @@ export function App() {
     storeSearch,
     load,
     loadingLine,
+    newest,
     searchable,
     retry,
     generatedAt,
@@ -287,6 +288,10 @@ export function App() {
   const wide = useMediaQuery(WIDE_QUERY);
   const folded = wide && sidebarFolded;
 
+  // The list shows the newest day's papers while the period's others load (WEB-4), but in an
+  // order of counts, which waits for them (UX-58).
+  const byCountsWaiting = state.sort === "citations" || state.sort === "rising";
+  const partial = state.view === "papers" && newest !== null && !byCountsWaiting ? newest : null;
   const activeIndex =
     state.view === "reading-list"
       ? sharing
@@ -294,7 +299,7 @@ export function App() {
         : readingList.index
       : load.status === "ready"
         ? load.index
-        : null;
+        : partial;
 
   // The tab's title says what is shown: a paper, a search, or the view.
   const focusedTitle = state.paper ? activeIndex?.get(state.paper)?.title : undefined;
@@ -1229,7 +1234,9 @@ export function App() {
                   />
                   <PaperList
                     results={
-                      listed.status === "ready" || state.view === "reading-list" ? results : []
+                      listed.status === "ready" || state.view === "reading-list" || partial
+                        ? results
+                        : []
                     }
                     resetKey={listKey({ ...state, filters }, query)}
                     nameHighlights={nameTerms}

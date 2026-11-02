@@ -163,12 +163,14 @@ async function loadDay(path: string, signal: AbortSignal | undefined): Promise<P
  * left out, reported in the console, and its day returned among the `missing` ones, which
  * the period names (SRCH-10); when every one fails, the network or the site is down, and
  * the period fails, as it does for a file of another schema version, which a deploy that
- * went wrong serves.
+ * went wrong serves. `onNewest` gets the most recent day's papers as soon as they come,
+ * for the list to show them while the others load (WEB-4).
  */
 export async function loadDays(
   category: string,
   days: readonly DaySummary[],
   signal?: AbortSignal,
+  onNewest?: (papers: Paper[]) => void,
 ): Promise<{ papers: Paper[]; missing: string[] }> {
   const results: (Paper[] | null)[] = new Array(days.length);
   let failure: unknown;
@@ -186,6 +188,8 @@ export async function loadDays(
         failure = error;
         return null;
       });
+      const papers = results[position];
+      if (position === 0 && papers && days.length > 1) onNewest?.(papers);
     }
   }
 

@@ -30,8 +30,10 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   `adjacentPatterns`, stop words allowed between them): holding every pair triples the score
   (`ADJACENCY_BOOST`), enough to beat the words apart in an abstract, not in a title. It
   took the top 20 results holding the words as typed from 84% to 95%.
-- `PaperIndex` builds its full-text index only for a search with words, or in idle chunks
-  once the list shows (`warm`), so the list never waits (`usePapers().searchable`).
+- `PaperIndex` builds its full-text index in idle chunks once the list shows (`warm`), so
+  the list never waits (`usePapers().searchable`); a search with words waits for it, the
+  count line saying `Indexing N papers for the search…` (WEB-1), rather than build the rest
+  at once, which froze the page for seconds.
 - Name filters (`NameFilter`): a name clicked on a card, a Rankings row or a graph node
   (`by`, `at`) matches exactly, an author by `searchKey`, an institution by the name
   `institutionsOf` gives it, as the graph and Rankings count, so a row shows as many papers
@@ -192,6 +194,10 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   crashes phones), its older days from the search shards within `LIGHT_BUDGET` (20,000 more,
   `lightDays`, PERF-1), without abstracts, so about seven months are searchable. The picker
   says which days have their abstracts searched and what both budgets leave out.
+- The list shows the newest day's papers as soon as its file comes (`loadDays`' `onNewest`,
+  `usePapers().newest`), the count still loading, while the older days come (WEB-4): the
+  default week's first card in half the time. Not in an order of counts, which waits for
+  them (UX-58).
 - A failed day file is asked for once more, then left out, as are the days of a failed month
   shard, named in a notice with Retry (`missingDays`, `formatMissingDays`, SRCH-10); only a
   period whose every day file fails is an error. A shard's paper loads its day file when its

@@ -100,6 +100,8 @@ export function usePapers(
   // What the index holds the papers of (`wanted` then): their category, period, years or
   // search, which another must not show nor search, even for a frame.
   const [loadedFor, setLoadedFor] = useState<string | null>(null);
+  // The newest day's papers, while the period's others load (WEB-4), and what they are of.
+  const [newest, setNewest] = useState<{ index: PaperIndex; of: string } | null>(null);
 
   useEffect(() => {
     if (attempt > 0 && storeIndex) return;
@@ -140,6 +142,7 @@ export function usePapers(
     // The former index and its full-text index can go: two would hold 20,000 papers.
     setWarmed(null);
     setLoadedFor(null);
+    setNewest(null);
     if (searchedKey !== null) {
       const searched = JSON.parse(searchedKey) as {
         query: string;
@@ -156,8 +159,11 @@ export function usePapers(
       const period = periodOfKey(loadedPeriod);
       const known = storeIndex.categories[category] ?? [];
       const older = lightDays(known, period);
+      // The newest day shows first, while the older ones come (WEB-4).
+      const showNewest = (papers: Paper[]) =>
+        !signal.aborted && setNewest({ index: new PaperIndex(papers), of: wanted });
       loaded = Promise.all([
-        loadDays(category, selectDays(known, period), signal),
+        loadDays(category, selectDays(known, period), signal, showNewest),
         older.length > 0 ? loadLightDays(category, older) : { papers: [], missing: [] },
       ]).then(([whole, light]) => ({
         papers: [...light.papers, ...whole.papers],
@@ -328,6 +334,8 @@ export function usePapers(
                   }
               : { days: [...selectDays(storeDays, period), ...lightDays(storeDays, period)] },
           ),
+    /** The newest day's papers while the period's others load; else `null` (WEB-4). */
+    newest: shown.status === "loading" && newest?.of === wanted ? newest.index : null,
     /** The papers loaded, once a search over them costs no indexing; else `null`. */
     searchable: shown.status === "ready" && warmed === shown.index ? shown.index : null,
     retry: () => setAttempt((count) => count + 1),
