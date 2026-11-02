@@ -868,6 +868,10 @@ test("a saved paper is in the reading list, which exports it", async ({ page }) 
   const download = page.waitForEvent("download");
   await menu.getByRole("button", { name: "RIS", exact: true }).click();
   expect((await download).suggestedFilename()).toBe("reading-list.ris");
+  // Escape closes it, as the other menus, its button taking the focus back (WEB-8).
+  await page.keyboard.press("Escape");
+  await expect(menu).toBeHidden();
+  await expect(page.locator(".export-menu__toggle")).toBeFocused();
   expect(errors).toEqual([]);
 });
 
@@ -935,6 +939,8 @@ test("the reading list's own order, arranged by Alt+arrows or a drag", async ({ 
   await page.keyboard.press("Alt+ArrowDown");
   await expect(cards.nth(1)).toHaveAttribute("data-arxiv-id", first ?? "");
   await expect(cards.nth(1)).toBeFocused();
+  // Said to screen readers (WEB-8).
+  await expect(page.getByText("Moved to position 2 of 2")).toBeAttached();
   // Kept in this browser.
   await page.reload();
   await expect(cards.nth(1)).toHaveAttribute("data-arxiv-id", first ?? "");

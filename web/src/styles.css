@@ -4253,6 +4253,18 @@ input[type="range"] {
   margin: 0 0 8px;
 }
 
+/* On a phone the chips fill the stage's top and the controls its bottom: the intro stands
+   in the middle, over the canvas alone, which takes no focus (WEB-8, WCAG 2.4.11). */
+@media (max-width: 600px) {
+  .graph__intro {
+    top: 50%;
+    right: 12px;
+    bottom: auto;
+    max-width: none;
+    transform: translateY(-50%);
+  }
+}
+
 .export-menu {
   position: relative;
 }

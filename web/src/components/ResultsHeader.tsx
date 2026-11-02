@@ -1,8 +1,9 @@
 import type { ComponentChildren } from "preact";
-import { useRef } from "preact/hooks";
+import { useCallback, useRef, useState } from "preact/hooks";
 import { toBibtexFile } from "../bibtex";
 import { download } from "../download";
 import { countOf, formatDay } from "../format";
+import { useDismiss } from "../hooks/use-dismiss";
 import { LOCALE } from "../locale";
 import type { Paper } from "../types";
 import type { CountLine, SortChoice, ViewModel } from "../view-model";
@@ -120,6 +121,18 @@ function countText(count: CountLine): string {
 export function ResultsHeader(props: Props) {
   const { model, count } = props;
   const importInput = useRef<HTMLInputElement>(null);
+  // The Export menu closes on Escape or a click elsewhere, as the other menus do, Escape
+  // handing the focus back to its button (WEB-8).
+  const exportMenu = useRef<HTMLDetailsElement>(null);
+  const [exportOpen, setExportOpen] = useState(false);
+  const closeExport = useCallback((escaped: boolean) => {
+    const menu = exportMenu.current;
+    if (!menu) return;
+    menu.open = false;
+    setExportOpen(false);
+    if (escaped) menu.querySelector<HTMLElement>("summary")?.focus();
+  }, []);
+  useDismiss(exportOpen, exportMenu, closeExport);
   const exportName = props.readingList ? "reading-list" : "papers";
   const titles: Partial<Record<SortChoice, string | undefined>> = {
     relevance: RELEVANCE_HELP,
@@ -188,7 +201,11 @@ export function ResultsHeader(props: Props) {
         </div>
       )}
       {model.exports && props.papers.length > 0 && (
-        <details class="export-menu">
+        <details
+          class="export-menu"
+          ref={exportMenu}
+          onToggle={(event) => setExportOpen(event.currentTarget.open)}
+        >
           <summary class="button export-menu__toggle">
             <DownloadIcon />
             Export {props.papers.length.toLocaleString(LOCALE)}

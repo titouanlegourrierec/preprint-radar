@@ -101,6 +101,8 @@ export function PaperList({
   // The card dragged by its handle, and where it would go among the others (UX-39).
   const [dragged, setDragged] = useState<string | null>(null);
   const [drop, setDrop] = useState<{ id: string; place: "before" | "after" } | null>(null);
+  // Where Alt+arrows moved the focused card, said to screen readers (WEB-8).
+  const [moved, setMoved] = useState("");
   const sentinel = useRef<HTMLDivElement>(null);
   const list = useRef<HTMLDivElement>(null);
 
@@ -138,6 +140,7 @@ export function PaperList({
       const neighbour = order[index + (up ? -1 : 1)];
       if (index === -1 || neighbour === undefined) return false;
       onMove(id, neighbour, up ? "before" : "after");
+      setMoved(`Moved to position ${index + (up ? 0 : 2)} of ${order.length}`);
       // Moved in the page, the card can lose the focus: it takes it back once drawn.
       setTimeout(() => {
         const moved = list.current?.querySelector<HTMLElement>(
@@ -406,6 +409,9 @@ export function PaperList({
       {!cut && results.length > 0 && (
         <p class="list-rule list-rule--end">End of the list · {countOf(results.length, "paper")}</p>
       )}
+      <p class="visually-hidden" aria-live="polite">
+        {moved}
+      </p>
       <div ref={sentinel} aria-hidden="true" />
     </>
   );
