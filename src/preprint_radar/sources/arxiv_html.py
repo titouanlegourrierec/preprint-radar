@@ -73,7 +73,7 @@ __all__ = [
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 23
+EXTRACTOR_VERSION = 24
 """Version of the extraction heuristics, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so

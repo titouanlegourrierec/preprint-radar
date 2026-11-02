@@ -10,6 +10,23 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ## Unreleased
 
+### Pipeline
+
+- Extraction version 24 (AQ-9, AQ-11, AQ-12): links' labels glued to an affiliation
+  ("Peking UniversityCode") dropped, units cut by a line break whole ("Department of
+  Electrical and Computer Engineering"), and a company signing beside a model's team kept.
+- Institutes named over their centers and labs, and UChicago (AQ-10); a fixture's output
+  may change only under a new extractor version (EXT-8); `validate` warns of an author
+  arXiv lists that is no name (PUB-8).
+- The published versions' weekly run asks first for what the last one missed (OPS-7); a
+  data run's summary shows only its new warnings (OPS-11); the workflows are audited by
+  zizmor (PUB-7) and their limits hold their steps' (OPS-9).
+
+### Interface
+
+- The search index is built in slices of 10 ms (WEB-7), the landing page loads the styles
+  of the list alone (SCALE-6), and a few accessibility gaps are closed (WEB-8).
+
 ## 1.2.0 (2026-11-02): the second audit, lighter lists, and affiliations read more surely
 
 ### Interface

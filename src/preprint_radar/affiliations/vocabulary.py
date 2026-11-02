@@ -52,8 +52,28 @@ _LATEX_SPACE_RE = re.compile(r"\[\s*-?\d*\.?\d+\s*(?:pt|em|ex|mm|cm|in|bp|pc|mu)
 # affiliation before it: "MITProject page"; "Project:" with its colon only, glued to the last
 # author's name ("Li YuanProject: https://…", 2406.18522).
 _LINK_LABEL_RE = re.compile(
-    r"project(?:\s+(?:page|website|homepage|repository|site)\b\s*:?|\s*:)", re.IGNORECASE
+    r"project(?:\s+(?:page|website|webpage|homepage|repository|site)\b\s*:?|\s*:)", re.IGNORECASE
 )
+# Labels of links whose addresses went, ending an affiliation (AQ-9): glued to it, as in
+# 2405.17398 (Code and model, then Video demos, after "University of Hong Kong"), 2502.18017
+# (Dataset and Code) or 2507.01291 (Code, Models and Data after "NVIDIA"), or "Code" alone
+# after a space (2408.12588). Whole to the end, so that "TransCode Lab" keeps its name, and
+# "Data" only after another label: "Institute of Big Data" is a name.
+_LINK_LABEL_WORDS = r"(?:code|models?|data(?:sets?)?|demos?|video\s+demos?)"
+_LINK_TAIL_RE = re.compile(
+    rf"(?:(?:(?<=[a-z)])|(?<=[A-Z]{{3}}))(?:Code|Dataset|Demo|Video demos?)|\s+Code)"
+    rf"(?:\s*(?:[,&:]|and)\s*(?i:{_LINK_LABEL_WORDS}))*\s*:?\s*$"
+)
+# A creator naming a model, not a person: Li Auto's "Foundation Model" team (2609.21449).
+_MODEL_NAME_RE = re.compile(r"\bmodels?\b", re.IGNORECASE)
+# A string of links' labels alone: "Project & Code", "Demo Video: Source Code" (AQ-9).
+_LABELS_ONLY_RE = re.compile(
+    r"^(?:(?:project|demo|video|source|code|data(?:sets?)?|models?|webpage|website)\b[\s,&:]*"
+    r"(?:and\s+)?)+$",
+    re.IGNORECASE,
+)
+# The heading of a row of link labels before an affiliation: "Links: · NVIDIA" (2606.13673).
+_LINKS_HEADING_RE = re.compile(r"^\s*Links?\s*:[\s·•|]*", re.IGNORECASE)
 # Contact details after an affiliation: "..., USA. email: {a, b}@nyu.edu", "(e-mail: ...)",
 # an address in brackets, which unwrapped thanks notes glue to the sentence: "..., Hong
 # Kong SAR, China (author@connect.ust.hk)" (2609.10082), or one that ends the line: "...,
@@ -170,6 +190,12 @@ _GLUED_ADDRESS_RE = re.compile(
 # 2 MIT 3 UCB" of 2610.19495, read as one affiliation without them.
 _RAISED_RE = re.compile(r"position:\s*relative;\s*bottom:\s*\d", re.IGNORECASE)
 _RAISED_MARKER_RE = re.compile(rf"[\d,\s{_MARKER_SYMBOLS}]{{1,12}}")
+# The rest of a unit's name a line break left on the next line: its field's last word, or
+# its name in quotes (AQ-11).
+_UNIT_NAME_GOES_ON_RE = re.compile(
+    r"(?:Engineering|Sciences?|Technology|Technologies|Studies|Systems|Informatics|Mathematics)\b"
+    r"|[“\"]"
+)
 # Conjunctions left over when a line break splits "A University and B Institute".
 _CONNECTOR_RE = re.compile(r"^(?:and|&)(?:\s+|$)", re.IGNORECASE)
 # A line that ends like this continues on the next one ("School of Medicine, and").

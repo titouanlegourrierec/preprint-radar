@@ -1,0 +1,49 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">Towards Automatic Video Annotation with ASH: Zero-Shot Open-Vocabulary Multi-Object Tracking and Segmentation</h1>
+<span class="ltx_pubnotes ltx_pubnotes_meta"><span class="ltx_pubnotes_content"><span class="ltx_pubnote ltx_role_journal"><span class="ltx_note_name">Journal: </span>Pattern Recognition</span></span></span>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Arash Rocky
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:author@example.org">author@example.org</a>
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Electrical and Computer
+Engineering, University of Windsor, Windsor, ON, N9B 3P4, Canada
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Q. M. Jonathan Wu
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:author@example.org">author@example.org</a>
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Electrical and Computer
+Engineering, University of Windsor, Windsor, ON, N9B 3P4, Canada
+</span>
+<span class="ltx_contact ltx_role_correspondent"><span class="ltx_contact_name">Corresponding author: </span>Corresponding author.
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Memory-attention-based Video Instance Segmentation (VIS) methods have
+demonstrated strong zero-shot tracking capability, yet their substantial
+memory requirements confine them to short video clips and their
+single-prompt inference design makes multi-category open-vocabulary
+tracking computationally prohibitive. This work introduces two
+contributions toward fully automated tracking annotation of arbitrary
+video. The <span class="ltx_text ltx_font_bold" id="abstract1.1.1">Generalized Presence Token (GPT)</span> reformulates SAM3’s
+inference pipeline to process <math alttext="N" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> text prompts simultaneously via virtual
+prompt batching, reducing image encoding cost from <math alttext="\mathcal{O}(N)" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mrow><mi class="ltx_font_mathcaligraphic">𝒪</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{O}(N)</annotation></semantics></math> to
+<math alttext="\mathcal{O}(1)" class="ltx_Math" display="inline" id="abstract1.m3" intent=":literal"><semantics><mrow><mi class="ltx_font_mathcaligraphic">𝒪</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{O}(1)</annotation></semantics></math> with no modifications to any learned component. The
+<span class="ltx_text ltx_font_bold" id="abstract1.1.2">Annotation and Segmentation Handler (ASH)</span> extends any
+memory-attention VIS tracker to sequences of arbitrary length through
+overlapping temporal chunks with IoU-based inter-chunk identity matching,
+requiring no dataset-specific training. Instantiated on SAM3, the
+resulting pipeline — SAM3-ASH — achieves state-of-the-art HOTA on
+MOTS20 under fully zero-shot conditions and remains competitive with
+trained specialists across seven additional benchmarks, while peak GPU
+memory consumption stays below 25 GB, establishing a practical baseline
+for scalable, training-free automated video annotation.</p>
+</div>
+<div class="ltx_keywords">
+<h6 class="ltx_title ltx_title_keywords">Keywords: </h6>
+Auto Annotation , Multi-Object Tracking , Video Instance Segmentation , Open-Vocabulary Tracking , Memory-Attention Segmentation , Annotation and Segmentation Handler (ASH)
+
+</div>
+</article></body></html>

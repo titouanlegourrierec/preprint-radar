@@ -38,10 +38,13 @@ from preprint_radar.affiliations.vocabulary import (
     _JUNK_RE,
     _KEY_RE,
     _KEYVAL_RE,
+    _LABELS_ONLY_RE,
     _LATER_NOTE_RE,
     _LATEX_SPACE_RE,
     _LEADING_MARKER_RE,
     _LINK_LABEL_RE,
+    _LINK_TAIL_RE,
+    _LINKS_HEADING_RE,
     _LIST_END_RE,
     _MACRO_RE,
     _MAIL_FRAGMENT_RE,
@@ -257,7 +260,13 @@ def clean_affiliation(text: str) -> str | None:
     )
     text = _MAILBOX_LIST_RE.sub(" ", _OBFUSCATED_EMAIL_RE.sub(" ", text))
     text = _EMPTY_BRACKETS_RE.sub(" ", _LINK_LABEL_RE.sub(" ", _LATEX_SPACE_RE.sub(" ", text)))
-    if _NOISE_RE.search(text) or _LATER_NOTE_RE.search(text) or _is_note_sentence(text):
+    text = _LINK_TAIL_RE.sub("", _LINKS_HEADING_RE.sub("", text))
+    if (
+        _NOISE_RE.search(text)
+        or _LATER_NOTE_RE.search(text)
+        or _is_note_sentence(text)
+        or _LABELS_ONLY_RE.match(text.strip())
+    ):
         return None
     text = _SPACE_BEFORE_PUNCTUATION_RE.sub(r"\1", " ".join(_unglued(text).split()))
     text = _REPEATED_COMMA_RE.sub(",", text)

@@ -683,7 +683,8 @@ AUTHORS = {
         # Institute of Technology (EPFL), ...": two affiliations, the first joined from two lines.
         pytest.param(
             "2610.03290",
-            ((0,), (0,), (1, 2), (1, 2), (3,), (1, 2), (0,), (4, 5, 6, 7), (0,)),
+            # LiGHT's name, cut after "Humanitarian Response", goes on with its EPFL (AQ-11).
+            ((0,), (0,), (1,), (1,), (2,), (1,), (0,), (3, 4, 5, 6), (0,)),
             id="anchors-made-of-affiliations",
         ),
         # Two authors' names printed as the fourth one's affiliation, beside the shared one.
@@ -1859,6 +1860,18 @@ def test_name_key_ignores_spelling(listed: str, respelled: str) -> None:
         ("$\u02c6\u2020$The authors worked as Independent Researchers on this project", ()),
         ("Work performed while at NVIDIA", ()),
         ("Supported Intelligence Lab, MIT", ("Supported Intelligence Lab, MIT",)),
+        # Links' labels ending an affiliation, glued or not, and their heading (AQ-9); a name
+        # holding "Code" or "Data" keeps it.
+        ("Nanjing UniversityProject webpage", ("Nanjing University",)),
+        ("Purdue University Code", ("Purdue University",)),
+        ("University of Hong KongCode and model: Video demos", ("University of Hong Kong",)),
+        ("Shanghai Jiao Tong UniversityDataset & Code", ("Shanghai Jiao Tong University",)),
+        ("NVIDIACode, Models & Data", ("NVIDIA",)),
+        ("Links: \u00b7 NVIDIA", ("NVIDIA",)),
+        ("TransCode Lab", ("TransCode Lab",)),
+        ("Institute of Big Data", ("Institute of Big Data",)),
+        ("Project & Code", ()),
+        ("Demo Video: Source Code", ()),
         ("Part of Stanford University", ("Part of Stanford University",)),
     ],
 )

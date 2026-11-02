@@ -30,6 +30,7 @@ from preprint_radar.affiliations.vocabulary import (
     _NUMBERED_ANCHOR_RE,
     _SENTENCE_START_RE,
     _SEPARATOR_RE,
+    _UNIT_NAME_GOES_ON_RE,
 )
 
 
@@ -126,14 +127,17 @@ def _joined(lines: Iterable[_Line], authors: Sequence[str] = ()) -> list[str]:
 
 
 def _continues(previous: str, line: _Line) -> bool:
-    """Whether a line starting with "and" goes on with the unit that ends the previous one.
+    """Whether a line goes on with the name of the unit that ends the previous one.
 
     "and Statistics" ends "School of Mathematics", but "and Mila" is not part of "Stanford
-    University", nor "& Canada-CIFAR AI Chair" of anything.
+    University", nor "& Canada-CIFAR AI Chair" of anything. So does the end of a field a
+    line break cut, "Engineering" after "Department of Electrical and Computer" (2610.01022),
+    and the quoted name of a unit, "“Tullio Levi-Civita”" after "Department of Mathematics"
+    (2609.37047): joined with a space, not the comma between two parts (AQ-11).
     """
     return (
         not line.marked
-        and line.text.startswith("and ")
+        and (line.text.startswith("and ") or _UNIT_NAME_GOES_ON_RE.match(line.text) is not None)
         and is_bare_unit(previous.rsplit(",", maxsplit=1)[-1].strip())
     )
 

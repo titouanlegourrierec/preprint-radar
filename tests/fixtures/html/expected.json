@@ -1977,8 +1977,7 @@
     ],
     "affiliations": [
       "Department of Electrical and Electronic Engineering, University of Stellenbosch, Stellenbosch, South Africa",
-      "Laboratory for intelligent Global Health and Humanitarian Response, Technologies (LiGHT)",
-      "Swiss Federal Institute of Technology (EPFL), Lausanne, Switzerland",
+      "Laboratory for intelligent Global Health and Humanitarian Response Technologies (LiGHT), Swiss Federal Institute of Technology (EPFL), Lausanne, Switzerland",
       "National Teaching Hospital for Tuberculosis and Pulmonary Diseases, (CNHU-PPC), Cotonou, Benin",
       "South African Medical Research Council Centre for Tuberculosis",
       "Research (CTR)",
@@ -2001,15 +2000,13 @@
       [
         "Véronique Suttels",
         [
-          "Laboratory for intelligent Global Health and Humanitarian Response, Technologies (LiGHT)",
-          "Swiss Federal Institute of Technology (EPFL), Lausanne, Switzerland"
+          "Laboratory for intelligent Global Health and Humanitarian Response Technologies (LiGHT), Swiss Federal Institute of Technology (EPFL), Lausanne, Switzerland"
         ]
       ],
       [
         "Trevor Brokowski",
         [
-          "Laboratory for intelligent Global Health and Humanitarian Response, Technologies (LiGHT)",
-          "Swiss Federal Institute of Technology (EPFL), Lausanne, Switzerland"
+          "Laboratory for intelligent Global Health and Humanitarian Response Technologies (LiGHT), Swiss Federal Institute of Technology (EPFL), Lausanne, Switzerland"
         ]
       ],
       [
@@ -2021,8 +2018,7 @@
       [
         "Mary-Anne Hartley",
         [
-          "Laboratory for intelligent Global Health and Humanitarian Response, Technologies (LiGHT)",
-          "Swiss Federal Institute of Technology (EPFL), Lausanne, Switzerland"
+          "Laboratory for intelligent Global Health and Humanitarian Response Technologies (LiGHT), Swiss Federal Institute of Technology (EPFL), Lausanne, Switzerland"
         ]
       ],
       [
@@ -4837,7 +4833,9 @@
       "Kun Zhan",
       "Yu Liu"
     ],
-    "affiliations": [],
+    "affiliations": [
+      "Li Auto Inc"
+    ],
     "placed": null,
     "abstract": null
   },
@@ -5550,5 +5548,202 @@
       ]
     ],
     "abstract": "Flow Matching enables high-quality visual generation via continuous-time dynamics, but inference remains costly due to multiple sequential function evaluations. Existing acceleration methods reduce the number of function evaluations but often introduce additional training overhead, degrade quality, or fail to account for input-dependent variability. We propose CoFlow, an inference-time method that adaptively selects the step counts each generation based on the prompt features. Our context-aware CoFlow is trained online with an unsupervised reward that balances inference efficiency and generation fidelity. Our method is plug-and-play, requiring no retraining of the underlying generative model. It generalizes to image and video generation, achieving over 2.5× speedup while preserving perceptual and semantic quality. We further provide a theoretical analysis establishing an O(1/K) forward-Euler discretization error bound under standard regularity conditions."
+  },
+  "2210.08402": {
+    "authors": [
+      "Christoph Schuhmann",
+      "Romain Beaumont",
+      "Richard Vencu",
+      "Cade Gordon",
+      "Ross Wightman",
+      "Mehdi Cherti",
+      "Theo Coombes",
+      "Aarush Katta",
+      "Clayton Mullis",
+      "Mitchell Wortsman",
+      "Patrick Schramowski",
+      "Srivatsa Kundurthy",
+      "Katherine Crowson",
+      "Ludwig Schmidt",
+      "Robert Kaczmarczyk",
+      "Jenia Jitsev"
+    ],
+    "affiliations": [
+      "LAION"
+    ],
+    "placed": [
+      [
+        "Christoph Schuhmann",
+        [
+          "LAION"
+        ]
+      ],
+      [
+        "Romain Beaumont",
+        [
+          "LAION"
+        ]
+      ],
+      [
+        "Richard Vencu",
+        [
+          "LAION"
+        ]
+      ],
+      [
+        "Cade Gordon",
+        [
+          "LAION"
+        ]
+      ],
+      [
+        "Ross Wightman",
+        [
+          "LAION"
+        ]
+      ],
+      [
+        "Mehdi Cherti",
+        [
+          "LAION"
+        ]
+      ],
+      [
+        "Theo Coombes",
+        [
+          "LAION"
+        ]
+      ],
+      [
+        "Aarush Katta",
+        [
+          "LAION"
+        ]
+      ],
+      [
+        "Clayton Mullis",
+        [
+          "LAION"
+        ]
+      ],
+      [
+        "Mitchell Wortsman",
+        [
+          "LAION"
+        ]
+      ],
+      [
+        "Patrick Schramowski",
+        [
+          "LAION"
+        ]
+      ],
+      [
+        "Srivatsa Kundurthy",
+        [
+          "LAION"
+        ]
+      ],
+      [
+        "Katherine Crowson",
+        [
+          "LAION"
+        ]
+      ],
+      [
+        "Ludwig Schmidt",
+        [
+          "LAION"
+        ]
+      ],
+      [
+        "Robert Kaczmarczyk",
+        [
+          "LAION"
+        ]
+      ],
+      [
+        "Jenia Jitsev",
+        [
+          "LAION"
+        ]
+      ]
+    ],
+    "abstract": "Groundbreaking language-vision architectures like CLIP and DALL-E proved the utility of training on large amounts of noisy image-text data, without relying on expensive accurate labels used in standard vision unimodal supervised learning. The resulting models showed capabilities of strong text-guided image generation and transfer to downstream tasks, while performing remarkably at zero-shot classification with noteworthy out-of-distribution robustness. Since then, large-scale language-vision models like ALIGN, BASIC, GLIDE, Flamingo and Imagen made further improvements. Studying the training and capabilities of such models requires datasets containing billions of image-text pairs. Until now, no datasets of this size have been made openly available for the broader research community. To address this problem and democratize research on large-scale multi-modal models, we present LAION-5B - a dataset consisting of 5.85 billion CLIP-filtered image-text pairs, of which 2.32B contain English language. We show successful replication and fine-tuning of foundational models like CLIP, GLIDE and Stable Diffusion using the dataset, and discuss further experiments enabled with an openly available dataset of this scale. Additionally we provide several nearest neighbor indices, an improved web-interface for dataset exploration and subset generation, and detection scores for watermark, NSFW, and toxic content detection. 11 1 Project page: https://laion.ai/laion-5b-a-new-era-of-open-large-scale-multi-modal-datasets/"
+  },
+  "2609.13265": {
+    "authors": [
+      "Sungwoo Kang"
+    ],
+    "affiliations": [
+      "Department of Electrical and Computer Engineering, Korea University, Seoul, Republic of Korea"
+    ],
+    "placed": [
+      [
+        "Sungwoo Kang",
+        [
+          "Department of Electrical and Computer Engineering, Korea University, Seoul, Republic of Korea"
+        ]
+      ]
+    ],
+    "abstract": "Forward-facing near-infrared imaging is proposed to complement colour cameras for agricultural traversability, yet whether the extra band supplies information colour does not already carry is unresolved, because the benchmarks behind it split spatially autocorrelated imagery without holding locations apart. We evaluate four input configurations, colour, near-infrared, a capacity-matched luminance control, and their fusion, on the daylight imagery of the AI Hub Precision Agriculture Farm Machinery Autonomous Driving corpus under protocols that hold the recording sites apart. No configuration then beats colour consistently on any of the five traversability target classes, and the two effects favouring the second camera at a single held-out site both fail to replicate when the held-out site is rotated. For a forward-facing sensor suite on daytime paddy and dry-field driving, the second camera is unproven. Under the corpus’s own sequence-level split, near-infrared instead appears to succeed on a paddy-boundary class that colour segments poorly. That advantage is site leakage, and near-infrared is the configuration it inflates most on that class. Correcting the split removes near-infrared’s lead rather than lowering every configuration alike. A location-leaking evaluation can reorder the sensors a procurement decision depends on, and a single held-out site can report a site-specific effect as general."
+  },
+  "2609.37047": {
+    "authors": [
+      "Aidin Attar",
+      "Eleonora Cicciarella",
+      "Michele Rossi"
+    ],
+    "affiliations": [
+      "Department of Information Engineering, University of Padua, Padua, Italy",
+      "Department of Information Engineering, University of Padua",
+      "Department of Mathematics “Tullio Levi-Civita”, University of Padua, Padua, Italy"
+    ],
+    "placed": [
+      [
+        "Aidin Attar",
+        [
+          "Department of Information Engineering, University of Padua, Padua, Italy"
+        ]
+      ],
+      [
+        "Eleonora Cicciarella",
+        [
+          "Department of Information Engineering, University of Padua, Padua, Italy"
+        ]
+      ],
+      [
+        "Michele Rossi",
+        [
+          "Department of Information Engineering, University of Padua",
+          "Department of Mathematics “Tullio Levi-Civita”, University of Padua, Padua, Italy"
+        ]
+      ]
+    ],
+    "abstract": "We propose a new spiking neural network (SNN) design to process static images and event streams using time-to-first-spike (TTFS) latencies. Our key research question is which architectural choices best accommodate local and online learning in multi-layer convolutional SNNs. This question is addressed via an original framework combining residual-like connections with multi-depth feature aggregation and consensus. The full SNN pipeline features an early-vision front end, to convert raw visual data into sparse spike latencies, a four-layer convolutional backbone trained layerwise with unsupervised spike-timing-dependent plasticity (STDP), a deterministic Multi-Depth Temporal Fusion (MDTF) and a final classifier trained with reward-modulated spike-timing-dependent plasticity (R-STDP). Rather than replacing early features in deeper layers, the proposed MDTF preserves early temporal evidence, adding sparse residual events from intermediate layers, and incorporating deeper features only when they agree in time with earlier representations. The resulting architecture is experimentally validated across MNIST, Fashion-MNIST, CIFAR-10, and N-MNIST, delivering strong classification performance under a fully local learning regime. Selective multi-depth fusion significantly outperforms traditional STDP/R-STDP baselines on higher-variability visual tasks (achieving +18.2 pp on Fashion-MNIST and +29.2 pp on CIFAR-10). Furthermore, activity-budget analyses show that the network retains high accuracy even when removing a large fraction of late or weak spike events, confirming its high data efficiency and reduced event-processing requirements. The codebase is publicly available at https://github.com/aidinattar/multi-depth-temporal-fusion-snn."
+  },
+  "2610.01022": {
+    "authors": [
+      "Arash Rocky",
+      "Q. M. Jonathan Wu"
+    ],
+    "affiliations": [
+      "Department of Electrical and Computer Engineering, University of Windsor, Windsor, ON, N9B 3P4, Canada"
+    ],
+    "placed": [
+      [
+        "Arash Rocky",
+        [
+          "Department of Electrical and Computer Engineering, University of Windsor, Windsor, ON, N9B 3P4, Canada"
+        ]
+      ],
+      [
+        "Q. M. Jonathan Wu",
+        [
+          "Department of Electrical and Computer Engineering, University of Windsor, Windsor, ON, N9B 3P4, Canada"
+        ]
+      ]
+    ],
+    "abstract": "Memory-attention-based Video Instance Segmentation (VIS) methods have demonstrated strong zero-shot tracking capability, yet their substantial memory requirements confine them to short video clips and their single-prompt inference design makes multi-category open-vocabulary tracking computationally prohibitive. This work introduces two contributions toward fully automated tracking annotation of arbitrary video. The Generalized Presence Token (GPT) reformulates SAM3’s inference pipeline to process N text prompts simultaneously via virtual prompt batching, reducing image encoding cost from O(N) to O(1) with no modifications to any learned component. The Annotation and Segmentation Handler (ASH) extends any memory-attention VIS tracker to sequences of arbitrary length through overlapping temporal chunks with IoU-based inter-chunk identity matching, requiring no dataset-specific training. Instantiated on SAM3, the resulting pipeline — SAM3-ASH — achieves state-of-the-art HOTA on MOTS20 under fully zero-shot conditions and remains competitive with trained specialists across seven additional benchmarks, while peak GPU memory consumption stays below 25 GB, establishing a practical baseline for scalable, training-free automated video annotation."
   }
 }

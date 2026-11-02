@@ -446,6 +446,13 @@ what each version changed:
   wherever an affiliation comes from the markers LaTeXML printed as text ("$1$", "$^a$"),
   the format characters and LaTeX's tilde, and drops a note's sentence on its own ("This
   work was done when the author was at Adobe Research").
+- 24: the second audit's last (AQ-9, AQ-11, AQ-12): a link's label ending an affiliation,
+  glued or not ("Nanjing UniversityProject webpage", "NVIDIACode, Models & Data"), and the
+  "Links:" heading before one are dropped; a unit's name a line break cut goes on with a
+  space ("Department of Electrical and Computer" then "Engineering, ...", 2610.01022); a
+  creator naming a model beside the company that signs (2609.21449) no longer hides it.
+  Creators without an affiliation between creators with one say nothing: Flamingo's and
+  YOLOX's are at their one affiliation as much as LAION-5B's three are not (2210.08402).
 
 ## Institutions (ROR, then `institutions.py`)
 

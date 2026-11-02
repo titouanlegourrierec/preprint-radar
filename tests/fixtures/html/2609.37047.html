@@ -1,0 +1,53 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">Multi-Depth Temporal Fusion for Feedforward,
+<br class="ltx_break"/>Locally Trained Spiking Neural Networks</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Aidin Attar<sup class="ltx_sup" id="id1">*</sup>
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Information
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Engineering, University of Padua
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Padua, Italy
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Eleonora Cicciarella
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Information
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Engineering, University of Padua
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Padua, Italy
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Michele Rossi
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Information
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Engineering, University of Padua
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Mathematics
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>“Tullio Levi-Civita”, University of Padua
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Padua, Italy
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">We propose a new spiking neural network (SNN) design to process static images and event streams using time-to-first-spike (TTFS) latencies. Our key research question is which architectural choices best accommodate local and online learning in multi-layer convolutional SNNs. This question is addressed via an original framework combining residual-like connections with <span class="ltx_text ltx_font_italic" id="abstract1.1.1">multi-depth feature aggregation</span> and <span class="ltx_text ltx_font_italic" id="abstract1.1.2">consensus</span>. The full SNN pipeline features an early-vision front end, to convert raw visual data into sparse spike latencies, a four-layer convolutional backbone trained layerwise with unsupervised spike-timing-dependent plasticity (STDP), a deterministic Multi-Depth Temporal Fusion (MDTF) and a final classifier trained with reward-modulated spike-timing-dependent plasticity (R-STDP). Rather than replacing early features in deeper layers, the proposed MDTF preserves early temporal evidence, adding sparse residual events from intermediate layers, and incorporating deeper features only when they agree in time with earlier representations. The resulting architecture is experimentally validated across MNIST, Fashion-MNIST, CIFAR-10, and N-MNIST, delivering strong classification performance under a fully local learning regime. Selective multi-depth fusion significantly outperforms traditional STDP/R-STDP baselines on higher-variability visual tasks (achieving <math alttext="+18.2" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mrow><mo>+</mo><mn>18.2</mn></mrow><annotation encoding="application/x-tex">+18.2</annotation></semantics></math> pp on Fashion-MNIST and <math alttext="+29.2" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mrow><mo>+</mo><mn>29.2</mn></mrow><annotation encoding="application/x-tex">+29.2</annotation></semantics></math> pp on CIFAR-10). Furthermore, activity-budget analyses show that the network retains high accuracy even when removing a large fraction of late or weak spike events, confirming its high data efficiency and reduced event-processing requirements. The codebase is publicly available at <a class="ltx_ref ltx_url ltx_font_typewriter" href="https://github.com/aidinattar/multi-depth-temporal-fusion-snn" title="">https://github.com/aidinattar/multi-depth-temporal-fusion-snn</a>.</p>
+</div>
+<div class="ltx_logical-block ltx_align_bottom" id="id2">
+<span class="ltx_rule" style="width:100%;height:2.0pt;--ltx-bg-color:black;display:inline-block;"> </span>
+<span class="ltx_rule ltx_align_center" style="width:100%;height:2.0pt;--ltx-bg-color:black;display:inline-block;"> </span>
+<div class="ltx_para" id="p1">
+<p class="ltx_p ltx_align_center" id="p1.1"><span class="ltx_text ltx_font_smallcaps" id="p1.1.1">Preprint
+<br class="ltx_break"/></span></p>
+</div>
+</div>
+<div class="ltx_para" id="p2">
+<p class="ltx_p ltx_align_center" id="p2.1"><sup class="ltx_sup" id="p2.1.1">*</sup>Corresponding author: <span class="ltx_text ltx_font_typewriter" id="p2.1.2">author@example.org</span></p>
+</div>
+<div class="ltx_para ltx_noindent" id="p3">
+<p class="ltx_p" id="p3.1"><em class="ltx_emph ltx_font_bold ltx_font_italic" id="p3.1.1">Keywords</em> Spiking neural networks  <math alttext="\cdot" class="ltx_Math" display="inline" id="p3.m1" intent=":literal"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math> Reward-modulated STDP  <math alttext="\cdot" class="ltx_Math" display="inline" id="p3.m2" intent=":literal"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math> Time-to-first-spike coding  <math alttext="\cdot" class="ltx_Math" display="inline" id="p3.m3" intent=":literal"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math> Local learning  <math alttext="\cdot" class="ltx_Math" display="inline" id="p3.m4" intent=":literal"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math> Neuromorphic vision</p>
+</div>
+</article></body></html>

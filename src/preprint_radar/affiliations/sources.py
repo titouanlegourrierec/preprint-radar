@@ -35,6 +35,7 @@ from preprint_radar.affiliations.vocabulary import (
     _INSTITUTION_WORD_RE,
     _LATEX_SPACE_RE,
     _MAX_PIECE_WORDS,
+    _MODEL_NAME_RE,
     _NOISE_RE,
     _NUMBERED_ANCHOR_RE,
     _OTHER_THANKS,
@@ -270,20 +271,23 @@ def _signing_organizations(block: Tag, authors: Sequence[str]) -> list[str]:
 
     2502.13923 (Qwen2.5-VL) sets two creators, neither of its 27 listed authors. They count
     when no creator names a listed author and each names an institution or a collective:
-    a creator naming none may be a person the page spells otherwise (AFF-38).
+    a creator naming none may be a person the page spells otherwise (AFF-38), but for a
+    model's name, which no person has: Li Auto's "Foundation Model" team beside "Li Auto
+    Inc" (2609.21449, AQ-12).
     """
     names = [
         _plain_text(_pruned(name))
         for name in block.select("span.ltx_creator.ltx_role_author .ltx_personname")
     ]
     kept = [name for name in names if name and not _NOISE_RE.search(name)]
-    if not kept or any(
+    named = [name for name in kept if _INSTITUTION_WORD_RE.search(name) or _COLLECTIVE_RE.search(name)]
+    if not named or any(
         any(_fold(author) in _fold(name) for author in authors)
-        or not (_INSTITUTION_WORD_RE.search(name) or _COLLECTIVE_RE.search(name))
+        or (name not in named and not _MODEL_NAME_RE.search(name))
         for name in kept
     ):
         return []
-    return kept
+    return named
 
 
 def _symbol_affiliations(block: Tag) -> list[str]:
