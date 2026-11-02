@@ -24,6 +24,13 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 - A paper whose page the extraction misreads into a contact detail no longer stops the
   data workflows' push: its affiliations are set aside, to be read again, with a warning
   (OPS-2).
+- Extraction version 23 (EXT-7, EXT-4): markers written as TeX ("$1$ University of ...")
+  and every marker symbol ("★") read wherever an affiliation comes from, invisible
+  characters and LaTeX's tildes dropped, a note's sentence on its own no affiliation, and
+  author names holding an institution's word ("Slabaugh") or a "ł" recognized.
+- `make gold-affiliations` scores the extraction against 60 papers read by hand, and
+  `quality-affiliations` signs residues, notes and lists, in the archive's papers too
+  (AQ-1); `make knockout` finds the extraction's rules no test covers (EXT-2).
 - Extraction version 22 (AQ-2, AQ-3, AQ-5, EXT-3): authors no longer placed at an
   affiliation by an "equal contribution" mark, numbered affiliations set as table rows kept
   whole, one affiliation spread over the authors read as everyone's, and mail addresses
