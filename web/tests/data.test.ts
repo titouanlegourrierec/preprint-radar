@@ -585,4 +585,24 @@ describe("data", () => {
       "Could not load citation counts (HTTP 503)",
     );
   });
+
+  it("asks for no citation shard the site's index does not version (WEB-9)", async () => {
+    const requested = serve({
+      "index.json": {
+        schema_version: 1,
+        categories: { "cs.CV": [] },
+        versions: { "cs.CV/citations/2026-10.json": "0123456789" },
+      },
+      "cs.CV/citations/2026-10.json": {
+        schema_version: 1,
+        source: "S2",
+        generated_at: "x",
+        counts: {},
+      },
+    });
+    await loadIndex();
+    await expect(loadCitationShard("cs.CV", "2026-11")).resolves.toBeNull();
+    await expect(loadCitationShard("cs.CV", "2026-10")).resolves.not.toBeNull();
+    expect(requested).toEqual(["index.json", "cs.CV/citations/2026-10.json?v=0123456789"]);
+  });
 });

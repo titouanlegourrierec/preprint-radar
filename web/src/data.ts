@@ -541,7 +541,11 @@ export async function loadCitationShard(
   category: string,
   shard: string,
 ): Promise<CitationsFile | null> {
-  const response = await fetch(dataUrl(citationShardPath(category, shard)));
+  const path = citationShardPath(category, shard);
+  // The build versions every shard it writes: one the index does not list does not exist,
+  // a month whose papers have no count yet (WEB-9). The development server lists none.
+  if (Object.keys(versions).length > 0 && !(path in versions)) return null;
+  const response = await fetch(dataUrl(path));
   if (response.status === 404) return null;
   if (!response.ok) {
     throw new Error(`Could not load citation counts (HTTP ${response.status})`);

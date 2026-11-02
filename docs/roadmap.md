@@ -617,7 +617,7 @@ P1 findings reproduced, all lowered to P2.
 | AQ-12 | Two layouts still lose every affiliation: a team creator and institutions set as creators | P3 | todo |
 | WEB-7 | The background index build blocks the main thread for up to 280 ms per chunk on a slow CPU | P3 | todo |
 | WEB-8 | Small accessibility gaps in reading-list and graph features added since the audit | P3 | todo |
-| WEB-9 | A missing citation shard is requested and returns 404 on every load | P3 | todo |
+| WEB-9 | A missing citation shard is requested and returns 404 on every load. `loadCitationShard` asks for no shard the site's index does not version, the build versioning every one it writes: a month without counts costs no request (the development server, which lists no versions, still asks) | P3 | done |
 | SCALE-5 | ARCH-4 re-costed: cs.LG would push the site past 600 MB and double the repository's growth; the Actions-minutes objection no longer holds | P3 | todo |
 | SCALE-6 | About 45% of the landing stylesheet is styles of lazy views; the landing is at 79.1 of 100 kB | P3 | todo |
 | SCALE-7 | The size guards count disk blocks, which the growing number of feed files inflates. *Deploy site* measures the site with `du --apparent-size`: what its files hold, 128 MB against 131 of disk blocks on 2026-10-30, the gap growing with the institutions' feeds | P3 | done |
