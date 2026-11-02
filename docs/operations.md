@@ -339,8 +339,9 @@ Both run `validate` last. Commit `data/` (`chore(data): remove 2610.00001 on req
   *Extract stored papers again* step re-reads older versions, from the page cache and up to
   50 downloads a day. To repair papers at once: `preprint-radar reextract --ids <ids>` or
   `--match <regex>`. The highly cited papers read from a page (archive and
-  `top-recent.json`) are read again by `archive-affiliations` from the page cache, on the
-  machine that read them ([below](#read-their-html-pages-a-night-on-a-machine-of-yours)).
+  `top-recent.json`) are read again by `archive-affiliations` from the page cache: the
+  weekly *Archive* does it from its own cache, and the machine that read the others from
+  its ([below](#read-their-html-pages-a-night-on-a-machine-of-yours)).
 - Before and after, run `make quality-affiliations` and `make extraction-diff` (with the
   page cache: what today's extraction changes, nothing written). A local cache holds a few
   hundred pages; the daily runs' holds thousands: push the change to a branch and dispatch
@@ -355,7 +356,13 @@ Both run `validate` last. Commit `data/` (`chore(data): remove 2610.00001 on req
 ## Affiliations of the highly cited papers
 
 The weekly *Archive* run calls `archive-affiliations`: OpenAlex's record of the published
-version of each highly cited paper without affiliations (`docs/archive.md`).
+version of each highly cited paper without affiliations (`docs/archive.md`), then the HTML
+pages of 40 of those no published version places, the most cited first (10 minutes, OPS-6),
+kept in its own Actions cache (`archive-pages-`), from which the papers an older
+extraction read are read again after a bump. The papers entering the list are a few a
+week: nothing to do. To fill its cache faster, dispatch *Archive* with `max_html` (800 at
+most, about 3.5 hours; on a Sunday or a Monday, as any run of the archive):
+`gh workflow run archive.yml -f max_html=800`.
 
 **Signal.** `published versions: %s place the authors, %s name others` in the log: those
 naming others are papers Semantic Scholar linked to a wrong DOI (24 of 7,027 in October
@@ -364,8 +371,9 @@ naming others are papers Semantic Scholar linked to a wrong DOI (24 of 7,027 in 
 ### Read their HTML pages (a night, on a machine of yours)
 
 The papers no published version places have HTML pages: arXiv's since December 2023,
-ar5iv's before (AFF-37): 2,335 read on 2026-10-28, a night at 15 s a page, too long for a
-workflow; the papers entering the list since are a few a week. On a
+ar5iv's before (AFF-37): 2,335 read on 2026-10-28, a night at 15 s a page, too long for one
+workflow run; *Archive* reads 40 a week since OPS-6. Until its cache holds them, the
+papers that night read are read again after a bump only where its pages are cached. On a
 machine with `git`, `make`, `uv`, a clone and a `.env` holding `PREPRINT_RADAR_CONTACT`,
 in `tmux` or under `nohup`, after Sunday's *Archive* has pushed (it rewrites the same
 files: the archive and `top-recent.json`) and before the next:

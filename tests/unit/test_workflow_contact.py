@@ -29,5 +29,7 @@ def test_the_contact_is_given_to_the_steps_that_reach_arxiv_only() -> None:
         ("update.yml", "Fetch papers"),
         ("update.yml", "Extract stored papers again"),
         ("archive.yml", "Update the archive"),
+        # The highly cited papers' HTML pages (OPS-6).
+        ("archive.yml", "Read the affiliations of the highly cited papers"),
         ("canary.yml", "uv run pytest -m network"),
     }

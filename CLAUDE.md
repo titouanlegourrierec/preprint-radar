@@ -74,7 +74,7 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     renders (since December 2023, AFF-28) and of the older ones ar5iv renders (arXiv Labs,
     the same LaTeXML, AFF-37), the most cited first, at 15 s a page, **never without
     asking** (a night for the 2,335 read on 2026-10-28); resumable, its 404s remembered in
-    the page cache (`docs/operations.md`). Every run reads again, from the page cache only,
+    the page cache (`docs/operations.md`). `archive.yml` reads 40 a week (OPS-6). Every run reads again, from the page cache only,
     the papers an older extraction read (AFF-39): after an extraction fix, run it where
     the pages are cached (the maintainer's machine).
   - `make citations`: Semantic Scholar counts of the stored papers without one; `ALL=1` asks
@@ -446,7 +446,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     it from eviction (CI-10). Its manual *since* input runs `backfill` instead.
   - `archive.yml` (dispatched Sundays 05:41 UTC; on Saturdays a catch-up when no run
     succeeded since Sunday, CI-8): the archive, then `scholar` (20 minutes),
-    then `archive-affiliations` (OpenAlex only, seconds), `countries` (seconds), `trends`
+    then `archive-affiliations` (OpenAlex, then 40 HTML pages, 10 minutes, with its own
+    page cache `archive-pages-`, OPS-6; its `max_html` input reads up to 800), `countries` (seconds), `trends`
     (offline, under a minute) and `code` (about 5 minutes, with the workflow's
     `GITHUB_TOKEN`).
   - `canary.yml` (Wednesdays): the network tests against the live arXiv (a red canary is a
