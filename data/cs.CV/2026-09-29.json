@@ -31792,29 +31792,45 @@
    "html_url": "https://arxiv.org/html/2609.32844v1",
    "abstract": "Medical ultrasound (US) is inherently degraded by speckle, a granular interference pattern that is often treated as a complex form of noise in image restoration. However, unlike random noise, US speckle originates from coherent scattering within tissue and is therefore highly spatially dependent and deterministic under fixed acquisition conditions, making US speckle suppression fundamentally different from natural image denoising. Because speckle-free US targets are unavailable in practice, self-supervised denoising is necessary. Blind-spot networks (BSN) are the dominant self-supervised paradigm for natural images, but their pixel-wise masking strategy assumes spatially independent noise, an assumption poorly matched to US speckle, which is spatially correlated over multiple pixels rather than pixel-wise independent. To address this mismatch, we propose Mask2Restore, a self-supervised US despeckling framework that reformulates despeckling as contextual inpainting with block-wise masking on single noisy images. Unlike pixel-wise BSN masking, block-wise masking addresses this multi-pixel speckle correlation by removing locally correlated speckle neighborhoods and shifting the reconstruction cues used by the network from adjacent speckle correlations to broader anatomical context. We further introduce cross-resolution context regularization (CRCR), which suppresses residual speckle bias by enforcing consistency across multi-resolution predictions. Experiments on simulated and in vivo carotid US, unseen fine-structure cases, and downstream cardiac segmentation demonstrate improved speckle-detail trade-offs, better preservation of fine anatomical structures, and practical value for subsequent image analysis.",
    "affiliations": [
-    "$ˆa$ Computer Aided Medical Procedures (CAMP), Technical University of Munich, Munich, Germany; $ˆb$ Munich Center for Machine Learning (MCML), Munich, Germany; $ˆc$ Department of Mechanical Engineering, The University of Hong Kong, Hong Kong SAR, China"
+    "Computer Aided Medical Procedures (CAMP), Technical University of Munich, Munich, Germany",
+    "Munich Center for Machine Learning (MCML), Munich, Germany",
+    "Department of Mechanical Engineering, The University of Hong Kong, Hong Kong SAR, China"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ]
    ],
    "institutions": [
+    "Technical University of Munich",
+    "Munich Center for Machine Learning",
     "University of Hong Kong"
    ],
    "institution_ids": [
+    "02kkvpp62",
+    "02nfy3535",
     "02zhqgq86"
    ],
    "extractor": 21,
@@ -31825,7 +31841,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-21"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32844",

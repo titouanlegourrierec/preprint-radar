@@ -54397,7 +54397,7 @@
    "institutions": [
     "Apple"
    ],
-   "extractor": 21,
+   "extractor": 23,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -76204,7 +76204,7 @@
     "00k642b80",
     "00k642b80"
    ],
-   "extractor": 21,
+   "extractor": 23,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -117931,7 +117931,7 @@
     "University of Maryland",
     "College Park"
    ],
-   "extractor": 21,
+   "extractor": 23,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -129877,11 +129877,34 @@
      0
     ]
    ],
-   "institutions": null,
+   "institutions": [
+    "Wuhan University",
+    "luojunwei",
+    "pangzhen",
+    "zhangyj",
+    "wangll",
+    "bodang",
+    "Ant Group",
+    "Huazhong University of Science and Technology"
+   ],
+   "institution_ids": [
+    "033vjfk17",
+    null,
+    null,
+    null,
+    null,
+    null,
+    "00g5w7n47",
+    "00p991c53"
+   ],
    "extractor": 21,
    "provenance": {
     "affiliations": {
      "source": "html",
+     "at": "2026-11-02"
+    },
+    "institutions": {
+     "source": "ror",
      "at": "2026-11-02"
     }
    },
@@ -146579,8 +146602,8 @@
    "html_url": "https://arxiv.org/html/2405.01828v1",
    "abstract": "Facial Expression Recognition (FER) plays a pivotal role in understanding human emotional cues. However, traditional FER methods based on visual information have some limitations, such as preprocessing, feature extraction, and multi-stage classification procedures. These not only increase computational complexity but also require a significant amount of computing resources. Considering Convolutional Neural Network (CNN)-based FER schemes frequently prove inadequate in identifying the deep, long-distance dependencies embedded within facial expression images, and the Transformer's inherent quadratic computational complexity, this paper presents the FER-YOLO-Mamba model, which integrates the principles of Mamba and YOLO technologies to facilitate efficient coordination in facial expression image recognition and localization. Within the FER-YOLO-Mamba model, we further devise a FER-YOLO-VSS dual-branch module, which combines the inherent strengths of convolutional layers in local feature extraction with the exceptional capability of State Space Models (SSMs) in revealing long-distance dependencies. To the best of our knowledge, this is the first Vision Mamba model designed for facial expression detection and classification. To evaluate the performance of the proposed FER-YOLO-Mamba model, we conducted experiments on two benchmark datasets, RAF-DB and SFEW. The experimental results indicate that the FER-YOLO-Mamba model achieved better results compared to other models. The code is available from https://github.com/SwjtuMa/FER-YOLO-Mamba.",
    "affiliations": [
-    "School of Information Science and Technology, Southwest Jiaotong University, Chengdu 610031, China.˜",
-    "School of Electrical and Information Engineering, University of the Witwatersrand, Johannesburg 2000, South Africa.˜"
+    "School of Information Science and Technology, Southwest Jiaotong University, Chengdu 610031, China",
+    "School of Electrical and Information Engineering, University of the Witwatersrand, Johannesburg 2000, South Africa"
    ],
    "author_affiliations": [
     [
@@ -146612,7 +146635,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-08"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2405.01828",
@@ -192089,8 +192112,7 @@
    "abstract": "Recent large-scale vision-language models (VLMs) have demonstrated remarkable capabilities in understanding and generating textual descriptions for visual content. However, these models lack an understanding of user-specific concepts. In this work, we take a first step toward the personalization of VLMs, enabling them to learn and reason over user-provided concepts. For example, we explore whether these models can learn to recognize you in an image and communicate what you are doing, tailoring the model to reflect your personal experiences and relationships. To effectively recognize a variety of user-specific concepts, we augment the VLM with external concept heads that function as toggles for the model, enabling the VLM to identify the presence of specific target concepts in a given image. Having recognized the concept, we learn a new concept embedding in the intermediate feature space of the VLM. This embedding is tasked with guiding the language model to naturally integrate the target concept in its generated response. We apply our technique to BLIP-2 and LLaVA for personalized image captioning and further show its applicability for personalized visual question-answering. Our experiments demonstrate our ability to generalize to unseen images of learned concepts while preserving the model behavior on unrelated inputs.",
    "affiliations": [
     "Snap Inc",
-    "Tel Aviv University",
-    "This research was performed while Yuval Alaluf was at Snap"
+    "Tel Aviv University"
    ],
    "author_affiliations": [
     [
@@ -192113,13 +192135,11 @@
    ],
    "institutions": [
     "Snap Inc",
-    "Tel Aviv University",
-    "This research was performed while Yuval Alaluf was at Snap"
+    "Tel Aviv University"
    ],
    "institution_ids": [
     null,
-    "04mhzgx49",
-    null
+    "04mhzgx49"
    ],
    "extractor": 21,
    "provenance": {
@@ -192129,7 +192149,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-08"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2403.14599",
@@ -227181,7 +227201,7 @@
     "05x2bcf33",
     "00f54p054"
    ],
-   "extractor": 21,
+   "extractor": 23,
    "provenance": {
     "affiliations": {
      "source": "html",

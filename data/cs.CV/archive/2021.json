@@ -11085,22 +11085,14 @@
    "cross_list_from": "cs.LG",
    "html_url": "https://ar5iv.labs.arxiv.org/html/2112.05090",
    "abstract": "Machine learning systems deployed in the wild are often trained on a source distribution but deployed on a different target distribution. Unlabeled data can be a powerful point of leverage for mitigating these distribution shifts, as it is frequently much more available than labeled data and can often be obtained from distributions beyond the source distribution as well. However, existing distribution shift benchmarks with unlabeled data do not reflect the breadth of scenarios that arise in real-world applications. In this work, we present the WILDS 2.0 update, which extends 8 of the 10 datasets in the WILDS benchmark of distribution shifts to include curated unlabeled data that would be realistically obtainable in deployment. These datasets span a wide range of applications (from histology to wildlife conservation), tasks (classification, regression, and detection), and modalities (photos, satellite images, microscope slides, text, molecular graphs). The update maintains consistency with the original WILDS benchmark by using identical labeled training, validation, and test sets, as well as the evaluation metrics. On these datasets, we systematically benchmark state-of-the-art methods that leverage unlabeled data, including domain-invariant, self-training, and self-supervised methods, and show that their success on WILDS is limited. To facilitate method development and evaluation, we provide an open-source package that automates data loading and contains all of the model architectures and methods used in this paper. Code and leaderboards are available at https://wilds.stanford.edu.",
-   "affiliations": [
-    "We omitted Py150-wilds, as code completion data is always labeled by nature of the task, and RxRx1-wilds, as unlabeled data for that genetic perturbation task is not typically available"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "as code completion data is always labeled by nature of the task"
-   ],
+   "institutions": null,
    "extractor": 21,
    "provenance": {
     "affiliations": {
      "source": "html",
      "at": "2026-11-02"
-    },
-    "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2112.05090",
@@ -75274,11 +75266,11 @@
    "institution_ids": [
     "040b32p69"
    ],
-   "extractor": 16,
+   "extractor": 23,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-28"
+     "at": "2026-11-02"
     },
     "institutions": {
      "source": "ror",
@@ -102463,11 +102455,11 @@
     null,
     "05dxps055"
    ],
-   "extractor": 15,
+   "extractor": 23,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-28"
+     "at": "2026-11-02"
     },
     "institutions": {
      "source": "ror",

@@ -1601,14 +1601,14 @@
    "html_url": "https://arxiv.org/html/2610.26625v1",
    "abstract": "Reconstructing human activity from egocentric video requires more than recovering individual 3D components: the observer's motion, surrounding geometry, and hand-object interactions must fit together in a consistent world. Achieving this coherence requires both joint reconstruction and aligned supervision, yet existing methods and datasets offer limited support for either. We present EgoXperience, a full-stack paradigm that addresses these needs through data collection, automatic annotation, unified modeling, and benchmarking. Central to EgoXperience is an automatic annotation engine, EgoX-Engine, that couples geometrically verified object tracking with SLAM-based world alignment, yielding consistent supervision for the camera, scene, hands, and objects. This yields EgoX-Data-6M, a 50-hour dataset of task-driven manipulation and locomotion within and across indoor and outdoor environments, with second-level task captions. We carefully select one hour across these activity categories as EgoX-Bench to evaluate joint reconstruction. To translate this supervision into reconstruction, we introduce EgoX, trained with EgoX-Data-6M and complementary annotations from additional public datasets. Given monocular egocentric video and first-frame object masks, our model achieves joint metric reconstruction of the camera, scene, hands, and objects in a shared world coordinate frame with a single forward pass. Extensive experiments demonstrate state-of-the-art performance across scene estimation and world-space hand-object pose recovery. Against the strongest evaluated baselines, EgoX reduces camera, hand, and depth errors by 68.9%, 65.6%, and 42.9%, and improves object pose scores by 28.0%.",
    "affiliations": [
-    "★ Ropedia",
+    "Ropedia",
     "Nanyang Technological University",
     "Tsinghua University",
     "Peking University"
    ],
    "author_affiliations": null,
    "institutions": [
-    "★ Ropedia",
+    "Ropedia",
     "Nanyang Technological University",
     "Tsinghua University",
     "Peking University"
@@ -1627,7 +1627,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-28"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.26625",
@@ -13558,7 +13558,7 @@
    "abstract": "Augmented-reality guidance in laparoscopic liver resection requires aligning preoperative 3D liver models from CT/MRI with intraoperative surfaces. Monocular reconstruction in most cases cannot guarantee scale, albeit rigid-motion registration requires scale as an input. Our proposed framework ``SimCompose'' estimates the full similarity transformation $\\Sim$, including scale, without relying on landmarks and applies the same transformation across multiple views with known relative geometry. However, reliable detection of registration failures remains challenging in surgical settings, where ground-truth alignment is generally unavailable. For this, we propose a geometry-based selector that evaluates candidate transformations without requiring ground truth. Large disagreement among these transformations is used to flag potentially unreliable registrations. Finally, we propose to use a non-rigid refinement based on a low-dimensional deformation model from Neo-Hookean simulations in the Simulation Open Framework Architecture (SOFA), without additional network training. SimCompose is trained exclusively on synthetic partial views. Its encoder processes point clouds normalised to a unit root-mean-square radius, without access to metric scale, and filters each view before multi-view fusion. Evaluation on unseen synthetic data (300 single-view pairs per run; 100 three-view registrations) shows that multi-view integration and candidate selection increase the success rate under stringent $\\Sim$ accuracy criteria from 38.4% for a single-view, single-method configuration to 77%. Existing learning-based baselines do not satisfy these criteria even when provided with the exact scale. On five in-vivo patients with 92 keyframes, the rigid registration stage reduces surface error more than three-fold relative to learning-based baselines with external scale information.",
    "affiliations": [
     "AI in Medicine and Surgery Group, School of Computer Science, University of Leeds, Leeds LS2 9JT, United Kingdom",
-    "Department of HPB and Transplant Surgery, St.˜James’s University Hospital, Leeds, United Kingdom"
+    "Department of HPB and Transplant Surgery, St. James’s University Hospital, Leeds, United Kingdom"
    ],
    "author_affiliations": [
     [
@@ -13574,11 +13574,11 @@
    ],
    "institutions": [
     "University of Leeds",
-    "St.˜James’s University Hospital"
+    "St James's University Hospital"
    ],
    "institution_ids": [
     "024mrxd33",
-    null
+    "013s89d74"
    ],
    "extractor": 21,
    "provenance": {
@@ -13588,7 +13588,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-21"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.24218",
@@ -19226,7 +19226,7 @@
    "html_url": "https://arxiv.org/html/2610.24599v1",
    "abstract": "Motion-deblurring models lose substantial accuracy when transferred from professional cameras to smartphone-derived imagery. This paper studies whether a severity descriptor, partly derived from the paired sharp target, helps adaptation on the iPhoneBlur consumer-device benchmark. Under a shared update budget, input concatenation of a severity map is compared with global feature modulation by capture metadata, spatial feature modulation by the severity map, and a tier-contrastive output objective, together with an unconditioned spectral-loss control, all fine-tuned from the same domain-adapted latent-diffusion baseline. The primary experiment is an oracle diagnostic: target-derived information is supplied at inference. For the evaluated model pair, input concatenation improves overall peak signal-to-noise ratio from 31.23 to 31.30 dB, whereas feature modulation, the contrastive objective, and the spectral-loss control do not exceed the baseline. The gain is positive on 87.2% of test images and on 14 of 15 held-out source videos; this video-level analysis describes the evaluated checkpoint pair and does not establish robustness to retraining, and three training seeds are reported separately. The input-level gain recurs on a transformer backbone. In one exploratory run, zeroing the channel at inference retains most of the gain in peak signal-to-noise ratio but lowers structural similarity below the baseline. A normalized-step diagnostic does not support the expected larger-gradient explanation. The results characterize the evaluated configurations and do not establish injection location as the sole cause, a spatial-locality mechanism, or a reliable deployment advantage.",
    "affiliations": [
-    "Department of Computer Science and Engineering, Khulna University of Engineering & Technology, Khulna˜9203, Bangladesh"
+    "Department of Computer Science and Engineering, Khulna University of Engineering & Technology, Khulna 9203, Bangladesh"
    ],
    "author_affiliations": [
     [
@@ -19256,7 +19256,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-21"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.24599",

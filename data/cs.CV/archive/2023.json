@@ -14077,7 +14077,7 @@
    "institutions": [
     "ÉTS Montreal"
    ],
-   "extractor": 21,
+   "extractor": 23,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -108088,16 +108088,13 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2307.06304",
    "abstract": "The ubiquitous and demonstrably suboptimal choice of resizing images to a fixed resolution before processing them with computer vision models has not yet been successfully challenged. However, models such as the Vision Transformer (ViT) offer flexible sequence-based modeling, and hence varying input sequence lengths. We take advantage of this with NaViT (Native Resolution ViT) which uses sequence packing during training to process inputs of arbitrary resolutions and aspect ratios. Alongside flexible model usage, we demonstrate improved training efficiency for large-scale supervised and contrastive image-text pretraining. NaViT can be efficiently transferred to standard tasks such as image and video classification, object detection, and semantic segmentation and leads to improved results on robustness and fairness benchmarks. At inference time, the input resolution flexibility can be used to smoothly navigate the test-time cost-performance trade-off. We believe that NaViT marks a departure from the standard, CNN-designed, input and modelling pipeline used by most computer vision models, and represents a promising direction for ViTs.",
    "affiliations": [
-    "Ibrahim Alabdulmohsin",
     "Google DeepMind"
    ],
    "author_affiliations": null,
    "institutions": [
-    null,
     "Google DeepMind"
    ],
    "institution_ids": [
-    null,
     "00971b260"
    ],
    "extractor": 21,
@@ -108108,7 +108105,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-28"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2307.06304",
@@ -129056,7 +129053,7 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2306.09224",
    "abstract": "We propose Encyclopedic-VQA, a large scale visual question answering (VQA) dataset featuring visual questions about detailed properties of fine-grained categories and instances. It contains 221k unique question+answer pairs each matched with (up to) 5 images, resulting in a total of 1M VQA samples. Moreover, our dataset comes with a controlled knowledge base derived from Wikipedia, marking the evidence to support each answer. Empirically, we show that our dataset poses a hard challenge for large vision+language models as they perform poorly on our dataset: PaLI [14] is state-of-the-art on OK-VQA [37], yet it only achieves 13.0% accuracy on our dataset. Moreover, we experimentally show that progress on answering our encyclopedic questions can be achieved by augmenting large models with a mechanism that retrieves relevant information from the knowledge base. An oracle experiment with perfect retrieval achieves 87.0% accuracy on the single-hop portion of our dataset, and an automatic retrieval-augmented prototype yields 48.8%. We believe that our dataset enables future research on retrieval-augmented vision+language models. It is available at https://github.com/google-research/google-research/tree/master/encyclopedic_vqa .",
    "affiliations": [
-    "$ˆ*$Google Research"
+    "Google Research"
    ],
    "author_affiliations": [
     [
@@ -129101,7 +129098,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-28"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2306.09224",
@@ -150075,7 +150072,6 @@
    "abstract": "Learning from human feedback has been shown to improve text-to-image models. These techniques first learn a reward function that captures what humans care about in the task and then improve the models based on the learned reward function. Even though relatively simple approaches (e.g., rejection sampling based on reward scores) have been investigated, fine-tuning text-to-image models with the reward function remains challenging. In this work, we propose using online reinforcement learning (RL) to fine-tune text-to-image models. We focus on diffusion models, defining the fine-tuning task as an RL problem, and updating the pre-trained text-to-image diffusion models using policy gradient to maximize the feedback-trained reward. Our approach, coined DPOK, integrates policy optimization with KL regularization. We conduct an analysis of KL regularization for both RL fine-tuning and supervised fine-tuning. In our experiments, we show that DPOK is generally superior to supervised fine-tuning with respect to both image-text alignment and image quality. Our code is available at https://github.com/google-research/google-research/tree/master/dpok.",
    "affiliations": [
     "Equal technical contribution",
-    "Work was done at Google Research",
     "Google Research",
     "University of Wisconsin-Madison",
     "UC Berkeley",
@@ -150091,8 +150087,7 @@
     null,
     null,
     [
-     0,
-     1
+     0
     ],
     null,
     [
@@ -150101,13 +150096,11 @@
      2,
      3,
      4,
-     5,
-     6
+     5
     ]
    ],
    "institutions": [
     null,
-    "Google",
     "Google",
     "University of Wisconsin–Madison",
     "University of California, Berkeley",
@@ -150116,7 +150109,6 @@
    ],
    "institution_ids": [
     null,
-    "00njsd438",
     "00njsd438",
     "01y2jtd41",
     "01an7q238",
@@ -150131,7 +150123,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-28"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2305.16381",
@@ -169500,11 +169492,11 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 15,
+   "extractor": 23,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-28"
+     "at": "2026-11-02"
     },
     "institutions": {
      "source": "ror",
@@ -207617,14 +207609,14 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2303.10137",
    "abstract": "Diffusion models (DMs) have demonstrated advantageous potential on generative tasks. Widespread interest exists in incorporating DMs into downstream applications, such as producing or editing photorealistic images. However, practical deployment and unprecedented power of DMs raise legal issues, including copyright protection and monitoring of generated content. In this regard, watermarking has been a proven solution for copyright protection and content monitoring, but it is underexplored in the DMs literature. Specifically, DMs generate samples from longer tracks and may have newly designed multimodal structures, necessitating the modification of conventional watermarking pipelines. To this end, we conduct comprehensive analyses and derive a recipe for efficiently watermarking state-of-the-art DMs (e.g., Stable Diffusion), via training from scratch or finetuning. Our recipe is straightforward but involves empirically ablated implementation details, providing a foundation for future research on watermarking DMs. The code is available at https://github.com/yunqing-me/WatermarkDM.",
    "affiliations": [
-    "​​​​Singapore University of Technology and Design",
-    "​​​​Sea AI Lab, Singapore",
-    "​​​​Tsinghua University"
+    "Singapore University of Technology and Design",
+    "Sea AI Lab, Singapore",
+    "Tsinghua University"
    ],
    "author_affiliations": null,
    "institutions": [
     "Singapore University of Technology and Design",
-    "​​​​Sea AI Lab",
+    "Sea AI Lab",
     "Tsinghua University"
    ],
    "institution_ids": [
@@ -207640,7 +207632,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-28"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2303.10137",
@@ -221904,7 +221896,6 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2302.08119",
    "abstract": "The use of AI systems in healthcare for the early screening of diseases is of great clinical importance. Deep learning has shown great promise in medical imaging, but the reliability and trustworthiness of AI systems limit their deployment in real clinical scenes, where patient safety is at stake. Uncertainty estimation plays a pivotal role in producing a confidence evaluation along with the prediction of the deep model. This is particularly important in medical imaging, where the uncertainty in the model's predictions can be used to identify areas of concern or to provide additional information to the clinician. In this paper, we review the various types of uncertainty in deep learning, including aleatoric uncertainty and epistemic uncertainty. We further discuss how they can be estimated in medical imaging. More importantly, we review recent advances in deep learning models that incorporate uncertainty estimation in medical imaging. Finally, we discuss the challenges and future directions in uncertainty estimation in deep learning for medical imaging. We hope this review will ignite further interest in the community and provide researchers with an up-to-date reference regarding applications of uncertainty estimation models in medical imaging.",
    "affiliations": [
-    "This work was supported by Key Research and Development Program of Sichuan Province (Grant No. 2023YFG0273) and Miaozi Project in the Science and Technology Innovation Program of Sichuan Province (2021001)",
     "National Key Laboratory of Fundamental Science on Synthetic Vision, the College of Computer Science, Sichuan University, Chengdu 610065, China",
     "College of Intelligence and Computing, Tianjin University, Tianjin 300350, China",
     "Department of Mathematics, Sichuan University, Chengdu 610065, China",
@@ -221912,14 +221903,12 @@
    ],
    "author_affiliations": null,
    "institutions": [
-    null,
     "Sichuan University",
     "Tianjin University",
     "Sichuan University",
     "Agency for Science, Technology and Research"
    ],
    "institution_ids": [
-    null,
     "011ashp19",
     "012tb2g32",
     "011ashp19",
@@ -221933,7 +221922,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-28"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2302.08119",

@@ -20434,25 +20434,14 @@
    "cross_list_from": "cs.MM",
    "html_url": "https://ar5iv.labs.arxiv.org/html/1710.05106",
    "abstract": "It is known that the inconsistent distribution and representation of different modalities, such as image and text, cause the heterogeneity gap that makes it challenging to correlate such heterogeneous data. Generative adversarial networks (GANs) have shown its strong ability of modeling data distribution and learning discriminative representation, existing GANs-based works mainly focus on generative problem to generate new data. We have different goal, aim to correlate heterogeneous data, by utilizing the power of GANs to model cross-modal joint distribution. Thus, we propose Cross-modal GANs to learn discriminative common representation for bridging heterogeneity gap. The main contributions are: (1) Cross-modal GANs architecture is proposed to model joint distribution over data of different modalities. The inter-modality and intra-modality correlation can be explored simultaneously in generative and discriminative models. Both of them beat each other to promote cross-modal correlation learning. (2) Cross-modal convolutional autoencoders with weight-sharing constraint are proposed to form generative model. They can not only exploit cross-modal correlation for learning common representation, but also preserve reconstruction information for capturing semantic consistency within each modality. (3) Cross-modal adversarial mechanism is proposed, which utilizes two kinds of discriminative models to simultaneously conduct intra-modality and inter-modality discrimination. They can mutually boost to make common representation more discriminative by adversarial training process. To the best of our knowledge, our proposed CM-GANs approach is the first to utilize GANs to perform cross-modal common representation learning. Experiments are conducted to verify the performance of our proposed approach on cross-modal retrieval paradigm, compared with 10 methods on 3 cross-modal datasets.",
-   "affiliations": [
-    "This work was supported by National Natural Science Foundation of China under Grants 61771025 and 61532005"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "National Natural Science Foundation of China"
-   ],
-   "institution_ids": [
-    "01h0zpd94"
-   ],
+   "institutions": null,
    "extractor": 21,
    "provenance": {
     "affiliations": {
      "source": "html",
      "at": "2026-11-02"
-    },
-    "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1710.05106",
@@ -20696,7 +20685,6 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/1710.04026",
    "abstract": "Due to the fast inference and good performance, discriminative learning methods have been widely studied in image denoising. However, these methods mostly learn a specific model for each noise level, and require multiple models for denoising images with different noise levels. They also lack flexibility to deal with spatially variant noise, limiting their applications in practical denoising. To address these issues, we present a fast and flexible denoising convolutional neural network, namely FFDNet, with a tunable noise level map as the input. The proposed FFDNet works on downsampled sub-images, achieving a good trade-off between inference speed and denoising performance. In contrast to the existing discriminative denoisers, FFDNet enjoys several desirable properties, including (i) the ability to handle a wide range of noise levels (i.e., [0, 75]) effectively with a single network, (ii) the ability to remove spatially variant noise by specifying a non-uniform noise level map, and (iii) faster speed than benchmark BM3D even on CPU without sacrificing denoising performance. Extensive experiments on synthetic and real noisy images are conducted to evaluate FFDNet in comparison with state-of-the-art denoisers. The results show that FFDNet is effective and efficient, making it highly attractive for practical denoising applications.",
    "affiliations": [
-    "This project is partially supported by the National Natural Scientific Foundation of China (NSFC) under Grant No. 61671182 and 61471146, and the HK RGC GRF grant (under no. PolyU 152124/15E)",
     "School of Computer Science and Technology, Harbin",
     "Institute of Technology, Harbin 150001, China",
     "of Computing, The Hong Kong Polytechnic University, Hong Kong",
@@ -20706,7 +20694,6 @@
    ],
    "author_affiliations": null,
    "institutions": [
-    null,
     "Harbin",
     "Institute of Technology",
     "Hong Kong Polytechnic University",
@@ -20715,7 +20702,6 @@
     "Polytechnic University"
    ],
    "institution_ids": [
-    null,
     null,
     null,
     "0030zas98",
@@ -20731,7 +20717,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-28"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/1710.04026",
@@ -30923,11 +30909,11 @@
    "institutions": [
     "Zalando Research"
    ],
-   "extractor": 15,
+   "extractor": 23,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-28"
+     "at": "2026-11-02"
     },
     "institutions": {
      "source": "ror",
@@ -41553,11 +41539,11 @@
    "institutions": [
     "Google"
    ],
-   "extractor": 15,
+   "extractor": 23,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-28"
+     "at": "2026-11-02"
     },
     "institutions": {
      "source": "ror",
@@ -61451,11 +61437,11 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 15,
+   "extractor": 23,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-28"
+     "at": "2026-11-02"
     },
     "institutions": {
      "source": "ror",
