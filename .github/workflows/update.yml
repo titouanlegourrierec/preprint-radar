@@ -51,10 +51,12 @@ jobs:
     # Also when the guard failed: a second run costs minutes, a missed one a day.
     if: ${{ !cancelled() && needs.guard.outputs.run != 'false' }}
     runs-on: ubuntu-latest
-    # Reading HTML pages is throttled to one every 15 s (arxiv.org robots.txt). Steps: 195
-    # minutes of papers, 15 of re-extraction, seconds of OpenAlex (5 at most), 15 of citation
-    # counts, then a few to commit.
-    timeout-minutes: 240
+    # Reading HTML pages is throttled to one every 15 s (arxiv.org robots.txt). The steps'
+    # limits: 195 minutes of papers, 20 of re-extraction, 5 each for OpenAlex's affiliations
+    # and countries and the new papers' stars, 15 of citation counts: 245, and setup, the
+    # caches and the commit beside them, so that the job's limit never cuts the last steps
+    # (OPS-9). A day measured at most 125 minutes.
+    timeout-minutes: 265
     permissions:
       contents: write
       # The page cache's weekly copy, when the Actions cache has no entry (OPS-1).

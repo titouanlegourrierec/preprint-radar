@@ -623,6 +623,6 @@ P1 findings reproduced, all lowered to P2.
 | SCALE-7 | The size guards count disk blocks, which the growing number of feed files inflates | P3 | todo |
 | OPS-7 | The published-versions budget starves the archive's tail as the store grows | P3 | todo |
 | OPS-8 | The guard fails open silently and the runbook misreads it | P3 | todo |
-| OPS-9 | Step timeouts exceed the job timeout, and the comment is stale | P3 | todo |
+| OPS-9 | Step timeouts exceed the job timeout, and the comment is stale. *Update data*'s job allows 265 minutes, its steps' limits adding up to 245 beside setup, the caches and the commit; *Archive*'s 360 (GitHub's limit), its archive step 270 so that its steps add up to 355; both comments say what they hold | P3 | done |
 | OPS-10 | Data deploys skip the app's tests and build whatever main holds | P3 | todo |
 | OPS-11 | Daily validation warnings repeat until someone acts | P3 | todo |

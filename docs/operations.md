@@ -362,7 +362,7 @@ kept in its own Actions cache (`archive-pages-`), from which the papers an older
 extraction read are read again after a bump. The papers entering the list are a few a
 week: nothing to do. To fill its cache faster, dispatch *Archive* with `max_html` (800 at
 most, about 3.5 hours; on a Sunday or a Monday, as any run of the archive):
-`gh workflow run archive.yml -f max_html=800`. The job stops at 330 minutes: 800 assumes
+`gh workflow run archive.yml -f max_html=800`. The job stops at 360 minutes: 800 assumes
 the archive step's usual 40 minutes (a warm catalog, the Semantic Scholar key); after a
 harvest, 400.
 

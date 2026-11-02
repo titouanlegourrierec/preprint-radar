@@ -59,8 +59,10 @@ jobs:
     # The first run harvests the whole catalog (about 45 minutes); every run then fetches
     # about 207,000 citation counts in 415 requests, far slower without an API key, then
     # the published versions of the stored papers, their affiliations for the highly cited
-    # papers without any, and the stars of the code they link.
-    timeout-minutes: 330
+    # papers without any, and the stars of the code they link. The steps' limits add up to
+    # 355 minutes (270 + 25 + 25 + 5 + 10 + 20), within GitHub's 360 (OPS-9); a run reading
+    # more pages (`max_html`) counts on the archive's usual 40.
+    timeout-minutes: 360
     permissions:
       contents: write
     outputs:
@@ -103,7 +105,7 @@ jobs:
           restore-keys: archive-pages-
 
       - name: Update the archive
-        timeout-minutes: 280
+        timeout-minutes: 270
         env:
           # Optional: without it, Semantic Scholar is queried anonymously, slowly. Given to
           # the steps that ask Semantic Scholar only.
