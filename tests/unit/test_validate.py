@@ -10,7 +10,7 @@ import pytest
 from preprint_radar.models import Cohort, Paper, Provenance
 from preprint_radar.sources.arxiv_oai import CatalogEntry
 from preprint_radar.store.paper_store import PaperStore
-from preprint_radar.store.validate import Finding, Level, validate_store
+from preprint_radar.store.validate import Finding, Level, set_aside_contacts, validate_store
 from preprint_radar.trends import count_trends
 
 DAY = date(2026, 9, 25)
@@ -424,3 +424,67 @@ def test_an_acronym_named_otherwise_than_the_registry_warns(store: PaperStore) -
 
 def test_finding_line() -> None:
     assert str(Finding(Level.ERROR, "data/index.json", "missing")) == "ERROR data/index.json: missing"
+
+
+def test_a_paper_holding_a_contact_detail_is_set_aside(store: PaperStore) -> None:
+    contact = "MIT, author@example.org"
+    pinned = _paper(
+        "2609.00003",
+        affiliations=(contact,),
+        author_affiliations=None,
+        affiliations_provenance=Provenance("manual", DAY),
+    )
+    store.save(
+        "cs.CV",
+        [
+            _paper(
+                "2609.00001",
+                affiliations=(contact, "Stanford University"),
+                institutions=("Massachusetts Institute of Technology", "Stanford University"),
+                affiliations_provenance=Provenance("html", DAY),
+                extractor=22,
+            ),
+            pinned,
+        ],
+    )
+    store.write_archive(
+        "cs.CV",
+        [_paper("1706.03762", announced=date(2017, 6, 12), affiliations=("www.example.org", "Google"))],
+    )
+    gap = _paper(
+        "2511.00001", announced=date(2025, 11, 3), affiliations=("https://mit.edu",), author_affiliations=None
+    )
+    _with_top_recent(store, gap)
+
+    findings = set_aside_contacts(store)
+
+    aside = "affiliations set aside, to read again: contact details in"
+    assert [str(finding) for finding in findings] == [
+        f"WARNING data/cs.CV/2026-09-25.json: 2609.00001: {aside} 'MIT, author@example.org'",
+        f"WARNING data/cs.CV/archive: 1706.03762: {aside} 'www.example.org'",
+        f"WARNING data/cs.CV/top-recent.json: 2511.00001: {aside} 'https://mit.edu'",
+    ]
+    papers = {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
+    assert papers["2609.00001"] == _paper("2609.00001").without_affiliations()
+    assert papers["2609.00002"] == _paper("2609.00002", announced=date(2026, 9, 24))
+    # The maintainer's affiliations are theirs: validation still fails on them.
+    assert papers["2609.00003"] == pinned
+    assert next(store.iter_archive("cs.CV")).affiliations is None
+    top_recent = store.load_top_recent("cs.CV")
+    assert top_recent is not None
+    assert top_recent.papers[0].affiliations is None
+    # Nothing else holds one: setting aside again changes nothing.
+    assert set_aside_contacts(store) == []
+
+
+def test_a_category_with_a_file_that_does_not_load_is_left_to_validation(store: PaperStore) -> None:
+    store.save(
+        "cs.CV", [_paper("2609.00001", affiliations=("MIT, author@example.org",), author_affiliations=None)]
+    )
+    _day_file(store, date(2026, 9, 24)).write_text("{", encoding="utf-8")
+
+    assert set_aside_contacts(store) == []
+    assert (
+        "data/cs.CV/2026-09-25.json: 2609.00001: contact details in affiliation 'MIT, author@example.org'"
+        in (_messages(store))
+    )

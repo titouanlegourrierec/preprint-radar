@@ -173,7 +173,7 @@ jobs:
         id: validate
         if: always()
         # Structural errors stop the push (see update.yml).
-        run: bash .github/scripts/validate-data.sh
+        run: bash .github/scripts/validate-data.sh --set-aside
 
       - name: Commit data
         id: commit

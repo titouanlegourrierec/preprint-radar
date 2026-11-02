@@ -103,7 +103,7 @@ from preprint_radar.store.stats import (
     format_coverage,
     weekdays_since,
 )
-from preprint_radar.store.validate import validate_store
+from preprint_radar.store.validate import set_aside_contacts, validate_store
 from preprint_radar.store.venues import detect_venues_again
 from preprint_radar.trends import TITLES_SOURCE, TRENDS_SOURCE, count_trends, format_trends_report
 
@@ -634,7 +634,16 @@ def _add_validate_parser(subparsers: "argparse._SubParsersAction[argparse.Argume
             "that does not load, a paper stored twice, an index that disagrees with the files, a "
             "contact detail in an affiliation) are errors and make the command fail; heuristic "
             "rules (an affiliation that only names authors, a paper `reclean` would still change) "
-            "are warnings. Nothing is fetched or written."
+            "are warnings. Nothing is fetched or written, but with --set-aside."
+        ),
+    )
+    validate.add_argument(
+        "--set-aside",
+        action="store_true",
+        help=(
+            "first set back to pending the affiliations of each paper holding a contact detail, "
+            "with a warning each, so that one misread page does not stop the data workflows' "
+            "push (OPS-2); the next run reads it again"
         ),
     )
     _add_data_dir(validate)
@@ -1352,7 +1361,13 @@ def _run_pin(args: argparse.Namespace) -> int:
 
 
 def _run_validate(args: argparse.Namespace) -> int:
-    report = validate_store(PaperStore(args.data_dir))
+    store = PaperStore(args.data_dir)
+    # remove and pin validate too, without the option.
+    if getattr(args, "set_aside", False):
+        for finding in set_aside_contacts(store):
+            console.print(str(finding))
+            github_annotation("warning", "Paper set aside", f"{finding.path}: {finding.message}")
+    report = validate_store(store)
     for finding in report.findings:
         console.print(str(finding))
     console.print(report.summary())

@@ -6,6 +6,7 @@ import runpy
 import signal
 import time
 from collections.abc import Callable, Mapping
+from dataclasses import replace
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
@@ -1239,6 +1240,31 @@ def test_validate_fails_on_a_structural_error(
     assert main(["validate", "--data-dir", str(data_dir)]) == 1
     assert capsys.readouterr().out == (
         "ERROR data/index.json: missing\n7 papers in 3 files: 1 errors, 0 warnings\n"
+    )
+
+
+def test_validate_sets_aside_a_paper_holding_a_contact_detail(
+    tmp_path: Path, listing: Listing, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    data_dir = tmp_path / "data"
+    store = PaperStore(data_dir)
+    first, *others = listing.papers
+    store.save("cs.CV", [replace(first, affiliations=("MIT, author@example.org",)), *others])
+    store.write_index()
+
+    assert main(["validate", "--data-dir", str(data_dir)]) == 1
+    capsys.readouterr()
+
+    assert main(["validate", "--set-aside", "--data-dir", str(data_dir)]) == 0
+    out = capsys.readouterr().out
+    where = f"data/cs.CV/{first.announced}.json: {first.arxiv_id}"
+    warning = f"{where}: affiliations set aside, to read again: contact details in 'MIT, author@example.org'"
+    assert f"::warning title=Paper set aside::{warning}" in out
+    assert out.endswith("7 papers in 3 files: 0 errors, 0 warnings\n")
+    assert (
+        next(paper for paper in store.iter_papers("cs.CV") if paper.arxiv_id == first.arxiv_id).affiliations
+        is None
     )
 
 

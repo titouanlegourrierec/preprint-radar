@@ -136,10 +136,24 @@ git fetch data-commit.bundle HEAD:recovered-data
 ```
 
 Check out `recovered-data`, fix what `make validate` reports (usually a code bug first,
-with a test), and push; or do nothing, and the next run collects the same papers again.
+with a test), and push. Doing nothing only helps a passing cause (a file `main` broke,
+fixed since): the next run collects the same papers again, and a misread record fails the
+same way until the code is fixed.
 Errors on `top-recent.json` ("archived too", "the papers of the last 12 months differ from
 top-recent.json") mean the archive wrote one file and not the other: dispatch *Archive*
 again (not on a Thursday or Friday: the week's gains need counts six days old).
+
+### A paper set aside
+
+**Signal.** Warning annotation `Paper set aside` (`affiliations set aside, to read again:
+contact details in` ...) in *Update data* or *Archive* (OPS-2): a page gave a paper an
+affiliation holding a contact detail, which validation refuses.
+
+The data workflows validate with `--set-aside`, which drops that paper's affiliations, as
+if never read, and pushes the rest; the next run reads the page again, and sets the paper
+aside again until the extraction is fixed. Reproduce it from the page cache (`make
+reextract` with `--ids`), fix the extraction with a fixture, and bump `EXTRACTOR_VERSION`.
+Affiliations corrected by hand (`make pin`) are never set aside: validation fails on them.
 
 ### The data commit could not be pushed
 

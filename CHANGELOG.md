@@ -12,6 +12,9 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ### Pipeline
 
+- A paper whose page the extraction misreads into a contact detail no longer stops the
+  data workflows' push: its affiliations are set aside, to be read again, with a warning
+  (OPS-2).
 - Extraction version 22 (AQ-2, AQ-3, AQ-5, EXT-3): authors no longer placed at an
   affiliation by an "equal contribution" mark, numbered affiliations set as table rows kept
   whole, one affiliation spread over the authors read as everyone's, and mail addresses

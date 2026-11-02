@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 # Check data/ before it is committed (`preprint-radar validate`), and copy the report into
 # the job summary. Exits 1 when a structural rule is broken; warnings never fail.
-# Usage: validate-data.sh
+# Usage: validate-data.sh [--set-aside], which the data workflows pass: a paper holding a
+# contact detail is set back to pending, with a warning, instead of stopping the push (OPS-2).
 set -uo pipefail
 
 status=0
-report=$(uv run --no-dev preprint-radar validate 2>&1) || status=$?
+report=$(uv run --no-dev preprint-radar validate "$@" 2>&1) || status=$?
 printf '%s\n' "$report"
 
 if [ -n "${GITHUB_STEP_SUMMARY:-}" ]; then

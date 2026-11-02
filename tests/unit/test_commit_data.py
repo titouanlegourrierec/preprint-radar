@@ -217,6 +217,20 @@ def test_validate_copies_its_report_into_the_job_summary(tmp_path: Path, lines: 
     assert len(written) == 4 + (lines if lines <= 100 else 101)
 
 
+def test_validate_passes_its_options_on(tmp_path: Path) -> None:
+    assert BASH is not None
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    (bin_dir / "uv").write_text('#!/bin/sh\necho "$@"\n', encoding="utf-8")
+    (bin_dir / "uv").chmod(0o755)
+    env = {**os.environ, "PATH": f"{bin_dir}{os.pathsep}{os.environ['PATH']}"}
+    env.pop("GITHUB_STEP_SUMMARY", None)
+
+    result = _run([BASH, str(VALIDATE_SCRIPT), "--set-aside"], tmp_path, env)
+
+    assert result.stdout == "run --no-dev preprint-radar validate --set-aside\n"
+
+
 def test_validates_the_commit_replayed_on_a_main_that_moved(repos: Repos, tmp_path: Path) -> None:
     _write(repos.bot, DAY, {"papers": ["new"]})
     assert _commit_data(repos) == (0, {"pushed": "true"})

@@ -118,7 +118,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     Warnings: an affiliation that only names authors, the last author alone holding every
     affiliation, a paper `reclean` would change, stale `scholar.json` records or gains, an
     acronym's institution (`ACRONYMS`) that no institution with an id is called.
-    Run it after touching `data/` by hand.
+    Run it after touching `data/` by hand. The data workflows pass `--set-aside`: a paper
+    holding a contact detail loses its affiliations, to be read again, with a warning,
+    instead of stopping the push (OPS-2).
   - `make stats`: enrichment per day and per archive year (abstracts, affiliations,
     mappings, institutions, venues detected or published, citation counts).
   - `make quality-affiliations` (`stats --affiliations`, `store/quality.py`): signs of wrong

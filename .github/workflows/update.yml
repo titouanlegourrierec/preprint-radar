@@ -219,9 +219,10 @@ jobs:
       - name: Validate data
         id: validate
         if: always()
-        # Structural errors stop the push (the data is kept below); warnings only go to
-        # the job summary.
-        run: bash .github/scripts/validate-data.sh
+        # Structural errors stop the push (the data is kept below), but a contact detail
+        # in a paper's affiliations, set back to pending with a warning (OPS-2); warnings
+        # only go to the job summary.
+        run: bash .github/scripts/validate-data.sh --set-aside
 
       - name: Commit data
         id: commit

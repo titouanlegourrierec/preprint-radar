@@ -117,6 +117,67 @@ def validate_store(store: PaperStore) -> ValidationReport:
     return report
 
 
+def set_aside_contacts(store: PaperStore) -> list[Finding]:
+    """Set back to pending the affiliations of each paper holding a contact detail (OPS-2).
+
+    A contact detail is an error, which stops the data workflows' push; its cause, a page
+    the extraction misreads, is the same at every run, so one paper would stop them all
+    until the code is fixed. The paper's affiliations are dropped instead, as if never
+    read: nothing with a contact is published, the rest is pushed, and the next run reads
+    the page again. Affiliations corrected by hand are left alone, as is a file that does
+    not load: those still fail validation.
+
+    Args:
+        store: The data store, whose day files, archive and most cited recent papers are
+            written where a paper changed.
+
+    Returns:
+        A warning for each paper set aside.
+    """
+    findings: list[Finding] = []
+    for category in store.categories():
+        try:
+            findings.extend(_set_aside_category(store, category))
+        except StoreError:
+            # A file that does not load: validation reports it, and the push stops anyway.
+            continue
+    return findings
+
+
+def _set_aside_category(store: PaperStore, category: str) -> list[Finding]:
+    findings: list[Finding] = []
+    directory = store.root / category
+    for day in store.days(category):
+        papers = store.load_day(category, day)
+        aside = _set_aside(papers, _where(directory / f"{day.isoformat()}.json", store), findings)
+        if aside != papers:
+            store.save(category, [new for old, new in zip(papers, aside, strict=True) if new != old])
+    archive = list(store.iter_archive(category))
+    aside = _set_aside(archive, _where(directory / ARCHIVE_DIRNAME, store), findings)
+    if aside != archive:
+        store.write_archive(category, aside)
+    top_recent = store.load_top_recent(category)
+    if top_recent:
+        aside = _set_aside(top_recent.papers, _where(directory / TOP_RECENT_FILENAME, store), findings)
+        if aside != top_recent.papers:
+            store.write_top_recent(category, aside, since=top_recent.since)
+    return findings
+
+
+def _set_aside(papers: list[Paper], where: str, findings: list[Finding]) -> list[Paper]:
+    """The papers, those holding a contact detail without their affiliations; a warning each."""
+    kept: list[Paper] = []
+    for paper in papers:
+        contact = next((text for text in paper.affiliations or () if has_contact(text)), None)
+        if contact is None or paper.affiliations_by_hand:
+            kept.append(paper)
+            continue
+        message = f"{paper.arxiv_id}: affiliations set aside, to read again: contact details in {contact!r}"
+        findings.append(Finding(Level.WARNING, where, message))
+        kept.append(paper.without_affiliations())
+    return kept
+
+
 def _validate_category(store: PaperStore, category: str, report: ValidationReport) -> dict[str, Any]:
     """Check one category's files; return its days, years and recent papers, as the index lists them."""
     directory = store.root / category
