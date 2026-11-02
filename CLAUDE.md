@@ -394,7 +394,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     Scholar does not, nor an OAI-PMH failing one week (the archive goes on with last week's
     catalog, REL-13).
   - Actions are pinned by commit SHA with the version in a comment; bump them together
-    (`git ls-remote --tags` gives the SHAs).
+    (`git ls-remote --tags` gives the SHAs). The repository refuses an action that is not,
+    gives a job only the permissions it declares (the default token reads only), and a
+    ruleset refuses force-pushes and deletion on `main` and the `v*` tags (PUB-3,
+    `docs/operations.md`): rewriting `main` means disabling it for that push.
   - `update.yml` and `archive.yml` share a concurrency group, check out `main` (not the
     triggering commit, else a queued run starts from stale data), run
     `.github/scripts/validate-data.sh` (a structural error pushes nothing), and commit

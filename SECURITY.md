@@ -6,9 +6,11 @@ saved searches, settings) stays in their browser.
 
 ## Reporting a vulnerability
 
-Write to [titouanlegourrierec@kaist.ac.kr](mailto:titouanlegourrierec@kaist.ac.kr), the
-contact of the site's About page, with what you found and how to reproduce it, rather than
-in public.
+Report it privately, with what you found and how to reproduce it, rather than in public:
+through GitHub ([Report a vulnerability](https://github.com/titouanlegourrierec/preprint-radar/security/advisories/new),
+in the repository's Security tab), or by writing to
+[titouanlegourrierec@kaist.ac.kr](mailto:titouanlegourrierec@kaist.ac.kr), the contact of
+the site's About page.
 
 What counts: anything that lets the site run a script or load something it should not (the
 titles, abstracts and links it shows come from arXiv and other services; a reading list can

@@ -373,6 +373,23 @@ again, from that machine's cache, the papers an older extraction read (AFF-39); 
 ends `read again from cached pages`. A page that failed (ar5iv times out often) was not
 cached: `MAX_HTML=N` reads it next time.
 
+## Repository settings
+
+Not in git, set on 2026-11-02 (PUB-3); check them after any change to the workflows:
+
+- Rulesets: `main` (the default branch) refuses force-pushes and deletion; the `v*` tags
+  refuse being moved or deleted. Pushes that only add commits, the bot's included, go
+  through: no pull request or check is required, which would stop `commit-data.sh`. To
+  rewrite `main` once (moving `data/` off it, [below](#the-site-or-the-repository-grows-too-large)),
+  disable its ruleset for that push and enable it again.
+- Actions: the default `GITHUB_TOKEN` reads only (every job declares what it needs), and
+  every action must be pinned by a full commit SHA, nested ones included.
+- Security: private vulnerability reporting is on, as `SECURITY.md` says; secret scanning,
+  push protection and Dependabot security updates too.
+
+`gh api repos/titouanlegourrierec/preprint-radar/rulesets`, `.../actions/permissions`,
+`.../actions/permissions/workflow` and `.../private-vulnerability-reporting` show them.
+
 ## Add a category
 
 1. Set the repository variable `PREPRINT_RADAR_CATEGORIES` (space-separated, e.g.
