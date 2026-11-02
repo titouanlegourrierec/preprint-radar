@@ -227,7 +227,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   `<id>v<n>.html.missing`, which `archive-affiliations` never asks for again), and
   `catalog/` (the OAI catalog and the counts cache).
 - `tests/fixtures/`: trimmed copies of real arXiv pages; `html/expected.json` pins what each
-  HTML fixture gives (`docs/extraction.md`). Real e-mails in them are replaced by
+  HTML fixture gives, and `html/versions.json` the `EXTRACTOR_VERSION` it last changed under,
+  which the golden test holds to (EXT-8, `docs/extraction.md`). Real e-mails in them are replaced by
   `author@example.org`; a page quoted in code, tests or docs keeps its domain, the mailbox
   becoming `author` (`tests/unit/test_no_emails.py` fails on any other address, PUB-4).
   `fold-cases.json`: names and the key both languages give them (`searchKey`,

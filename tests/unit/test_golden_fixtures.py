@@ -8,6 +8,12 @@ and review the diff of the file::
     UPDATE_GOLDEN=1 uv run pytest tests/unit/test_golden_fixtures.py
 
 A new fixture needs an entry with its authors (the listing's, in order) before that.
+
+``versions.json`` keeps the ``EXTRACTOR_VERSION`` under which each fixture's output last
+changed (EXT-8): a change to what a page gives needs a new version, which ``reextract``
+reads the stored papers again for, and writing the expectations again refuses an output
+that changed under the version it was written with. While a version has not reached
+``main``, ``UPDATE_GOLDEN=unreleased`` writes them under it again.
 """
 
 import json
@@ -17,10 +23,11 @@ from typing import Any
 
 import pytest
 
-from preprint_radar.sources.arxiv_html import has_contact, parse_front_matter
+from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, has_contact, parse_front_matter
 
 HTML_DIR = Path(__file__).parents[1] / "fixtures" / "html"
 EXPECTED = HTML_DIR / "expected.json"
+VERSIONS = HTML_DIR / "versions.json"
 FIXTURES = sorted(path.stem for path in HTML_DIR.glob("*.html"))
 
 
@@ -53,7 +60,18 @@ def test_a_fixture_gives_what_it_gave(arxiv_id: str) -> None:
     assert arxiv_id in golden, f"add {arxiv_id} to {EXPECTED.name} with its authors"
     html = (HTML_DIR / f"{arxiv_id}.html").read_text(encoding="utf-8")
     actual = extracted(html, golden[arxiv_id]["authors"])
-    if os.environ.get("UPDATE_GOLDEN"):
+    if update := os.environ.get("UPDATE_GOLDEN"):
+        versions = json.loads(VERSIONS.read_text(encoding="utf-8"))
+        written = versions.get(arxiv_id)
+        if actual != golden[arxiv_id] and "affiliations" in golden[arxiv_id]:
+            # What a page gives changed: under a new version, or one not released yet.
+            assert written is None or written < EXTRACTOR_VERSION or update == "unreleased", (
+                f"{arxiv_id} gives other affiliations under version {EXTRACTOR_VERSION}: bump "
+                "EXTRACTOR_VERSION (docs/extraction.md)"
+            )
+            versions[arxiv_id] = EXTRACTOR_VERSION
+        versions.setdefault(arxiv_id, EXTRACTOR_VERSION)
+        VERSIONS.write_text(json.dumps(dict(sorted(versions.items())), indent=2) + "\n", encoding="utf-8")
         golden[arxiv_id] = actual
         EXPECTED.write_text(json.dumps(golden, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     assert actual == golden[arxiv_id]
@@ -61,6 +79,13 @@ def test_a_fixture_gives_what_it_gave(arxiv_id: str) -> None:
 
 def test_every_expectation_has_its_fixture() -> None:
     assert sorted(_load()) == FIXTURES
+
+
+def test_no_output_is_of_a_version_to_come() -> None:
+    """Each fixture's output was written under a version up to today's (EXT-8)."""
+    versions = json.loads(VERSIONS.read_text(encoding="utf-8"))
+    assert sorted(versions) == FIXTURES
+    assert max(versions.values()) <= EXTRACTOR_VERSION
 
 
 def test_no_page_gives_what_validate_refuses() -> None:

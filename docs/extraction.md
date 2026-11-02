@@ -13,6 +13,10 @@ whose arXiv id is the evidence: never "simplify" one away without it.
 - A fixture under `tests/fixtures/html/` for every new heuristic, its authors in
   `expected.json` first. After a deliberate change, `UPDATE_GOLDEN=1 uv run pytest
   tests/unit/test_golden_fixtures.py` rewrites `expected.json`: its diff is the review.
+  `versions.json` beside it keeps the version under which each fixture's output last
+  changed, and the rewrite refuses an output that changed under that same version (EXT-8):
+  bump `EXTRACTOR_VERSION` first. `UPDATE_GOLDEN=unreleased` writes them again under a
+  version that has not reached `main` yet.
 - Bump `EXTRACTOR_VERSION` with any change to what a page gives (affiliations, mapping):
   nothing else tells `reextract`, and only papers read again get it. A change to the
   cleaning alone (`clean_affiliation`) reaches stored strings through `make reclean`,
