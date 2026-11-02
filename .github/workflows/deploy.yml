@@ -40,10 +40,9 @@ jobs:
           cache-dependency-path: web/package-lock.json
       - run: npm ci
         working-directory: web
-      # A maintainer's push deploys as CI starts: test the app first. The data workflows'
-      # deploys (workflow_call, under their own event) change data only and skip it.
+      # Every deploy tests the app first (a minute): a data workflow's builds whatever main
+      # holds, a web commit whose own deploy failed its tests included (OPS-10).
       - name: Test the app
-        if: github.event_name == 'push'
         run: npm test
         working-directory: web
       # Before the build: the Atom feeds' links need the site's address (tooling/feeds.ts).
@@ -64,7 +63,9 @@ jobs:
       - name: Check the site size
         working-directory: web
         run: |
-          size=$(du -sm dist | cut -f1)
+          # What the files hold, not the disk blocks they take: thousands of small feeds
+          # would count 4 KB each (SCALE-7).
+          size=$(du -sm --apparent-size dist | cut -f1)
           echo "**Site size.** ${size} MB (warning above 600 MB, failure above 800 MB)" >> "$GITHUB_STEP_SUMMARY"
           # Also an annotation, which the API keeps, unlike the summary: the size's history (SCALE-2).
           echo "::notice title=Site size::${size} MB"

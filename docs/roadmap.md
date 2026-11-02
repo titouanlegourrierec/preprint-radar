@@ -620,9 +620,9 @@ P1 findings reproduced, all lowered to P2.
 | WEB-9 | A missing citation shard is requested and returns 404 on every load | P3 | todo |
 | SCALE-5 | ARCH-4 re-costed: cs.LG would push the site past 600 MB and double the repository's growth; the Actions-minutes objection no longer holds | P3 | todo |
 | SCALE-6 | About 45% of the landing stylesheet is styles of lazy views; the landing is at 79.1 of 100 kB | P3 | todo |
-| SCALE-7 | The size guards count disk blocks, which the growing number of feed files inflates | P3 | todo |
+| SCALE-7 | The size guards count disk blocks, which the growing number of feed files inflates. *Deploy site* measures the site with `du --apparent-size`: what its files hold, 128 MB against 131 of disk blocks on 2026-10-30, the gap growing with the institutions' feeds | P3 | done |
 | OPS-7 | The published-versions budget starves the archive's tail as the store grows | P3 | todo |
 | OPS-8 | The guard fails open silently and the runbook misreads it | P3 | todo |
 | OPS-9 | Step timeouts exceed the job timeout, and the comment is stale. *Update data*'s job allows 265 minutes, its steps' limits adding up to 245 beside setup, the caches and the commit; *Archive*'s 360 (GitHub's limit), its archive step 270 so that its steps add up to 355; both comments say what they hold | P3 | done |
-| OPS-10 | Data deploys skip the app's tests and build whatever main holds | P3 | todo |
+| OPS-10 | Data deploys skip the app's tests and build whatever main holds. *Deploy site* tests the app on every deploy, the data workflows' included: about a minute more each | P3 | done |
 | OPS-11 | Daily validation warnings repeat until someone acts | P3 | todo |
