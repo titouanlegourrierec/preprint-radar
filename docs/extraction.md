@@ -131,11 +131,11 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   what follows, ending an unwrapped thanks note's sentence ("..., Hong Kong SAR, China
   (author@...)", 2609.10082), or ending a line ("..., Vienna, Austria author@...",
   2610.02974), or in a span of text glued to the word before it, set apart first
-  (`University of Oxford<tt>yuki@...</tt>` lost "Oxford", ar5iv's 2006.13662; in italics,
+  (`University of Oxford<tt>author@...</tt>` lost "Oxford", ar5iv's 2006.13662; in italics,
   "University of Washington", 2412.06141; an "@" in a span of its own stays glued,
   2609.13233), or glued to it in the LaTeX source, after the last word of a name or a
   country, which a space sets apart ("Technion - Israel Institute of
-  Technologyyatzmon@…" gave "… Institute of", 2006.14610; "Zhejiang Universitykgl.prml@…"
+  Technologyauthor@…" gave "… Institute of", 2006.14610; "Zhejiang Universityauthor@…"
   gave "Zhejiang", 2011.00147; AFF-41). Several addresses at the end go together, which
   a comma after the first joined across lines: "University of California Santa
   Cruz{…}@…," then "a@…, b@…" gave nothing (2406.18522), nor did DreamFusion's "Google

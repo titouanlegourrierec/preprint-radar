@@ -207,7 +207,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   `catalog/` (the OAI catalog and the counts cache).
 - `tests/fixtures/`: trimmed copies of real arXiv pages; `html/expected.json` pins what each
   HTML fixture gives (`docs/extraction.md`). Real e-mails in them are replaced by
-  `author@example.org`. `fold-cases.json`: names and the key both languages give them
+  `author@example.org`; a page quoted in code, tests or docs keeps its domain, the mailbox
+  becoming `author` (`tests/unit/test_no_emails.py` fails on any other address, PUB-4). `fold-cases.json`: names and the key both languages give them
   (`searchKey`, `institutions.search_key`), read by pytest and Vitest, and so is
   `code-cases.json` (the code link both find, `code.py` and `code.ts`). Git hooks never
   rewrite `tests/fixtures/`, `data/` or `web/public/logos/`.

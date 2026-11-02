@@ -114,8 +114,8 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
   ("Visual Geometry GroupUniversity of OxfordUK", "ByteDance IncShanghai"), ORCID
   identifiers, "now at" and interns' notes, CVPR's "Institution2" go.
 - 21: what version 20 cut (AFF-41): an address glued to the word before it took the word
-  with it ("Technion - Israel Institute of Technologyyatzmon@…" gave "… Institute of",
-  2006.14610; "Zhejiang Universitykgl.prml@…" gave "Zhejiang", 2011.00147), in any span
+  with it ("Technion - Israel Institute of Technologyauthor@…" gave "… Institute of",
+  2006.14610; "Zhejiang Universityauthor@…" gave "Zhejiang", 2011.00147), in any span
   of text too (2412.06141); a string ending in a preposition is cut and goes, one ending in
   "and" keeps what precedes it when that is whole ("The University of Texas at Austin
   and", 2410.14919); "Faculty of 3mE" is no marker (2203.10157); institutions run
@@ -178,7 +178,7 @@ _LINK_LABEL_RE = re.compile(
 # before it: "..., MI, USAEmail:" (2608.29996). A list in braces ends it even glued to the
 # country: "..., Singapore{jane,john}@nus.edu.sg" (ar5iv's 1312.4400). Several addresses
 # go together, which a comma after the first joined across lines: "University of California
-# Santa Cruz{…}@stu.pku.edu.cn," / "shi.yujun@u.nus.edu, rzhu48@ucsc.edu" (2406.18522).
+# Santa Cruz{…}@stu.pku.edu.cn," / "author@u.nus.edu, author@ucsc.edu" (2406.18522).
 _CONTACT_TAIL_RE = re.compile(
     r"\(?\s*\be-?mails?\b.*$|(?<=[a-z])e-?mails?\s*:.*$|[(\[]\s*[\w.+-]+@.*$"
     r"|(?:\s|(?=\{))(?:(?:\{[^{}]*\}|[\w.+-]+)@[\w-]+(?:\.[\w-]+)+[.,;]?\s*)+$",
@@ -253,9 +253,9 @@ _ANNOTATION_RE = re.compile(
     r"<annotation(?:-xml)?\b[^>]*>.*?</annotation(?:-xml)?>", re.IGNORECASE | re.DOTALL
 )
 # An address in a span of text right after the word before it: "University of
-# Oxford<tt>yuki@robots.ox.ac.uk</tt>" reads "Oxfordyuki@robots.ox.ac.uk", which the
+# Oxford<tt>author@robots.ox.ac.uk</tt>" reads "Oxfordauthor@robots.ox.ac.uk", which the
 # contact cleanup takes away whole, leaving "University of" (ar5iv's 2006.13662); in
-# italics too, "University of Washington<i>kangyu@unc.edu</i>" (2412.06141). A space
+# italics too, "University of Washington<i>author@unc.edu</i>" (2412.06141). A space
 # sets it apart; an "@" set in its own span, or after a brace, stays where it is
 # ("linyida<tt>@</tt>myvuw.ac.nz", 2609.13233).
 _GLUED_ADDRESS_RE = re.compile(
@@ -418,8 +418,8 @@ _RUN_TOGETHER_RE = re.compile(
     rf"|\bUniversity,\s+(?!{_NAME_COUNTRIES})(?:{COUNTRIES})\s+(?=(?:University|Institute|College)\b)"
 )
 # The last word of an institution's name glued to the address after it, as the LaTeX
-# source wrote them: "Technion - Israel Institute of Technologyyatzmon@nvidia.com"
-# (ar5iv's 2006.14610), "Zhejiang Universitykgl.prml@gmail.com" (2011.00147). The contact
+# source wrote them: "Technion - Israel Institute of Technologyauthor@nvidia.com"
+# (ar5iv's 2006.14610), "Zhejiang Universityauthor@gmail.com" (2011.00147). The contact
 # cleanup took the word away with the address: a space sets it apart. An address's own
 # name is in lower case.
 _WORD_BEFORE_ADDRESS_RE = re.compile(

@@ -2395,7 +2395,7 @@ def test_an_affiliation_glued_to_the_last_of_several_names() -> None:
 @pytest.mark.parametrize(
     "span_class",
     [
-        # "University of Oxford<tt>yuki@robots.ox.ac.uk</tt>" read "Oxfordyuki@...", which went
+        # "University of Oxford<tt>author@robots.ox.ac.uk</tt>" read "Oxfordauthor@...", which went
         # whole with the address (ar5iv's 2006.13662).
         pytest.param("ltx_text ltx_font_typewriter", id="typewriter"),
         # In italics: "University of Washington" gave "University of" (2412.06141).

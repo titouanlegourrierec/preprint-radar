@@ -167,7 +167,9 @@ def test_the_most_cited_papers_of_the_last_12_months(store: PaperStore) -> None:
         payload["papers"].append(gap.to_record())
         payload["papers"].append(_paper("2509.00001", announced=date(2025, 9, 25)).to_record())
         payload["papers"].append(
-            _paper("1706.03762", announced=date(2025, 10, 1), affiliations=("a@b.org", "MIT")).to_record()
+            _paper(
+                "1706.03762", announced=date(2025, 10, 1), affiliations=("author@example.org", "MIT")
+            ).to_record()
         )
 
     _edit(path, change)
@@ -176,7 +178,7 @@ def test_the_most_cited_papers_of_the_last_12_months(store: PaperStore) -> None:
         "data/cs.CV/top-recent.json: 2511.00001: listed twice",
         "data/cs.CV/top-recent.json: 2509.00001: announced 2025-09-25",
         "data/cs.CV/top-recent.json: 1706.03762: archived too",
-        "data/cs.CV/top-recent.json: 1706.03762: contact details in affiliation 'a@b.org'",
+        "data/cs.CV/top-recent.json: 1706.03762: contact details in affiliation 'author@example.org'",
         "data/index.json: the papers of the last 12 months differ from top-recent.json",
     ]
 
