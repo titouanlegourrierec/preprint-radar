@@ -24,6 +24,10 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ### Pipeline
 
+- The weekly archive reads the HTML pages of the highly cited papers without affiliations,
+  40 a week, with its own page cache, and reads them again after an extraction change
+  (OPS-6); the canary measures what the repository holds once repacked (SCALE-1); the
+  extraction is a package of seven modules, its output unchanged (EXT-6).
 - A paper whose page the extraction misreads into a contact detail no longer stops the
   data workflows' push: its affiliations are set aside, to be read again, with a warning
   (OPS-2).

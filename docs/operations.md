@@ -362,7 +362,9 @@ kept in its own Actions cache (`archive-pages-`), from which the papers an older
 extraction read are read again after a bump. The papers entering the list are a few a
 week: nothing to do. To fill its cache faster, dispatch *Archive* with `max_html` (800 at
 most, about 3.5 hours; on a Sunday or a Monday, as any run of the archive):
-`gh workflow run archive.yml -f max_html=800`.
+`gh workflow run archive.yml -f max_html=800`. The job stops at 330 minutes: 800 assumes
+the archive step's usual 40 minutes (a warm catalog, the Semantic Scholar key); after a
+harvest, 400.
 
 **Signal.** `published versions: %s place the authors, %s name others` in the log: those
 naming others are papers Semantic Scholar linked to a wrong DOI (24 of 7,027 in October
@@ -446,7 +448,9 @@ Not in git, set on 2026-11-02 (PUB-3); check them after any change to the workfl
 Both sizes are on every run's page (`Site size`, `Repository size`), and the canary adds
 the size of a fresh mirror clone repacked (`Repacked size`, SCALE-1). Pages refuses a site
 over 1 GB: the deploy fails at 800 MB and warns at 600 MB; a year of cs.CV day files is
-about 110 MB and pruning keeps one year (the archive stays near 50 MB).
+about 110 MB and pruning keeps one year (the archive stays near 50 MB), and the site holds
+each paper file three ways, whole, light and its abstracts (WEB-5): 207 MB on 2026-11-02
+for 92 MB of `data/`.
 
 The repository is another matter. The weekly archive rewrites all its year files, and
 GitHub stores each new version as a delta against a base of its own choosing, often
