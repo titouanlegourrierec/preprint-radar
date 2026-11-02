@@ -14,6 +14,10 @@ push a copy instead.
    - `PREPRINT_RADAR_CATEGORIES`: space-separated categories (default `cs.CV`);
    - `PREPRINT_RADAR_CONTACT`: your e-mail address, sent to arXiv in the User-Agent
      (default: the repository's URL);
+   - `PREPRINT_RADAR_CORRECTION_CONTACT`: the address the site gives its readers for
+     corrections and removal requests about their papers (default: none, and the site
+     offers none), which you then make with `make remove` and `make pin`
+     ([operations.md](operations.md#a-correction-or-removal-request));
    - `PREPRINT_RADAR_ARCHIVE_BUDGET`: how many papers older than 12 months the archive keeps
      per category (default 22000);
    - `PREPRINT_RADAR_ARCHIVE_PRUNE`: `true` to delete day files older than 12 months, for a

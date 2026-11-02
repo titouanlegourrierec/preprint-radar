@@ -10,13 +10,21 @@ from pathlib import Path
 ROOT = Path(__file__).parents[2]
 SCANNED = ("src", "tests", "docs", "web/src", "web/tooling", "web/tests", "web/e2e", ".github")
 SKIPPED = ("docs/audit/", "web/e2e/data/")
-ROOT_FILES = ("README.md", "CLAUDE.md", "CHANGELOG.md", "SECURITY.md", "Makefile", "pyproject.toml")
+ROOT_FILES = (
+    "README.md",
+    "CLAUDE.md",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "Makefile",
+    "pyproject.toml",
+    "web/vite.config.ts",
+)
 _EMAIL_RE = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}")
-_CONTACT_RE = re.compile(r'CONTACT_EMAIL = "([^"]+)"')
+_CONTACT_RE = re.compile(r'HOME_CONTACT = "([^"]+)"')
 
 
 def _contact() -> str:
-    match = _CONTACT_RE.search((ROOT / "web" / "src" / "report.ts").read_text(encoding="utf-8"))
+    match = _CONTACT_RE.search((ROOT / "web" / "vite.config.ts").read_text(encoding="utf-8"))
     assert match is not None
     return match.group(1)
 

@@ -55,7 +55,16 @@ export class ErrorBoundary extends Component<Props, State> {
         <button type="button" class="link-button" onClick={() => window.location.reload()}>
           Reload
         </button>
-        , <a href="./">start over</a> or tell <a href={reportLink()}>{CONTACT_EMAIL}</a>.
+        {CONTACT_EMAIL ? (
+          <>
+            , <a href="./">start over</a> or tell <a href={reportLink()}>{CONTACT_EMAIL}</a>.
+          </>
+        ) : (
+          <>
+            {" "}
+            or <a href="./">start over</a>.
+          </>
+        )}
       </p>
     );
   }

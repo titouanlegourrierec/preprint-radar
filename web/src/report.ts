@@ -1,8 +1,12 @@
-/** Correction and removal requests go to the maintainer, privately, not in a public issue. */
-export const CONTACT_EMAIL = "titouanlegourrierec@kaist.ac.kr";
+/**
+ * Correction and removal requests go to the maintainer, privately, not in a public issue:
+ * this deployment's, set at build (PUB-5); empty when it names none, and the site offers no
+ * address.
+ */
+export const CONTACT_EMAIL: string = __CORRECTION_CONTACT__;
 
 /** The project's repository: its code (the pipeline and this site), and its issues. */
-export const REPOSITORY_URL = "https://github.com/titouanlegourrierec/preprint-radar";
+export const REPOSITORY_URL: string = __REPOSITORY_URL__;
 
 /** The paper a report is about. */
 export interface Reported {

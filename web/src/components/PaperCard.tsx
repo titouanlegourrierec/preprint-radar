@@ -18,7 +18,7 @@ import { useWholePaper } from "../hooks/use-whole-paper";
 import { institutionsOf } from "../institutions";
 import { LOCALE } from "../locale";
 import { shareLink } from "../native-share";
-import { reportLink } from "../report";
+import { CONTACT_EMAIL, reportLink } from "../report";
 import {
   affiliationNeedles,
   exactly,
@@ -507,7 +507,7 @@ export function PaperCard({
           </p>
         )}
 
-        {expanded && (
+        {expanded && CONTACT_EMAIL && (
           <p class="paper__report muted">
             Wrong author or affiliation? <a href={reportLink(paper)}>Report an error</a>.
           </p>

@@ -104,6 +104,20 @@ const SITE_URL = process.env.PREPRINT_RADAR_SITE_URL || null;
 const ANALYTICS_TOKEN = analyticsToken(process.env.PREPRINT_RADAR_ANALYTICS_TOKEN);
 
 /**
+ * The repository the site links and where its readers send corrections and removal requests
+ * (PUB-5): the deployment's own, so that a copy deployed from a fork never sends them to this
+ * one's maintainer. Actions names the repository; a fork's contact is its
+ * `PREPRINT_RADAR_CORRECTION_CONTACT` variable, without which the site offers none.
+ */
+const HOME_REPOSITORY = "titouanlegourrierec/preprint-radar";
+const HOME_CONTACT = "titouanlegourrierec@kaist.ac.kr";
+const REPOSITORY = process.env.GITHUB_REPOSITORY || HOME_REPOSITORY;
+const REPOSITORY_URL = `${process.env.GITHUB_SERVER_URL || "https://github.com"}/${REPOSITORY}`;
+const CORRECTION_CONTACT =
+  process.env.PREPRINT_RADAR_CORRECTION_CONTACT ||
+  (REPOSITORY === HOME_REPOSITORY ? HOME_CONTACT : "");
+
+/**
  * The Atom feeds of the store (`tooling/feeds.ts`), derived again in development when the
  * index changes (a new day) or `scholar.json` does.
  */
@@ -387,6 +401,10 @@ function noThirdPartyLoads(): Plugin {
 export default defineConfig({
   // Relative base: the site works under any GitHub Pages path (user.github.io/<repo>/).
   base: "./",
+  define: {
+    __CORRECTION_CONTACT__: JSON.stringify(CORRECTION_CONTACT),
+    __REPOSITORY_URL__: JSON.stringify(REPOSITORY_URL),
+  },
   plugins: [
     preact(),
     paperData(DATA_DIR),

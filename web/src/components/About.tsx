@@ -78,12 +78,16 @@ export function About() {
         site for it; nothing else is involved.
       </p>
 
-      <h3>Corrections and removal</h3>
-      <p>
-        If a paper of yours shows a wrong affiliation or author, or you would like it removed from
-        the site, write to <a href={CORRECTION_LINK}>{CONTACT_EMAIL}</a> with its arXiv identifier.
-        The correction is made in the stored data, so it stays.
-      </p>
+      {CONTACT_EMAIL && (
+        <>
+          <h3>Corrections and removal</h3>
+          <p>
+            If a paper of yours shows a wrong affiliation or author, or you would like it removed
+            from the site, write to <a href={CORRECTION_LINK}>{CONTACT_EMAIL}</a> with its arXiv
+            identifier. The correction is made in the stored data, so it stays.
+          </p>
+        </>
+      )}
 
       <h3>Source code</h3>
       <p>
