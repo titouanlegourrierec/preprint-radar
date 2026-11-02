@@ -18471,7 +18471,7 @@
    "html_url": "https://arxiv.org/html/2609.32840v1",
    "abstract": "Accurate assessment of Schistosoma japonicum-associated liver fibrosis is essential for disease management and long-term follow-up in endemic regions. Ultrasound provides non-invasive imaging, but complex local echogenic patterns and anatomical structures make fine-grained grading challenging. Existing deep learning methods can predict fibrosis scores, yet directly incorporating acquisition views and regional cues into grading while retaining spatial information for inspection remains an open problem. Here we present VCRE-Fib, a view-conditioned regional evidence framework that integrates anatomical context, local information, and global image assessment for fine-grained ultrasound grading. The framework forms view-conditioned local grading evidence before spatial pooling, uses weak localization to guide its aggregation, and combines it with global predictions. Image-only inference jointly returns a fibrosis score, acquisition view, and candidate abnormal-region map. We developed and evaluated the method on a re-curated cohort of 108,709 ultrasound images from 6,373 patients across 35 centers. On a patient-disjoint test set of 4,107 images from 240 patients across four centers, VCRE-Fib reduced the prespecified composite grading risk by 7.115% relative to SFibAI trained and evaluated on the same data split. Image-level mean absolute error decreased from 0.391 to 0.378, alongside lower patient-max, patient-median, and center-balanced risks. The full model also achieved lower composite grading risk than variants that separately removed view conditioning or weak localization. These results support incorporating anatomical context and regional evidence into ultrasound grading while exposing spatial predictions for inspection alongside severity estimates.",
    "affiliations": [
-    "Department of Mathematics, The Chinese University of Hong KongHong Kong, China",
+    "Department of Mathematics, The Chinese University of Hong Kong, Hong Kong, China",
     "Jiangsu Provincial Key Laboratory on Parasite and Vector Control Technology, National Health Commission Key Laboratory of Parasitic Disease Control and Prevention,Jiangsu Institute of Parasitic Diseases, Wuxi, Jiangsu, China",
     "New Laboratory of Pattern Recognition (NLPR), State Key Laboratory of Multimodal Artificial Intelligence Systems (MAIS),Institute of Automation, Chinese Academy of Sciences",
     "Zhongguancun Academy",
@@ -18530,7 +18530,8 @@
      "source": "html"
     },
     "institutions": {
-     "source": "ror"
+     "source": "ror",
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32840",
