@@ -2201,6 +2201,16 @@ def test_numbered_lines_place_names_that_start_with_a_number() -> None:
     assert front.author_affiliations == ((0,), (1,))
 
 
+def test_a_numbered_line_ends_at_a_line_led_by_a_number() -> None:
+    # 2610.30875: "²pix.ai", whose marker the numbered pattern does not take, is another
+    # affiliation, not the end of Zhejiang University's line (AQ-3).
+    html = _NUMBERED_BLOCK.replace("<sup>2</sup>3M Company, USA", "<sup>2</sup>pix.ai, Hangzhou, China")
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.affiliations[0] == "Stanford University"
+
+
 def test_lines_led_by_symbols_skip_notes() -> None:
     html = _author_block(
         ("Ada Lovelace<sup>*</sup>", ()),
