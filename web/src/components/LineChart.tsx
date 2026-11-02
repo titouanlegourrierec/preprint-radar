@@ -94,7 +94,7 @@ export function LineChart(props: Props) {
   const step = labels.length > 1 ? plotWidth / (labels.length - 1) : plotWidth;
   const shown = active === null ? null : Math.min(active, labels.length - 1);
 
-  const describe = (index: number) =>
+  const description = (index: number) =>
     `${labels[index] ?? ""}: ${series
       .map((line) => {
         const value = line.values[index];
@@ -332,7 +332,7 @@ export function LineChart(props: Props) {
             </div>
           )}
           <p class="visually-hidden" id={describedBy} aria-live="polite">
-            {shown === null ? "" : describe(shown)}
+            {shown === null ? "" : description(shown)}
           </p>
         </div>
       )}
