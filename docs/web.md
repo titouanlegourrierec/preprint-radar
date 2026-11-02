@@ -194,15 +194,28 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   crashes phones), its older days from the search shards within `LIGHT_BUDGET` (20,000 more,
   `lightDays`, PERF-1), without abstracts, so about seven months are searchable. The picker
   says which days have their abstracts searched and what both budgets leave out.
+- Lists load light first (WEB-5, WEB-2): the build writes beside each paper file (a day, a
+  year of the archive, `top-recent.json`) its light version, `<category>/light/<file>`, the
+  search shards' records, and its abstracts and comments by id, `<category>/abstracts/<file>`
+  (`tooling/light-files.ts`). A period, a year or the last 12 months show from the light
+  files, then `withAbstracts` fills them in the background, and the full-text index, which a
+  search with words waits for (WEB-1), is built once they came. Several years of the archive
+  never fill theirs (5.1 MB compressed for every year instead of 16.1; the picker says
+  abstracts are not searched there), nor a period's older days (PERF-1): a card loads its
+  own on "Load the abstract" (`loadWholePaper`, from the abstracts file). A week: 0.20 MB
+  before the first card instead of 0.72, its abstracts 0.49 MB after. The site holds the
+  paper files three ways (207 MB instead of 130 on 2026-11-02); the store's files are the
+  whole ones, the format's.
 - The list shows the newest day's papers as soon as its file comes (`loadDays`' `onNewest`,
   `usePapers().newest`), the count still loading, while the older days come (WEB-4): the
   default week's first card in half the time. Not in an order of counts, which waits for
   them (UX-58).
 - A failed day file is asked for once more, then left out, as are the days of a failed month
   shard, named in a notice with Retry (`missingDays`, `formatMissingDays`, SRCH-10); only a
-  period whose every day file fails is an error. A shard's paper loads its day file when its
-  card opens or on "Load the abstract" (`hooks/use-whole-paper.ts`, `loadWholePaper`); the
-  reading list keeps its `light` and `code_url`, checked as the build writes them (SEC-2).
+  period whose every day file fails is an error. A light record loads its abstract from its
+  file's abstracts when its card opens or on "Load the abstract" (`hooks/use-whole-paper.ts`,
+  `loadWholePaper`); the reading list keeps its `light` (a day, a year, the last 12 months)
+  and `code_url`, checked as the build writes them (SEC-2).
   The smoke test builds with `VITE_PAPER_BUDGET=3` so that a day comes from a shard.
 - All stored papers (`?scope=all`, PROD-21, `store-search.ts`): "All papers", a choice of
   the Papers view's period picker, the four alike two a row; its button then names it, and a

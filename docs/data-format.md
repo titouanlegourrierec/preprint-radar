@@ -14,7 +14,8 @@ is missing here.
   `https://titouanlegourrierec.github.io/preprint-radar/data/index.json`,
   `…/data/cs.CV/2026-10-26.json`. Its files carry a few fields more, which the build
   merges in (below, [The site's additions](#the-sites-additions)), and files of its own
-  (citation and search shards, feeds) that are not part of this format.
+  (citation and search shards, the paper files' light versions and abstracts, feeds) that
+  are not part of this format.
 
 ## Conventions
 

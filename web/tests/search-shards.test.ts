@@ -1,12 +1,16 @@
 import { describe, expect, it } from "vitest";
 import {
+  abstractsPath,
   dayFilePath,
+  lightPath,
   lightRecord,
   monthsOf,
   type SearchShardFile,
   searchShardPath,
+  withText,
 } from "../src/search-shards";
 import type { CodeFile, ScholarFile } from "../src/types";
+import { splitPaperFile } from "../tooling/light-files";
 import { searchShardFiles } from "../tooling/search-shards";
 import { makePaper } from "./fixtures";
 
@@ -14,6 +18,12 @@ describe("search shard paths", () => {
   it("names a month's shard and a day file", () => {
     expect(searchShardPath("cs.CV", "2026-09")).toBe("cs.CV/search/2026-09.json");
     expect(dayFilePath("cs.CV", "2026-09-25")).toBe("cs.CV/2026-09-25.json");
+  });
+
+  it("names a paper file's light version and its abstracts (WEB-5)", () => {
+    expect(lightPath("cs.CV/2026-09-25.json")).toBe("cs.CV/light/2026-09-25.json");
+    expect(lightPath("cs.CV/archive/2017.json")).toBe("cs.CV/light/archive/2017.json");
+    expect(abstractsPath("cs.CV/top-recent.json")).toBe("cs.CV/abstracts/top-recent.json");
   });
 
   it("lists the months of some days once, newest first", () => {
@@ -148,5 +158,35 @@ describe("searchShardFiles", () => {
     const bare = (path: string) =>
       path.endsWith("scholar.json") || path.endsWith("code.json") ? null : read(path);
     expect(searchShardFiles(bare).size).toBe(2);
+  });
+});
+
+describe("splitPaperFile (WEB-5)", () => {
+  it("splits a paper file into its light records and their abstracts, which make it whole again", () => {
+    const paper = makePaper({ arxiv_id: "a", abstract: "The abstract.", comments: "CVPR 2026" });
+    const bare = makePaper({ arxiv_id: "b", abstract: null, comments: null });
+    const text = JSON.stringify({
+      schema_version: 1,
+      category: "cs.CV",
+      year: 2017,
+      papers: [paper, bare],
+    });
+
+    const { light, abstracts } = splitPaperFile(text, "cs.CV/archive/2017.json");
+
+    const lightFile = JSON.parse(light);
+    expect(lightFile).toMatchObject({ schema_version: 1, category: "cs.CV", year: 2017 });
+    expect(lightFile.papers[0]).toEqual(lightRecord(paper, "cs.CV/archive/2017.json"));
+    // A paper without either takes no room.
+    expect(JSON.parse(abstracts)).toEqual({
+      schema_version: 1,
+      abstracts: { a: ["The abstract.", "CVPR 2026"] },
+    });
+    const { provenance: _provenance, extractor: _extractor, ...shown } = paper;
+    expect(withText(lightFile.papers[0], ["The abstract.", "CVPR 2026"])).toEqual(shown);
+    expect(withText(lightFile.papers[1], undefined)).toMatchObject({
+      abstract: null,
+      comments: null,
+    });
   });
 });

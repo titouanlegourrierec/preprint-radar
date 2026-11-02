@@ -7,7 +7,14 @@ import {
   shownYears,
   yearsIn,
 } from "../archive-years";
-import { loadArchiveYears, loadDays, loadIndex, loadLightDays, loadTopRecent } from "../data";
+import {
+  loadArchiveYears,
+  loadDays,
+  loadIndex,
+  loadLightDays,
+  loadTopRecent,
+  withAbstracts,
+} from "../data";
 import { loadingLine, storeSearchLine } from "../format";
 import {
   lightDays,
@@ -155,6 +162,10 @@ export function usePapers(
     }
     let loaded: Promise<{ papers: Paper[]; total: number; unranked: number; missing?: string[] }>;
     const range = parseYears(archiveKey);
+    // The files' light versions first, then their abstracts (WEB-5): those of the archive's
+    // years together never, most of its bytes, which cards load when opened (WEB-2); nor
+    // those of a period's older days, from the search shards (PERF-1).
+    let abstracts: ReadonlySet<string> | null = null;
     if (loadedPeriod !== null) {
       // The latest days whole, the older ones from the search shards (PERF-1).
       const period = periodOfKey(loadedPeriod);
@@ -163,8 +174,10 @@ export function usePapers(
       // The newest day shows first, while the older ones come (WEB-4).
       const showNewest = (papers: Paper[]) =>
         !signal.aborted && setNewest({ index: new PaperIndex(papers), of: wanted });
+      const whole = selectDays(known, period);
+      abstracts = new Set(whole.map(({ date }) => `${category}/${date}.json`));
       loaded = Promise.all([
-        loadDays(category, selectDays(known, period), signal, showNewest),
+        loadDays(category, whole, signal, showNewest, true),
         older.length > 0 ? loadLightDays(category, older) : { papers: [], missing: [] },
       ]).then(([whole, light]) => ({
         papers: [...light.papers, ...whole.papers],
@@ -175,14 +188,16 @@ export function usePapers(
     } else if (range === null) {
       loaded = Promise.resolve({ papers: [], total: 0, unranked: 0 }); // no archive yet
     } else if (range === LAST_12_MONTHS) {
-      loaded = loadTopRecent(category, signal).then((papers) => ({
+      abstracts = new Set([`${category}/top-recent.json`]);
+      loaded = loadTopRecent(category, signal, true).then((papers) => ({
         papers,
         total: papers.length,
         unranked: 0,
       }));
     } else {
       const years = yearsIn(range, storeIndex.archives?.[category] ?? []).map(({ year }) => year);
-      loaded = loadArchiveYears(category, years, PAPER_BUDGET, signal);
+      abstracts = years.length === 1 ? new Set([`${category}/archive/${years[0]}.json`]) : null;
+      loaded = loadArchiveYears(category, years, PAPER_BUDGET, signal, true);
     }
     loaded
       .then(({ papers, total, unranked, missing = [] }) => {
@@ -192,10 +207,23 @@ export function usePapers(
         const index = new PaperIndex(papers);
         setLoad({ status: "ready", index });
         setLoadedFor(wanted);
-        // The list shows first; the search index is built after, while the page is idle.
-        whenIdle(() => {
-          index.warm(signal).then(() => !signal.aborted && setWarmed(index));
-        });
+        // The list shows first; the search index is built after, while the page is idle,
+        // once the abstracts it searches came: a search with words waits for it (WEB-1).
+        const searched = abstracts
+          ? withAbstracts(papers, signal, abstracts).then((whole) => {
+              if (signal.aborted) return index;
+              const filled = new PaperIndex(whole);
+              setLoad({ status: "ready", index: filled });
+              return filled;
+            })
+          : Promise.resolve(index);
+        searched
+          .then((ready) =>
+            whenIdle(() => {
+              ready.warm(signal).then(() => !signal.aborted && setWarmed(ready));
+            }),
+          )
+          .catch(() => undefined);
       })
       .catch(
         (error: unknown) =>

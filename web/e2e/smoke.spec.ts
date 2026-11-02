@@ -7,7 +7,8 @@ import { expect, type Page, test } from "@playwright/test";
 import { CONTENT_SECURITY_POLICY } from "../tooling/content-security-policy";
 
 /** The latest day file of the smoke test's store, asked for with or without its version (PERF-8). */
-const DAY_FILE = /\/data\/cs\.CV\/2026-09-25\.json(?:\?|$)/;
+// The latest day's light version, which the list loads first, its abstracts after (WEB-5).
+const DAY_FILE = /\/data\/cs\.CV\/light\/2026-09-25\.json(?:\?|$)/;
 
 /** Fail the test on any error the page logs or throws. */
 function watchErrors(page: Page): string[] {
@@ -21,10 +22,15 @@ function watchErrors(page: Page): string[] {
 
 test("the list shows the stored papers", async ({ page }) => {
   const errors = watchErrors(page);
-  // Each data file with the version the build gave it in the site's index (PERF-8).
-  const dayFile = page.waitForRequest(/\/data\/cs\.CV\/2026-09-25\.json\?v=[0-9a-f]{10}$/);
+  // Each data file with the version the build gave it in the site's index (PERF-8): the
+  // day's light version first, then its abstracts (WEB-5).
+  const dayFile = page.waitForRequest(/\/data\/cs\.CV\/light\/2026-09-25\.json\?v=[0-9a-f]{10}$/);
+  const abstracts = page.waitForRequest(
+    /\/data\/cs\.CV\/abstracts\/2026-09-25\.json\?v=[0-9a-f]{10}$/,
+  );
   await page.goto("./");
   await dayFile;
+  await abstracts;
   await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Gaussian Splatting for Analytical Engines" }),

@@ -1,7 +1,15 @@
 import { bestRanked } from "./archive-years";
 import { citationShardPath } from "./citations";
 import { PAPER_BUDGET } from "./period";
-import { monthsOf, type SearchShardFile, searchShardPath } from "./search-shards";
+import {
+  type AbstractsFile,
+  abstractsPath,
+  lightPath,
+  monthsOf,
+  type SearchShardFile,
+  searchShardPath,
+  withText,
+} from "./search-shards";
 import { candidateMonths, candidateYears } from "./share";
 import type { TopicsFile, TrendsFile } from "./trends";
 import {
@@ -67,6 +75,7 @@ function remember(path: string, papers: Paper[]): void {
 export function forgetLoaded(): void {
   versions = {};
   loaded.clear();
+  abstractFiles.clear();
   shards.clear();
   searchShards.clear();
   trendsFiles.clear();
@@ -129,17 +138,22 @@ export async function loadIndex(): Promise<StoreIndex> {
   return index;
 }
 
-/** The papers of a day or archive file, from the files loaded before if there. */
+/**
+ * The papers of a day or archive file, from the files loaded before if there; `light`, from
+ * its light version, without abstracts nor comments (WEB-5), which `withAbstracts` adds.
+ */
 async function loadPapers(
   path: string,
   what: string,
   signal: AbortSignal | undefined,
+  light = false,
 ): Promise<Paper[]> {
-  const known = recall(path);
+  const asked = light ? lightPath(path) : path;
+  const known = recall(asked);
   if (known !== undefined) return known;
-  const file = await fetchJson<DayFile | ArchiveFile | TopRecentFile>(path, signal);
+  const file = await fetchJson<DayFile | ArchiveFile | TopRecentFile>(asked, signal);
   checkSchema(file.schema_version, what);
-  remember(path, file.papers);
+  remember(asked, file.papers);
   return file.papers;
 }
 
@@ -148,12 +162,16 @@ async function loadPapers(
  * site dropped is often answered the second time. Not when the period was left, nor for a
  * file of another schema version.
  */
-async function loadDay(path: string, signal: AbortSignal | undefined): Promise<Paper[]> {
+async function loadDay(
+  path: string,
+  signal: AbortSignal | undefined,
+  light: boolean,
+): Promise<Paper[]> {
   try {
-    return await loadPapers(path, "day file", signal);
+    return await loadPapers(path, "day file", signal, light);
   } catch (error) {
     if (signal?.aborted || error instanceof SchemaVersionError) throw error;
-    return loadPapers(path, "day file", signal);
+    return loadPapers(path, "day file", signal, light);
   }
 }
 
@@ -164,13 +182,15 @@ async function loadDay(path: string, signal: AbortSignal | undefined): Promise<P
  * the period names (SRCH-10); when every one fails, the network or the site is down, and
  * the period fails, as it does for a file of another schema version, which a deploy that
  * went wrong serves. `onNewest` gets the most recent day's papers as soon as they come,
- * for the list to show them while the others load (WEB-4).
+ * for the list to show them while the others load (WEB-4). `light` loads their light
+ * versions (WEB-5).
  */
 export async function loadDays(
   category: string,
   days: readonly DaySummary[],
   signal?: AbortSignal,
   onNewest?: (papers: Paper[]) => void,
+  light = false,
 ): Promise<{ papers: Paper[]; missing: string[] }> {
   const results: (Paper[] | null)[] = new Array(days.length);
   let failure: unknown;
@@ -182,7 +202,7 @@ export async function loadDays(
       const day = days[position];
       if (day === undefined) return;
       const path = `${category}/${day.date}.json`;
-      results[position] = await loadDay(path, signal).catch((error: unknown) => {
+      results[position] = await loadDay(path, signal, light).catch((error: unknown) => {
         if (signal?.aborted || error instanceof SchemaVersionError) throw error;
         console.warn(`Could not load the day file ${path}`, error);
         failure = error;
@@ -199,32 +219,39 @@ export async function loadDays(
   return { papers: results.flatMap((papers) => papers ?? []), missing };
 }
 
-/** Load the archived papers of one year (highly cited older papers). */
+/** Load the archived papers of one year (highly cited older papers); `light`, without abstracts. */
 export function loadArchive(
   category: string,
   year: number,
   signal?: AbortSignal,
+  light = false,
 ): Promise<Paper[]> {
-  return loadPapers(`${category}/archive/${year}.json`, "archive file", signal);
+  return loadPapers(`${category}/archive/${year}.json`, "archive file", signal, light);
 }
 
 /** Load the most cited papers of the last 12 months, which the archive keeps apart (PROD-11). */
-export function loadTopRecent(category: string, signal?: AbortSignal): Promise<Paper[]> {
-  return loadPapers(`${category}/top-recent.json`, "top-recent file", signal);
+export function loadTopRecent(
+  category: string,
+  signal?: AbortSignal,
+  light = false,
+): Promise<Paper[]> {
+  return loadPapers(`${category}/top-recent.json`, "top-recent file", signal, light);
 }
 
 /**
  * Load the archived papers of several years, within `budget`: past it, the best ranked by
  * citations per year of age (`bestRanked`), from the citation shards of those years, how
- * many there were in all, and how many years could not be ranked.
+ * many there were in all, and how many years could not be ranked. `light`, without their
+ * abstracts: several years' are most of the archive's bytes (WEB-2).
  */
 export async function loadArchiveYears(
   category: string,
   years: readonly number[],
   budget: number,
   signal?: AbortSignal,
+  light = false,
 ): Promise<{ papers: Paper[]; total: number; unranked: number }> {
-  const files = await Promise.all(years.map((year) => loadArchive(category, year, signal)));
+  const files = await Promise.all(years.map((year) => loadArchive(category, year, signal, light)));
   const papers = files.flat();
   if (papers.length <= budget) return { papers, total: papers.length, unranked: 0 };
   const rankings = await Promise.all(years.map((year) => citationShard(category, String(year))));
@@ -370,13 +397,82 @@ export async function readStoreFile(path: string, signal?: AbortSignal): Promise
 }
 
 /**
- * A paper whole, from the day file a search shard's record names (`light`); the record
- * itself for a paper loaded whole, or when its day file no longer holds it.
+ * The abstracts files asked for, by the paper file they complete: the cards and the lists of
+ * the page share them. The oldest leave past {@link ABSTRACT_FILES}.
+ */
+const abstractFiles = new Map<string, Promise<AbstractsFile["abstracts"]>>();
+const ABSTRACT_FILES = 40;
+
+/**
+ * The abstracts and comments of a paper file's records (`abstractsPath`, WEB-5), loaded once
+ * for the page; asked for again after a failure.
+ */
+function abstractsOf(path: string): Promise<AbstractsFile["abstracts"]> {
+  let file = abstractFiles.get(path);
+  if (file === undefined) {
+    // Never cancelled: a card may wait for the file a list left.
+    file = fetchJson<AbstractsFile>(abstractsPath(path)).then((loaded) => {
+      checkSchema(loaded.schema_version, "abstracts file");
+      return loaded.abstracts;
+    });
+    file.catch(() => abstractFiles.delete(path));
+    abstractFiles.set(path, file);
+    for (const oldest of abstractFiles.keys()) {
+      if (abstractFiles.size <= ABSTRACT_FILES) break;
+      abstractFiles.delete(oldest);
+    }
+  }
+  return file;
+}
+
+/**
+ * A paper whole, with the abstract and comments its light record leaves out, from the
+ * abstracts of the paper file it names (`light`); the record itself for a paper loaded
+ * whole.
  */
 export async function loadWholePaper(paper: Paper): Promise<Paper> {
   if (paper.light === undefined) return paper;
-  const papers = await loadPapers(paper.light, "day file", undefined);
-  return papers.find(({ arxiv_id }) => arxiv_id === paper.arxiv_id) ?? paper;
+  const abstracts = await abstractsOf(paper.light);
+  return withText(paper, abstracts[paper.arxiv_id]);
+}
+
+/**
+ * The papers with the abstracts and comments their light records leave out (WEB-5), each
+ * paper file's asked for once, a few at a time: the list shows them light first. Only those
+ * of `files` when given: a period's older days stay as their search shards hold them
+ * (PERF-1). Those of a file that fails stay light, their cards loading it when opened.
+ */
+export async function withAbstracts(
+  papers: readonly Paper[],
+  signal?: AbortSignal,
+  only?: ReadonlySet<string>,
+): Promise<Paper[]> {
+  const files = [
+    ...new Set(
+      papers.flatMap(({ light }) =>
+        light === undefined || (only !== undefined && !only.has(light)) ? [] : [light],
+      ),
+    ),
+  ];
+  const texts = new Map<string, AbstractsFile["abstracts"]>();
+  let next = 0;
+  async function worker(): Promise<void> {
+    while (next < files.length && !signal?.aborted) {
+      const path = files[next++];
+      if (path === undefined) return;
+      const abstracts = await abstractsOf(path).catch((error: unknown) => {
+        console.warn(`Could not load the abstracts of ${path}`, error);
+        return null;
+      });
+      if (abstracts !== null) texts.set(path, abstracts);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(MAX_PARALLEL_REQUESTS, files.length) }, worker));
+  if (signal?.aborted) throw new DOMException("The period was left", "AbortError");
+  return papers.map((paper) => {
+    const abstracts = paper.light === undefined ? undefined : texts.get(paper.light);
+    return abstracts === undefined ? paper : withText(paper, abstracts[paper.arxiv_id]);
+  });
 }
 
 /** A file the pipeline writes for the site, `null` before it first does (HTTP 404). */

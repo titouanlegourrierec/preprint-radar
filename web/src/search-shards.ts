@@ -19,6 +19,20 @@ export function dayFilePath(category: string, day: string): string {
   return `${category}/${day}.json`;
 }
 
+/**
+ * Path of a paper file's light version (WEB-5): "cs.CV/2026-09-25.json" is
+ * "cs.CV/light/2026-09-25.json", "cs.CV/archive/2017.json" "cs.CV/light/archive/2017.json".
+ * Its records are the search shards' (`lightRecord`); the build writes it.
+ */
+export function lightPath(path: string): string {
+  return path.replace("/", "/light/");
+}
+
+/** Path of the abstracts and comments of a paper file's records, beside its light version. */
+export function abstractsPath(path: string): string {
+  return path.replace("/", "/abstracts/");
+}
+
 /** The months ("2026-09") of some days, newest first, once each. */
 export function monthsOf(days: Iterable<{ date: string }>): string[] {
   return [...new Set([...days].map(({ date }) => date.slice(0, 7)))].sort().reverse();
@@ -52,4 +66,20 @@ export interface SearchShardFile {
   category: string;
   month: string;
   papers: Paper[];
+}
+
+/**
+ * `<category>/abstracts/...`: what a paper file's light version leaves out, by arXiv id: each
+ * paper's abstract and comments (WEB-5), `null` where it has none.
+ */
+export interface AbstractsFile {
+  schema_version: number;
+  abstracts: Record<string, [string | null, string | null]>;
+}
+
+/** A light record with its abstract and comments back, as its paper file holds it. */
+export function withText(paper: Paper, text: [string | null, string | null] | undefined): Paper {
+  const { light: _light, code_url: _codeUrl, ...whole } = paper;
+  const [abstract, comments] = text ?? [null, null];
+  return { ...whole, abstract, comments };
 }

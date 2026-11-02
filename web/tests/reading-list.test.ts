@@ -85,6 +85,9 @@ describe("toPaper", () => {
       code_url: "javascript:alert(1)",
     });
     expect(hostile).not.toHaveProperty("light");
+    // A year of the archive's light record (WEB-2).
+    const archived = { ...light, light: "cs.CV/archive/2017.json" };
+    expect(toPaper(JSON.parse(JSON.stringify(archived)))).toEqual(archived);
     expect(hostile).not.toHaveProperty("code_url");
   });
 

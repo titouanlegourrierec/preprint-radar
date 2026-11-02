@@ -203,6 +203,12 @@ export function ArchivePicker(props: Props) {
                 : "Now click the last year of the range."}
             </p>
           )}
+          {selected !== null && yearsIn(selected, years).length > 1 && (
+            <p class="period-picker__note">
+              Over several years, titles, authors, affiliations and venues are searched, not
+              abstracts: search every stored paper for those.
+            </p>
+          )}
           {recentDays && range !== null && (
             <button
               type="button"

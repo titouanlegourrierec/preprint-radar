@@ -23,9 +23,10 @@ const isStringArray = (value: unknown): value is string[] =>
   Array.isArray(value) && value.every(isString);
 
 const ARXIV = "https://arxiv.org";
-// A search shard's record names its day file (`light`) and its code (`code_url`, PERF-1):
-// kept only as the build writes them, as a link from a file must not run anything (SEC-2).
-const DAY_FILE_RE = /^[\w.-]+\/\d{4}-\d{2}-\d{2}\.json$/;
+// A light record names its paper file (`light`: a day, a year of the archive, the most cited
+// of the last 12 months) and its code (`code_url`, PERF-1, WEB-5): kept only as the build
+// writes them, as a link from a file must not run anything (SEC-2).
+const PAPER_FILE_RE = /^[\w.-]+\/(?:\d{4}-\d{2}-\d{2}|archive\/\d{4}|top-recent)\.json$/;
 const CODE_URL_RE = /^https:\/\/(?:www\.)?(?:github\.com|gitlab\.com|huggingface\.co)\/[^\s"<>]+$/;
 
 /**
@@ -97,7 +98,7 @@ export function toPaper(value: unknown): Paper | null {
     author_affiliations: mappingFits ? (mapping as (number[] | null)[]) : null,
     institutions: institutionsFit ? (institutions as (string | null)[]) : null,
     ...(idsFit ? { institution_ids: ids as (string | null)[] } : {}),
-    ...(isString(record.light) && DAY_FILE_RE.test(record.light) ? { light: record.light } : {}),
+    ...(isString(record.light) && PAPER_FILE_RE.test(record.light) ? { light: record.light } : {}),
     ...(record.code_url === null || (isString(record.code_url) && CODE_URL_RE.test(record.code_url))
       ? { code_url: record.code_url }
       : {}),

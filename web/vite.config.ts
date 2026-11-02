@@ -14,6 +14,7 @@ import { gzipSync } from "node:zlib";
 import preact from "@preact/preset-vite";
 import type { Plugin } from "vite";
 import { defineConfig } from "vitest/config";
+import { abstractsPath, lightPath } from "./src/search-shards";
 import type { CodeFile, Cohort, CohortsFile, ScholarFile, StoreIndex } from "./src/types";
 import type { CountriesFile } from "./src/world";
 import { citationShardFiles } from "./tooling/citation-shards";
@@ -22,6 +23,7 @@ import { contentSecurityPolicy as policy } from "./tooling/content-security-poli
 import { fileVersions, withVersions } from "./tooling/data-versions";
 import { feedFiles } from "./tooling/feeds";
 import { LANDING_BUDGET, landingAssets, landingReport } from "./tooling/landing";
+import { splitPaperFile } from "./tooling/light-files";
 import { type LogosManifest, logoPaths, logoProblems, withLogos } from "./tooling/logos";
 import { paperFiles, withSiteFields } from "./tooling/scholar";
 import { searchShardFiles } from "./tooling/search-shards";
@@ -140,6 +142,9 @@ function feedsOf(dataDir: string): () => Map<string, string> {
 // A day or archive file, or the most cited papers of the last 12 months, whose records the
 // site gets with their DOI, published venue and the stars of their code.
 const PAPER_FILE_RE = /^\/([^/]+)\/(?:\d{4}-\d{2}-\d{2}|archive\/\d{4}|top-recent)\.json$/;
+// Its light version, or its abstracts, which the build derives from it (WEB-5).
+const SPLIT_FILE_RE =
+  /^\/([^/]+)\/(light|abstracts)\/((?:\d{4}-\d{2}-\d{2}|archive\/\d{4}|top-recent)\.json)$/;
 
 /**
  * Serve the repository's `data/` store at `/data` during development and copy it into the
@@ -186,6 +191,25 @@ function paperData(dataDir: string): Plugin {
         if (shard !== undefined) {
           res.setHeader("Content-Type", "application/json; charset=utf-8");
           res.end(shard);
+          return;
+        }
+        const split = SPLIT_FILE_RE.exec(path);
+        if (split) {
+          const [, category = "", kind, rest = ""] = split;
+          const whole = resolve(dataDir, category, rest);
+          if (!whole.startsWith(dataDir + sep) || !existsSync(whole)) {
+            next();
+            return;
+          }
+          const text = withSiteFields(
+            readFileSync(whole, "utf8"),
+            scholarOf(category),
+            codeOf(category),
+            countriesOf(category),
+          );
+          const parts = splitPaperFile(text, `${category}/${rest}`);
+          res.setHeader("Content-Type", "application/json; charset=utf-8");
+          res.end(kind === "light" ? parts.light : parts.abstracts);
           return;
         }
         const file = resolve(dataDir, `.${path}`);
@@ -248,16 +272,25 @@ function paperData(dataDir: string): Plugin {
           }
           const [scholar, code, countries] = merged.get(category) ?? [null, null, null];
           const target = resolve(output, path);
-          if ((scholar !== null || code !== null || countries !== null) && existsSync(target)) {
-            writeFileSync(
-              target,
-              withSiteFields(readFileSync(target, "utf8"), scholar, code, countries),
-            );
+          if (!existsSync(target)) continue;
+          const text = withSiteFields(readFileSync(target, "utf8"), scholar, code, countries);
+          writeFileSync(target, text);
+          // Its light version and its abstracts, which the lists load first and after (WEB-5).
+          const parts = splitPaperFile(text, path);
+          for (const [split, content] of [
+            [lightPath(path), parts.light],
+            [abstractsPath(path), parts.abstracts],
+          ] as const) {
+            const written = resolve(output, split);
+            mkdirSync(dirname(written), { recursive: true });
+            writeFileSync(written, content);
           }
         }
         // Last, the version of each file the site loads, as written (PERF-8).
         const loadable = [
-          ...(index ? paperFiles(index).map(({ path }) => path) : []),
+          ...(index
+            ? paperFiles(index).flatMap(({ path }) => [path, lightPath(path), abstractsPath(path)])
+            : []),
           ...(index
             ? Object.keys(index.categories).flatMap((category) =>
                 ["countries.json", "trends.json", "topics.json"].map(

@@ -346,8 +346,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   `author_ids` and, where the comments name no venue, the published `venue` from
   `scholar.json`, `code` (stars, gains, likes, `shared`) from `code.json` where its
   link is still the card's, and `countries` (its institutions', by their ROR ids) from
-  `countries.json`; a search shard's record has no abstract nor comments, but
-  `code_url` and `light` (its day file, PERF-1). The pipeline never writes them into a
+  `countries.json`; a light record (a search shard's, or a paper file's light version)
+  has no abstract nor comments, but `code_url` and `light` (its paper file, PERF-1,
+  WEB-5). The pipeline never writes them into a
   record; it keeps an author's id only where Semantic Scholar's name for it is the paper's
   author at that place.
 
@@ -393,7 +394,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 
 - The Makefile must run on macOS's GNU Make 3.81: no `--eval`, `.ONESHELL`, or `$(file ...)`.
 - `web/vite.config.ts` derives files that only the site has (citation shards, search
-  shards, the merged DOIs and venues, the Atom feeds, the version of each data file in the
+  shards, each paper file's light version and abstracts, which lists load first and after,
+  WEB-5, the merged DOIs and venues, the Atom feeds, the version of each data file in the
   site's `index.json`, which `data.ts` asks for as `?v=`, PERF-8, and each year's cohort
   there, for the cards' "Top 1% of 2017"): they never exist in `data/`
   (`docs/web.md`). The build fails if the site would load anything from another origin

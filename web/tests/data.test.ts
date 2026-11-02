@@ -16,6 +16,7 @@ import {
   loadTrends,
   loadWholePaper,
   trendsOf,
+  withAbstracts,
 } from "../src/data";
 import { PAPER_BUDGET } from "../src/period";
 import { makePaper } from "./fixtures";
@@ -460,20 +461,112 @@ describe("data", () => {
     expect(warn).toHaveBeenCalled();
   });
 
-  it("loads a search shard's paper whole from its day file", async () => {
-    const whole = makePaper({ arxiv_id: "a", announced: "2026-09-30", abstract: "The abstract." });
-    serve({ "cs.CV/2026-09-30.json": { schema_version: 1, papers: [whole] } });
+  it("loads a light record's abstract and comments from its file's abstracts (WEB-5)", async () => {
+    const requested = serve({
+      "cs.CV/abstracts/2026-09-30.json": {
+        schema_version: 1,
+        abstracts: { a: ["The abstract.", "CVPR 2026"] },
+      },
+    });
     const light = makePaper({
       arxiv_id: "a",
       announced: "2026-09-30",
       light: "cs.CV/2026-09-30.json",
+      code_url: null,
     });
 
-    await expect(loadWholePaper(light)).resolves.toEqual(whole);
-    // Loaded whole already, or gone from its day file: the record as given.
-    await expect(loadWholePaper(whole)).resolves.toBe(whole);
-    const gone = { ...light, arxiv_id: "b" };
-    await expect(loadWholePaper(gone)).resolves.toBe(gone);
+    const { light: _light, code_url: _code, ...whole } = light;
+    await expect(loadWholePaper(light)).resolves.toEqual({
+      ...whole,
+      abstract: "The abstract.",
+      comments: "CVPR 2026",
+    });
+    // A paper without either, and one loaded whole already: no other request.
+    const bare = { ...light, arxiv_id: "b" };
+    await expect(loadWholePaper(bare)).resolves.toMatchObject({ abstract: null, comments: null });
+    const loaded = makePaper({ arxiv_id: "c" });
+    await expect(loadWholePaper(loaded)).resolves.toBe(loaded);
+    expect(requested).toEqual(["cs.CV/abstracts/2026-09-30.json"]);
+  });
+
+  it("loads the files' light versions, then their abstracts, those asked for only", async () => {
+    const lightDay = (date: string) => ({
+      schema_version: 1,
+      papers: [makePaper({ arxiv_id: date, abstract: null, light: `cs.CV/${date}.json` })],
+    });
+    const abstracts = (date: string) => ({
+      schema_version: 1,
+      abstracts: { [date]: [`Abstract of ${date}.`, null] },
+    });
+    vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    const requested = serve(
+      {
+        "cs.CV/light/2026-09-30.json": lightDay("2026-09-30"),
+        "cs.CV/light/2026-09-29.json": lightDay("2026-09-29"),
+        "cs.CV/abstracts/2026-09-30.json": abstracts("2026-09-30"),
+      },
+      { "cs.CV/abstracts/2026-09-29.json": 503 },
+    );
+    const days = [
+      { date: "2026-09-30", count: 1 },
+      { date: "2026-09-29", count: 1 },
+    ];
+    const { papers } = await loadDays("cs.CV", days, undefined, undefined, true);
+    expect(papers.map(({ abstract }) => abstract)).toEqual([null, null]);
+
+    const filled = await withAbstracts(papers);
+    // A file that fails leaves its papers light, their cards loading it when opened.
+    expect(filled.map(({ abstract, light }) => [abstract, light])).toEqual([
+      ["Abstract of 2026-09-30.", undefined],
+      [null, "cs.CV/2026-09-29.json"],
+    ]);
+    // Only the files asked for: a period's older days stay light (PERF-1).
+    const only = await withAbstracts(papers, undefined, new Set(["cs.CV/2026-09-29.json"]));
+    expect(only.map(({ light }) => light)).toEqual([
+      "cs.CV/2026-09-30.json",
+      "cs.CV/2026-09-29.json",
+    ]);
+    expect(requested.filter((path) => path.includes("abstracts/2026-09-30"))).toHaveLength(1);
+
+    const left = new AbortController();
+    left.abort();
+    await expect(withAbstracts(papers, left.signal)).rejects.toThrow("The period was left");
+  });
+
+  it("loads the archive's years light, and keeps a few abstracts files only", async () => {
+    const requested = serve({
+      "cs.CV/light/archive/2017.json": {
+        schema_version: 1,
+        papers: [makePaper({ arxiv_id: "x" })],
+      },
+      "cs.CV/light/top-recent.json": { schema_version: 1, papers: [makePaper({ arxiv_id: "y" })] },
+    });
+    await loadArchiveYears("cs.CV", [2017], PAPER_BUDGET, undefined, true);
+    await loadTopRecent("cs.CV", undefined, true);
+    expect(requested).toEqual(["cs.CV/light/archive/2017.json", "cs.CV/light/top-recent.json"]);
+
+    serve(
+      Object.fromEntries(
+        Array.from({ length: 42 }, (_, day) => [
+          `cs.CV/abstracts/2026-08-${String(day).padStart(2, "0")}.json`,
+          { schema_version: 1, abstracts: {} },
+        ]),
+      ),
+    );
+    const papers = Array.from({ length: 42 }, (_, day) =>
+      makePaper({
+        arxiv_id: String(day),
+        light: `cs.CV/2026-08-${String(day).padStart(2, "0")}.json`,
+      }),
+    );
+    await withAbstracts(papers);
+    const again = serve({
+      "cs.CV/abstracts/2026-08-41.json": { schema_version: 1, abstracts: {} },
+    });
+    await withAbstracts(papers.slice(0, 1));
+    await withAbstracts(papers.slice(41));
+    // The oldest left past forty files; the newest is still there.
+    expect(again).toEqual(["cs.CV/abstracts/2026-08-00.json"]);
   });
 
   it("loads a shard of citation counts, which may not exist", async () => {

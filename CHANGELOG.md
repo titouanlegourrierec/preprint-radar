@@ -18,6 +18,9 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   (WEB-6), and over every stored paper read the day files' search shards, a quarter of the
   bytes (SCALE-3).
 - On phones, every tab fits the bar (WEB-3).
+- Lists show before their abstracts arrive: a week's first card needs a quarter of the
+  bytes, and Highly cited over every year 5 MB instead of 16, its abstracts loading with
+  each card (WEB-5, WEB-2).
 
 ### Pipeline
 
