@@ -30,7 +30,8 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   `adjacentPatterns`, stop words allowed between them): holding every pair triples the score
   (`ADJACENCY_BOOST`), enough to beat the words apart in an abstract, not in a title. It
   took the top 20 results holding the words as typed from 84% to 95%.
-- `PaperIndex` builds its full-text index in idle chunks once the list shows (`warm`), so
+- `PaperIndex` builds its full-text index in slices of 10 ms once the list shows (`warm`,
+  `WARM_SLICE_MS`: a tap waits no longer, WEB-7), so
   the list never waits (`usePapers().searchable`); a search with words waits for it, the
   count line saying `Indexing N papers for the search…` (WEB-1), rather than build the rest
   at once, which froze the page for seconds.
