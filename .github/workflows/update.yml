@@ -81,6 +81,9 @@ jobs:
         with:
           enable-cache: true
       - run: uv sync --locked --no-dev
+      # The warnings of the data as it was, which the run's summary does not repeat (OPS-11).
+      - name: Note the known warnings
+        run: uv run --no-dev preprint-radar validate > "$RUNNER_TEMP/known-warnings.txt" 2>&1 || true
 
       # The front matter of every HTML page read (a few KB each) lives in the Actions cache,
       # not in git: `reextract` reads them again offline. Each run saves a new entry, even
@@ -224,6 +227,8 @@ jobs:
         # Structural errors stop the push (the data is kept below), but a contact detail
         # in a paper's affiliations, set back to pending with a warning (OPS-2); warnings
         # only go to the job summary.
+        env:
+          KNOWN_WARNINGS: ${{ runner.temp }}/known-warnings.txt
         run: bash .github/scripts/validate-data.sh --set-aside
 
       - name: Commit data

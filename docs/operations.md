@@ -11,7 +11,8 @@ change, run `make validate`.
 ## Where to look
 
 The run's page (*Actions → the run*): annotations, then the job summary (each command's
-report line, *Data validation*, the newest day, the counts' age, coverage). The step log:
+report line, *Data validation*, whose warnings are those new to the run, the others in
+its step log, the newest day, the counts' age, coverage). The step log:
 one greppable line per event, `HH:MM:SS LEVEL name: message`. Locally: `make stats`,
 `make quality-affiliations`, `make validate`, `preprint-radar summary`.
 

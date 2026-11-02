@@ -217,6 +217,33 @@ def test_validate_copies_its_report_into_the_job_summary(tmp_path: Path, lines: 
     assert len(written) == 4 + (lines if lines <= 100 else 101)
 
 
+def test_validate_summarizes_only_the_warnings_new_to_the_run(tmp_path: Path) -> None:
+    assert BASH is not None
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    report = "WARNING data/cs.CV/scholar.json: stale\nWARNING data/cs.CV/2026-11-02.json: new\ncounts\n"
+    (bin_dir / "uv").write_text(f"#!/bin/sh\nprintf '{report}'\n", encoding="utf-8")
+    (bin_dir / "uv").chmod(0o755)
+    known = tmp_path / "known.txt"
+    known.write_text("WARNING data/cs.CV/scholar.json: stale\nold counts\n", encoding="utf-8")
+    summary = tmp_path / "summary.md"
+    env = {
+        **os.environ,
+        "PATH": f"{bin_dir}{os.pathsep}{os.environ['PATH']}",
+        "GITHUB_STEP_SUMMARY": str(summary),
+        "KNOWN_WARNINGS": str(known),
+    }
+
+    result = _run([BASH, str(VALIDATE_SCRIPT)], tmp_path, env)
+
+    # The log keeps every finding; the summary, those new to the run (OPS-11).
+    assert "stale" in result.stdout
+    written = summary.read_text(encoding="utf-8")
+    assert "stale" not in written
+    assert "WARNING data/cs.CV/2026-11-02.json: new" in written
+    assert "And 1 warnings known before this run, in the step log." in written
+
+
 def test_validate_passes_its_options_on(tmp_path: Path) -> None:
     assert BASH is not None
     bin_dir = tmp_path / "bin"

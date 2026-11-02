@@ -83,6 +83,9 @@ jobs:
         with:
           enable-cache: true
       - run: uv sync --locked --no-dev
+      # The warnings of the data as it was, which the run's summary does not repeat (OPS-11).
+      - name: Note the known warnings
+        run: uv run --no-dev preprint-radar validate > "$RUNNER_TEMP/known-warnings.txt" 2>&1 || true
 
       # The catalog (about 100 MB) lives in the Actions cache, not in git. Each run saves a
       # new entry, even after a failure, so that an interrupted harvest resumes next time.
@@ -202,6 +205,8 @@ jobs:
         id: validate
         if: always()
         # Structural errors stop the push (see update.yml).
+        env:
+          KNOWN_WARNINGS: ${{ runner.temp }}/known-warnings.txt
         run: bash .github/scripts/validate-data.sh --set-aside
 
       - name: Commit data
