@@ -600,7 +600,7 @@ removal list, rules on `main`).
 | OPS-4 | The rebased data commit is pushed without validation | P2 | todo |
 | OPS-5 | A failed dispatch is silent and costs 6 to 10 hours | P2 | todo |
 | OPS-6 | The archive's HTML pages still need the maintainer's machine | P2 | todo |
-| PUB-6 | The contact e-mail is set for every step and printed in every step header of the public logs | P3 | todo |
+| PUB-6 | The contact e-mail is set for every step and printed in every step header of the public logs. The variable is now in the env of the four steps that reach arXiv only (*Fetch papers* and *Extract stored papers again*, *Update the archive*, the canary's network tests), which `test_workflow_contact.py` pins | P3 | done |
 | PUB-7 | Workflow security relies on review alone: add zizmor to `make quality` | P3 | todo |
 | PUB-8 | An author list holding e-mail addresses and affiliations is published as authors, and validate does not see it | P3 | todo |
 | EXT-8 | Nothing ties a change in output to an EXTRACTOR_VERSION bump | P3 | todo |

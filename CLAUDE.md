@@ -360,7 +360,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   (arxiv.org, the API, OAI-PMH); other services (Semantic Scholar, OpenAlex, ROR, GitHub,
   the Hub) get the bare `DEFAULT_USER_AGENT`, never the maintainer's e-mail. It
   comes from `.env` locally (git-ignored, loaded by the Makefile) and from a repository
-  variable in CI.
+  variable in CI, given to the workflow steps that reach arXiv only, since Actions prints a
+  step's environment in its public log (`tests/unit/test_workflow_contact.py`, PUB-6).
 
 ## Gotchas
 

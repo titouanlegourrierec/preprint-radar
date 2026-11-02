@@ -60,8 +60,6 @@ jobs:
     env:
       # Repository variables (Settings > Secrets and variables > Actions > Variables).
       CATEGORIES: ${{ vars.PREPRINT_RADAR_CATEGORIES || 'cs.CV' }}
-      # Defaults to the repository URL, so that forks never send someone else's address.
-      PREPRINT_RADAR_CONTACT: ${{ vars.PREPRINT_RADAR_CONTACT || format('{0}/{1}', github.server_url, github.repository) }}
       # Empty on a scheduled run: the pipeline's default (DEFAULT_MAX_HTML in config.py).
       MAX_HTML: ${{ inputs.max-html }}
       SINCE: ${{ inputs.since }}
@@ -101,6 +99,10 @@ jobs:
         # Stop early enough to commit what was fetched; progress is saved as it goes. The
         # deadline leaves 20 minutes for ROR and the last save before the step is killed.
         timeout-minutes: 195
+        env:
+          # Sent to arxiv.org only, so given to the steps that read it only (PUB-6). It
+          # defaults to the repository URL, so that forks never send someone else's address.
+          PREPRINT_RADAR_CONTACT: ${{ vars.PREPRINT_RADAR_CONTACT || format('{0}/{1}', github.server_url, github.repository) }}
         run: |
           args=(--deadline-minutes 175)
           for category in $CATEGORIES; do args+=(--category "$category"); done
@@ -119,6 +121,8 @@ jobs:
         # 50 pages at 15 s are 12.5 minutes: the deadline leaves room for the cache (CI-16).
         if: ${{ !cancelled() }}
         timeout-minutes: 20
+        env:
+          PREPRINT_RADAR_CONTACT: ${{ vars.PREPRINT_RADAR_CONTACT || format('{0}/{1}', github.server_url, github.repository) }}
         run: |
           args=(--max-html 50 --deadline-minutes 17)
           for category in $CATEGORIES; do args+=(--category "$category"); done
