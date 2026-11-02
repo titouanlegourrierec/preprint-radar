@@ -380,7 +380,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     later failure, since the partial data was pushed. Bot pushes skip `ci.yml`, whose
     `data` job validates the other pushes.
   - A failure that touches data makes the run red (decision 16); a refusing Semantic
-    Scholar does not.
+    Scholar does not, nor an OAI-PMH failing one week (the archive goes on with last week's
+    catalog, REL-13).
   - Actions are pinned by commit SHA with the version in a comment; bump them together
     (`git ls-remote --tags` gives the SHAs).
   - `update.yml` and `archive.yml` share a concurrency group, check out `main` (not the

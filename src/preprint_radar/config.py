@@ -92,3 +92,7 @@ STALE_DATA_WEEKDAYS = 3
 arXiv announces every weekday, and runs missed (one may be a holiday)."""
 STALE_CITATIONS_DAYS = 14
 """Counts refreshed longer ago than this are reported as stale: two weekly runs missed."""
+CATALOG_STALE_DAYS = 10
+"""When OAI-PMH fails, the weekly archive goes on with a catalog harvested at most this many
+days ago (REL-13): one week's harvest missed costs only that week's records, which the next
+harvest asks for again, while the counts and their gains are of the week. Two in a row fail."""

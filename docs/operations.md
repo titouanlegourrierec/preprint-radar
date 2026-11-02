@@ -244,6 +244,17 @@ Fewer than 95% of the candidates got a count: those fetched go into `citations.j
 archive stays as it was, and the run is red. Run *Archive* again by hand: the counts are
 cached for 7 days in `.cache/catalog/`, so it resumes. Otherwise the fallback retries.
 
+## Catalog not refreshed
+
+**Signal.** Warning annotation `Catalog not refreshed`, and in the log `going on with the
+catalog harvested on` a date.
+
+OAI-PMH failed (a timeout, a server error), and the archive ran on the catalog of the last
+harvest, a week old: the run is green, its counts and gains those of the week. Nothing to
+do: next week's harvest asks for what changed since that date. A second failure in a row is
+red (`Request to https://oaipmh.arxiv.org/oai failed`); run *Archive* again by hand once
+OAI-PMH answers (REL-13).
+
 ## Catalog cache evicted
 
 **Signal.** The *Archive* log says `Harvesting` the set `(everything)` instead of

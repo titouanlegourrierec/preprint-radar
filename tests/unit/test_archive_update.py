@@ -20,6 +20,7 @@ from preprint_radar.archive.update import (
     refreshed,
     update_archive,
 )
+from preprint_radar.exceptions import FetchError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Cohort, Paper, Provenance
 from preprint_radar.openalex_affiliations import needs_openalex, with_openalex_affiliations
@@ -37,12 +38,17 @@ RECENT_DAY = TODAY - timedelta(days=10)
 class FakeServices:
     """OAI-PMH (nothing new), Semantic Scholar (fixed counts) and OpenAlex (the fixture)."""
 
-    def __init__(self, citations: dict[str, int], *, citations_down: bool = False) -> None:
+    def __init__(
+        self, citations: dict[str, int], *, citations_down: bool = False, oai_down: bool = False
+    ) -> None:
         self.citations = citations
         self.citations_down = citations_down
+        self.oai_down = oai_down
 
     def handle(self, request: httpx.Request) -> httpx.Response:
         if request.url.host == "oaipmh.arxiv.org":
+            if self.oai_down:
+                return httpx.Response(503)
             return httpx.Response(
                 200,
                 text=NOTHING_NEW,
@@ -139,6 +145,32 @@ def _update(
         prune=prune,
         dry_run=dry_run,
     )
+
+
+def test_a_failing_oai_leaves_last_weeks_catalog_to_the_update(store: PaperStore, catalog: Catalog) -> None:
+    # The fixture's catalog was harvested a week before TODAY.
+    report = _update(store, catalog, FakeServices(CITATIONS, oai_down=True))
+
+    assert report.catalog_from == date(2026, 9, 23)
+    assert report.archived == 3
+    assert catalog.harvested() == date(2026, 9, 23)
+    assert _update(store, catalog, FakeServices(CITATIONS)).catalog_from is None
+    assert catalog.harvested() == TODAY
+
+
+@pytest.mark.parametrize(
+    "today", [TODAY + timedelta(days=4), TODAY + timedelta(days=7)], ids=["11-days", "two-weeks"]
+)
+def test_a_failing_oai_fails_the_update_over_a_stale_catalog(
+    store: PaperStore, catalog: Catalog, today: date
+) -> None:
+    with pytest.raises(FetchError):
+        _update(store, catalog, FakeServices(CITATIONS, oai_down=True), today=today)
+
+
+def test_a_failing_oai_fails_the_update_without_a_catalog(store: PaperStore, tmp_path: Path) -> None:
+    with pytest.raises(FetchError):
+        _update(store, Catalog(tmp_path / "empty", "cs.CV"), FakeServices(CITATIONS, oai_down=True))
 
 
 def test_update_archive_keeps_the_most_cited_and_prunes_old_days(store: PaperStore, catalog: Catalog) -> None:

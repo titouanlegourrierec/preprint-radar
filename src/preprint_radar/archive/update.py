@@ -4,7 +4,8 @@ The store keeps every paper of the last 12 months in its day files, and an archi
 older papers chosen by citations per year of age (:mod:`preprint_radar.archive.selection`). Each
 week, :func:`update_archive`:
 
-1. refreshes the category's catalog from OAI-PMH (:mod:`preprint_radar.archive.catalog`);
+1. refreshes the category's catalog from OAI-PMH (:mod:`preprint_radar.archive.catalog`),
+   or goes on with last week's when OAI-PMH fails (``CATALOG_STALE_DAYS``, REL-13);
 2. fetches the citation counts of every paper since 2010 (:mod:`preprint_radar.sources.semantic_scholar`);
 3. selects the archive among the papers first seen over 12 months ago, those of the day
    files included, and builds the papers that enter it: from their day file when they have
@@ -51,11 +52,13 @@ from preprint_radar.archive.selection import (
 from preprint_radar.archive.subjects import SUBJECT_ALIASES, subject_name, subject_names
 from preprint_radar.config import (
     ARCHIVE_SINCE,
+    CATALOG_STALE_DAYS,
     CITATIONS_CACHE_DAYS,
     MIN_COVERAGE,
     RECENT_DAYS,
 )
 from preprint_radar.console import progress
+from preprint_radar.exceptions import FetchError
 from preprint_radar.http import HttpClient
 from preprint_radar.latex import plain_text
 from preprint_radar.models import Cohort, Paper
@@ -100,6 +103,8 @@ class ArchiveReport:
         written: Whether anything was written (not a dry run).
         refreshed: Stored papers whose comments or journal reference the catalog changed.
         top_recent: Most cited papers of the last 12 months kept (PROD-11).
+        catalog_from: Day of the catalog's last harvest when OAI-PMH failed and the update
+            went on with it, else ``None``.
     """
 
     category: str
@@ -114,6 +119,7 @@ class ArchiveReport:
     carried: int = 0
     refreshed: int = 0
     top_recent: int = 0
+    catalog_from: date | None = None
 
 
 def update_archive(
@@ -143,10 +149,10 @@ def update_archive(
         A summary of the update.
 
     Raises:
-        FetchError: If the catalog cannot be refreshed.
+        FetchError: If the catalog cannot be refreshed and is older than ``CATALOG_STALE_DAYS``.
         ParseError: If an OAI-PMH page is invalid.
     """
-    catalog.refresh(clients.oai, today)
+    catalog_from = _refresh(catalog, clients.oai, today)
     entries = {
         arxiv_id: entry for arxiv_id, entry in catalog.entries().items() if entry.first_seen >= ARCHIVE_SINCE
     }
@@ -230,6 +236,7 @@ def update_archive(
         carried=len(carried),
         refreshed=len(changed_in_days) + changed_in_archive,
         top_recent=len(top_recent),
+        catalog_from=catalog_from,
     )
     if dry_run:
         return report
@@ -519,6 +526,22 @@ def paper_from_catalog(entry: CatalogEntry, category: str, subjects: Mapping[str
     )
 
 
+def _refresh(catalog: Catalog, client: HttpClient, today: date) -> date | None:
+    """Refresh the catalog; when OAI-PMH fails, the day of the harvest the update goes on with.
+
+    A failed harvest leaves the catalog as it was (an interrupted one resumes next time).
+    """
+    try:
+        catalog.refresh(client, today)
+    except FetchError as exc:
+        harvested = catalog.harvested()
+        if harvested is None or (today - harvested).days > CATALOG_STALE_DAYS:
+            raise
+        logger.warning("OAI-PMH failed (%s): going on with the catalog harvested on %s", exc, harvested)
+        return harvested
+    return None
+
+
 def format_archive_report(report: ArchiveReport) -> str:
     """Render an :class:`ArchiveReport` as a one-line human-readable summary."""
     return (
@@ -529,6 +552,7 @@ def format_archive_report(report: ArchiveReport) -> str:
         f"{100 * report.coverage:.1f}% of {report.candidates:,} papers"
         + (f" ({report.carried:,} papers on last week's count)" if report.carried else "")
         + f", {report.refreshed:,} papers' comments refreshed, {report.pruned_days:,} day files pruned"
+        + (f", the catalog of {report.catalog_from} (OAI-PMH failed)" if report.catalog_from else "")
         + ("" if report.written else " (dry run: nothing written)")
     )
 

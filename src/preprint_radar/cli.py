@@ -1336,6 +1336,8 @@ def _run_archive(args: argparse.Namespace) -> int:
             line = format_archive_report(report)
             console.print(line)
             github_summary(f"**Archive.** {line}")
+            if report.catalog_from:
+                github_annotation("warning", "Catalog not refreshed", line)
             if report.coverage < MIN_COVERAGE:
                 gated.append(category)
                 github_annotation("error", "Archive not updated", f"Too few citation counts. {line}")

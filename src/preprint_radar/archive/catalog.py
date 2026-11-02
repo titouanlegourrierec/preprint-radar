@@ -68,6 +68,11 @@ class Catalog:
         """Every harvested paper, by arXiv identifier (empty before the first harvest)."""
         return {arxiv_id: entry for arxiv_id, entry in _read(self.path) if entry is not None}
 
+    def harvested(self) -> date | None:
+        """Day of the last complete harvest, ``None`` before the first."""
+        harvested = self._read_state().get("harvested")
+        return date.fromisoformat(harvested) if harvested else None
+
     def refresh(self, client: HttpClient, today: date) -> int:
         """Harvest what changed since the last harvest, or the whole set when due.
 

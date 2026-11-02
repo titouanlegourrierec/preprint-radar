@@ -12,6 +12,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ### Pipeline
 
+- The weekly archive no longer fails when arXiv's OAI-PMH does: it goes on with last
+  week's catalog, with a warning, and fails only after two weeks (REL-13).
 - Affiliations no longer cut short (AFF-41): an address glued to an institution's name
   took its last word ("Technion - Israel Institute of", "Zhejiang", and "Hong Kong
   University of Science and", credited to the University of Hong Kong), "The University of

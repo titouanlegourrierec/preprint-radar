@@ -552,3 +552,4 @@ go here until the next audit.
 | ARCH-4 | Multi-category (decision 11), with ARCH-5's HTML budget shared across categories; its cost is measured in its Phase 4 row | P3 | deferred |
 | AFF-16 | Labs and campuses as their parent organization (ROR's relationships), once someone asks | P3 | deferred |
 | REL-11 | Removed or corrected records refreshed in readers' saved lists, once someone asks | P3 | deferred |
+| REL-13 | An OAI-PMH that fails makes the archive red, with no counts nor gains that week: the Sunday run of 2026-11-01 timed out at its first page for 13 minutes, and only the fallback four hours later updated the archive. The archive goes on with the catalog of the last complete harvest, at most 10 days old (`CATALOG_STALE_DAYS`), with a warning annotation `Catalog not refreshed`; the next harvest asks for what changed since that date. Older, or without a catalog, the run is red as before; an invalid page (`ParseError`) too | P2 | done |

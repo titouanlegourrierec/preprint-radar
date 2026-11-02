@@ -245,3 +245,9 @@ papers. `collect.update_archive_affiliations` fills those of the archive and of 
 `oaipmh.arxiv.org`, set `cs:cs:CV`: arXiv's sanctioned bulk metadata. No crawl delay in its
 robots.txt; 5 s between pages, about 45 minutes for the whole set. `created` is not always
 the first version's date.
+
+When it fails (it timed out for 13 minutes on 2026-11-01), the archive goes on with the
+catalog of its last harvest, at most 10 days old (`CATALOG_STALE_DAYS`, REL-13): the week's
+counts and gains matter more than its new records, which the next harvest asks for again,
+since the date of the last complete one. Two failed weeks in a row, or no catalog yet, fail
+the run.

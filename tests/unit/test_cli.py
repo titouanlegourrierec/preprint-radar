@@ -684,6 +684,33 @@ def test_archive_fails_below_the_coverage_gate(
     assert "::error title=Archive not updated::Too few citation counts. cs.CV: " in capsys.readouterr().out
 
 
+def test_archive_on_last_weeks_catalog_warns(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    def stale(category: str, **_: object) -> ArchiveReport:
+        return ArchiveReport(
+            category=category,
+            candidates=100,
+            coverage=0.99,
+            threshold=1.0,
+            archived=10,
+            entered=0,
+            left=0,
+            pruned_days=0,
+            written=True,
+            catalog_from=date(2026, 10, 25),
+        )
+
+    monkeypatch.setattr("preprint_radar.cli.update_archive", stale)
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    args = ["archive", "--data-dir", str(tmp_path / "data"), "--catalog-dir", str(tmp_path / "catalog")]
+
+    assert main(args) == 0
+    out = capsys.readouterr().out
+    assert "::warning title=Catalog not refreshed::cs.CV: " in out
+    assert "the catalog of 2026-10-25 (OAI-PMH failed)" in out
+
+
 def test_archive_uses_the_semantic_scholar_key(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
