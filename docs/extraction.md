@@ -183,7 +183,9 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   Science, Dartmouth College, Hanover, NH, USA", 2609.38705, AFF-10), unless that line
   starts with a marker, is another unit ("Department of ECE" / "Department of CS" /
   "University of Central Florida": the second gets it, 2610.02000) or a note
-  ("Corresponding author", which would make the whole string noise).
+  ("Corresponding author", which would make the whole string noise); a line the next one
+  goes on still counts ("School of SE" / "Huazhong University of Science and" /
+  "Technology", 2610.23250).
 - An author's contact nodes are read as one text's lines, by the extraction and the
   per-creator tier alike (IEEE conference classes make each address line a node); those of
   different authors never join ("Department of Computer Science, University of Alabama at

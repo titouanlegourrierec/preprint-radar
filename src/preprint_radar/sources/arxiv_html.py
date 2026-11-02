@@ -1433,7 +1433,8 @@ def _completes(previous: str, line: _Line) -> bool:
     Germany", the next column of a table (2609.06629). A
     unit without its institution is completed by the next line, unless a marker starts
     that line or it is not an affiliation: "Department of Computer Science", then
-    "Dartmouth College" (AFF-10, 2609.38705).
+    "Dartmouth College" (AFF-10, 2609.38705), or the start of one: "School of SE", then
+    "Huazhong University of Science and", which the line after goes on (2610.23250).
     """
     if is_place(line.text) or (not line.marked and _is_address(line.text)):
         previous = previous.rstrip(_EDGE_PUNCTUATION)
@@ -1446,8 +1447,13 @@ def _completes(previous: str, line: _Line) -> bool:
         and is_bare_unit(previous)
         and not is_bare_unit(line.text)
         and not _NOISE_RE.search(line.text)
-        and clean_affiliation(line.text) is not None
+        and (_goes_on(line.text) or clean_affiliation(line.text) is not None)
     )
+
+
+def _goes_on(line: str) -> bool:
+    """Whether the next line goes on with this one: it ends with a comma, "and" or a preposition."""
+    return _CONTINUED_RE.search(line) is not None or _DANGLING_RE.search(line) is not None
 
 
 def _is_address(line: str) -> bool:

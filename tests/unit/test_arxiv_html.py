@@ -1655,6 +1655,12 @@ def test_thanks_notes_are_read_across_the_wraps_of_their_source(
             ("Department of Computer Science, Dartmouth College, Hanover, NH, USA",),
             id="one-node-per-line",
         ),
+        # A name over two lines, its first cut after "and" (2610.23250).
+        pytest.param(
+            ("School of SE", "Huazhong University of Science and", "Technology", "Wuhan, China"),
+            ("School of SE, Huazhong University of Science and Technology, Wuhan, China",),
+            id="a-name-over-two-lines",
+        ),
         pytest.param(
             ('School of Physics<br class="ltx_break"/>University of Oslo',),
             ("School of Physics, University of Oslo",),
