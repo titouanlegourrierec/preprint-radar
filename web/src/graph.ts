@@ -49,6 +49,13 @@ export interface GraphOptions {
   maxNodes: number;
   /** Citation count of each paper, by arXiv id, when known. */
   citations?: ReadonlyMap<string, number>;
+  /** Whether to link the nodes (and add the papers'); not for a ranking, which counts (WEB-6). */
+  links?: boolean;
+  /**
+   * Whether to tell how many people each author's name seems to be: a ranking asks it of
+   * the rows it shows only (`authorPeople`), which it costs half its time (WEB-6).
+   */
+  people?: boolean;
 }
 
 export interface Graph {
@@ -189,15 +196,8 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
         const mapped = mapping?.[position] ?? null;
         if (entry) placed.set(entry.id, placedAtEither(placed.get(entry.id), mapped));
         const id = ids?.[position];
-        if (!entry || !id) continue;
-        const profile = profilesOf(profiles, entry.id, id);
-        profile.papers += 1;
-        for (const index of mapping?.[position] ?? []) {
-          const institution = named[index];
-          if (institution) profile.institutions.add(institution);
-        }
-        for (const [other, key] of keys.entries())
-          if (other !== position) profile.coauthors.add(key);
+        if (!entry || !id || options.people === false) continue;
+        recordProfile(profilesOf(profiles, entry.id, id), position, mapping, named, keys);
       }
       for (const [key, mapped] of placed) authors.push({ key, mapped });
     }
@@ -226,8 +226,9 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
     const key = a < b ? `${a}\u0000${b}` : `${b}\u0000${a}`;
     weights.set(key, (weights.get(key) ?? 0) + 1);
   };
-  const paperNodes = options.papers ? linkThroughPapers(perPaper, keptIds, addLink) : [];
-  const consortia = options.papers ? 0 : linkByCoOccurrence(perPaper, keptIds, addLink);
+  const linking = options.links ?? true;
+  const paperNodes = linking && options.papers ? linkThroughPapers(perPaper, keptIds, addLink) : [];
+  const consortia = linking && !options.papers ? linkByCoOccurrence(perPaper, keptIds, addLink) : 0;
 
   const linked = new Set<string>();
   const links = [...weights].map(([key, weight]) => {
@@ -306,6 +307,53 @@ export interface Profile {
  * store seem to be several people so, 5,967 counting those).
  */
 export const PERSON_PAPERS = 2;
+
+/** One paper of a profile: where it places the author at `position`, and their co-authors. */
+function recordProfile(
+  profile: Profile,
+  position: number,
+  mapping: Paper["author_affiliations"] | null,
+  named: readonly (string | null)[],
+  keys: readonly string[],
+): void {
+  profile.papers += 1;
+  for (const index of mapping?.[position] ?? []) {
+    const institution = named[index];
+    if (institution) profile.institutions.add(institution);
+  }
+  for (const [other, key] of keys.entries()) if (other !== position) profile.coauthors.add(key);
+}
+
+/**
+ * How many people each of the given author nodes seems to be, more than one only, as
+ * {@link buildGraph} tells its nodes: for the rows a ranking shows (WEB-6).
+ */
+export function authorPeople(
+  papers: readonly Paper[],
+  wanted: ReadonlySet<string>,
+): Map<string, number> {
+  const profiles = new Map<string, Map<string, Profile>>();
+  for (const paper of papers) {
+    const ids = paper.author_ids?.length === paper.authors.length ? paper.author_ids : null;
+    if (!ids) continue;
+    const mapping =
+      paper.author_affiliations?.length === paper.authors.length ? paper.author_affiliations : null;
+    const named = institutionsOf(paper);
+    const keys = paper.authors.map((author) => searchKey(author));
+    for (const [position, author] of paper.authors.entries()) {
+      const node = nodeKey("author", author);
+      const id = ids[position];
+      if (!id || !wanted.has(node)) continue;
+      recordProfile(profilesOf(profiles, node, id), position, mapping, named, keys);
+    }
+  }
+  const people = new Map<string, number>();
+  for (const [node, byProfile] of profiles) {
+    const count = countPeople([...byProfile.values()]);
+    if (count > 1) people.set(node, count);
+  }
+  return people;
+}
 
 function profilesOf(
   profiles: Map<string, Map<string, Profile>>,

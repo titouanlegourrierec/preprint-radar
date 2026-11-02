@@ -114,3 +114,37 @@ describe("shareOf", () => {
     expect(shareOf(4, null)).toBe("--share: 0.000");
   });
 });
+
+describe("the names that seem to be several people (WEB-6)", () => {
+  const wang = (arxiv_id: string, id: string, institution: string, coauthor: string) =>
+    makePaper({
+      arxiv_id,
+      authors: ["Wei Wang", coauthor],
+      author_ids: [id, null],
+      affiliations: [institution],
+      institutions: [institution],
+      author_affiliations: [[0], null],
+    });
+  // Two Wei Wangs, at Tsinghua and at Zhejiang, with no co-author in common.
+  const wangs = [
+    wang("1", "42", "Tsinghua University", "Ada"),
+    wang("2", "42", "Tsinghua University", "Ada"),
+    wang("3", "7", "Zhejiang University", "Cyd"),
+    wang("4", "7", "Zhejiang University", "Cyd"),
+  ];
+
+  it("are told as the graph tells them, for the rows shown only", () => {
+    const people = (shown?: number) =>
+      rankEntities(wangs, "author", "papers", new Map(), shown).map(({ name, people }) => [
+        name,
+        people,
+      ]);
+
+    expect(people()).toEqual([
+      ["Wei Wang", 2],
+      ["Ada", undefined],
+      ["Cyd", undefined],
+    ]);
+    expect(people(0)[0]).toEqual(["Wei Wang", undefined]);
+  });
+});

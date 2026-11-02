@@ -1,4 +1,4 @@
-import { buildGraph, type EntityKind, isEntity } from "./graph";
+import { authorPeople, buildGraph, type EntityKind, isEntity } from "./graph";
 import type { Paper } from "./types";
 
 export type RankingMetric = "papers" | "citations";
@@ -23,17 +23,22 @@ export interface RankedEntity {
  * Institutions or authors of `papers`, most papers (or citations) first.
  *
  * Names are merged and spelled exactly as in the graph, which builds them: the same
- * institution, whatever the affiliation string, and never an author listed as one.
+ * institution, whatever the affiliation string, and never an author listed as one. How many
+ * people an author's name seems to be is told of the first `shown` rows only.
  */
 export function rankEntities(
   papers: readonly Paper[],
   kind: EntityKind,
   metric: RankingMetric,
   citations: ReadonlyMap<string, number>,
+  shown = Number.POSITIVE_INFINITY,
 ): RankedEntity[] {
+  // The graph's nodes alone, which it names, without its papers' nodes nor links: the
+  // authors of every stored paper took 254 MB and a second to link (WEB-6).
   const graph = buildGraph([...papers], {
-    // Papers on: each entity is then linked to its papers only, not to every co-author.
-    papers: true,
+    papers: false,
+    links: false,
+    people: false,
     institutions: kind === "institution",
     authors: kind === "author",
     minPapers: { institution: 1, author: 1 },
@@ -58,12 +63,20 @@ export function rankEntities(
       citations: node.citations,
       top,
       topCitations: citations.get(topId),
-      ...(node.people ? { people: node.people } : {}),
     });
   }
   const [first, second] =
     metric === "papers" ? (["papers", "citations"] as const) : (["citations", "papers"] as const);
-  return ranked.sort(
+  ranked.sort(
     (a, b) => b[first] - a[first] || b[second] - a[second] || a.name.localeCompare(b.name),
   );
+  if (kind === "author") {
+    const rows = ranked.slice(0, shown);
+    const people = authorPeople(papers, new Set(rows.map(({ id }) => id)));
+    for (const row of rows) {
+      const count = people.get(row.id);
+      if (count !== undefined) row.people = count;
+    }
+  }
+  return ranked;
 }

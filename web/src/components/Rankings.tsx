@@ -60,7 +60,7 @@ function EntityRankings(props: Props & { kind: EntityKind }) {
   const { papers, citations, citationsNote, archived, kind, onMetric, onEntity } = props;
   const metric = metricOf(props.metric, archived);
   const ranked = useMemo(
-    () => rankEntities(papers, kind, metric, citations),
+    () => rankEntities(papers, kind, metric, citations, SHOWN),
     [papers, kind, metric, citations],
   );
   // The first row's value of the metric ranked by, for each row's share of it (UX-60).

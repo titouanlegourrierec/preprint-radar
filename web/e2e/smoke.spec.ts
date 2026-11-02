@@ -1049,7 +1049,10 @@ test("every tab is in sight on a phone, whatever the view (WEB-3)", async ({ pag
         links
           .filter((link) => {
             const box = link.getBoundingClientRect();
-            const drawn = document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2);
+            const drawn = link.ownerDocument.elementFromPoint(
+              box.x + box.width / 2,
+              box.y + box.height / 2,
+            );
             return drawn?.closest("a") !== link;
           })
           .map((link) => link.textContent),
