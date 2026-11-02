@@ -1,0 +1,29 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">CANAL: Channel-Aware Noise Allocation for Differentially Private 
+<br class="ltx_break"/>Feature Distillation in Medical Image Segmentation</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Armaghan Butt
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Computer Science, University of Alabama at Birmingham
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Shuya Feng
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Birmingham, AL, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Qing Tian
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span><span class="ltx_text ltx_font_typewriter" id="id1" style="font-size:90%;">{jane.doe, john.roe}@example.org</span>
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Medical image segmentation needs diverse training data, but hospitals hold complementary scans they cannot share for privacy and regulatory reasons. Knowledge distillation can bridge this gap by exporting learned feature representations instead of images, but those representations still encode patient-specific anatomy and remain vulnerable to membership-inference and feature-inversion attacks. Adding calibrated Gaussian noise restores a differential-privacy guarantee, yet three issues have been overlooked. First, prior DP feature-distillation pipelines re-sample noise at every student iteration, so each patient image is released many times and the privacy cost composes over those releases, growing by orders of magnitude. We present a sample-once-per-image release, realized by a single precomputation pass, under which each patient contributes one release.
+Second, uniform noise is wasteful because channels differ in task importance. Using task-gradient energy as the importance measure, we derive CANAL, a closed-form water-filling allocation that gives important channels proportionally less noise, and prove it strictly minimizes importance-weighted distortion at a fixed budget.
+Third, the clipping caps and importance scores that drive the allocation are themselves data-dependent, so releasing them in the clear silently breaks the guarantee. We give a DP-honest budget split that charges each to the privacy budget, so the reported <math alttext="\varepsilon" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math> is the true <math alttext="\varepsilon" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math>. Across three medical segmentation benchmarks spanning dermoscopy, colonoscopy, and ultrasound, CANAL retains more task-relevant signal than uniform noise at the same privacy budget.</p>
+</div>
+<div class="ltx_pagination ltx_role_newpage"></div>
+<div class="ltx_para" id="p1">
+<p class="ltx_p" id="p1.1"><span class="ltx_text" id="p1.1.1"></span></p>
+</div>
+</article></body></html>

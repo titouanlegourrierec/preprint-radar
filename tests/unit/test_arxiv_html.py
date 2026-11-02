@@ -16,6 +16,7 @@ from preprint_radar.sources.arxiv_html import (
     fetch_front_matter,
     first_version_url,
     front_matter_html,
+    has_contact,
     name_key,
     names_only_authors,
     parse_front_matter,
@@ -1156,7 +1157,9 @@ def test_a_marker_without_affiliation_drops_the_markers() -> None:
     assert parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith")).author_affiliations is None
 
 
-def test_a_pair_is_not_placed_at_a_place_alone() -> None:
+def test_a_block_spread_over_the_creators_is_everyones() -> None:
+    # One affiliation, a line to each author, the place last (2609.34021, AQ-5): no one is
+    # at the unit alone, nor at the city.
     html = _author_block(
         ("Ada Lovelace", ("Institute of Artificial Intelligence",)),
         ("Bob Smith", ("University of Central Florida",)),
@@ -1165,7 +1168,23 @@ def test_a_pair_is_not_placed_at_a_place_alone() -> None:
 
     front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith", "Carl Jones", "Dan Brown"))
 
-    assert front.author_affiliations == ((0,), (1,), None, None)
+    assert front.affiliations == (
+        "Institute of Artificial Intelligence",
+        "University of Central Florida, Orlando, FL 32816, USA",
+    )
+    assert front.author_affiliations == ((0, 1),) * 4
+
+
+def test_whole_addresses_are_each_authors_own() -> None:
+    # Each ends with its country: no block spread over the creators (1804.03999).
+    html = _author_block(
+        ("Ada Lovelace", ("Imperial College London, London, UK",)),
+        ("Bob Smith", ("HeartFlow, California, USA",)),
+    )
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.author_affiliations == ((0,), (1,))
 
 
 def test_an_ambiguous_creator_name_drops_the_per_author_blocks() -> None:
@@ -1432,6 +1451,19 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
 )
 def test_clean_affiliation_strips_contact_details_and_people(raw: str, expected: str | None) -> None:
     assert clean_affiliation(raw) == expected
+
+
+@pytest.mark.parametrize(
+    "text", ["gmail.com", "mails.tsinghua.edu.cn", "sarthaktripathi3.gmail.com", "wangbohua.wbh"]
+)
+def test_a_contact_without_its_at_sign(text: str) -> None:
+    # A mailbox or a mail domain without its "@" (EXT-3).
+    assert has_contact(text)
+
+
+@pytest.mark.parametrize("text", ["valeo.ai", "realiz.ai", "Univ. Lyon"])
+def test_a_lab_named_after_its_domain_is_no_contact(text: str) -> None:
+    assert not has_contact(text)
 
 
 @pytest.mark.parametrize(

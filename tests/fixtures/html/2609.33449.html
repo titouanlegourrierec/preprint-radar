@@ -1,0 +1,26 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">A Visual Classification Dataset and Model Evaluation for Historical Manuscript Illustrations</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+<span class="ltx_tabular ltx_align_middle" id="id1">
+<span class="ltx_tbody">
+<span class="ltx_tr" id="id1.1">
+<span class="ltx_td ltx_align_center" id="id1.1.1">Yoav Evron<sup class="ltx_sup" id="id1.1.1.1"><span class="ltx_text ltx_font_italic" id="id1.1.1.1.1">1</span></sup>, Michal Bar-Asher Siegal<sup class="ltx_sup" id="id1.1.1.2"><span class="ltx_text ltx_font_italic" id="id1.1.1.2.1">2</span></sup>, Michael Fire<sup class="ltx_sup" id="id1.1.1.3"><span class="ltx_text ltx_font_italic" id="id1.1.1.3.1">1</span></sup></span></span>
+<span class="ltx_tr" id="id1.2">
+<span class="ltx_td ltx_align_center" id="id1.2.1"><sup class="ltx_sup" id="id1.2.1.1"><span class="ltx_text ltx_font_italic" id="id1.2.1.1.1">1</span></sup>Faculty of Computer and Information Science,</span></span>
+<span class="ltx_tr" id="id1.3">
+<span class="ltx_td ltx_align_center" id="id1.3.1">Ben-Gurion University of the Negev, Be’er Sheva, Israel</span></span>
+<span class="ltx_tr" id="id1.4">
+<span class="ltx_td ltx_align_center" id="id1.4.1"><sup class="ltx_sup" id="id1.4.1.1"><span class="ltx_text ltx_font_italic" id="id1.4.1.1.1">2</span></sup>The Goldstein-Goren Department of Jewish Thought,</span></span>
+<span class="ltx_tr" id="id1.5">
+<span class="ltx_td ltx_align_center" id="id1.5.1">Ben-Gurion University of the Negev, Be’er Sheva, Israel</span></span>
+<span class="ltx_tr" id="id1.6">
+<span class="ltx_td ltx_align_center" id="id1.6.1">Corresponding author: <span class="ltx_text ltx_font_typewriter" id="id1.6.1.1">author@example.org</span></span></span>
+</span>
+</span>
+</span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Historical manuscript illustrations preserve rich visual evidence of past cultures. They depict people, animals, plants, diagrams, music notations, and decorative forms. Although large digitization projects have made many manuscripts available online, the material itself remains difficult to explore at scale. Extraction systems can find illustrations on manuscript pages, but without meaningful categories, large collections remain hard to search and explore. We address this gap by introducing a manually labeled dataset of 15,000 illustrations from manuscripts dating back hundreds of years across 22 categories, and evaluating modern vision models for image classification on this task. The problem is challenging due to stylistic diversity, degradation, and semantic ambiguity, with many images that fit more than one category. We compare fine-tuned CNN and Transformer-based classifiers, zero-shot CLIP, embedding-based classifiers, and direct vision-language models. Results show that fine-tuned image classifiers perform best overall, with ConvNeXt reaching 88.9% accuracy and 81.3% macro-F1. Using CLIP embeddings with XGBoost provides a strong alternative. In contrast, zero-shot CLIP and direct vision-language classification perform substantially worse, highlighting the limits of general-purpose models in this domain. Beyond overall performance, the analysis reveals which categories are visually separable and where errors reflect genuine semantic overlap, suggesting that some limitations arise from the taxonomy itself.</p>
+</div>
+</article></body></html>

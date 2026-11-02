@@ -662,8 +662,7 @@
       [
         "Damien Robert",
         [
-          "University of Zurich",
-          "University of Oxford"
+          "University of Zurich"
         ]
       ],
       [
@@ -4156,5 +4155,198 @@
     ],
     "placed": null,
     "abstract": "Real-world contains an overwhelmingly large number of object classes, learning all of which at once is infeasible. Few shot learning is a promising learning paradigm due to its ability to learn out of order distributions quickly with only a few samples. Recent works [7, 41] show that simply learning a good feature embedding can outperform more sophisticated meta-learning and metric learning algorithms for few-shot learning. In this paper, we propose a simple approach to improve the representation capacity of deep neural networks for few-shot learning tasks. We follow a two-stage learning process: First, we train a neural network to maximize the entropy of the feature embedding, thus creating an optimal output manifold using a self-supervised auxiliary loss. In the second stage, we minimize the entropy on feature embedding by bringing self-supervised twins together, while constraining the manifold with student-teacher distillation. Our experiments show that, even in the first stage, self-supervision can outperform current state-of-the-art methods, with further gains achieved by our second stage distillation process. Our codes are available at: https://github.com/brjathu/SKD ."
+  },
+  "2609.39548": {
+    "authors": [
+      "Junjian Li",
+      "Xiaolong Liu",
+      "Peng Sun",
+      "Liantao Wu",
+      "Linghan Chen",
+      "Yudong Gao",
+      "Honglong Chen"
+    ],
+    "affiliations": [
+      "Geely",
+      "Hunan University",
+      "East China Normal University",
+      "University of Adelaide",
+      "The Hong Kong University of Science and Technology",
+      "China University of Petroleum (East China)"
+    ],
+    "placed": [
+      [
+        "Junjian Li",
+        [
+          "Geely"
+        ]
+      ],
+      [
+        "Xiaolong Liu",
+        [
+          "Hunan University"
+        ]
+      ],
+      [
+        "Peng Sun",
+        [
+          "Hunan University"
+        ]
+      ],
+      [
+        "Liantao Wu",
+        [
+          "East China Normal University"
+        ]
+      ],
+      [
+        "Linghan Chen",
+        [
+          "University of Adelaide"
+        ]
+      ],
+      [
+        "Yudong Gao",
+        [
+          "The Hong Kong University of Science and Technology"
+        ]
+      ],
+      [
+        "Honglong Chen",
+        [
+          "China University of Petroleum (East China)"
+        ]
+      ]
+    ],
+    "abstract": "Backdoor attacks pose a serious threat to the secure deployment of text-to-image (T2I) diffusion models. Existing defenses typically detect backdoors from specific abnormal patterns in internal representations, which may limit their generalizability with the emergence of increasingly diverse attack mechanisms. In this paper, we study backdoor defense of T2I diffusion models from a transition-dynamics perspective. We observe that benign diffusion trajectories exhibit structured and timestep-dependent transition patterns from cross-attention, latent and noise spaces, whereas backdoor attacks tend to induce deviations from such normal evolution. Motivated by these observations, we propose Normal Diffusion Dynamics Learning (NDDL), a novel backdoor defense framework that learns the normal transition dynamics of diffusion trajectories utilizing only benign samples. NDDL constructs compact multi-space trajectory representations and trains a timestep-conditioned dynamics model to predict the diffusion evolution. In the inference phase, deviations between the observed and predicted transitions are exploited to quantify dynamics inconsistency for backdoor detection. NDDL further enables trigger localization without any prior knowledge of the embedded backdoor by performing substitution with low-semantic words. Extensive experiments for diverse backdoor attacks demonstrate the effectiveness and generalizability of our proposed NDDL."
+  },
+  "2609.38607": {
+    "authors": [
+      "Shilin Hu",
+      "Jingyi Xu",
+      "Dimitris Samaras",
+      "Hieu Le"
+    ],
+    "affiliations": [
+      "Department of Computer Science, Stony Brook University",
+      "Department of Computer Science, University of North Carolina at Charlotte"
+    ],
+    "placed": [
+      [
+        "Shilin Hu",
+        [
+          "Department of Computer Science, Stony Brook University"
+        ]
+      ],
+      [
+        "Jingyi Xu",
+        [
+          "Department of Computer Science, Stony Brook University"
+        ]
+      ],
+      [
+        "Dimitris Samaras",
+        [
+          "Department of Computer Science, Stony Brook University"
+        ]
+      ],
+      [
+        "Hieu Le",
+        [
+          "Department of Computer Science, University of North Carolina at Charlotte"
+        ]
+      ]
+    ],
+    "abstract": "Shadow removal looks nearly solved on established benchmarks, yet remains brittle in the real world. Models have advanced; the paired training data they rely on have barely changed in nearly a decade. The reason is simple: obtaining a shadow-free target requires removing the occluder while keeping the scene, camera, and illumination otherwise unchanged, making diverse paired data difficult to capture. Meanwhile, large shadow detection datasets already contain diverse real-world images and masks, but no shadow-free targets. To turn this abundant but incomplete data into paired supervision, we propose an offline agentic workflow combining physics-motivated generation, failure detection, feedback-driven retry, candidate selection, and deterministic correction. Using this workflow, we construct AgenticShadow, a dataset of 17,138 image-mask-target triplets spanning general scenes, faces, and remote sensing. Our construction workflow reduces Color Distribution Difference by 50.5% over previous shadow removal work, while training existing shadow removal models on AgenticShadow reduces cross-domain LAB RMSE by 19.7–37.5%."
+  },
+  "2609.33449": {
+    "authors": [
+      "Yoav Evron",
+      "Michal Bar-Asher Siegal",
+      "Michael Fire"
+    ],
+    "affiliations": [
+      "Faculty of Computer and Information Science, Ben-Gurion University of the Negev, Be’er Sheva, Israel",
+      "The Goldstein-Goren Department of Jewish Thought, Ben-Gurion University of the Negev, Be’er Sheva, Israel"
+    ],
+    "placed": [
+      [
+        "Yoav Evron",
+        [
+          "Faculty of Computer and Information Science, Ben-Gurion University of the Negev, Be’er Sheva, Israel"
+        ]
+      ],
+      [
+        "Michal Bar-Asher Siegal",
+        [
+          "The Goldstein-Goren Department of Jewish Thought, Ben-Gurion University of the Negev, Be’er Sheva, Israel"
+        ]
+      ],
+      [
+        "Michael Fire",
+        [
+          "Faculty of Computer and Information Science, Ben-Gurion University of the Negev, Be’er Sheva, Israel"
+        ]
+      ]
+    ],
+    "abstract": "Historical manuscript illustrations preserve rich visual evidence of past cultures. They depict people, animals, plants, diagrams, music notations, and decorative forms. Although large digitization projects have made many manuscripts available online, the material itself remains difficult to explore at scale. Extraction systems can find illustrations on manuscript pages, but without meaningful categories, large collections remain hard to search and explore. We address this gap by introducing a manually labeled dataset of 15,000 illustrations from manuscripts dating back hundreds of years across 22 categories, and evaluating modern vision models for image classification on this task. The problem is challenging due to stylistic diversity, degradation, and semantic ambiguity, with many images that fit more than one category. We compare fine-tuned CNN and Transformer-based classifiers, zero-shot CLIP, embedding-based classifiers, and direct vision-language models. Results show that fine-tuned image classifiers perform best overall, with ConvNeXt reaching 88.9% accuracy and 81.3% macro-F1. Using CLIP embeddings with XGBoost provides a strong alternative. In contrast, zero-shot CLIP and direct vision-language classification perform substantially worse, highlighting the limits of general-purpose models in this domain. Beyond overall performance, the analysis reveals which categories are visually separable and where errors reflect genuine semantic overlap, suggesting that some limitations arise from the taxonomy itself."
+  },
+  "2609.13271": {
+    "authors": [
+      "Armaghan Butt",
+      "Shuya Feng",
+      "Qing Tian"
+    ],
+    "affiliations": [
+      "Department of Computer Science, University of Alabama at Birmingham, Birmingham, AL, USA"
+    ],
+    "placed": [
+      [
+        "Armaghan Butt",
+        [
+          "Department of Computer Science, University of Alabama at Birmingham, Birmingham, AL, USA"
+        ]
+      ],
+      [
+        "Shuya Feng",
+        [
+          "Department of Computer Science, University of Alabama at Birmingham, Birmingham, AL, USA"
+        ]
+      ],
+      [
+        "Qing Tian",
+        [
+          "Department of Computer Science, University of Alabama at Birmingham, Birmingham, AL, USA"
+        ]
+      ]
+    ],
+    "abstract": "Medical image segmentation needs diverse training data, but hospitals hold complementary scans they cannot share for privacy and regulatory reasons. Knowledge distillation can bridge this gap by exporting learned feature representations instead of images, but those representations still encode patient-specific anatomy and remain vulnerable to membership-inference and feature-inversion attacks. Adding calibrated Gaussian noise restores a differential-privacy guarantee, yet three issues have been overlooked. First, prior DP feature-distillation pipelines re-sample noise at every student iteration, so each patient image is released many times and the privacy cost composes over those releases, growing by orders of magnitude. We present a sample-once-per-image release, realized by a single precomputation pass, under which each patient contributes one release. Second, uniform noise is wasteful because channels differ in task importance. Using task-gradient energy as the importance measure, we derive CANAL, a closed-form water-filling allocation that gives important channels proportionally less noise, and prove it strictly minimizes importance-weighted distortion at a fixed budget. Third, the clipping caps and importance scores that drive the allocation are themselves data-dependent, so releasing them in the clear silently breaks the guarantee. We give a DP-honest budget split that charges each to the privacy budget, so the reported ε is the true ε. Across three medical segmentation benchmarks spanning dermoscopy, colonoscopy, and ultrasound, CANAL retains more task-relevant signal than uniform noise at the same privacy budget."
+  },
+  "2609.06726": {
+    "authors": [
+      "Ali Rafiaei",
+      "Michael Greenspan"
+    ],
+    "affiliations": [
+      "Dept. Electrical & Computer Engineering, Ingenuity Labs",
+      "Queen’s University, Kingston, ON, Canada"
+    ],
+    "placed": [
+      [
+        "Ali Rafiaei",
+        [
+          "Dept. Electrical & Computer Engineering, Ingenuity Labs",
+          "Queen’s University, Kingston, ON, Canada"
+        ]
+      ],
+      [
+        "Michael Greenspan",
+        [
+          "Dept. Electrical & Computer Engineering, Ingenuity Labs",
+          "Queen’s University, Kingston, ON, Canada"
+        ]
+      ]
+    ],
+    "abstract": "We present B2TFPose, a training-free zero-shot method for 6DoF pose estimation of unseen objects from RGB images. Using a single frozen DINOv3 vision transformer as its only pretrained component within the pose estimation pipeline, B2TFPose extracts dense patch-level features that generalize across the synthetic-to-real domain gap without any task-specific fine-tuning, revisiting the classical local feature matching paradigm through the lens of large-scale self-supervised foundation models. Three contributions advance the training-free state of the art. A geodesic non-maximum suppression strategy retrieves a viewpoint-diverse template set for coarse-to-fine correspondence matching. Render-guided Re-Correspondence (RRC) synthesizes object-specific views at the estimated pose and re-establishes dense 2D-3D correspondences to sharpen the initial estimate without additional learned parameters. A multi-mask hypothesis selection strategy jointly scores competing segmentation candidates to resolve segmentation ambiguity. On the seven core datasets of the BOP Benchmark, B2TFPose achieves 40.7 mean AR without refinement and 56.4 with refinement, establishing state-of-the-art performance among training-free RGB methods and outperforming trained counterparts including GigaPose and GenFlow, at competitive inference speed."
   }
 }

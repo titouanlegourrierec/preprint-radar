@@ -22,7 +22,7 @@ from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 21
+EXTRACTOR_VERSION = 22
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -120,6 +120,11 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
   "and" keeps what precedes it when that is whole ("The University of Texas at Austin
   and", 2410.14919); "Faculty of 3mE" is no marker (2203.10157); institutions run
   together after a country or another university are set apart (2006.09785, 1904.04514).
+- 22: the second audit's (AQ-2, AQ-3, AQ-5, EXT-3): a footnote mark beside markers written by
+  hand points to a note, not an affiliation (2609.39548); a numbered affiliation takes the
+  lines after it that go on with it, as table rows set them (2609.38607, 2609.33449); one
+  block LaTeXML spread over the creators is read as one, everyone at it (2609.13271,
+  2609.06726); a mailbox or mail domain without its "@" is a contact detail ("gmail.com").
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -194,6 +199,14 @@ _OBFUSCATED_EMAIL_RE = re.compile(
 _CONTACT_RE = re.compile(
     r"[\w.+-]+@[\w-]+\.[\w.-]+|https?://|www\.|[\[(]\s*at\s*[\])]|\{\s*[a-z0-9._+-]+\s*[,;|]",
     re.IGNORECASE,
+)
+# A mailbox or a mail domain printed without its "@" (EXT-3): "gmail.com", "mails.tsinghua.
+# edu.cn", "sarthaktripathi3.gmail.com", or a lone mailbox name, "wangbohua.wbh"; not a lab
+# named after its domain ("valeo.ai", "realiz.ai").
+_MAIL_FRAGMENT_RE = re.compile(
+    r"\b(?:gmail|googlemail|outlook|hotmail|yahoo|qq|163|126|foxmail|icloud)\.com\b"
+    r"|\bmails?\.[\w-]+(?:\.[\w-]+)*\.(?:edu|ac)(?:\.[a-z]{2})?\b"
+    r"|^[a-z0-9]+(?:[._][a-z0-9]+)*\.(?!(?:ai|io|com|net|org|edu|gr|de|cn|uk|fr|jp|kr|co|app|dev|tech)$)[a-z]{1,4}$"
 )
 # What is left of a contact detail in brackets: "University of Zurich, Switzerland ()".
 _EMPTY_BRACKETS_RE = re.compile(r"\(\s*\)|\[\s*\]")
@@ -925,8 +938,39 @@ def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[st
 
 
 def _tagged_affiliations(block: Tag, authors: Sequence[str]) -> list[str]:
-    """Affiliations marked up by LaTeXML: affiliation and address macros of ACM- or IEEE-like classes."""
-    return [segment for nodes in _contact_groups(block) for segment in _contact_segments(nodes, authors)]
+    """Affiliations marked up by LaTeXML: affiliation and address macros of ACM- or IEEE-like classes.
+
+    A block spread over the creators (:func:`_spread`) is read as one.
+    """
+    groups = _contact_groups(block)
+    if _spread(groups):
+        return _contact_segments((node for nodes in groups for node in nodes), authors)
+    return [segment for nodes in groups for segment in _contact_segments(nodes, authors)]
+
+
+def _spread(groups: Sequence[Sequence[Tag]]) -> bool:
+    """Whether the creators' contacts are one shared block LaTeXML spread over them (AQ-5).
+
+    A class that gives each author a line of the paper's one affiliation makes a creator of
+    the unit and university, the next of "Birmingham, AL, USA", the last of the e-mails
+    (2609.13271; 2609.06726, 2609.34021): from a creator after the first whose contacts name
+    a place and nothing else but e-mails, every creator's do, and none before ends with its
+    country. Whole addresses, each ending with its country, are each author's own
+    ("HeartFlow, California, USA" among Imperial College's, 1804.03999).
+    """
+    texts = [[line.text for node in nodes for line in _lines(_pruned(node))] for nodes in groups]
+
+    def address_end(lines: Sequence[str]) -> bool:
+        return any(is_place(line) for line in lines) and all(
+            is_place(line) or has_contact(line) for line in lines
+        )
+
+    first = next((index for index, lines in enumerate(texts) if index and address_end(lines)), None)
+    return (
+        first is not None
+        and all(address_end(lines) or all(map(has_contact, lines)) for lines in texts[first:])
+        and not any(_COUNTRY_END_RE.search(line) for lines in texts[:first] for line in lines)
+    )
 
 
 def _contact_groups(authors: Tag) -> list[list[Tag]]:
@@ -1548,9 +1592,30 @@ def _keyval_text(text: str) -> str:
 def _numbered_affiliations(authors: Tag) -> list[str]:
     """Affiliations written as numbered lines after the author names.
 
-    Superscript markers are kept here: they are what identifies these lines.
+    Superscript markers are kept here: they are what identifies these lines. Each takes the
+    lines after it that go on with it, up to the next marker, as :func:`_joined` joins
+    them: blocks setting each affiliation as rows of a table ("¹ Department of Computer
+    Science", then "Stony Brook University", 2609.38607) kept the unit alone (AQ-3).
     """
-    return [match.group("name") for match in _NUMBERED_LINE_RE.finditer(_numbered_text(authors))]
+    return [name for _, name in _numbered_lines(_numbered_text(authors))]
+
+
+def _numbered_lines(text: str) -> list[tuple[str, str]]:
+    """Each numbered line's marker and affiliation, with the lines after it that go on with it (AQ-3)."""
+    matches = list(_NUMBERED_ANCHOR_RE.finditer(text))
+    ends = [match.start() for match in matches[1:]] + [len(text)] * bool(matches)
+    return [
+        (
+            match.group("marker"),
+            _joined(
+                [
+                    _Line(match.group("name").strip(), marked=True),
+                    *(_Line(line.strip()) for line in text[match.end() : end].splitlines() if line.strip()),
+                ]
+            )[0],
+        )
+        for match, end in zip(matches, ends, strict=True)
+    ]
 
 
 def _numbered_text(block: Tag) -> str:
@@ -1697,7 +1762,7 @@ def has_contact(text: str) -> bool:
     The cleaning drops a string that still holds one, and ``validate`` refuses a store that
     does: both ask this.
     """
-    return _CONTACT_RE.search(text) is not None
+    return _CONTACT_RE.search(text) is not None or _MAIL_FRAGMENT_RE.search(text.strip()) is not None
 
 
 def _unglued(text: str) -> str:
@@ -1831,6 +1896,11 @@ def _per_creator_map(
     soup: BeautifulSoup, authors: tuple[str, ...], index_of: Mapping[str, int]
 ) -> AuthorAffiliations | None:
     """One affiliation block per author (ACM- and IEEE-like classes)."""
+    block = soup.select_one("div.ltx_authors")
+    groups = _contact_groups(block) if block is not None else []
+    # One block for all: everyone is at each of the paper's affiliations, which it gave (AQ-5).
+    if _spread(groups):
+        return (tuple(sorted(set(index_of.values()))),) * len(authors)
     creators = _creators(soup, authors, index_of)
     if not any(indices for _, indices, _ in creators):
         return None
@@ -1923,7 +1993,12 @@ def _marker_map(
     block = soup.select_one("div.ltx_authors")
     if block is None:  # pragma: no cover - _author_affiliations only maps pages with an author block
         return None
-    names = _fold(" , ".join(_marked_text(name) for name in block.select(".ltx_personname")))
+    persons = block.select(".ltx_personname")
+    # A footnote mark beside markers written by hand points to a note ("Equal contribution"),
+    # not to an affiliation, whose numbers it would take (2609.39548, AQ-2); alone, it may
+    # point to the footnote of one (\footnotemark and \footnotetext).
+    notes = any(person.select_one("sup.ltx_sup") for person in persons)
+    names = _fold(" , ".join(_marked_text(person, without_notes=notes) for person in persons))
     anchors = _anchors(soup, block, index_of)
     if not anchors:
         return None
@@ -1934,12 +2009,14 @@ def _marker_map(
         match = re.search(re.escape(_fold(author)) + r"[,\s]*" + _MARKER_RUN_RE, names)
         if match is None:
             continue
-        markers = [
-            marker
-            for token in _MARKED_RE.findall(match.group(1))
-            for marker in _MARKER_SPLIT_RE.split(token)
-            if marker
-        ]
+        tokens = _MARKED_RE.findall(match.group(1))
+        # The last author's run may end with the marker of the first affiliation line, which
+        # a line break, not a glued word, sets apart: "Hieu Le⟨2⟩ ⟨1⟩ Department of Computer
+        # Science, Stony Brook University" (2609.38607, AQ-3).
+        following = names[match.end() :].split("⟨", 1)[0]
+        if len(tokens) > 1 and following.strip() and _known(following, index_of):
+            tokens = tokens[:-1]
+        markers = [marker for token in tokens for marker in _MARKER_SPLIT_RE.split(token) if marker]
         indices: list[int] = []
         for marker in _expand(markers, anchors):
             if marker in anchors:
@@ -2019,7 +2096,9 @@ def _anchors(soup: BeautifulSoup, block: Tag, index_of: Mapping[str, int]) -> di
     # Free-form blocks write the marker as plain text: "1ETH Zurich", or a symbol: "*Oregon
     # State University" (2610.17605), which anchors only an affiliation, not "*Equal contribution".
     text = _numbered_text(_pruned(block))
-    for match in (*_NUMBERED_ANCHOR_RE.finditer(text), *_SYMBOL_LINE_RE.finditer(text)):
+    for marker, name in _numbered_lines(text):
+        add(marker, name)
+    for match in _SYMBOL_LINE_RE.finditer(text):
         add(match.group("marker"), match.group("name"))
     return anchors
 
@@ -2217,9 +2296,11 @@ def _pruned(node: Tag) -> Tag:
     return copy
 
 
-def _marked_text(node: Tag) -> str:
-    """Node text with each superscript rendered as a ``⟨marker⟩`` token."""
+def _marked_text(node: Tag, *, without_notes: bool = False) -> str:
+    """Node text with each superscript as a ``⟨marker⟩`` token, but footnote marks with ``without_notes``."""
     copy = BeautifulSoup(str(node), "html.parser")
+    for note in copy.select(".ltx_role_footnotemark") if without_notes else ():
+        note.decompose()
     for sup in copy.select("sup"):
         sup.replace_with(sup.get_text() if _inside_word(sup) else f"⟨{' '.join(sup.get_text().split())}⟩")
     return " ".join(copy.get_text().split())

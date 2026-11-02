@@ -1,0 +1,35 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">After a Decade: Bringing Shadow Removal into the Real World with Agentic Training Data</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Shilin Hu<sup class="ltx_sup" id="id1">1</sup>  Jingyi Xu<sup class="ltx_sup" id="id2">1</sup>  Dimitris Samaras<sup class="ltx_sup" id="id3">1</sup>  Hieu Le<sup class="ltx_sup" id="id4">2</sup><span class="ltx_note ltx_role_footnotemark" id="footnotex1"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup><span class="ltx_note_type">footnotemark: </span>
+<span class="ltx_tag ltx_tag_note">1</span>
+</span></span></span>
+<br class="ltx_break"/><sup class="ltx_sup" id="id5">1</sup>
+<span class="ltx_tabular ltx_align_top" id="id6">
+<span class="ltx_tbody">
+<span class="ltx_tr" id="id6.1">
+<span class="ltx_td ltx_nopad_r ltx_align_left" id="id6.1.1">Department of Computer Science</span></span>
+<span class="ltx_tr" id="id6.2">
+<span class="ltx_td ltx_nopad_r ltx_align_left" id="id6.2.1">Stony Brook University</span></span>
+</span>
+</span>
+  <sup class="ltx_sup" id="id7">2</sup>
+<span class="ltx_tabular ltx_align_top" id="id8">
+<span class="ltx_tbody">
+<span class="ltx_tr" id="id8.1">
+<span class="ltx_td ltx_nopad_r ltx_align_left" id="id8.1.1">Department of Computer Science</span></span>
+<span class="ltx_tr" id="id8.2">
+<span class="ltx_td ltx_nopad_r ltx_align_left" id="id8.2.1">University of North Carolina at Charlotte</span></span>
+</span>
+</span>
+<br class="ltx_break"/><span class="ltx_text ltx_font_typewriter" id="id9">{jane.doe, john.roe}@example.org</span>
+ <span class="ltx_text ltx_font_typewriter" id="id10">author@example.org</span>
+</span><span class="ltx_note ltx_note_frontmatter ltx_thanks_note ltx_role_thanks" id="id11"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>Equal advising.</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Shadow removal looks nearly solved on established benchmarks, yet remains brittle in the real world. Models have advanced; the paired training data they rely on have barely changed in nearly a decade. The reason is simple: obtaining a shadow-free target requires removing the occluder while keeping the scene, camera, and illumination otherwise unchanged, making diverse paired data difficult to capture. Meanwhile, large shadow detection datasets already contain diverse real-world images and masks, but no shadow-free targets. To turn this abundant but incomplete data into paired supervision, we propose an offline agentic workflow combining physics-motivated generation, failure detection, feedback-driven retry, candidate selection, and deterministic correction. Using this workflow, we construct <span class="ltx_text ltx_font_bold" id="abstract1.1.1">AgenticShadow</span>, a dataset of 17,138 image-mask-target triplets spanning general scenes, faces, and remote sensing. Our construction workflow reduces Color Distribution Difference by 50.5% over previous shadow removal work, while training existing shadow removal models on AgenticShadow reduces cross-domain LAB RMSE by 19.7–37.5%.</p>
+</div>
+<div class="ltx_para" id="p1">
+
+</div>
+</article></body></html>

@@ -1,0 +1,61 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">Back to the Feature: Zero-Shot 6DoF Pose Estimation via
+Dense Local Features</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Ali Rafiaei
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Dept. Electrical &amp; Computer Engineering, Ingenuity Labs
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Queen’s University
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Michael Greenspan
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Kingston, ON, Canada
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span><span class="ltx_text ltx_font_typewriter" id="id1">{jane.doe, john.roe}@example.org</span>
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">We present B2TFPose, a training-free zero-shot method for 6DoF pose
+estimation of unseen objects from RGB images.
+Using a single frozen DINOv3 vision transformer as its only pretrained
+component within the pose estimation pipeline, B2TFPose extracts dense
+patch-level features that generalize
+across the synthetic-to-real domain gap without any task-specific
+fine-tuning, revisiting the classical local feature matching paradigm
+through the lens of large-scale self-supervised foundation models.
+Three contributions advance the training-free state of the art. A
+geodesic non-maximum suppression strategy retrieves a
+viewpoint-diverse template set for coarse-to-fine correspondence
+matching. Render-guided Re-Correspondence (RRC) synthesizes
+object-specific views at the estimated pose and re-establishes dense
+2D-3D correspondences to sharpen the initial estimate without
+additional learned parameters. A multi-mask hypothesis selection
+strategy jointly scores competing segmentation candidates to
+resolve segmentation ambiguity.
+On the seven core datasets of the BOP Benchmark, B2TFPose achieves
+40.7 mean AR without refinement and 56.4 with refinement, establishing
+state-of-the-art performance among training-free RGB methods and
+outperforming trained counterparts including GigaPose and GenFlow,
+at competitive inference speed.</p>
+</div>
+<div class="ltx_logical-block ltx_align_bottom" id="id2">
+<span class="ltx_rule" style="width:100%;height:2.0pt;--ltx-bg-color:black;display:inline-block;"> </span>
+<span class="ltx_rule" style="width:100%;height:2.0pt;--ltx-bg-color:black;display:inline-block;"> </span>
+<div class="ltx_para" id="p1">
+
+</div>
+</div>
+<div class="ltx_para ltx_noindent" id="p2">
+<p class="ltx_p" id="p2.1"><em class="ltx_emph ltx_font_bold ltx_font_italic" id="p2.1.1">Keywords</em> 6DoF Object Pose Estimation  <math alttext="\cdot" class="ltx_Math" display="inline" id="p2.m1" intent=":literal"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math>
+Novel Object Pose Estimation
+ <math alttext="\cdot" class="ltx_Math" display="inline" id="p2.m2" intent=":literal"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math>
+Zero-Shot Learning  <math alttext="\cdot" class="ltx_Math" display="inline" id="p2.m3" intent=":literal"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math>
+Foundation Models  <math alttext="\cdot" class="ltx_Math" display="inline" id="p2.m4" intent=":literal"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math>
+Dense Feature Matching
+ <math alttext="\cdot" class="ltx_Math" display="inline" id="p2.m5" intent=":literal"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math>
+Template Matching  <math alttext="\cdot" class="ltx_Math" display="inline" id="p2.m6" intent=":literal"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math>
+Training-Free</p>
+</div>
+</article></body></html>

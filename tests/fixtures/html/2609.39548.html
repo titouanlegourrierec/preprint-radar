@@ -1,0 +1,35 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">Learning Normal Diffusion Dynamics for 
+<br class="ltx_break"/>Backdoor Defense in Text-to-Image Models</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+<span class="ltx_tabular ltx_align_top" id="id1">
+<span class="ltx_tbody">
+<span class="ltx_tr" id="id1.1">
+<span class="ltx_td ltx_nopad_r ltx_align_left" id="id1.1.1">Junjian Li<sup class="ltx_sup" id="id1.1.1.1">1</sup>, Xiaolong Liu<sup class="ltx_sup" id="id1.1.1.2">2</sup><span class="ltx_note ltx_role_footnotemark" id="footnotex1"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup><span class="ltx_note_type">footnotemark: </span>
+<span class="ltx_tag ltx_tag_note">1</span>
+</span></span></span>, Peng Sun<sup class="ltx_sup" id="id1.1.1.3">2</sup>, Liantao Wu<sup class="ltx_sup" id="id1.1.1.4">3</sup>, Linghan Chen<sup class="ltx_sup" id="id1.1.1.5">4</sup>,</span></span>
+<span class="ltx_tr" id="id1.2">
+<span class="ltx_td ltx_nopad_r ltx_align_left" id="id1.2.1"><span class="ltx_text ltx_font_bold" id="id1.2.1.1">Yudong Gao<sup class="ltx_sup" id="id1.2.1.1.1"><span class="ltx_text ltx_font_medium" id="id1.2.1.1.1.1">5</span></sup></span>, <span class="ltx_text ltx_font_bold" id="id1.2.1.2">Honglong Chen<sup class="ltx_sup" id="id1.2.1.2.1"><span class="ltx_text ltx_font_medium" id="id1.2.1.2.1.1">6</span></sup><span class="ltx_note ltx_role_footnotemark" id="footnotex2"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup><span class="ltx_note_type">footnotemark: </span>
+<span class="ltx_tag ltx_tag_note"><span class="ltx_text ltx_font_medium" id="footnotex2.1">2</span></span>
+</span></span></span></span></span></span>
+<span class="ltx_tr" id="id1.3">
+<span class="ltx_td ltx_nopad_r ltx_align_left" id="id1.3.1"><sup class="ltx_sup" id="id1.3.1.1">1</sup>Geely, <sup class="ltx_sup" id="id1.3.1.2">2</sup>Hunan University, <sup class="ltx_sup" id="id1.3.1.3">3</sup>East China Normal University,</span></span>
+<span class="ltx_tr" id="id1.4">
+<span class="ltx_td ltx_nopad_r ltx_align_left" id="id1.4.1"><sup class="ltx_sup" id="id1.4.1.1">4</sup>University of Adelaide, <sup class="ltx_sup" id="id1.4.1.2">5</sup>The Hong Kong University of Science and Technology,</span></span>
+<span class="ltx_tr" id="id1.5">
+<span class="ltx_td ltx_nopad_r ltx_align_left" id="id1.5.1"><sup class="ltx_sup" id="id1.5.1.1">6</sup>China University of Petroleum (East China)</span></span>
+<span class="ltx_tr" id="id1.6">
+<span class="ltx_td ltx_nopad_r ltx_align_left" id="id1.6.1"><span class="ltx_text ltx_font_typewriter" id="id1.6.1.1">author@example.org</span>, <span class="ltx_text ltx_font_typewriter" id="id1.6.1.2">author@example.org</span></span></span>
+</span>
+</span>
+</span><span class="ltx_note ltx_note_frontmatter ltx_thanks_contribution ltx_role_thanks" id="id2"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>Equal contribution.</span></span></span><span class="ltx_note ltx_note_frontmatter ltx_thanks_correspondence ltx_role_thanks" id="id3"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>Corresponding authors.</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Backdoor attacks pose a serious threat to the secure deployment of text-to-image (T2I) diffusion models. Existing defenses typically detect backdoors from specific abnormal patterns in internal representations, which may limit their generalizability with the emergence of increasingly diverse attack mechanisms. In this paper, we study backdoor defense of T2I diffusion models from a transition-dynamics perspective. We observe that benign diffusion trajectories exhibit structured and timestep-dependent transition patterns from cross-attention, latent and noise spaces, whereas backdoor attacks tend to induce deviations from such normal evolution. Motivated by these observations, we propose <span class="ltx_text ltx_font_bold" id="abstract1.1.1">Normal Diffusion Dynamics Learning (<span class="ltx_text ltx_font_italic" id="abstract1.1.1.1">NDDL</span>)</span>,
+a novel backdoor defense framework that learns the normal transition dynamics of diffusion trajectories utilizing only benign samples. <span class="ltx_text ltx_font_italic" id="abstract1.1.2">NDDL</span> constructs compact multi-space trajectory representations and trains a timestep-conditioned dynamics model to predict the diffusion evolution. In the inference phase, deviations between the observed and predicted transitions are exploited to quantify dynamics inconsistency for backdoor detection. <span class="ltx_text ltx_font_italic" id="abstract1.1.3">NDDL</span> further enables trigger localization without any prior knowledge of the embedded backdoor by performing substitution with low-semantic words. Extensive experiments for diverse backdoor attacks demonstrate the effectiveness and generalizability of our proposed <span class="ltx_text ltx_font_italic" id="abstract1.1.4">NDDL</span>.</p>
+</div>
+<div class="ltx_para" id="p1">
+
+</div>
+</article></body></html>

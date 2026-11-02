@@ -12,6 +12,13 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ### Pipeline
 
+- Extraction version 22 (AQ-2, AQ-3, AQ-5, EXT-3): authors no longer placed at an
+  affiliation by an "equal contribution" mark, numbered affiliations set as table rows kept
+  whole, one affiliation spread over the authors read as everyone's, and mail addresses
+  without their "@" dropped.
+- Institutions: places, notes, mailbox names and author lists name none (AQ-4), a name of
+  the rules takes the ROR id it has elsewhere (AQ-6, 2,430 more on the map), and two given
+  names that start alike are two people for OpenAlex's placement (AQ-8).
 - A paper removed on request, or whose affiliations were corrected on request, stays so:
   `make remove` and `make pin`, recorded in `corrections.json`, which no run undoes and
   `validate` checks (PUB-1).

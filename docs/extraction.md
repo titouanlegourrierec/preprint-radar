@@ -122,6 +122,9 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   2202.07643; "Interns at Shanghai AI Laboratory", 2505.23656; "Done as intern at Zhipu
   AI", 2311.03079): the cleaning drops it, and the tiers still read such a line as a
   sentence ("†Now at Google" tells that symbols mark notes).
+- A mailbox or a mail domain printed without its "@" is a contact detail too ("gmail.com",
+  "mails.tsinghua.edu.cn", a lone "wangbohua.wbh"; not "valeo.ai", a lab, EXT-3), for the
+  cleaning and `validate` alike (`has_contact`).
 - Contact details go, the affiliation before them stays: an "Email:" label glued to the
   country ("..., MI, USAEmail: {...}@wayne.edu", 2608.29996); obfuscated addresses ("jane
   (at) example.org", "lab [at] example.org"); mailbox lists ("{jane.doe, john.roe}", each
@@ -187,11 +190,18 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   "University of Central Florida": the second gets it, 2610.02000) or a note
   ("Corresponding author", which would make the whole string noise); a line the next one
   goes on still counts ("School of SE" / "Huazhong University of Science and" /
-  "Technology", 2610.23250).
+  "Technology", 2610.23250). A numbered line takes the lines after it that go on with it,
+  up to the next marker, for affiliations and anchors alike: a block setting each one as
+  table rows ("¹ Department of Computer Science" / "Stony Brook University") kept the unit
+  alone (2609.38607, 2609.33449, AQ-3).
 - An author's contact nodes are read as one text's lines, by the extraction and the
   per-creator tier alike (IEEE conference classes make each address line a node); those of
-  different authors never join ("Department of Computer Science, University of Alabama at
-  Birmingham" / "Birmingham, AL, USA", spread over a table, 2609.13271).
+  different authors join only as one block LaTeXML spread over them, its end a creator
+  naming a place and nothing else but e-mails, none before ending with its country
+  ("Department of Computer Science, University of Alabama at Birmingham" / "Birmingham,
+  AL, USA" / the e-mails, 2609.13271; 2609.06726, 2609.34021, AQ-5): read as one,
+  everyone at it. Whole addresses each ending with its country are each author's own
+  ("HeartFlow, California, USA", 1804.03999).
 - Numbered markers written as text split a string ("Cornell University 2University of
   California, Berkeley", AFF-23; after wide spaces, "1Roblox  2Carnegie Mellon
   University", 2402.13251): one or two digits glued to a capitalized word ("3HKUST",
@@ -270,7 +280,11 @@ the whole tier, and unresolved authors stay `null`.
   markers place everyone). A creator an affiliation is glued to is that author, the
   affiliation its contact (2610.17412).
 - A marker glued to the word after a name introduces an affiliation line: "Bob Smith⟨2⟩
-  ⟨1⟩Stanford University" places Bob at 2 only. In free-form blocks it also starts a
+  ⟨1⟩Stanford University" places Bob at 2 only; so does the last of a run followed by a
+  known affiliation, after a line break ("Hieu Le⟨2⟩ ⟨1⟩ Department of Computer Science,
+  Stony Brook University", 2609.38607). A footnote mark beside markers written by hand
+  points to a note ("Equal contribution"), not an affiliation of its number (2609.39548,
+  2609.24787, AQ-2); alone, it may point to an affiliation's footnote. In free-form blocks it also starts a
   numbered line, for affiliations and anchors ("University of California, Berkeley
   ⟨2⟩Duke University ⟨3⟩Carnegie Mellon University", 2609.38079).
 - Symbols come off a marker's number ("⟨2,6*‡⟩" is 2 and 6), "∗" (`\ast`) is a note like
