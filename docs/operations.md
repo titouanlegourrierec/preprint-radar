@@ -433,19 +433,32 @@ Not in git, set on 2026-11-02 (PUB-3); check them after any change to the workfl
 ## The site or the repository grows too large
 
 **Signal.** `Site too large` (the deploy fails) or `Site growing` in *Deploy site*;
-`Repository growing` in the weekly *arXiv canary*.
+`Repository growing` or `Storage bloat` in the weekly *arXiv canary*.
 
-Both sizes are on every run's page (`Site size`, `Repository size`). Pages refuses a site
-over 1 GB: the deploy fails at 800 MB and warns at 600 MB. A year of cs.CV day files is
-about 110 MB and pruning keeps one year (the archive stays near 50 MB), so the warnings
-come with several categories. At a warning (the migration trigger, ARCH-1):
+Both sizes are on every run's page (`Site size`, `Repository size`), and the canary adds
+the size of a fresh mirror clone repacked (`Repacked size`, SCALE-1). Pages refuses a site
+over 1 GB: the deploy fails at 800 MB and warns at 600 MB; a year of cs.CV day files is
+about 110 MB and pruning keeps one year (the archive stays near 50 MB).
 
-1. Check that pruning is on: the repository variable `PREPRINT_RADAR_ARCHIVE_PRUNE` is
-   `true` (decision 2: older day files leave the site and the working tree, not the git
-   history; the archive keeps their cited papers).
-2. If the repository still grows past 500 MB, publish `data/` only through the Pages
-   artifact and keep the store on an orphan `data` branch squashed monthly (or in
-   releases, or a bucket); the workflows then commit there instead of `main`.
+The repository is another matter. The weekly archive rewrites all its year files, and
+GitHub stores each new version as a delta against a base of its own choosing, often
+another year's file: 2024.json as a 2.4 MB delta on 2025.json, where its previous version
+gives 16 KB. On 2026-11-02, GitHub counted 112 MB (a mirror clone downloads 148 MB) for
+31 MB of objects once repacked; about 9 MB more a week, which reaches the 500 MB warning
+in 2027 with cs.CV alone. In order:
+
+1. `Storage bloat` (GitHub's size above three times the repacked one): ask GitHub Support
+   to run a garbage collection of the repository, which repacks it on their side; check
+   the next canary.
+2. A site warning: check that pruning is on (the repository variable
+   `PREPRINT_RADAR_ARCHIVE_PRUNE` is `true`; decision 2: older day files leave the site
+   and the working tree, not the git history; the archive keeps their cited papers).
+3. `Repository growing` with no bloat, or bloat back within weeks of a gc: move the files
+   rewritten each week (`archive/`, `top-recent.json`, `scholar.json`, `citations.json`,
+   `citation-gains.json`, `topics.json`) off `main`, to an orphan `data` branch squashed
+   monthly that the workflows commit to and *Deploy site* checks out beside `main` (or
+   publish them through the Pages artifact only). The day files, written once, can stay.
+   Disable the `main` ruleset for the push that removes them (above).
 
 ## How long things take
 
