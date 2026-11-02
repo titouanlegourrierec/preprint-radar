@@ -6421,7 +6421,7 @@
    "abstract": "Can structured text replace vision for diagram reasoning? A wrong answer after textualization can arise because the representation omits information the question needs, or because the solver fails to use information that is present. We introduce a diagnostic protocol to distinguish these explanations. Using the same solver model and generation settings, we compare three input conditions: the original image, question-blind structure extracted by a vision-language model, or gold structure derived from the diagram source. Validity-triggered recovery tests truncation and schema failure, question-relevant fidelity measures preservation of answer-critical structure, and matched edge interventions test the effect of error location. On a reserved holdout of 240 public FlowGen diagrams, evaluated under a frozen protocol, gold structure reaches 87% accuracy while direct vision and learned text both remain below 30%. The aggregate comparison includes source-derived relation labels that may not be printed in the image and uses different learned and gold graph encodings, so it does not isolate extraction error alone. Retrying only invalid extractions makes nearly every public representation schema-valid yet leaves accuracy essentially unchanged. The public learned-text deficit relative to gold more than doubles with structural difficulty. Question-relevant topology predicts correctness better than whole-graph topology. In an exposed intervention study, a single answer-relevant edge edit reduces the primary solver's original-answer accuracy to near zero, while matched irrelevant edits largely preserve it. Supplied structure requires fewer solving tokens than vision, but learned acquisition removes this advantage at single use. These comparisons motivate evaluating acquired text by the answer-relevant evidence it preserves and by the solver's ability to use that representation.",
    "affiliations": [
     "Tulane University",
-    "Virginia Tech Code"
+    "Virginia Tech"
    ],
    "author_affiliations": [
     [
@@ -6450,7 +6450,8 @@
      "source": "html"
     },
     "institutions": {
-     "source": "ror"
+     "source": "ror",
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39142",

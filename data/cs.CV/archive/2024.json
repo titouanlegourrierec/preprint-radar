@@ -54397,7 +54397,7 @@
    "institutions": [
     "Apple"
    ],
-   "extractor": 23,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -55623,7 +55623,7 @@
    "html_url": "https://arxiv.org/html/2410.19355v1",
    "abstract": "In this paper, we present FasterCache, a novel training-free strategy designed to accelerate the inference of video diffusion models with high-quality generation. By analyzing existing cache-based methods, we observe that directly reusing adjacent-step features degrades video quality due to the loss of subtle variations. We further perform a pioneering investigation of the acceleration potential of classifier-free guidance (CFG) and reveal significant redundancy between conditional and unconditional features within the same timestep. Capitalizing on these observations, we introduce FasterCache to substantially accelerate diffusion-based video generation. Our key contributions include a dynamic feature reuse strategy that preserves both feature distinction and temporal continuity, and CFG-Cache which optimizes the reuse of conditional and unconditional outputs to further enhance inference speed without compromising video quality. We empirically evaluate FasterCache on recent video diffusion models. Experimental results show that FasterCache can significantly accelerate video generation (e.g. 1.67× speedup on Vchitect-2.0) while keeping video quality comparable to the baseline, and consistently outperform existing methods in both inference speed and video quality.",
    "affiliations": [
-    "Shanghai Artificial Intelligence Laboratory, Code",
+    "Shanghai Artificial Intelligence Laboratory",
     "The University of Hong Kong",
     "S-Lab, Nanyang Technological University"
    ],
@@ -55660,7 +55660,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-08"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2410.19355",
@@ -76204,7 +76204,7 @@
     "00k642b80",
     "00k642b80"
    ],
-   "extractor": 23,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -87049,7 +87049,7 @@
    "affiliations": [
     "National University of Singapore",
     "VideoSys Team",
-    "Purdue University Code"
+    "Purdue University"
    ],
    "author_affiliations": [
     [
@@ -87068,7 +87068,7 @@
    "institutions": [
     "National University of Singapore",
     "VideoSys Team",
-    "Purdue University Code"
+    "Purdue University"
    ],
    "institution_ids": [
     "01tgyzw49",
@@ -87083,7 +87083,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-08"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2408.12588",
@@ -115078,18 +115078,18 @@
    "abstract": "Recent advancements in 3D generation have leveraged synthetic datasets with ground truth 3D assets and predefined cameras. However, the potential of adopting real-world datasets, which can produce significantly more realistic 3D scenes, remains largely unexplored. In this work, we delve into the key challenge of the complex and scene-specific camera trajectories found in real-world captures. We introduce Director3D, a robust open-world text-to-3D generation framework, designed to generate both real-world 3D scenes and adaptive camera trajectories. To achieve this, (1) we first utilize a Trajectory Diffusion Transformer, acting as the Cinematographer, to model the distribution of camera trajectories based on textual descriptions. (2) Next, a Gaussian-driven Multi-view Latent Diffusion Model serves as the Decorator, modeling the image sequence distribution given the camera trajectories and texts. This model, fine-tuned from a 2D diffusion model, directly generates pixel-aligned 3D Gaussians as an immediate 3D scene representation for consistent denoising. (3) Lastly, the 3D Gaussians are refined by a novel SDS++ loss as the Detailer, which incorporates the prior of the 2D diffusion model. Extensive experiments demonstrate that Director3D outperforms existing methods, offering superior performance in real-world 3D generation.",
    "affiliations": [
     "Key Laboratory of Multimedia Trusted Perception and Efficient Computing, Ministry of Education of China, Xiamen University",
-    "The Chinese University of Hong KongCode",
+    "The Chinese University of Hong Kong",
     "Shanghai Artificial Intelligence Laboratory"
    ],
    "author_affiliations": null,
    "institutions": [
     "Xiamen University",
-    "Chinese University of Hong KongCode",
+    "Chinese University of Hong Kong",
     "Shanghai Artificial Intelligence Laboratory"
    ],
    "institution_ids": [
-    "00mcjh785",
     null,
+    "00t33hh48",
     "03wkvpx79"
    ],
    "extractor": 21,
@@ -115100,7 +115100,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-08"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2406.17601",
@@ -117931,7 +117931,7 @@
     "University of Maryland",
     "College Park"
    ],
-   "extractor": 23,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -152545,7 +152545,7 @@
    "affiliations": [
     "Hong Kong University of Science and Technology",
     "OpenDriveLab at Shanghai AI Lab",
-    "University of Hong KongCode and model: Video demos",
+    "University of Hong Kong",
     "University of Tübingen",
     "Tübingen AI Center"
    ],
@@ -152579,14 +152579,14 @@
    "institutions": [
     "Hong Kong University of Science and Technology",
     "Shanghai Artificial Intelligence Laboratory",
-    "University of Hong KongCode and model: Video demos",
+    "University of Hong Kong",
     "University of Tübingen",
     "Tübingen AI Center"
    ],
    "institution_ids": [
     "00q4vv597",
     "03wkvpx79",
-    null,
+    "02zhqgq86",
     "03a1kwz48",
     "0107nyd78"
    ],
@@ -152598,7 +152598,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-08"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2405.17398",
@@ -207727,17 +207727,27 @@
    "html_url": "https://arxiv.org/html/2403.14548v1",
    "abstract": "We present DINO-Tracker -- a new framework for long-term dense tracking in video. The pillar of our approach is combining test-time training on a single video, with the powerful localized semantic features learned by a pre-trained DINO-ViT model. Specifically, our framework simultaneously adopts DINO's features to fit to the motion observations of the test video, while training a tracker that directly leverages the refined features. The entire framework is trained end-to-end using a combination of self-supervised losses, and regularization that allows us to retain and benefit from DINO's semantic prior. Extensive evaluation demonstrates that our method achieves state-of-the-art results on known benchmarks. DINO-tracker significantly outperforms self-supervised methods and is competitive with state-of-the-art supervised trackers, while outperforming them in challenging cases of tracking under long-term occlusions.",
    "affiliations": [
-    "Weizmann Institute of Science",
-    "Project webpage"
+    "Weizmann Institute of Science"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
    "institutions": [
-    "Weizmann Institute of Science",
-    null
+    "Weizmann Institute of Science"
    ],
    "institution_ids": [
-    "0316ej306",
-    null
+    "0316ej306"
    ],
    "extractor": 21,
    "provenance": {
@@ -207747,7 +207757,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-08"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2403.14548",
@@ -227201,7 +227211,7 @@
     "05x2bcf33",
     "00f54p054"
    ],
-   "extractor": 23,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -236185,74 +236195,14 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2401.14159v1",
    "abstract": "We introduce Grounded SAM, which uses Grounding DINO as an open-set object detector to combine with the segment anything model (SAM). This integration enables the detection and segmentation of any regions based on arbitrary text inputs and opens a door to connecting various vision models. As shown in Fig.1, a wide range of vision tasks can be achieved by using the versatile Grounded SAM pipeline. For example, an automatic annotation pipeline based solely on input images can be realized by incorporating models such as BLIP and Recognize Anything. Additionally, incorporating Stable-Diffusion allows for controllable image editing, while the integration of OSX facilitates promptable 3D human motion analysis. Grounded SAM also shows superior performance on open-vocabulary benchmarks, achieving 48.7 mean AP on SegInW (Segmentation in the wild) zero-shot benchmark with the combination of Grounding DINO-Base and SAM-Huge models.",
-   "affiliations": [
-    "Code & Demo"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "extractor": 21,
    "provenance": {
     "affiliations": {
      "source": "html",
      "at": "2026-11-02"
-    },
-    "institutions": {
-     "source": "ror",
-     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2401.14159",

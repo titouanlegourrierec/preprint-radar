@@ -2348,16 +2348,16 @@
    "abstract": "Distribution Matching Distillation (DMD) facilitates efficient inference by distilling multi-step diffusion models into few-step variants. Concurrently, Reinforcement Learning (RL) has emerged as a vital tool for aligning generative models with human preferences. While both represent critical post-training stages for large-scale diffusion models, existing studies typically treat them as independent, sequential processes, leaving a systematic framework for their unification largely unexplored. In this work, we demonstrate that jointly optimizing these two objectives yields mutual benefits: RL enables more preference-aware and controllable distillation rather than uniformly compressing the full data distribution, while DMD serves as an effective regularizer to mitigate reward hacking during RL training. Building on these insights, we propose DMDR, a unified framework that incorporates Reward-Tilted Distribution Matching optimization alongside two dynamic distillation training strategies in the initial stage, followed by the joint DMD and RL optimization in the second stage. Extensive experiments demonstrate that DMDR achieves state-of-the-art visual quality and prompt adherence among few-step generation methods, even surpassing the performance of its multi-step teacher model.",
    "affiliations": [
     "Alibaba Group",
-    "The Chinese University of Hong KongCode"
+    "The Chinese University of Hong Kong"
    ],
    "author_affiliations": null,
    "institutions": [
     "Alibaba Group",
-    "Chinese University of Hong KongCode"
+    "Chinese University of Hong Kong"
    ],
    "institution_ids": [
     "00k642b80",
-    null
+    "00t33hh48"
    ],
    "extractor": 21,
    "provenance": {
@@ -2367,7 +2367,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-12"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2511.13649",
@@ -9925,7 +9925,7 @@
     "Kling Team, Kuaishou Technology",
     "Peking University",
     "School of Artificial Intelligence, University of Chinese Academy of Sciences",
-    "Nanjing UniversityProject webpage"
+    "Nanjing University"
    ],
    "author_affiliations": [
     [
@@ -9970,14 +9970,14 @@
     "Kuaishou",
     "Peking University",
     "University of Chinese Academy of Sciences",
-    "Nanjing UniversityProject webpage"
+    "Nanjing University"
    ],
    "institution_ids": [
     "034t30j35",
     "0258as409",
     "02v51f717",
     "05qbk4x57",
-    null
+    "01rxvg760"
    ],
    "extractor": 21,
    "provenance": {
@@ -9987,7 +9987,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-12"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.10395",
@@ -12641,8 +12641,7 @@
     "Zhejiang University",
     "Stanford University",
     "University of Washington",
-    "The Chinese University of Hong Kong",
-    "Models and Datasets"
+    "The Chinese University of Hong Kong"
    ],
    "author_affiliations": [
     null,
@@ -12657,8 +12656,7 @@
      3
     ],
     [
-     4,
-     5
+     4
     ]
    ],
    "institutions": [
@@ -12666,16 +12664,14 @@
     "Zhejiang University",
     "Stanford University",
     "University of Washington",
-    "Chinese University of Hong Kong",
-    "Models and Datasets"
+    "Chinese University of Hong Kong"
    ],
    "institution_ids": [
     "01tgyzw49",
     "00a2xv884",
     "00f54p054",
     "00cvxb145",
-    "00t33hh48",
-    null
+    "00t33hh48"
    ],
    "extractor": 21,
    "provenance": {
@@ -12685,7 +12681,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-08"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.27492",
@@ -37417,7 +37413,7 @@
     "WRI",
     "Inria"
    ],
-   "extractor": 23,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -50988,7 +50984,7 @@
     "Department of Radiology & Biomedical Imaging, University of California, San Francisco",
     "Department of Bioengineering, University of California, Berkeley",
     "Department of Radiation Oncology, Johns Hopkins School of Medicine",
-    "NVIDIACode, Models & Data"
+    "NVIDIA"
    ],
    "author_affiliations": [
     [
@@ -51062,7 +51058,7 @@
     "University of California, San Francisco",
     "University of California, Berkeley",
     "Johns Hopkins School of Medicine",
-    "NVIDIACode"
+    "NVIDIA"
    ],
    "institution_ids": [
     "00za53h95",
@@ -51086,7 +51082,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-28"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2507.01291",
@@ -56073,7 +56069,7 @@
    "institution_ids": [
     "03cve4549"
    ],
-   "extractor": 23,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -57540,7 +57536,7 @@
    "abstract": "The quadratic complexity of full attention mechanisms poses a significant bottleneck for Video Diffusion Models (VDMs) aiming to generate long-duration, high-resolution videos. While various sparse attention methods have been proposed, many are designed as training-free inference accelerators or do not optimally capture the unique spatio-temporal characteristics inherent in video data when trained natively. This paper introduces Video Mixture of Block Attention (VMoBA), a novel sparse attention mechanism specifically adapted for VDMs. Motivated by an in-depth analysis of attention patterns within pre-trained video transformers, which revealed strong spatio-temporal locality, varying query importance, and head-specific concentration levels, VMoBA enhances the original MoBA framework with three key modifications: (1) a layer-wise recurrent block partition scheme (1D-2D-3D) to dynamically adapt to diverse spatio-temporal attention patterns and improve efficiency; (2) global block selection to prioritize the most salient query-key block interactions across an entire attention head; and (3) threshold-based block selection to dynamically determine the number of attended blocks based on their cumulative similarity. Extensive experiments demonstrate that VMoBA significantly accelerates the training of VDMs on longer sequences, achieving 2.92x FLOPs and 1.48x latency speedup, while attaining comparable or even superior generation quality to full attention. Furthermore, VMoBA exhibits competitive performance in training-free inference, offering 2.40x FLOPs and 1.35x latency speedup for high-res video generation.",
    "affiliations": [
     "Peking University",
-    "Kling Team, Kuaishou TechnologyCode"
+    "Kling Team, Kuaishou Technology"
    ],
    "author_affiliations": [
     [
@@ -57586,7 +57582,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-08"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2506.23858",
@@ -65471,7 +65467,7 @@
    "affiliations": [
     "Fudan University",
     "The Chinese University of Hong Kong",
-    "Imperial College London, Code",
+    "Imperial College London",
     "StepFun"
    ],
    "author_affiliations": [
@@ -65516,7 +65512,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-08"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2506.03065",
@@ -98814,7 +98810,7 @@
     "Nanjing University",
     "The Chinese University of Hong Kong",
     "Shanghai AI Laboratory",
-    "Shanghai Jiao Tong UniversityCode: Model: Data",
+    "Shanghai Jiao Tong University",
     "SenseTime Research",
     "Tsinghua University"
    ],
@@ -98941,7 +98937,7 @@
     "Nanjing University",
     "Chinese University of Hong Kong",
     "Shanghai Artificial Intelligence Laboratory",
-    "Shanghai Jiao Tong UniversityCode: Model: Data",
+    "Shanghai Jiao Tong University",
     "SenseTime",
     "Tsinghua University"
    ],
@@ -98950,7 +98946,7 @@
     "01rxvg760",
     "00t33hh48",
     "03wkvpx79",
-    null,
+    "0220qvk04",
     "049wsmj07",
     "03cve4549"
    ],
@@ -98962,7 +98958,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-08"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2504.10479",
@@ -144708,7 +144704,7 @@
     "00k642b80",
     "00k642b80"
    ],
-   "extractor": 23,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -150053,7 +150049,7 @@
    "institution_ids": [
     "00f54p054"
    ],
-   "extractor": 23,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -150630,7 +150626,7 @@
    "affiliations": [
     "MoE Key Laboratory of Brain-inspired Intelligent Perception and Cognition, USTC",
     "Tongyi Lab, Alibaba Group",
-    "Shanghai Jiao Tong UniversityDataset & Code"
+    "Shanghai Jiao Tong University"
    ],
    "author_affiliations": [
     [
@@ -150658,12 +150654,12 @@
    "institutions": [
     "University of Science and Technology of China",
     "Alibaba Group",
-    "Shanghai Jiao Tong UniversityDataset & Code"
+    "Shanghai Jiao Tong University"
    ],
    "institution_ids": [
-    "04c4dkn09",
+    null,
     "00k642b80",
-    null
+    "0220qvk04"
    ],
    "extractor": 21,
    "provenance": {
@@ -150673,7 +150669,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-08"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2502.18017",
@@ -172442,14 +172438,15 @@
    "abstract": "Recent Multimodal Large Language Models (MLLMs) have typically focused on integrating visual and textual modalities, with less emphasis placed on the role of speech in enhancing interaction. However, speech plays a crucial role in multimodal dialogue systems, and implementing high-performance in both vision and speech tasks remains a significant challenge due to the fundamental modality differences. In this paper, we propose a carefully designed multi-stage training methodology that progressively trains LLM to understand both visual and speech information, ultimately enabling fluent vision and speech interaction. Our approach not only preserves strong vision-language capacity, but also enables efficient speech-to-speech dialogue capabilities without separate ASR and TTS modules, significantly accelerating multimodal end-to-end response speed. By comparing our method against state-of-the-art counterparts across benchmarks for image, video, and speech tasks, we demonstrate that our model is equipped with both strong visual and speech capabilities, making near real-time vision and speech interaction. Code has been released at https://github.com/VITA-MLLM/VITA.",
    "affiliations": [
     "NJU",
-    "Demo Video: Source Code",
     "XMU",
     "Tencent Youtu Lab",
     "CASIA"
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
      1
     ],
     [
@@ -172459,23 +172456,10 @@
      3
     ],
     [
-     4
-    ],
-    [
-     3
+     2
     ],
     [
      0
-    ],
-    null,
-    [
-     3
-    ],
-    [
-     3
-    ],
-    [
-     3
     ],
     null,
     [
@@ -172485,25 +172469,33 @@
      2
     ],
     [
-     3
+     2
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
     ],
     [
      0
     ],
     [
-     4
+     3
     ]
    ],
    "institutions": [
     "Nanjing University",
-    null,
     "XMU",
     "Tencent",
     "Chinese Academy of Sciences"
    ],
    "institution_ids": [
     "01rxvg760",
-    null,
     null,
     null,
     "034t30j35"
@@ -172516,7 +172508,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-08"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2501.01957",
