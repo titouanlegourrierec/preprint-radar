@@ -142,8 +142,10 @@ def test_a_scheduled_run_stops_after_a_successful_run_today(run_guard: Callable[
     assert guard.returncode == 0
     assert guard.output == {"run": "false"}
     assert "::notice title=Already done today::" in guard.log
-    assert guard.gh_args is not None
     today = datetime.now(UTC).date().isoformat()
+    # What the run history said, for a run that went on when it should not have (OPS-8).
+    assert f"Successful runs of update.yml since {today}: 1" in guard.log
+    assert guard.gh_args is not None
     assert f">={today}" in guard.gh_args
     for flag, value in [
         ("--workflow", "update.yml"),
@@ -176,6 +178,8 @@ def test_a_scheduled_run_goes_on_without_a_successful_run_today(run_guard: Calla
     assert guard.returncode == 0
     assert guard.output == {"run": "true"}
     assert "::notice" not in guard.log
+    assert "Successful runs of update.yml since" in guard.log
+    assert guard.log.split("Successful runs of update.yml since ")[1].split("\n")[0].endswith(": none")
     # The payload said it is no fork: the API was not asked.
     assert guard.api_args is None
 

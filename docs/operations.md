@@ -58,6 +58,11 @@ revoked (make a new one). `403` or `404`: it lacks this repository or its permis
 `422`: a wrong `ref` or body. A warning `Run history unavailable` means the guard could not
 ask GitHub and let the run go on.
 
+Without `Dispatch missing`, the dispatched run happened and the guard missed its success
+(2026-10-22): its log says what the run history gave (`Successful runs of` the workflow
+`since` the day). A second run costs minutes and pushes nothing new; nothing to do unless
+it repeats (OPS-8).
+
 ## Update data did not run, or started hours late
 
 **Signal.** No *Update data* run for the day on the Actions page, or one started long

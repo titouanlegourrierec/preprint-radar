@@ -69,6 +69,9 @@ if [ "${GITHUB_EVENT_NAME:-}" = schedule ]; then
   # A skipped run concludes success too, but only ever after a run that did the work.
   elif done=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow "$workflow" \
     --created ">=$since" --status success --limit 1 --json databaseId --jq '.[0].databaseId // empty'); then
+    # What the run history said, in the log: a run that went on after a success the search
+    # missed (2026-10-22) left no trace of why (OPS-8).
+    echo "Successful runs of $workflow since $since: ${done:-none}"
     if [ -n "$done" ] && [ "$back" -eq 0 ] && partial_day "$done"; then
       echo "::notice title=Day read again::Today's run of $workflow took the day from a catchup page arXiv may still have been filling, so this scheduled run reads it again"
     elif [ -n "$done" ]; then
