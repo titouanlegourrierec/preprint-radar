@@ -125,10 +125,16 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     mappings, institutions, venues detected or published, citation counts).
   - `make quality-affiliations` (`stats --affiliations`, `store/quality.py`): signs of wrong
     affiliations (author names, strings today's cleaning would change, "is with" sentences,
-    glued or cut-off strings, units without their institution, a place alone, the last
-    author holding all), 5 examples each. With `--page-cache-dir`, the cached pages as
-    stored and as extracted today, nothing written: run it before and after a heuristic
-    change. Approximate (a few false positives each).
+    glued or cut-off strings, units without their institution, a place alone, TeX or
+    invisible residues, notes and labels, lists split by semicolons, the last author
+    holding all, an author placed at units only), 5 examples each, for the day files and
+    for the archive's papers read from pages (AQ-1). With `--page-cache-dir`, the cached
+    pages as stored and as extracted today, nothing written: run it before and after a
+    heuristic change. Approximate (a few false positives each).
+  - `make gold-affiliations` (`tests/gold_affiliations.py`, seconds): today's extraction of
+    60 papers read by hand (`tests/fixtures/gold-affiliations.json`, AQ-1), from the page
+    cache, scored by exact match: strings, who is where, and the stored institutions. Its
+    misses are known defects; run it before and after a bump.
   - `make knockout [REGEX=_NAME]` (`tests/knockout.py`, minutes): each rule of
     `arxiv_html.py` (a regular expression, then each of its alternatives) knocked out in
     turn; those no test notices, and the `LIVE` ones among them that change cached pages:

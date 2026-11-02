@@ -1059,6 +1059,16 @@ def _affiliation_quality(
             continue
         if not changes:
             add(f"{category}: affiliations of the day files", papers)
+            top_recent = store.load_top_recent(category)
+            kept = [*store.iter_archive(category), *(top_recent.papers if top_recent else ())]
+            # The archive's papers whose affiliations a page gave (AQ-1): OpenAlex's are left out.
+            read = [
+                paper
+                for paper in kept
+                if paper.affiliations_provenance and paper.affiliations_provenance.source == "html"
+            ]
+            if read:
+                add(f"{category}: affiliations the archive read from pages", read)
         if page_cache_dir is None:
             continue
         pairs = extracted_again(papers, PageCache(page_cache_dir))

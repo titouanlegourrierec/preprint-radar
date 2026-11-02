@@ -18,6 +18,7 @@ from preprint_radar.store.quality import (
     format_quality,
     last_holds_all,
     names_only,
+    placed_nowhere,
     quality_table,
     string_signs,
 )
@@ -37,7 +38,7 @@ PAPER = Paper(
         pytest.param("Massachusetts Institute of Technology, Cambridge, MA, USA", set(), id="whole"),
         pytest.param("Bob Smith", {Sign.NAMES}, id="names-authors"),
         pytest.param("MIT, jane (at) mit.edu", {Sign.CLEANING}, id="cleaned-again"),
-        pytest.param("Code", {Sign.CLEANING}, id="rejected"),
+        pytest.param("Code", {Sign.CLEANING, Sign.NOTE}, id="rejected"),
         pytest.param("A. Lovelace is with MIT", {Sign.CLEANING, Sign.STATEMENT}, id="statement"),
         pytest.param(
             "Dept. of Computer ScienceUniversity of Alabama",
@@ -65,6 +66,20 @@ PAPER = Paper(
         pytest.param("Google DeepMind, USA", set(), id="company-and-country"),
         pytest.param("Mayo Clinic, Rochester, MN, USA", set(), id="institution-then-city"),
         pytest.param("IRIT, UMR 5505, CNRS, Toulouse, France", set(), id="research-unit"),
+        # Institutions before a place's comma, a name glued to its word (AQ-1).
+        pytest.param("Mayo Clinic, MN, USA", set(), id="clinic-then-state"),
+        pytest.param("ICT, CAS, Beijing, China", set(), id="acronyms-then-city"),
+        pytest.param("AnimSchool", set(), id="name-with-school"),
+        # Residues, notes and lists (EXT-4, AQ-1).
+        pytest.param("$1$ University of Technology Nuremberg", {Sign.RESIDUE, Sign.CLEANING}, id="tex"),
+        pytest.param("\u200bTsinghua University", {Sign.RESIDUE, Sign.CLEANING}, id="invisible"),
+        pytest.param("\u2605 Ropedia", {Sign.RESIDUE, Sign.CLEANING}, id="leading-symbol"),
+        pytest.param("(CMU) Carnegie Mellon University", set(), id="leading-bracket"),
+        pytest.param(
+            "This work was done when the author was at Adobe Research", {Sign.NOTE, Sign.CLEANING}, id="note"
+        ),
+        pytest.param("Project page", {Sign.NOTE, Sign.CLEANING}, id="label"),
+        pytest.param("Zhejiang University; Alibaba Group; Shanghai AI Lab", {Sign.LIST}, id="list"),
     ],
 )
 def test_string_signs(affiliation: str, signs: set[Sign]) -> None:
@@ -94,6 +109,17 @@ def test_the_last_author_holds_all(mapping: Mapping) -> None:
 @pytest.mark.parametrize("mapping", [(None, (0,)), ((0,), (1,)), ((0, 1),), None])
 def test_the_last_author_does_not_hold_all(mapping: Mapping | None) -> None:
     assert not last_holds_all(_mapped(mapping))
+
+
+@pytest.mark.parametrize(
+    ("mapping", "nowhere"),
+    [(((0,), (1,)), True), (((0, 1), (1,)), False), (((1,), None), False), (None, False)],
+)
+def test_an_author_placed_only_at_a_unit(mapping: Mapping | None, *, nowhere: bool) -> None:
+    paper = replace(
+        PAPER, affiliations=("Department of Computer Science", "MIT"), author_affiliations=mapping
+    )
+    assert placed_nowhere(paper) is nowhere
 
 
 def test_affiliation_quality_counts_strings_and_papers() -> None:
@@ -150,7 +176,8 @@ def test_format_quality() -> None:
     assert lines[3].split()[:4] == ["names", "authors", "0", "0"]
     assert lines[4].split()[:4] == ["cleaned", "again", "1", "1"]
     assert lines[5].strip() == "2609.00001: Code"
-    assert len(lines) == 3 + len(Sign) + 1
+    # "Code" is a note too.
+    assert len(lines) == 3 + len(Sign) + 2
     assert "2609.00001: Code" not in format_quality("cs.CV", quality, examples=False)
 
 

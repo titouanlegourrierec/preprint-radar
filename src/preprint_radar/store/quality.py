@@ -13,6 +13,7 @@ they miss what nobody has described yet.
 """
 
 import re
+import unicodedata
 from collections.abc import Iterable, Iterator, Sequence
 from dataclasses import dataclass, field
 from enum import StrEnum
@@ -36,11 +37,11 @@ EXAMPLES = 5
 """Examples kept for each sign."""
 
 # Two affiliations written as one, without a separator: "Dept. of Computer
-# ScienceUniversity of Alabama". "VinUniversity" is a name, hence three lowercase letters
-# before the word. Those run together by plain-text markers ("Monash University;
+# ScienceUniversity of Alabama". "VinUniversity" and "AnimSchool" are names, hence four
+# lowercase letters before the word (AQ-1). Those run together by plain-text markers ("Monash University;
 # 2Southeast University") are found as cleaning splits them, postcodes apart.
 _GLUED_RE = re.compile(
-    r"[a-z]{3}(?:Universit|Institut|School|Department|College|Laborator|Cent(?:er|re)|Faculty|Hospital)"
+    r"[a-z]{4}(?:Universit|Institut|School|Department|College|Laborator|Cent(?:er|re)|Faculty|Hospital)"
 )
 # The start or the end of a phrase lost to a line break or a marker: "th Research Institute"
 # (from "54th"), "Department of Computer Science and". Lowercase only: "St Lucia" starts
@@ -51,6 +52,23 @@ _CUT_OFF_RE = re.compile(r"^(?:st|nd|rd|th)\s|(?:\b(?:and|of|for|the|at|in)|[&,(
 # "Tokyo, Japan" cannot be told from "Tencent, China", and is not counted.
 # A state is followed by a postcode or the country; "UMR 5505" is a French research unit.
 _PLACE_START_RE = re.compile(r"[^,\d]+,\s*(?!UMR)[A-Z]{2,3}\s*(?:\d|,)|[^,\d]+\s\d[\d\s-]{2,}(?:,|$)|\d")
+# What starts an institution, not a place, before a place's comma: "Mayo Clinic, MN, USA",
+# "ICT, CAS, Beijing, China", "LIGM, UGE, ENPC, CNRS, France" (AQ-1).
+_NOT_A_PLACE_RE = re.compile(
+    r"clinic|hospital|univ|institut|lab|cent(?:er|re)|college|school|(?-i:^[A-Z]{2,}\b)", re.IGNORECASE
+)
+# TeX left in a string: "$1$ University of ...", "\textsuperscript".
+_TEX_RE = re.compile(r"\$|\\[A-Za-z]")
+# A note's sentence, or a link's or a note's label, stored as an affiliation.
+_NOTE_RE = re.compile(
+    r"^(?:(?:This|These|The\s+work|The\s+authors?|Work|Part\s+of\s+this|Manuscript|Supported\s+by|Funded\s+by)\s+[a-z]"
+    r"|(?:Project(?:\s+page)?|Code|Equal(?:\s+contribution)?|Links?|Lead\s+authors?|Website|Homepage|GitHub)$)",
+    re.IGNORECASE,
+)
+# A list of affiliations in one string, split by semicolons: "Zhejiang University; Alibaba
+# Group; Shanghai AI Lab" (2510.18873). A unit's list leads to its institution
+# ("Departments of Radiology; Neurological Surgery; ..., Indiana University").
+_LIST_PARTS = 3
 # What an "A is with X" sentence leaves when it is not reduced to X.
 _STATEMENT_RE = re.compile(r"\b(?:is|are)\s+(?:also\s+)?(?:with|at)\b", re.IGNORECASE)
 
@@ -65,7 +83,11 @@ class Sign(StrEnum):
     CUT_OFF = "cut off"
     UNIT_ONLY = "unit only"
     PLACE_ONLY = "place only"
+    RESIDUE = "residue"
+    NOTE = "note"
+    LIST = "list"
     LAST_HOLDS_ALL = "last holds all"
+    PLACED_NOWHERE = "placed at a unit"
 
     @property
     def description(self) -> str:
@@ -81,7 +103,11 @@ _DESCRIPTIONS = {
     Sign.CUT_OFF: "a start or an end lost to a line break or a marker",
     Sign.UNIT_ONLY: "a department or school without its institution",
     Sign.PLACE_ONLY: "a city or an address without its institution",
+    Sign.RESIDUE: "TeX, an invisible character or a leading symbol left in it",
+    Sign.NOTE: "a note's sentence, or a link's or a note's label",
+    Sign.LIST: "several affiliations split by semicolons",
     Sign.LAST_HOLDS_ALL: "papers whose last author alone is placed, at every affiliation",
+    Sign.PLACED_NOWHERE: "papers with an author placed only at units or places",
 }
 
 
@@ -137,9 +163,10 @@ def affiliation_quality(papers: Iterable[Paper]) -> AffiliationQuality:
             for sign in string_signs(affiliation, paper):
                 _count(quality.tallies[sign], f"{paper.arxiv_id}: {affiliation}")
                 seen.add(sign)
-        if last_holds_all(paper):
-            _count(quality.tallies[Sign.LAST_HOLDS_ALL], paper.arxiv_id)
-            seen.add(Sign.LAST_HOLDS_ALL)
+        for sign, holds in ((Sign.LAST_HOLDS_ALL, last_holds_all), (Sign.PLACED_NOWHERE, placed_nowhere)):
+            if holds(paper):
+                _count(quality.tallies[sign], paper.arxiv_id)
+                seen.add(sign)
         for sign in seen:
             quality.tallies[sign].papers += 1
     return quality
@@ -158,20 +185,36 @@ def string_signs(affiliation: str, paper: Paper) -> Iterator[Sign]:
         affiliation: One of the paper's affiliation strings.
         paper: The paper, whose authors and other strings some signs compare it with.
     """
-    if affiliation in names_only(paper):
-        yield Sign.NAMES
-    if clean_affiliations(affiliation) != (affiliation,):
-        yield Sign.CLEANING
-    if _STATEMENT_RE.search(affiliation):
-        yield Sign.STATEMENT
-    if _GLUED_RE.search(affiliation) or len(marked_pieces(affiliation)) > 1:
-        yield Sign.GLUED
-    if _CUT_OFF_RE.search(affiliation):
-        yield Sign.CUT_OFF
-    if is_bare_unit(affiliation):
-        yield Sign.UNIT_ONLY
-    if is_place(affiliation) and _PLACE_START_RE.match(affiliation):
-        yield Sign.PLACE_ONLY
+    held = {
+        Sign.NAMES: affiliation in names_only(paper),
+        Sign.CLEANING: clean_affiliations(affiliation) != (affiliation,),
+        Sign.STATEMENT: _STATEMENT_RE.search(affiliation) is not None,
+        Sign.GLUED: _GLUED_RE.search(affiliation) is not None or len(marked_pieces(affiliation)) > 1,
+        Sign.CUT_OFF: _CUT_OFF_RE.search(affiliation) is not None,
+        Sign.UNIT_ONLY: is_bare_unit(affiliation),
+        Sign.PLACE_ONLY: _place_only(affiliation),
+        Sign.RESIDUE: _residue(affiliation),
+        Sign.NOTE: _NOTE_RE.match(affiliation) is not None,
+        Sign.LIST: affiliation.count(";") >= _LIST_PARTS - 1,
+    }
+    yield from (sign for sign, holds in held.items() if holds)
+
+
+def _place_only(affiliation: str) -> bool:
+    return (
+        is_place(affiliation)
+        and _PLACE_START_RE.match(affiliation) is not None
+        and not _NOT_A_PLACE_RE.search(affiliation.split(",", 1)[0])
+    )
+
+
+def _residue(affiliation: str) -> bool:
+    """TeX, an invisible (Cf) character, or a leading symbol other than a bracket or a quote."""
+    return (
+        _TEX_RE.search(affiliation) is not None
+        or any(unicodedata.category(char) == "Cf" for char in affiliation)
+        or not (affiliation[:1].isalnum() or affiliation[:1] in "(\"'\u201c\u2018")
+    )
 
 
 def names_only(paper: Paper) -> list[str]:
@@ -200,6 +243,23 @@ def last_holds_all(paper: Paper) -> bool:
         and len(mapping) > 1
         and all(entry is None for entry in mapping[:-1])
         and set(mapping[-1] or ()) == set(range(len(paper.affiliations or ())))
+    )
+
+
+def placed_nowhere(paper: Paper) -> bool:
+    """Whether an author is placed, but only at departments or places without their institution.
+
+    "Department of Computer Science" for everyone, the institution on a line the extraction
+    lost (2609.38607), or a city read as an affiliation ("Pittsburgh, PA, USA"). A company
+    and its city ("Saab AB, Linköping, Sweden") cannot be told from a place, which an
+    institution named by the rules alone would sign too ("Seoul, Korea" named "Seoul"):
+    neither is counted (AQ-1).
+    """
+    affiliations = paper.affiliations or ()
+    return any(
+        entry
+        and all(is_bare_unit(affiliations[index]) or _place_only(affiliations[index]) for index in entry)
+        for entry in paper.author_affiliations or ()
     )
 
 

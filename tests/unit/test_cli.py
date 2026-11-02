@@ -32,7 +32,7 @@ from preprint_radar.collect import (
 from preprint_radar.config import DEFAULT_MAX_HTML
 from preprint_radar.exceptions import FetchError, NotFoundError
 from preprint_radar.http import DEFAULT_USER_AGENT, HttpClient
-from preprint_radar.models import Listing, Paper
+from preprint_radar.models import Listing, Paper, Provenance
 from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache
 from preprint_radar.sources.arxiv_oai import OAI_URL, CatalogEntry
 from preprint_radar.sources.openalex import OPENALEX_WORKS_URL
@@ -485,6 +485,31 @@ def test_stats_counts_signs_of_wrong_affiliations(
     assert "2609.00001: Code" in lines
     assert "2609.00001: Nanjing University of Posts and" in lines
     assert "No stored papers for cs.LG" in caplog.text
+
+
+def test_stats_counts_the_signs_of_the_archives_papers_read_from_pages(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    store = PaperStore(tmp_path / "data")
+    day = Paper(arxiv_id="2609.00001", announced=date(2026, 9, 25), title="T", authors=("Ada Lovelace",))
+    store.save("cs.CV", [replace(day, affiliations=("MIT",))])
+    archived = replace(day, announced=date(2017, 6, 12), affiliations=("Code",))
+    store.write_archive(
+        "cs.CV",
+        [
+            replace(archived, arxiv_id="1706.00001", affiliations_provenance=Provenance("html")),
+            # OpenAlex's names: left out (AQ-1).
+            replace(archived, arxiv_id="1706.00002", affiliations_provenance=Provenance("openalex")),
+        ],
+    )
+
+    assert main(["stats", "--affiliations", "--data-dir", str(store.root)]) == 0
+
+    lines = [line.strip() for line in capsys.readouterr().out.splitlines()]
+    at = lines.index("cs.CV: affiliations the archive read from pages")
+    assert lines[at + 1] == "1 affiliation string in 1 paper"
+    assert "1706.00001: Code" in lines
+    assert "1706.00002: Code" not in lines
 
 
 def test_stats_counts_them_in_what_the_page_cache_gives_today(

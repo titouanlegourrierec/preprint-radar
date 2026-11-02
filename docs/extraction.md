@@ -17,7 +17,9 @@ whose arXiv id is the evidence: never "simplify" one away without it.
   cleaning alone (`clean_affiliation`) reaches stored strings through `make reclean`,
   then `make institutions`.
 - Measure before and after with `make quality-affiliations` (`--page-cache-dir`: cached
-  pages as stored and as extracted today) and `make stats`. Before a bump, read each paper
+  pages as stored and as extracted today), `make gold-affiliations` (60 papers read by
+  hand, exact match per layer: what the extraction should give, where the golden fixtures
+  pin what it gives) and `make stats`. Before a bump, read each paper
   `make extraction-diff` shows losing words: an author's name, noise, or a regression
   (2610.02974 lost "Alicante" to the "at" of an address).
 - Coverage cannot see a rule written as one alternative of a regular expression. `make

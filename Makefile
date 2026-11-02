@@ -111,6 +111,10 @@ test-network: ## Run smoke tests against the live arXiv (slow)
 knockout: ## Knock out the extraction's rules one at a time: those no test needs, and those that change cached pages (minutes; REGEX=_NAME)
 	uv run python tests/knockout.py $(if $(REGEX),--regex $(REGEX),)
 
+.PHONY: gold-affiliations
+gold-affiliations: ## Score the extraction against 60 papers read by hand, from the page cache (seconds)
+	uv run python tests/gold_affiliations.py
+
 .PHONY: check
 check: quality test ## Run quality checks and tests, as CI does
 
