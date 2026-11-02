@@ -23,4 +23,6 @@ The project:
 
 - [Roadmap](roadmap.md): the audit's items, closed on 2026-11-02, their status and the decisions
   taken; *After the audit*, what is open since.
+- Audits, frozen snapshots: [2026-09-30](audit/2026-09-30.md), the first, and
+  [2026-11-02](audit/2026-11-02.md), the second, over six axes.
 - [Changelog](../CHANGELOG.md) and [security policy](../SECURITY.md).
