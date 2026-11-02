@@ -5,7 +5,8 @@ Progress on the improvements found by the audit of 2026-09-30
 (`DATA-2`, `SRCH-1`…) name its cards and tables, and its line numbers describe commit `e565fbe`.
 This file was the living part until the audit closed on 2026-11-02 (its *Result* ends Phase 4):
 every item has a status, and what it left open is carried to *After the audit*, at the end,
-with the items found since, until the next audit starts a roadmap of its own.
+with the items found since. The second audit's items follow in their own section, at the
+end.
 
 - Update an item's status in the commit that changes it, and name the ID in the commit
   message, e.g. `fix(collect): reset the author mapping when the author list changes (DATA-2)`.
@@ -16,7 +17,7 @@ with the items found since, until the next audit starts a roadmap of its own.
 - After each phase, run `make stats` and `make validate` and note the result under
   the phase.
 
-- What is left: *After the audit*. One item has a date: §17.1 #10 once 12 months of days
+- What is left: *After the audit* and *Second audit*. One item has a date: §17.1 #10 once 12 months of days
   exist (September 2027).
 
 ## Corrections to the audit
@@ -553,3 +554,68 @@ go here until the next audit.
 | AFF-16 | Labs and campuses as their parent organization (ROR's relationships), once someone asks | P3 | deferred |
 | REL-11 | Removed or corrected records refreshed in readers' saved lists, once someone asks | P3 | deferred |
 | REL-13 | An OAI-PMH that fails makes the archive red, with no counts nor gains that week: the Sunday run of 2026-11-01 timed out at its first page for 13 minutes, and only the fallback four hours later updated the archive. The archive goes on with the catalog of the last complete harvest, at most 10 days old (`CATALOG_STALE_DAYS`), with a warning annotation `Catalog not refreshed`; the next harvest asks for what changed since that date. Older, or without a catalog, the run is red as before; an invalid page (`ParseError`) too | P2 | done |
+
+## Second audit (2026-11-02)
+
+The items of the second audit ([`audit/2026-11-02.md`](audit/2026-11-02.md), commit `1e68e82`),
+in its backlog's order: by priority after verification, then by axis. No P0 nor P1: its six
+P1 findings reproduced, all lowered to P2. PUB-1 and PUB-3 wait for the maintainer (a
+removal list, rules on `main`).
+
+| ID | Item | Priority | Status |
+|---|---|---|---|
+| PUB-1 | The About page promises that a removal or correction stays, but the pipeline restores both | P2 | todo |
+| PUB-2 | The data jobs keep a token that can push to main in .git/config for hours | P2 | todo |
+| PUB-3 | No ruleset on main, and repository settings left at their defaults | P2 | todo |
+| PUB-4 | Real author e-mail addresses are back in code, tests and the roadmap since the CI-13 cleanup | P2 | todo |
+| PUB-5 | A copy of the site sends its corrections and removal requests to this maintainer | P2 | todo |
+| EXT-1 | Exponential backtracking in _MAILBOX_LIST_RE can turn one cached page into a daily hang | P2 | todo |
+| EXT-2 | Live rules with no test: 3 whole regexes and 19 rule pieces change real pages, yet every test stays green without them | P2 | todo |
+| EXT-3 | E-mail fragments pass has_contact and validate: 7 strings in 4 papers | P2 | todo |
+| EXT-4 | Defect classes that every rule and every quality sign miss, because rules are tied to one tier | P2 | todo |
+| EXT-5 | Institution rules: all of _ORGANIZATION_RE removable with 1,434 tests green, 125 stored namings changing | P2 | todo |
+| EXT-6 | Split arxiv_html.py (2,279 lines, 84 regexes) along the seams its call graph already has | P2 | todo |
+| EXT-7 | Overlapping vocabularies diverge: 5 marker sets, institution words matching inside names, two name folds | P2 | todo |
+| AQ-1 | The affiliation quality report misses most real defects and has no gold set | P2 | todo |
+| AQ-2 | Footnotemark digits in the author block are read as affiliation markers | P2 | todo |
+| AQ-3 | Numbered affiliations keep only their first line, so table-set blocks lose their institution | P2 | todo |
+| AQ-4 | The institution rules name places, streets, notes and name lists as institutions | P2 | todo |
+| AQ-5 | Authors are placed at a place when LaTeXML spreads one shared block over several creators | P2 | todo |
+| AQ-6 | ROR ids are missing where the same canonical name has one, so papers drop off the map | P2 | todo |
+| AQ-7 | Different institutions with the same name are merged on the site | P2 | todo |
+| AQ-8 | Name matching treats different full given names with the same initial as one person | P2 | todo |
+| WEB-1 | A query at load, or typed before the background index ends, freezes the page while the whole period is indexed | P2 | todo |
+| WEB-2 | Highly cited 'All years' downloads every archive year (16 MB gzipped) to show 10,000 papers | P2 | todo |
+| WEB-3 | On phones the tab bar scrolls and hides About and the Reading list, with no hint that it scrolls | P2 | todo |
+| WEB-4 | The default week waits for all its day files before showing a card | P2 | todo |
+| WEB-5 | Abstracts are 72% of what the lists download, yet collapsed by default: load a light list first | P2 | todo |
+| WEB-6 | Rankings of authors over every stored paper builds a whole graph: 254 MB of heap and a 1 s freeze | P2 | todo |
+| SCALE-1 | The repository will hit the 500 MB warning in 2027 with one category: GitHub stores archive rewrites against the wrong base | P2 | todo |
+| SCALE-2 | No recoverable history of the site and repository sizes, so the migration triggers have no trend | P2 | todo |
+| SCALE-3 | Store-wide scans grow with the store: about 60 MB to download and 125 to 175 MB of heap in a year; Rankings could read the search shards | P2 | todo |
+| SCALE-4 | The page cache, the only offline means to re-extract a year of papers, lives in one evictable Actions cache entry | P2 | todo |
+| OPS-1 | A missed restore can shrink the page cache, its only copy in CI | P2 | todo |
+| OPS-2 | One bad record blocks every push until the code is fixed | P2 | todo |
+| OPS-3 | A day stored partly from a catchup page waits days for the fix | P2 | todo |
+| OPS-4 | The rebased data commit is pushed without validation | P2 | todo |
+| OPS-5 | A failed dispatch is silent and costs 6 to 10 hours | P2 | todo |
+| OPS-6 | The archive's HTML pages still need the maintainer's machine | P2 | todo |
+| PUB-6 | The contact e-mail is set for every step and printed in every step header of the public logs | P3 | todo |
+| PUB-7 | Workflow security relies on review alone: add zizmor to `make quality` | P3 | todo |
+| PUB-8 | An author list holding e-mail addresses and affiliations is published as authors, and validate does not see it | P3 | todo |
+| EXT-8 | Nothing ties a change in output to an EXTRACTOR_VERSION bump | P3 | todo |
+| AQ-9 | Link and contribution labels survive cleaning, glued or alone | P3 | todo |
+| AQ-10 | The best-part score can name a center over its university or institute | P3 | todo |
+| AQ-11 | Line breaks inside unit names become commas | P3 | todo |
+| AQ-12 | Two layouts still lose every affiliation: a team creator and institutions set as creators | P3 | todo |
+| WEB-7 | The background index build blocks the main thread for up to 280 ms per chunk on a slow CPU | P3 | todo |
+| WEB-8 | Small accessibility gaps in reading-list and graph features added since the audit | P3 | todo |
+| WEB-9 | A missing citation shard is requested and returns 404 on every load | P3 | todo |
+| SCALE-5 | ARCH-4 re-costed: cs.LG would push the site past 600 MB and double the repository's growth; the Actions-minutes objection no longer holds | P3 | todo |
+| SCALE-6 | About 45% of the landing stylesheet is styles of lazy views; the landing is at 79.1 of 100 kB | P3 | todo |
+| SCALE-7 | The size guards count disk blocks, which the growing number of feed files inflates | P3 | todo |
+| OPS-7 | The published-versions budget starves the archive's tail as the store grows | P3 | todo |
+| OPS-8 | The guard fails open silently and the runbook misreads it | P3 | todo |
+| OPS-9 | Step timeouts exceed the job timeout, and the comment is stale | P3 | todo |
+| OPS-10 | Data deploys skip the app's tests and build whatever main holds | P3 | todo |
+| OPS-11 | Daily validation warnings repeat until someone acts | P3 | todo |
