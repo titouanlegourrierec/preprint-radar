@@ -161,9 +161,10 @@ year's top 1%.
 
 ### `<category>/scholar.json`
 
-`{"schema_version", "category", "generated_at", "source", "papers": {arxiv_id: record}}`:
-what Semantic Scholar knows of every stored paper's published version, each field absent
-when unknown:
+`{"schema_version", "category", "generated_at", "source", "papers": {arxiv_id: record}}`,
+and `"unasked"`, the arXiv ids the last weekly run did not reach before its time budget
+(the next asks for them first), absent when it reached every paper: what Semantic Scholar
+knows of every stored paper's published version, each field absent when unknown:
 
 - `doi`: the DOI of its published version (never arXiv's `10.48550/…`).
 - `venue`: where it was published, named as the comments' venues are ("CVPR 2018",

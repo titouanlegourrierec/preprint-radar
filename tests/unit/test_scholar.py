@@ -218,6 +218,30 @@ def test_keeps_the_records_of_papers_not_asked_for(store: PaperStore) -> None:
     assert scholar is not None
     assert scholar.papers == {"2609.00003": ScholarRecord(doi="10.1/kept")}
     assert (report.asked, report.found) == (4, 0)
+    # The papers not reached, which the next run asks for first (OPS-7).
+    assert scholar.unasked == {"2112.00001", "2609.00001", "2609.00002", "2609.00003"}
+
+
+def test_asks_first_for_the_papers_the_last_run_did_not_reach(store: PaperStore) -> None:
+    store.write_scholar(
+        "cs.CV", {"2609.00003": ScholarRecord(doi="10.1/kept")}, source="S2", unasked=["2112.00001"]
+    )
+    asked: list[str] = []
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        ids = [paper_id.removeprefix("ARXIV:") for paper_id in json.loads(request.content)["ids"]]
+        asked.extend(ids)
+        return httpx.Response(200, json=[None for _ in ids])
+
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        update_scholar_records(store, "cs.CV", client, key=None)
+
+    # Then those without a record, then the others, each group in the store's order.
+    assert asked[0] == "2112.00001"
+    assert asked[-1] == "2609.00003"
+    scholar = store.load_scholar("cs.CV")
+    assert scholar is not None
+    assert scholar.unasked == frozenset()
 
 
 def test_cli_fetches_the_records_of_each_category(

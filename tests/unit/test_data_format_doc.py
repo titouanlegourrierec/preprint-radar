@@ -110,6 +110,7 @@ def _write_every_file(store: PaperStore) -> None:
         "cs.CV",
         {PAPER.arxiv_id: ScholarRecord("10.1000/example", "CVPR 2026", ("1", None))},
         source="Semantic Scholar",
+        unasked=["1701.00001"],
     )
     for days, stars in ((7, 10), (0, 15)):
         store.write_code(

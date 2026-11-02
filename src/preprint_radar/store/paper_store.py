@@ -196,6 +196,9 @@ class ScholarFile:
     papers: dict[str, ScholarRecord]
     source: str
     generated_at: datetime
+    # The papers its run did not reach before its time budget, asked for first by the next
+    # (OPS-7).
+    unasked: frozenset[str] = frozenset()
 
 
 @dataclass(frozen=True, slots=True)
@@ -746,12 +749,20 @@ class PaperStore:
                 },
                 source=str(payload["source"]),
                 generated_at=datetime.fromisoformat(payload["generated_at"]),
+                unasked=frozenset(str(arxiv_id) for arxiv_id in payload.get("unasked", ())),
             )
         except (json.JSONDecodeError, AttributeError, KeyError, TypeError, ValueError) as exc:
             msg = f"Invalid scholar file {path}: {exc}"
             raise StoreError(msg) from exc
 
-    def write_scholar(self, category: str, papers: Mapping[str, ScholarRecord], *, source: str) -> None:
+    def write_scholar(
+        self,
+        category: str,
+        papers: Mapping[str, ScholarRecord],
+        *,
+        source: str,
+        unasked: Iterable[str] = (),
+    ) -> None:
         """Write what Semantic Scholar knows of the stored papers of ``category``, dated now.
 
         Papers it knows nothing of are left out.
@@ -760,8 +771,10 @@ class PaperStore:
             category: arXiv category.
             papers: Semantic Scholar's record of each paper it knows, by arXiv id.
             source: Where they come from ("Semantic Scholar").
+            unasked: The papers the run did not reach, which the next asks for first (OPS-7).
         """
-        payload = {
+        left = sorted(set(unasked) - self.removed(category))
+        payload: dict[str, Any] = {
             "schema_version": SCHEMA_VERSION,
             "category": category,
             "generated_at": datetime.now(tz=UTC).isoformat(timespec="seconds"),
@@ -772,6 +785,8 @@ class PaperStore:
                 if not record.is_empty()
             },
         }
+        if left:
+            payload["unasked"] = left
         _write_json(self.root / category / SCHOLAR_FILENAME, payload)
 
     def load_code(self, category: str) -> CodeFile | None:

@@ -1213,10 +1213,15 @@ def update_scholar_records(
     Raises:
         FetchError: If Semantic Scholar rejects the API key.
     """
-    stored: dict[str, Paper] = {}
+    every: dict[str, Paper] = {}
     for paper in _every_stored_paper(store, category):
-        stored.setdefault(paper.arxiv_id, paper)
+        every.setdefault(paper.arxiv_id, paper)
     previous = store.load_scholar(category)
+    # Those the last run did not reach first, then those without a record: a budget that
+    # runs out leaves the archive's tail behind no week after week (OPS-7).
+    first = previous.unasked if previous is not None else frozenset()
+    known = previous.papers if previous is not None else {}
+    stored = dict(sorted(every.items(), key=lambda item: (item[0] not in first, item[0] in known)))
     with progress("Published versions", len(stored)) as advance:
         fetched = fetch_scholar_records(client, stored, key=key, max_seconds=max_seconds, progress=advance)
     records: dict[str, ScholarRecord] = {}
@@ -1230,7 +1235,12 @@ def update_scholar_records(
             continue
         author_ids = checked_author_ids(record, paper.authors)
         records[arxiv_id] = replace(record, author_ids=author_ids, author_names=None)
-    store.write_scholar(category, records, source=S2_SOURCE)
+    store.write_scholar(
+        category,
+        records,
+        source=S2_SOURCE,
+        unasked=(arxiv_id for arxiv_id in stored if arxiv_id not in fetched),
+    )
     found = [records[arxiv_id] for arxiv_id in fetched if arxiv_id in records]
     return ScholarReport(
         category=category,
