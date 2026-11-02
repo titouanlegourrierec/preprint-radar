@@ -22,6 +22,15 @@ from preprint_radar.institutions import (
         ("Carnegie Mellon University, United States of America", "Carnegie Mellon University"),
         ("School of Computer Science, Peking University", "Peking University"),
         ("Google, Switzerland", "Google"),
+        # An institute over a center beside it, and a short form written alone (AQ-10).
+        (
+            (
+                "Center for Visual Information Technology, International Institute of Information "
+                "Technology Hyderabad, India"
+            ),
+            "International Institute of Information Technology Hyderabad",
+        ),
+        ("UChicago", "University of Chicago"),
         ("Pengcheng Laboratory, China", "Pengcheng Laboratory"),
         (
             (

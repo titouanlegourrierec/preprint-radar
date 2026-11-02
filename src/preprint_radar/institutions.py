@@ -38,6 +38,7 @@ _ORGANIZATION_RE = re.compile(
     rf"|adobe|tencent|alibaba|bytedance|baidu|huawei|samsung|sony|intel|openai|ibm|qualcomm){_B}",
     re.IGNORECASE,
 )
+_INSTITUTE_RE = re.compile(rf"{_B}institut(?:e|o)?{_B}", re.IGNORECASE)
 _UNIT_RE = re.compile(
     r"^(?:the\s+)?(?:dept\.?|department|school|faculty|division|chair|group|graduate school|college of"
     rf"|laboratory of|key laboratory|state key laboratory){_B}",
@@ -155,6 +156,7 @@ ACRONYMS: dict[str, str] = {
     "oxford": "University of Oxford",
     "stanford": "Stanford University",
     "harvard": "Harvard University",
+    "uchicago": "University of Chicago",
     "princeton": "Princeton University",
     "uiuc": "University of Illinois Urbana-Champaign",
     "epfl": "École Polytechnique Fédérale de Lausanne",
@@ -313,7 +315,9 @@ def _score(part: str) -> float:
     if _DIGIT_RE.search(part):
         return 0.25
     if _ORGANIZATION_RE.search(part):
-        return 2
+        # An institute outranks a center or a lab beside it: "Center for Visual Information
+        # Technology, International Institute of Information Technology Hyderabad" (AQ-10).
+        return 2.25 if _INSTITUTE_RE.search(part) else 2
     return 1
 
 

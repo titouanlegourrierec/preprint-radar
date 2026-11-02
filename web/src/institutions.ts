@@ -33,6 +33,7 @@ const ACRONYMS: Readonly<Record<string, string>> = {
   oxford: "University of Oxford",
   stanford: "Stanford University",
   harvard: "Harvard University",
+  uchicago: "University of Chicago",
   princeton: "Princeton University",
   uiuc: "University of Illinois Urbana-Champaign",
   epfl: "École Polytechnique Fédérale de Lausanne",
