@@ -203,7 +203,10 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
             first_day.setdefault(paper.arxiv_id, day)
             _check_contacts(paper, where, report)
             _note_institutions(paper, named)
-            report.findings.extend(Finding(Level.WARNING, where, message) for message in _heuristics(paper))
+            report.findings.extend(
+                Finding(Level.WARNING, where, message)
+                for message in (*_heuristics(paper), *_odd_authors(paper))
+            )
         stored.update(paper.arxiv_id for paper in papers)
         authors.update((paper.arxiv_id, len(paper.authors)) for paper in papers)
 
@@ -366,6 +369,23 @@ def _heuristics(paper: Paper) -> Iterator[str]:
         yield f"{paper.arxiv_id}: only the last author is placed, at every affiliation"
     if not names and not shared and reclean_paper(paper) != paper:
         yield f"{paper.arxiv_id}: `reclean` would change its affiliations"
+
+
+# An author name longer than this is a list or an address, not a name (PUB-8).
+_MAX_AUTHOR_LENGTH = 100
+
+
+def _odd_authors(paper: Paper) -> Iterator[str]:
+    """Authors arXiv's metadata lists that are no names: addresses, lists, affiliations.
+
+    A warning, not an error: the site shows what arXiv lists (2610.24182 lists e-mail
+    addresses among its authors, PUB-8); a correction is for the authors to ask.
+    """
+    for position, author in enumerate(paper.authors, start=1):
+        if has_contact(author):
+            yield f"{paper.arxiv_id}: author {position} holds a contact detail"
+        elif len(author) > _MAX_AUTHOR_LENGTH:
+            yield f"{paper.arxiv_id}: author {position} is {len(author)} characters long"
 
 
 def _validate_corrections(

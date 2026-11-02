@@ -116,7 +116,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     or year, an index or `citations.json` that disagrees with the files, a `scholar.json`
     or `citation-gains.json` that does not load, a contact detail in an affiliation.
     Warnings: an affiliation that only names authors, the last author alone holding every
-    affiliation, a paper `reclean` would change, stale `scholar.json` records or gains, an
+    affiliation, a paper `reclean` would change, an author arXiv lists that holds an
+    address or 100 characters (PUB-8), stale `scholar.json` records or gains, an
     acronym's institution (`ACRONYMS`) that no institution with an id is called.
     Run it after touching `data/` by hand. The data workflows pass `--set-aside`: a paper
     holding a contact detail loses its affiliations, to be read again, with a warning,

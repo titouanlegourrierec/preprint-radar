@@ -364,6 +364,20 @@ def test_an_index_out_of_date(store: PaperStore) -> None:
     ]
 
 
+def test_authors_that_are_no_names_only_warn(store: PaperStore) -> None:
+    # arXiv's metadata of 2610.24182 lists addresses and affiliations as authors (PUB-8).
+    listed = "1. Ada Lovelace*1 author@example.org 2. Bob Smith"
+    store.save(
+        "cs.CV", [_paper("2609.00001", authors=(listed, "x" * 101, "Bob Smith"), author_affiliations=None)]
+    )
+
+    assert _messages(store, Level.WARNING) == [
+        "data/cs.CV/2026-09-25.json: 2609.00001: author 1 holds a contact detail",
+        "data/cs.CV/2026-09-25.json: 2609.00001: author 2 is 101 characters long",
+    ]
+    assert _messages(store) == []
+
+
 def test_heuristic_rules_only_warn(store: PaperStore) -> None:
     store.save(
         "cs.CV",
