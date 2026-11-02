@@ -20,7 +20,8 @@ them. It is deployed on GitHub Pages; there is no server.
   signals are quoted from the code, and `tests/unit/test_operations_doc.py` fails when one
   no longer exists.
 - `docs/roadmap.md` tracks the audit's items (`docs/audit/2026-09-30.md` is a frozen
-  snapshot: never edit it).
+  snapshot: never edit it); the audit closed on 2026-11-02, and new items go to its *After
+  the audit* section.
 
 ## Commands
 

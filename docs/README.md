@@ -21,5 +21,6 @@ How each part works:
 
 The project:
 
-- [Roadmap](roadmap.md): every item, its status and the decisions taken.
+- [Roadmap](roadmap.md): the audit's items, closed on 2026-11-02, their status and the decisions
+  taken; *After the audit*, what is open since.
 - [Changelog](../CHANGELOG.md) and [security policy](../SECURITY.md).
