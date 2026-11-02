@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { highlight, wholeWord } from "../src/highlight";
 import {
   ANY_VENUE,
@@ -548,18 +548,22 @@ describe("PaperIndex building", () => {
     expect(lazy.ready).toBe(true);
   });
 
-  it("warms in chunks, and a search adds the papers left", async () => {
+  it("warms in slices of time, and a search adds the papers left", async () => {
     const warmed = new PaperIndex(many);
     await warmed.warm();
     expect(warmed.ready).toBe(true);
 
+    // Each paper takes 4 ms: a slice of 10 ms holds three, then the page has its turn (WEB-7).
+    let now = 0;
+    vi.spyOn(performance, "now").mockImplementation(() => (now += 4));
     const stopped = new PaperIndex(many);
     const stop = new AbortController();
     const warming = stopped.warm(stop.signal);
     stop.abort();
     await warming;
-    // The first chunk went in before the signal was read again.
+    // The first slice went in before the signal was read again.
     expect(stopped.ready).toBe(false);
+    vi.restoreAllMocks();
     expect(stopped.search("quokka", NO_FILTERS, "relevance")).toHaveLength(1);
     expect(stopped.search("zebra", NO_FILTERS, "relevance")).toHaveLength(1);
     expect(stopped.ready).toBe(true);

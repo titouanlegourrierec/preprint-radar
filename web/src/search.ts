@@ -341,8 +341,11 @@ const INDEX_OPTIONS: Options<Paper> = {
   },
 };
 
-/** Papers added to the full-text index between two yields to the browser. */
-const WARM_CHUNK = 200;
+/**
+ * Time the full-text index takes from the browser between two yields: a fixed count of 200
+ * papers held the page 220 to 280 ms on a slow phone (WEB-7), a tap waiting as long.
+ */
+const WARM_SLICE_MS = 10;
 
 function yieldToBrowser(): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, 0));
@@ -383,10 +386,15 @@ export class PaperIndex {
    * between; it stops early when `signal` aborts (the papers are no longer shown).
    */
   async warm(signal?: AbortSignal): Promise<void> {
+    const index = this.index();
     while (!(this.ready || signal?.aborted)) {
-      const end = Math.min(this.indexed + WARM_CHUNK, this.queue.length);
-      this.index().addAll(this.queue.slice(this.indexed, end));
-      this.indexed = end;
+      // One paper at a time until the slice is spent, one at least.
+      const started = performance.now();
+      do {
+        const paper = this.queue[this.indexed];
+        if (paper !== undefined) index.add(paper);
+        this.indexed++;
+      } while (!this.ready && performance.now() - started < WARM_SLICE_MS);
       await yieldToBrowser();
     }
   }

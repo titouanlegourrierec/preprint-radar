@@ -615,7 +615,7 @@ P1 findings reproduced, all lowered to P2.
 | AQ-10 | The best-part score can name a center over its university or institute | P3 | todo |
 | AQ-11 | Line breaks inside unit names become commas | P3 | todo |
 | AQ-12 | Two layouts still lose every affiliation: a team creator and institutions set as creators | P3 | todo |
-| WEB-7 | The background index build blocks the main thread for up to 280 ms per chunk on a slow CPU | P3 | todo |
+| WEB-7 | The background index build blocks the main thread for up to 280 ms per chunk on a slow CPU. `warm` adds papers one at a time until 10 ms have passed (`WARM_SLICE_MS`), then yields: a slice holds about 37 papers on a fast machine and 8 at 4x CPU, instead of 200 that took 220 to 280 ms there; the whole build takes a little longer, with the page answering between slices | P3 | done |
 | WEB-8 | Small accessibility gaps in reading-list and graph features added since the audit | P3 | todo |
 | WEB-9 | A missing citation shard is requested and returns 404 on every load. `loadCitationShard` asks for no shard the site's index does not version, the build versioning every one it writes: a month without counts costs no request (the development server, which lists no versions, still asks) | P3 | done |
 | SCALE-5 | ARCH-4 re-costed: cs.LG would push the site past 600 MB and double the repository's growth; the Actions-minutes objection no longer holds | P3 | todo |
