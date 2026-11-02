@@ -1,0 +1,61 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">Context-Aware Causal Gaze Forecasting for
+Human–Vehicle Interaction During In-Cabin Tracking Dropouts</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Shabnam Shabani
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span><span class="ltx_text ltx_font_italic" id="id1">Department of Computer Science
+<br class="ltx_break"/>Western University
+<br class="ltx_break"/></span>London, ON, Canada
+<br class="ltx_break"/>author@example.org
+
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Ghazal Farhani
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span><span class="ltx_text ltx_font_italic" id="id2">National Research Council Canada
+<br class="ltx_break"/></span>London, ON, Canada
+<br class="ltx_break"/>author@example.org
+
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Dashboard-mounted gaze trackers often lose sight of the driver’s eyes
+during large head rotations, such as shoulder checks, mirror glances,
+and intersection scanning. These maneuvers are also among the moments
+when information about the driver’s visual attention is most useful.
+Offline gap-filling methods may reconstruct a missing interval using
+observations from both sides of the gap, but an online driver-monitoring
+system cannot rely on measurements that have not yet occurred. We
+therefore formulate <em class="ltx_emph ltx_font_italic" id="abstract1.1.1">causal gaze recovery</em>: forecasting unavailable
+gaze at time <math alttext="t" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> without access to target-tracker gaze at <math alttext="t" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> or any
+later time.</p>
+<p class="ltx_p" id="abstract1.2">We introduce the <span class="ltx_text ltx_font_bold" id="abstract1.2.1">Causal Context-Gated Forecaster (CCGF)</span>, which
+encodes a 60-frame pre-dropout history of gaze and head pose and combines
+it with DINOv3 scene features. A learned reliability gate controls the contribution of the
+history and scene representations as the dropout progresses. We
+evaluate two scene-availability conditions: <em class="ltx_emph ltx_font_italic" id="abstract1.2.2">Live</em>, in which the
+scene representation continues to update during tracker loss, and
+<em class="ltx_emph ltx_font_italic" id="abstract1.2.3">Frozen</em>, in which the final pre-dropout representation is used
+throughout the missing interval.</p>
+<p class="ltx_p" id="abstract1.3">We evaluate CCGF on <math alttext="2{,}047" class="ltx_Math" display="inline" id="abstract1.m3" intent=":literal"><semantics><mn>2,047</mn><annotation encoding="application/x-tex">2{,}047</annotation></semantics></math> eligible, naturally occurring GazeSense
+<span class="ltx_text ltx_font_typewriter" id="abstract1.3.1">head_lost</span> events drawn from <math alttext="10.5" class="ltx_Math" display="inline" id="abstract1.m4" intent=":literal"><semantics><mn>10.5</mn><annotation encoding="application/x-tex">10.5</annotation></semantics></math> h of naturalistic driving
+by ten drivers. Across the complete recordings, <span class="ltx_text ltx_font_typewriter" id="abstract1.3.2">head_lost</span>
+accounts for <math alttext="8.5\%" class="ltx_Math" display="inline" id="abstract1.m5" intent=":literal"><semantics><mrow><mn>8.5</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">8.5\%</annotation></semantics></math> of GazeSense recording time. Synchronized gaze
+coordinates from a head-mounted Neon tracker provide supervision and
+evaluation targets but are never used as model inputs. Under
+leave-one-driver-out evaluation, CCGF achieves a mean per-driver median
+error of <math alttext="175.7" class="ltx_Math" display="inline" id="abstract1.m6" intent=":literal"><semantics><mn>175.7</mn><annotation encoding="application/x-tex">175.7</annotation></semantics></math> px (<math alttext="10.5^{\circ}" class="ltx_Math" display="inline" id="abstract1.m7" intent=":literal"><semantics><msup><mn>10.5</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">10.5^{\circ}</annotation></semantics></math>) with Live scene updates, a <math alttext="33\%" class="ltx_Math" display="inline" id="abstract1.m8" intent=":literal"><semantics><mrow><mn>33</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">33\%</annotation></semantics></math>
+reduction relative to history-only causal forecasting. With Frozen
+scene input, the error increases to <math alttext="210.8" class="ltx_Math" display="inline" id="abstract1.m9" intent=":literal"><semantics><mn>210.8</mn><annotation encoding="application/x-tex">210.8</annotation></semantics></math> px (<math alttext="12.9^{\circ}" class="ltx_Math" display="inline" id="abstract1.m10" intent=":literal"><semantics><msup><mn>12.9</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">12.9^{\circ}</annotation></semantics></math>),
+indicating that scene observations acquired during the dropout provide
+useful predictive information. We will release the dataset, evaluation
+protocol, and causal baselines.</p>
+</div>
+<div class="ltx_keywords">
+<h6 class="ltx_title ltx_title_keywords">Index Terms: </h6>driver monitoring, causal gaze forecasting, gaze tracking, tracking dropout,
+driver attention, naturalistic driving.
+
+</div>
+
+</article></body></html>

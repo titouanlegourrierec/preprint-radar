@@ -107,6 +107,10 @@ test-e2e: $(WEB)/node_modules ## Smoke-test the built site in Chromium, over web
 test-network: ## Run smoke tests against the live arXiv (slow)
 	uv run pytest -m network
 
+.PHONY: knockout
+knockout: ## Knock out the extraction's rules one at a time: those no test needs, and those that change cached pages (minutes; REGEX=_NAME)
+	uv run python tests/knockout.py $(if $(REGEX),--regex $(REGEX),)
+
 .PHONY: check
 check: quality test ## Run quality checks and tests, as CI does
 

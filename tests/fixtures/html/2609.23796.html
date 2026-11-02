@@ -1,0 +1,29 @@
+<html><body><article class="ltx_document" data-front-matter="2">
+<h1 class="ltx_title ltx_title_document">Mira-Scene: Pixel-Aligned Layouts
+<br class="ltx_break"/>for Generative 3D Scene Reconstruction</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+<span class="ltx_inline-block ltx_parbox ltx_align_middle" id="id1" style="width:397.5pt;">
+<span class="ltx_p ltx_align_left" id="id1.1"><span class="ltx_text ltx_font_bold" id="id1.1.1">Yang-Tian Sun</span>,
+<span class="ltx_text ltx_font_bold" id="id1.1.2">Tianjia Liu</span>,
+<span class="ltx_text ltx_font_bold" id="id1.1.3">Zehuan Huang</span>,
+<span class="ltx_text ltx_font_bold" id="id1.1.4">Yi-Hua Huang</span>,
+<span class="ltx_text ltx_font_bold" id="id1.1.5">Xiaoyang Lyu</span>,</span>
+<span class="ltx_p ltx_align_left" id="id1.2"><span class="ltx_text ltx_font_bold" id="id1.2.1">Ziyi Yang</span>,
+<span class="ltx_text ltx_font_bold" id="id1.2.2">Zi-Xin Zou</span>,
+<span class="ltx_text ltx_font_bold" id="id1.2.3">Yuan-Chen Guo</span>,
+<span class="ltx_text ltx_font_bold" id="id1.2.4">Yan-Pei Cao</span>,
+<span class="ltx_text ltx_font_bold" id="id1.2.5">Xiaojuan Qi</span></span>
+</span>
+</span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Single-image 3D object generation can now produce high-fidelity assets, yet accurately placing them into a coherent scene layout remains an open challenge. A central difficulty lies in how object layout is represented. Holistic methods absorb placement into a scene-level generation process, sacrificing object-level detail. Compositional methods preserve object fidelity by decoupling geometry from layout, but typically parameterize layout as sparse, unbounded pose variables that are difficult to learn and generalize poorly under scarce scene-level supervision.
+We present <span class="ltx_text ltx_font_bold" id="abstract1.1.1">Mira-Scene</span>, a compositional 3D scene reconstruction framework that replaces sparse pose regression with dense, bounded correspondence recovery. At its core is the <span class="ltx_text ltx_font_bold" id="abstract1.1.2">Canonical Coordinate Map (CCM)</span>, a pixel-aligned field that maps each visible object pixel to a surface coordinate in the object’s bounded canonical space. When paired with a scene-space <span class="ltx_text ltx_font_bold" id="abstract1.1.3">Point Cloud Map (PCM)</span> from monocular geometry estimation, CCM induces dense canonical-to-scene correspondences from which object transformations are recovered through robust geometric alignment. Because CCM operates in bounded canonical space, it provides a stable prediction target that can be trained from scalable object-level 3D data without requiring scene-level layout annotations. Mira-Scene further introduces a multimodal diffusion transformer that jointly generates object geometry and CCMs, using modality-specific expert streams with shared attention and positional encoding to promote geometry-layout consistency. Experiments on indoor, outdoor, synthetic, and in-the-wild scenes show that Mira-Scene substantially outperforms strong baselines in layout accuracy, achieving relative gains of 39.8% in 3D-IoU and 16.5% in 2D-IoU over SAM3D, using limited open-source training data.</p>
+</div>
+<div class="ltx_para" id="p1">
+
+</div><span class="ltx_note ltx_role_footnotetext" id="footnotex1"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">footnotetext: </span><sup class="ltx_sup" id="footnotex1.1">1</sup>The University of Hong Kong; <sup class="ltx_sup" id="footnotex1.2">2</sup>VAST. Project page: <a class="ltx_ref ltx_href ltx_underline ltx_font_italic" href="https://sunyangtian.github.io/Mira-Scene-web/" title="">https://sunyangtian.github.io/Mira-Scene-web/</a>.
+<br class="ltx_break"/>* Equal Contribution; <math alttext="\dagger" class="ltx_Math" display="inline" id="footnotex1.m1" intent=":literal"><semantics><mo>†</mo><annotation encoding="application/x-tex">\dagger</annotation></semantics></math> Project Lead; 🖂 Corresponding Authors.</span></span></span>
+
+</article></body></html>

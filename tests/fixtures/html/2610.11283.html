@@ -1,0 +1,26 @@
+<html><body><article class="ltx_document" data-front-matter="2">
+<div class="ltx_para" id="p1"><span class="ltx_ERROR undefined" id="p1.1">\webpage</span>
+<p class="ltx_p" id="p1.2"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://research.beingbeyond.com/being-m07" title="">https://research.beingbeyond.com/being-m07</a>
+<span class="ltx_ERROR undefined" id="p1.2.1">\firstfig</span>[width=][1.0]
+fig/first_0925_7_crop.pdf
+<span class="ltx_text ltx_font_bold" id="p1.2.2">Being-M0.7 at a glance.</span> Being-M0.7 is a latent World-Action Model pretrained on egocentric videos and human motions with a Mixture of Transformers (MoT) structure, then grounded into humanoid control through action expert post-training on robot trajectories for diverse loco-manipulation tasks. The rightmost panels show three real-world tasks executed by the humanoid.
+fig:first_fig_label
+<span class="ltx_ERROR undefined" id="p1.2.3">\checkdata</span>[Date]October 8, 2026</p>
+</div>
+<h1 class="ltx_title ltx_title_document">Being-M0.7: A Latent World-Action Model 
+<br class="ltx_break"/>for Humanoid Robots</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">BeingBeyond Team
+</span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Humanoid loco-manipulation requires coordinated locomotion and manipulation informed by future scene evolution and whole-body motion, yet learning these capabilities is constrained by scarce robot demonstrations.
+Human video and motion datasets offer scalable supervision, but many contain only video or motion rather than paired video-motion data. Moreover, human motion does not directly specify executable robot actions.
+We present <span class="ltx_text ltx_font_bold" id="abstract1.1.1">Being-M0.7</span>, a latent world-action model that transfers visual–motion priors learned from mixed-modality human data to humanoid control through pre-training, robot mid-training, and action post-training.
+We curate a corpus from more than 10,000 hours of raw human-centric data, integrating video-only, motion-only, and paired video–motion streams to learn complementary visual dynamics and whole-body kinematic structure.
+Joint prediction of future latent visual states and motion encourages visual representations to encode future kinematics.
+Robot mid-training adapts this coarse-grained prior to robot viewpoints and body dynamics.
+During action post-training, an action expert combines visual predictive representations from the frozen, adapted prior with current images and proprioception through gated cross-attention, grounding predictive context in executable whole-body commands.
+Being-M0.7 achieves the highest aggregate success rate among the compared baselines on SIMPLE and matches the strongest baseline on real-world Unitree G1 loco-manipulation tasks.</p>
+</div>
+</article></body></html>

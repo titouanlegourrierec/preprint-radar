@@ -1,0 +1,33 @@
+<html><body><article class="ltx_document" data-front-matter="2">
+<h1 class="ltx_title ltx_title_document">SegFormer: Simple and Efficient Design for Semantic Segmentation with Transformers</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Enze Xie
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Wenhai Wang
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Zhiding Yu
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Anima Anandkumar
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Jose M. Alvarez
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Ping Luo
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">[0.25cm]
+The University of Hong Kong  Nanjing University  NVIDIA  Caltech
+</span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">We present SegFormer, a simple, efficient yet powerful semantic segmentation framework which unifies Transformers with lightweight multilayer perceptron (MLP) decoders. SegFormer has two appealing features: 1) SegFormer comprises a novel hierarchically structured Transformer encoder which outputs multiscale features. It does not need positional encoding, thereby avoiding the interpolation of positional codes which leads to decreased performance when the testing resolution differs from training. 2) SegFormer avoids complex decoders. The proposed MLP decoder aggregates information from different layers, and thus combining both local attention and global attention to render powerful representations. We show that this simple and lightweight design is the key to efficient segmentation on Transformers.
+We scale our approach up to obtain a series of models from SegFormer-B0 to SegFormer-B5, reaching significantly better performance and efficiency than previous counterparts.
+For example, SegFormer-B4 achieves 50.3% mIoU on ADE20K with 64M parameters, being 5<math alttext="\times" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> smaller and 2.2% better than the previous best method. Our best model, SegFormer-B5, achieves 84.0% mIoU on Cityscapes validation set and shows excellent zero-shot robustness on Cityscapes-C.
+Code will be released at:
+<a class="ltx_ref ltx_href" href="https://github.com/NVlabs/SegFormer" target="_blank" title=""><math alttext="\tt github.com/NVlabs/SegFormer" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mi mathcolor="#0000FF" style="--ltx-fg-color:#0000FF;">𝚐𝚒𝚝𝚑𝚞𝚋</mi><mo lspace="0em" mathcolor="#0000FF" rspace="0.167em" style="--ltx-fg-color:#0000FF;">.</mo><mrow><mi mathcolor="#0000FF" style="--ltx-fg-color:#0000FF;">𝚌𝚘𝚖</mi><mo mathcolor="#0000FF" style="--ltx-fg-color:#0000FF;">/</mo><mi mathcolor="#0000FF" style="--ltx-fg-color:#0000FF;">𝙽𝚅𝚕𝚊𝚋𝚜</mi><mo mathcolor="#0000FF" style="--ltx-fg-color:#0000FF;">/</mo><mi mathcolor="#0000FF" style="--ltx-fg-color:#0000FF;">𝚂𝚎𝚐𝙵𝚘𝚛𝚖𝚎𝚛</mi></mrow></mrow><annotation encoding="application/x-tex">\tt github.com/NVlabs/SegFormer</annotation></semantics></math></a>.</p>
+</div>
+</article></body></html>

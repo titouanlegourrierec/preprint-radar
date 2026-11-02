@@ -20,6 +20,14 @@ whose arXiv id is the evidence: never "simplify" one away without it.
   pages as stored and as extracted today) and `make stats`. Before a bump, read each paper
   `make extraction-diff` shows losing words: an author's name, noise, or a regression
   (2610.02974 lost "Alicante" to the "at" of an address).
+- Coverage cannot see a rule written as one alternative of a regular expression. `make
+  knockout` (`tests/knockout.py`, about 7 minutes on 10 cores) makes each expression of
+  `arxiv_html.py`, then each of its top-level alternatives, never match, and runs the
+  extraction's tests: those it leaves green no test asserts on; replayed on the cached
+  pages and the stored strings, a `LIVE` one changes what they give, a rule the next bump
+  could lose unseen. Run it before a bump, and give each live one a fixture or a named
+  test (EXT-2). An `untested` one that changes nothing guards pages the cache does not
+  hold.
 
 ## Sources, in order
 
@@ -152,9 +160,12 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   underscores join their parts ("{Jane.Doe, A.Roe,", 2610.25235), never an affiliation's
   words. A string still holding a contact detail is dropped whole (`has_contact`, as in
   `validate`): a page the rules miss loses one string, not a day of papers.
-- `_JUNK_RE` rejects the rest: lone words ("the", "dot"), link and contribution leftovers
-  ("Code", "Core Contributors"), cut-off units ("School of"), lone countries, and IEEE's
-  template author, "IEEE Publication Technology Department" (2312.17663).
+- `_JUNK_RE` rejects the rest: lone words ("dot"), link and contribution leftovers
+  ("Code", "Core Contributors"), a unit's word alone ("School", "Department"), lone
+  countries, and IEEE's template author, "IEEE Publication Technology Department"
+  (2312.17663). A unit cut after its preposition ("School of", "Center for"), and "the",
+  "an" or "of" alone, are rejected before it, as dangling (`_DANGLING_RE`), a connector
+  or too short: those words of `_JUNK_RE` only back them up.
 - Superscript markers split affiliations, but not between two lowercase letters
   ("Hyper<sup>2</sup>labs"). Every `<br>` is a line break, newline or not, and so is the
   spacing of one printed as text (`[5pt]`, `[0.2em]`, from `\\[5pt]`).

@@ -1,0 +1,38 @@
+<html><body><article class="ltx_document" data-front-matter="2">
+<h1 class="ltx_title ltx_title_document">AffordDrive3D: Affordance-Aware World-Action Modeling with Spatial Understanding</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Tianhui Cai
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Xinglong Sun
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Chao Fang
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Zhenxin Li
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Rui Song
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Jose M. Alvarez
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Yunxiang Mao
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Jiaqi Ma
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Langechuan Liu
+</span></span>
+<span class="ltx_creator ltx_role_author"><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>University of California, Los Angeles  NVIDIA  42dot by Hyundai  University of Toronto
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">World-action models have recently improved autonomous driving by jointly learning future scene prediction and trajectory generation. Most existing approaches model the future primarily through RGB appearance, and recent works have begun to incorporate geometric prediction to improve spatial understanding. However, dense geometry describes the spatial layout of the entire scene without indicating which parts are most relevant to the ego vehicle’s action. For driving, the model must also identify and anticipate where it can safely move and which regions may pose collision risks. Jointly modeling action-relevant regions and future geometry can provide the policy with both driving-relevant cues and their corresponding spatial structure. We therefore propose <span class="ltx_text ltx_font_bold" id="abstract1.1.1">AffordDrive3D</span>, an affordance- and geometry-aware world-action model that jointly learns future action-relevant regions and spatial structure. In order to capture the scene semantics and driving context needed for driving affordance prediction, we build AffordDrive3D on a VLM backbone to forecast drivable areas and collision-critical regions that directly affect ego motion, while predicting future geometry from RGB world-model latents. On NAVSIM, AffordDrive3D achieves state-of-the-art performance with 91.3 PDMS and 89.9 EPDMS, demonstrating the effectiveness of jointly modeling future affordances and geometry for trajectory planning.</p>
+<p class="ltx_p" id="abstract1.2"><span class="ltx_text ltx_font_bold" id="abstract1.2.1">Project Page:</span> <a class="ltx_ref ltx_url ltx_font_typewriter" href="https://afforddrive3d.github.io/" title="">https://afforddrive3d.github.io/</a></p>
+</div><span class="ltx_note ltx_role_footnotetext" id="footnotex1"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">footnotetext: </span><sup class="ltx_sup" id="footnotex1.1"><span class="ltx_text ltx_font_italic" id="footnotex1.1.1">∗</span></sup>Equal contribution. <sup class="ltx_sup" id="footnotex1.2"><span class="ltx_text ltx_font_italic" id="footnotex1.2.1">†</span></sup>Corresponding author. <sup class="ltx_sup" id="footnotex1.3"><span class="ltx_text ltx_font_italic" id="footnotex1.3.1">‡</span></sup>Work done during an internship at NVIDIA.</span></span></span>
+</article></body></html>

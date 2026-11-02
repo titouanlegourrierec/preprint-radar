@@ -129,6 +129,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     author holding all), 5 examples each. With `--page-cache-dir`, the cached pages as
     stored and as extracted today, nothing written: run it before and after a heuristic
     change. Approximate (a few false positives each).
+  - `make knockout [REGEX=_NAME]` (`tests/knockout.py`, minutes): each rule of
+    `arxiv_html.py` (a regular expression, then each of its alternatives) knocked out in
+    turn; those no test notices, and the `LIVE` ones among them that change cached pages:
+    give those a fixture or a named test before a bump (EXT-2).
   - `make extraction-diff` (`--changes`): each paper whose affiliations or mapping today's
     extraction changes on the cached pages, with the words it would lose first. Run it
     before any `EXTRACTOR_VERSION` bump: versions 4 to 7 each fixed a loss of the one

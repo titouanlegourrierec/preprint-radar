@@ -1,0 +1,50 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">Pre- and Post-Treatment Brain Metastases Segmentation Using nnU-Net with Post-Processing for BraTS 2026</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Haobin Liu <a class="ltx_ref ltx_orcid" href="https://orcid.org/0009-0008-2174-8217" title="ORCID 0009-0008-2174-8217"></a>
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>College of Software, Jilin University,
+Changchun, China
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Xin Wang<sup class="ltx_sup" id="id1">(🖂)</sup>
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>College of Software, Jilin University,
+Changchun, China
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Key Laboratory of Symbolic Computation and Knowledge Engineering of Ministry of
+Education, Jilin University, Changchun, China 
+</span>
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">E-mail </span><a href="mailto:author@example.org">author@example.org</a>
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Brain metastases exhibit high inter-lesion variability in size, enhancement
+pattern, and post-treatment appearance, making volumetric segmentation of both
+pre- and post-treatment cases the central challenge of the BraTS 2026 Task 1
+(Brain Metastases). We build a pragmatic pipeline on a 5-fold nnU-Net ResEnc-L
+ensemble, in which each fold is trained independently for 1,000 epochs with the
+standard Dice + cross-entropy loss on 1,296 four-modality training cases. This
+ensemble is followed by a rule-based post-processing cascade tuned for
+the lesion-wise Dice similarity coefficient (LW-DSC), a detection-oriented metric
+that behaves very differently from the traditional global Dice. The final
+pipeline reaches an LW-DSC of <span class="ltx_text ltx_font_bold" id="abstract1.1.1">0.733 / 0.751 / 0.713 / 0.549</span> on the
+enhancing tumour (ET), tumour core (TC), whole tumour (WT), and resection cavity
+(RC) sub-regions on the official validation leaderboard. Rather than trusting these
+leaderboard gains, we audit every post-processing stage with a five-fold
+out-of-fold (OOF) analysis with no model-training leakage over all <math alttext="1{,}296" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mn>1,296</mn><annotation encoding="application/x-tex">1{,}296</annotation></semantics></math> training cases, scored
+with the official BraTS evaluation code (<span class="ltx_text ltx_font_typewriter" id="abstract1.1.2">BraTS_evaluation</span>): it confirms
+two stages as robust, per-fold-consistent improvements while the third improves
+only the leaderboard and does not reproduce out-of-fold. We further
+provide a mechanistic analysis of the LW-DSC metric that explains why
+recall-recovering post-processing carries low risk whereas component deletion
+does not, and we report thirteen negative results spanning loss engineering,
+alternative backbones, and inference-time settings, several of which run counter
+to widely held intuitions.
+Source code is released under Apache-2.0 at
+<a class="ltx_ref ltx_url" href="https://github.com/hornbeamliu/brats2026-met" title="">https://github.com/hornbeamliu/brats2026-met</a>.</p>
+</div>
+<div class="ltx_keywords">
+<h6 class="ltx_title ltx_title_keywords">Keywords: </h6>Brain metastases segmentation nnU-Net Post-processing Lesion-wise Dice BraTS 2026
+</div>
+</article></body></html>

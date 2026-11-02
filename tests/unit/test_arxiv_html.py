@@ -1052,6 +1052,15 @@ def test_thanks_sentences_keep_abbreviations_in_affiliations() -> None:
     assert parse_front_matter(html).affiliations == ("Dept. of CS, MIT, USA", "Stanford University")
 
 
+def test_thanks_sentences_end_before_the_next_sentence() -> None:
+    html = _thanks(
+        "A. Doe is with the University of Madrid, Spain. This work was supported by the X Foundation. "
+        "B. Roe is with the University of Quito. Part of this work was done at Google."
+    )
+
+    assert parse_front_matter(html).affiliations == ("University of Madrid, Spain", "University of Quito")
+
+
 def test_thanks_sentences_with_two_affiliations() -> None:
     html = _thanks("A. Doe is with the University of Madrid, and is also with the University of Quito.")
 
@@ -2199,6 +2208,35 @@ def test_pages_never_give(html: str, authors: tuple[str, ...], wrong: str, expec
 def test_numbered_lines_place_names_that_start_with_a_number() -> None:
     front = parse_front_matter(_NUMBERED_BLOCK, authors=("Ada Lovelace", "Bob Smith"))
     assert front.author_affiliations == ((0,), (1,))
+
+
+@pytest.mark.parametrize(
+    ("arxiv_id", "authors", "expected"),
+    [
+        # A street number and a postcode (AFF-37).
+        (
+            "1708.07747",
+            ("Han Xiao", "Kashif Rasul", "Roland Vollgraf"),
+            ("Zalando Research, Mühlenstraße 25, 10243 Berlin",),
+        ),
+        # A Canadian postcode, written letter, digit, letter.
+        (
+            "1411.1784",
+            ("Mehdi Mirza", "Simon Osindero"),
+            (
+                (
+                    "Département d\u2019informatique et de recherche opérationnelle, "
+                    "Université de Montréal, Montréal, QC H3C 3J7"
+                ),
+                "Flickr / Yahoo Inc, San Francisco, CA 94103",
+            ),
+        ),
+    ],
+)
+def test_an_address_on_a_line_of_its_own_completes_its_affiliation(
+    paper_html: PaperHtml, arxiv_id: str, authors: tuple[str, ...], expected: tuple[str, ...]
+) -> None:
+    assert parse_front_matter(paper_html(arxiv_id), authors=authors).affiliations == expected
 
 
 def test_a_numbered_line_ends_at_a_line_led_by_a_number() -> None:

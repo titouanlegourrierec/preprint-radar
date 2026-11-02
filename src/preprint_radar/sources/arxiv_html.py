@@ -243,7 +243,9 @@ _IS_WITH_RE = re.compile(
 )
 # A full stop that ends a sentence, not an initial's: "Spain. L. Zhinin is with" ends at "Spain.".
 _FULL_STOP_RE = re.compile(r"(?<!\b[A-Z])\.\s+")
-# The same people's next affiliation in one sentence: "is with X and is also with Y".
+# The same people's next affiliation in one sentence: "is with X and is also with Y". The
+# cleaning drops such a connector too (`_LIST_END_RE`, `_CUT_CONNECTOR_RE`), which no test
+# can tell from this rule (EXT-2): it keeps the sentence's text clean for `_names_a_place`.
 _TRAILING_CONNECTOR_RE = re.compile(r"[\s,]+(?:and|&)\s*$", re.IGNORECASE)
 # Sentences that follow an affiliation in acknowledgment notes.
 _NEXT_SENTENCE_STARTS = (

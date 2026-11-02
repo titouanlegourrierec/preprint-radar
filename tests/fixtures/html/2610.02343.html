@@ -1,0 +1,50 @@
+<html><body><article class="ltx_document" data-front-matter="2">
+<h1 class="ltx_title ltx_title_document">SCOPE-4D: Endoscopic 4D Geometry Foundation Models</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+<span class="ltx_inline-block ltx_parbox ltx_align_top" id="id1" style="width:385.5pt;">
+<span class="ltx_p" id="id1.1"><span class="ltx_text ltx_font_bold" id="id1.1.1">Chaoyi Zhou,
+Zhongpai Gao,
+Anwesa Choudhuri,
+Meng Zheng,
+<br class="ltx_break"/>Benjamin Planche,
+Run Wang,
+Terrence Chen,
+Siyu Huang<span class="ltx_note ltx_role_footnotemark" id="footnotex1"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup><span class="ltx_note_type">footnotemark: </span>
+<span class="ltx_tag ltx_tag_note"><span class="ltx_text ltx_font_medium" id="footnotex1.1">2</span></span>
+</span></span></span>,
+Ziyan Wu
+<br class="ltx_break"/></span>United Imaging Intelligence, Boston, MA, USA</span>
+<span class="ltx_p" id="id1.2">Clemson University, Clemson, SC, USA<span class="ltx_text" id="id1.2.1"></span></span>
+</span>
+</span><span class="ltx_note ltx_note_frontmatter ltx_thanks_note ltx_role_thanks" id="id2"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span><span class="ltx_text ltx_font_bold" id="id2.1">This work was done during Chaoyi Zhou’s internship at United Imaging Intelligence, Boston, MA, USA.</span></span></span></span><span class="ltx_note ltx_note_frontmatter ltx_thanks_correspondence ltx_role_thanks" id="id3"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span><span class="ltx_text ltx_font_bold" id="id3.1">Corresponding authors.</span></span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Geometric understanding supports endoscopic navigation and robotic assistance,
+but learning reliable endoscopic geometry faces two challenges: scarce geometric
+annotations and ambiguity between camera motion and tissue deformation.
+We present SCOPE-4D, an endoscopic 4D geometry foundation model that jointly
+predicts camera parameters, dense geometry, and 3D tissue trajectories from
+monocular RGB video in a single forward pass. Our curation and annotation
+pipeline constructs SCOPE-5K, a collection of approximately 5,000 clips
+spanning real and synthetic gastrointestinal endoscopy and laparoscopy.
+The collection provides rich geometric supervision and includes newly collected
+phantom and real-colonoscopy evaluation sets. Geometric supervised fine-tuning
+on SCOPE-5K learns endoscopic priors that improve camera and depth estimation.
+Common–Residual Motion (<span class="ltx_text ltx_font_smallcaps" id="abstract1.1.1">CRM</span>) further constrains local deformation relative to
+common tissue movement. Together with geometric supervision, CRM and trajectory
+supervision further improve camera and depth estimation over geometric fine-tuning
+alone while enabling dense 3D tissue tracking.
+Evaluations on public and newly collected benchmarks demonstrate strong
+in-domain and out-of-domain geometry, superior 3D tracking, and more stable
+long-sequence colon reconstruction. A blinded user study further
+supports the perceived reconstruction quality on real clinical video. Together, these results demonstrate
+the value of large-scale endoscopic supervision and motion constraints for
+joint geometry estimation and tissue tracking.
+<span class="ltx_text ltx_font_bold" id="abstract1.1.2">Project page:</span> <a class="ltx_ref ltx_url ltx_font_typewriter" href="https://chaoyizh.github.io/SCOPE-4D-page/" title="">https://chaoyizh.github.io/SCOPE-4D-page/</a>.</p>
+</div>
+<div class="ltx_para" id="p1">
+
+</div>
+
+</article></body></html>

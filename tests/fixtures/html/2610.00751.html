@@ -1,0 +1,32 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">Signal-noise factorization isolates nuisance variation into removable subspaces</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Sakin Kirti
+</span><span class="ltx_note ltx_note_frontmatter ltx_thanks_note ltx_role_thanks" id="id1"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>sakinkirti.github.io</span></span></span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Bioinformatics IDP, Jules Stein Eye Institute
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>University of California, Los Angeles
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Los Angeles, CA 90095, USA
+</span>
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:"><span class="ltx_text ltx_font_typewriter" id="id2">author@example.org</span></a>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Joel Zylberberg
+</span><span class="ltx_note ltx_note_frontmatter ltx_thanks_note ltx_role_thanks" id="id3"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>jzlab.org</span></span></span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Jules Stein Eye Institute
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>University of California, Los Angeles
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Los Angeles, CA, 90095, USA
+</span>
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:"><span class="ltx_text ltx_font_typewriter" id="id4">author@example.org</span></a>
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Recent theoretical work identified fundamental properties of representational geometry that shape inference ability of deep neural networks. These include signal-noise factorization (SNF), the ability to segregate signal from noise, and signal-signal factorization (SSF), the ability to segregate task-specific and task-irrelevant signals. Here, we built new regularizers that explicitly reinforce these two properties during training. We compared networks trained with these regularizers to <math alttext="L_{2}" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><msub><mi>L</mi><mn>2</mn></msub><annotation encoding="application/x-tex">L_{2}</annotation></semantics></math>-regularized baseline networks on the CIFAR-100 image classification task to understand how our new regularizers shape representation geometry and impact performance on a well-known computer vision baseline. Enhancing SNF via regularization improved model performance but enhancing SSF did not. Motivated by biomedical diagnostics applications, we next investigated how our new regularizers affected performance on the BloodMNIST dataset treated with MedMNIST-C corruptions at five severity levels, and found even larger performance gains using the SNF regularizer. To understand the mechanism by which signal-noise factorization produces improved performance, we analyzed the nuisance subspaces across regularization regimes, finding that the SNF-regularized models represent noise in distinct subspaces, separate from class-relevant signal. Because this geometry is explicit, the dominant corruption-induced directions can be estimated on held-out data and projected out of the representations. This manipulation led to a substantial gain in categorization accuracy. These results demonstrate that regularizers that enforce signal-noise factorization can produce substantial improvements on computer vision tasks that contain out-of-distribution image distortions at inference time. They also highlight how explicitly shaping representations affects model performance: isolating nuisance variables from categorical ones is more important than maintaining factorized representations of categorical variables.</p>
+</div>
+<div class="ltx_para" id="p1">
+
+</div>
+</article></body></html>

@@ -1,0 +1,58 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">EdgeVLN: Runtime-Aware Deployment Ready Quantized Vision Language Navigation Model</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Rithvik Jonna
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Electrical and Computer Engineering
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Man Namgung
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Laboratory for Computational Sensing and RoboticsJohns Hopkins University<sup class="ltx_sup" id="id1">*</sup>Equal contribution
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Aakash Gurram
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Laboratory for Computational Sensing and RoboticsJohns Hopkins University<sup class="ltx_sup" id="id2">*</sup>Equal contribution
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Tinoosh Mohsenin
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Electrical and Computer Engineering
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Laboratory for Computational Sensing and RoboticsJohns Hopkins University<sup class="ltx_sup" id="id3">*</sup>Equal contribution
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Vision-language navigation (VLN) models perform well but target compute-rich
+platforms, limiting deployment on memory- and power-constrained robotic edge
+devices. Compression alone does not establish whether a VLN model fits an edge
+platform’s memory, latency, and energy budgets while preserving navigation
+behavior. We introduce EdgeVLN, a runtime-aware, deployment-ready quantized
+VLN model that closes this gap. EdgeVLN combines a quantized StreamVLN model
+with Latent Trajectory Termination Extractor (LATTE), a lightweight causal
+transformer that improves real-time stopping by predicting a Stop Action
+verifier rank. Both execute through our <span class="ltx_text ltx_font_typewriter" id="abstract1.1.1">llama.cpp</span> VLN driver, which
+reconstructs streaming context and prunes memory tokens on-board. We
+characterize a pretrained StreamVLN backbone across weight quantization from
+<math alttext="8" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mn>8</mn><annotation encoding="application/x-tex">8</annotation></semantics></math> to <math alttext="2" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math> bits and multiple inference runtimes to identify a feasible
+operating point. LATTE reuses backbone hidden states within the budget freed by
+quantization, requiring neither a second vision encoder nor an additional
+backbone forward pass. We evaluate six backbone precisions and seven candidate
+stop heads on BF16 and IQ4_NL across all <math alttext="1{,}839" class="ltx_Math" display="inline" id="abstract1.m3" intent=":literal"><semantics><mn>1,839</mn><annotation encoding="application/x-tex">1{,}839</annotation></semantics></math> R2R VLN-CE val-unseen
+episodes, where agents follow language instructions through photorealistic
+indoor scans. We measure success rate (SR) in simulation and latency, energy,
+and resident memory on an NVIDIA Jetson Orin NX 16 GB. LATTE achieves our
+highest SR, <math alttext="58.02\%" class="ltx_Math" display="inline" id="abstract1.m4" intent=":literal"><semantics><mrow><mn>58.02</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">58.02\%</annotation></semantics></math> on the deployed four-bit model, exceeding the BF16
+baseline with only <math alttext="0.013" class="ltx_Math" display="inline" id="abstract1.m5" intent=":literal"><semantics><mn>0.013</mn><annotation encoding="application/x-tex">0.013</annotation></semantics></math> s additional latency per navigation step.
+Four-bit formats achieve nearly identical SR, but step energy varies
+<math alttext="36.8\times" class="ltx_math_unparsed" display="inline" id="abstract1.m6" intent=":literal"><semantics><mrow><mn>36.8</mn><mo lspace="0.222em">×</mo></mrow><annotation encoding="application/x-tex">36.8\times</annotation></semantics></math> by execution path. Only IQ4_NL under our VLN driver fits the
+board: <math alttext="11.35" class="ltx_Math" display="inline" id="abstract1.m7" intent=":literal"><semantics><mn>11.35</mn><annotation encoding="application/x-tex">11.35</annotation></semantics></math> GB resident, <math alttext="20.8\times" class="ltx_math_unparsed" display="inline" id="abstract1.m8" intent=":literal"><semantics><mrow><mn>20.8</mn><mo lspace="0.222em">×</mo></mrow><annotation encoding="application/x-tex">20.8\times</annotation></semantics></math> faster, and <math alttext="13.3\times" class="ltx_math_unparsed" display="inline" id="abstract1.m9" intent=":literal"><semantics><mrow><mn>13.3</mn><mo lspace="0.222em">×</mo></mrow><annotation encoding="application/x-tex">13.3\times</annotation></semantics></math> less energy
+than storage-streamed BF16. INT2 collapses. Runtime selection, memory-token
+pruning, and quantization are essential for efficient edge deployment.</p>
+</div>
+<div class="ltx_keywords">
+<h6 class="ltx_title ltx_title_keywords">Index Terms: </h6>vision-language navigation, edge AI, hardware–software co-design, quantization, energy efficiency, Jetson Orin NX, post-training quantization, closed-loop evaluation.
+
+</div>
+</article></body></html>

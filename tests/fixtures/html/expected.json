@@ -4348,5 +4348,1207 @@
       ]
     ],
     "abstract": "We present B2TFPose, a training-free zero-shot method for 6DoF pose estimation of unseen objects from RGB images. Using a single frozen DINOv3 vision transformer as its only pretrained component within the pose estimation pipeline, B2TFPose extracts dense patch-level features that generalize across the synthetic-to-real domain gap without any task-specific fine-tuning, revisiting the classical local feature matching paradigm through the lens of large-scale self-supervised foundation models. Three contributions advance the training-free state of the art. A geodesic non-maximum suppression strategy retrieves a viewpoint-diverse template set for coarse-to-fine correspondence matching. Render-guided Re-Correspondence (RRC) synthesizes object-specific views at the estimated pose and re-establishes dense 2D-3D correspondences to sharpen the initial estimate without additional learned parameters. A multi-mask hypothesis selection strategy jointly scores competing segmentation candidates to resolve segmentation ambiguity. On the seven core datasets of the BOP Benchmark, B2TFPose achieves 40.7 mean AR without refinement and 56.4 with refinement, establishing state-of-the-art performance among training-free RGB methods and outperforming trained counterparts including GigaPose and GenFlow, at competitive inference speed."
+  },
+  "1312.4400": {
+    "authors": [
+      "Min Lin",
+      "Qiang Chen",
+      "Shuicheng Yan"
+    ],
+    "affiliations": [
+      "Graduate School for Integrative Sciences and Engineering",
+      "Department of Electronic & Computer Engineering, National University of Singapore, Singapore"
+    ],
+    "placed": [
+      [
+        "Min Lin",
+        [
+          "Graduate School for Integrative Sciences and Engineering",
+          "Department of Electronic & Computer Engineering, National University of Singapore, Singapore"
+        ]
+      ],
+      [
+        "Qiang Chen",
+        [
+          "Department of Electronic & Computer Engineering, National University of Singapore, Singapore"
+        ]
+      ],
+      [
+        "Shuicheng Yan",
+        [
+          "Department of Electronic & Computer Engineering, National University of Singapore, Singapore"
+        ]
+      ]
+    ],
+    "abstract": "We propose a novel deep network structure called “Network In Network”(NIN) to enhance model discriminability for local patches within the receptive field. The conventional convolutional layer uses linear filters followed by a nonlinear activation function to scan the input. Instead, we build micro neural networks with more complex structures to abstract the data within the receptive field. We instantiate the micro neural network with a multilayer perceptron, which is a potent function approximator. The feature maps are obtained by sliding the micro networks over the input in a similar manner as CNN; they are then fed into the next layer. Deep NIN can be implemented by stacking mutiple of the above described structure. With enhanced local modeling via the micro network, we are able to utilize global average pooling over feature maps in the classification layer, which is easier to interpret and less prone to overfitting than traditional fully connected layers. We demonstrated the state-of-the-art classification performances with NIN on CIFAR-10 and CIFAR-100, and reasonable performances on SVHN and MNIST datasets."
+  },
+  "1411.1784": {
+    "authors": [
+      "Mehdi Mirza",
+      "Simon Osindero"
+    ],
+    "affiliations": [
+      "Département d’informatique et de recherche opérationnelle, Université de Montréal, Montréal, QC H3C 3J7",
+      "Flickr / Yahoo Inc, San Francisco, CA 94103"
+    ],
+    "placed": [
+      [
+        "Mehdi Mirza",
+        [
+          "Département d’informatique et de recherche opérationnelle, Université de Montréal, Montréal, QC H3C 3J7"
+        ]
+      ],
+      [
+        "Simon Osindero",
+        [
+          "Flickr / Yahoo Inc, San Francisco, CA 94103"
+        ]
+      ]
+    ],
+    "abstract": "Generative Adversarial Nets [8] were recently introduced as a novel way to train generative models. In this work we introduce the conditional version of generative adversarial nets, which can be constructed by simply feeding the data, ${y}$, we wish to condition on to both the generator and discriminator. We show that this model can generate MNIST digits conditioned on class labels. We also illustrate how this model could be used to learn a multi-modal model, and provide preliminary examples of an application to image tagging in which we demonstrate how this approach can generate descriptive tags which are not part of training labels."
+  },
+  "1708.07747": {
+    "authors": [
+      "Han Xiao",
+      "Kashif Rasul",
+      "Roland Vollgraf"
+    ],
+    "affiliations": [
+      "Zalando Research, Mühlenstraße 25, 10243 Berlin"
+    ],
+    "placed": [
+      [
+        "Han Xiao",
+        [
+          "Zalando Research, Mühlenstraße 25, 10243 Berlin"
+        ]
+      ],
+      [
+        "Kashif Rasul",
+        [
+          "Zalando Research, Mühlenstraße 25, 10243 Berlin"
+        ]
+      ],
+      [
+        "Roland Vollgraf",
+        [
+          "Zalando Research, Mühlenstraße 25, 10243 Berlin"
+        ]
+      ]
+    ],
+    "abstract": "We present Fashion-MNIST, a new dataset comprising of 28×28 grayscale images of 70,000 fashion products from 10 categories, with 7,000 images per category. The training set has 60,000 images and the test set has 10,000 images. Fashion-MNIST is intended to serve as a direct drop-in replacement for the original MNIST dataset for benchmarking machine learning algorithms, as it shares the same image size, data format and the structure of training and testing splits. The dataset is freely available at https://github.com/zalandoresearch/fashion-mnist."
+  },
+  "2105.15203": {
+    "authors": [
+      "Enze Xie",
+      "Wenhai Wang",
+      "Zhiding Yu",
+      "Anima Anandkumar",
+      "Jose M. Alvarez",
+      "Ping Luo"
+    ],
+    "affiliations": [
+      "The University of Hong Kong",
+      "Nanjing University",
+      "NVIDIA",
+      "Caltech"
+    ],
+    "placed": null,
+    "abstract": "We present SegFormer, a simple, efficient yet powerful semantic segmentation framework which unifies Transformers with lightweight multilayer perceptron (MLP) decoders. SegFormer has two appealing features: 1) SegFormer comprises a novel hierarchically structured Transformer encoder which outputs multiscale features. It does not need positional encoding, thereby avoiding the interpolation of positional codes which leads to decreased performance when the testing resolution differs from training. 2) SegFormer avoids complex decoders. The proposed MLP decoder aggregates information from different layers, and thus combining both local attention and global attention to render powerful representations. We show that this simple and lightweight design is the key to efficient segmentation on Transformers. We scale our approach up to obtain a series of models from SegFormer-B0 to SegFormer-B5, reaching significantly better performance and efficiency than previous counterparts. For example, SegFormer-B4 achieves 50.3% mIoU on ADE20K with 64M parameters, being 5× smaller and 2.2% better than the previous best method. Our best model, SegFormer-B5, achieves 84.0% mIoU on Cityscapes validation set and shows excellent zero-shot robustness on Cityscapes-C. Code will be released at: github.com/NVlabs/SegFormer."
+  },
+  "2312.17663": {
+    "authors": [
+      "Hao Zhang",
+      "Shuaijie Zhang"
+    ],
+    "affiliations": [],
+    "placed": null,
+    "abstract": "This document describes the most common article elements and how to use the IEEEtran class with LaTeX to produce files that are suitable for submission to the Institute of Electrical and Electronics Engineers (IEEE). IEEEtran can produce conference, journal and technical note (correspondence) papers with a suitable choice of class options."
+  },
+  "2608.30657": {
+    "authors": [
+      "Lei Yang",
+      "Xiaokai Bai",
+      "Boqi Li",
+      "Chunmian Lin",
+      "Li Wang",
+      "Ziying Song",
+      "Jiahuan Zhang",
+      "Enhui Ma",
+      "Haibao Yu",
+      "Jiaqi Ma",
+      "Kaicheng Yu"
+    ],
+    "affiliations": [
+      "School of Mechanical and Aerospace Engineering, Nanyang Technological University, Singapore",
+      "College of Information Science and Electronic Engineering, Zhejiang University, Hangzhou 310027, China",
+      "School of Transportation Science and Engineering, Beihang University, Beijing, China",
+      "School of Mechanical Engineering, Beijing Institute of Technology, Beijing, China",
+      "School of Artificial Intelligence, Yanshan University, China",
+      "Westlake University, Hangzhou, China",
+      "University of Hong Kong, Hong Kong, China",
+      "University of California, Los Angeles, CA, USA"
+    ],
+    "placed": [
+      [
+        "Lei Yang",
+        [
+          "School of Mechanical and Aerospace Engineering, Nanyang Technological University, Singapore"
+        ]
+      ],
+      [
+        "Xiaokai Bai",
+        [
+          "College of Information Science and Electronic Engineering, Zhejiang University, Hangzhou 310027, China"
+        ]
+      ],
+      [
+        "Boqi Li",
+        [
+          "School of Transportation Science and Engineering, Beihang University, Beijing, China"
+        ]
+      ],
+      [
+        "Chunmian Lin",
+        [
+          "School of Transportation Science and Engineering, Beihang University, Beijing, China"
+        ]
+      ],
+      [
+        "Li Wang",
+        [
+          "School of Mechanical Engineering, Beijing Institute of Technology, Beijing, China"
+        ]
+      ],
+      [
+        "Ziying Song",
+        [
+          "School of Artificial Intelligence, Yanshan University, China"
+        ]
+      ],
+      [
+        "Jiahuan Zhang",
+        [
+          "Westlake University, Hangzhou, China"
+        ]
+      ],
+      [
+        "Enhui Ma",
+        [
+          "Westlake University, Hangzhou, China"
+        ]
+      ],
+      [
+        "Haibao Yu",
+        [
+          "University of Hong Kong, Hong Kong, China"
+        ]
+      ],
+      [
+        "Jiaqi Ma",
+        [
+          "University of California, Los Angeles, CA, USA"
+        ]
+      ],
+      [
+        "Kaicheng Yu",
+        [
+          "Westlake University, Hangzhou, China"
+        ]
+      ]
+    ],
+    "abstract": "Fixed-viewpoint infrastructure sensors repeatedly observe the same traffic space, making roadside 3D occupancy structurally different from ego-vehicle perception: a near-persistent static scaffold is overlaid with sparse, short-lived dynamic events. Existing occupancy benchmarks and methods, however, are built around moving ego vehicles and neither measure nor exploit this structure, instead treating occupancy as flat one-shot voxel classification. We address this gap from both data and model perspectives. We build InfraOcc, to our knowledge, the first real-world infrastructure-side semantic occupancy benchmark, with dense voxel annotations for 290 multi-modal sequences in a fixed roadside frame, a static-dynamic decoupled annotation pipeline, unified camera-only, LiDAR-only, and multi-modal evaluation, and diagnostics for static and dynamic occupancy. InfraOcc shows that static infrastructure fills 97.3% of occupied voxels and persists across frames, whereas dynamic participants have a median occupied-frame ratio of only 1.8% per location, revealing a structural static-dynamic asymmetry beyond semantic long-tailedness. We further propose ProSD-Occ, which reformulates occupancy as progressive static-to-dynamic evidence reasoning: it explains persistent layout, exposes residual dynamic evidence under static-confidence guidance, and recomposes static, dynamic, and free-space evidence into a unified field. ProSD-Occ ranks first in overall, dynamic, static, and geometric occupancy on every track, e.g., a 23.5% relative camera-only dynamic-mIoU gain over the strongest baseline and 65.87 multi-modal overall mIoU, establishing fixed-viewpoint roadside occupancy as a distinct problem with its own reasoning paradigm. The benchmark and code will be publicly available at https://github.com/yanglei18/InfraOcc."
+  },
+  "2609.04958": {
+    "authors": [
+      "Zijie Zhu",
+      "Weiren Cai",
+      "Yizhou Wang",
+      "Zhenjie Yang",
+      "Yide Liu",
+      "Jiahao Chen",
+      "Guanqi He"
+    ],
+    "affiliations": [
+      "ShanghaiTech University",
+      "Wuji Technology",
+      "The University of Hong Kong",
+      "Zhejiang University",
+      "Tsinghua University"
+    ],
+    "placed": [
+      [
+        "Zijie Zhu",
+        [
+          "ShanghaiTech University",
+          "Wuji Technology",
+          "The University of Hong Kong"
+        ]
+      ],
+      [
+        "Weiren Cai",
+        [
+          "Wuji Technology"
+        ]
+      ],
+      [
+        "Yizhou Wang",
+        [
+          "ShanghaiTech University",
+          "Wuji Technology"
+        ]
+      ],
+      [
+        "Zhenjie Yang",
+        [
+          "The University of Hong Kong"
+        ]
+      ],
+      [
+        "Yide Liu",
+        [
+          "Wuji Technology",
+          "Zhejiang University"
+        ]
+      ],
+      [
+        "Jiahao Chen",
+        [
+          "Wuji Technology"
+        ]
+      ],
+      [
+        "Guanqi He",
+        [
+          "Tsinghua University",
+          "Wuji Technology"
+        ]
+      ]
+    ],
+    "abstract": "Recovering camera and hand motion in world coordinates from egocentric video is a key capability for activity understanding, robot learning, and augmented reality. Existing systems typically decompose this problem into separate stages for camera motion, depth estimation, hand reconstruction, and trajectory refinement, resulting in substantial computational overhead and preventing the joint modeling of camera and hand motion. We introduce MINT (Minting IN-the-Wild Trajectories), a foundation model for world-space hand motion reconstruction from ego-centric RGB video. From a single shared spatiotemporal video representation, MINT jointly predicts the camera trajectory, field of view (FoV), camera-frame hand states, and per-frame hand observability, and then produces world-space hand motion via explicit coordinate transformations. Training such a model at scale is challenging, since paired world-space camera and hand annotations are scarce. We therefore develop an open-source labeling EgoPipeline that converts large collections of public egocentric videos into structured camera-and-hand trajectory supervision. MINT is first pretrained on these large-scale pseudo-labels and then fine-tuned on a small set of high-quality camera-and-hand annotations. Across public benchmarks MINT approaches state-of-the-art accuracy without seeing either benchmark in training, reaching 0.945 frame accuracy, 13.646 mm PA-MPJPE-p and 55.058 px EPE-p for camera-frame bimanual reconstruction on HOT3D, 4.690 mm RPE-T and 0.284° RPE-R for camera trajectory, and a 3.67× end-to-end speedup over the labeling pipeline that supervises it. We release the model, training and inference code, labeling pipeline, and a curated 1,021-hour egocentric trajectory dataset."
+  },
+  "2609.06629": {
+    "authors": [
+      "Nicolas Schuler",
+      "Janik Kurtz",
+      "Lea Dewald",
+      "Marcel Sauber",
+      "Félicia Teferle",
+      "Jürgen Graf"
+    ],
+    "affiliations": [
+      "Department of Computer Science",
+      "Department of Engineering, Trier University of Applied Sciences",
+      "University of Luxembourg",
+      "Trier, Germany",
+      "Kirchberg, Luxembourg"
+    ],
+    "placed": [
+      [
+        "Nicolas Schuler",
+        [
+          "Department of Computer Science",
+          "Department of Engineering, Trier University of Applied Sciences",
+          "University of Luxembourg",
+          "Trier, Germany",
+          "Kirchberg, Luxembourg"
+        ]
+      ],
+      [
+        "Janik Kurtz",
+        [
+          "Department of Computer Science"
+        ]
+      ],
+      [
+        "Lea Dewald",
+        [
+          "Department of Computer Science"
+        ]
+      ],
+      [
+        "Marcel Sauber",
+        [
+          "Department of Computer Science"
+        ]
+      ],
+      [
+        "Félicia Teferle",
+        [
+          "Department of Engineering, Trier University of Applied Sciences",
+          "University of Luxembourg",
+          "Trier, Germany",
+          "Kirchberg, Luxembourg"
+        ]
+      ],
+      [
+        "Jürgen Graf",
+        [
+          "Department of Computer Science"
+        ]
+      ]
+    ],
+    "abstract": "Recent advancements in deep learning allow robotic agents to interact with dynamic and unstructured environments. Of special interest is the integration of physico-geospatial world knowledge into such systems, either by using physics-aware machine learning models, knowledge graphs to model relationships or spatio-temporal and logical reasoning. In the present work, we introduce an approach to augment the output of pre-trained, unmodified VLMs used for scene interpretation by integrating semantic descriptions, OpenStreetMap building data and street information with positional, temporal and metric information obtained from our sensory systems, fusing this information using LLMs. We apply this concept to an outdoor recording within a university campus, achieving an F1-Score of 0.83 in the task of grounding buildings and 0.64 for path surface grounding on our pilot evaluation set. The results demonstrate the conceptual capability of the proposed solution to deliver physico-geospatial grounded natural language descriptions. Code and results are available at https://datahub.rz.rptu.de/hstr-csrl-public/publications/physico-geospatial-grounded-scene-interpretation"
+  },
+  "2609.11477": {
+    "authors": [
+      "Haobin Liu",
+      "Xin Wang"
+    ],
+    "affiliations": [
+      "College of Software, Jilin University, Changchun, China",
+      "Key Laboratory of Symbolic Computation and Knowledge Engineering of Ministry of Education, Jilin University, Changchun, China"
+    ],
+    "placed": [
+      [
+        "Haobin Liu",
+        [
+          "College of Software, Jilin University, Changchun, China"
+        ]
+      ],
+      [
+        "Xin Wang",
+        [
+          "College of Software, Jilin University, Changchun, China",
+          "Key Laboratory of Symbolic Computation and Knowledge Engineering of Ministry of Education, Jilin University, Changchun, China"
+        ]
+      ]
+    ],
+    "abstract": "Brain metastases exhibit high inter-lesion variability in size, enhancement pattern, and post-treatment appearance, making volumetric segmentation of both pre- and post-treatment cases the central challenge of the BraTS 2026 Task 1 (Brain Metastases). We build a pragmatic pipeline on a 5-fold nnU-Net ResEnc-L ensemble, in which each fold is trained independently for 1,000 epochs with the standard Dice + cross-entropy loss on 1,296 four-modality training cases. This ensemble is followed by a rule-based post-processing cascade tuned for the lesion-wise Dice similarity coefficient (LW-DSC), a detection-oriented metric that behaves very differently from the traditional global Dice. The final pipeline reaches an LW-DSC of 0.733 / 0.751 / 0.713 / 0.549 on the enhancing tumour (ET), tumour core (TC), whole tumour (WT), and resection cavity (RC) sub-regions on the official validation leaderboard. Rather than trusting these leaderboard gains, we audit every post-processing stage with a five-fold out-of-fold (OOF) analysis with no model-training leakage over all $1{,}296$ training cases, scored with the official BraTS evaluation code (BraTS_evaluation): it confirms two stages as robust, per-fold-consistent improvements while the third improves only the leaderboard and does not reproduce out-of-fold. We further provide a mechanistic analysis of the LW-DSC metric that explains why recall-recovering post-processing carries low risk whereas component deletion does not, and we report thirteen negative results spanning loss engineering, alternative backbones, and inference-time settings, several of which run counter to widely held intuitions. Source code is released under Apache-2.0 at https://github.com/hornbeamliu/brats2026-met."
+  },
+  "2609.12374": {
+    "authors": [
+      "Shabnam Shabani",
+      "Ghazal Farhani"
+    ],
+    "affiliations": [
+      "Department of Computer Science, Western University, London, ON, Canada",
+      "National Research Council Canada, London, ON, Canada"
+    ],
+    "placed": [
+      [
+        "Shabnam Shabani",
+        [
+          "Department of Computer Science, Western University, London, ON, Canada"
+        ]
+      ],
+      [
+        "Ghazal Farhani",
+        [
+          "National Research Council Canada, London, ON, Canada"
+        ]
+      ]
+    ],
+    "abstract": "Dashboard-mounted gaze trackers often lose sight of the driver’s eyes during large head rotations, such as shoulder checks, mirror glances, and intersection scanning. These maneuvers are also among the moments when information about the driver’s visual attention is most useful. Offline gap-filling methods may reconstruct a missing interval using observations from both sides of the gap, but an online driver-monitoring system cannot rely on measurements that have not yet occurred. We therefore formulate causal gaze recovery: forecasting unavailable gaze at time t without access to target-tracker gaze at t or any later time. We introduce the Causal Context-Gated Forecaster (CCGF), which encodes a 60-frame pre-dropout history of gaze and head pose and combines it with DINOv3 scene features. A learned reliability gate controls the contribution of the history and scene representations as the dropout progresses. We evaluate two scene-availability conditions: Live, in which the scene representation continues to update during tracker loss, and Frozen, in which the final pre-dropout representation is used throughout the missing interval. We evaluate CCGF on $2{,}047$ eligible, naturally occurring GazeSense head_lost events drawn from 10.5 h of naturalistic driving by ten drivers. Across the complete recordings, head_lost accounts for 8.5% of GazeSense recording time. Synchronized gaze coordinates from a head-mounted Neon tracker provide supervision and evaluation targets but are never used as model inputs. Under leave-one-driver-out evaluation, CCGF achieves a mean per-driver median error of 175.7 px (10.5°) with Live scene updates, a 33% reduction relative to history-only causal forecasting. With Frozen scene input, the error increases to 210.8 px (12.9°), indicating that scene observations acquired during the dropout provide useful predictive information. We will release the dataset, evaluation protocol, and causal baselines."
+  },
+  "2609.15562": {
+    "authors": [
+      "Bo Zheng",
+      "Kangran Zhao",
+      "Xiaoyu Zhang",
+      "Weinan Guan",
+      "Zhiheng Li",
+      "Yize Chen",
+      "Haizhou Li",
+      "Qingshan Liu",
+      "Siwei Lyu",
+      "Baoyuan Wu"
+    ],
+    "affiliations": [
+      "School of Artificial Intelligence, Chinese University of Hong Kong, Shenzhen, Shenzhen 518172, China",
+      "Nanjing University of Posts and Telecommunications, Nanjing 210023, China",
+      "University at Buffalo, State University of New York, New York 14260, USA"
+    ],
+    "placed": [
+      [
+        "Bo Zheng",
+        [
+          "School of Artificial Intelligence, Chinese University of Hong Kong, Shenzhen, Shenzhen 518172, China"
+        ]
+      ],
+      [
+        "Kangran Zhao",
+        [
+          "School of Artificial Intelligence, Chinese University of Hong Kong, Shenzhen, Shenzhen 518172, China"
+        ]
+      ],
+      [
+        "Xiaoyu Zhang",
+        [
+          "School of Artificial Intelligence, Chinese University of Hong Kong, Shenzhen, Shenzhen 518172, China"
+        ]
+      ],
+      [
+        "Weinan Guan",
+        [
+          "School of Artificial Intelligence, Chinese University of Hong Kong, Shenzhen, Shenzhen 518172, China"
+        ]
+      ],
+      [
+        "Zhiheng Li",
+        [
+          "School of Artificial Intelligence, Chinese University of Hong Kong, Shenzhen, Shenzhen 518172, China"
+        ]
+      ],
+      [
+        "Yize Chen",
+        [
+          "School of Artificial Intelligence, Chinese University of Hong Kong, Shenzhen, Shenzhen 518172, China"
+        ]
+      ],
+      [
+        "Haizhou Li",
+        [
+          "School of Artificial Intelligence, Chinese University of Hong Kong, Shenzhen, Shenzhen 518172, China"
+        ]
+      ],
+      [
+        "Qingshan Liu",
+        [
+          "Nanjing University of Posts and Telecommunications, Nanjing 210023, China"
+        ]
+      ],
+      [
+        "Siwei Lyu",
+        [
+          "University at Buffalo, State University of New York, New York 14260, USA"
+        ]
+      ],
+      [
+        "Baoyuan Wu",
+        [
+          "School of Artificial Intelligence, Chinese University of Hong Kong, Shenzhen, Shenzhen 518172, China"
+        ]
+      ]
+    ],
+    "abstract": "As generative models continue to advance, AI-generated content (AIGC) is becoming increasingly realistic, weakening the artifact cues commonly exploited by existing detectors. Nevertheless, faithfully reproducing the physical behavior of real-world events remains challenging for current generators. We therefore explore detecting AIGC by assessing whether the depicted event satisfies measurable constraints derived from physical laws. We introduce PIVOT, a physics-grounded AIGC detector, instantiated here for audio-video clips, that estimates physical quantities from video and audio, selects physical laws relevant to each clip, and verifies their measurable constraints. Beyond a real/fake decision, PIVOT returns supporting evidence that records the verification outcome, relevant time window, and supporting quantities for each applicable law. Although instantiated and evaluated here on audio-video data, the framework can, in principle, extend to other AIGC modalities whenever the physical quantities required for verification can be estimated reliably. We also introduce PhysForensics-Bench, comprising paired real and generated audio-video clips from nine event-centric scene families and two recent audio-video generators. On PhysForensics-Bench, PIVOT achieves 70.30% accuracy and 64.29% F1 score on Real+Seedance, and 72.16% accuracy and 65.82% F1 on Real+VEO. In comparison, direct inspection with Gemini 3.1 Pro obtains 53.96% accuracy and 60.09% F1 on Real+Seedance, and 57.22% accuracy and 63.44% F1 on Real+Veo. These results demonstrate the practical promise of physical-consistency verification as a structured and inspectable source of evidence that complements artifact-based AIGC detection."
+  },
+  "2609.21449": {
+    "authors": [
+      "Xuancheng Zhang",
+      "Xuetao Liu",
+      "Qianying Tang",
+      "Jizhe Wang",
+      "Runsheng Wang",
+      "Zhijing Cheng",
+      "Bochen Lin",
+      "Haoran Wen",
+      "Ming Li",
+      "Kun Zhan",
+      "Yu Liu"
+    ],
+    "affiliations": [],
+    "placed": null,
+    "abstract": null
+  },
+  "2609.23796": {
+    "authors": [
+      "Yang-Tian Sun",
+      "Tianjia Liu",
+      "Zehuan Huang",
+      "Yi-Hua Huang",
+      "Xiaoyang Lyu",
+      "Ziyi Yang",
+      "Zi-Xin Zou",
+      "Yuan-Chen Guo",
+      "Yan-Pei Cao",
+      "Xiaojuan Qi"
+    ],
+    "affiliations": [
+      "The University of Hong Kong",
+      "VAST"
+    ],
+    "placed": null,
+    "abstract": "Single-image 3D object generation can now produce high-fidelity assets, yet accurately placing them into a coherent scene layout remains an open challenge. A central difficulty lies in how object layout is represented. Holistic methods absorb placement into a scene-level generation process, sacrificing object-level detail. Compositional methods preserve object fidelity by decoupling geometry from layout, but typically parameterize layout as sparse, unbounded pose variables that are difficult to learn and generalize poorly under scarce scene-level supervision. We present Mira-Scene, a compositional 3D scene reconstruction framework that replaces sparse pose regression with dense, bounded correspondence recovery. At its core is the Canonical Coordinate Map (CCM), a pixel-aligned field that maps each visible object pixel to a surface coordinate in the object’s bounded canonical space. When paired with a scene-space Point Cloud Map (PCM) from monocular geometry estimation, CCM induces dense canonical-to-scene correspondences from which object transformations are recovered through robust geometric alignment. Because CCM operates in bounded canonical space, it provides a stable prediction target that can be trained from scalable object-level 3D data without requiring scene-level layout annotations. Mira-Scene further introduces a multimodal diffusion transformer that jointly generates object geometry and CCMs, using modality-specific expert streams with shared attention and positional encoding to promote geometry-layout consistency. Experiments on indoor, outdoor, synthetic, and in-the-wild scenes show that Mira-Scene substantially outperforms strong baselines in layout accuracy, achieving relative gains of 39.8% in 3D-IoU and 16.5% in 2D-IoU over SAM3D, using limited open-source training data."
+  },
+  "2609.34021": {
+    "authors": [
+      "Rajat Modi",
+      "Priyank Pathak",
+      "Xin Liang",
+      "Yogesh Singh Rawat"
+    ],
+    "affiliations": [
+      "Institute of Artificial Intelligence",
+      "University of Central Florida, Orlando, FL 32816, USA"
+    ],
+    "placed": [
+      [
+        "Rajat Modi",
+        [
+          "Institute of Artificial Intelligence",
+          "University of Central Florida, Orlando, FL 32816, USA"
+        ]
+      ],
+      [
+        "Priyank Pathak",
+        [
+          "Institute of Artificial Intelligence",
+          "University of Central Florida, Orlando, FL 32816, USA"
+        ]
+      ],
+      [
+        "Xin Liang",
+        [
+          "Institute of Artificial Intelligence",
+          "University of Central Florida, Orlando, FL 32816, USA"
+        ]
+      ],
+      [
+        "Yogesh Singh Rawat",
+        [
+          "Institute of Artificial Intelligence",
+          "University of Central Florida, Orlando, FL 32816, USA"
+        ]
+      ]
+    ],
+    "abstract": "Test-Time Training (TTT) adapts models to incoming test samples (e.g. out-of-distribution, (OOD)) when conventional fine-tuning is infeasible. Existing TTT methods for Vision-Language Models (VLMs) create supervision from several augmented views, each requiring forward (and often backward) passes through the entire VLM, incurring substantial computational cost. We observe that one forward pass with all the intermediate layer outputs already yields far more signal than the final embedding from all augmentations. We introduce Layer Query Network (LQN), a lightweight approach that can adapt a frozen VLM (teacher) in a single forward pass of the VLM via a small model (student). LQN uses Position-Aware Distillation (PAD) to mimic the teacher VLM’s intermediate-layer spatial tokens by querying spatial coordinates of intermediate tokens. LQN additionally relies on Location Consistency Regularization (LCR), a self-supervision technique, replacing expensive $O(H{×}W)$ image augmentation with O(1) coordinate sampling. Integrating these, LQN i) Adapts and improves zero-shot CLIP ViT-B/16 by 9.8% Top-1 on OOD ImageNet, ii) Outperforms the previous best GS-Bias on fine-grained classification by 3.9% Top-1, iii) Faster convergence than TPS for CLIP ResNet-50 (47 mins vs 55 mins) iv) Generalizes adaptation to VLMs like SigLIP, EVA-CLIP, and CoCa, and lightweight students like MLP, ResNet, VGG, and v) Extends to panoptic, instance, and semantic segmentation."
+  },
+  "2609.34299": {
+    "authors": [
+      "Hongxu Ma",
+      "Guang Li",
+      "Shijie Wang",
+      "Dongzhan Zhou",
+      "Suorong Yang",
+      "Baoli Sun",
+      "Takahiro Ogawa",
+      "Miki Haseyama",
+      "Zhihui Wang"
+    ],
+    "affiliations": [
+      "Zhejiang University",
+      "Hokkaido University",
+      "The University of Queensland",
+      "Shanghai Artificial Intelligence Laboratory",
+      "National University of Singapore",
+      "Dalian University of Technology"
+    ],
+    "placed": [
+      [
+        "Hongxu Ma",
+        [
+          "Zhejiang University"
+        ]
+      ],
+      [
+        "Guang Li",
+        [
+          "Hokkaido University"
+        ]
+      ],
+      [
+        "Shijie Wang",
+        [
+          "The University of Queensland"
+        ]
+      ],
+      [
+        "Dongzhan Zhou",
+        [
+          "Shanghai Artificial Intelligence Laboratory"
+        ]
+      ],
+      [
+        "Suorong Yang",
+        [
+          "National University of Singapore"
+        ]
+      ],
+      [
+        "Baoli Sun",
+        [
+          "Dalian University of Technology"
+        ]
+      ],
+      [
+        "Takahiro Ogawa",
+        [
+          "Hokkaido University"
+        ]
+      ],
+      [
+        "Miki Haseyama",
+        [
+          "Hokkaido University"
+        ]
+      ],
+      [
+        "Zhihui Wang",
+        [
+          "Dalian University of Technology"
+        ]
+      ]
+    ],
+    "abstract": "Dataset distillation (DD) condenses a large original set into a small distilled set with high training utility. Decoupled statistical matching methods substantially reduce distillation time and memory overhead while achieving strong performance. However, they typically supervise all distilled data with running statistics estimated from the entire original set. These statistics mainly capture the average feature distribution while ignoring the difficulty differences among original data, making them insufficient for characterizing the difficulty structure of the original data. To address this issue, we propose Precise Statistical Matching (PSM) by difficulty. After pretraining, PSM uses the Global Precision Score (GPS) to evaluate image difficulty, sorts the original data according to the scores, and then partitions it into IPC (Images Per Class of distilled data) difficulty groups. During distillation, Statistics Updated Again (SUA) updates the teacher’s BN running statistics using original data from each group via forward passes, providing precise supervision with corresponding difficulty for distilled data at each $id_{IPC}$. Meanwhile, Initial Sample Screening (ISS) initializes distilled data with original images from the corresponding group, providing an effective starting point for precise matching. Experiments across multiple datasets and model architectures demonstrate the effectiveness of PSM, showing that it broadens the difficulty range of distilled samples and further improves the final performance. Code will be released."
+  },
+  "2609.35052": {
+    "authors": [
+      "Hao Wang",
+      "Tao Yu",
+      "Liuzhou Zhang",
+      "HeXin Wang",
+      "Haopeng Jin",
+      "Yuxuan Zhou",
+      "Xinming Wang",
+      "Hongzhu Yi",
+      "Xinye Li",
+      "Yuanlei Wang",
+      "Ping Nie",
+      "Yan Huang",
+      "Yuxuan Zhang",
+      "Pengfei Zhou",
+      "Yanyan Zou",
+      "Wei Yang"
+    ],
+    "affiliations": [
+      "USTC",
+      "CASIA",
+      "HKUST",
+      "Infrec",
+      "Tsinghua University",
+      "UCAS",
+      "The Chinese University of Hong Kong",
+      "Sun Yat-sen University",
+      "University of Waterloo",
+      "Jiangnan University",
+      "NUS",
+      "Fiveages",
+      "SUTD"
+    ],
+    "placed": [
+      [
+        "Hao Wang",
+        [
+          "USTC",
+          "Infrec"
+        ]
+      ],
+      [
+        "Tao Yu",
+        [
+          "CASIA"
+        ]
+      ],
+      [
+        "Liuzhou Zhang",
+        [
+          "HKUST"
+        ]
+      ],
+      [
+        "HeXin Wang",
+        [
+          "Infrec"
+        ]
+      ],
+      [
+        "Haopeng Jin",
+        [
+          "CASIA"
+        ]
+      ],
+      [
+        "Yuxuan Zhou",
+        [
+          "Tsinghua University"
+        ]
+      ],
+      [
+        "Xinming Wang",
+        [
+          "CASIA"
+        ]
+      ],
+      [
+        "Hongzhu Yi",
+        [
+          "UCAS"
+        ]
+      ],
+      [
+        "Xinye Li",
+        [
+          "The Chinese University of Hong Kong"
+        ]
+      ],
+      [
+        "Yuanlei Wang",
+        [
+          "Sun Yat-sen University"
+        ]
+      ],
+      [
+        "Ping Nie",
+        [
+          "University of Waterloo"
+        ]
+      ],
+      [
+        "Yan Huang",
+        [
+          "CASIA",
+          "Fiveages"
+        ]
+      ],
+      [
+        "Yuxuan Zhang",
+        [
+          "Jiangnan University"
+        ]
+      ],
+      [
+        "Pengfei Zhou",
+        [
+          "Infrec",
+          "NUS"
+        ]
+      ],
+      [
+        "Yanyan Zou",
+        [
+          "SUTD"
+        ]
+      ],
+      [
+        "Wei Yang",
+        [
+          "USTC"
+        ]
+      ]
+    ],
+    "abstract": "Video world models must preserve the visual state of the world over time, but existing evaluation protocols often rely on generated histories, video reference, or selected revisit viewpoints that can confound the assessment of a model’s true memory capability. To address this, we introduce OPIS, an input-grounded benchmark that strictly anchors the assessment to a fixed set of object instances from the initial observation for evaluating multi-object memory in video world models. The OPIS dataset comprises 500 cases across real-world, embodied-robotic, and game-world domains, providing dense object-level annotations for 12,672 rigid, articulated, and deformable instances. Our object-centric evaluator combines association and explicit visibility reasoning to hierarchically measure Object (O) Presence (P), Identity (I), and Structure (S), utilizing static or dynamic evaluation tracks based on object kinematics. Across eight image-to-video or camera-conditioned world models, our proposed OPIS scores range from 48.65 to 56.01. As the reference inventory grows from less than 20 to more than 40 objects, the Presence, Identity, and Structure scores show an overall decline, with the average Identity score falling from 40.22 to 23.11. The results demonstrate that preserving the particular object instances in the input is considerably harder than generating plausible visual elements."
+  },
+  "2610.00751": {
+    "authors": [
+      "Sakin Kirti",
+      "Joel Zylberberg"
+    ],
+    "affiliations": [
+      "Bioinformatics IDP, Jules Stein Eye Institute",
+      "University of California, Los Angeles, Los Angeles, CA 90095, USA",
+      "Jules Stein Eye Institute",
+      "University of California, Los Angeles, Los Angeles, CA, 90095, USA"
+    ],
+    "placed": [
+      [
+        "Sakin Kirti",
+        [
+          "Bioinformatics IDP, Jules Stein Eye Institute",
+          "University of California, Los Angeles, Los Angeles, CA 90095, USA"
+        ]
+      ],
+      [
+        "Joel Zylberberg",
+        [
+          "Jules Stein Eye Institute",
+          "University of California, Los Angeles, Los Angeles, CA, 90095, USA"
+        ]
+      ]
+    ],
+    "abstract": "Recent theoretical work identified fundamental properties of representational geometry that shape inference ability of deep neural networks. These include signal-noise factorization (SNF), the ability to segregate signal from noise, and signal-signal factorization (SSF), the ability to segregate task-specific and task-irrelevant signals. Here, we built new regularizers that explicitly reinforce these two properties during training. We compared networks trained with these regularizers to $L_{2}$-regularized baseline networks on the CIFAR-100 image classification task to understand how our new regularizers shape representation geometry and impact performance on a well-known computer vision baseline. Enhancing SNF via regularization improved model performance but enhancing SSF did not. Motivated by biomedical diagnostics applications, we next investigated how our new regularizers affected performance on the BloodMNIST dataset treated with MedMNIST-C corruptions at five severity levels, and found even larger performance gains using the SNF regularizer. To understand the mechanism by which signal-noise factorization produces improved performance, we analyzed the nuisance subspaces across regularization regimes, finding that the SNF-regularized models represent noise in distinct subspaces, separate from class-relevant signal. Because this geometry is explicit, the dominant corruption-induced directions can be estimated on held-out data and projected out of the representations. This manipulation led to a substantial gain in categorization accuracy. These results demonstrate that regularizers that enforce signal-noise factorization can produce substantial improvements on computer vision tasks that contain out-of-distribution image distortions at inference time. They also highlight how explicitly shaping representations affects model performance: isolating nuisance variables from categorical ones is more important than maintaining factorized representations of categorical variables."
+  },
+  "2610.00812": {
+    "authors": [
+      "Chaoyu Li",
+      "Xiaoyi Gu",
+      "Yogesh Kulkarni",
+      "Eun Woo Im",
+      "Mohammadmahdi Honarmand",
+      "Zeyu Wang",
+      "Juntong Song",
+      "Fei Du",
+      "Xilin Jiang",
+      "Kexin Zheng",
+      "Tianzhi Li",
+      "Fei Tao",
+      "Pooyan Fazli"
+    ],
+    "affiliations": [
+      "Arizona State University",
+      "Twitch",
+      "Stanford University",
+      "eBay",
+      "NewsBreak",
+      "Microsoft",
+      "Columbia University",
+      "University of Southern California",
+      "Carnegie Mellon University"
+    ],
+    "placed": [
+      [
+        "Chaoyu Li",
+        [
+          "Arizona State University"
+        ]
+      ],
+      [
+        "Xiaoyi Gu",
+        [
+          "Twitch"
+        ]
+      ],
+      [
+        "Yogesh Kulkarni",
+        [
+          "Arizona State University"
+        ]
+      ],
+      [
+        "Eun Woo Im",
+        [
+          "Arizona State University"
+        ]
+      ],
+      [
+        "Mohammadmahdi Honarmand",
+        [
+          "Stanford University"
+        ]
+      ],
+      [
+        "Zeyu Wang",
+        [
+          "eBay"
+        ]
+      ],
+      [
+        "Juntong Song",
+        [
+          "NewsBreak"
+        ]
+      ],
+      [
+        "Fei Du",
+        [
+          "Microsoft"
+        ]
+      ],
+      [
+        "Xilin Jiang",
+        [
+          "Columbia University"
+        ]
+      ],
+      [
+        "Kexin Zheng",
+        [
+          "University of Southern California"
+        ]
+      ],
+      [
+        "Tianzhi Li",
+        [
+          "Carnegie Mellon University"
+        ]
+      ],
+      [
+        "Fei Tao",
+        [
+          "NewsBreak"
+        ]
+      ],
+      [
+        "Pooyan Fazli",
+        [
+          "Arizona State University"
+        ]
+      ]
+    ],
+    "abstract": null
+  },
+  "2610.02343": {
+    "authors": [
+      "Chaoyi Zhou",
+      "Zhongpai Gao",
+      "Anwesa Choudhuri",
+      "Meng Zheng",
+      "Benjamin Planche",
+      "Run Wang",
+      "Terrence Chen",
+      "Siyu Huang",
+      "Ziyan Wu"
+    ],
+    "affiliations": [
+      "United Imaging Intelligence, Boston, MA, USA",
+      "Clemson University, Clemson, SC, USA"
+    ],
+    "placed": null,
+    "abstract": "Geometric understanding supports endoscopic navigation and robotic assistance, but learning reliable endoscopic geometry faces two challenges: scarce geometric annotations and ambiguity between camera motion and tissue deformation. We present SCOPE-4D, an endoscopic 4D geometry foundation model that jointly predicts camera parameters, dense geometry, and 3D tissue trajectories from monocular RGB video in a single forward pass. Our curation and annotation pipeline constructs SCOPE-5K, a collection of approximately 5,000 clips spanning real and synthetic gastrointestinal endoscopy and laparoscopy. The collection provides rich geometric supervision and includes newly collected phantom and real-colonoscopy evaluation sets. Geometric supervised fine-tuning on SCOPE-5K learns endoscopic priors that improve camera and depth estimation. Common–Residual Motion (CRM) further constrains local deformation relative to common tissue movement. Together with geometric supervision, CRM and trajectory supervision further improve camera and depth estimation over geometric fine-tuning alone while enabling dense 3D tissue tracking. Evaluations on public and newly collected benchmarks demonstrate strong in-domain and out-of-domain geometry, superior 3D tracking, and more stable long-sequence colon reconstruction. A blinded user study further supports the perceived reconstruction quality on real clinical video. Together, these results demonstrate the value of large-scale endoscopic supervision and motion constraints for joint geometry estimation and tissue tracking. Project page: https://chaoyizh.github.io/SCOPE-4D-page/."
+  },
+  "2610.11060": {
+    "authors": [
+      "Tianhui Cai",
+      "Xinglong Sun",
+      "Chao Fang",
+      "Zhenxin Li",
+      "Rui Song",
+      "Jose M. Alvarez",
+      "Yunxiang Mao",
+      "Jiaqi Ma",
+      "Langechuan Liu"
+    ],
+    "affiliations": [
+      "University of California, Los Angeles",
+      "NVIDIA",
+      "dot by Hyundai",
+      "University of Toronto"
+    ],
+    "placed": null,
+    "abstract": "World-action models have recently improved autonomous driving by jointly learning future scene prediction and trajectory generation. Most existing approaches model the future primarily through RGB appearance, and recent works have begun to incorporate geometric prediction to improve spatial understanding. However, dense geometry describes the spatial layout of the entire scene without indicating which parts are most relevant to the ego vehicle’s action. For driving, the model must also identify and anticipate where it can safely move and which regions may pose collision risks. Jointly modeling action-relevant regions and future geometry can provide the policy with both driving-relevant cues and their corresponding spatial structure. We therefore propose AffordDrive3D, an affordance- and geometry-aware world-action model that jointly learns future action-relevant regions and spatial structure. In order to capture the scene semantics and driving context needed for driving affordance prediction, we build AffordDrive3D on a VLM backbone to forecast drivable areas and collision-critical regions that directly affect ego motion, while predicting future geometry from RGB world-model latents. On NAVSIM, AffordDrive3D achieves state-of-the-art performance with 91.3 PDMS and 89.9 EPDMS, demonstrating the effectiveness of jointly modeling future affordances and geometry for trajectory planning. Project Page: https://afforddrive3d.github.io/"
+  },
+  "2610.11283": {
+    "authors": [
+      "Junpeng Yue",
+      "Boyuan Li",
+      "Yuxuan Wang",
+      "Zepeng Wang",
+      "Yuhui Fu",
+      "Feiyang Xie",
+      "Yu Zhang",
+      "Jing Zhang",
+      "Xianqi Zhang",
+      "Weibo Li",
+      "Xiaofei Zheng",
+      "Yuming Fang",
+      "Jiangxing Wang",
+      "Zongqing Lu"
+    ],
+    "affiliations": [
+      "BeingBeyond Team"
+    ],
+    "placed": null,
+    "abstract": "Humanoid loco-manipulation requires coordinated locomotion and manipulation informed by future scene evolution and whole-body motion, yet learning these capabilities is constrained by scarce robot demonstrations. Human video and motion datasets offer scalable supervision, but many contain only video or motion rather than paired video-motion data. Moreover, human motion does not directly specify executable robot actions. We present Being-M0.7, a latent world-action model that transfers visual–motion priors learned from mixed-modality human data to humanoid control through pre-training, robot mid-training, and action post-training. We curate a corpus from more than 10,000 hours of raw human-centric data, integrating video-only, motion-only, and paired video–motion streams to learn complementary visual dynamics and whole-body kinematic structure. Joint prediction of future latent visual states and motion encourages visual representations to encode future kinematics. Robot mid-training adapts this coarse-grained prior to robot viewpoints and body dynamics. During action post-training, an action expert combines visual predictive representations from the frozen, adapted prior with current images and proprioception through gated cross-attention, grounding predictive context in executable whole-body commands. Being-M0.7 achieves the highest aggregate success rate among the compared baselines on SIMPLE and matches the strongest baseline on real-world Unitree G1 loco-manipulation tasks."
+  },
+  "2610.14852": {
+    "authors": [
+      "Xiaofeng Tan",
+      "Jiaxin Lin",
+      "Haobo Yuan",
+      "Tiancheng Shen",
+      "Zihan Su",
+      "Rui Chen",
+      "Hongsong Wang",
+      "Ming-Hsuan Yang"
+    ],
+    "affiliations": [
+      "Southeast University",
+      "Tencent HY",
+      "UC Merced",
+      "Tsinghua University"
+    ],
+    "placed": null,
+    "abstract": "Reinforcement learning (RL) is promising for spatial text-to-image generation, but existing work largely focuses on policy optimization, assuming accurate rewards and effective online rollouts. We observe in-domain gains with out-of-domain degradation, exposing two limitations: unreliable spatial rewards in open-world settings and rollouts lacking basic-to-complex progression. We propose a curriculum-guided RL framework. First, we introduce SpatialCritic, an agentic reward model equipped with a spatial perception harness that combines reusable verification guidance with specialized vision tools. We then construct spatial preference datasets through targeted counterfactual perturbations and perform agent–harness alignment to improve tool selection and evidence integration efficiently. Second, curriculum learning organizes shared foundational capabilities and their compositional dependencies in a capability graph for mastery-guided rollouts, periodic review, and targeted remediation. On SpaRW-Eval, SpatialCritic achieves 95.1% verification accuracy, outperforming 320B GLM-5.3-Flash with a 40× smaller 8B backbone and raising average baseline scores from 78.4 to 83.9 on SD3.5-Medium and 83.2 to 86.5 on BAGEL. See the project page."
+  },
+  "1706.05587": {
+    "authors": [
+      "Liang-Chieh Chen",
+      "George Papandreou",
+      "Florian Schroff",
+      "Hartwig Adam"
+    ],
+    "affiliations": [
+      "Google Inc"
+    ],
+    "placed": [
+      [
+        "Liang-Chieh Chen",
+        [
+          "Google Inc"
+        ]
+      ],
+      [
+        "George Papandreou",
+        [
+          "Google Inc"
+        ]
+      ],
+      [
+        "Florian Schroff",
+        [
+          "Google Inc"
+        ]
+      ],
+      [
+        "Hartwig Adam",
+        [
+          "Google Inc"
+        ]
+      ]
+    ],
+    "abstract": "In this work, we revisit atrous convolution, a powerful tool to explicitly adjust filter’s field-of-view as well as control the resolution of feature responses computed by Deep Convolutional Neural Networks, in the application of semantic image segmentation. To handle the problem of segmenting objects at multiple scales, we design modules which employ atrous convolution in cascade or in parallel to capture multi-scale context by adopting multiple atrous rates. Furthermore, we propose to augment our previously proposed Atrous Spatial Pyramid Pooling module, which probes convolutional features at multiple scales, with image-level features encoding global context and further boost performance. We also elaborate on implementation details and share our experience on training our system. The proposed ‘DeepLabv3’ system significantly improves over our previous DeepLab versions without DenseCRF post-processing and attains comparable performance with other state-of-art models on the PASCAL VOC 2012 semantic image segmentation benchmark."
+  },
+  "2304.02643": {
+    "authors": [
+      "Alexander Kirillov",
+      "Eric Mintun",
+      "Nikhila Ravi",
+      "Hanzi Mao",
+      "Chloe Rolland",
+      "Laura Gustafson",
+      "Tete Xiao",
+      "Spencer Whitehead",
+      "Alexander C. Berg",
+      "Wan-Yen Lo",
+      "Piotr Dollár",
+      "Ross Girshick"
+    ],
+    "affiliations": [
+      "Meta AI Research, FAIR"
+    ],
+    "placed": null,
+    "abstract": "We introduce the Segment Anything (SA) project: a new task, model, and dataset for image segmentation. Using our efficient model in a data collection loop, we built the largest segmentation dataset to date (by far), with over 1 billion masks on 11M licensed and privacy respecting images. The model is designed and trained to be promptable, so it can transfer zero-shot to new image distributions and tasks. We evaluate its capabilities on numerous tasks and find that its zero-shot performance is impressive – often competitive with or even superior to prior fully supervised results. We are releasing the Segment Anything Model (SAM) and corresponding dataset (SA-1B) of 1B masks and 11M images at https://segment-anything.com to foster research into foundation models for computer vision."
+  },
+  "2608.28605": {
+    "authors": [
+      "Jiexia Ye",
+      "Jia Li",
+      "Fugee Tsung"
+    ],
+    "affiliations": [
+      "The Hong Kong University of Science and Technology (Guangzhou), Data Science and Analytics Thrust, Guangzhou, China",
+      "The Hong Kong University of Science and Technology, Department of Industrial Engineering & Decision Analytics, Hong Kong SARChina"
+    ],
+    "placed": [
+      [
+        "Jiexia Ye",
+        [
+          "The Hong Kong University of Science and Technology (Guangzhou), Data Science and Analytics Thrust, Guangzhou, China"
+        ]
+      ],
+      [
+        "Jia Li",
+        [
+          "The Hong Kong University of Science and Technology (Guangzhou), Data Science and Analytics Thrust, Guangzhou, China"
+        ]
+      ],
+      [
+        "Fugee Tsung",
+        [
+          "The Hong Kong University of Science and Technology, Department of Industrial Engineering & Decision Analytics, Hong Kong SARChina"
+        ]
+      ]
+    ],
+    "abstract": "Recent advancements in multimodal learning for medical time series (MedTS) classification highlight the benefits of integrating complementary modalities for clinical decision. However, existing methods typically focus on bi-modal interactions (e.g., time series and text), leaving the tri-modal synergy between time series, vision, and language largely unexplored. Inspired by diagnostic practice synergizing numerical assessment, visual inspection and clinical context, we introduce MedTVL, a text-guided dual-pathway architecture tailored for MedTS classification. Specifically, it synergizes a convolution-based temporal pathway for fine-grained temporal dynamics from raw numerical sequences and a transformer-based visual pathway for holistic morphological structures from time-series-derived images. Such combination of cross-modal and architectural heterogeneity provides a comprehensive diagnostic perspective. To further resolve potential diagnostic ambiguity, both pathways are guided by adaptive medical textual semantics. Finally, a Mixture-of-Experts mechanism dynamically routes each instance to specialized fusion experts, capturing instance-specific reliance on the temporal and visual pathway outputs. In addition, MedTVL supports multimodal contrastive learning to mitigate the clinical label scarcity challenge. Extensive experiments across multiple medical datasets and tasks, spanning supervised, few-shot, and contrastive learning settings, demonstrate the superiority and transferability of MedTVL, highlighting its potential for robust clinical decision support."
+  },
+  "2609.26756": {
+    "authors": [
+      "Victor Ion Butoi",
+      "Vivek Gopalakrishnan",
+      "John V. Guttag",
+      "Adrian V. Dalca",
+      "Neel Dey"
+    ],
+    "affiliations": [
+      "Massachusetts General Hospital",
+      "Harvard Medical School"
+    ],
+    "placed": null,
+    "abstract": "Abstract. X-ray is medicine’s most widely used imaging modality, yet remains among its least quantitative. Unlike volumetric modalities like CT or MRI, X-ray collapses 3D anatomy into a 2D projection, causing structures to overlap and anatomical boundaries to be ambiguous, even to experts. As a result, labeling X-ray databases for training general-purpose segmentation systems is impractical, leaving morphometric and functional X-ray analysis confined to narrow anatomical regions and applications. To this end, we present FleXray, a generalist model for anatomical segmentation across the entire body in clinical X-rays. Instead of curating large, manually annotated X-ray datasets, we build a scalable, physics-based generative X-ray data engine. Using existing 3D whole-body CT segmentation datasets and generative image-editing models, we simulate fully-annotated 2D X-rays with diverse appearances, physiological properties, and imaging geometries. Trained on these simulations, FleXray accurately segments 60 anatomical structures across unseen research datasets and in-the-wild X-rays. We further show that FleXray makes X-rays directly amenable to quantitative analysis, enabling automated measurements for disease grading, robust navigation during X-ray-guided interventions, and data-efficient learning of pathological targets. We release the model, code, a full-body X-ray segmentation dataset, and a local, easy-to-use browser-based tool at https://flexray.csail.mit.edu."
+  },
+  "2609.35570": {
+    "authors": [
+      "Rithvik Jonna",
+      "Man Namgung",
+      "Aakash Gurram",
+      "Tinoosh Mohsenin"
+    ],
+    "affiliations": [
+      "Department of Electrical and Computer Engineering",
+      "Laboratory for Computational Sensing and Robotics, Johns Hopkins University",
+      "Department of Electrical and Computer Engineering, Laboratory for Computational Sensing and Robotics, Johns Hopkins University"
+    ],
+    "placed": [
+      [
+        "Rithvik Jonna",
+        [
+          "Department of Electrical and Computer Engineering"
+        ]
+      ],
+      [
+        "Man Namgung",
+        [
+          "Laboratory for Computational Sensing and Robotics, Johns Hopkins University"
+        ]
+      ],
+      [
+        "Aakash Gurram",
+        [
+          "Laboratory for Computational Sensing and Robotics, Johns Hopkins University"
+        ]
+      ],
+      [
+        "Tinoosh Mohsenin",
+        [
+          "Department of Electrical and Computer Engineering, Laboratory for Computational Sensing and Robotics, Johns Hopkins University"
+        ]
+      ]
+    ],
+    "abstract": "Vision-language navigation (VLN) models perform well but target compute-rich platforms, limiting deployment on memory- and power-constrained robotic edge devices. Compression alone does not establish whether a VLN model fits an edge platform’s memory, latency, and energy budgets while preserving navigation behavior. We introduce EdgeVLN, a runtime-aware, deployment-ready quantized VLN model that closes this gap. EdgeVLN combines a quantized StreamVLN model with Latent Trajectory Termination Extractor (LATTE), a lightweight causal transformer that improves real-time stopping by predicting a Stop Action verifier rank. Both execute through our llama.cpp VLN driver, which reconstructs streaming context and prunes memory tokens on-board. We characterize a pretrained StreamVLN backbone across weight quantization from 8 to 2 bits and multiple inference runtimes to identify a feasible operating point. LATTE reuses backbone hidden states within the budget freed by quantization, requiring neither a second vision encoder nor an additional backbone forward pass. We evaluate six backbone precisions and seven candidate stop heads on BF16 and IQ4_NL across all $1{,}839$ R2R VLN-CE val-unseen episodes, where agents follow language instructions through photorealistic indoor scans. We measure success rate (SR) in simulation and latency, energy, and resident memory on an NVIDIA Jetson Orin NX 16 GB. LATTE achieves our highest SR, 58.02% on the deployed four-bit model, exceeding the BF16 baseline with only 0.013 s additional latency per navigation step. Four-bit formats achieve nearly identical SR, but step energy varies 36.8× by execution path. Only IQ4_NL under our VLN driver fits the board: 11.35 GB resident, 20.8× faster, and 13.3× less energy than storage-streamed BF16. INT2 collapses. Runtime selection, memory-token pruning, and quantization are essential for efficient edge deployment."
+  },
+  "2609.38747": {
+    "authors": [
+      "Junyang Xia",
+      "Luocheng Zhang",
+      "Wenwen Pan",
+      "Chifeng Zhu",
+      "Yang Yang",
+      "Xinchun Liu",
+      "Jiajun Ding"
+    ],
+    "affiliations": [
+      "School of Computer Science, Hangzhou Dianzi University, Hangzhou 310018, China"
+    ],
+    "placed": null,
+    "abstract": "Reference-guided camouflaged object detection aims to segment a target whose visual appearance closely resembles its surroundings by exploiting auxiliary reference samples. The task remains difficult because reference samples contain inconsistent target cues, while generic visual representations are not inherently aligned with the target specified by the references. To handle these problems, we present a consensus-aware multi-source fusion framework. Reference-Conditioned Dual-Backbone Fusion (RCDF) couples trainable PVTv2 query features with frozen DINOv3 representations and uses reference-conditioned correlation to select foundation-model evidence before multi-scale fusion. The framework also aggregates multiple references through cross-reference consensus aggregation and injects reference information at semantic depths matched to the query features. Extensive experiments demonstrate the effectiveness of the proposed method. The results further show that reference consensus, target-conditioned foundation features, and hierarchical decoding provide complementary improvements under the evaluation protocol. The source code will be made publicly available upon acceptance."
+  },
+  "2609.39047": {
+    "authors": [
+      "Zhihang Wu",
+      "Zhongqi Wang",
+      "Jie Zhang",
+      "Fengming Gu",
+      "Shiguang Shan",
+      "Xilin Chen"
+    ],
+    "affiliations": [
+      "Key Laboratory of AI Safety of CAS, Institute of Computing Technology, Chinese Academy of Sciences (CAS), Beijing, China",
+      "University of Chinese Academy of Sciences, Beijing, China",
+      "School of Advanced Interdisciplinary Sciences, University of Chinese Academy of Sciences, Beijing, China"
+    ],
+    "placed": null,
+    "abstract": "Interactive video generation (IVG) models have achieved remarkable progress in producing controllable visual content guided by user-defined actions, yet their security vulnerabilities remain largely unexplored. In this paper, we present the first systematic study of backdoor attacks against the interactivity of IVG models. Based on this attack surface, we propose BadAction, which leverages action-guided triggers to achieve the attack. Specifically, BadAction implants predefined motion patterns into the action sequences of backdoor samples and associates them with a static target video. Once triggered, the backdoored model generates frozen future frames that no longer respond to subsequent user actions, while preserving normal behavior on benign action sequences. In addition, we also explore a stealthier attack where the multimodal triggers by jointly poisoning multiple modalities. Experiments show that BadAction achieves average attack success rates of 91.0% with action-only triggers and 80.4% with multimodal triggers. Moreover, extensive defense evaluations show that BadAction successfully bypasses existing backdoor detection methods, revealing a critical security gap in the interactive video generation pipeline. Project page: https://wsad55.github.io/badaction01/."
+  },
+  "2610.03202": {
+    "authors": [
+      "Divya Jyoti Bajpai",
+      "Arun Verma",
+      "Manjesh Kumar Hanawal"
+    ],
+    "affiliations": [
+      "Department of IEOR, IIT Bombay, Mumbai, India",
+      "SMART Centre, Singapore"
+    ],
+    "placed": [
+      [
+        "Divya Jyoti Bajpai",
+        [
+          "Department of IEOR, IIT Bombay, Mumbai, India"
+        ]
+      ],
+      [
+        "Arun Verma",
+        [
+          "SMART Centre, Singapore"
+        ]
+      ],
+      [
+        "Manjesh Kumar Hanawal",
+        [
+          "Department of IEOR, IIT Bombay, Mumbai, India"
+        ]
+      ]
+    ],
+    "abstract": "Flow Matching enables high-quality visual generation via continuous-time dynamics, but inference remains costly due to multiple sequential function evaluations. Existing acceleration methods reduce the number of function evaluations but often introduce additional training overhead, degrade quality, or fail to account for input-dependent variability. We propose CoFlow, an inference-time method that adaptively selects the step counts each generation based on the prompt features. Our context-aware CoFlow is trained online with an unsupervised reward that balances inference efficiency and generation fidelity. Our method is plug-and-play, requiring no retraining of the underlying generative model. It generalizes to image and video generation, achieving over 2.5× speedup while preserving perceptual and semantic quality. We further provide a theoretical analysis establishing an O(1/K) forward-Euler discretization error bound under standard regularity conditions."
   }
 }

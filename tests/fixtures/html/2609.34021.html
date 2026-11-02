@@ -1,0 +1,39 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">Position Aware Layer Queries for
+<br class="ltx_break"/>Test Time Training in Vision Language Models</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Rajat Modi
+</span><span class="ltx_note ltx_note_frontmatter ltx_thanks_correspondence ltx_role_thanks" id="id1"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>Correspondence to <span class="ltx_text ltx_font_typewriter" id="id1.1">author@example.org</span>,
+<br class="ltx_break"/><span class="ltx_text ltx_font_typewriter" id="id1.2">author@example.org</span></span></span></span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Institute of Artificial Intelligence
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Priyank Pathak
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>University of Central Florida
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Xin Liang &amp; Yogesh Singh Rawat
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Orlando, FL 32816, USA
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Test-Time Training (TTT) adapts models to incoming test samples (<span class="ltx_text ltx_font_italic" id="abstract1.1.1">e.g.</span> out-of-distribution, (OOD)) when conventional fine-tuning is infeasible.
+Existing TTT methods for Vision-Language Models (VLMs) create supervision from several augmented views, <span class="ltx_text ltx_font_italic" id="abstract1.1.2">each</span> requiring forward (and often backward) passes through the entire VLM, incurring substantial computational cost.
+We observe that one forward pass with all the intermediate layer outputs already yields far more signal than the final embedding from all augmentations.
+We introduce <span class="ltx_text ltx_font_bold" id="abstract1.1.3">Layer Query Network (LQN)</span>, a lightweight approach that can adapt a frozen VLM (<span class="ltx_text ltx_font_italic" id="abstract1.1.4">teacher</span>) in a single forward pass of the VLM via a small model (<span class="ltx_text ltx_font_italic" id="abstract1.1.5">student</span>).
+LQN uses <span class="ltx_text ltx_font_bold" id="abstract1.1.6">Position-Aware Distillation (PAD)</span> to mimic the teacher VLM’s intermediate-layer spatial tokens by <span class="ltx_text ltx_font_italic" id="abstract1.1.7">querying</span> spatial coordinates of intermediate tokens.
+LQN additionally relies on
+<span class="ltx_text ltx_font_bold" id="abstract1.1.8">Location Consistency Regularization (LCR)</span>, a self-supervision technique, replacing expensive <math alttext="\mathcal{O}(H{\times}W)" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mrow><mi class="ltx_font_mathcaligraphic">𝒪</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><mi>H</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>W</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{O}(H{\times}W)</annotation></semantics></math> image augmentation with <math alttext="\mathcal{O}(1)" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mrow><mi class="ltx_font_mathcaligraphic">𝒪</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{O}(1)</annotation></semantics></math> coordinate sampling.
+Integrating these, LQN
+i) Adapts and improves zero-shot CLIP ViT-B/16 by 9.8% Top-1 on OOD ImageNet,
+ii) Outperforms the previous best GS-Bias on fine-grained classification by 3.9% Top-1,
+iii) Faster convergence than TPS for CLIP ResNet-50 (47 mins vs 55 mins)
+iv) Generalizes adaptation to VLMs like SigLIP, EVA-CLIP, and CoCa, and lightweight students like MLP, ResNet, VGG, and
+v) Extends to panoptic, instance, and semantic segmentation.</p>
+</div>
+<div class="ltx_para" id="p1">
+
+</div>
+</article></body></html>

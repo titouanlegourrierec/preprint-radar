@@ -1,0 +1,43 @@
+<html><body><article class="ltx_document" data-front-matter="2">
+<h1 class="ltx_title ltx_title_document">Network In Network</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Min Lin
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Graduate School for Integrative Sciences and
+Engineering
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Electronic &amp; Computer EngineeringNational University of Singapore, Singapore<span class="ltx_text ltx_font_typewriter" id="id1">author@example.org</span>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Qiang Chen
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Electronic &amp; Computer EngineeringNational University of Singapore, Singapore<span class="ltx_text ltx_font_typewriter" id="id2">author@example.org</span>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Shuicheng
+Yan
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Electronic &amp; Computer EngineeringNational University of Singapore, Singapore<span class="ltx_text ltx_font_typewriter" id="id3">author@example.org</span>
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">We propose a novel deep network structure called “<span class="ltx_text ltx_font_bold" id="abstract1.1.1">N</span>etwork
+<span class="ltx_text ltx_font_bold" id="abstract1.1.2">I</span>n <span class="ltx_text ltx_font_bold" id="abstract1.1.3">N</span>etwork”(NIN) to enhance model
+discriminability for local patches within the receptive field. The
+conventional convolutional layer uses linear filters followed by a
+nonlinear activation function to scan the input. Instead, we build
+micro neural networks with more complex structures to abstract the
+data within the receptive field. We instantiate the micro neural
+network with a multilayer perceptron, which is a potent function
+approximator. The feature maps are obtained by sliding the micro
+networks over the input in a similar manner as CNN; they are then
+fed into the next layer. Deep NIN can be implemented by stacking
+mutiple of the above described structure. With enhanced local
+modeling via the micro network, we are able to utilize global
+average pooling over feature maps in the classification layer, which
+is easier to interpret and less prone to overfitting than traditional
+fully connected layers. We demonstrated the state-of-the-art
+classification performances with NIN on CIFAR-10 and CIFAR-100, and
+reasonable performances on SVHN and MNIST datasets.</p>
+</div>
+</article></body></html>

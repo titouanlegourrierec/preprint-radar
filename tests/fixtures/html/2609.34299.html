@@ -1,0 +1,30 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">PSM: Dataset Distillation Based on Precise Statistical Matching by Difficulty</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+<span class="ltx_inline-block ltx_minipage ltx_align_middle" id="id1" style="width:397.5pt;">
+<span class="ltx_p" id="id1.1">Hongxu Ma<sup class="ltx_sup" id="id1.1.1">1,*</sup>,
+Guang Li<sup class="ltx_sup" id="id1.1.2">2,*<math alttext="\dagger" class="ltx_Math" display="inline" id="m1" intent=":literal"><semantics><mo>†</mo><annotation encoding="application/x-tex">\dagger</annotation></semantics></math></sup>,
+Shijie Wang<sup class="ltx_sup" id="id1.1.3">3</sup>,
+Dongzhan Zhou<sup class="ltx_sup" id="id1.1.4">4</sup>,
+Suorong Yang<sup class="ltx_sup" id="id1.1.5">5</sup>,</span>
+<span class="ltx_p" id="id1.2">Baoli Sun<sup class="ltx_sup" id="id1.2.1">6</sup>,
+Takahiro Ogawa<sup class="ltx_sup" id="id1.2.2">2</sup>,
+Miki Haseyama<sup class="ltx_sup" id="id1.2.3">2</sup>,
+Zhihui Wang<sup class="ltx_sup" id="id1.2.4">6,<math alttext="\dagger" class="ltx_Math" display="inline" id="m2" intent=":literal"><semantics><mo>†</mo><annotation encoding="application/x-tex">\dagger</annotation></semantics></math></sup></span>
+<span class="ltx_p" id="id1.3"><sup class="ltx_sup" id="id1.3.1">1</sup>Zhejiang University  <sup class="ltx_sup" id="id1.3.2">2</sup>Hokkaido University  <sup class="ltx_sup" id="id1.3.3">3</sup>The University of Queensland</span>
+<span class="ltx_p" id="id1.4"><sup class="ltx_sup" id="id1.4.1">4</sup>Shanghai Artificial Intelligence Laboratory</span>
+<span class="ltx_p" id="id1.5"><sup class="ltx_sup" id="id1.5.1">5</sup>National University of Singapore  <sup class="ltx_sup" id="id1.5.2">6</sup>Dalian University of Technology</span>
+<span class="ltx_p" id="id1.6"><sup class="ltx_sup" id="id1.6.1">*</sup>Equal contribution.  <sup class="ltx_sup" id="id1.6.2"><math alttext="\dagger" class="ltx_Math" display="inline" id="m3" intent=":literal"><semantics><mo>†</mo><annotation encoding="application/x-tex">\dagger</annotation></semantics></math></sup>Corresponding authors.</span>
+<span class="ltx_p" id="id1.7"><span class="ltx_text ltx_font_typewriter" id="id1.7.1">author@example.org</span>, <span class="ltx_text ltx_font_typewriter" id="id1.7.2">author@example.org</span></span>
+</span>
+</span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Dataset distillation (DD) condenses a large original set into a small distilled set with high training utility. Decoupled statistical matching methods substantially reduce distillation time and memory overhead while achieving strong performance.
+However, they typically supervise all distilled data with running statistics estimated from the entire original set. These statistics mainly capture the average feature distribution while ignoring the difficulty differences among original data, making them insufficient for characterizing the difficulty structure of the original data. To address this issue, we propose <span class="ltx_text ltx_font_bold" id="abstract1.1.1">P</span>recise <span class="ltx_text ltx_font_bold" id="abstract1.1.2">S</span>tatistical <span class="ltx_text ltx_font_bold" id="abstract1.1.3">M</span>atching (<span class="ltx_text ltx_font_bold" id="abstract1.1.4">PSM</span>) by difficulty. After pretraining, PSM uses the Global Precision Score (GPS) to evaluate image difficulty, sorts the original data according to the scores, and then partitions it into IPC (Images Per Class of distilled data) difficulty groups. During distillation, Statistics Updated Again (SUA) updates the teacher’s BN running statistics using original data from each group via forward passes, providing precise supervision with corresponding difficulty for distilled data at each <math alttext="id_{\mathrm{IPC}}" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mrow><mi>i</mi><mo lspace="0em" rspace="0em">​</mo><msub><mi>d</mi><mi>IPC</mi></msub></mrow><annotation encoding="application/x-tex">id_{\mathrm{IPC}}</annotation></semantics></math>. Meanwhile, Initial Sample Screening (ISS) initializes distilled data with original images from the corresponding group, providing an effective starting point for precise matching. Experiments across multiple datasets and model architectures demonstrate the effectiveness of PSM, showing that it broadens the difficulty range of distilled samples and further improves the final performance. Code will be released.</p>
+</div>
+<div class="ltx_para" id="p1">
+
+</div>
+</article></body></html>
