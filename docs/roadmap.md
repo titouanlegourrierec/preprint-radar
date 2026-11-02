@@ -569,7 +569,7 @@ removal list, rules on `main`).
 | PUB-3 | No ruleset on main, and repository settings left at their defaults | P2 | todo |
 | PUB-4 | Real author e-mail addresses are back in code, tests and the roadmap since the CI-13 cleanup. The six mailboxes replaced by `author` (the domain kept, the history keeps them, as CI-13 accepted); `test_no_emails.py` fails on any address in `src/`, `tests/`, `docs/` (the audits aside), `web/` and the workflows but `author@…`, `example.*`, arXiv's and the contact of `report.ts` | P2 | done |
 | PUB-5 | A copy of the site sends its corrections and removal requests to this maintainer | P2 | todo |
-| EXT-1 | Exponential backtracking in _MAILBOX_LIST_RE can turn one cached page into a daily hang | P2 | todo |
+| EXT-1 | Exponential backtracking in _MAILBOX_LIST_RE can turn one cached page into a daily hang. Each mailbox name is an atomic group that matches a whole name only: 40 names and a ")" in 0.7 ms (22 took 3.3 s); the same output on the 431 cached pages, the 84 fixtures and 125,577 strings (the stored ones and random lists), so no extraction version; a test times 40 names under three endings | P2 | done |
 | EXT-2 | Live rules with no test: 3 whole regexes and 19 rule pieces change real pages, yet every test stays green without them | P2 | todo |
 | EXT-3 | E-mail fragments pass has_contact and validate: 7 strings in 4 papers | P2 | todo |
 | EXT-4 | Defect classes that every rule and every quality sign miss, because rules are tied to one tier | P2 | todo |

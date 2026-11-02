@@ -124,7 +124,9 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   sentence ("†Now at Google" tells that symbols mark notes).
 - Contact details go, the affiliation before them stays: an "Email:" label glued to the
   country ("..., MI, USAEmail: {...}@wayne.edu", 2608.29996); obfuscated addresses ("jane
-  (at) example.org", "lab [at] example.org"); mailbox lists ("{jane.doe, john.roe}"), also
+  (at) example.org", "lab [at] example.org"); mailbox lists ("{jane.doe, john.roe}", each
+  name matched whole and once, so that a long list ending on nothing the rule takes is
+  read in linear time, EXT-1), also
   before their domain ("..., Germany. {jane.doe, jroe}@tum.de", 2610.03283) or a full
   stop ("..., Italy. {name.surname}@unitn.it.", 2609.28184), or glued to the country
   ("..., Singapore{jane,john}@nus.edu.sg", 1312.4400); an address in brackets and

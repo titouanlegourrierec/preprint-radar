@@ -1,4 +1,5 @@
 import gzip
+import time
 from collections.abc import Callable
 from pathlib import Path
 
@@ -1431,6 +1432,17 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
 )
 def test_clean_affiliation_strips_contact_details_and_people(raw: str, expected: str | None) -> None:
     assert clean_affiliation(raw) == expected
+
+
+@pytest.mark.parametrize(
+    "end", [" ) x", "jdoe)", " o'brien}"], ids=["bracket", "glued-bracket", "apostrophe"]
+)
+def test_a_long_list_of_mailbox_names_is_read_at_once(end: str) -> None:
+    # Each dotted name fitted both forms of a name: 22 of them took 3 s, 40 hours (EXT-1).
+    raw = "Google Research {" + ", ".join(f"jane{i}.doe{i}" for i in range(40)) + end
+    start = time.perf_counter()
+    clean_affiliation(raw)
+    assert time.perf_counter() - start < 0.5
 
 
 @pytest.mark.parametrize(

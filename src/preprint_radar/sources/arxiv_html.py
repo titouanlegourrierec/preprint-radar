@@ -202,7 +202,10 @@ _EMPTY_BRACKETS_RE = re.compile(r"\(\s*\)|\[\s*\]")
 # "{jane.doe,jroe,john_roe,jdoe, Apple" (2410.23054). A name is in lower
 # case, or capitalized when dots or underscores join its parts ("{Jane.Doe, A.Roe",
 # 2610.25235), which the words of an affiliation, after which an unclosed list ends, never are.
-_MAILBOX = r"(?:[A-Za-z0-9+-]+(?:[._][A-Za-z0-9+-]+)+|[a-z0-9_.+-]+)"
+# A dotted lowercase name fits both forms: each name is matched whole and once (an atomic
+# group), else a list that ends on nothing the pattern takes ("jdoe)", "o'brien") tried every
+# way of reading each name, twice as long at each one more (EXT-1).
+_MAILBOX = r"(?>(?:[A-Za-z0-9+-]+(?:[._][A-Za-z0-9+-]+)+|[a-z0-9_.+-]+)(?![A-Za-z0-9_.+-]))"
 _MAILBOX_LIST_RE = re.compile(
     rf"\{{\s*{_MAILBOX}(?:\s*[,;|]\s*{_MAILBOX}|\s+{_MAILBOX})+"
     r"\s*(?:[,;]?\s*(?:\}|$)|[,;]\s*(?=[A-Z]))"
