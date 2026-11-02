@@ -593,7 +593,7 @@ describe("data", () => {
         categories: { "cs.CV": [] },
         versions: { "cs.CV/citations/2026-10.json": "0123456789" },
       },
-      "cs.CV/citations/2026-10.json": {
+      "cs.CV/citations/2026-10.json?v=0123456789": {
         schema_version: 1,
         source: "S2",
         generated_at: "x",
