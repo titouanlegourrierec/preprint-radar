@@ -856,17 +856,6 @@ html {
   box-shadow: var(--shadow);
 }
 
-/* The highly cited years, drawn as the calendar's days (UX-33): four a row, oldest first. */
-.archive-picker__grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 2px;
-}
-
-.archive-picker__back {
-  justify-self: start;
-}
-
 .period-picker__presets {
   display: flex;
   flex-wrap: wrap;
@@ -2488,23 +2477,6 @@ html {
   min-height: 0;
 }
 
-/* Which papers the graph draws (UX-29): chips floating at the top of the left column —
-   the period, the highly cited years, the venue, and the words filtering the papers. All
-   four share one pill; the source that does not show is muted. */
-.graph-chips {
-  position: absolute;
-  top: 12px;
-  /* One row, from the left edge to the settings panel. */
-  right: 274px;
-  left: 12px;
-  /* Above the Find field and the details, which its panels open over. */
-  z-index: 6;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  align-items: center;
-}
-
 .graph-chips__chip,
 .graph-chips__select select,
 .period-picker__trigger--chip {
@@ -2535,43 +2507,6 @@ html {
   color: var(--text-muted);
 }
 
-.graph-chips__name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* The chips' icons, muted as the calendar's. */
-.graph-chips__chip svg,
-.graph-chips__select > svg {
-  flex-shrink: 0;
-  color: var(--text-muted);
-}
-
-.graph-chips__select > svg {
-  position: absolute;
-  top: 50%;
-  left: 12px;
-  /* Over the select's own background. */
-  z-index: 1;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-/* The selects drawn as the other chips, with the same chevron. */
-.graph-chips__select {
-  position: relative;
-  display: inline-flex;
-  max-width: 180px;
-}
-
-.graph-chips__select select {
-  width: 100%;
-  padding-right: 26px;
-  padding-left: 32px;
-  appearance: none;
-}
-
 .graph-chips .period-picker {
   position: relative;
   max-width: 100%;
@@ -2599,60 +2534,10 @@ html {
   overflow-y: auto;
 }
 
-/* The canvas and what floats over it. */
-.graph__stage {
-  position: relative;
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
-  background: var(--surface);
-}
-
-.graph__canvas {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  cursor: grab;
-  touch-action: none;
-}
-
-/* A new graph fades in once the layout has opened it (UX-30). */
-.graph__canvas--reveal {
-  animation: graph-reveal 0.35s ease-out;
-}
-
 @keyframes graph-reveal {
   from {
     opacity: 0;
   }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .graph__canvas--reveal {
-    animation: none;
-  }
-}
-
-.graph__empty {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  margin: 0;
-  /* A narrow column in the middle stays clear of the floating panels. */
-  padding: 24px max(24px, calc(50% - 15em));
-  color: var(--text-muted);
-  text-align: center;
-  pointer-events: none;
-}
-
-/* A failed load over the empty canvas: the overlay lets clicks through, its Retry takes them. */
-.graph__error {
-  margin: 0;
-  background: var(--surface);
-  pointer-events: auto;
 }
 
 /* Floating cards: settings (top right), details (top left, under the Find field), the
@@ -2682,59 +2567,6 @@ html {
   font-size: 0.7812rem;
 }
 
-/* Folded, the panel is its button alone. */
-.graph-settings--open {
-  width: 250px;
-}
-
-.graph-settings__head {
-  display: flex;
-  align-items: center;
-}
-
-.graph-settings__toggle {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 9px 12px;
-  border: 0;
-  background: none;
-  font-weight: 600;
-  text-align: left;
-  cursor: pointer;
-}
-
-.graph-settings__toggle svg {
-  color: var(--text-muted);
-}
-
-.graph-settings__reset {
-  min-height: 24px;
-  margin-right: 8px;
-  padding: 2px 6px;
-  border: 0;
-  border-radius: 6px;
-  background: none;
-  font-size: 0.7188rem;
-  color: var(--text-muted);
-  cursor: pointer;
-}
-
-.graph-settings__reset:hover {
-  color: var(--text);
-  background: var(--surface-muted);
-}
-
-.graph-settings__body {
-  display: grid;
-  gap: 10px;
-  min-height: 0;
-  overflow-y: auto;
-  padding: 2px 12px 12px;
-}
-
 .graph-settings fieldset {
   display: grid;
   gap: 6px;
@@ -2750,12 +2582,6 @@ html {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text-muted);
-}
-
-/* The selects with the chevron of the others (UX-33). */
-.graph-settings__select {
-  position: relative;
-  display: block;
 }
 
 .graph-settings select {
@@ -2779,14 +2605,6 @@ html {
   border-color: var(--accent);
 }
 
-/* A layer of nodes: its checkbox and color, and at least how many papers its nodes have. */
-.graph-layer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
 .graph-settings .graph-layer__min select {
   width: auto;
   padding: 2px 22px 2px 6px;
@@ -2805,340 +2623,13 @@ html {
   padding: 2px 8px;
 }
 
-/* The forces, folded: few readers need them. */
-.graph-settings__summary {
-  min-height: 24px;
-  font-size: 0.6875rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  cursor: pointer;
-}
-
-.graph-settings__forces {
-  display: grid;
-  gap: 6px;
-  padding: 8px 0 2px;
-}
-
-.graph-settings__export {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding-top: 8px;
-  border-top: 1px solid var(--border);
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-.graph-settings__export span {
-  margin-right: auto;
-}
-
-.graph-settings__note {
-  margin: 0;
-  font-size: 0.6875rem;
-  color: var(--text-muted);
-}
-
-.ctl {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 2px 6px;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-.ctl output {
-  font-size: 0.6875rem;
-  font-variant-numeric: tabular-nums;
-}
-
 /* Its thumb takes a pointer over the whole 24 px high (UX-16). */
 input[type="range"] {
   min-height: 24px;
 }
 
-.ctl input[type="range"] {
-  grid-column: 1 / -1;
-  width: 100%;
-  margin: 0;
-  accent-color: var(--accent);
-}
-
-.ctl-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 1px 0;
-  cursor: pointer;
-}
-
-.ctl-row input {
-  margin: 0;
-  accent-color: var(--accent);
-}
-
-.ctl-select {
-  display: grid;
-  grid-template-columns: 1fr 1.6fr;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-.graph-settings__button {
-  display: inline-flex;
-  gap: 4px;
-  align-items: center;
-  justify-self: start;
-  padding: 4px 10px;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  background: var(--surface-muted);
-  font-size: 0.75rem;
-  cursor: pointer;
-}
-
-.graph-settings__button:hover {
-  border-color: var(--accent);
-}
-
-/* The Find field and, under it, the details of the node selected: one column on the left,
-   below the chips row. */
-.graph__side {
-  position: absolute;
-  top: 58px;
-  left: 12px;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: min(320px, calc(100% - 24px));
-  /* Clear of the legend below it. */
-  max-height: calc(100% - 116px);
-  pointer-events: none;
-}
-
-.graph__side > * {
-  pointer-events: auto;
-}
-
-.graph__details {
-  position: static;
-  min-height: 0;
-  overflow-y: auto;
-  padding: 12px 16px 14px;
-  font-size: 0.85rem;
-}
-
-.graph-find {
-  position: relative;
-}
-
-.graph-find input {
-  position: static;
-  width: 100%;
-  padding: 7px 28px 7px 34px;
-  color: var(--text);
-  font-size: 0.85rem;
-}
-
-.graph-find__icon {
-  position: absolute;
-  /* Centered on the input, whatever opens below it, and over its background. */
-  top: 17px;
-  left: 12px;
-  z-index: 1;
-  transform: translateY(-50%);
-  color: var(--text-muted);
-  pointer-events: none;
-}
-
-.graph-find input:focus {
-  border-color: var(--accent);
-}
-
-.graph-find__key {
-  position: absolute;
-  top: 7px;
-  right: 9px;
-  padding: 0 5px;
-  border: 1px solid var(--border-strong);
-  border-radius: 4px;
-  font-family: inherit;
-  font-size: 0.6875rem;
-  color: var(--text-muted);
-  pointer-events: none;
-}
-
-.graph-find__status {
-  margin: 4px 0 0;
-  padding: 3px 8px;
-  border-radius: 6px;
-  background: var(--surface);
-  font-size: 0.7188rem;
-  color: var(--text-muted);
-}
-
-/* The time-lapse, a player at the bottom of the canvas. */
-.graph-timeline {
-  left: 50%;
-  top: auto;
-  bottom: 12px;
-  z-index: 4;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: min(360px, calc(100% - 24px));
-  margin: 0;
-  padding: 5px 12px 5px 6px;
-  transform: translateX(-50%);
-}
-
-.graph-timeline input {
-  flex: 1;
-  min-width: 0;
-  margin: 0;
-  accent-color: var(--accent);
-}
-
-.graph-timeline__play {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border: 0;
-  border-radius: 50%;
-  background: var(--accent-soft);
-  color: var(--text);
-  font-size: 0.6875rem;
-  cursor: pointer;
-}
-
-.graph-timeline__play:hover {
-  background: var(--surface-muted);
-}
-
-.graph-timeline__day {
-  min-width: 6.5em;
-  font-size: 0.7188rem;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-muted);
-  text-align: right;
-  white-space: nowrap;
-}
-
-.graph__details h2 {
-  margin: 2px 24px 2px 0;
-  font-size: 1rem;
-  line-height: 1.3;
-}
-
-.graph__details p {
-  margin: 0 0 8px;
-}
-
-.graph__kind {
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.graph__papers,
-.graph__connections {
-  margin: 0 0 12px;
-  padding-left: 18px;
-}
-
-.graph__shared {
-  margin: 4px 0 6px;
-  padding-left: 16px;
-  font-size: 0.8rem;
-}
-
-.graph__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-/* Centered between the Find field and the settings, clear of both and of the chips row. */
-.graph__focus {
-  position: absolute;
-  top: 58px;
-  right: 274px;
-  left: 344px;
-  z-index: 4;
-  width: fit-content;
-  max-width: 36em;
-  margin: 0 auto;
-  padding: 6px 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow: var(--shadow);
-  font-size: 0.85rem;
-}
-
-.graph__papers li,
-.graph__connections li {
-  margin-bottom: 4px;
-}
-
-/* A connection (UX-61): its name and its count side by side, a long name wrapping in its
-   column, over a bar of its shared papers' share of the strongest's (`--weight`, from code). */
-.graph__connections .graph__connection {
-  --bar: color-mix(in srgb, var(--accent) 40%, transparent);
-
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  column-gap: 8px;
-  align-items: baseline;
-  padding-bottom: 4px;
-  background:
-    linear-gradient(var(--bar), var(--bar)) no-repeat left bottom / calc(var(--weight) * 100%) 2px;
-}
-
 .graph__connection > .link-button {
   text-align: left;
-}
-
-.graph__connection > .graph__shared {
-  grid-column: 1 / -1;
-}
-
-.graph__close {
-  position: absolute;
-  top: 6px;
-  right: 10px;
-  border: 0;
-  background: none;
-  font-size: 1.2rem;
-  color: var(--text-muted);
-  cursor: pointer;
-}
-
-/* The bottom-left corner: the (i) data note, then the legend, clear of the time-lapse
-   in the middle. Only the (i) takes clicks; the rest lets them through to the canvas. */
-.graph__corner {
-  position: absolute;
-  left: 12px;
-  bottom: 12px;
-  z-index: 4;
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  max-width: calc(50% - 200px);
-  pointer-events: none;
-}
-
-/* The graph's ⓘ, larger, and translucent over the canvas as its neighbours. */
-.graph-info {
-  pointer-events: auto;
 }
 
 .graph-info .info__button {
@@ -3154,29 +2645,6 @@ input[type="range"] {
   font-size: 0.75rem;
 }
 
-.graph__legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 14px;
-  padding: 6px 12px;
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  background: color-mix(in srgb, var(--surface) 82%, transparent);
-  backdrop-filter: blur(6px);
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  pointer-events: none;
-}
-
-.graph__dot {
-  display: inline-block;
-  width: 9px;
-  height: 9px;
-  margin-right: 6px;
-  border-radius: 50%;
-  vertical-align: -0.5px;
-}
-
 .graph__dot--paper {
   border-radius: 1px;
   background: var(--graph-paper);
@@ -3188,20 +2656,6 @@ input[type="range"] {
 
 .graph__dot--author {
   background: var(--graph-author);
-}
-
-/* Zoom buttons, for touch and keyboards (UX-2), above the hint. */
-.graph__zoom {
-  position: absolute;
-  right: 12px;
-  bottom: 36px;
-  z-index: 4;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin: 0;
-  padding: 0;
-  border: 0;
 }
 
 .graph__zoom button,
@@ -3222,144 +2676,12 @@ input[type="range"] {
   background: var(--accent-soft);
 }
 
-.graph__details:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-/* The first matches listed under the Find field, and the papers filter under them. */
-.graph-find__drop {
-  position: absolute;
-  top: calc(100% + 4px);
-  right: 0;
-  left: 0;
-  z-index: 6;
-  overflow: hidden;
-  border: 1px solid var(--border-strong);
-  border-radius: 8px;
-  background: var(--surface);
-  box-shadow: var(--shadow);
-}
-
-.graph-find__matches {
-  max-height: 240px;
-  overflow-y: auto;
-  padding: 4px 0;
-}
-
-.graph-find__filter {
-  display: block;
-  width: 100%;
-  padding: 8px 10px;
-  border: 0;
-  background: none;
-  color: var(--accent);
-  font-size: 0.75rem;
-  text-align: left;
-  cursor: pointer;
-}
-
-.graph-find__matches + .graph-find__filter {
-  border-top: 1px solid var(--border);
-}
-
-.graph-find__filter:hover {
-  background: var(--accent-soft);
-}
-
-.graph-find__matches [role="option"] {
-  overflow: hidden;
-  padding: 5px 10px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
 .graph-find__matches [role="option"]:hover,
 .graph-find__matches .is-active {
   background: var(--accent-soft);
 }
 
-.graph__hint {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  margin: 0;
-  font-size: 0.6875rem;
-  color: var(--text-muted);
-  pointer-events: none;
-}
-
 /* The hint would run into the time-lapse. */
-@media (max-width: 1279px) {
-  .graph__hint {
-    display: none;
-  }
-
-  .graph__zoom {
-    bottom: 12px;
-  }
-}
-
-@media (max-width: 899px) {
-  /* The column comes apart: the Find field beside the settings' button, the chips under
-     it, wrapping freely, the details as a bottom sheet that never covers the settings. */
-  .graph__side {
-    display: contents;
-  }
-
-  /* The field above the chips here: its matches open over them. */
-  .graph-find {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    z-index: 7;
-    width: calc(100% - 196px);
-  }
-
-  .graph-chips {
-    position: absolute;
-    top: 56px;
-    right: 12px;
-    left: 12px;
-    z-index: 6;
-  }
-
-  /* Above the corner's legend, clear of the chips however they wrap. */
-  .graph__focus {
-    top: auto;
-    right: 12px;
-    bottom: 116px;
-    left: 12px;
-  }
-
-  .graph__details {
-    position: absolute;
-    top: auto;
-    right: 12px;
-    bottom: 12px;
-    left: 12px;
-    z-index: 5;
-    max-height: 45%;
-  }
-
-  /* The time-lapse along the bottom, then the legend, which takes two lines, then zoom. */
-  .graph-timeline {
-    left: 12px;
-    width: auto;
-    right: 12px;
-    transform: none;
-  }
-
-  .graph__corner {
-    bottom: 56px;
-    max-width: calc(100% - 24px);
-  }
-
-  .graph__zoom {
-    bottom: 120px;
-  }
-}
 
 .site-footer {
   margin-top: 40px;
@@ -3405,11 +2727,6 @@ input[type="range"] {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.85rem;
-}
-
-.rankings__note {
-  margin: 10px 0;
   font-size: 0.85rem;
 }
 
@@ -3516,41 +2833,6 @@ input[type="range"] {
   font-size: 0.82rem;
 }
 
-/* A column's header ranks the table by it (UX-42): its arrow shows on the column ranked
-   by, and faintly under the pointer on the others. */
-.rankings__sort {
-  min-height: 24px;
-  display: inline-flex;
-  gap: 3px;
-  align-items: center;
-  padding: 0;
-  border: 0;
-  background: none;
-  font: inherit;
-  color: inherit;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.rankings__arrow {
-  display: flex;
-  font-size: 0.95em;
-  opacity: 0;
-}
-
-.rankings__sort:hover,
-.rankings__sort--active {
-  color: var(--text);
-}
-
-.rankings__sort--active .rankings__arrow {
-  opacity: 1;
-}
-
-.rankings__sort:not(.rankings__sort--active):hover .rankings__arrow {
-  opacity: 0.5;
-}
-
 .rankings__top a {
   color: inherit;
 }
@@ -3567,37 +2849,8 @@ input[type="range"] {
     white-space: normal;
   }
 
-  .rankings__sort {
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    text-align: right;
-  }
-
-  .rankings__sort:not(.rankings__sort--active) .rankings__arrow {
-    display: none;
-  }
-
-  .world-map__table {
-    font-size: 0.8rem;
-  }
-
-  .world-map__table th,
-  .world-map__table td {
-    padding-right: 5px;
-    padding-left: 5px;
-  }
-
   .world-map__table .rankings__rank {
     width: auto;
-  }
-
-  /* Its last column hidden, the one before ends the rows. */
-  .world-map__table tr > :first-child {
-    padding-left: 10px;
-  }
-
-  .world-map__table tr > :nth-last-child(2) {
-    padding-right: 8px;
   }
 }
 
@@ -3607,14 +2860,6 @@ input[type="range"] {
   display: grid;
   gap: 4px;
   margin-bottom: 6px;
-}
-
-.folders__list {
-  display: grid;
-  gap: 2px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
 }
 
 .folder,
@@ -3653,222 +2898,10 @@ input[type="range"] {
   color: var(--accent);
 }
 
-.folder__name {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.folder__count {
-  font-size: 0.8rem;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-muted);
-}
-
-/* A folder a link shares (UX-46), above every saved paper until added or closed. */
-.folder__tag {
-  padding: 0 6px;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  font-size: 0.7rem;
-  color: var(--accent);
-}
-
 /* A card dragged over a folder (UX-39), and its count bouncing once it landed. */
 .folder.folder--drop {
   border-color: var(--accent);
   background: var(--accent-soft);
-}
-
-.folder--landed > .folder__count {
-  animation: tab-bump 480ms cubic-bezier(0.3, 1.6, 0.5, 1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .folder--landed > .folder__count {
-    animation: none;
-  }
-}
-
-/* A name typed in place: the row a field. */
-.folder--editing {
-  border-color: var(--border-strong);
-  background: var(--surface);
-  cursor: auto;
-}
-
-/* Its focus ring kept (UX-9), the row's border a field's. */
-.folder__input {
-  flex: 1;
-  min-width: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 4px;
-  background: transparent;
-}
-
-.folders__add {
-  color: var(--text-muted);
-}
-
-.folders__actions {
-  margin: 0 12px;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.folders__delete {
-  color: var(--danger);
-}
-
-/* A folder's link, when the clipboard refused it: to copy by hand. */
-.folders__link {
-  width: calc(100% - 24px);
-  margin: 6px 12px 0;
-  padding: 4px 8px;
-  border: 1px solid var(--border-strong);
-  border-radius: 8px;
-  background: var(--surface);
-  font: inherit;
-  font-size: 0.75rem;
-  color: var(--text);
-}
-
-/* What a shared folder is, above its papers, and the way to add it (UX-46). */
-.shared-notice > p {
-  margin: 0;
-}
-
-.shared-notice strong {
-  color: var(--text);
-}
-
-.shared-notice > .shared-notice__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 14px;
-  align-items: center;
-  margin-top: 10px;
-}
-
-/* Rankings' world map (UX-41): a card with the map, its tooltip and legend, then the
-   countries' table. */
-.world-map {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 12px;
-}
-
-.world-map__card {
-  padding: 12px 16px 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--card-radius);
-  background: var(--surface);
-  box-shadow: var(--shadow);
-}
-
-.world-map__head {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 6px;
-}
-
-.world-map__tools {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.world-map__head p {
-  margin: 0;
-  font-size: 0.85rem;
-}
-
-.world-map__head strong {
-  margin-right: 8px;
-  font-size: 0.95rem;
-}
-
-/* The wheel alone scrolls the page, and so does a finger, but on a zoomed map, which it
-   moves (UX-43). */
-.world-map__frame {
-  position: relative;
-  touch-action: pan-y;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.world-map__frame--movable {
-  cursor: grab;
-}
-
-.world-map__frame--zoomed {
-  touch-action: none;
-}
-
-.world-map__svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* The countries parted by a thin line of the card, as fills are by a gap; another metric
-   shifts their tints rather than jumping (UX-62). */
-.world-map__shape,
-.world-map__point {
-  stroke: var(--surface);
-  stroke-width: 0.6;
-  vector-effect: non-scaling-stroke;
-  cursor: pointer;
-}
-
-.world-map__shape {
-  transition: fill 400ms ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .world-map__shape {
-    transition: none;
-  }
-}
-
-.world-map__point {
-  stroke-width: 1.5;
-}
-
-.world-map__shape:hover,
-.world-map__point:hover,
-.world-map__shape--pinned {
-  stroke: var(--text);
-  stroke-width: 1.2;
-}
-
-.world-map__frame--dragging,
-.world-map__frame--dragging .world-map__shape,
-.world-map__frame--dragging .world-map__point {
-  cursor: grabbing;
-}
-
-.world-map__fill--none {
-  fill: url("#world-map-hatch");
-  background: repeating-linear-gradient(
-    135deg,
-    var(--map-none-line) 0 1.4px,
-    var(--map-none) 1.4px 4px
-  );
-}
-
-.world-map__hatch-ground {
-  fill: var(--map-none);
-}
-
-.world-map__hatch-line {
-  fill: var(--map-none-line);
 }
 
 .world-map__fill--s0 {
@@ -3926,163 +2959,6 @@ input[type="range"] {
   background: var(--map-d4);
 }
 
-/* The globe (UX-43): its sea lit from the top left, under the countries, which keep their
-   colors; the parallels and meridians every 10°; a rim. */
-.world-map__sea {
-  fill: url("#world-map-sea");
-  filter: drop-shadow(0 6px 14px rgb(0 0 0 / 0.12));
-}
-
-.world-map__sea-light {
-  stop-color: var(--map-sea);
-}
-
-.world-map__sea-deep {
-  stop-color: var(--map-sea-deep);
-}
-
-.world-map__graticule {
-  fill: none;
-  stroke: var(--map-graticule);
-  stroke-width: 0.6;
-  pointer-events: none;
-}
-
-.world-map__rim {
-  fill: none;
-  stroke: var(--border-strong);
-  stroke-opacity: 0.5;
-  pointer-events: none;
-}
-
-/* Said a moment when the wheel scrolls past the map. */
-.world-map__hint {
-  position: absolute;
-  z-index: 3;
-  top: 50%;
-  left: 50%;
-  margin: 0;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--text) 78%, transparent);
-  color: var(--surface);
-  font-size: 0.85rem;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.2s;
-  pointer-events: none;
-}
-
-.world-map__hint--shown {
-  opacity: 1;
-}
-
-/* The map's zoom, as the graph's. */
-.map-zoom {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-/* The values lead, the country follows (the legend's order inverted). */
-.world-map__tip {
-  position: absolute;
-  z-index: 2;
-  min-width: 180px;
-  max-width: 260px;
-  padding: 8px 10px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--surface);
-  box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
-  font-size: 0.8rem;
-  transform: translate(14px, -50%);
-  pointer-events: none;
-}
-
-.world-map__tip--left {
-  transform: translate(calc(-100% - 14px), -50%);
-}
-
-.world-map__tip strong {
-  display: block;
-  font-size: 1rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.world-map__tip strong span {
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: var(--text-muted);
-}
-
-.world-map__tip-name {
-  display: block;
-  margin-bottom: 4px;
-  font-weight: 600;
-}
-
-.world-map__tip dl {
-  display: grid;
-  gap: 2px;
-  margin: 4px 0 0;
-}
-
-.world-map__tip dl > div {
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;
-}
-
-.world-map__tip dt {
-  color: var(--text-muted);
-}
-
-.world-map__tip dd {
-  margin: 0;
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-}
-
-.world-map__tip p {
-  margin: 6px 0 0;
-  color: var(--text-muted);
-}
-
-.world-map__legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 14px;
-  margin: 8px 0 0;
-  padding: 0;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  list-style: none;
-}
-
-.world-map__key {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-.world-map__swatch {
-  width: 14px;
-  height: 10px;
-  border-radius: 3px;
-}
-
-.world-map__row--pinned {
-  background: var(--accent-soft);
-}
-
 /* A major institution's logo before its name (PROD-23): its mark on a white tile, the
    app icons' shape, which keeps dark marks readable on the dark theme's cards; a mark
    that is not square keeps its proportions inside. An inline block without lines sits on
@@ -4119,16 +2995,6 @@ input[type="range"] {
 .flag {
   margin-right: 0.3em;
   font-style: normal;
-}
-
-/* The pinned country's papers, offered under the map (PROD-22). */
-.world-map__pinned {
-  margin: 8px 0 0;
-  font-size: 0.85rem;
-}
-
-.world-map__more {
-  justify-self: start;
 }
 
 .saved-searches {
@@ -4235,35 +3101,8 @@ input[type="range"] {
   font-size: 0.8rem;
 }
 
-.graph__intro {
-  position: absolute;
-  left: 12px;
-  bottom: 12px;
-  z-index: 5;
-  max-width: 360px;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow: var(--shadow);
-  font-size: 0.85rem;
-}
-
-.graph__intro p {
-  margin: 0 0 8px;
-}
-
 /* On a phone the chips fill the stage's top and the controls its bottom: the intro stands
    in the middle, over the canvas alone, which takes no focus (WEB-8, WCAG 2.4.11). */
-@media (max-width: 600px) {
-  .graph__intro {
-    top: 50%;
-    right: 12px;
-    bottom: auto;
-    max-width: none;
-    transform: translateY(-50%);
-  }
-}
 
 .export-menu {
   position: relative;
@@ -4315,85 +3154,6 @@ input[type="range"] {
   margin-top: 16px;
 }
 
-.trends__head {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 24px;
-  align-items: flex-end;
-  justify-content: space-between;
-}
-
-.trends__title {
-  flex: 1 1 28rem;
-}
-
-.trends__title h2 {
-  margin: 0 0 6px;
-  font-size: 1.4rem;
-}
-
-.trends__title p {
-  margin: 0;
-  max-width: 46rem;
-}
-
-.trends__controls {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.trends__source {
-  margin: 20px 0 0;
-  font-size: 0.85rem;
-}
-
-.trend-lists {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: 20px;
-}
-
-@media (max-width: 980px) {
-  .trend-lists {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-.trend-list {
-  padding: 14px 8px 10px;
-  border: 1px solid var(--border);
-  border-radius: var(--card-radius);
-  background: var(--surface);
-  box-shadow: var(--shadow);
-}
-
-.trend-list__title {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  margin: 0 8px;
-  font-size: 1.05rem;
-}
-
-.trend-list__note,
-.trend-list__empty {
-  margin: 2px 8px 8px;
-  font-size: 0.85rem;
-}
-
-.trend-list__rows {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.trend-list__more {
-  margin: 6px 8px 0;
-  font-size: 0.85rem;
-}
-
 /* A mark of where a list's topics go, beside its name: the list's tone, never its text's. */
 .trend-mark {
   display: inline-flex;
@@ -4405,76 +3165,6 @@ input[type="range"] {
 
 .trend-mark--cooling {
   color: var(--trend-cooling);
-}
-
-/* A topic of a list: its rank, name and change on a line, its months drawn and its papers
-   then and now under them. */
-.trend-row {
-  display: grid;
-  grid-template-columns: 1.6rem minmax(0, 1fr) auto;
-  gap: 2px 8px;
-  align-items: center;
-  padding: 7px 8px;
-  border-radius: 10px;
-  color: var(--text);
-  text-decoration: none;
-}
-
-.trend-row:hover {
-  background: var(--surface-muted);
-}
-
-.trend-row--open {
-  background: var(--accent-soft);
-}
-
-.trend-row__rank {
-  grid-row: span 2;
-  align-self: start;
-  font-size: 0.85rem;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-muted);
-  text-align: right;
-}
-
-.trend-row__name {
-  font-weight: 600;
-  overflow-wrap: anywhere;
-}
-
-.trend-row__change {
-  justify-self: end;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
-
-.trend-row__counts {
-  grid-column: 3;
-  justify-self: end;
-  font-size: 0.8rem;
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-}
-
-.sparkline {
-  grid-column: 2;
-  display: block;
-  overflow: visible;
-}
-
-.sparkline path {
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.sparkline__past {
-  stroke: var(--trend-past);
-  stroke-width: 1.5;
-}
-
-.sparkline__recent {
-  stroke-width: 2;
 }
 
 .sparkline__recent--rising {
@@ -4505,35 +3195,6 @@ input[type="range"] {
   outline: none;
 }
 
-.topic__head {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.topic__head h3 {
-  margin: 0;
-  font-size: 1.3rem;
-}
-
-.topic__status {
-  padding: 1px 10px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.topic__status::before {
-  content: "";
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  margin-right: 6px;
-  border-radius: 50%;
-  background: var(--trend-neutral);
-}
-
 .topic__status--rising::before {
   background: var(--trend-rising);
 }
@@ -4542,176 +3203,9 @@ input[type="range"] {
   background: var(--trend-cooling);
 }
 
-.topic__close {
-  margin-left: auto;
-}
-
-.topic__summary {
-  margin: 8px 0 0;
-  max-width: 52rem;
-}
-
-.topic__stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  gap: 12px;
-  margin: 16px 0 0;
-}
-
-.stat {
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-}
-
-.stat dt {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-.stat dd {
-  display: grid;
-  gap: 2px;
-  margin: 2px 0 0;
-}
-
-.stat__value {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.stat__delta {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-.topic__chart-title,
-.topic__papers h4 {
-  margin: 20px 0 6px;
-  font-size: 0.95rem;
-}
-
-.topic__papers ol {
-  margin: 0;
-  padding-left: 1.4rem;
-}
-
-.topic__papers li + li {
-  margin-top: 4px;
-}
-
-.topic__papers a {
-  color: var(--text);
-}
-
-.topic__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 18px;
-}
-
 .topic__actions .button {
   color: var(--text);
   text-decoration: none;
-}
-
-/* The Trends view's line charts (`LineChart`): thin lines over hairline gridlines, a
-   crosshair and a tooltip at the point under the pointer, and the same values as a table. */
-.chart {
-  margin: 0;
-}
-
-.chart__bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 16px;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 4px;
-  font-size: 0.85rem;
-}
-
-.chart__toggle {
-  margin-left: auto;
-}
-
-.chart__legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 14px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.chart__legend-item {
-  display: inline-flex;
-  gap: 6px;
-  align-items: center;
-}
-
-.chart__key {
-  width: 16px;
-  height: 4px;
-  overflow: visible;
-}
-
-.chart__plot {
-  position: relative;
-  border-radius: 8px;
-}
-
-.chart__plot:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.chart__svg {
-  display: block;
-  overflow: visible;
-  touch-action: pan-y;
-}
-
-.chart__grid,
-.chart__axis {
-  stroke-width: 1;
-  shape-rendering: crispEdges;
-}
-
-.chart__grid {
-  stroke: var(--chart-grid);
-}
-
-.chart__axis {
-  stroke: var(--chart-axis);
-}
-
-.chart__band {
-  fill: var(--chart-band);
-}
-
-.chart__band-label,
-.chart__tick,
-.chart__end {
-  font-size: 0.75rem;
-  fill: var(--text-muted);
-}
-
-.chart__tick {
-  font-variant-numeric: tabular-nums;
-}
-
-.chart__end {
-  fill: var(--text);
-}
-
-.chart__line {
-  fill: none;
-  stroke: var(--trend-neutral);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
 }
 
 .chart__line--rising {
@@ -4722,29 +3216,12 @@ input[type="range"] {
   stroke: var(--trend-cooling);
 }
 
-.chart__area {
-  fill: var(--trend-neutral);
-  opacity: 0.1;
-}
-
 .chart__area--rising {
   fill: var(--trend-rising);
 }
 
 .chart__area--cooling {
   fill: var(--trend-cooling);
-}
-
-.chart__crosshair {
-  stroke: var(--chart-axis);
-  stroke-width: 1;
-}
-
-/* A point of a line at the crosshair, ringed in the surface's color. */
-.chart__dot {
-  fill: var(--trend-neutral);
-  stroke: var(--surface);
-  stroke-width: 2;
 }
 
 .chart__dot--rising {
@@ -4755,213 +3232,9 @@ input[type="range"] {
   fill: var(--trend-cooling);
 }
 
-.chart__tip {
-  position: absolute;
-  z-index: 2;
-  display: grid;
-  gap: 2px;
-  min-width: 140px;
-  max-width: 260px;
-  padding: 8px 10px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--surface);
-  box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
-  font-size: 0.8rem;
-  transform: translateX(14px);
-  pointer-events: none;
-}
-
-.chart__tip--left {
-  transform: translateX(calc(-100% - 14px));
-}
-
-.chart__tip-label {
-  font-weight: 600;
-}
-
-.chart__tip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 6px;
-  align-items: center;
-}
-
-.chart__tip-row strong {
-  font-size: 0.95rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.chart__table {
-  max-height: 22rem;
-  overflow: auto;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-}
-
-.chart__table table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.85rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.chart__cell {
-  padding: 4px 10px;
-  border-bottom: 1px solid var(--border);
-  text-align: left;
-}
-
-.chart__table thead .chart__cell {
-  position: sticky;
-  top: 0;
-  background: var(--surface);
-}
-
-/* The explorer (PROD-20): any topic's share of the papers by quarter, up to five. */
-.explorer {
-  margin-top: 20px;
-  padding: 18px 20px 20px;
-  border: 1px solid var(--border);
-  border-radius: var(--card-radius);
-  background: var(--surface);
-  box-shadow: var(--shadow);
-  scroll-margin-top: 16px;
-}
-
-.explorer h3 {
-  margin: 0;
-  font-size: 1.1rem;
-}
-
-.explorer__lede {
-  margin: 4px 0 12px;
-  font-size: 0.9rem;
-}
-
-.explorer__bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  align-items: center;
-}
-
-.explorer__chosen {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.explorer__topic {
-  display: inline-flex;
-  gap: 6px;
-  align-items: center;
-  padding: 3px 4px 3px 10px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  font-size: 0.85rem;
-}
-
-.explorer__remove {
-  display: inline-flex;
-  padding: 3px;
-  border: 0;
-  border-radius: 50%;
-  background: none;
-  color: var(--text-muted);
-  cursor: pointer;
-}
-
-.explorer__remove:hover {
-  background: var(--surface-muted);
-  color: var(--text);
-}
-
-.explorer__try {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  align-items: center;
-  margin: 10px 0 0;
-  font-size: 0.85rem;
-}
-
-.explorer .chart {
-  margin-top: 14px;
-}
-
-/* The field that finds a topic, as the graph's Find field, with its matches under it. */
-.topic-find {
-  position: relative;
-  flex: 0 1 20rem;
-  min-width: 14rem;
-}
-
-.topic-find__icon {
-  position: absolute;
-  top: 50%;
-  left: 12px;
-  display: inline-flex;
-  color: var(--text-muted);
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.topic-find input {
-  width: 100%;
-  padding: 7px 10px 7px 34px;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  background: var(--surface);
-  color: var(--text);
-  font: inherit;
-  font-size: 0.9rem;
-}
-
-.topic-find input:focus {
-  border-color: var(--accent);
-}
-
-.topic-find__drop {
-  position: absolute;
-  top: calc(100% + 4px);
-  right: 0;
-  left: 0;
-  z-index: 6;
-  overflow: hidden;
-  border: 1px solid var(--border-strong);
-  border-radius: 8px;
-  background: var(--surface);
-  box-shadow: var(--shadow-raised);
-}
-
-.topic-find__matches {
-  max-height: 280px;
-  overflow-y: auto;
-  padding: 4px 0;
-}
-
-.topic-find__matches [role="option"] {
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;
-  padding: 6px 10px;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
 .topic-find__matches [role="option"]:hover,
 .topic-find__matches .is-active {
   background: var(--accent-soft);
-}
-
-.topic-find__none {
-  margin: 0;
-  padding: 8px 10px;
-  font-size: 0.85rem;
 }
 
 .chart__line--series-1 {

@@ -36,6 +36,7 @@ import { type ChartBand, LineChart } from "./LineChart";
 import { MathText } from "./MathText";
 import { Segmented } from "./Segmented";
 import type { TabLink } from "./Topbar";
+import "../styles/trends.css";
 
 interface Props {
   category: string | null;

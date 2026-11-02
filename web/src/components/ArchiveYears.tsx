@@ -12,6 +12,7 @@ import { useDismiss } from "../hooks/use-dismiss";
 import { LOCALE } from "../locale";
 import type { ArchiveSummary, TopRecentSummary } from "../types";
 import { ChevronIcon, CitedIcon } from "./icons";
+import "../styles/archive-years.css";
 
 interface Props {
   /** The archive's years, newest first, as the index lists them. */

@@ -1,0 +1,697 @@
+/* The styles of GraphView, loaded with its chunk (SCALE-6): the landing page does without them. */
+
+/* Which papers the graph draws (UX-29): chips floating at the top of the left column —
+   the period, the highly cited years, the venue, and the words filtering the papers. All
+   four share one pill; the source that does not show is muted. */
+.graph-chips {
+  position: absolute;
+  top: 12px;
+  /* One row, from the left edge to the settings panel. */
+  right: 274px;
+  left: 12px;
+  /* Above the Find field and the details, which its panels open over. */
+  z-index: 6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.graph-chips__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The chips' icons, muted as the calendar's. */
+.graph-chips__chip svg,
+.graph-chips__select > svg {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.graph-chips__select > svg {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  /* Over the select's own background. */
+  z-index: 1;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* The selects drawn as the other chips, with the same chevron. */
+.graph-chips__select {
+  position: relative;
+  display: inline-flex;
+  max-width: 180px;
+}
+
+.graph-chips__select select {
+  width: 100%;
+  padding-right: 26px;
+  padding-left: 32px;
+  appearance: none;
+}
+
+/* The canvas and what floats over it. */
+.graph__stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.graph__canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+}
+
+/* A new graph fades in once the layout has opened it (UX-30). */
+.graph__canvas--reveal {
+  animation: graph-reveal 0.35s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .graph__canvas--reveal {
+    animation: none;
+  }
+}
+
+.graph__empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  /* A narrow column in the middle stays clear of the floating panels. */
+  padding: 24px max(24px, calc(50% - 15em));
+  color: var(--text-muted);
+  text-align: center;
+  pointer-events: none;
+}
+
+/* A failed load over the empty canvas: the overlay lets clicks through, its Retry takes them. */
+.graph__error {
+  margin: 0;
+  background: var(--surface);
+  pointer-events: auto;
+}
+
+/* Folded, the panel is its button alone. */
+.graph-settings--open {
+  width: 250px;
+}
+
+.graph-settings__head {
+  display: flex;
+  align-items: center;
+}
+
+.graph-settings__toggle {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 0;
+  background: none;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.graph-settings__toggle svg {
+  color: var(--text-muted);
+}
+
+.graph-settings__reset {
+  min-height: 24px;
+  margin-right: 8px;
+  padding: 2px 6px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  font-size: 0.7188rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.graph-settings__reset:hover {
+  color: var(--text);
+  background: var(--surface-muted);
+}
+
+.graph-settings__body {
+  display: grid;
+  gap: 10px;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 2px 12px 12px;
+}
+
+/* The selects with the chevron of the others (UX-33). */
+.graph-settings__select {
+  position: relative;
+  display: block;
+}
+
+/* A layer of nodes: its checkbox and color, and at least how many papers its nodes have. */
+.graph-layer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* The forces, folded: few readers need them. */
+.graph-settings__summary {
+  min-height: 24px;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.graph-settings__forces {
+  display: grid;
+  gap: 6px;
+  padding: 8px 0 2px;
+}
+
+.graph-settings__export {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.graph-settings__export span {
+  margin-right: auto;
+}
+
+.graph-settings__note {
+  margin: 0;
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+}
+
+.ctl {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 2px 6px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.ctl output {
+  font-size: 0.6875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.ctl input[type="range"] {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.ctl-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 1px 0;
+  cursor: pointer;
+}
+
+.ctl-row input {
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.ctl-select {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.graph-settings__button {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  justify-self: start;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--surface-muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.graph-settings__button:hover {
+  border-color: var(--accent);
+}
+
+/* The Find field and, under it, the details of the node selected: one column on the left,
+   below the chips row. */
+.graph__side {
+  position: absolute;
+  top: 58px;
+  left: 12px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(320px, calc(100% - 24px));
+  /* Clear of the legend below it. */
+  max-height: calc(100% - 116px);
+  pointer-events: none;
+}
+
+.graph__side > * {
+  pointer-events: auto;
+}
+
+.graph__details {
+  position: static;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px 16px 14px;
+  font-size: 0.85rem;
+}
+
+.graph-find {
+  position: relative;
+}
+
+.graph-find input {
+  position: static;
+  width: 100%;
+  padding: 7px 28px 7px 34px;
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+.graph-find__icon {
+  position: absolute;
+  /* Centered on the input, whatever opens below it, and over its background. */
+  top: 17px;
+  left: 12px;
+  z-index: 1;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.graph-find input:focus {
+  border-color: var(--accent);
+}
+
+.graph-find__key {
+  position: absolute;
+  top: 7px;
+  right: 9px;
+  padding: 0 5px;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.graph-find__status {
+  margin: 4px 0 0;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--surface);
+  font-size: 0.7188rem;
+  color: var(--text-muted);
+}
+
+/* The time-lapse, a player at the bottom of the canvas. */
+.graph-timeline {
+  left: 50%;
+  top: auto;
+  bottom: 12px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: min(360px, calc(100% - 24px));
+  margin: 0;
+  padding: 5px 12px 5px 6px;
+  transform: translateX(-50%);
+}
+
+.graph-timeline input {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.graph-timeline__play {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--text);
+  font-size: 0.6875rem;
+  cursor: pointer;
+}
+
+.graph-timeline__play:hover {
+  background: var(--surface-muted);
+}
+
+.graph-timeline__day {
+  min-width: 6.5em;
+  font-size: 0.7188rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.graph__details h2 {
+  margin: 2px 24px 2px 0;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.graph__details p {
+  margin: 0 0 8px;
+}
+
+.graph__kind {
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.graph__papers,
+.graph__connections {
+  margin: 0 0 12px;
+  padding-left: 18px;
+}
+
+.graph__shared {
+  margin: 4px 0 6px;
+  padding-left: 16px;
+  font-size: 0.8rem;
+}
+
+.graph__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Centered between the Find field and the settings, clear of both and of the chips row. */
+.graph__focus {
+  position: absolute;
+  top: 58px;
+  right: 274px;
+  left: 344px;
+  z-index: 4;
+  width: fit-content;
+  max-width: 36em;
+  margin: 0 auto;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  font-size: 0.85rem;
+}
+
+.graph__papers li,
+.graph__connections li {
+  margin-bottom: 4px;
+}
+
+/* A connection (UX-61): its name and its count side by side, a long name wrapping in its
+   column, over a bar of its shared papers' share of the strongest's (`--weight`, from code). */
+.graph__connections .graph__connection {
+  --bar: color-mix(in srgb, var(--accent) 40%, transparent);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 8px;
+  align-items: baseline;
+  padding-bottom: 4px;
+  background:
+    linear-gradient(var(--bar), var(--bar)) no-repeat left bottom / calc(var(--weight) * 100%) 2px;
+}
+
+.graph__connection > .graph__shared {
+  grid-column: 1 / -1;
+}
+
+.graph__close {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  border: 0;
+  background: none;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+/* The bottom-left corner: the (i) data note, then the legend, clear of the time-lapse
+   in the middle. Only the (i) takes clicks; the rest lets them through to the canvas. */
+.graph__corner {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 4;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: calc(50% - 200px);
+  pointer-events: none;
+}
+
+/* The graph's ⓘ, larger, and translucent over the canvas as its neighbours. */
+.graph-info {
+  pointer-events: auto;
+}
+
+.graph__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  backdrop-filter: blur(6px);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.graph__dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 6px;
+  border-radius: 50%;
+  vertical-align: -0.5px;
+}
+
+/* Zoom buttons, for touch and keyboards (UX-2), above the hint. */
+.graph__zoom {
+  position: absolute;
+  right: 12px;
+  bottom: 36px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.graph__details:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* The first matches listed under the Find field, and the papers filter under them. */
+.graph-find__drop {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  left: 0;
+  z-index: 6;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.graph-find__matches {
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.graph-find__filter {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font-size: 0.75rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.graph-find__matches + .graph-find__filter {
+  border-top: 1px solid var(--border);
+}
+
+.graph-find__filter:hover {
+  background: var(--accent-soft);
+}
+
+.graph-find__matches [role="option"] {
+  overflow: hidden;
+  padding: 5px 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.graph__hint {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  margin: 0;
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+@media (max-width: 1279px) {
+  .graph__hint {
+    display: none;
+  }
+
+  .graph__zoom {
+    bottom: 12px;
+  }
+}
+
+@media (max-width: 899px) {
+  /* The column comes apart: the Find field beside the settings' button, the chips under
+     it, wrapping freely, the details as a bottom sheet that never covers the settings. */
+  .graph__side {
+    display: contents;
+  }
+
+  /* The field above the chips here: its matches open over them. */
+  .graph-find {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 7;
+    width: calc(100% - 196px);
+  }
+
+  .graph-chips {
+    position: absolute;
+    top: 56px;
+    right: 12px;
+    left: 12px;
+    z-index: 6;
+  }
+
+  /* Above the corner's legend, clear of the chips however they wrap. */
+  .graph__focus {
+    top: auto;
+    right: 12px;
+    bottom: 116px;
+    left: 12px;
+  }
+
+  .graph__details {
+    position: absolute;
+    top: auto;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    z-index: 5;
+    max-height: 45%;
+  }
+
+  /* The time-lapse along the bottom, then the legend, which takes two lines, then zoom. */
+  .graph-timeline {
+    left: 12px;
+    width: auto;
+    right: 12px;
+    transform: none;
+  }
+
+  .graph__corner {
+    bottom: 56px;
+    max-width: calc(100% - 24px);
+  }
+
+  .graph__zoom {
+    bottom: 120px;
+  }
+}
+
+.graph__intro {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 5;
+  max-width: 360px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  font-size: 0.85rem;
+}
+
+.graph__intro p {
+  margin: 0 0 8px;
+}
+
+@media (max-width: 600px) {
+  .graph__intro {
+    top: 50%;
+    right: 12px;
+    bottom: auto;
+    max-width: none;
+    transform: translateY(-50%);
+  }
+}

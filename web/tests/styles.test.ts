@@ -37,6 +37,22 @@ describe("palettes", () => {
   });
 });
 
+describe("the lazy views' stylesheets (SCALE-6)", () => {
+  const sheets = import.meta.glob("../src/styles/*.css", {
+    query: "?raw",
+    import: "default",
+    eager: true,
+  });
+
+  it("leave the palettes to styles.css: no theme block of their own", () => {
+    expect(Object.keys(sheets).length).toBeGreaterThan(3);
+    const themed = Object.entries(sheets).filter(([, text]) =>
+      /:root|data-theme|prefers-color-scheme/.test(String(text)),
+    );
+    expect(themed.map(([path]) => path)).toEqual([]);
+  });
+});
+
 describe("sizes (UX-16)", () => {
   const sizes = [...css.matchAll(/font-size:\s*([^;]+);/g)].map((match) => match[1] ?? "");
 

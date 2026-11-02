@@ -1,0 +1,18 @@
+/* The styles of SharedNotice, loaded with its chunk (SCALE-6): the landing page does without them. */
+
+/* What a shared folder is, above its papers, and the way to add it (UX-46). */
+.shared-notice > p {
+  margin: 0;
+}
+
+.shared-notice strong {
+  color: var(--text);
+}
+
+.shared-notice > .shared-notice__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: center;
+  margin-top: 10px;
+}

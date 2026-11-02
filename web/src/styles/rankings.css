@@ -1,0 +1,53 @@
+/* The styles of Rankings, loaded with its chunk (SCALE-6): the landing page does without them. */
+
+.rankings__note {
+  margin: 10px 0;
+  font-size: 0.85rem;
+}
+
+/* A column's header ranks the table by it (UX-42): its arrow shows on the column ranked
+   by, and faintly under the pointer on the others. */
+.rankings__sort {
+  min-height: 24px;
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.rankings__arrow {
+  display: flex;
+  font-size: 0.95em;
+  opacity: 0;
+}
+
+.rankings__sort:hover,
+.rankings__sort--active {
+  color: var(--text);
+}
+
+.rankings__sort--active .rankings__arrow {
+  opacity: 1;
+}
+
+.rankings__sort:not(.rankings__sort--active):hover .rankings__arrow {
+  opacity: 0.5;
+}
+
+@media (max-width: 700px) {
+  .rankings__sort {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  .rankings__sort:not(.rankings__sort--active) .rankings__arrow {
+    display: none;
+  }
+}

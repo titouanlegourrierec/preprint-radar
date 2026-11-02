@@ -1,0 +1,86 @@
+/* The styles of Folders, loaded with its chunk (SCALE-6): the landing page does without them. */
+
+.folders__list {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.folder__name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.folder__count {
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+/* A folder a link shares (UX-46), above every saved paper until added or closed. */
+.folder__tag {
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-size: 0.7rem;
+  color: var(--accent);
+}
+
+.folder--landed > .folder__count {
+  animation: tab-bump 480ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .folder--landed > .folder__count {
+    animation: none;
+  }
+}
+
+/* A name typed in place: the row a field. */
+.folder--editing {
+  border-color: var(--border-strong);
+  background: var(--surface);
+  cursor: auto;
+}
+
+/* Its focus ring kept (UX-9), the row's border a field's. */
+.folder__input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+}
+
+.folders__add {
+  color: var(--text-muted);
+}
+
+.folders__actions {
+  margin: 0 12px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.folders__delete {
+  color: var(--danger);
+}
+
+/* A folder's link, when the clipboard refused it: to copy by hand. */
+.folders__link {
+  width: calc(100% - 24px);
+  margin: 6px 12px 0;
+  padding: 4px 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--surface);
+  font: inherit;
+  font-size: 0.75rem;
+  color: var(--text);
+}

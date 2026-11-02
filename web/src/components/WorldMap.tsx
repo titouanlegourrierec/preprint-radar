@@ -24,6 +24,7 @@ import { MapFrame, nameOf, WORLD } from "./MapFrame";
 import { RankCell, shareOf } from "./RankCell";
 import { Segmented } from "./Segmented";
 import { SortHeader } from "./SortHeader";
+import "../styles/world-map.css";
 
 /** The volume metrics' classes, light to dark (`--map-s0`…); impact has five (`--map-d0`…). */
 const CLASSES = 6;

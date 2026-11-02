@@ -324,7 +324,12 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   (`rankings.ts`, `graph.ts`; `RankingsControls.tsx` stays eager), the folders and the
   shared-folder notice, Highly cited's years (`ArchivePicker`, PERF-17); the CSV, RIS and
   Markdown exports come with the first (`export.ts`), the search of every stored paper with
-  its first (`store-search.ts`). The deploy measures a little more than a local build (its
+  its first (`store-search.ts`). Their styles too: each lazy view imports its stylesheet
+  (`src/styles/<view>.css`, SCALE-6), which Vite emits with its chunk; `styles.css` keeps
+  the palettes, the list's styles and what several views share (a rule moves only when
+  every class it names is one lazy chunk's, which a comparison of screenshots of every
+  view found unchanged to the pixel). 75.9 kB on 2026-11-03, the stylesheet 9.7 kB of it
+  instead of 13.3. The deploy measures a little more than a local build (its
   analytics tag, absolute links): build with `PREPRINT_RADAR_SITE_URL` and
   `PREPRINT_RADAR_ANALYTICS_TOKEN` set to know its figure.
 - `contentSecurityPolicy` (`tooling/content-security-policy.ts`, SEC-1) adds a CSP meta

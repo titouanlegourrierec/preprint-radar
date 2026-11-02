@@ -2,6 +2,7 @@ import { countOf } from "../format";
 import { LOCALE } from "../locale";
 import type { Paper } from "../types";
 import { StarIcon } from "./icons";
+import "../styles/shared-notice.css";
 
 /** Ids named one by one before "and N more". */
 const LISTED = 10;

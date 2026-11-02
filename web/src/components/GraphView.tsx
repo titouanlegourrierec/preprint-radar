@@ -40,6 +40,7 @@ import { GraphInfo } from "./GraphInfo";
 import { GraphLegend } from "./GraphLegend";
 import { GraphSettingsPanel } from "./GraphSettingsPanel";
 import { GraphTimeline } from "./GraphTimeline";
+import "../styles/graph.css";
 
 const DETAILS_CONNECTIONS = 8;
 /** Space taken by the overlays (width + margins), kept free when fitting or selecting. */

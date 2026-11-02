@@ -3,6 +3,7 @@ import { type Folder, MAX_FOLDER_NAME, PAPER_DRAG_TYPE } from "../folders";
 import { LOCALE } from "../locale";
 import { shareLink } from "../native-share";
 import { FolderIcon, LinkIcon, PlusIcon, StarIcon } from "./icons";
+import "../styles/folders.css";
 
 /**
  * A folder's name typed in place, in the list: Enter keeps it, Escape or an empty name

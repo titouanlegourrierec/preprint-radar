@@ -13,6 +13,7 @@ import { MathText } from "./MathText";
 import { RankCell, shareOf } from "./RankCell";
 import { countryMetricOf, KIND_NAMES, metricOf } from "./RankingsControls";
 import { SortHeader } from "./SortHeader";
+import "../styles/rankings.css";
 
 const SHOWN = 100;
 

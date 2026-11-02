@@ -1,0 +1,12 @@
+/* The styles of ArchiveYears, loaded with its chunk (SCALE-6): the landing page does without them. */
+
+/* The highly cited years, drawn as the calendar's days (UX-33): four a row, oldest first. */
+.archive-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2px;
+}
+
+.archive-picker__back {
+  justify-self: start;
+}

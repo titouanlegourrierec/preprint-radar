@@ -258,7 +258,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   any), `GITHUB_ACTIONS` and `GITHUB_STEP_SUMMARY`: set them with `monkeypatch.setenv`
   where a test needs them.
 - Web: TypeScript strict (TS 7), Biome (no ESLint/Prettier), Preact hooks, no CSS
-  framework. Theme colors are the CSS variables of `styles.css`: automatic light/dark plus
+  framework. A lazy view's styles are its own file, `src/styles/<view>.css`, imported by its
+  component (SCALE-6). Theme colors are the CSS variables of `styles.css`: automatic light/dark plus
   a manual `data-theme` override. The dark palette is declared twice: keep both blocks
   identical, give every new color (like `--graph-paper`) a value in all three blocks, with
   plain values only (the graph canvas reads them through `getComputedStyle`);
