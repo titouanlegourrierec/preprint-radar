@@ -346,6 +346,51 @@ def canonical(name: str) -> str:
     return name
 
 
+# Institutions the registry names as a better-known one, by their ROR id: the name they get
+# instead, and the words by which an affiliation without an id says it is theirs (AQ-7).
+# The site counts institutions by name: "Northeastern University" in Shenyang and in Boston
+# were one node and one row. The better-known keeps the plain name, as Wikipedia does.
+HOMONYMS: Mapping[str, tuple[str, str]] = {
+    "03awzbc87": ("Northeastern University (China)", r"China|Shenyang"),
+    "00cf0ab87": ("Southeast University (Bangladesh)", r"Bangladesh|Dhaka"),
+    "056qj1t15": ("Institute of Automation (Dresden)", r"Germany|Dresden"),
+    "00m6w7z96": ("Northwestern University (Philippines)", r"Philippines|Laoag"),
+    "04dwckp88": ("Concordia University (Portland)", r"Portland|Oregon"),
+    "00y7snj24": ("Northwest University (Kirkland)", r"Kirkland|Washington|USA|United States"),
+    "03xg85719": ("Institute for Advanced Study (Berlin)", r"Berlin|Germany"),
+    "040r3xq19": ("Universidad de León (Mexico)", r"M[eé]xico|Guanajuato"),
+}
+_HOMONYM_SUFFIX_RE = re.compile(r"\s+\([^()]+\)$")
+# Each plain name's homonyms, and the words that tell an affiliation is theirs.
+_HOMONYM_WORDS: dict[str, list[tuple[str, re.Pattern[str]]]] = {}
+for _told, _words in HOMONYMS.values():
+    _HOMONYM_WORDS.setdefault(_HOMONYM_SUFFIX_RE.sub("", _told), []).append(
+        (_told, re.compile(rf"{_B}(?:{_words}){_B}"))
+    )
+
+
+def told_apart(name: str, ror_id: str | None, affiliation: str) -> str:
+    """The name of an institution that shares it with another, made its own (:data:`HOMONYMS`).
+
+    By its id; without one, by the words of its affiliation ("Northeastern University,
+    Shenyang, China"); else the name, the better-known one's.
+
+    Args:
+        name: The institution's name, as the registry or the rules give it.
+        ror_id: Its ROR id, ``None`` when not known.
+        affiliation: The affiliation string it was named for.
+
+    Returns:
+        The name, made unique where it is a homonym's.
+    """
+    if ror_id is not None:
+        return HOMONYMS[ror_id][0] if ror_id in HOMONYMS else name
+    for told, words in _HOMONYM_WORDS.get(name, ()):
+        if words.search(affiliation):
+            return told
+    return name
+
+
 def ids_where_named(
     ids: Sequence[str | None] | None, names: Sequence[str | None]
 ) -> tuple[str | None, ...] | None:
@@ -406,17 +451,22 @@ def with_known_ids(
 
 
 def name_institutions(
-    affiliations: Sequence[str], registered: Sequence[str | None], authors: Sequence[str] = ()
+    affiliations: Sequence[str],
+    registered: Sequence[str | None],
+    authors: Sequence[str] = (),
+    ids: Sequence[str | None] | None = None,
 ) -> tuple[str | None, ...]:
     """The institution of each affiliation: the registry's, else the rules'.
 
     One of the paper's own authors is never an institution (a name printed where an
-    affiliation goes).
+    affiliation goes), and an institution named as a better-known one is told apart
+    (:func:`told_apart`, AQ-7).
 
     Args:
         affiliations: A paper's affiliations.
         registered: The name ROR or OpenAlex gives each, ``None`` where it gives none.
         authors: The paper's authors.
+        ids: The ROR id the registry gives each, ``None`` where it gives none.
 
     Returns:
         One name or ``None`` per affiliation.
@@ -431,7 +481,12 @@ def name_institutions(
         else institution_name(affiliation)
         for affiliation, name in zip(affiliations, registered, strict=True)
     )
-    return tuple(name if name and search_key(name) not in people | {""} else None for name in names)
+    return tuple(
+        told_apart(name, ror_id, affiliation) if name and search_key(name) not in people | {""} else None
+        for name, ror_id, affiliation in zip(
+            names, ids or (None,) * len(affiliations), affiliations, strict=True
+        )
+    )
 
 
 def _lists_authors(affiliation: str, surnames: set[str]) -> bool:

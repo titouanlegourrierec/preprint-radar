@@ -28,6 +28,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   affiliation by an "equal contribution" mark, numbered affiliations set as table rows kept
   whole, one affiliation spread over the authors read as everyone's, and mail addresses
   without their "@" dropped.
+- Institutions of the same name in different places are no longer one on the site:
+  "Northeastern University (China)" is apart from Boston's (AQ-7).
 - Institutions: places, notes, mailbox names and author lists name none (AQ-4), a name of
   the rules takes the ROR id it has elsewhere (AQ-6, 2,430 more on the map), and two given
   names that start alike are two people for OpenAlex's placement (AQ-8).

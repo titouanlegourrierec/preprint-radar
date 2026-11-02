@@ -12,6 +12,7 @@ from preprint_radar.institutions import (
     institution_name,
     name_institutions,
     search_key,
+    told_apart,
 )
 
 
@@ -134,6 +135,51 @@ def test_the_registry_comes_first_and_the_rules_name_the_rest() -> None:
         "Microsoft",
         None,
     )
+
+
+def test_an_institution_named_as_a_better_known_one_is_told_apart() -> None:
+    affiliations = (
+        "Northeastern University",
+        "Northeastern University",
+        "School of Computer Science and Engineering, Northeastern University, Shenyang, China",
+        "Northeastern University, Boston, MA 02115, USA",
+    )
+    registered = ("Northeastern University", "Northeastern University", None, None)
+    ids = ("03awzbc87", "04t5xt781", None, None)
+
+    # By its id; without one, by its place; else the better-known one's (AQ-7).
+    assert name_institutions(affiliations, registered, ids=ids) == (
+        "Northeastern University (China)",
+        "Northeastern University",
+        "Northeastern University (China)",
+        "Northeastern University",
+    )
+
+
+@pytest.mark.parametrize(
+    ("name", "ror_id", "affiliation", "told"),
+    [
+        ("Southeast University", "00cf0ab87", "Southeast University", "Southeast University (Bangladesh)"),
+        ("Southeast University", None, "Southeast University, Nanjing, China", "Southeast University"),
+        (
+            "Institute for Advanced Study",
+            None,
+            "Institute for Advanced Study, Berlin",
+            "Institute for Advanced Study (Berlin)",
+        ),
+        # A name that only holds a homonym's place word is no homonym.
+        ("Peking University", None, "Peking University, Shenyang, China", "Peking University"),
+        # The name stored before is kept.
+        (
+            "Northeastern University (China)",
+            "03awzbc87",
+            "Northeastern University",
+            "Northeastern University (China)",
+        ),
+    ],
+)
+def test_told_apart(name: str, ror_id: str | None, affiliation: str, told: str) -> None:
+    assert told_apart(name, ror_id, affiliation) == told
 
 
 @pytest.mark.parametrize(

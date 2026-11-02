@@ -108,7 +108,7 @@ rewritten each week. Those of the day files are their records there.
 | `abstract` | string or `null` | Its abstract as plain text, arXiv's LaTeX made readable: a formula still holding markup keeps its dollars. |
 | `affiliations` | strings or `null` | Its authors' affiliations, deduplicated, as written: never an e-mail nor a URL. |
 | `author_affiliations` | lists or `null` | For each author, the indices of their own affiliations in `affiliations`; `null` for an author the page does not place, and altogether when it places none. |
-| `institutions` | strings or `null` | Parallel to `affiliations`: the institution each belongs to (ROR's name, OpenAlex's in the archive, a company's subsidiaries as the company), `null` for one that names none. |
+| `institutions` | strings or `null` | Parallel to `affiliations`: the institution each belongs to (ROR's name, OpenAlex's in the archive, a company's subsidiaries as the company, a homonym of a better-known institution with its place: "Northeastern University (China)"), `null` for one that names none. |
 | `institution_ids` | strings (optional) | Parallel to `institutions`: the ROR id of each ("00f54p054"), `null` without one. |
 | `extractor` | number (optional) | The version of the HTML extraction that read the affiliations: absent for those of the API, OpenAlex, or corrected on request (`manual`). |
 | `withdrawn` | `true` (optional) | Its comments say its authors or arXiv withdrew it. |

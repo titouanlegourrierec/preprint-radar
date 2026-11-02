@@ -143,7 +143,7 @@ def _with_openalex(paper: Paper, result: PaperAffiliations, read: Provenance) ->
     OpenAlex's institutions are registry entries: a company's subsidiaries are named as the
     company (AFF-13).
     """
-    names = name_institutions(result.affiliations, result.affiliations, paper.authors)
+    names = name_institutions(result.affiliations, result.affiliations, paper.authors, result.institution_ids)
     return replace(
         paper.with_affiliations(result.affiliations, result.author_affiliations, provenance=read),
         institutions=names,

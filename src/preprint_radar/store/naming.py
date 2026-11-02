@@ -125,7 +125,7 @@ def named_again(paper: Paper, known: Mapping[str, str] | None = None) -> Paper:
         name if name is not None and (ror_id is not None or from_openalex) else None
         for name, ror_id in zip(paper.institutions, ids, strict=True)
     ]
-    names = name_institutions(paper.affiliations, registered, paper.authors)
+    names = name_institutions(paper.affiliations, registered, paper.authors, ids)
     ids_named = with_known_ids(names, ids_where_named(paper.institution_ids, names), known or {})
     if names == paper.institutions and ids_named == paper.institution_ids:
         return paper

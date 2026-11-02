@@ -1067,7 +1067,10 @@ def _with_institutions(
     a single one (``known``, AQ-6).
     """
     names = name_institutions(
-        paper.affiliations or (), [match.name if match else None for match in matches], paper.authors
+        paper.affiliations or (),
+        [match.name if match else None for match in matches],
+        paper.authors,
+        [match.ror_id if match else None for match in matches],
     )
     ids = tuple(
         match.ror_id if match is not None and name is not None else None

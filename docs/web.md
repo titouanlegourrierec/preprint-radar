@@ -517,7 +517,8 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   `MAX_CLIQUE_AUTHORS` (50) authors links them only to its institutions (PERF-3, decision
   15): one 561-author paper made 39% of a year's author links. Nodes are keyed by the
   `searchKey` of the pipeline's canonical name, so a company is one node across its ROR
-  entries (`rorId`). Default: papers and institutions, no isolated nodes.
+  entries (`rorId`), and two institutions of one name are two only because the pipeline
+  names the lesser-known with its place ("Northeastern University (China)", AQ-7). Default: papers and institutions, no isolated nodes.
 - `components/GraphView.tsx` holds the state and drives the renderer, with `GraphDetails`
   (the node selected, `nodeConnections`), `GraphLegend`, `GraphFilters`,
   `GraphSettingsPanel` (DEBT-3), `GraphFind`, `GraphInfo` and `GraphTimeline`.
