@@ -1262,9 +1262,6 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
             "The University of Hong Kong, and", "The University of Hong Kong", id="list-cut-after-and"
         ),
         pytest.param(
-            "Nanjing University of Posts and", "Nanjing University of Posts and", id="name-cut-after-and"
-        ),
-        pytest.param(
             "HafenCity University, Hamburg, Germany -", "HafenCity University, Hamburg, Germany", id="dash"
         ),
         pytest.param("\\addrDepartment of Physics, MIT", "Department of Physics, MIT", id="latex-command"),
@@ -1498,6 +1495,83 @@ def test_clean_affiliations_splits_what_holds_several(raw: str, expected: tuple[
 )
 def test_numbers_inside_an_affiliation_are_not_markers(raw: str) -> None:
     assert clean_affiliations(raw) == (raw,)
+
+
+def test_a_number_after_a_preposition_is_no_marker() -> None:
+    # TU Delft's "Faculty of 3mE" gave "Faculty of" and "mE, Delft ..." (2203.10157).
+    raw = "Cognitive Robotics, Faculty of 3mE, Delft University of Technology"
+
+    assert clean_affiliations(raw) == (raw,)
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        # Universities LaTeXML ran together (ar5iv's 1904.04514, 1902.10859, 2006.09785).
+        pytest.param(
+            "The University of Adelaide Peking University Huazhong University of Science and Technology",
+            (
+                "The University of Adelaide",
+                "Peking University",
+                "Huazhong University of Science and Technology",
+            ),
+            id="three-universities",
+        ),
+        pytest.param(
+            "Tianjin University Wuhan University",
+            ("Tianjin University", "Wuhan University"),
+            id="two-universities",
+        ),
+        pytest.param(
+            "CVL, Linköping University, Sweden University of Central Florida, USA",
+            ("CVL, Linköping University, Sweden", "University of Central Florida, USA"),
+            id="after-a-country",
+        ),
+        # A name "University of" and a word starts goes on (2311.17946), and a country that
+        # starts a name stays with it.
+        pytest.param(
+            "University of Southern California University of Washington",
+            ("University of Southern California University of Washington",),
+            id="a-name-going-on",
+        ),
+        pytest.param(
+            "Peking University, China University of Mining and Technology",
+            ("Peking University, China University of Mining and Technology",),
+            id="a-country-starting-a-name",
+        ),
+        pytest.param(
+            "Yonsei University College of Medicine",
+            ("Yonsei University College of Medicine",),
+            id="a-college",
+        ),
+    ],
+)
+def test_universities_run_together_are_set_apart(raw: str, expected: tuple[str, ...]) -> None:
+    assert clean_affiliations(raw) == expected
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        # What precedes LaTeX's \and, what followed it lost (2410.14919, 2609.21369, 2610.16337).
+        pytest.param(
+            "The University of Texas at Austin and", "The University of Texas at Austin", id="institution-and"
+        ),
+        pytest.param("ECE &", "ECE", id="ampersand"),
+        pytest.param(
+            "Faculty of Mathematics and Computer Science and",
+            "Faculty of Mathematics and Computer Science",
+            id="unit-and",
+        ),
+        # A name cut short: nothing says what it was (2306.04344, 2412.06141, 2609.35150).
+        pytest.param("Hong Kong University of Science and", None, id="name-cut-at-and"),
+        pytest.param("Nanjing University of Posts and", None, id="name-cut-after-posts"),
+        pytest.param("Technion - Israel Institute of", None, id="preposition"),
+        pytest.param("Deutsches Forschungszentrum für", None, id="german-preposition"),
+    ],
+)
+def test_a_string_cut_short_keeps_only_what_stands_alone(raw: str, expected: str | None) -> None:
+    assert clean_affiliation(raw) == expected
 
 
 def test_superscript_markers_glued_to_affiliations_start_numbered_lines() -> None:
@@ -2312,10 +2386,18 @@ def test_an_affiliation_glued_to_the_last_of_several_names() -> None:
     assert front.author_affiliations == ((0,), (0,))
 
 
-def test_an_address_glued_to_its_affiliation_leaves_it_whole() -> None:
-    # "University of Oxford<tt>yuki@robots.ox.ac.uk</tt>" read "Oxfordyuki@...", which went
-    # whole with the address (ar5iv's 2006.13662).
-    address = '<span id="id1" class="ltx_text ltx_font_typewriter">ada@example.org</span>'
+@pytest.mark.parametrize(
+    "span_class",
+    [
+        # "University of Oxford<tt>yuki@robots.ox.ac.uk</tt>" read "Oxfordyuki@...", which went
+        # whole with the address (ar5iv's 2006.13662).
+        pytest.param("ltx_text ltx_font_typewriter", id="typewriter"),
+        # In italics: "University of Washington" gave "University of" (2412.06141).
+        pytest.param("ltx_text ltx_font_italic", id="italic"),
+    ],
+)
+def test_an_address_glued_to_its_affiliation_leaves_it_whole(span_class: str) -> None:
+    address = f'<span id="id1" class="{span_class}">ada@example.org</span>'
     html = _author_block(("Ada Lovelace", (f"University of Oxford{address}",)))
 
     front = parse_front_matter(html, authors=("Ada Lovelace",))
@@ -2438,6 +2520,23 @@ def test_markers_written_in_math_are_read_without_their_source() -> None:
             id="lost-space",
         ),
         pytest.param("Department of CSRPI", "Department of CSRPI", id="capitals-not-a-country"),
+        # The last word of a name glued to the address after it, in the LaTeX source (ar5iv's
+        # 2006.14610, 2011.00147).
+        pytest.param(
+            "Technion - Israel Institute of Technologyauthor@example.org, author@example.org",
+            "Technion - Israel Institute of Technology",
+            id="word-glued-to-an-address",
+        ),
+        pytest.param(
+            "Zhejiang Universityjane.doe@example.org",
+            "Zhejiang University",
+            id="word-glued-to-a-dotted-address",
+        ),
+        pytest.param(
+            "University of Kent, UKauthor@example.org",
+            "University of Kent, UK",
+            id="country-glued-to-an-address",
+        ),
     ],
 )
 def test_parts_glued_by_latexml_are_separated(raw: str, expected: str) -> None:

@@ -130,9 +130,13 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   ("..., Singapore{jane,john}@nus.edu.sg", 1312.4400); an address in brackets and
   what follows, ending an unwrapped thanks note's sentence ("..., Hong Kong SAR, China
   (author@...)", 2609.10082), or ending a line ("..., Vienna, Austria author@...",
-  2610.02974), or in typewriter type glued to the word before it, set apart first
-  (`University of Oxford<tt>yuki@...</tt>` lost "Oxford", ar5iv's 2006.13662; an "@" in a
-  span of its own stays glued, 2609.13233). Several addresses at the end go together, which
+  2610.02974), or in a span of text glued to the word before it, set apart first
+  (`University of Oxford<tt>yuki@...</tt>` lost "Oxford", ar5iv's 2006.13662; in italics,
+  "University of Washington", 2412.06141; an "@" in a span of its own stays glued,
+  2609.13233), or glued to it in the LaTeX source, after the last word of a name or a
+  country, which a space sets apart ("Technion - Israel Institute of
+  Technologyyatzmon@…" gave "… Institute of", 2006.14610; "Zhejiang Universitykgl.prml@…"
+  gave "Zhejiang", 2011.00147; AFF-41). Several addresses at the end go together, which
   a comma after the first joined across lines: "University of California Santa
   Cruz{…}@…," then "a@…, b@…" gave nothing (2406.18522), nor did DreamFusion's "Google
   Research, UC Berkeley" (2209.14988). ORCID identifiers go with their label ("(ORCID:
@@ -189,7 +193,17 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   University", 2402.13251): one or two digits glued to a capitalized word ("3HKUST",
   "4eBay") after a space, the word before holding no digit or itself marked ("2CASIA
   3HKUST"), so that postcodes ("London WC1E 6AE", "QC H2S 3H1"), "3D" and "4K" stay
-  whole. `reclean` splits stored strings too.
+  whole, nor after a preposition ("Faculty of 3mE", TU Delft, 2203.10157). `reclean` splits
+  stored strings too.
+- Universities run together, their line breaks lost (ar5iv's pages, several authors in
+  one creator), are set apart (AFF-41): after a name ending in "University", one of a word
+  and "University" ("Tianjin University Wuhan University", 1902.10859); after "University
+  of" and a word, one of a word and "University" not followed by "of" ("The University of
+  Adelaide Peking University Huazhong University of …", 1904.04514), as "University of
+  Southern California University of Washington" cuts elsewhere (2311.17946, left whole);
+  after a university's country, a university, institute or college ("Linköping University,
+  Sweden University of Central Florida", 2006.09785), unless that country starts names of
+  its own ("…, China University of Mining and Technology").
 - Leading digits are markers unless they start a name ("54th Research Institute", "3M
   Company", "3D Vision Lab", "4K"), in strings and numbered lines ("2 3D Vision Lab").
 - Link labels ("Project page", "Project Website") are stripped, not dropped: once the URL
@@ -221,7 +235,15 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   Luxembourg" / "Trier, Germany", 2609.06629). The institution rules' `_COUNTRY_RE` is
   built from the same `COUNTRIES`.
 - A list cut after its connector loses it ("The University of Hong Kong, and"), as does a
-  trailing dash; a name cut short keeps its "and" ("Nanjing University of Posts and").
+  trailing dash. A string ending in "and" or "&" without a comma lost what LaTeX's `\and`
+  ended it with (AFF-41): what precedes stands alone ("The University of Texas at Austin
+  and", 2410.14919; "Faculty of Mathematics and Computer Science and", 2503.08373; "ECE &",
+  2610.16337), unless it is a name cut short, which a word like "Science", "Technology" or
+  "Posts" ends outside a unit ("Hong Kong University of Science and", "Nanjing University
+  of Posts and"): such a string goes, and so does one ending in a preposition ("Technion -
+  Israel Institute of", "Deutsches Forschungszentrum für", 2609.35150), whose name no rule
+  can guess; the institution rules named "Hong Kong University of Science and" the
+  University of Hong Kong (2306.04344).
 
 ## Who is where: the author mapping
 

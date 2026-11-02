@@ -12,6 +12,11 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ### Pipeline
 
+- Affiliations no longer cut short (AFF-41): an address glued to an institution's name
+  took its last word ("Technion - Israel Institute of", "Zhejiang", and "Hong Kong
+  University of Science and", credited to the University of Hong Kong), "The University of
+  Texas at Austin and" keeps its institution, "Faculty of 3mE" is whole, and universities
+  older pages ran together are set apart.
 - Fewer wrong affiliations from the pages: a name with its marker ("Saining Xie 1"), a
   link's label ("Project"), ORCID identifiers, "now at" and interns' notes, and the
   example author of NeurIPS's template, whose "Department of Computer Science" every author

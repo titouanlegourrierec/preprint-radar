@@ -3916,5 +3916,245 @@
       ]
     ],
     "abstract": "Semantic segmentation has a broad range of applications, but its real-world impact has been significantly limited by the prohibitive annotation costs necessary to enable deployment. Segmentation methods that forgo supervision can side-step these costs, but exhibit the inconvenient requirement to provide labelled examples from the target distribution to assign concept names to predictions. An alternative line of work in language-image pre-training has recently demonstrated the potential to produce models that can both assign names across large vocabularies of concepts and enable zero-shot transfer for classification, but do not demonstrate commensurate segmentation abilities. In this work, we strive to achieve a synthesis of these two approaches that combines their strengths. We leverage the retrieval abilities of one such language-image pre-trained model, CLIP, to dynamically curate training sets from unlabelled images for arbitrary collections of concept names, and leverage the robust correspondences offered by modern image representations to co-segment entities among the resulting collections. The synthetic segment collections are then employed to construct a segmentation model (without requiring pixel labels) whose knowledge of concepts is inherited from the scalable pre-training process of CLIP. We demonstrate that our approach, termed Retrieve and Co-segment (ReCo) performs favourably to unsupervised segmentation approaches while inheriting the convenience of nameable predictions and zero-shot transfer. We also demonstrate ReCo’s ability to generate specialist segmenters for extremely rare objects11 1 Project page: https://www.robots.ox.ac.uk/~vgg/research/reco."
+  },
+  "2011.00147": {
+    "authors": [
+      "Guoliang Kang",
+      "Yunchao Wei",
+      "Yi Yang",
+      "Yueting Zhuang",
+      "Alexander G. Hauptmann"
+    ],
+    "affiliations": [
+      "School of Computer Science, Carnegie Mellon University",
+      "ReLER, University of Technology Sydney",
+      "Zhejiang University"
+    ],
+    "placed": [
+      [
+        "Guoliang Kang",
+        [
+          "School of Computer Science, Carnegie Mellon University"
+        ]
+      ],
+      [
+        "Yunchao Wei",
+        null
+      ],
+      [
+        "Yi Yang",
+        null
+      ],
+      [
+        "Yueting Zhuang",
+        [
+          "ReLER, University of Technology Sydney",
+          "Zhejiang University"
+        ]
+      ],
+      [
+        "Alexander G. Hauptmann",
+        [
+          "School of Computer Science, Carnegie Mellon University"
+        ]
+      ]
+    ],
+    "abstract": "Domain adaptive semantic segmentation aims to train a model performing satisfactory pixel-level predictions on the target with only out-of-domain (source) annotations. The conventional solution to this task is to minimize the discrepancy between source and target to enable effective knowledge transfer. Previous domain discrepancy minimization methods are mainly based on the adversarial training. They tend to consider the domain discrepancy globally, which ignore the pixel-wise relationships and are less discriminative. In this paper, we propose to build the pixel-level cycle association between source and target pixel pairs and contrastively strengthen their connections to diminish the domain gap and make the features more discriminative. To the best of our knowledge, this is a new perspective for tackling such a challenging task. Experiment results on two representative domain adaptation benchmarks, i.e. GTAV → Cityscapes and SYNTHIA → Cityscapes, verify the effectiveness of our proposed method and demonstrate that our method performs favorably against previous state-of-the-arts. Our method can be trained end-to-end in one stage and introduces no additional parameters, which is expected to serve as a general framework and help ease future research in domain adaptive semantic segmentation. Code is available at https://github.com/kgl-prml/Pixel-Level-Cycle-Association."
+  },
+  "2412.06141": {
+    "authors": [
+      "Kangyu Zhu",
+      "Peng Xia",
+      "Yun Li",
+      "Hongtu Zhu",
+      "Sheng Wang",
+      "Huaxiu Yao"
+    ],
+    "affiliations": [
+      "UNC Chapel-Hill",
+      "Brown University",
+      "University of Washington"
+    ],
+    "placed": [
+      [
+        "Kangyu Zhu",
+        [
+          "UNC Chapel-Hill",
+          "Brown University"
+        ]
+      ],
+      [
+        "Peng Xia",
+        [
+          "UNC Chapel-Hill"
+        ]
+      ],
+      [
+        "Yun Li",
+        [
+          "UNC Chapel-Hill"
+        ]
+      ],
+      [
+        "Hongtu Zhu",
+        [
+          "UNC Chapel-Hill"
+        ]
+      ],
+      [
+        "Sheng Wang",
+        [
+          "University of Washington"
+        ]
+      ],
+      [
+        "Huaxiu Yao",
+        [
+          "UNC Chapel-Hill"
+        ]
+      ]
+    ],
+    "abstract": "The advancement of Large Vision-Language Models (LVLMs) has propelled their application in the medical field. However, Medical LVLMs (Med-LVLMs) encounter factuality challenges due to modality misalignment, where the models prioritize textual knowledge over visual input, leading to hallucinations that contradict information in medical images. Previous attempts to enhance modality alignment in Med-LVLMs through preference optimization have inadequately mitigated clinical relevance in preference data, making these samples easily distinguishable and reducing alignment effectiveness. To address this challenge, we propose MMedPO, a novel multimodal medical preference optimization approach that considers the clinical relevance of preference samples to enhance Med-LVLM alignment. MMedPO curates multimodal preference data by introducing two types of dispreference: (1) plausible hallucinations injected through target Med-LVLMs or GPT-4o to produce medically inaccurate responses, and (2) lesion region neglect achieved through local lesion-noising, disrupting visual understanding of critical areas. We then calculate clinical relevance for each sample based on scores from multiple Med-LLMs and visual tools, and integrate these scores into the preference optimization process as weights, enabling effective alignment. Our experiments demonstrate that MMedPO significantly enhances factual accuracy in Med-LVLMs, achieving substantial improvements over existing preference optimization methods by averaging 14.2% and 51.7% across the Med-VQA and report generation tasks. Our code are available in https://github.com/aiming-lab/MMedPO."
+  },
+  "2609.21369": {
+    "authors": [
+      "Chang Dong",
+      "Mehdi Hosseinzadeh",
+      "King Hang Wong",
+      "Lingqiao Liu",
+      "Francois Fraysse",
+      "Feras Dayoub",
+      "Minh Hoai Nguyen"
+    ],
+    "affiliations": [
+      "Australian Institute for Machine Learning",
+      "School of Allied Health and Human Performance, Adelaide University, Australia"
+    ],
+    "placed": [
+      [
+        "Chang Dong",
+        [
+          "Australian Institute for Machine Learning"
+        ]
+      ],
+      [
+        "Mehdi Hosseinzadeh",
+        [
+          "Australian Institute for Machine Learning"
+        ]
+      ],
+      [
+        "King Hang Wong",
+        [
+          "Australian Institute for Machine Learning"
+        ]
+      ],
+      [
+        "Lingqiao Liu",
+        [
+          "Australian Institute for Machine Learning"
+        ]
+      ],
+      [
+        "Francois Fraysse",
+        [
+          "School of Allied Health and Human Performance, Adelaide University, Australia"
+        ]
+      ],
+      [
+        "Feras Dayoub",
+        [
+          "Australian Institute for Machine Learning"
+        ]
+      ],
+      [
+        "Minh Hoai Nguyen",
+        [
+          "Australian Institute for Machine Learning"
+        ]
+      ]
+    ],
+    "abstract": "This paper presents a comprehensive framework for robot manipulation failure analysis that includes binary failure detection, failure categorization, explanation generation, and the additional capability of failure onset localization, which aims to identify the earliest moment at which a robot execution deviates from a valid task-completion trajectory and is ultimately followed by task failure. To address these tasks, we propose ProTracer, a training-free framework that leverages existing Vision-Language Models (VLMs) together with proprioceptive signals for failure analysis. Our method uses proprioceptive dynamics to identify temporally informative action boundaries and converts richer robot-state signals into structured natural-language descriptions that can be jointly analyzed together with visual observations by the VLM. This design combines the temporal precision of proprioceptive signals with the multimodal reasoning capabilities of modern VLMs without requiring additional model training. We further introduce FailTime, a benchmark with synchronized visual and proprioceptive observations for evaluating conventional failure diagnosis tasks as well as failure onset localization. Experiments demonstrate that ProTracer achieves strong performance across both conventional failure diagnosis tasks and the newly introduced failure onset localization task, highlighting the importance of proprioceptive reasoning for fine-grained temporal failure analysis."
+  },
+  "2203.10157": {
+    "authors": [
+      "Jonáš Kulhánek",
+      "Erik Derner",
+      "Torsten Sattler",
+      "Robert Babuška"
+    ],
+    "affiliations": [
+      "Czech Institute of Informatics, Robotics and Cybernetics, Czech Technical University in Prague",
+      "Faculty of Electrical Engineering, Czech Technical University in Prague",
+      "Cognitive Robotics, Faculty of 3mE, Delft University of Technology"
+    ],
+    "placed": [
+      [
+        "Jonáš Kulhánek",
+        [
+          "Czech Institute of Informatics, Robotics and Cybernetics, Czech Technical University in Prague",
+          "Faculty of Electrical Engineering, Czech Technical University in Prague"
+        ]
+      ],
+      [
+        "Erik Derner",
+        [
+          "Czech Institute of Informatics, Robotics and Cybernetics, Czech Technical University in Prague"
+        ]
+      ],
+      [
+        "Torsten Sattler",
+        [
+          "Czech Institute of Informatics, Robotics and Cybernetics, Czech Technical University in Prague"
+        ]
+      ],
+      [
+        "Robert Babuška",
+        [
+          "Czech Institute of Informatics, Robotics and Cybernetics, Czech Technical University in Prague",
+          "Cognitive Robotics, Faculty of 3mE, Delft University of Technology"
+        ]
+      ]
+    ],
+    "abstract": "Novel view synthesis is a long-standing problem. In this work, we consider a variant of the problem where we are given only a few context views sparsely covering a scene or an object. The goal is to predict novel viewpoints in the scene, which requires learning priors. The current state of the art is based on Neural Radiance Field (NeRF), and while achieving impressive results, the methods suffer from long training times as they require evaluating millions of 3D point samples via a neural network for each image. We propose a 2D-only method that maps multiple context views and a query pose to a new image in a single pass of a neural network. Our model uses a two-stage architecture consisting of a codebook and a transformer model. The codebook is used to embed individual images into a smaller latent space, and the transformer solves the view synthesis task in this more compact space. To train our model efficiently, we introduce a novel branching attention mechanism that allows us to use the same model not only for neural rendering but also for camera pose estimation. Experimental results on real-world scenes show that our approach is competitive compared to NeRF-based methods while not reasoning explicitly in 3D, and it is faster to train."
+  },
+  "1904.04514": {
+    "authors": [
+      "Ke Sun",
+      "Yang Zhao",
+      "Borui Jiang",
+      "Tianheng Cheng",
+      "Bin Xiao",
+      "Dong Liu",
+      "Yadong Mu",
+      "Xinggang Wang",
+      "Wenyu Liu",
+      "Jingdong Wang"
+    ],
+    "affiliations": [
+      "University of Science and Technology of China",
+      "Microsoft Research Asia",
+      "The University of Adelaide",
+      "Peking University",
+      "Huazhong University of Science and Technology"
+    ],
+    "placed": null,
+    "abstract": "High-resolution representation learning plays an essential role in many vision problems, e.g., pose estimation and semantic segmentation. The high-resolution network (HRNet) [91], recently developed for human pose estimation, maintains high-resolution representations through the whole process by connecting high-to-low resolution convolutions in parallel and produces strong high-resolution representations by repeatedly conducting fusions across parallel convolutions. In this paper, we conduct a further study on high-resolution representations by introducing a simple yet effective modification and apply it to a wide range of vision tasks. We augment the high-resolution representation by aggregating the (upsampled) representations from all the parallel convolutions rather than only the representation from the high-resolution convolution as done in [91]. This simple modification leads to stronger representations, evidenced by superior results. We show top results in semantic segmentation on Cityscapes, LIP, and PASCAL Context, and facial landmark detection on AFLW, COFW, 300W, and WFLW. In addition, we build a multi-level representation from the high-resolution representation and apply it to the Faster R-CNN object detection framework and the extended frameworks. The proposed approach achieves superior results to existing single-model networks on COCO object detection. The code and models have been publicly available at https://github.com/HRNet."
+  },
+  "2006.09785": {
+    "authors": [
+      "Jathushan Rajasegaran",
+      "Salman Khan",
+      "Munawar Hayat",
+      "Fahad Shahbaz Khan",
+      "Mubarak Shah"
+    ],
+    "affiliations": [
+      "Inception Institute of Artificial Intelligence, UAE",
+      "CVL, Linköping University, Sweden",
+      "University of Central Florida, USA"
+    ],
+    "placed": null,
+    "abstract": "Real-world contains an overwhelmingly large number of object classes, learning all of which at once is infeasible. Few shot learning is a promising learning paradigm due to its ability to learn out of order distributions quickly with only a few samples. Recent works [7, 41] show that simply learning a good feature embedding can outperform more sophisticated meta-learning and metric learning algorithms for few-shot learning. In this paper, we propose a simple approach to improve the representation capacity of deep neural networks for few-shot learning tasks. We follow a two-stage learning process: First, we train a neural network to maximize the entropy of the feature embedding, thus creating an optimal output manifold using a self-supervised auxiliary loss. In the second stage, we minimize the entropy on feature embedding by bringing self-supervised twins together, while constraining the manifold with student-teacher distillation. Our experiments show that, even in the first stage, self-supervision can outperform current state-of-the-art methods, with further gains achieved by our second stage distillation process. Our codes are available at: https://github.com/brjathu/SKD ."
   }
 }

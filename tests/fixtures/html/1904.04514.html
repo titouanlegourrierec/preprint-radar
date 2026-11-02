@@ -1,0 +1,73 @@
+<html><body><article class="ltx_document" data-front-matter="3">
+<h1 class="ltx_title ltx_title_document">High-Resolution Representations
+for Labeling Pixels and Regions</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Ke Sun     Yang Zhao<span class="ltx_note ltx_role_footnotemark" id="footnotex1"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup><span class="ltx_note_type">footnotemark: </span>
+<span class="ltx_tag ltx_tag_note">1</span>
+</span></span></span>   Borui Jiang<span class="ltx_note ltx_role_footnotemark" id="footnotex2"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup><span class="ltx_note_type">footnotemark: </span>
+<span class="ltx_tag ltx_tag_note">1</span>
+</span></span></span>     Tianheng Cheng<span class="ltx_note ltx_role_footnotemark" id="footnotex3"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup><span class="ltx_note_type">footnotemark: </span>
+<span class="ltx_tag ltx_tag_note">1</span>
+</span></span></span>
+    Bin Xiao
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_thanks"><span class="ltx_contact_name">Thanks: </span>Equal contribution.
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>University of Science and Technology of China    Microsoft Research Asia
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>University of Science and Technology of China    Microsoft Research Asia
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>University of Science and Technology of China    Microsoft Research Asia
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>University of Science and Technology of China    Microsoft Research Asia
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>The University of Adelaide Peking University Huazhong University of Science and Technology<span class="ltx_text ltx_font_typewriter" id="id1" style="font-size:90%;">author@example.org, author@example.org, author@example.org, author@example.org{jane.doe, john.roe}@example.org, author@example.org, {jane.doe, john.roe}@example.org</span>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Dong Liu    Yadong Mu   Xinggang Wang   Wenyu Liu    Jingdong Wang
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_thanks"><span class="ltx_contact_name">Thanks: </span>Corresponding author, author@example.org
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>University of Science and Technology of China    Microsoft Research Asia
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>The University of Adelaide Peking University Huazhong University of Science and Technology<span class="ltx_text ltx_font_typewriter" id="id2" style="font-size:90%;">author@example.org, author@example.org, author@example.org, author@example.org{jane.doe, john.roe}@example.org, author@example.org, {jane.doe, john.roe}@example.org</span>
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>The University of Adelaide Peking University Huazhong University of Science and Technology<span class="ltx_text ltx_font_typewriter" id="id3" style="font-size:90%;">author@example.org, author@example.org, author@example.org, author@example.org{jane.doe, john.roe}@example.org, author@example.org, {jane.doe, john.roe}@example.org</span>
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">High-resolution representation learning
+plays an essential role in many vision problems,
+e.g., pose estimation and semantic segmentation.
+The high-resolution network (HRNet) <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib91" title="">91</a>]</cite>,
+recently developed for human pose estimation,
+maintains high-resolution representations
+through the whole process
+by connecting high-to-low resolution convolutions in <em class="ltx_emph ltx_font_italic" id="abstract1.1.1">parallel</em>
+and produces strong high-resolution representations
+by repeatedly conducting fusions across parallel convolutions.</p>
+<p class="ltx_p" id="abstract1.2">In this paper, we conduct a further study
+on high-resolution representations
+by introducing a simple yet effective modification
+and apply it to a wide range of vision tasks.
+We augment the high-resolution representation
+by aggregating the (upsampled) representations
+from all the parallel convolutions
+rather than only the representation
+from the high-resolution convolution as done in <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib91" title="">91</a>]</cite>.
+This simple modification leads to stronger representations,
+evidenced by superior results.
+We show top results
+in semantic segmentation
+on Cityscapes, LIP,
+and PASCAL Context,
+and facial landmark detection on AFLW, COFW, <math alttext="300" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mn>300</mn><annotation encoding="application/x-tex">300</annotation></semantics></math>W, and WFLW.
+In addition,
+we build a multi-level representation
+from the high-resolution representation
+and apply it to the Faster R-CNN object detection framework and the extended frameworks.
+The proposed approach achieves superior results
+to existing single-model networks on COCO object detection.
+The code and models have been publicly available at <a class="ltx_ref ltx_url ltx_font_typewriter" href="https://github.com/HRNet" target="_blank" title="">https://github.com/HRNet</a>.</p>
+</div>
+</article></body></html>

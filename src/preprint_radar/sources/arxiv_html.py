@@ -22,7 +22,7 @@ from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 20
+EXTRACTOR_VERSION = 21
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -113,6 +113,13 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
   (2505.12089); and the cleaning: parts glued after a name of several words or a company
   ("Visual Geometry GroupUniversity of OxfordUK", "ByteDance IncShanghai"), ORCID
   identifiers, "now at" and interns' notes, CVPR's "Institution2" go.
+- 21: what version 20 cut (AFF-41): an address glued to the word before it took the word
+  with it ("Technion - Israel Institute of Technologyyatzmon@…" gave "… Institute of",
+  2006.14610; "Zhejiang Universitykgl.prml@…" gave "Zhejiang", 2011.00147), in any span
+  of text too (2412.06141); a string ending in a preposition is cut and goes, one ending in
+  "and" keeps what precedes it when that is whole ("The University of Texas at Austin
+  and", 2410.14919); "Faculty of 3mE" is no marker (2203.10157); institutions run
+  together after a country or another university are set apart (2006.09785, 1904.04514).
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -245,13 +252,14 @@ _LINE_BREAK_RE = re.compile(r"<br\b[^>]*>", re.IGNORECASE)
 _ANNOTATION_RE = re.compile(
     r"<annotation(?:-xml)?\b[^>]*>.*?</annotation(?:-xml)?>", re.IGNORECASE | re.DOTALL
 )
-# An address in typewriter type right after the word before it: "University of
+# An address in a span of text right after the word before it: "University of
 # Oxford<tt>yuki@robots.ox.ac.uk</tt>" reads "Oxfordyuki@robots.ox.ac.uk", which the
-# contact cleanup takes away whole, leaving "University of" (ar5iv's 2006.13662). A space
+# contact cleanup takes away whole, leaving "University of" (ar5iv's 2006.13662); in
+# italics too, "University of Washington<i>kangyu@unc.edu</i>" (2412.06141). A space
 # sets it apart; an "@" set in its own span, or after a brace, stays where it is
 # ("linyida<tt>@</tt>myvuw.ac.nz", 2609.13233).
 _GLUED_ADDRESS_RE = re.compile(
-    r'(?<=[^\W_])(?=<span\b[^>]*\bclass="[^"]*\bltx_font_typewriter\b[^>]*>[\w{][^<@]*@)'
+    r'(?<=[^\W_])(?=<span\b[^>]*\bclass="[^"]*\bltx_(?:text|font_typewriter)\b[^>]*>[\w{][^<@]*@)'
 )
 # A superscript set by hand, as a span raised by its style, holding a marker only: "Yunze
 # Liu<span style="font-size:70%;position:relative; bottom:2.4pt;">1,*</span>" and "1 NVIDIA
@@ -266,9 +274,17 @@ _CONTINUED_RE = re.compile(r"(?:,|\band|&)\s*$", re.IGNORECASE)
 # (2609.11477). Lowercase only: "TU Wien, AT" ends with a country code.
 # After a space: "technikum-wien.at" ends an address (2610.02974).
 _DANGLING_RE = re.compile(r"(?<=\s)(?:of|for|the|at|in|on|de|du|des|der|für|und)\s*$")
-# The connector of a list cut after it: "The University of Hong Kong, and". Not one without
-# a comma, which ends a name cut short ("Nanjing University of Posts and").
+# The connector of a list cut after it: "The University of Hong Kong, and".
 _LIST_END_RE = re.compile(r"\s*,\s*(?:and|&)$", re.IGNORECASE)
+# One without a comma, where LaTeX's \and ended an affiliation and LaTeXML lost what
+# followed: "The University of Texas at Austin and" (2410.14919), "ECE &" (2610.16337).
+# What precedes it stands alone, unless it is a name cut short, which a word like these
+# ends: "Hong Kong University of Science and", "Nanjing University of Posts and".
+_CUT_CONNECTOR_RE = re.compile(r"\s+(?:and|&)$")
+_NAME_GOES_ON_RE = re.compile(
+    r"\b(?:Sciences?|Technolog(?:y|ies)|Engineering|Posts|Telecommunications?|Arts|Mathematics"
+    r"|Design|Information|Medicine|Health|Physics|Economics|Management|Education)$"
+)
 # A LaTeX command LaTeXML printed as text, glued to what follows: "\addrDepartment of ...".
 # Its name is lowercase there: the capital starts the affiliation, or the number of the
 # affiliation's marker, which then goes as a leading marker: "\affilnum1Department of ..."
@@ -387,6 +403,30 @@ _COMPANY_SUFFIX_RE = re.compile(r"(?:Inc|Ltd|Corp)\.?")
 # A country glued to the name of several words before it, ending its part: "University of
 # OxfordUK" (ar5iv's 2206.07045), "NationalUniversity of SingaporeSingapore" (2610.32059).
 _GLUED_COUNTRY_RE = re.compile(rf"(?:{COUNTRIES})\.?(?:,|$)")
+# Universities LaTeXML ran together, the line breaks between them lost (AFF-41): a name
+# ending in "University", then one of a word and "University"; one ending in "University
+# of" and a word, then one of a word and "University" without "of" ("The University of
+# Adelaide Peking University Huazhong University of Science and Technology", ar5iv's
+# 1904.04514), as "University of Southern California University of Washington" is cut
+# elsewhere (2311.17946); or a university's country, then a name it starts ("Linköping
+# University, Sweden University of Central Florida", 2006.09785).
+# Not a country that starts names of its own: "…, China University of Mining and Technology".
+_NAME_COUNTRIES = r"China|Hong Kong|Macau|Macao|Taiwan|Korea|Japan|Singapore|India|Qatar"
+_RUN_TOGETHER_RE = re.compile(
+    r"\bUniversity\s+(?=[A-Z][\w'\u2019-]+\s+University\b)"
+    r"|\bUniversity\s+of\s+[A-Z][\w'\u2019-]+\s+(?=[A-Z][\w'\u2019-]+\s+University\b(?!\s+of\b))"
+    rf"|\bUniversity,\s+(?!{_NAME_COUNTRIES})(?:{COUNTRIES})\s+(?=(?:University|Institute|College)\b)"
+)
+# The last word of an institution's name glued to the address after it, as the LaTeX
+# source wrote them: "Technion - Israel Institute of Technologyyatzmon@nvidia.com"
+# (ar5iv's 2006.14610), "Zhejiang Universitykgl.prml@gmail.com" (2011.00147). The contact
+# cleanup took the word away with the address: a space sets it apart. An address's own
+# name is in lower case.
+_WORD_BEFORE_ADDRESS_RE = re.compile(
+    r"(?<=\S\s)(\S*?(?:University|Universit[aäé]t?|Technology|Institute|College|School"
+    r"|Laborator(?:y|ies)|Lab|Research|Sciences?|Engineering|Cent(?:er|re)|Hospital|Academy|Inc|Ltd"
+    rf"|{COUNTRIES}))(?=[a-z0-9][\w.+-]+@[\w-]+\.)"
+)
 _UNIT_WORD_RE = re.compile(
     r"\b(?:department|dept|school|faculty|division|laborator(?:y|ies)|lab|cent(?:er|re)|institute|college"
     r"|academy|program(?:me)?|thrust|unit)\b",
@@ -1556,7 +1596,8 @@ def clean_affiliations(text: str) -> tuple[str, ...]:
         affiliation
         for statement in statements
         for part in _ALSO_WITH_RE.split(statement)
-        for piece in marked_pieces(" ".join(part.split()))
+        for marked in marked_pieces(" ".join(part.split()))
+        for piece in _run_together(marked)
         if (affiliation := clean_affiliation(piece))
     )
 
@@ -1568,7 +1609,7 @@ def marked_pieces(text: str) -> list[str]:
     one or two digits glued to a capitalized word ("2Duke", "3HKUST", "4eBay") after a
     space; the word before holds no digit, unless it is itself marked ("2CASIA 3HKUST"), so
     that postcodes stay whole ("London WC1E 6AE", "QC H2S 3H1"), and so do "3D Vision Lab"
-    or "4K" (one letter).
+    or "4K" (one letter), and is no preposition: "Faculty of 3mE" (2203.10157).
 
     Args:
         text: A candidate string, from a page or from stored data.
@@ -1581,10 +1622,18 @@ def marked_pieces(text: str) -> list[str]:
     for match in _INLINE_MARKER_RE.finditer(text):
         word = text[match.end() : match.end() + 2]
         before = text[: match.start()].split()
-        if (word[0].isupper() or word[1].isupper()) and (
-            not any(char.isdigit() for char in before[-1]) or _MARKED_WORD_RE.fullmatch(before[-1])
+        if (
+            (word[0].isupper() or word[1].isupper())
+            and (not any(char.isdigit() for char in before[-1]) or _MARKED_WORD_RE.fullmatch(before[-1]))
+            and not _DANGLING_RE.search(text[: match.start()])
         ):
             cuts.append(match.start())
+    return [text[start:end] for start, end in zip([0, *cuts], [*cuts, len(text)], strict=True)]
+
+
+def _run_together(text: str) -> list[str]:
+    """The universities of a string that ran them together, each apart (see ``_RUN_TOGETHER_RE``)."""
+    cuts = [match.end() for match in _RUN_TOGETHER_RE.finditer(text)]
     return [text[start:end] for start, end in zip([0, *cuts], [*cuts, len(text)], strict=True)]
 
 
@@ -1596,6 +1645,7 @@ def clean_affiliation(text: str) -> str | None:
     string holding several affiliations is split first, by :func:`clean_affiliations`.
     """
     text = _TEX_SOURCE_RE.sub("", _MACRO_RE.sub("", text.replace("\xa0", " ")))
+    text = _WORD_BEFORE_ADDRESS_RE.sub(r"\1 ", text)
     text = _CONTACT_TAIL_RE.sub(
         "", _AFFILIATIONS_NOTE_RE.sub("", _GLUED_NOTE_RE.sub("", _ORCID_RE.sub(" ", text)))
     )
@@ -1615,6 +1665,14 @@ def clean_affiliation(text: str) -> str | None:
     # dash ("Hamburg, Germany -"): what precedes it stands alone.
     text = _LIST_END_RE.sub("", text.strip(_EDGE_PUNCTUATION)).rstrip(_EDGE_PUNCTUATION + "-\u2013")
     text = _CONNECTOR_RE.sub("", text)
+    # A string cut short: after a preposition ("Technion - Israel Institute of"), nothing
+    # says what it was; after "and", what precedes it may stand alone.
+    if cut := _CUT_CONNECTOR_RE.search(text):
+        text = text[: cut.start()]
+        if _NAME_GOES_ON_RE.search(text) and not is_bare_unit(text):
+            return None
+    if _DANGLING_RE.search(text):
+        return None
     if len(text) < _MIN_LENGTH or not any(char.isalpha() for char in text) or _JUNK_RE.fullmatch(text):
         return None
     # A contact detail the rules above did not strip: the whole string goes, rather than a
