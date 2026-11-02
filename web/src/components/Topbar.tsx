@@ -133,7 +133,7 @@ export function Topbar(props: Props) {
           </a>
         </nav>
         <a
-          class="icon-button"
+          class="icon-button topbar__github"
           href={REPOSITORY_URL}
           title="Source code on GitHub"
           aria-label="GitHub repository"

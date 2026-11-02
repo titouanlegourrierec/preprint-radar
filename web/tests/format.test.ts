@@ -9,6 +9,7 @@ import {
   formatDay,
   formatShortDay,
   gainLabel,
+  indexingLine,
   loadingLine,
   seenHidden,
   storeNote,
@@ -78,6 +79,13 @@ describe("countOf", () => {
     expect(countOf(10_000, "paper")).toBe(`10,000 papers`);
     expect(countOf(2, "person", "people")).toBe("2 people");
     expect(countOf(1, "person", "people")).toBe("1 person");
+  });
+});
+
+describe("indexingLine", () => {
+  it("counts the papers the search waits for", () => {
+    expect(indexingLine(3731)).toBe("Indexing 3,731 papers for the search…");
+    expect(indexingLine(1)).toBe("Indexing 1 paper for the search…");
   });
 });
 

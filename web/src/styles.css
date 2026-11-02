@@ -495,6 +495,27 @@ mark {
   }
 }
 
+/* Seven tabs and two buttons outgrew a phone (Trends, the GitHub link): the tabs scrolled,
+   About and the reading list out of sight with nothing to say so (WEB-3). On a phone the
+   GitHub link stays in the footer only, and below 400 px the current tab is its icon too,
+   on its own background. */
+@media (max-width: 480px) {
+  .topbar__github {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .tab--active .tab__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
 /* On a phone the other tabs are their icons, so that all fit without scrolling; the
    labels stay for screen readers, and the current tab shows its own. */
 @media (max-width: 640px) {

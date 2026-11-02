@@ -47,6 +47,11 @@ export type Loading =
   | { years: readonly ArchiveSummary[] }
   | { recent: TopRecentSummary };
 
+/** While the search waits for the full-text index of the papers loaded (WEB-1). */
+export function indexingLine(papers: number): string {
+  return `Indexing ${countOf(papers, "paper")} for the search…`;
+}
+
 /**
  * What a view says while it loads (UX-6), from the counts of the store index: "Loading
  * 3,646 papers of 5 days…" ("of 25 Sept 2026" for one day), "Loading 3,407 highly cited

@@ -1035,3 +1035,27 @@ test("a view that failed draws again for another period, or Back", async ({ page
   await expect(page.getByRole("alert")).toHaveCount(0);
   await expect(page.getByText("1 of 1 cs.CV paper")).toBeVisible();
 });
+
+test("every tab is in sight on a phone, whatever the view (WEB-3)", async ({ page }) => {
+  const errors = watchErrors(page);
+  for (const width of [360, 375, 390]) {
+    await page.setViewportSize({ width, height: 800 });
+    for (const view of ["papers", "cited", "rankings", "reading-list", "about"]) {
+      await page.goto(`./?view=${view}`);
+      const tabs = page.getByRole("navigation", { name: "Views" }).getByRole("link");
+      await expect(tabs).toHaveCount(7);
+      // A tab is in sight when what is drawn at its centre is the tab itself.
+      const hidden = await tabs.evaluateAll((links) =>
+        links
+          .filter((link) => {
+            const box = link.getBoundingClientRect();
+            const drawn = document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2);
+            return drawn?.closest("a") !== link;
+          })
+          .map((link) => link.textContent),
+      );
+      expect(hidden, `${width} px, ${view}`).toEqual([]);
+    }
+  }
+  expect(errors).toEqual([]);
+});

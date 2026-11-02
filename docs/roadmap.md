@@ -583,9 +583,9 @@ P1 findings reproduced, all lowered to P2.
 | AQ-6 | ROR ids are missing where the same canonical name has one, so papers drop off the map | P2 | todo |
 | AQ-7 | Different institutions with the same name are merged on the site | P2 | todo |
 | AQ-8 | Name matching treats different full given names with the same initial as one person | P2 | todo |
-| WEB-1 | A query at load, or typed before the background index ends, freezes the page while the whole period is indexed | P2 | todo |
+| WEB-1 | A query at load, or typed before the background index ends, freezes the page while the whole period is indexed. A search with words waits for the full-text index the page builds while idle, the count line saying `Indexing N papers for the search…`, rather than build the rest at once. `?range=month&q=diffusion` on today's data at 4x CPU: longest task 5,218 ms before, 302 ms after (a warm chunk, WEB-7), first card at about 6 s either way | P2 | done |
 | WEB-2 | Highly cited 'All years' downloads every archive year (16 MB gzipped) to show 10,000 papers | P2 | todo |
-| WEB-3 | On phones the tab bar scrolls and hides About and the Reading list, with no hint that it scrolls | P2 | todo |
+| WEB-3 | On phones the tab bar scrolls and hides About and the Reading list, with no hint that it scrolls. Below 480 px the GitHub link stays in the footer only, and below 400 px the current tab is its icon too; a smoke test checks at 360, 375 and 390 px, on five views, that every tab is drawn at its centre (it failed before) | P2 | done |
 | WEB-4 | The default week waits for all its day files before showing a card | P2 | todo |
 | WEB-5 | Abstracts are 72% of what the lists download, yet collapsed by default: load a light list first | P2 | todo |
 | WEB-6 | Rankings of authors over every stored paper builds a whole graph: 254 MB of heap and a 1 s freeze | P2 | todo |

@@ -38,6 +38,7 @@ import {
   citationsNote as formatCitationsNote,
   formatDay,
   gainLabel,
+  indexingLine,
   SEARCHING_STORE,
   seenHidden,
   staleCitations,
@@ -303,6 +304,11 @@ export function App() {
   }, [focusedTitle, query, state.view]);
 
   const searchWords = hasSearchWords(parseQuery(query));
+  // A search with words waits for the full-text index of the period, which the page builds
+  // while idle, rather than build the rest of it at once: a month's took a second, all
+  // years' 15 s on a phone, the page frozen (WEB-1).
+  const indexing =
+    searchWords && load.status === "ready" && activeIndex === load.index && searchable === null;
   // Where the Trends view's lists put the topic searched (PROD-20).
   const topicNote = useTopicNote(category, query, state.view === "papers" || cited);
   // Rising papers, once two weekly refreshes of the counts are known (CIT-9).
@@ -333,10 +339,10 @@ export function App() {
   // from Most cited to Rising when the gains arrive, an order the index does not tell apart.
   const order = cited ? "citations" : state.sort;
   const found = useMemo(() => {
-    if (state.view === "graph") return [];
+    if (state.view === "graph" || indexing) return [];
     const all = activeIndex?.search(query, filters, order) ?? [];
     return folderIds ? all.filter(({ paper }) => folderIds.has(paper.arxiv_id)) : all;
-  }, [state.view, activeIndex, query, filters, order, folderIds]);
+  }, [state.view, indexing, activeIndex, query, filters, order, folderIds]);
   const hiddenSeen = hiding ? triage.seen : null;
   // A shared or opened paper stays, seen or not: it is the one asked for.
   const target = state.paper;
@@ -355,7 +361,7 @@ export function App() {
   // of the last period or year stay, the papers' own missing, and it showed in the order of
   // their identifiers, then jumped.
   const listed: LoadState =
-    rankingCounts !== null && !citations.current && load.status === "ready"
+    (rankingCounts !== null && !citations.current && load.status === "ready") || indexing
       ? { status: "loading" }
       : load;
   // The reading list's own order (UX-39): where each saved paper stands in it.
@@ -575,7 +581,10 @@ export function App() {
                   ...(hiddenCount > 0 && { tail: ` · ${seenHidden(hiddenCount).count}` }),
                 }
               : listed.status === "loading"
-                ? { loading: loadingLine, ...(everywhere && { said: SEARCHING_STORE }) }
+                ? {
+                    loading: indexing ? indexingLine(load.index.size) : loadingLine,
+                    ...(everywhere && { said: SEARCHING_STORE }),
+                  }
                 : null;
   // The graph shows the loaded papers; a saved paper from elsewhere brings its day, or
   // its archive year (or the last 12 months) when it is older than the days kept.
