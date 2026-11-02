@@ -73,7 +73,8 @@ export type LoadState =
  * find (PROD-21): every day file, the most cited papers of the last 12 months and the
  * archive's years, read one after the other (`searchStore`), the period aside. None
  * without a word or a filter, which would find them all; but with `every` (Rankings), all
- * of them, without their abstracts, beyond the budget.
+ * of them, without their abstracts, beyond the budget, the day files' from their search
+ * shards.
  */
 export function usePapers(
   requestedCategory: string | null,
@@ -250,8 +251,9 @@ export function usePapers(
           test,
           onRead,
           signal,
-          // Rankings keep them all, which they count, and nothing of the text they do not read.
-          every ? { budget: Number.POSITIVE_INFINITY, keep: withoutText } : {},
+          // Rankings keep them all, which they count, and nothing of the text they do not
+          // read, which the search shards leave out of the day files' papers (SCALE-3).
+          every ? { budget: Number.POSITIVE_INFINITY, keep: withoutText, light: true } : {},
         );
         if (signal.aborted) return;
         setScan({ ranking: papers.length });

@@ -17,6 +17,7 @@ import {
   type SearchFilters,
   termsOf,
 } from "./search";
+import { monthsOf, searchShardPath } from "./search-shards";
 import type { Paper } from "./types";
 
 /**
@@ -102,6 +103,12 @@ export interface StoreKeeping {
   budget?: number;
   /** What is kept of a paper: Rankings' scan of them all drops their abstracts. */
   keep?: (paper: Paper) => Paper;
+  /**
+   * Whether the day files' papers are read from their months' search shards, without
+   * their abstracts and comments: a scan that keeps no text (Rankings'), whose words are
+   * none, reads a quarter of the bytes (SCALE-3).
+   */
+  light?: boolean;
 }
 
 /** What a search of every stored paper found (PROD-21). */
@@ -123,7 +130,8 @@ export interface StoreSearch {
  * store (a year of day files would take 480 MB indexed). A paper is read once, from its
  * first file: the day file's record. Past the budget ({@link PAPER_BUDGET} papers kept
  * unless `keeping` says otherwise), the others that pass are only counted; `keeping.keep`
- * says what is kept of each. Files are asked for {@link READ_AHEAD} ahead, the browser
+ * says what is kept of each, and `keeping.light` reads the day files' papers from the
+ * search shards. Files are asked for {@link READ_AHEAD} ahead, the browser
  * keeping them for the next search; one that fails twice is left out and named, unless
  * every one does. `onRead` hears how far it went, at each file.
  */
@@ -135,10 +143,16 @@ export async function searchStore(
   signal?: AbortSignal,
   keeping: StoreKeeping = {},
 ): Promise<StoreSearch> {
-  const { budget = PAPER_BUDGET, keep = (paper: Paper) => paper } = keeping;
+  const { budget = PAPER_BUDGET, keep = (paper: Paper) => paper, light = false } = keeping;
+  const dayFiles = light
+    ? monthsOf(holding.days).map((month) => ({
+        path: searchShardPath(category, month),
+        days: holding.days.map(({ date }) => date).filter((date) => date.startsWith(month)),
+      }))
+    : holding.days.map(({ date }) => ({ path: `${category}/${date}.json`, days: [date] }));
   // The most cited of the last 12 months have neither a day nor a year.
-  const files: { path: string; day?: string; year?: number }[] = [
-    ...holding.days.map(({ date }) => ({ path: `${category}/${date}.json`, day: date })),
+  const files: { path: string; days?: string[]; year?: number }[] = [
+    ...dayFiles,
     ...(holding.topRecent ? [{ path: `${category}/top-recent.json` }] : []),
     ...[...holding.archiveYears]
       .sort((a, b) => b - a)
@@ -184,7 +198,7 @@ export async function searchStore(
     // Its papers only wait for the test: the promise would keep them to the end.
     pending[at] = Promise.resolve(null);
     if (!papers) {
-      if (file.day !== undefined) result.missing.days.push(file.day);
+      if (file.days !== undefined) result.missing.days.push(...file.days);
       else if (file.year !== undefined) result.missing.years.push(file.year);
       else result.missing.recent = true;
       continue;

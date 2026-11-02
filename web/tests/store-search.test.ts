@@ -260,6 +260,36 @@ describe("searchStore (PROD-21)", () => {
     expect(found.leftOut).toBe(2);
   });
 
+  it("reads the day files' papers from their search shards when told to (SCALE-3)", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    const months = {
+      days: [...holding.days, { date: "2026-08-31", count: 1 }],
+      archiveYears: [],
+      topRecent: true,
+    };
+    const shards = {
+      "cs.CV/search/2026-09.json": file(titled("a", "Gaussian day"), titled("c", "Gaussian too")),
+      "cs.CV/top-recent.json": store["cs.CV/top-recent.json"],
+    };
+    const requested = serve(shards, { "cs.CV/search/2026-08.json": 503 });
+    const found = await searchStore("cs.CV", months, gaussian, () => undefined, undefined, {
+      light: true,
+    });
+    expect(requested).toEqual([
+      "cs.CV/search/2026-09.json",
+      "cs.CV/search/2026-08.json",
+      "cs.CV/top-recent.json",
+      "cs.CV/search/2026-08.json",
+    ]);
+    expect(found.papers.map(({ title }) => title)).toEqual([
+      "Gaussian day",
+      "Gaussian too",
+      "Gaussian older",
+    ]);
+    // A month that does not load leaves out each of its days.
+    expect(found.missing).toEqual({ days: ["2026-08-31"], years: [], recent: false });
+  });
+
   it("lets the page draw between files that come at once", async () => {
     serve(store);
     let now = 0;

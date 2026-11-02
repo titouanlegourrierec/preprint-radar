@@ -232,7 +232,10 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   background tab, the browser's timers slow it to a crawl. Rankings rank them too, chosen
   from their period picker as in Papers (`every`): without a word nor a filter, every stored
   paper, without its abstract and comments (`keep`), beyond the budget, and without a
-  full-text index, which only words need; "Reading every stored paper… 42%". On 2026-10-27,
+  full-text index, which only words need; "Reading every stored paper… 42%". The day files'
+  papers come from their months' search shards (`light`, SCALE-3), which hold all that
+  Rankings read: on 2026-11-02, 3 requests and 1.8 MB compressed instead of 42 and 6.4 MB,
+  the archive's 16 MB unchanged (the next to cut, WEB-2). On 2026-10-27,
   31,072 papers ranked 1.4 s after the click (4 s with the processor four times slower), the
   page from 31 to 181 MB; their citations re-ranked them in 0.6 s. A rolling year of day
   files would make 50,000 and more, and a citation shard request a day file: the numbers to

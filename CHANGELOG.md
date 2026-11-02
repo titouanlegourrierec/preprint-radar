@@ -10,6 +10,15 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ## Unreleased
 
+### Interface
+
+- Faster on large views: a search typed while the page loads waits for its index rather
+  than freezing the page (WEB-1), the default week shows its newest day's papers first
+  (WEB-4), Rankings of authors over every stored paper take half the time and memory
+  (WEB-6), and over every stored paper read the day files' search shards, a quarter of the
+  bytes (SCALE-3).
+- On phones, every tab fits the bar (WEB-3).
+
 ### Pipeline
 
 - A paper whose page the extraction misreads into a contact detail no longer stops the

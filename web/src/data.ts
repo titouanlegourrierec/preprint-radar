@@ -353,14 +353,18 @@ export async function loadPapersById(
 }
 
 /**
- * The papers of a stored file (a day, the most cited of the last 12 months, a year of the
- * archive), from the files loaded if there, but not kept among them: a search of every
- * stored paper (PROD-21) reads them all, and keeps only those it finds.
+ * The papers of a stored file (a day, a month's search shard, the most cited of the last
+ * 12 months, a year of the archive), from the files loaded if there, but not kept among
+ * them: a search of every stored paper (PROD-21) reads them all, and keeps only those it
+ * finds.
  */
 export async function readStoreFile(path: string, signal?: AbortSignal): Promise<Paper[]> {
   const known = recall(path);
   if (known !== undefined) return known;
-  const file = await fetchJson<DayFile | ArchiveFile | TopRecentFile>(path, signal);
+  const file = await fetchJson<DayFile | SearchShardFile | ArchiveFile | TopRecentFile>(
+    path,
+    signal,
+  );
   checkSchema(file.schema_version, "data file");
   return file.papers;
 }
