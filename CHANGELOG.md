@@ -10,6 +10,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ## Unreleased
 
+## 1.2.0 (2026-11-02): the second audit, lighter lists, and affiliations read more surely
+
 ### Interface
 
 - Faster on large views: a search typed while the page loads waits for its index rather
