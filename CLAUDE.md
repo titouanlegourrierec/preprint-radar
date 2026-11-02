@@ -6,7 +6,7 @@ them. It is deployed on GitHub Pages; there is no server.
 
 ## Read before changing
 
-- `sources/arxiv_html.py`, `venue.py`, `latex.py`, the cleaning or the author mapping:
+- `sources/arxiv_html.py`, `affiliations/`, `venue.py`, `latex.py`, the cleaning or the author mapping:
   `docs/extraction.md`.
   Every rule there came from a real page; never "simplify" one away.
 - `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`, `sources/arxiv_oai.py`:
@@ -136,7 +136,7 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     cache, scored by exact match: strings, who is where, and the stored institutions. Its
     misses are known defects; run it before and after a bump.
   - `make knockout [REGEX=_NAME]` (`tests/knockout.py`, minutes): each rule of
-    `arxiv_html.py` (a regular expression, then each of its alternatives) knocked out in
+    the extraction (a regular expression, then each of its alternatives) knocked out in
     turn; those no test notices, and the `LIVE` ones among them that change cached pages:
     give those a fixture or a named test before a bump (EXT-2).
   - `make extraction-diff` (`--changes`): each paper whose affiliations or mapping today's
@@ -154,10 +154,15 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - `src/preprint_radar/`:
   - `sources/`: one module per service, each fetching and parsing: `arxiv_listing.py`
     (recent listing and catchup pages, which share the entry markup), `arxiv_rss.py`,
-    `arxiv_api.py`, `arxiv_html.py` (front matter: affiliations, author mapping, abstract;
-    `PageCache`), `arxiv_oai.py`, `semantic_scholar.py` (counts and published versions),
+    `arxiv_api.py`, `arxiv_html.py` (the page, `PageCache`, the abstract, and
+    `parse_front_matter` over `affiliations/`), `arxiv_oai.py`, `semantic_scholar.py` (counts and published versions),
     `openalex.py` (institutions of archived papers, and of published versions), `ror.py`
     (institution of a string), `github.py` (stars) and `huggingface.py` (likes).
+  - `affiliations/`: the affiliations of a page, split along its call graph (EXT-6):
+    `vocabulary.py` (the patterns), `cleaning.py` (one string, whatever its source:
+    `reclean`, the API and `validate` import it, not the page), `lines.py`, `sources.py`
+    (the page's sources in turn), `mapping.py` (who is where), `folding.py` (`name_key`),
+    `dom.py`. `letters.py`: the letters names fold plainly, shared with `institutions.py`.
   - `collect.py`: listing → abstracts → HTML front matter → institutions → store
     (`update_category`, `backfill_category`, `reextract_category`; `HtmlReading` bundles
     how pages are read), the Semantic Scholar steps (`update_citation_counts`,
@@ -467,7 +472,7 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   public landing page (features, screenshots in `docs/assets/`, links), never a manual.
 - Commit freely, in small commits that name the roadmap item they change (`fix(collect): …
   (DATA-2)`), with its status updated in `docs/roadmap.md` in the same commit. The scope
-  is the part changed, one of: `web`, `extract` (`sources/arxiv_html.py` and its rules),
+  is the part changed, one of: `web`, `extract` (`sources/arxiv_html.py`, `affiliations/`),
   `collect`, `cli`, `archive`, `citations`, `openalex`, `ror`, `store`, `stats`, `trends`,
   `data` (`data/` alone), `roadmap`, `release`; none for docs or CI across parts (`docs:`, `ci:`). Never push,
   create the GitHub repo, or start `make update`, `make backfill` or `make archive`

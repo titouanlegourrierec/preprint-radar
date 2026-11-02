@@ -1,9 +1,10 @@
 """Knock out the extraction's rules one at a time, to find those no test needs (EXT-2).
 
 Line and branch coverage cannot see a rule written as one alternative of a regular
-expression. Here each regular expression of ``sources/arxiv_html.py`` is made to never
-match, whole, then each of its top-level alternatives in turn (a country of ``COUNTRIES``
-and what a negative lookaround holds aside), and the extraction's tests run against it. A
+expression. Here each regular expression of the extraction (``sources/arxiv_html.py`` and
+the ``affiliations`` package) is made to never match, whole, then each of its top-level
+alternatives in turn (a country of ``COUNTRIES`` and what a negative lookaround holds
+aside), and the extraction's tests run against it. A
 knockout that leaves them green is a rule no test asserts on. With the page cache and
 ``data/``, each of those is replayed on the cached pages and the stored affiliations: one
 that changes what they give is a live rule without a test, which the next
@@ -29,6 +30,7 @@ from typing import Any
 
 import pytest
 
+from preprint_radar.affiliations import cleaning, dom, folding, lines, mapping, sources, vocabulary
 from preprint_radar.console import console
 from preprint_radar.sources import arxiv_html
 from preprint_radar.store.paper_store import PaperStore
@@ -50,6 +52,8 @@ TESTS = [
     )
 ]
 NEVER = "(?!)"
+# The extraction's modules: a pattern defined in one is imported by the others.
+MODULES = (vocabulary, folding, dom, cleaning, lines, sources, mapping, arxiv_html)
 
 
 @dataclass(frozen=True, slots=True)
@@ -69,8 +73,11 @@ class Knockout:
     flags: int
 
     def apply(self) -> None:
-        """Put the knocked-out expression in the module, in place of the rule's."""
-        setattr(arxiv_html, self.regex, re.compile(self.pattern, self.flags))
+        """Put the knocked-out expression in every module, in place of the rule's."""
+        knocked = re.compile(self.pattern, self.flags)
+        for module in MODULES:
+            if hasattr(module, self.regex):
+                setattr(module, self.regex, knocked)
 
 
 def top_alternatives(pattern: str) -> list[tuple[int, int]]:
@@ -142,9 +149,10 @@ def knockouts(only: str | None = None) -> list[Knockout]:
     Args:
         only: The name of one expression, else all of the module.
     """
-    countries = {arxiv_html.COUNTRIES[start:end] for start, end in top_alternatives(arxiv_html.COUNTRIES)}
+    countries = {vocabulary.COUNTRIES[start:end] for start, end in top_alternatives(vocabulary.COUNTRIES)}
+    patterns = {name: value for module in MODULES for name, value in vars(module).items()}
     found: list[Knockout] = []
-    for name, value in sorted(vars(arxiv_html).items()):
+    for name, value in sorted(patterns.items()):
         if not isinstance(value, re.Pattern) or (only and name != only):
             continue
         pattern = value.pattern
@@ -197,12 +205,13 @@ def _start_replay(
 
 def _replay(knockout: Knockout) -> list[str]:
     """The cached pages and stored strings whose extraction the knockout changes."""
-    kept = getattr(arxiv_html, knockout.regex)
+    kept = {module: vars(module)[knockout.regex] for module in MODULES if hasattr(module, knockout.regex)}
     knockout.apply()
     try:
         given = _outputs(_REPLAY["pages"], _REPLAY["strings"])
     finally:
-        setattr(arxiv_html, knockout.regex, kept)
+        for module, value in kept.items():
+            setattr(module, knockout.regex, value)
     return [key for key, value in given.items() if value != _REPLAY["base"][key]]
 
 

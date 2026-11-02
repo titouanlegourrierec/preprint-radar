@@ -14,14 +14,9 @@ institution names, which the cleaner would damage ("IIT@MIT").
 from collections.abc import Sequence
 from dataclasses import dataclass, replace
 
+from preprint_radar.affiliations.cleaning import clean_affiliations, names_only_authors, states_people
+from preprint_radar.affiliations.mapping import AuthorAffiliations, map_stated_affiliations
 from preprint_radar.models import Paper
-from preprint_radar.sources.arxiv_html import (
-    AuthorAffiliations,
-    clean_affiliations,
-    map_stated_affiliations,
-    names_only_authors,
-    states_people,
-)
 from preprint_radar.store.paper_store import PaperStore
 
 

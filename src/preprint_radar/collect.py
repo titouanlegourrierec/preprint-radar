@@ -15,6 +15,7 @@ from dataclasses import dataclass, field, replace
 from datetime import UTC, date, datetime, timedelta
 from enum import StrEnum
 
+from preprint_radar.affiliations.folding import name_key
 from preprint_radar.code import CodeLink, code_link
 from preprint_radar.config import (
     CATCH_UP_DAYS,
@@ -40,7 +41,6 @@ from preprint_radar.sources.arxiv_html import (
     PageCache,
     archive_page_url,
     fetch_front_matter,
-    name_key,
     parse_front_matter,
 )
 from preprint_radar.sources.arxiv_listing import fetch_catchup, fetch_listing

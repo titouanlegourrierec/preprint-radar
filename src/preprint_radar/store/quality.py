@@ -21,17 +21,15 @@ from enum import StrEnum
 from rich import box
 from rich.table import Table
 
-from preprint_radar.models import Paper, Provenance
-from preprint_radar.sources.arxiv_html import (
-    EXTRACTOR_VERSION,
-    PageCache,
+from preprint_radar.affiliations.cleaning import (
     clean_affiliations,
     is_bare_unit,
     is_place,
     marked_pieces,
     names_only_authors,
-    parse_front_matter,
 )
+from preprint_radar.models import Paper, Provenance
+from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache, parse_front_matter
 
 EXAMPLES = 5
 """Examples kept for each sign."""

@@ -10,10 +10,10 @@ from xml.etree.ElementTree import Element
 
 from defusedxml import ElementTree
 
+from preprint_radar.affiliations.cleaning import clean_affiliations
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.latex import plain_text
-from preprint_radar.sources.arxiv_html import clean_affiliations
 
 logger = logging.getLogger(__name__)
 

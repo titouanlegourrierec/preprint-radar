@@ -18,10 +18,10 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any
 
+from preprint_radar.affiliations.cleaning import has_contact
 from preprint_radar.exceptions import StoreError
 from preprint_radar.institutions import ACRONYMS
 from preprint_radar.models import Paper
-from preprint_radar.sources.arxiv_html import has_contact
 from preprint_radar.store.paper_store import (
     ARCHIVE_DIRNAME,
     CITATIONS_FILENAME,

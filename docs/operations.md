@@ -98,7 +98,7 @@ for the next run. Nothing to do unless it repeats (<https://status.arxiv.org>).
 would be final) and their pages leave the cache, so a passing error page heals by itself.
 For a real change, `make test-network` shows what no longer parses: save one or two live
 pages as fixtures in `tests/fixtures/html/` (e-mails replaced by `author@example.org`),
-add them to `expected.json`, adapt `sources/arxiv_html.py` and bump `EXTRACTOR_VERSION`
+add them to `expected.json`, adapt the extraction (`sources/arxiv_html.py`, `affiliations/`) and bump `EXTRACTOR_VERSION`
 (`docs/extraction.md`). Once pushed, the next runs read the pending papers again.
 
 ### The listing's entries lost their authors or links

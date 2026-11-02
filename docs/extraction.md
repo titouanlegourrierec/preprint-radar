@@ -1,6 +1,7 @@
 # Affiliations, venues and abstracts: how they are extracted
 
-The rules behind `sources/arxiv_html.py` (affiliations and who is where), `venue.py`,
+The rules behind `sources/arxiv_html.py` and the `affiliations/` package (affiliations and
+who is where), `venue.py`,
 `latex.py` (abstracts as plain text) and their offline re-runs. Each came from a real page,
 whose arXiv id is the evidence: never "simplify" one away without it.
 
@@ -24,7 +25,7 @@ whose arXiv id is the evidence: never "simplify" one away without it.
   (2610.02974 lost "Alicante" to the "at" of an address).
 - Coverage cannot see a rule written as one alternative of a regular expression. `make
   knockout` (`tests/knockout.py`, about 7 minutes on 10 cores) makes each expression of
-  `arxiv_html.py`, then each of its top-level alternatives, never match, and runs the
+  the extraction, then each of its top-level alternatives, never match, and runs the
   extraction's tests: those it leaves green no test asserts on; replayed on the cached
   pages and the stored strings, a `LIVE` one changes what they give, a rule the next bump
   could lose unseen. Run it before a bump, and give each live one a fixture or a named
@@ -332,6 +333,115 @@ the whole tier, and unresolved authors stay `null`.
   ("Zhiyuan Yang & Jiahao Cheng") beside other creators shares its block (2609.36407),
   unless that block only names a place, the end of an address the creators before began
   ("Orlando, FL 32816, USA", 2609.34021).
+
+## Extraction versions
+
+`EXTRACTOR_VERSION` (`sources/arxiv_html.py`), stored with the affiliations a page gave;
+what each version changed:
+
+- 1: the first version kept (October 2026).
+- 2: leading numbers of names kept ("54th", "3M"), superscripts inside a word and line
+  breaks without a newline read as written, links in the author list are not authors, and
+  a marker that starts an affiliation line is not the previous name's.
+- 3: thanks notes read across the line wraps of their source, numbered markers glued to
+  the next affiliation start one ("Cornell University ²Duke University"), a unit without
+  its institution joined to the next line, an author's contact nodes read as one text,
+  and markers mixing a number and symbols ("2,6*‡") read as the number.
+- 4: a line that only names authors is never joined to the next, anchors match the lines
+  their affiliation was joined from, a line starting with "and" continues the previous
+  one, a creator holding several authors' names is never one person, and the people of
+  an "A & B" creator share its block, and an address in brackets ends an affiliation
+  rather than dropping it.
+- 5: a line ending with a preposition ("Ministry of") continues on the next one, a place
+  completes a name that ends with a country ("National Research Council Canada"), and
+  places end with many more countries (AFF-18).
+- 6: a preposition ends a line only after a space, not the domain of an address
+  ("technikum-wien.at"), and an address at the end of a line ends its affiliation.
+- 7: so does a list of mailboxes before its domain ("{a, b}@tum.de"), and "X is Robotics
+  Lead at Y" gives Y, as "X is with Y" does.
+- 8: affiliation notes are read (2610.15403), and so are numbered lines set as authors
+  (2610.12978), an affiliation glued to its author's name (2610.17412), lines led by
+  symbols that each name an institution (2610.17605) and, last, the lines of a block
+  without markers that name one (2610.18323); addresses and marker lines set as authors
+  are nobody, markers written in math are read without their TeX source, and an address
+  before a full stop (2609.28184) or after a glued "Email:" label (2608.29996) ends its
+  affiliation.
+- 9: what version 8 got wrong on the archive's pages (2026-10-15): names glued to each
+  other are no affiliation (2508.10104), a block LaTeXML cut at its commas and "and"s
+  gives no pieces (2411.15633), symbols that follow their affiliations lead none
+  (2505.11293) and one symbol's affiliation is never everyone's, markers after wide spaces
+  split (2402.13251), and IEEE's template author is no affiliation.
+- 10: last, the affiliations a thanks note lists without a sentence around them, IEEE
+  conference classes' (2609.26325, 2609.03677), their numbered markers read where LaTeXML
+  printed their math as text (2609.16443) (AFF-11).
+- 11: a sentence's "is at" or "is with" gives an affiliation only when it is capitalized,
+  names an institution, ends with a country or holds a comma ("This work is at the
+  intersection of vision and language" gives none), cut at its semicolons; one
+  affiliation such sentences give is no longer everyone's, the sentences placing whom they
+  name; and the numbered markers of thanks notes anchor authors' markers (2609.03677)
+  (AFF-9).
+- 12: a run of markers with nothing between them marks the text after them all: version
+  11 placed only the last author of "*†‡ Y. Yang and J. Bos are with ..." (2610.13891,
+  2610.13872), where version 9 placed both (AFF-33).
+- 13: a numbered footnote whose pieces do not all name an institution gives them up to its
+  correspondence sentence when they qualify as a thanks note's list, and its markers anchor
+  them: ICML's notice, "¹University of Tübingen. ²KAIST AI. Correspondence to: …", gave
+  nothing (2610.35857, 2610.35706) (AFF-34).
+- 14: markers raised by a span's style are superscripts, and one set apart in spaces before
+  a capital starts a numbered line ("¹ NVIDIA ² MIT ³ UCB", one affiliation, 2610.19495);
+  lines led by markers that are only notes and names leave the block to its unmarked
+  lines, and a row set apart in wide spaces is kept whole when one piece names an
+  institution ("Meta AI Research    WRI    Inria", nothing, 2508.10104; "Tencent HY" and
+  "UC Merced" beside "Southeast University", 2610.14852); curly double quotes fold in
+  names ('Linxi "Jim" Fan') (AFF-37).
+- 15: older pages, which ar5iv renders: an address without its country on a line of its own
+  completes the affiliation before it ("Zalando Research" / "Mühlenstraße 25, 10243
+  Berlin", 1708.07747), a French unit waits for its institution ("Département
+  d'informatique …" / "Université de Montréal", 1411.1784), a mailbox list glued to the
+  country goes ("Singapore{…}@nus.edu.sg", 1312.4400), and a line break's spacing printed
+  as text tells no author field cut at its commas ("[0.25cm]", 2105.15203, which gave
+  nothing) (AFF-37).
+- 16: lines led by symbols count when half name an institution and the others are no
+  sentence nor role ("⋆Facebook AI †Sorbonne University", 2012.12877), a contribution note
+  glued to the affiliation after it goes ("Equal senior contributionsDeepMind",
+  2204.14198), and an affiliation glued to the last of several names in one creator counts
+  ("Jian SunMegvii Technology", 2107.08430) (AFF-37).
+- 17: names glued to each other before the glued affiliation are skipped ("Ismail Ben
+  AyedJose DolzÉTS Montreal", 2312.12730) (AFF-37).
+- 18: a page signed by organizations instead of its listed authors gives them ("Qwen
+  Team", "Alibaba Group", 2502.13923), and a row set apart in wide spaces counts with a
+  collective ("Qwen Team  Alibaba Group", 2409.12191) (AFF-38).
+- 19: an address in typewriter type glued to the word before it is set apart, which the
+  contact cleanup took away with it: "University of Oxford" gave "University of"
+  (2006.13662), "Adobe Research & HKU" gave "Adobe Research &" (2311.09217) (AFF-37).
+- 20: what the review of the archive's re-read found (AFF-40): a name with its marker read as
+  text is a name ("Saining Xie 1", 2406.18533), a marker ending a span of text starts the
+  line after it (2605.09681), several addresses at the end of a string go together
+  (DreamFusion's "Google Research, UC Berkeley", 2209.14988), a "Project:" label goes
+  (2406.18522), initials glued to the surname name their author ("Z.Dong", 2410.08613), a
+  template's example author gives nothing (2502.10841), a company named after its AI counts
+  in a block without markers ("Stability AI", 2311.15127), the listing's dotless i folds
+  (2505.12089); and the cleaning: parts glued after a name of several words or a company
+  ("Visual Geometry GroupUniversity of OxfordUK", "ByteDance IncShanghai"), ORCID
+  identifiers, "now at" and interns' notes, CVPR's "Institution2" go.
+- 21: what version 20 cut (AFF-41): an address glued to the word before it took the word
+  with it ("Technion - Israel Institute of Technologyauthor@…" gave "… Institute of",
+  2006.14610; "Zhejiang Universityauthor@…" gave "Zhejiang", 2011.00147), in any span
+  of text too (2412.06141); a string ending in a preposition is cut and goes, one ending in
+  "and" keeps what precedes it when that is whole ("The University of Texas at Austin
+  and", 2410.14919); "Faculty of 3mE" is no marker (2203.10157); institutions run
+  together after a country or another university are set apart (2006.09785, 1904.04514).
+- 22: the second audit's (AQ-2, AQ-3, AQ-5, EXT-3): a footnote mark beside markers written by
+  hand points to a note, not an affiliation (2609.39548); a numbered affiliation takes the
+  lines after it that go on with it, as table rows set them (2609.38607, 2609.33449); one
+  block LaTeXML spread over the creators is read as one, everyone at it (2609.13271,
+  2609.06726); a mailbox or mail domain without its "@" is a contact detail ("gmail.com").
+- 23: one vocabulary each (EXT-7, EXT-4): every marker symbol leads nothing (the asterisk
+  operator, "♠", "★ Ropedia"), an institution's word inside an author's name ("Slabaugh") keeps a line of
+  names a line of names, names fold "ł" and "ø" as everywhere else; and the cleaning reads
+  wherever an affiliation comes from the markers LaTeXML printed as text ("$1$", "$^a$"),
+  the format characters and LaTeX's tilde, and drops a note's sentence on its own ("This
+  work was done when the author was at Adobe Research").
 
 ## Institutions (ROR, then `institutions.py`)
 

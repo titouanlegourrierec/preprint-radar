@@ -16,8 +16,8 @@ import re
 import unicodedata
 from collections.abc import Iterable, Mapping, Sequence
 
+from preprint_radar.affiliations.vocabulary import COUNTRIES
 from preprint_radar.letters import PLAIN_LETTERS
-from preprint_radar.sources.arxiv_html import COUNTRIES
 
 # JavaScript's \b, which the rules were written with: ASCII word characters only, so that
 # "Laboratório" has no "lab" word.
