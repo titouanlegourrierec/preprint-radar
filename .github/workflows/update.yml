@@ -69,6 +69,8 @@ jobs:
           # The latest main, not the commit the run was triggered on: a run queued behind
           # another one must start from the data that run pushed.
           ref: main
+          # Only the commit step gets a token that can push (PUB-2).
+          persist-credentials: false
       - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
         with:
           enable-cache: true
@@ -199,6 +201,8 @@ jobs:
         if: ${{ always() && steps.validate.outcome == 'success' }}
         # main may have moved during the run, which lasts hours: the script replays the
         # commit on top, settling conflicts on index.json and citations.json.
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           bash .github/scripts/commit-data.sh "chore(data): update $(date -u +%Y-%m-%d)"
 

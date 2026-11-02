@@ -565,7 +565,7 @@ removal list, rules on `main`).
 | ID | Item | Priority | Status |
 |---|---|---|---|
 | PUB-1 | The About page promises that a removal or correction stays, but the pipeline restores both | P2 | todo |
-| PUB-2 | The data jobs keep a token that can push to main in .git/config for hours | P2 | todo |
+| PUB-2 | The data jobs keep a token that can push to main in .git/config for hours. No checkout keeps its credentials (`persist-credentials: false` on all 12); the commit step alone gets `GH_TOKEN`, which `commit-data.sh` gives to git's fetch and push only (an `extraheader` on the command line, never in `.git/config`) and takes away from `preprint-radar index`; `test_commit_data.py` checks both. Left: the job's token is still in the env of the steps that ask GitHub for stars (`code`), the job's `contents: write` being the whole job's | P2 | done |
 | PUB-3 | No ruleset on main, and repository settings left at their defaults | P2 | todo |
 | PUB-4 | Real author e-mail addresses are back in code, tests and the roadmap since the CI-13 cleanup. The six mailboxes replaced by `author` (the domain kept, the history keeps them, as CI-13 accepted); `test_no_emails.py` fails on any address in `src/`, `tests/`, `docs/` (the audits aside), `web/` and the workflows but `author@…`, `example.*`, arXiv's and the contact of `report.ts` | P2 | done |
 | PUB-5 | A copy of the site sends its corrections and removal requests to this maintainer | P2 | todo |

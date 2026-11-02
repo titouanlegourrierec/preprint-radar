@@ -13,6 +13,9 @@
 # With --keep, the commit is only saved as data-commit.bundle, never pushed: for data that
 # failed validation.
 #
+# The checkout keeps no credentials (PUB-2): a token that can push to main is given to this
+# step only, as GH_TOKEN, and to git's fetch and push only, never written to .git/config.
+#
 # Writes pushed=true or pushed=false to $GITHUB_OUTPUT.
 # Usage: commit-data.sh [--keep] MESSAGE
 set -euo pipefail
@@ -34,6 +37,17 @@ if git diff --cached --quiet; then
   exit 0
 fi
 git commit --quiet --message "$message"
+
+# git with the token for github.com, when there is one (local runs and tests have none).
+remote() {
+  if [ -n "${GH_TOKEN:-}" ]; then
+    local basic
+    basic=$(printf 'x-access-token:%s' "$GH_TOKEN" | base64 | tr -d '\n')
+    git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic $basic" "$@"
+  else
+    git "$@"
+  fi
+}
 
 keep_commit() {
   git bundle create data-commit.bundle origin/main..HEAD
@@ -60,13 +74,13 @@ settle_conflicts() {
         ;;
     esac
   done < <(git diff --name-only --diff-filter=U)
-  uv run --no-dev preprint-radar index || return 1
+  env -u GH_TOKEN uv run --no-dev preprint-radar index || return 1
   git add data || return 1
   GIT_EDITOR=true git rebase --continue
 }
 
 for attempt in 1 2 3; do
-  git fetch --quiet origin main
+  remote fetch --quiet origin main
   if ! git rebase --quiet origin/main; then
     if ! settle_conflicts; then
       git rebase --abort
@@ -74,7 +88,7 @@ for attempt in 1 2 3; do
       exit 1
     fi
   fi
-  if git push --quiet origin HEAD:main; then
+  if remote push --quiet origin HEAD:main; then
     echo "pushed=true" >>"$output"
     exit 0
   fi

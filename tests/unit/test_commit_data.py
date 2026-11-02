@@ -14,8 +14,13 @@ GIT = shutil.which("git")
 BASH = shutil.which("bash")
 pytestmark = pytest.mark.skipif(GIT is None or BASH is None, reason="needs git and bash")
 
-# Stands in for `uv run --no-dev preprint-radar index`, which test_cli covers.
-FAKE_UV = "#!/bin/sh\nprintf '{\"rewritten\": true}\\n' > data/index.json\n"
+# Stands in for `uv run --no-dev preprint-radar index`, which test_cli covers; it records the
+# GH_TOKEN it was given where UV_SAW says.
+FAKE_UV = (
+    "#!/bin/sh\n"
+    'if [ -n "$UV_SAW" ]; then printf %s "${GH_TOKEN:-}" > "$UV_SAW"; fi\n'
+    "printf '{\"rewritten\": true}\\n' > data/index.json\n"
+)
 DAY = "data/cs.CV/2026-09-28.json"
 CITATIONS = "data/cs.CV/citations.json"
 GAINS = "data/cs.CV/citation-gains.json"
@@ -61,9 +66,11 @@ def _commit_and_push(repos: Repos, repo: Path, changes: dict[str, object]) -> No
     _git(repos, repo, "push", "--quiet", "origin", "HEAD:main")
 
 
-def _commit_data(repos: Repos, *options: str) -> tuple[int, dict[str, str]]:
+def _commit_data(
+    repos: Repos, *options: str, env: dict[str, str] | None = None
+) -> tuple[int, dict[str, str]]:
     assert BASH is not None
-    result = _run([BASH, str(SCRIPT), *options, "chore(data): update"], repos.bot, repos.env)
+    result = _run([BASH, str(SCRIPT), *options, "chore(data): update"], repos.bot, env or repos.env)
     lines = repos.output.read_text(encoding="utf-8").splitlines() if repos.output.exists() else []
     return result.returncode, dict(line.split("=", 1) for line in lines)
 
@@ -75,7 +82,8 @@ def repos(tmp_path: Path) -> Repos:
     (bin_dir / "uv").write_text(FAKE_UV, encoding="utf-8")
     (bin_dir / "uv").chmod(0o755)
     env = {
-        **os.environ,
+        # A token in the shell would reach the script.
+        **{name: value for name, value in os.environ.items() if name != "GH_TOKEN"},
         "PATH": f"{bin_dir}{os.pathsep}{os.environ['PATH']}",
         "GITHUB_OUTPUT": str(tmp_path / "output"),
         # Neither the user's git configuration (signing, hooks...) nor the system's.
@@ -120,6 +128,19 @@ def test_writes_the_index_again_on_a_conflict(repos: Repos) -> None:
     assert _read(repos.maintainer, INDEX) == {"rewritten": True}
     assert _read(repos.maintainer, DAY) == {"papers": ["new"]}
     assert (repos.maintainer / "data/cs.CV/2026-09-25.json").exists()
+
+
+def test_the_token_reaches_git_alone_and_is_never_stored(repos: Repos, tmp_path: Path) -> None:
+    # The checkout keeps no credentials: the push token is the script's, for git only (PUB-2).
+    _commit_and_push(repos, repos.maintainer, {INDEX: {"days": 2}})
+    _write(repos.bot, INDEX, {"days": 3})
+    _write(repos.bot, DAY, {"papers": ["new"]})
+    seen = tmp_path / "uv-saw"
+    env = {**repos.env, "GH_TOKEN": "made-up-token", "UV_SAW": str(seen)}
+
+    assert _commit_data(repos, env=env) == (0, {"pushed": "true"})
+    assert seen.read_text(encoding="utf-8") == ""
+    assert "made-up-token" not in (repos.bot / ".git" / "config").read_text(encoding="utf-8")
 
 
 def test_keeps_this_runs_citation_counts_and_gains_on_a_conflict(repos: Repos) -> None:

@@ -389,7 +389,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   - `update.yml` and `archive.yml` share a concurrency group, check out `main` (not the
     triggering commit, else a queued run starts from stale data), run
     `.github/scripts/validate-data.sh` (a structural error pushes nothing), and commit
-    through `.github/scripts/commit-data.sh`, which rebases onto a `main` that moved during
+    through `.github/scripts/commit-data.sh`, the only step given a token that can push (no
+    checkout keeps its credentials, PUB-2), which rebases onto a `main` that moved during
     the run: on a conflict it writes `index.json` again and keeps the run's
     `citations.json` and `citation-gains.json`; on any other conflict, or after three
     refused pushes, it uploads the commit as `data-commit.bundle`

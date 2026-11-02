@@ -72,6 +72,8 @@ jobs:
         with:
           # The latest main, not the commit the run was triggered on (see update.yml).
           ref: main
+          # Only the commit step gets a token that can push (PUB-2).
+          persist-credentials: false
       - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
         with:
           enable-cache: true
@@ -177,6 +179,8 @@ jobs:
         id: commit
         if: ${{ always() && steps.validate.outcome == 'success' }}
         # Replays the commit on main if it moved (see the script and update.yml).
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           bash .github/scripts/commit-data.sh "chore(data): archive $(date -u +%Y-%m-%d)"
 
