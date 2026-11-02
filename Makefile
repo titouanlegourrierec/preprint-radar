@@ -85,8 +85,9 @@ quality: $(WEB)/node_modules ## Run every code quality check: formatting, lint, 
 	@cd $(WEB) && npm run --silent lint
 	@echo "==> Web: types (tsc)"
 	@cd $(WEB) && npm run --silent typecheck
-	@echo "==> GitHub workflows (actionlint)"
+	@echo "==> GitHub workflows (actionlint, zizmor)"
 	@uv run actionlint
+	@uv run zizmor --offline --no-progress --quiet .github/workflows
 	@echo "All quality checks passed."
 
 .PHONY: test

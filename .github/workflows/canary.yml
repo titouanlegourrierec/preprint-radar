@@ -44,8 +44,9 @@ jobs:
       - name: Check the repository size
         env:
           GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
         run: |
-          size=$(( $(gh api "repos/${{ github.repository }}" --jq .size) / 1024 ))
+          size=$(( $(gh api "repos/$REPOSITORY" --jq .size) / 1024 ))
           echo "**Repository size.** ${size} MB (warning above 500 MB)" >> "$GITHUB_STEP_SUMMARY"
           # Also an annotation, which the API keeps, unlike the summary: the size's history (SCALE-2).
           echo "::notice title=Repository size::${size} MB"

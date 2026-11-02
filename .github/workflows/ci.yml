@@ -58,6 +58,9 @@ jobs:
         run: uv run ty check
       - if: matrix.static
         run: uv run actionlint
+      # The workflows' security: pinning, permissions, credentials, injections (PUB-7).
+      - if: matrix.static
+        run: uv run zizmor --offline --no-progress .github/workflows
       - run: uv run pytest --cov
 
   # Bot pushes do not trigger this workflow: the data workflows validate before committing.

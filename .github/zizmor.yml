@@ -1,0 +1,6 @@
+# zizmor, the workflows' security audit (`make quality`, ci.yml; PUB-7). Accepted cases:
+rules:
+  # "$/.github/workflows/deploy.yml" is newer than actionlint, which refuses it; a local
+  # reusable workflow is this repository's own either way.
+  self-repository:
+    disable: true

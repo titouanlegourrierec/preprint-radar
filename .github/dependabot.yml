@@ -1,8 +1,8 @@
 # Weekly dependency updates. Actions are pinned by commit SHA (see CLAUDE.md): Dependabot
 # bumps the SHA and keeps the version comment next to it. Minor and patch updates arrive
-# grouped in one pull request per ecosystem; majors come one by one. Python and npm
-# releases are proposed once 5 days old (14 for a major), so that a compromised one is
-# likely pulled before it reaches us; security updates do not wait.
+# grouped in one pull request per ecosystem; majors come one by one. Releases are proposed
+# once 5 days old (Python's and npm's majors 14), so that a compromised one is likely
+# pulled before it reaches us; security updates do not wait.
 version: 2
 updates:
   - package-ecosystem: github-actions
@@ -11,6 +11,8 @@ updates:
       interval: weekly
     commit-message:
       prefix: ci
+    cooldown:
+      default-days: 5
     groups:
       actions:
         patterns: ["*"]

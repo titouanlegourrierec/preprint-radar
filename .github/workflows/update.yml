@@ -22,6 +22,10 @@ concurrency:
   group: update-data
   cancel-in-progress: false
 
+
+# Nothing by default: each job declares what it needs (PUB-7).
+permissions: {}
+
 jobs:
   # A scheduled run is the fallback of the outside scheduler's dispatch: it stops when a
   # run of the day already succeeded, and always in a fork (.github/scripts/skip-if-done.sh).

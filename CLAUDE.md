@@ -28,7 +28,7 @@ them. It is deployed on GitHub Pages; there is no server.
 Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `pre-commit`…).
 
 - `make check`: what CI runs, `make quality` (ruff format and lint, ty, Biome, tsc,
-  actionlint) then `make test` (pytest and Vitest, offline). Run it before saying a change
+  actionlint, zizmor with `.github/zizmor.yml`) then `make test` (pytest and Vitest, offline). Run it before saying a change
   is done. Single checks: `uv run pytest tests/unit/test_paper_store.py -k merge`,
   `cd web && npx vitest run tests/search.test.ts`.
 - `make coverage`: Python line and branch coverage; CI fails below 95% (`fail_under`). Keep
