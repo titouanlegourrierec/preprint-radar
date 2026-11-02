@@ -164,6 +164,8 @@ def needs_openalex(paper: Paper, today: date) -> bool:
         paper: A stored paper.
         today: Day of the lookup.
     """
+    if paper.affiliations_by_hand:  # corrected on request, kept as they are (PUB-1)
+        return False
     if paper.affiliations is None:
         return True
     if not paper.affiliations:

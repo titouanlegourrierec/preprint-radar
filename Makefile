@@ -25,6 +25,7 @@ CATEGORIES ?=
 MAX_HTML ?=
 SINCE ?=
 UNTIL ?=
+ID ?=
 CATEGORY_ARGS := $(foreach category,$(CATEGORIES),--category $(category))
 MAX_HTML_ARG := $(if $(MAX_HTML),--max-html $(MAX_HTML))
 UNTIL_ARG := $(if $(UNTIL),--until $(UNTIL))
@@ -48,6 +49,7 @@ help: ## Show this help
 	printf "  %s%-14s%s %s\n" "$$cyan" "BUDGET" "$$reset" "archive: number of older papers it holds (default: the command's)"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "DRY_RUN=1" "$$reset" "archive: report what would change, write nothing"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "PRUNE=1" "$$reset" "archive: delete the day files older than 12 months"; \
+	printf "  %s%-14s%s %s\n" "$$cyan" "ID" "$$reset" "remove, pin: the papers' arXiv ids, space-separated"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "NAME, URL" "$$reset" "logo: the institution, as the site names it, and its file's page (VIEW_BOX crops an SVG, PNG=128 draws a too detailed one as a PNG, LICENSE for a file outside Commons)"; \
 	printf "\nExamples: make update CATEGORIES=\"cs.CV cs.LG\" MAX_HTML=50\n"; \
 	printf "          make backfill SINCE=2026-09-01\n"; \
@@ -158,6 +160,16 @@ reclean: ## Clean the stored affiliations again after a change to the heuristics
 .PHONY: venues
 venues: ## Detect the stored venues again after a change to the detection (offline)
 	uv run preprint-radar -v venues $(CATEGORY_ARGS)
+
+.PHONY: remove
+remove: ## Remove papers (ID="...") from every file of data/ for good, on request (offline)
+	@if [ -z "$(ID)" ]; then echo "Usage: make remove ID=\"2610.00001 ...\"" >&2; exit 2; fi
+	uv run preprint-radar remove $(CATEGORY_ARGS) $(ID)
+
+.PHONY: pin
+pin: ## Keep the affiliations corrected by hand in papers' files (ID="..."), on request (offline)
+	@if [ -z "$(ID)" ]; then echo "Usage: make pin ID=\"2610.00001 ...\"" >&2; exit 2; fi
+	uv run preprint-radar pin $(CATEGORY_ARGS) $(ID)
 
 .PHONY: citations
 citations: ## Fetch the citation counts of stored papers without one (ALL=1: every paper)

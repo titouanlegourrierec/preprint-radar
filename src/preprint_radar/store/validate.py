@@ -11,6 +11,7 @@ the registry names its institution. Nothing is fetched or written.
 import json
 from collections import defaultdict
 from collections.abc import Iterator, Mapping
+from collections.abc import Set as AbstractSet
 from dataclasses import dataclass, field
 from datetime import date
 from enum import StrEnum
@@ -26,6 +27,7 @@ from preprint_radar.store.paper_store import (
     CITATIONS_FILENAME,
     CODE_FILENAME,
     COHORTS_FILENAME,
+    CORRECTIONS_FILENAME,
     COUNTRIES_FILENAME,
     GAINS_FILENAME,
     INDEX_FILENAME,
@@ -177,6 +179,7 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
     _validate_countries(store, category, report)
     _validate_cohorts(store, category, report)
     _validate_trends(store, category, report)
+    _validate_corrections(store, category, stored, report)
     return {"days": days, "years": years, "top_recent": top_recent}
 
 
@@ -290,9 +293,9 @@ def _heuristics(paper: Paper) -> Iterator[str]:
 
     The strongest signs of :mod:`~preprint_radar.store.quality`, which ``stats
     --affiliations`` counts in full. OpenAlex's affiliations (a paper without an HTML page,
-    AFF-27) were not extracted: none.
+    AFF-27) were not extracted, nor those the maintainer corrected (PUB-1): none.
     """
-    if paper.affiliations_from_openalex:
+    if paper.affiliations_from_openalex or paper.affiliations_by_hand:
         return
     names = names_only(paper)
     for affiliation in names:
@@ -302,6 +305,89 @@ def _heuristics(paper: Paper) -> Iterator[str]:
         yield f"{paper.arxiv_id}: only the last author is placed, at every affiliation"
     if not names and not shared and reclean_paper(paper) != paper:
         yield f"{paper.arxiv_id}: `reclean` would change its affiliations"
+
+
+def _validate_corrections(
+    store: PaperStore, category: str, stored: set[str], report: ValidationReport
+) -> None:
+    """What was done on request stays (PUB-1): errors, so that a run that undid it pushes nothing.
+
+    A removed paper in no file, its counts, published version, code and key papers of the
+    topics included; a pinned paper's affiliations still the maintainer's wherever it is.
+    """
+    path = store.root / category / CORRECTIONS_FILENAME
+    if not path.is_file():
+        return
+    report.files += 1
+    where = _where(path, store)
+    try:
+        corrections = store.load_corrections(category)
+    except StoreError as exc:
+        report.findings.append(Finding(Level.ERROR, where, str(exc)))
+        return
+    held = {"the papers": stored, **_ids_held(store, category)}
+    for arxiv_id in sorted(corrections.removed):
+        for name, ids in held.items():
+            if arxiv_id in ids:
+                message = f"{arxiv_id}: removed on request, still in {name}"
+                report.findings.append(Finding(Level.ERROR, where, message))
+    for arxiv_id in sorted(_not_by_hand(store, category, corrections.pinned.keys())):
+        message = f"{arxiv_id}: pinned on request, but its affiliations are no longer the maintainer's"
+        report.findings.append(Finding(Level.ERROR, where, message))
+
+
+def _not_by_hand(store: PaperStore, category: str, pinned: AbstractSet[str]) -> set[str]:
+    """The pinned papers one of whose records has affiliations the maintainer did not give."""
+    if not pinned:
+        return set()
+    try:
+        papers = [
+            *store.iter_papers(category),
+            *store.iter_archive(category),
+            *store.iter_top_recent(category),
+        ]
+    except StoreError:  # reported by the file's own check
+        return set()
+    return {paper.arxiv_id for paper in papers if paper.arxiv_id in pinned and not paper.affiliations_by_hand}
+
+
+def _ids_held(store: PaperStore, category: str) -> dict[str, set[str]]:
+    """The arXiv ids each file keyed by paper holds, but the files of papers; those that load."""
+
+    def citations() -> set[str]:
+        counts = store.load_citation_counts(category)
+        return set(counts.counts) if counts else set()
+
+    def gains() -> set[str]:
+        found = store.load_citation_gains(category)
+        return set(found.gains) if found else set()
+
+    def scholar() -> set[str]:
+        found = store.load_scholar(category)
+        return set(found.papers) if found else set()
+
+    def code() -> set[str]:
+        found = store.load_code(category)
+        return set(found.papers) if found else set()
+
+    def trends() -> set[str]:
+        found = store.load_trends(category)
+        topics = found.topics.values() if found else ()
+        return {paper.arxiv_id for topic in topics for paper in topic.papers}
+
+    held: dict[str, set[str]] = {}
+    for name, ids in (
+        (CITATIONS_FILENAME, citations),
+        (GAINS_FILENAME, gains),
+        (SCHOLAR_FILENAME, scholar),
+        (CODE_FILENAME, code),
+        (TRENDS_FILENAME, trends),
+    ):
+        try:
+            held[name] = ids()
+        except StoreError:  # reported by the file's own check
+            continue
+    return held
 
 
 def _validate_citations(store: PaperStore, category: str, stored: set[str], report: ValidationReport) -> None:

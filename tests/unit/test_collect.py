@@ -1,5 +1,6 @@
 import gzip
 import json
+import logging
 import re
 from collections import Counter
 from collections.abc import Callable
@@ -51,7 +52,7 @@ from preprint_radar.models import CodeRecord, Institution, Listing, Paper, Prove
 from preprint_radar.sources.arxiv_html import AR5IV_HTML_URL, EXTRACTOR_VERSION, PageCache, parse_front_matter
 from preprint_radar.sources.arxiv_listing import parse_catchup
 from preprint_radar.steps import StepCount
-from preprint_radar.store.paper_store import PaperStore
+from preprint_radar.store.paper_store import Corrections, PaperStore
 
 # The day the tests read pages and look up ROR: fixed, so that a run across midnight UTC
 # cannot see two days.
@@ -236,6 +237,16 @@ def test_update_enriches_and_stores_papers(fake: FakeArxiv, store: PaperStore) -
     assert stored["2609.30249"].affiliations_provenance == Provenance("html", READ_ON)
     assert stored["2609.28466"].affiliations_provenance == Provenance("api", READ_ON)
     assert stored["2609.30234"].affiliations_provenance is None
+
+
+def test_update_never_reads_a_paper_removed_on_request(fake: FakeArxiv, store: PaperStore) -> None:
+    store.write_corrections("cs.CV", Corrections(removed={"2609.30249": date(2026, 9, 28)}))
+
+    stored = {paper.arxiv_id for paper in _run(fake, store).papers}
+
+    assert len(stored) == 6
+    assert "2609.30249" not in stored
+    assert [path for path, hits in fake.hits.items() if "2609.30249" in path and hits] == []
 
 
 def test_a_later_listing_keeps_the_extractor_version(fake: FakeArxiv, store: PaperStore) -> None:
@@ -1826,6 +1837,23 @@ def test_reextract_reads_the_selected_papers_again_and_keeps_what_fails(
     assert stored["2609.22222"].extractor is None
     assert (report.listed, report.affiliations_fetched, report.unreadable) == (2, 1, 1)
     assert fake.hits["/html/2609.11111v1"] == fake.hits["/html/2609.22222v1"] == 0
+
+
+def test_reextract_never_reads_a_pinned_paper_again(
+    fake: FakeArxiv, store: PaperStore, caplog: pytest.LogCaptureFixture
+) -> None:
+    # Even asked for by id: the maintainer corrected its affiliations on request (PUB-1).
+    caplog.set_level(logging.INFO)
+    pinned = _stored("2609.30249", "1", extractor=None, affiliations_provenance=Provenance("manual", READ_ON))
+    store.save("cs.CV", [pinned])
+
+    with fake.client() as site:
+        report = reextract_category("cs.CV", lambda _: True, store=store, site_client=site)
+
+    assert report.listed == 0
+    assert "1 papers whose affiliations were corrected on request left out" in caplog.text
+    assert store.load_day("cs.CV", pinned.announced) == [pinned]
+    assert fake.hits["/html/2609.30249v1"] == 0
 
 
 def test_reextract_keeps_the_institutions_of_unchanged_affiliations(

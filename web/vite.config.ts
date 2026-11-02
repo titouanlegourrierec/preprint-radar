@@ -204,10 +204,14 @@ function paperData(dataDir: string): Plugin {
     writeBundle(options) {
       if (options.dir && existsSync(dataDir)) {
         const output = resolve(options.dir, "data");
-        // Not the leftovers of an interrupted write, nor dotfiles (.DS_Store).
+        // Not the leftovers of an interrupted write, nor dotfiles (.DS_Store), nor the list of
+        // papers removed on request, which the site has no use for (PUB-1).
         cpSync(dataDir, output, {
           recursive: true,
-          filter: (source) => !basename(source).startsWith(".") && !source.endsWith(".tmp"),
+          filter: (source) =>
+            !basename(source).startsWith(".") &&
+            !source.endsWith(".tmp") &&
+            basename(source) !== "corrections.json",
         });
         for (const [path, text] of [...shards(), ...searchShards()]) {
           const target = resolve(output, path);

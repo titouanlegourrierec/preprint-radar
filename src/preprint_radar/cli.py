@@ -81,6 +81,7 @@ from preprint_radar.sources.openalex import OPENALEX_DELAY_SECONDS
 from preprint_radar.sources.ror import ROR_DELAY_SECONDS
 from preprint_radar.sources.semantic_scholar import S2_ANONYMOUS_DELAY_SECONDS, S2_DELAY_SECONDS, api_key
 from preprint_radar.steps import format_counts
+from preprint_radar.store.corrections import pin_paper, remove_paper
 from preprint_radar.store.naming import name_institutions_again
 from preprint_radar.store.paper_store import PaperStore
 from preprint_radar.store.quality import (
@@ -107,6 +108,10 @@ from preprint_radar.store.venues import detect_venues_again
 from preprint_radar.trends import TITLES_SOURCE, TRENDS_SOURCE, count_trends, format_trends_report
 
 logger = logging.getLogger(__name__)
+
+# A paper's id, new style ("2610.00001") or old ("hep-th/9901001"), with its version or not.
+_ARXIV_ID_RE = re.compile(r"^(?:\d{4}\.\d{4,5}|[a-z-]+(?:\.[A-Z]{2})?/\d{7})(?:v\d+)?$")
+_VERSION_RE = re.compile(r"v\d+$")
 
 
 def _count(text: str) -> int:
@@ -203,6 +208,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_trends_parser(subparsers)
     _add_venues_parser(subparsers)
     _add_validate_parser(subparsers)
+    _add_corrections_parsers(subparsers)
     _add_summary_parser(subparsers)
     _add_reextract_parser(subparsers)
     # -v and -q after the command too ("stats -v"), which add to the ones before it (DOC-5).
@@ -632,6 +638,34 @@ def _add_validate_parser(subparsers: "argparse._SubParsersAction[argparse.Argume
         ),
     )
     _add_data_dir(validate)
+
+
+def _add_corrections_parsers(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    remove = subparsers.add_parser(
+        "remove",
+        help="remove papers from the site for good, on request",
+        description=(
+            "Remove papers from every file of the data store, their counts, published versions, "
+            "code and the topics' key papers included, and record them in corrections.json, "
+            "with the day of the request only: no later run stores them again (PUB-1). Then "
+            "validate the store. Nothing is fetched."
+        ),
+    )
+    remove.add_argument("ids", nargs="+", type=_arxiv_id, metavar="ARXIV_ID", help="the papers")
+    _add_store_location(remove, every_category=False)
+    pin = subparsers.add_parser(
+        "pin",
+        help="keep the affiliations corrected by hand in a paper's files, on request",
+        description=(
+            "After a paper's affiliations and author mapping were corrected by hand in its "
+            "files: record it in corrections.json and give its affiliations the manual "
+            "provenance, which no step reads again (PUB-1). Their institutions are reset: "
+            "`institutions` names them again (the weekly archive in the archive). Then validate "
+            "the store. Nothing is fetched."
+        ),
+    )
+    pin.add_argument("ids", nargs="+", type=_arxiv_id, metavar="ARXIV_ID", help="the papers")
+    _add_store_location(pin, every_category=False)
 
 
 def _add_store_location(parser: argparse.ArgumentParser, *, every_category: bool) -> None:
@@ -1297,6 +1331,26 @@ def _run_venues(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_remove(args: argparse.Namespace) -> int:
+    store = PaperStore(args.data_dir)
+    today = datetime.now(tz=UTC).date()
+    for category in args.categories or [DEFAULT_CATEGORY]:
+        for arxiv_id in args.ids:
+            written = remove_paper(store, category, arxiv_id, today)
+            console.print(f"{category}: {arxiv_id} removed, {len(written)} files written")
+    return _run_validate(args)
+
+
+def _run_pin(args: argparse.Namespace) -> int:
+    store = PaperStore(args.data_dir)
+    today = datetime.now(tz=UTC).date()
+    for category in args.categories or [DEFAULT_CATEGORY]:
+        for arxiv_id in args.ids:
+            report = pin_paper(store, category, arxiv_id, today)
+            console.print(f"{category}: {arxiv_id} pinned, {report.records} records")
+    return _run_validate(args)
+
+
 def _run_validate(args: argparse.Namespace) -> int:
     report = validate_store(PaperStore(args.data_dir))
     for finding in report.findings:
@@ -1348,6 +1402,14 @@ def _run_archive(args: argparse.Namespace) -> int:
     return 0
 
 
+def _arxiv_id(value: str) -> str:
+    """A paper's arXiv id, without its version ("2610.00001v2" is 2610.00001)."""
+    if not _ARXIV_ID_RE.match(value):
+        msg = f"Invalid arXiv id: {value!r} (expected e.g. 2610.00001 or hep-th/9901001)"
+        raise argparse.ArgumentTypeError(msg)
+    return _VERSION_RE.sub("", value)
+
+
 def _category(value: str) -> str:
     try:
         return validate_category(value)
@@ -1386,6 +1448,8 @@ _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
     "countries": _run_countries,
     "trends": _run_trends,
     "validate": _run_validate,
+    "remove": _run_remove,
+    "pin": _run_pin,
     "summary": _run_summary,
     "reextract": _run_reextract,
 }

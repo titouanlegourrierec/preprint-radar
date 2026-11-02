@@ -95,7 +95,7 @@ export interface Paper {
   pdf_url: string;
 }
 
-/** Where a field came from: affiliations "html", "api" or "openalex"; institutions "ror" or "openalex". */
+/** Where a field came from: affiliations "html", "api", "openalex" or "manual" (corrected on request); institutions "ror" or "openalex". */
 export interface Provenance {
   source: string;
   /** The day it was read; absent for what was read before provenance was kept. */

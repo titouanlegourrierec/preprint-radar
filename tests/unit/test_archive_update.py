@@ -26,7 +26,7 @@ from preprint_radar.models import Cohort, Paper, Provenance
 from preprint_radar.openalex_affiliations import needs_openalex, with_openalex_affiliations
 from preprint_radar.sources import semantic_scholar
 from preprint_radar.sources.arxiv_oai import CatalogEntry
-from preprint_radar.store.paper_store import PaperStore
+from preprint_radar.store.paper_store import Corrections, PaperStore
 
 WORKS = (FIXTURES_DIR / "openalex" / "works.json").read_text(encoding="utf-8")
 NOTHING_NEW = '<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"><error code="noRecordsMatch"/></OAI-PMH>'
@@ -145,6 +145,20 @@ def _update(
         prune=prune,
         dry_run=dry_run,
     )
+
+
+def test_a_paper_removed_on_request_takes_no_place(store: PaperStore, catalog: Catalog) -> None:
+    store.write_corrections("cs.CV", Corrections(removed={"1512.03385": TODAY}))
+
+    _update(store, catalog, FakeServices(CITATIONS), prune=False)
+
+    assert "1512.03385" not in store.stored_ids("cs.CV")
+    # Its place goes to the next most cited.
+    assert {paper.arxiv_id for paper in store.iter_archive("cs.CV")} == {
+        "2010.11929",
+        "2508.00001",
+        "2209.00001",
+    }
 
 
 def test_a_failing_oai_leaves_last_weeks_catalog_to_the_update(store: PaperStore, catalog: Catalog) -> None:

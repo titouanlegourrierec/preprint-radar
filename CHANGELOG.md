@@ -12,6 +12,9 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ### Pipeline
 
+- A paper removed on request, or whose affiliations were corrected on request, stays so:
+  `make remove` and `make pin`, recorded in `corrections.json`, which no run undoes and
+  `validate` checks (PUB-1).
 - The weekly archive no longer fails when arXiv's OAI-PMH does: it goes on with last
   week's catalog, with a warning, and fails only after two weeks (REL-13).
 - Affiliations no longer cut short (AFF-41): an address glued to an institution's name

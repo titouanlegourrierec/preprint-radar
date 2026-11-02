@@ -107,6 +107,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     OpenAlex's affiliations (registry names, not strings of a page).
   - `make venues`: today's venue and withdrawal detection, and the abstracts' LaTeX made
     plain text (`latex.plain_text`), on every stored paper, archive included.
+  - `make remove ID=…` and `make pin ID=…`: a request of a paper's authors (PUB-1,
+    `store/corrections.py`, `docs/operations.md`): the paper out of every file for good,
+    or its affiliations, corrected by hand in its files, kept as they are.
 - Reports:
   - `make validate`: `data/` against its contract (`store/validate.py`, 2 s). Errors fail
     it: a record that does not load, a paper stored twice, a file named after another day
@@ -306,6 +309,12 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   without its field, so it is reset with it, like the ids. Records stored before it got
   one inferred once, without a day (`store/provenance.py`); affiliations read before
   versions were kept, without a mapping, have none: the API or an unmapped page.
+- `corrections.json` (optional, PUB-1): the papers removed and pinned on request, with the
+  day of each request only. The store writes a removed paper nowhere (its writers filter
+  it, the listing and the archive leave it out), and a pinned paper's affiliations have the
+  `manual` provenance, which every step that reads affiliations skips (`Paper.affiliations_by_hand`):
+  a new step that writes affiliations must skip it too. `validate` fails on either undone;
+  the site does not publish the file.
 - Archived papers have the same record: `announced` is their first appearance, and,
   built from the catalog, `html_url` is `null` and affiliations, `institutions` and
   `institution_ids` come from OpenAlex, by their arXiv DOI or their published version's

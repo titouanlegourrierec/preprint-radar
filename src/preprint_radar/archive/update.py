@@ -22,7 +22,8 @@ Every stored paper also takes the comments and journal reference of its latest v
 from the catalog, and the venue they give (META-2): records otherwise freeze once they
 leave the listing. The papers of the archive and of the last 12 months that no day file
 holds have their authors and subjects cleaned as the catalog's are (AFF-21, META-8), those
-written before it was. Withdrawn papers never enter the archive, and leave it (decision 18).
+written before it was. Withdrawn papers never enter the archive, and leave it (decision 18);
+papers removed on request (PUB-1) are no candidates, and the store writes them nowhere.
 
 When Semantic Scholar misses too many counts (below ``MIN_COVERAGE``), the archive, the
 papers of the last 12 months and the day files stay as they are, but for the comments of
@@ -182,12 +183,13 @@ def update_archive(
         stale_days = [day for day in stored_days if (today - day).days >= RECENT_DAYS] if prune else []
         carried = _carried(store, category, counts, [*archived, *previous_recent])
         counts = {**counts, **carried}
-        withdrawn = _withdrawn(category, candidates, entries, [in_days, archived])
+        # Nor a paper removed on request, which takes no place (PUB-1).
+        left_out = _withdrawn(category, candidates, entries, [in_days, archived]) | store.removed(category)
         ranked = [
             Candidate(arxiv_id, first_seen[arxiv_id], counts.get(arxiv_id))
             for arxiv_id in candidates
             # Nor a paper whose count is another's, which last week's count would keep (CIT-18).
-            if arxiv_id not in withdrawn and arxiv_id not in MISATTRIBUTED
+            if arxiv_id not in left_out and arxiv_id not in MISATTRIBUTED
         ]
         selection, top_recent, cohorts = _ranked(category, ranked, set(archived), budget=budget, today=today)
     subjects = _subject_names(in_days.values())

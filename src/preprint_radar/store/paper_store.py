@@ -34,7 +34,7 @@ import logging
 import re
 from collections import defaultdict
 from collections.abc import Iterable, Iterator, Mapping
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -65,6 +65,7 @@ COHORTS_FILENAME = "cohorts.json"
 TRENDS_FILENAME = "trends.json"
 TOPICS_FILENAME = "topics.json"
 TOP_RECENT_FILENAME = "top-recent.json"
+CORRECTIONS_FILENAME = "corrections.json"
 ARCHIVE_DIRNAME = "archive"
 _DAY_STEM_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _YEAR_STEM_RE = re.compile(r"^\d{4}$")
@@ -208,6 +209,23 @@ class TopRecent:
 
     papers: list[Paper]
     since: date
+
+
+@dataclass(frozen=True, slots=True)
+class Corrections:
+    """What the maintainer did on request to a category's papers (``corrections.json``, PUB-1).
+
+    The store leaves a removed paper out of every file it writes, and no step reads again
+    the affiliations of a pinned one (their ``manual`` provenance): the site's promise that a
+    removal or a correction stays. Only the day of each request is kept, nothing of who asked.
+
+    Attributes:
+        removed: The day each removed paper was asked to go, by arXiv id.
+        pinned: The day each paper's corrected affiliations were pinned, by arXiv id.
+    """
+
+    removed: Mapping[str, date] = field(default_factory=dict)
+    pinned: Mapping[str, date] = field(default_factory=dict)
 
 
 @dataclass(frozen=True, slots=True)
@@ -411,9 +429,11 @@ class PaperStore:
             category: arXiv category.
             papers: Every archived paper of the category.
         """
+        removed = self.removed(category)
         by_year: defaultdict[int, list[Paper]] = defaultdict(list)
         for paper in papers:
-            by_year[paper.announced.year].append(paper)
+            if paper.arxiv_id not in removed:
+                by_year[paper.announced.year].append(paper)
         for year in set(self.archive_years(category)) - set(by_year):
             self._archive_path(category, year).unlink()
         for year, year_papers in by_year.items():
@@ -471,6 +491,7 @@ class PaperStore:
             papers: The papers, first seen on ``since`` or later.
             since: First day of first appearance of the 12 months they were chosen from.
         """
+        removed = self.removed(category)
         payload = {
             "schema_version": SCHEMA_VERSION,
             "category": category,
@@ -478,9 +499,111 @@ class PaperStore:
             "papers": [
                 paper.to_record()
                 for paper in sorted(papers, key=lambda paper: (paper.announced, paper.arxiv_id), reverse=True)
+                if paper.arxiv_id not in removed
             ],
         }
         _write_json(self.root / category / TOP_RECENT_FILENAME, payload)
+
+    def load_corrections(self, category: str) -> Corrections:
+        """The papers of ``category`` removed and pinned on request (none without the file).
+
+        Raises:
+            StoreError: If the file is not a valid ``corrections.json``, or of another
+                ``schema_version``.
+        """
+        path = self.root / category / CORRECTIONS_FILENAME
+        if not path.is_file():
+            return Corrections()
+        try:
+            payload: Any = json.loads(path.read_text(encoding="utf-8"))
+            _check_version(payload, path, "corrections")
+            return Corrections(
+                removed={str(key): date.fromisoformat(day) for key, day in payload["removed"].items()},
+                pinned={str(key): date.fromisoformat(day) for key, day in payload["pinned"].items()},
+            )
+        except (json.JSONDecodeError, AttributeError, KeyError, TypeError, ValueError) as exc:
+            msg = f"Invalid corrections file {path}: {exc}"
+            raise StoreError(msg) from exc
+
+    def write_corrections(self, category: str, corrections: Corrections) -> None:
+        """Write the papers of ``category`` removed and pinned on request.
+
+        Args:
+            category: arXiv category.
+            corrections: The papers, with the day of each request.
+        """
+        payload = {
+            "schema_version": SCHEMA_VERSION,
+            "category": category,
+            "removed": {key: day.isoformat() for key, day in sorted(corrections.removed.items())},
+            "pinned": {key: day.isoformat() for key, day in sorted(corrections.pinned.items())},
+        }
+        _write_json(self.root / category / CORRECTIONS_FILENAME, payload)
+
+    def removed(self, category: str) -> frozenset[str]:
+        """The arXiv ids of the papers of ``category`` removed on request, which no file holds."""
+        return frozenset(self.load_corrections(category).removed)
+
+    def purge_removed(self, category: str) -> list[Path]:
+        """Rewrite the files of ``category`` that hold a paper removed on request, without it.
+
+        The files of papers through their writers, which leave removed papers out; the
+        files keyed by paper (counts, gains, published versions, code, the topics' key
+        papers) as they are, but for its entries, so that their dates and sources stay.
+
+        Returns:
+            The files rewritten.
+        """
+        removed = self.removed(category)
+        written: list[Path] = []
+        for day in self.days(category):
+            path = self._day_path(category, day)
+            if removed & set(self._ids(path)):
+                self._write_day(category, day, self.load_day(category, day))
+                written.append(path)
+        archive = [self._archive_path(category, year) for year in self.archive_years(category)]
+        if any(removed & set(self._ids(path)) for path in archive):
+            self.write_archive(category, list(self.iter_archive(category)))
+            written.append(self.root / category / ARCHIVE_DIRNAME)
+        top_recent = self.load_top_recent(category)
+        if top_recent is not None and removed & {paper.arxiv_id for paper in top_recent.papers}:
+            self.write_top_recent(category, top_recent.papers, since=top_recent.since)
+            written.append(self.root / category / TOP_RECENT_FILENAME)
+        return written + self._purge_keyed(category, removed)
+
+    def _purge_keyed(self, category: str, removed: frozenset[str]) -> list[Path]:
+        """Rewrite the files keyed by paper that hold a removed one, without it, the rest as it is."""
+        written: list[Path] = []
+        for name, entries in (
+            (CITATIONS_FILENAME, "counts"),
+            (GAINS_FILENAME, "gains"),
+            (SCHOLAR_FILENAME, "papers"),
+            (CODE_FILENAME, "papers"),
+        ):
+            path = self.root / category / name
+            if not path.is_file():
+                continue
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+                held = removed & set(payload[entries])
+            except (json.JSONDecodeError, KeyError, TypeError) as exc:
+                msg = f"Invalid {name} {path}: {exc}"
+                raise StoreError(msg) from exc
+            if held:
+                payload[entries] = _without(payload[entries], removed)
+                _write_json(path, payload)
+                written.append(path)
+        path = self.root / category / TRENDS_FILENAME
+        if not path.is_file():
+            return written
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        topics = payload["topics"].values()
+        if any(removed & {paper["id"] for paper in topic["papers"]} for topic in topics):
+            for topic in topics:
+                topic["papers"] = [paper for paper in topic["papers"] if paper["id"] not in removed]
+            _write_json_by_line(path, payload, "topics")
+            written.append(path)
+        return written
 
     def load_citations(self, category: str) -> dict[str, int]:
         """Citation counts of the stored papers of ``category`` (empty if never written)."""
@@ -534,10 +657,13 @@ class PaperStore:
             logger.warning("No citation gains: the former counts of %s do not load", category)
             current = None
         if current is not None and now - current.generated_at >= timedelta(days=GAINS_MIN_DAYS):
+            removed = self.removed(category)
             gains = {
                 arxiv_id: count - before
                 for arxiv_id, count in counts.items()
-                if (before := current.counts.get(arxiv_id)) is not None and count > before
+                if (before := current.counts.get(arxiv_id)) is not None
+                and count > before
+                and arxiv_id not in removed
             }
             payload = {
                 "schema_version": SCHEMA_VERSION,
@@ -597,7 +723,7 @@ class PaperStore:
             "category": category,
             "generated_at": generated_at.isoformat(timespec="seconds"),
             "source": source,
-            "counts": dict(sorted(counts.items())),
+            "counts": dict(sorted(_without(counts, self.removed(category)).items())),
         }
         _write_json(self.root / category / CITATIONS_FILENAME, payload)
 
@@ -642,7 +768,7 @@ class PaperStore:
             "source": source,
             "papers": {
                 arxiv_id: record.to_record()
-                for arxiv_id, record in sorted(papers.items())
+                for arxiv_id, record in sorted(_without(papers, self.removed(category)).items())
                 if not record.is_empty()
             },
         }
@@ -769,7 +895,10 @@ class PaperStore:
             "generated_at": code.generated_at.isoformat(timespec="seconds"),
             "since": None if code.since is None else code.since.isoformat(timespec="seconds"),
             "source": code.source,
-            "papers": {arxiv_id: record.to_record() for arxiv_id, record in sorted(code.papers.items())},
+            "papers": {
+                arxiv_id: record.to_record()
+                for arxiv_id, record in sorted(_without(code.papers, self.removed(category)).items())
+            },
         }
         _write_json(self.root / category / CODE_FILENAME, payload)
 
@@ -881,6 +1010,14 @@ class PaperStore:
         """
         generated = (now or datetime.now(tz=UTC)).isoformat(timespec="seconds")
         head = {"schema_version": SCHEMA_VERSION, "category": category, "generated_at": generated}
+        removed = self.removed(category)
+        topics = {
+            key: replace(
+                topic,
+                papers=tuple(key_paper for key_paper in topic.papers if key_paper.arxiv_id not in removed),
+            )
+            for key, topic in trends.topics.items()
+        }
         first = len(trends.totals) - trends.months
         _write_json_by_line(
             self.root / category / TRENDS_FILENAME,
@@ -891,7 +1028,7 @@ class PaperStore:
                 "start": _month_after(trends.start, max(first, 0)),
                 "totals": list(trends.totals[-trends.months :]),
                 "windows": {name: window.to_record() for name, window in trends.windows.items()},
-                "topics": {key: topic.to_record() for key, topic in sorted(trends.topics.items())},
+                "topics": {key: topic.to_record() for key, topic in sorted(topics.items())},
             },
             "topics",
         )
@@ -1012,6 +1149,8 @@ class PaperStore:
         return self.root / category / f"{day.isoformat()}.json"
 
     def _write_day(self, category: str, day: date, papers: list[Paper]) -> None:
+        removed = self.removed(category)
+        papers = [paper for paper in papers if paper.arxiv_id not in removed]
         path = self._day_path(category, day)
         logger.debug("Writing %d papers to %s", len(papers), path)
         payload = {
@@ -1021,6 +1160,11 @@ class PaperStore:
             "papers": [paper.to_record() for paper in papers],
         }
         _write_json(path, payload)
+
+
+def _without[T](records: Mapping[str, T], removed: frozenset[str]) -> dict[str, T]:
+    """The records, but those of the papers removed on request (PUB-1)."""
+    return {arxiv_id: record for arxiv_id, record in records.items() if arxiv_id not in removed}
 
 
 def _month_name(value: object) -> str:

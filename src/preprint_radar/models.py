@@ -15,9 +15,10 @@ type PaperRecord = dict[
 ]
 """JSON-serializable representation of a :class:`Paper`."""
 
-AFFILIATION_SOURCES = frozenset({"html", "api", "openalex"})
+AFFILIATION_SOURCES = frozenset({"html", "api", "openalex", "manual"})
 """Where affiliations come from: the paper's HTML page, the submitter's declaration in the
-arXiv API, or OpenAlex (archived papers)."""
+arXiv API, OpenAlex (archived papers), or the maintainer, who corrected them on request
+(``preprint-radar pin``, PUB-1): no step overwrites those."""
 INSTITUTION_SOURCES = frozenset({"ror", "openalex"})
 """Who named the institutions: the Research Organization Registry, or OpenAlex."""
 
@@ -605,6 +606,11 @@ class Paper:
     def is_cross_list(self) -> bool:
         """Whether the paper is cross-listed from another category."""
         return self.cross_list_from is not None
+
+    @property
+    def affiliations_by_hand(self) -> bool:
+        """Whether the maintainer corrected the affiliations on request, which no step reads again (PUB-1)."""
+        return self.affiliations_provenance is not None and self.affiliations_provenance.source == "manual"
 
     @property
     def affiliations_from_openalex(self) -> bool:

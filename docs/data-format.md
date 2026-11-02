@@ -49,7 +49,8 @@ data/
     ├── code.json                 # the GitHub stars or Hub likes of the code papers link
     ├── countries.json            # the country of each institution, by ROR id
     ├── trends.json               # the topics of the titles that rise, cool or are new
-    └── topics.json               # every topic's papers a month since 2010
+    ├── topics.json               # every topic's papers a month since 2010
+    └── corrections.json          # papers removed and affiliations corrected on request
 ```
 
 ## `index.json`
@@ -109,9 +110,9 @@ rewritten each week. Those of the day files are their records there.
 | `author_affiliations` | lists or `null` | For each author, the indices of their own affiliations in `affiliations`; `null` for an author the page does not place, and altogether when it places none. |
 | `institutions` | strings or `null` | Parallel to `affiliations`: the institution each belongs to (ROR's name, OpenAlex's in the archive, a company's subsidiaries as the company), `null` for one that names none. |
 | `institution_ids` | strings (optional) | Parallel to `institutions`: the ROR id of each ("00f54p054"), `null` without one. |
-| `extractor` | number (optional) | The version of the HTML extraction that read the affiliations. |
+| `extractor` | number (optional) | The version of the HTML extraction that read the affiliations: absent for those of the API, OpenAlex, or corrected on request (`manual`). |
 | `withdrawn` | `true` (optional) | Its comments say its authors or arXiv withdrew it. |
-| `provenance` | object (optional) | Where `affiliations` came from and who named `institutions`, each `{"source", "at"}`: a source (`html`, `api` or `openalex` for affiliations; `ror` or `openalex` for institutions) and the day it was read, absent for older records. |
+| `provenance` | object (optional) | Where `affiliations` came from and who named `institutions`, each `{"source", "at"}`: a source (`html`, `api`, `openalex` or `manual`, corrected on request, for affiliations; `ror` or `openalex` for institutions) and the day it was read, absent for older records. |
 | `abs_url` | string | Its abstract page on arXiv. |
 | `pdf_url` | string | Its PDF on arXiv. |
 
@@ -186,6 +187,15 @@ record}}`, for each stored paper linking code, weekly:
 country}}`: the country of each institution the stored papers name, by its ROR id, from
 OpenAlex: an ISO 3166-1 alpha-2 code ("US"), or `null` where OpenAlex places it nowhere.
 
+### `<category>/corrections.json`
+
+`{"schema_version", "category", "removed": {arxiv_id: day}, "pinned": {arxiv_id: day}}`:
+what was done at the request of the papers' authors, with the day of each request and
+nothing of who asked. A removed paper is in no other file, and no run writes it again; a
+pinned paper's affiliations and author mapping were corrected by hand, and have the
+`manual` provenance, which no run reads again. Absent until a first request; the site does
+not publish it.
+
 ## Topics
 
 `trends.json` and `topics.json` hold the topics of the category's titles since 2010,
@@ -227,8 +237,8 @@ among the file's months, and `counts`, its papers each month from that one to `t
 reader of this page (a field removed, renamed or retyped, a meaning changed, a file moved)
 raises it, in the same commit as the migration of every file, and is announced in the
 [changelog](../CHANGELOG.md); the pipeline refuses a file of another version. Adding an
-optional field or a file changes nothing: `institution_ids`, `provenance`, `withdrawn` and
-`also` came that way. From release 1.0.0, a change that raises `schema_version` also
+optional field or a file changes nothing: `institution_ids`, `provenance`, `withdrawn`,
+`also` and `corrections.json` came that way. From release 1.0.0, a change that raises `schema_version` also
 raises the project's major version.
 
 ## Licenses

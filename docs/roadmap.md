@@ -559,12 +559,12 @@ go here until the next audit.
 
 The items of the second audit ([`audit/2026-11-02.md`](audit/2026-11-02.md), commit `1e68e82`),
 in its backlog's order: by priority after verification, then by axis. No P0 nor P1: its six
-P1 findings reproduced, all lowered to P2. PUB-1 and PUB-3 wait for the maintainer (a
-removal list, rules on `main`).
+P1 findings reproduced, all lowered to P2. PUB-3 waits for the maintainer (rules on
+`main`).
 
 | ID | Item | Priority | Status |
 |---|---|---|---|
-| PUB-1 | The About page promises that a removal or correction stays, but the pipeline restores both | P2 | todo |
+| PUB-1 | The About page promises that a removal or correction stays, but the pipeline restores both. `corrections.json` per category, the day of each request only, not published by the site. `make remove ID=…` takes the paper out of every file (its counts, published version, code, the topics' key papers included, their dates kept), and the store writes it nowhere again: its writers filter it, the listing and the archive leave it out. `make pin ID=…` gives the affiliations corrected by hand the `manual` provenance, which every step that reads affiliations skips (pages, `reextract` even by id, OpenAlex, `reclean`, a new version's author list); `make institutions` names them again. `validate` fails on either undone, so a run that undid one pushes nothing; `docs/operations.md` says how. REL-11 (saved reading lists) stays deferred | P2 | done |
 | PUB-2 | The data jobs keep a token that can push to main in .git/config for hours. No checkout keeps its credentials (`persist-credentials: false` on all 12); the commit step alone gets `GH_TOKEN`, which `commit-data.sh` gives to git's fetch and push only (an `extraheader` on the command line, never in `.git/config`) and takes away from `preprint-radar index`; `test_commit_data.py` checks both. Left: the job's token is still in the env of the steps that ask GitHub for stars (`code`), the job's `contents: write` being the whole job's | P2 | done |
 | PUB-3 | No ruleset on main, and repository settings left at their defaults | P2 | todo |
 | PUB-4 | Real author e-mail addresses are back in code, tests and the roadmap since the CI-13 cleanup. The six mailboxes replaced by `author` (the domain kept, the history keeps them, as CI-13 accepted); `test_no_emails.py` fails on any address in `src/`, `tests/`, `docs/` (the audits aside), `web/` and the workflows but `author@…`, `example.*`, arXiv's and the contact of `report.ts` | P2 | done |

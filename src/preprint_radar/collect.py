@@ -168,8 +168,9 @@ def update_category(
     """Fetch the recent listing of ``category``, enrich new papers and store them.
 
     Enrichment already performed in a previous run (in any category) is reused, so
-    each paper is enriched once. Progress is saved regularly so that an interrupted
-    run does not lose the pages already fetched.
+    each paper is enriched once, and a paper removed on request is never read (PUB-1).
+    Progress is saved regularly so that an interrupted run does not lose the pages
+    already fetched.
 
     Args:
         category: arXiv category, e.g. ``"cs.CV"``.
@@ -188,7 +189,12 @@ def update_category(
     day = today()
     caught_up = _missing_day(site_client, category, listing, day)
     known = {paper.arxiv_id: paper for paper in store.iter_papers()}
-    papers = [_carry_over(paper, known.get(paper.arxiv_id)) for paper in (*caught_up, *listing.papers)]
+    removed = store.removed(category)
+    papers = [
+        _carry_over(paper, known.get(paper.arxiv_id))
+        for paper in (*caught_up, *listing.papers)
+        if paper.arxiv_id not in removed
+    ]
     new = sum(paper.arxiv_id not in known for paper in papers)
     logger.info("%s: %d papers listed, %d new", category, len(papers), new)
 
@@ -308,8 +314,8 @@ def backfill_category(
     next run to fetch it again. After ``MAX_CONSECUTIVE_DAY_FAILURES`` such days in a row,
     the remaining days are not asked for, and named too; past the reading's deadline, they
     are left for the next run, as its pages are (``Stop.DEADLINE``).
-    As in :func:`update_category`, enrichment already in the store is reused and progress
-    is saved regularly.
+    As in :func:`update_category`, enrichment already in the store is reused, a paper removed
+    on request is left out, and progress is saved regularly.
 
     Args:
         category: arXiv category, e.g. ``"cs.CV"``.
@@ -326,6 +332,7 @@ def backfill_category(
     """
     reading = html or HtmlReading()
     known = {paper.arxiv_id: paper for paper in store.iter_papers()}
+    removed = store.removed(category)
     papers: list[Paper] = []
     failed: list[date] = []
     left: list[date] = []  # past the deadline: not asked for, and not failed
@@ -357,7 +364,11 @@ def backfill_category(
                     )
                 continue
             failing = 0
-            listed = [_carry_over(paper, known.get(paper.arxiv_id)) for paper in catchup.papers]
+            listed = [
+                _carry_over(paper, known.get(paper.arxiv_id))
+                for paper in catchup.papers
+                if paper.arxiv_id not in removed
+            ]
             store.save(category, listed)
         logger.info("%s %s: %s papers", category, day.isoformat(), f"{len(listed):,}")
         papers.extend(listed)
@@ -443,7 +454,15 @@ def reextract_category(
     Returns:
         A summary of the run: ``listed`` is the number of papers selected.
     """
-    stored = [paper for paper in store.iter_papers(category) if paper.html_url and select(paper)]
+    selected = [paper for paper in store.iter_papers(category) if paper.html_url and select(paper)]
+    # Never those whose affiliations the maintainer corrected, even when asked by id (PUB-1).
+    stored = [paper for paper in selected if not paper.affiliations_by_hand]
+    if len(stored) < len(selected):
+        logger.info(
+            "%s: %d papers whose affiliations were corrected on request left out",
+            category,
+            len(selected) - len(stored),
+        )
     logger.info("%s: %s papers to extract again", category, f"{len(stored):,}")
     unread = [paper.without_affiliations() for paper in stored]
     reading = html or HtmlReading()
@@ -672,8 +691,8 @@ def _carry_over(listed: Paper, stored: Paper | None) -> Paper:
     Listings and catchup pages never give affiliations: those always come from the store,
     unless a new version changed the author list. ``author_affiliations`` is positional,
     so the stored one would then credit authors with someone else's affiliations: the
-    HTML rendering of the new version is read again, or, without one, the paper keeps its
-    affiliations but no longer says who is where.
+    HTML rendering of the new version is read again, or, without one or when the maintainer
+    corrected them (PUB-1), the paper keeps its affiliations but no longer says who is where.
     """
     if stored is None:
         return listed
@@ -690,7 +709,7 @@ def _carry_over(listed: Paper, stored: Paper | None) -> Paper:
             affiliations_provenance=stored.affiliations_provenance,
             institutions_provenance=stored.institutions_provenance,
         )
-    if listed.html_url is None:
+    if listed.html_url is None or stored.affiliations_by_hand:
         return replace(
             listed,
             abstract=abstract,
@@ -1395,7 +1414,8 @@ def update_archive_affiliations(
         save(changed)
         own = [changed.get(paper.arxiv_id, paper) for paper in own]
 
-    without = [paper for paper in own if not paper.affiliations]
+    # Those the maintainer corrected keep what they were given, even nothing (PUB-1).
+    without = [paper for paper in own if not paper.affiliations and not paper.affiliations_by_hand]
     scholar = store.load_scholar(category)
     dois = {
         arxiv_id: record.doi for arxiv_id, record in (scholar.papers if scholar else {}).items() if record.doi

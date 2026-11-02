@@ -119,10 +119,11 @@ def reclean_paper(paper: Paper) -> Paper:
         paper: A stored paper.
 
     Returns:
-        The paper, unchanged when today's rules agree with what is stored, or when its
-        affiliations are OpenAlex's names (a day file's paper without an HTML page, AFF-27).
+        The paper, unchanged when today's rules agree with what is stored, when its
+        affiliations are OpenAlex's names (a day file's paper without an HTML page, AFF-27),
+        or when the maintainer corrected them (PUB-1).
     """
-    if not paper.affiliations or paper.affiliations_from_openalex:
+    if not paper.affiliations or paper.affiliations_from_openalex or paper.affiliations_by_hand:
         return paper
     institutions = paper.institutions or (None,) * len(paper.affiliations)
     affiliations: list[str] = []

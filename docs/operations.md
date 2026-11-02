@@ -289,6 +289,27 @@ papers are left out`.
 run *Archive* again. Without the week's counts, the topics lack their impact and key
 papers until the next archive. Locally, `make trends` reads your last `make archive`'s.
 
+## A correction or removal request
+
+The site's About page invites authors to write about a wrong affiliation, or to have a
+paper removed, and promises that it stays (PUB-1). On your machine, after `git pull`, with
+no data workflow running (`gh run list`):
+
+- **A removal:** `make remove ID=2610.00001`. The paper leaves every file (its day, the
+  archive, the last 12 months, its count, gains, published version, code, and the topics'
+  key papers), the index is written again, and `corrections.json` records the day of the
+  request, nothing of who asked. No run stores it again, and `validate` fails if one does.
+  Readers who saved it keep it in their reading list (REL-11).
+- **Corrected affiliations:** edit the paper's `affiliations` and `author_affiliations` by
+  hand in its files (its day file, and `archive/<year>.json` or `top-recent.json` when it
+  is there too), then `make pin ID=2610.00001`. They take the `manual` provenance, which no
+  step reads again (no page, no OpenAlex, no `reclean`); then `make institutions` names
+  their institutions again (the weekly archive in the archive). To correct them again,
+  edit and pin again. A wrong author or title comes from arXiv: the author fixes it there.
+
+Both run `validate` last. Commit `data/` (`chore(data): remove 2610.00001 on request
+(PUB-1)`) and push; the deploy that follows updates the site.
+
 ## Re-extract after a heuristic fix
 
 - **Cleaning only** (`clean_affiliation`, `names_only_authors`): `make reclean`, then

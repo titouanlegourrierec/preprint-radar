@@ -18,14 +18,26 @@ from preprint_radar.models import (
     TrendTopic,
     TrendWindow,
 )
-from preprint_radar.store.paper_store import SCHEMA_VERSION, PaperStore
+from preprint_radar.store.paper_store import SCHEMA_VERSION, Corrections, PaperStore
 
 ROOT = Path(__file__).parents[2]
 DOC = ROOT / "docs" / "data-format.md"
 # The objects keyed by data (ids, years, categories, topics), whose keys are not fields; under
 # these names, a list or a text is a field's value.
 _KEYED_BY_DATA = frozenset(
-    {"categories", "archives", "top_recent", "counts", "gains", "years", "topics", "papers", "institutions"}
+    {
+        "categories",
+        "archives",
+        "top_recent",
+        "counts",
+        "gains",
+        "years",
+        "topics",
+        "papers",
+        "institutions",
+        "removed",
+        "pinned",
+    }
 )
 _DATED_RE = re.compile(r"\d{4}(?:-\d\d-\d\d)?\.json$")
 
@@ -114,6 +126,10 @@ def _write_every_file(store: PaperStore) -> None:
         "cs.CV", {2017: Cohort(papers=10, top_1=50, top_5=20, top_10=9)}, source="Semantic Scholar"
     )
     store.write_trends("cs.CV", TRENDS, source="arXiv, Semantic Scholar", now=NOW)
+    store.write_corrections(
+        "cs.CV",
+        Corrections(removed={"2610.00009": date(2026, 10, 27)}, pinned={"2610.00008": date(2026, 10, 28)}),
+    )
     store.write_index()
 
 
@@ -145,7 +161,10 @@ def test_every_file_and_field_the_store_writes_is_documented(tmp_path: Path) -> 
         "cs.CV/",
         "cs.CV/archive/",
         *(f"cs.CV/{name}.json" for name in ("top-recent", "citations", "citation-gains", "cohorts")),
-        *(f"cs.CV/{name}.json" for name in ("scholar", "code", "countries", "trends", "topics")),
+        *(
+            f"cs.CV/{name}.json"
+            for name in ("scholar", "code", "countries", "trends", "topics", "corrections")
+        ),
     }
     # The day and archive files by their name's pattern, the others by their own.
     assert "`<category>/<YYYY-MM-DD>.json`" in doc

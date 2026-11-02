@@ -128,7 +128,7 @@ def affiliation_quality(papers: Iterable[Paper]) -> AffiliationQuality:
     """
     quality = AffiliationQuality()
     for paper in papers:
-        if not paper.affiliations or paper.affiliations_from_openalex:
+        if not paper.affiliations or paper.affiliations_from_openalex or paper.affiliations_by_hand:
             continue
         quality.papers += 1
         quality.strings += len(paper.affiliations)
