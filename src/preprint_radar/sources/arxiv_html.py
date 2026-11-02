@@ -1601,21 +1601,23 @@ def _numbered_affiliations(authors: Tag) -> list[str]:
 
 
 def _numbered_lines(text: str) -> list[tuple[str, str]]:
-    """Each numbered line's marker and affiliation, with the lines after it that go on with it (AQ-3)."""
+    """Each numbered line's marker and affiliation, with the lines after it that go on with it (AQ-3).
+
+    Up to the next marker, or a line led by a number the pattern does not take ("²pix.ai",
+    2610.30875): another affiliation.
+    """
     matches = list(_NUMBERED_ANCHOR_RE.finditer(text))
     ends = [match.start() for match in matches[1:]] + [len(text)] * bool(matches)
-    return [
-        (
-            match.group("marker"),
-            _joined(
-                [
-                    _Line(match.group("name").strip(), marked=True),
-                    *(_Line(line.strip()) for line in text[match.end() : end].splitlines() if line.strip()),
-                ]
-            )[0],
-        )
-        for match, end in zip(matches, ends, strict=True)
-    ]
+    numbered: list[tuple[str, str]] = []
+    for match, end in zip(matches, ends, strict=True):
+        lines = [_Line(match.group("name").strip(), marked=True)]
+        for line in text[match.end() : end].splitlines():
+            if line.strip()[:1].isdigit():
+                break
+            if line.strip():
+                lines.append(_Line(line.strip()))
+        numbered.append((match.group("marker"), _joined(lines)[0]))
+    return numbered
 
 
 def _numbered_text(block: Tag) -> str:
