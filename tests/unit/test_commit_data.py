@@ -19,6 +19,7 @@ pytestmark = pytest.mark.skipif(GIT is None or BASH is None, reason="needs git a
 FAKE_UV = (
     "#!/bin/sh\n"
     'if [ -n "$UV_SAW" ]; then printf %s "${GH_TOKEN:-}" > "$UV_SAW"; fi\n'
+    'case "$*" in *validate*) printf "%s\\n" "$*" >> "$UV_VALIDATED"; exit "${UV_INVALID:-0}" ;; esac\n'
     "printf '{\"rewritten\": true}\\n' > data/index.json\n"
 )
 DAY = "data/cs.CV/2026-09-28.json"
@@ -86,6 +87,7 @@ def repos(tmp_path: Path) -> Repos:
         **{name: value for name, value in os.environ.items() if name != "GH_TOKEN"},
         "PATH": f"{bin_dir}{os.pathsep}{os.environ['PATH']}",
         "GITHUB_OUTPUT": str(tmp_path / "output"),
+        "UV_VALIDATED": str(tmp_path / "validated"),
         # Neither the user's git configuration (signing, hooks...) nor the system's.
         "GIT_CONFIG_GLOBAL": os.devnull,
         "GIT_CONFIG_NOSYSTEM": "1",
@@ -213,3 +215,31 @@ def test_validate_copies_its_report_into_the_job_summary(tmp_path: Path, lines: 
     assert written[-2:] == ["counts", "```"]
     # Past 100 lines: the first 99 findings, a line saying how many more, then the counts.
     assert len(written) == 4 + (lines if lines <= 100 else 101)
+
+
+def test_validates_the_commit_replayed_on_a_main_that_moved(repos: Repos, tmp_path: Path) -> None:
+    _write(repos.bot, DAY, {"papers": ["new"]})
+    assert _commit_data(repos) == (0, {"pushed": "true"})
+    # main did not move: what validate-data.sh checked is what was pushed.
+    assert not (tmp_path / "validated").exists()
+
+    _git(repos, repos.maintainer, "pull", "--quiet")
+    _commit_and_push(repos, repos.maintainer, {"README.md": "a change elsewhere"})
+    _write(repos.bot, DAY, {"papers": ["newer"]})
+    assert _commit_data(repos) == (0, {"pushed": "true"})
+    assert (tmp_path / "validated").read_text(encoding="utf-8").split() == [
+        "run",
+        "--no-dev",
+        "preprint-radar",
+        "validate",
+    ]
+
+
+def test_keeps_a_replayed_commit_that_does_not_validate(repos: Repos) -> None:
+    _commit_and_push(repos, repos.maintainer, {"README.md": "a change elsewhere"})
+    _write(repos.bot, DAY, {"papers": ["new"]})
+
+    assert _commit_data(repos, env={**repos.env, "UV_INVALID": "1"}) == (1, {"pushed": "false"})
+    assert (repos.bot / "data-commit.bundle").exists()
+    _git(repos, repos.maintainer, "pull", "--quiet")
+    assert _read(repos.maintainer, DAY) == {"papers": []}

@@ -81,12 +81,21 @@ settle_conflicts() {
 
 for attempt in 1 2 3; do
   remote fetch --quiet origin main
+  moved=false
+  if [ "$(git rev-parse HEAD~1)" != "$(git rev-parse origin/main)" ]; then moved=true; fi
   if ! git rebase --quiet origin/main; then
     if ! settle_conflicts; then
       git rebase --abort
       keep_commit
       exit 1
     fi
+  fi
+  # The tree validated before was this run's alone: the one replayed on a main that moved
+  # is validated again before it is pushed, since bot pushes skip CI (OPS-4).
+  if [ "$moved" = true ] && ! env -u GH_TOKEN uv run --no-dev preprint-radar validate; then
+    echo "::error::The data commit replayed on main does not validate; nothing was pushed."
+    keep_commit
+    exit 1
   fi
   if remote push --quiet origin HEAD:main; then
     echo "pushed=true" >>"$output"

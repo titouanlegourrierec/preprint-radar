@@ -143,11 +143,13 @@ again (not on a Thursday or Friday: the week's gains need counts six days old).
 
 ### The data commit could not be pushed
 
-**Signal.** `changed both in this run and on main; nothing was pushed.` or
+**Signal.** `changed both in this run and on main; nothing was pushed.`,
+`The data commit replayed on main does not validate; nothing was pushed.` or
 `The data commit could not be pushed; nothing was pushed.`
 
 `main` moved during the run on a file that `commit-data.sh` does not settle (any but
-`index.json`, `citations.json`, `citation-gains.json`), or three pushes were refused.
+`index.json`, `citations.json`, `citation-gains.json`), the commit replayed on it failed
+`validate` (which then lists why, OPS-4), or three pushes were refused.
 Recover the `data-commit` artifact as above, rebase it on `main`, settle the conflict (keep
 both sides' papers; `preprint-radar index` rewrites the index), validate and push.
 

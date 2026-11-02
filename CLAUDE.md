@@ -404,7 +404,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     through `.github/scripts/commit-data.sh`, the only step given a token that can push (no
     checkout keeps its credentials, PUB-2), which rebases onto a `main` that moved during
     the run: on a conflict it writes `index.json` again and keeps the run's
-    `citations.json` and `citation-gains.json`; on any other conflict, or after three
+    `citations.json` and `citation-gains.json`, and validates the replayed tree again
+    (OPS-4); on any other conflict, a tree that does not validate, or after three
     refused pushes, it uploads the commit as `data-commit.bundle`
     (`tests/unit/test_commit_data.py`).
   - Reading HTML pages stops early three ways (`collect.Stop`): the deadline (CI passes 175

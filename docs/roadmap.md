@@ -596,7 +596,7 @@ P1 findings reproduced, all lowered to P2.
 | OPS-1 | A missed restore can shrink the page cache, its only copy in CI | P2 | todo |
 | OPS-2 | One bad record blocks every push until the code is fixed | P2 | todo |
 | OPS-3 | A day stored partly from a catchup page waits days for the fix. The guard reads the annotations of today's successful run: after a `Listing out of date`, the scheduled fallback goes on (notice `Day read again`) and reads the whole day from a listing that has it; the guard job gets `checks: read` | P2 | done |
-| OPS-4 | The rebased data commit is pushed without validation | P2 | todo |
+| OPS-4 | The rebased data commit is pushed without validation. `commit-data.sh` runs `validate` again on a commit replayed on a `main` that moved (seconds; never otherwise), and keeps it as `data-commit.bundle` when it fails, as for an unsettled conflict | P2 | done |
 | OPS-5 | A failed dispatch is silent and costs 6 to 10 hours. A scheduled run that goes on warns `Dispatch missing` when the workflow was not dispatched that day, which the runbook's section now quotes; the token's expiry date is left to cron-job.org's own mail | P2 | done |
 | OPS-6 | The archive's HTML pages still need the maintainer's machine | P2 | todo |
 | PUB-6 | The contact e-mail is set for every step and printed in every step header of the public logs. The variable is now in the env of the four steps that reach arXiv only (*Fetch papers* and *Extract stored papers again*, *Update the archive*, the canary's network tests), which `test_workflow_contact.py` pins | P3 | done |
