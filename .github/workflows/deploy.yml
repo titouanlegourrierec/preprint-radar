@@ -66,6 +66,8 @@ jobs:
         run: |
           size=$(du -sm dist | cut -f1)
           echo "**Site size.** ${size} MB (warning above 600 MB, failure above 800 MB)" >> "$GITHUB_STEP_SUMMARY"
+          # Also an annotation, which the API keeps, unlike the summary: the size's history (SCALE-2).
+          echo "::notice title=Site size::${size} MB"
           if [ "$size" -gt 800 ]; then
             echo "::error title=Site too large::web/dist is ${size} MB, above the 800 MB guard (Pages refuses 1 GB)"
             exit 1

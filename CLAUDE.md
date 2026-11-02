@@ -421,10 +421,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   - `update.yml` (dispatched 06:17 UTC on weekdays): the update, then `reextract`
     (50 downloads, 13 minutes, within 17), `affiliations` (OpenAlex, seconds), `citations` (10
     minutes), `code --new` (the new papers' stars, seconds), `countries` (the new
-    institutions', seconds), commit; 240 minutes in all. It
-    restores the page cache from the Actions cache (`front-matter-<run id>`, saved even
-    after a failure), and the archive's catalog only to keep it from eviction (CI-10).
-    Its manual *since* input runs `backfill` instead.
+    institutions', seconds), commit; 240 minutes in all. It restores the page cache from
+    the Actions cache (`front-matter-<run id>`, saved even after a failure), else from its
+    Monday copy, a 90-day artifact (OPS-1, SCALE-4), and the archive's catalog only to keep
+    it from eviction (CI-10). Its manual *since* input runs `backfill` instead.
   - `archive.yml` (dispatched Sundays 05:41 UTC; on Saturdays a catch-up when no run
     succeeded since Sunday, CI-8): the archive, then `scholar` (20 minutes),
     then `archive-affiliations` (OpenAlex only, seconds), `countries` (seconds), `trends`

@@ -57,6 +57,8 @@ jobs:
     timeout-minutes: 240
     permissions:
       contents: write
+      # The page cache's weekly copy, when the Actions cache has no entry (OPS-1).
+      actions: read
     outputs:
       pushed: ${{ steps.commit.outputs.pushed }}
     env:
@@ -82,11 +84,19 @@ jobs:
       # not in git: `reextract` reads them again offline. Each run saves a new entry, even
       # after a failure, so that the cache is touched daily and never evicted.
       - name: Restore the page cache
+        id: page-cache
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: .cache/front-matter
           key: front-matter-${{ github.run_id }}
           restore-keys: front-matter-
+      # Evicted, or the cache service failed: from the weekly copy below, else nothing, which
+      # the run would save as the newest entry (OPS-1).
+      - name: Restore the page cache from its weekly copy
+        if: ${{ steps.page-cache.outputs.cache-matched-key == '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash .github/scripts/restore-page-cache.sh
 
       # The archive's catalog (about 118 MB), restored only to keep it in the cache: GitHub
       # evicts an entry unused for 7 days, and a Sunday run that starts late (the fallback,
@@ -138,6 +148,21 @@ jobs:
         with:
           path: .cache/front-matter
           key: front-matter-${{ github.run_id }}
+
+      # A copy that eviction cannot take, on Mondays, kept 90 days (SCALE-4): tens of MB at a
+      # year of pages.
+      - name: Is it Monday
+        id: weekday
+        if: always()
+        run: echo "monday=$([ "$(date -u +%u)" = 1 ] && echo true || echo false)" >>"$GITHUB_OUTPUT"
+      - name: Keep a weekly copy of the page cache
+        if: ${{ always() && steps.weekday.outputs.monday == 'true' }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: front-matter
+          path: .cache/front-matter
+          retention-days: 90
+          if-no-files-found: ignore
 
       - name: Ask OpenAlex for the affiliations of papers without an HTML page
         # No page gives theirs (about 5% of the papers): a few requests, seconds. Those it

@@ -378,6 +378,16 @@ again, from that machine's cache, the papers an older extraction read (AFF-39); 
 ends `read again from cached pages`. A page that failed (ar5iv times out often) was not
 cached: `MAX_HTML=N` reads it next time.
 
+## Page cache not restored
+
+**Signal.** Warning annotation `Page cache not restored` in *Update data*: `restored from
+its weekly copy` of a day, or `No cache entry nor weekly copy`.
+
+The Actions cache had no entry of the page cache (evicted after 7 idle days, or a failing
+cache service). *Update data* uploads a copy on Mondays (the `front-matter` artifact, kept
+90 days) and restored it: the pages read since that Monday are downloaded again, 50 a day.
+Without a copy, every page is: run `make reextract` where the pages are cached (OPS-1).
+
 ## Repository settings
 
 Not in git, set on 2026-11-02 (PUB-3); check them after any change to the workflows:

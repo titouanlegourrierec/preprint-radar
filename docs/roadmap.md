@@ -590,10 +590,10 @@ P1 findings reproduced, all lowered to P2.
 | WEB-5 | Abstracts are 72% of what the lists download, yet collapsed by default: load a light list first | P2 | todo |
 | WEB-6 | Rankings of authors over every stored paper builds a whole graph: 254 MB of heap and a 1 s freeze | P2 | todo |
 | SCALE-1 | The repository will hit the 500 MB warning in 2027 with one category: GitHub stores archive rewrites against the wrong base | P2 | todo |
-| SCALE-2 | No recoverable history of the site and repository sizes, so the migration triggers have no trend | P2 | todo |
+| SCALE-2 | No recoverable history of the site and repository sizes, so the migration triggers have no trend. *Deploy site* and the canary also write the sizes as notice annotations (`Site size`, `Repository size`), which the check-runs API keeps | P2 | done |
 | SCALE-3 | Store-wide scans grow with the store: about 60 MB to download and 125 to 175 MB of heap in a year; Rankings could read the search shards | P2 | todo |
-| SCALE-4 | The page cache, the only offline means to re-extract a year of papers, lives in one evictable Actions cache entry | P2 | todo |
-| OPS-1 | A missed restore can shrink the page cache, its only copy in CI | P2 | todo |
+| SCALE-4 | The page cache, the only offline means to re-extract a year of papers, lives in one evictable Actions cache entry. *Update data* uploads `.cache/front-matter` on Mondays as the `front-matter` artifact, kept 90 days, which a run without cache entry restores; the runbook's *Page cache not restored* says what is lost | P2 | done |
+| OPS-1 | A missed restore can shrink the page cache, its only copy in CI. A miss now restores the Monday copy below (`restore-page-cache.sh`, warning `Page cache not restored`), so the entry the run saves holds the pages of before | P2 | done |
 | OPS-2 | One bad record blocks every push until the code is fixed | P2 | todo |
 | OPS-3 | A day stored partly from a catchup page waits days for the fix. The guard reads the annotations of today's successful run: after a `Listing out of date`, the scheduled fallback goes on (notice `Day read again`) and reads the whole day from a listing that has it; the guard job gets `checks: read` | P2 | done |
 | OPS-4 | The rebased data commit is pushed without validation. `commit-data.sh` runs `validate` again on a commit replayed on a `main` that moved (seconds; never otherwise), and keeps it as `data-commit.bundle` when it fails, as for an unsettled conflict | P2 | done |
