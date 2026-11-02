@@ -4790,12 +4790,10 @@
    "abstract": "Recent advances in gigapixel-level imaging have brought High-Resolution Wide shots to the forefront of research. However, these images present significant challenges: extreme sparsity of foreground, gigapixel-level resolutions and interleaving of foreground and background. This causes traditional detectors and attention mechanisms to be hindered by background, resulting in inefficiency and inaccuracy. To tackle this problem, we propose BiHashFormer, a dual sparsified branch transformer built on hashing. RoI Selector will predict the foreground proportion for top-k selecting target-containing windows. The compression branch processes windows selected and refines attention into HashAttention by discarding half of the key-value pairs, reducing cost and improving efficiency. The compensation branch uses HashMiner to perform low-cost hash searches in the remaining regions, recovering features of missed objects. Experiments confirm that the selection relationship in HashAttention is one-way and reveal the preference of different queries for keys. In experiments on the gigapixel benchmark PANDA, BiHashFormer reduces 37.5% backbone FLOPs while improving AP50 to 81.0%. Moreover, this parallel dual-branch structure allows the model to avoid inference delays caused by inter-branch dependencies, while achieving much greater stability than single-branch models, specially with low rates of RoI selection.",
    "affiliations": [
     "Department of Automation, Tsinghua University, Beijing, China",
-    "mails.tsinghua.edu.cn",
     "KLATASDS-MOE",
     "School of Statistics, East China Normal University, Shanghai, China",
     "Alibaba Token Hub",
     "Alibaba Group, Hangzhou, China",
-    "gmail.com",
     "Beijing National Research",
     "Center for Information, Science and Technology",
     "Zhuoxi Lab, Hangzhou, China",
@@ -4803,44 +4801,39 @@
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     2,
-     3
+     1,
+     2
     ],
     [
-     4,
+     3,
+     4
+    ],
+    [
      5,
-     6
-    ],
-    [
-     7,
-     8,
+     6,
      0,
-     9
+     7
     ],
     [
-     7,
-     8,
-     10
+     5,
+     6,
+     8
     ],
     [
-     7,
-     8,
-     10,
-     6
+     5,
+     6,
+     8
     ]
    ],
    "institutions": [
     "Tsinghua University",
-    "mails.tsinghua.edu.cn",
     "KLATASDS-MOE",
     "East China Normal University",
     "Alibaba Group",
     "Alibaba Group",
-    "gmail.com",
     "Beijing National Research",
     "Center for Information",
     "Zhuoxi Lab",
@@ -4849,11 +4842,9 @@
    "institution_ids": [
     "03cve4549",
     null,
-    null,
     "02n96ep67",
-    null,
     "00k642b80",
-    null,
+    "00k642b80",
     null,
     null,
     null,
