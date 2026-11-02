@@ -16,6 +16,7 @@ import re
 import unicodedata
 from collections.abc import Iterable, Mapping, Sequence
 
+from preprint_radar.letters import PLAIN_LETTERS
 from preprint_radar.sources.arxiv_html import COUNTRIES
 
 # JavaScript's \b, which the rules were written with: ASCII word characters only, so that
@@ -199,18 +200,6 @@ _UC_CAMPUS_RE = re.compile(
 )
 _UNIVERSITY_OF_CALIFORNIA_RE = re.compile(r"^university of california$", re.IGNORECASE)
 _KEY_SEPARATOR_RE = re.compile(r"[\W_]+")
-
-
-# Letters that do not decompose into a base letter and an accent, written as plain letters
-# wherever names are compared (AFF-24); the site's ``fold`` (``web/src/text.ts``) has the same.
-PLAIN_LETTERS = str.maketrans({
-    "\N{LATIN SMALL LETTER DOTLESS I}": "i",
-    "\N{LATIN SMALL LETTER L WITH STROKE}": "l",
-    "\N{LATIN SMALL LETTER O WITH STROKE}": "o",
-    "\N{LATIN SMALL LETTER D WITH STROKE}": "d",
-    "\N{LATIN SMALL LETTER SHARP S}": "ss",
-    "\N{LATIN SMALL LETTER AE}": "ae",
-})  # fmt: skip
 
 
 def search_key(text: str) -> str:

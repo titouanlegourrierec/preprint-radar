@@ -166,6 +166,20 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   (2312.17663). A unit cut after its preposition ("School of", "Center for"), and "the",
   "an" or "of" alone, are rejected before it, as dangling (`_DANGLING_RE`), a connector
   or too short: those words of `_JUNK_RE` only back them up.
+- The cleaning reads every source's residues, not only the one where they were first met
+  (EXT-4, version 23): a marker LaTeXML printed as text, its math unparsed, starts an
+  affiliation wherever it is ("$1$ University of Technology Nuremberg", "$^a$ X; $^b$ Y"
+  is two); format characters (Unicode's Cf, zero-width spaces before "Tsinghua
+  University", 2303.10137) go, and LaTeX's tilde printed as U+02DC is a space; a note's
+  sentence on its own is none ("This work was done when the author was at Adobe
+  Research"): it starts as notes do, its second word lowercase, and says what notes say.
+- One vocabulary each (EXT-7): the marker symbols are `_NOTE_SYMBOLS` (notes: `*`, `†`,
+  `#`…) and those classes mark affiliations with (`♠`, `★`), from which every marker
+  pattern is built, so that none leads an affiliation; a line of names is one even when a
+  name holds an institution's word ("Slabaugh"), since only words that start like one
+  count there; and names fold as everywhere else (`letters.PLAIN_LETTERS`: "Bartłomiej"
+  is "Bartlomiej"). "Babeș-Bolyai University" stored as "Babe" and "-Bolyai University"
+  (2610.19993) is split in the page itself: its page is not in the local cache.
 - Superscript markers split affiliations, but not between two lowercase letters
   ("Hyper<sup>2</sup>labs"). Every `<br>` is a line break, newline or not, and so is the
   spacing of one printed as text (`[5pt]`, `[0.2em]`, from `\\[5pt]`).

@@ -19,10 +19,11 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 from preprint_radar.exceptions import NotFoundError
 from preprint_radar.http import HttpClient
 from preprint_radar.latex import plain_text
+from preprint_radar.letters import PLAIN_LETTERS
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 22
+EXTRACTOR_VERSION = 23
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -125,6 +126,12 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
   lines after it that go on with it, as table rows set them (2609.38607, 2609.33449); one
   block LaTeXML spread over the creators is read as one, everyone at it (2609.13271,
   2609.06726); a mailbox or mail domain without its "@" is a contact detail ("gmail.com").
+- 23: one vocabulary each (EXT-7, EXT-4): every marker symbol leads nothing (the asterisk
+  operator, "♠", "★ Ropedia"), an institution's word inside an author's name ("Slabaugh") keeps a line of
+  names a line of names, names fold "ł" and "ø" as everywhere else; and the cleaning reads
+  wherever an affiliation comes from the markers LaTeXML printed as text ("$1$", "$^a$"),
+  the format characters and LaTeX's tilde, and drops a note's sentence on its own ("This
+  work was done when the author was at Adobe Research").
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -252,13 +259,19 @@ _NEXT_SENTENCE_STARTS = (
     r"(?:This|These|The\s+work|Corresponding|Manuscript|He|She|They|We|Our|Work|Part|Funding|Supported)\b"
 )
 _NEXT_SENTENCE_RE = re.compile(rf"\.\s+(?={_NEXT_SENTENCE_STARTS})")
+# The symbols superscripts mark with: those of contribution notes rather than affiliations
+# (U+2217 is LaTeX's \ast), and those some classes mark affiliations with ("★ Ropedia",
+# 2610.29997). Every marker pattern below is built from them (EXT-7).
+_NOTE_SYMBOLS = "*\u2217†‡§¶⋆♯♭#°ª"
+_MARKER_SYMBOLS = re.escape("".join(sorted(_NOTE_SYMBOLS + "♠♣♢♡★")))
 # A line of a note that starts a sentence of its own, or a footnote marker: "* Equal Contribution".
 _SENTENCE_START_RE = re.compile(
-    rf"\s*(?:{_NEXT_SENTENCE_STARTS}|[*\u2217†‡§¶⋆]|\(?e-?mails?\b)", re.IGNORECASE
+    rf"\s*(?:{_NEXT_SENTENCE_STARTS}|[{re.escape(_NOTE_SYMBOLS)}]|\(?e-?mails?\b)", re.IGNORECASE
 )
-# Leading footnote markers: "1 Cornell University", "* MIT", "†‡ NVIDIA". Digits that start
-# a name are not markers: "54th Research Institute", "3M Company", "3D Vision Lab".
-_LEADING_MARKER_RE = re.compile(r"^(?:[\s*†‡§¶⋆,]|\d+(?!\d|(?:st|nd|rd|th|[DKM])\b))+")
+# Leading footnote markers: "1 Cornell University", "* MIT", "†‡ NVIDIA", the asterisk
+# operator before "University of Oxford" (2609.35052). Digits that start a name are not
+# markers: "54th Research Institute", "3M Company", "3D Vision Lab".
+_LEADING_MARKER_RE = re.compile(rf"^(?:[\s,{_MARKER_SYMBOLS}]|\d+(?!\d|(?:st|nd|rd|th|[DKM])\b))+")
 # A name that starts with a number: "3M Company", "3D Vision Lab" (numbered "2 3D Vision Lab"),
 # or with a lowercase letter before a capital: "eBay" (2610.00812).
 _NUMBER_NAME = r"(?![DKM]\b)\s*(?P<name>(?:\d[DKM]\b\s*)?(?:[A-Z]|[a-z](?=[A-Z])).{2,})$"
@@ -283,7 +296,7 @@ _GLUED_ADDRESS_RE = re.compile(
 # Liu<span style="font-size:70%;position:relative; bottom:2.4pt;">1,*</span>" and "1 NVIDIA
 # 2 MIT 3 UCB" of 2610.19495, read as one affiliation without them.
 _RAISED_RE = re.compile(r"position:\s*relative;\s*bottom:\s*\d", re.IGNORECASE)
-_RAISED_MARKER_RE = re.compile(r"[\d,\s*†‡§¶⋆\u2217♠♣♢♡]{1,12}")
+_RAISED_MARKER_RE = re.compile(rf"[\d,\s{_MARKER_SYMBOLS}]{{1,12}}")
 # Conjunctions left over when a line break splits "A University and B Institute".
 _CONNECTOR_RE = re.compile(r"^(?:and|&)(?:\s+|$)", re.IGNORECASE)
 # A line that ends like this continues on the next one ("School of Medicine, and").
@@ -322,8 +335,6 @@ _AFFILIATIONS_NOTE_RE = re.compile(
 _INLINE_MARKER_RE = re.compile(r"(?<=\S\s)\d{1,2}(?=[^\W\d_]{2})")
 # A word that starts with such a marker: "2CASIA", "2HKUST(GZ)".
 _MARKED_WORD_RE = re.compile(r"\d{1,2}[^\W\d_][^\d\s]*")
-# Numbered affiliation lines in free-form author blocks (CVPR-like classes): "1ETH Zurich".
-_NUMBERED_LINE_RE = re.compile(r"^\s*\d{1,2}" + _NUMBER_NAME, re.MULTILINE)
 # Words of institutions. Not "Foundation Model", a team of Li Auto (2609.21449) and the
 # subject of half the papers.
 _INSTITUTION_WORD_RE = re.compile(
@@ -460,8 +471,8 @@ _REPEATED_COMMA_RE = re.compile(r",(?:\s*,)+")
 _EDGE_PUNCTUATION = " ,;:."
 _MIN_LENGTH = 3
 
-# Superscripts that mark contribution notes rather than affiliations (U+2217 is LaTeX's \ast).
-_SYMBOL_MARKERS = frozenset("*\u2217†‡§¶⋆♯♭#°ª")
+# Superscripts that mark contribution notes rather than affiliations.
+_SYMBOL_MARKERS = frozenset(_NOTE_SYMBOLS)
 _SYMBOL_SPLIT_RE = re.compile(f"([{re.escape(''.join(sorted(_SYMBOL_MARKERS)))}])")
 # ``⟨marker⟩`` tokens injected in place of superscripts by :func:`_marked_text`.
 _MARKED_RE = re.compile(r"⟨([^⟨⟩]*)⟩")
@@ -485,7 +496,7 @@ _NAME_SUFFIX_RE = re.compile(
     re.IGNORECASE,
 )
 # Markers left beside a name: "Saining Xie 1", "Kai Wang2", "Jane Doe*†".
-_NAME_MARKER_RE = re.compile(r"[\d*\u2217†‡§¶⋆]+")
+_NAME_MARKER_RE = re.compile(rf"[\d{_MARKER_SYMBOLS}]+")
 # A collective that signs a paper is its own affiliation: "Alzheimer's Disease Neuroimaging Initiative".
 _COLLECTIVE_RE = re.compile(r"\b(?:initiative|consortium|collaboration|team|group)\b", re.IGNORECASE)
 # "The authors are with X", "All authors are with X": everyone is there.
@@ -511,6 +522,21 @@ _OTHER_THANKS = frozenset({"ltx_thanks_funding", "ltx_thanks_correspondence"})
 # California, $^2$Stanford University" (2609.16443, whose ^ is U+02C6, the modifier letter
 # circumflex), "$^{2}$".
 _TEXT_MARKER_RE = re.compile(r"\$\s*[\^\u02c6]\s*\{?\s*(\d{1,2})\s*\}?\s*\$")
+# Any marker LaTeXML printed as text, its math unparsed, wherever an affiliation holds it:
+# "$1$ University of Technology Nuremberg" (2609.24576), "$^a$ ...; $^b$ ..." (three
+# affiliations, 2609.32844, with U+02C6 for ^), "$^*$Google Research" (2306.09224), "$2.$
+# FAIR Labs" (2210.05663). Each starts an affiliation (EXT-4).
+_ANY_TEXT_MARKER_RE = re.compile(r"\$\s*(?:[\^\u02c6]\s*)?\{?\s*[^\s${}]{1,2}?\.?\s*\}?\s*\$")
+# Format characters (Unicode's Cf), invisible: zero-width spaces before "Tsinghua University"
+# (2303.10137). And LaTeX's ~, printed as a small tilde (U+02DC, after "NVIDIA," in 1511.08861).
+_INVISIBLE = dict.fromkeys(
+    (code for code in range(0x110000) if unicodedata.category(chr(code)) == "Cf"), None
+) | {ord("\u02dc"): " "}
+# A note's sentence on its own, which no affiliation starts like and says: "This work was
+# done when the author was at Adobe Research" (2609.00591), "Manuscript received August 9,
+# 2021; ..." (2207.09313), "The authors worked as Independent Researchers" (2003.06975).
+# Its second word is lowercase: "Supported Intelligence Lab" is a name.
+_NOTE_SENTENCE_RE = re.compile(rf"^(?:{_NEXT_SENTENCE_STARTS}|The\s+authors?)\s+[a-z]")
 # What a sentence of a thanks note says, and a list of affiliations does not: "Work done
 # while A was a visiting student", "This work was supported by the X Foundation", "Now at".
 _SENTENCE_WORD_RE = re.compile(
@@ -1181,7 +1207,7 @@ def _has_marked_affiliations(block: Tag, authors: Sequence[str], names: Sequence
     """
     marked = _numbered_text(block)
     lines = [
-        match["name"] for regex in (_NUMBERED_LINE_RE, _SYMBOL_LINE_RE) for match in regex.finditer(marked)
+        match["name"] for regex in (_NUMBERED_ANCHOR_RE, _SYMBOL_LINE_RE) for match in regex.finditer(marked)
     ]
     return any(
         clean_affiliations(line) and not names_only_authors(line, authors) and not _names_only(line, names)
@@ -1669,12 +1695,14 @@ def clean_affiliations(text: str) -> tuple[str, ...]:
         The affiliations, in order (possibly empty).
     """
     # A role ("X is Robotics Lead at Y") is no statement of thanks notes: the string is one.
+    text = text.translate(_INVISIBLE)
     statements = (_stated_affiliations([text]) or [text]) if _people(text) else [text]
     return tuple(
         affiliation
         for statement in statements
         for part in _ALSO_WITH_RE.split(statement)
-        for marked in marked_pieces(" ".join(part.split()))
+        for unmarked in _ANY_TEXT_MARKER_RE.split(part)
+        for marked in marked_pieces(" ".join(unmarked.split()))
         for piece in _run_together(marked)
         if (affiliation := clean_affiliation(piece))
     )
@@ -1722,14 +1750,15 @@ def clean_affiliation(text: str) -> str | None:
     and so are the people an IEEE sentence starts with: "A and B are with X" gives X. A
     string holding several affiliations is split first, by :func:`clean_affiliations`.
     """
-    text = _TEX_SOURCE_RE.sub("", _MACRO_RE.sub("", text.replace("\xa0", " ")))
+    text = _TEX_SOURCE_RE.sub("", _MACRO_RE.sub("", text.translate(_INVISIBLE).replace("\xa0", " ")))
+    text = _ANY_TEXT_MARKER_RE.sub(" ", text)
     text = _WORD_BEFORE_ADDRESS_RE.sub(r"\1 ", text)
     text = _CONTACT_TAIL_RE.sub(
         "", _AFFILIATIONS_NOTE_RE.sub("", _GLUED_NOTE_RE.sub("", _ORCID_RE.sub(" ", text)))
     )
     text = _MAILBOX_LIST_RE.sub(" ", _OBFUSCATED_EMAIL_RE.sub(" ", text))
     text = _EMPTY_BRACKETS_RE.sub(" ", _LINK_LABEL_RE.sub(" ", _LATEX_SPACE_RE.sub(" ", text)))
-    if _NOISE_RE.search(text) or _LATER_NOTE_RE.search(text):
+    if _NOISE_RE.search(text) or _LATER_NOTE_RE.search(text) or _is_note_sentence(text):
         return None
     text = _SPACE_BEFORE_PUNCTUATION_RE.sub(r"\1", " ".join(_unglued(text).split()))
     text = _REPEATED_COMMA_RE.sub(",", text)
@@ -1758,6 +1787,13 @@ def clean_affiliation(text: str) -> str | None:
     if has_contact(text):
         return None
     return text
+
+
+def _is_note_sentence(text: str) -> bool:
+    """Whether a string is a note's sentence, which an affiliation never is (EXT-4)."""
+    return _NOTE_SENTENCE_RE.match(_LEADING_MARKER_RE.sub("", text)) is not None and (
+        _SENTENCE_WORD_RE.search(text) is not None or text.startswith("Manuscript")
+    )
 
 
 def has_contact(text: str) -> bool:
@@ -1860,7 +1896,8 @@ def names_only_authors(text: str, authors: Sequence[str]) -> bool:
     Returns:
         ``True`` when every name of ``text`` is one of ``authors``.
     """
-    if _INSTITUTION_WORD_RE.search(text) or _COLLECTIVE_RE.search(text):
+    # Words that start an institution's: "lab" inside "Alabdulmohsin" is a name's (2307.06304).
+    if _INSTITUTION_WORD_START_RE.search(text) or _COLLECTIVE_RE.search(text):
         return False
     known = {name_key(_NAME_SUFFIX_RE.sub(" ", author)) for author in authors}
     unmarked = _NAME_MARKER_RE.sub(" ", _NAME_SUFFIX_RE.sub(" ", text))
@@ -2343,9 +2380,14 @@ _PUNCTUATION_VARIANTS = str.maketrans(
 
 
 def _fold(text: str) -> str:
-    """Lowercase, strip accents and normalize punctuation, for name comparison."""
+    """Lowercase, strip accents and normalize punctuation, for name comparison.
+
+    Letters without a decomposition are written plainly, as everywhere names are compared:
+    "Bartłomiej" is "Bartlomiej" (``PLAIN_LETTERS``, EXT-7).
+    """
     decomposed = unicodedata.normalize("NFKD", text.translate(_PUNCTUATION_VARIANTS))
-    return "".join(char for char in decomposed if not unicodedata.combining(char)).casefold()
+    folded = "".join(char for char in decomposed if not unicodedata.combining(char)).casefold()
+    return folded.translate(PLAIN_LETTERS)
 
 
 # Apostrophes and LaTeX accent leftovers join the letters around them ("Niccol`o" is "Niccolò").

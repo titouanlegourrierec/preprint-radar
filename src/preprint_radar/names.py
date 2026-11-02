@@ -9,7 +9,7 @@ import re
 import unicodedata
 from collections import Counter
 
-from preprint_radar.institutions import PLAIN_LETTERS
+from preprint_radar.letters import PLAIN_LETTERS
 
 _NAME_JOINER_RE = re.compile("[-'\N{RIGHT SINGLE QUOTATION MARK}.]")
 _NAME_WORD_RE = re.compile(r"[^\W_]+")

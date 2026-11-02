@@ -895,6 +895,8 @@ def test_a_source_of_names_only_leaves_its_turn_to_the_next() -> None:
         "Ada Lovelace 1",
         "Yiqun Zhang2",
         "Shuai Tao*†",
+        # An institution's word inside a name: "lab" in "Slabaugh" (EXT-7).
+        "Gregory Slabaugh",
     ],
 )
 def test_names_only_authors(text: str) -> None:
@@ -908,6 +910,7 @@ def test_names_only_authors(text: str) -> None:
         "Benoit Macq",
         "Christophe De Vleeschouwer",
         "Ada Lovelace",
+        "Gregory Slabaugh",
     )
     assert names_only_authors(text, authors)
 
@@ -1822,10 +1825,45 @@ def test_clean_affiliation_drops_layout_and_link_leftovers(raw: str, expected: s
         ("Yu-Ming Cheung", "Yu Ming Cheung"),
         # The listing's dotless i for LaTeX's "\'{\i}" (2505.12089).
         ("Alvaro Garc\u0131a-Lara", "Álvaro García-Lara"),
+        # Letters without a decomposition, as everywhere names are compared (EXT-7).
+        ("Bartłomiej Twardowski", "Bartlomiej Twardowski"),
+        ("Søren Hauberg", "Soren Hauberg"),
     ],
 )
 def test_name_key_ignores_spelling(listed: str, respelled: str) -> None:
     assert name_key(listed) == name_key(respelled)
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        # Markers LaTeXML printed as text, its math unparsed, each starting an affiliation.
+        ("$1$ University of Technology Nuremberg", ("University of Technology Nuremberg",)),
+        ("$2.$ FAIR Labs", ("FAIR Labs",)),
+        ("$\u02c6*$Google Research", ("Google Research",)),
+        (
+            "$\u02c6a$ Technical University of Munich; $\u02c6b$ Munich Center for Machine Learning",
+            ("Technical University of Munich", "Munich Center for Machine Learning"),
+        ),
+        # LaTeX's ~ printed as a small tilde, and zero-width spaces.
+        ("$\u02c6\u22c6$NVIDIA,\u02dc\u02dc$\u02c6\u2020$MIT Media Lab", ("NVIDIA", "MIT Media Lab")),
+        ("\u200b\u200bTsinghua University", ("Tsinghua University",)),
+        # Every marker symbol leads nothing (EXT-7).
+        ("\u2217University of Oxford", ("University of Oxford",)),
+        ("\u2660 University of Oxford", ("University of Oxford",)),
+        ("\u2605 Ropedia", ("Ropedia",)),
+        ("#Stanford University", ("Stanford University",)),
+        # A note's sentence on its own (EXT-4), but not a name that starts like one.
+        ("This work was done when the author was at Adobe Research", ()),
+        ("Manuscript received August 9, 2021; revised April 12, 2022", ()),
+        ("$\u02c6\u2020$The authors worked as Independent Researchers on this project", ()),
+        ("Work performed while at NVIDIA", ()),
+        ("Supported Intelligence Lab, MIT", ("Supported Intelligence Lab, MIT",)),
+        ("Part of Stanford University", ("Part of Stanford University",)),
+    ],
+)
+def test_residues_are_read_wherever_an_affiliation_comes_from(raw: str, expected: tuple[str, ...]) -> None:
+    assert clean_affiliations(raw) == expected
 
 
 def test_name_key_tells_people_apart() -> None:

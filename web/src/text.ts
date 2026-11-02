@@ -1,5 +1,5 @@
 // Letters that do not decompose into a base letter and an accent, written as plain letters
-// (AFF-24), as the pipeline compares names (`institutions.PLAIN_LETTERS`).
+// (AFF-24), as the pipeline compares names (`letters.PLAIN_LETTERS`).
 const PLAIN_LETTERS: readonly (readonly [RegExp, string])[] = [
   [/ı/g, "i"],
   [/ł/g, "l"],
