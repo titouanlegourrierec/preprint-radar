@@ -333,6 +333,11 @@ names may have none); one without, from the rules. `make institutions-again` nam
 institutions again after a change to the rules: registry names are only made canonical
 again, the others named again from their affiliation.
 
+`tests/fixtures/institution-names.json` pins what the rules give 3,704 stored strings
+(`test_institution_names.py`, EXT-5): a change to them shows there as a diff to review,
+written again with `UPDATE_GOLDEN=1`. Without it, all of `_ORGANIZATION_RE` could go with
+every test green.
+
 ## Venues (`venue.py`)
 
 Detected once, when a paper is stored, from its comments and journal reference; `make

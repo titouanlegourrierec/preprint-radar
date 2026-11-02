@@ -572,7 +572,7 @@ P1 findings reproduced, all lowered to P2.
 | EXT-2 | Live rules with no test: 3 whole regexes and 19 rule pieces change real pages, yet every test stays green without them | P2 | todo |
 | EXT-3 | E-mail fragments pass has_contact and validate: 7 strings in 4 papers | P2 | todo |
 | EXT-4 | Defect classes that every rule and every quality sign miss, because rules are tied to one tier | P2 | todo |
-| EXT-5 | Institution rules: all of _ORGANIZATION_RE removable with 1,434 tests green, 125 stored namings changing | P2 | todo |
+| EXT-5 | Institution rules: all of _ORGANIZATION_RE removable with 1,434 tests green, 125 stored namings changing. `tests/fixtures/institution-names.json` pins `institution_name` over 3,704 strings of the store read from pages (half of those named otherwise than their first part, a twentieth of the others, all those named nothing; 400 kB), `UPDATE_GOLDEN=1` writing it again; knocking out `_ORGANIZATION_RE`, `_UNIT_RE`, `_LEGAL_SUFFIX_RE` or `_UNIVERSITY_RE` now fails it | P2 | done |
 | EXT-6 | Split arxiv_html.py (2,279 lines, 84 regexes) along the seams its call graph already has | P2 | todo |
 | EXT-7 | Overlapping vocabularies diverge: 5 marker sets, institution words matching inside names, two name folds | P2 | todo |
 | AQ-1 | The affiliation quality report misses most real defects and has no gold set | P2 | todo |
