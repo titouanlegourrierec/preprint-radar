@@ -224,11 +224,11 @@
     "0040r6f76",
     "03y7q9t39"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -272,11 +272,11 @@
     "0040r6f76",
     "03y7q9t39"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -644,11 +644,11 @@
     "02dgjyy92",
     null
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -951,11 +951,11 @@
    "institutions": [
     null
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -993,11 +993,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.13259",
@@ -1098,11 +1098,11 @@
     "05g3dte14",
     "00scwqd12"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -1201,7 +1201,7 @@
    "html_url": "https://arxiv.org/html/2609.13265v1",
    "abstract": "Near-infrared (NIR) imaging does not consistently outperform standard color cameras for daytime agricultural traversability once spatial data leakage is eliminated. Prior benchmarks suggesting an NIR advantage used sequence-level splits that permitted spatially autocorrelated imagery into test sets, artificially inflating NIR performance, especially on difficult paddy-boundary segmentation. When evaluated across strictly held-out recording sites using the AI Hub autonomous driving corpus, none of the four tested configurations (color, NIR, a luminance control, or their fusion) reliably surpasses standard color across any of the five traversability classes. Furthermore, apparent performance gains observed at a single held-out site completely fail to replicate when the held-out site is rotated, demonstrating that the observed benefits were site-specific artifacts rather than generalizable improvements. Correcting for spatial leakage erases the apparent lead of NIR entirely rather than uniformly degrading performance across all sensor types. Consequently, adding a forward-facing NIR camera to a daylight agricultural vehicle sensor suite remains unproven, and evaluations compromised by location leakage risk distorting sensor rankings and misleading procurement decisions.",
    "affiliations": [
-    "Department of Electrical and Computer, Engineering, Korea University, Seoul, Republic of Korea"
+    "Department of Electrical and Computer Engineering, Korea University, Seoul, Republic of Korea"
    ],
    "author_affiliations": [
     [
@@ -1214,15 +1214,15 @@
    "institution_ids": [
     "047dqcg40"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-06"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.13265",
@@ -1407,34 +1407,34 @@
    "html_url": "https://arxiv.org/html/2609.13271v1",
    "abstract": "Medical image segmentation needs diverse training data, but hospitals hold complementary scans they cannot share for privacy and regulatory reasons. Knowledge distillation can bridge this gap by exporting learned feature representations instead of images, but those representations still encode patient-specific anatomy and remain vulnerable to membership-inference and feature-inversion attacks. Adding calibrated Gaussian noise restores a differential-privacy guarantee, yet three issues have been overlooked. First, prior DP feature-distillation pipelines re-sample noise at every student iteration, so each patient image is released many times and the privacy cost composes over those releases, growing by orders of magnitude. We present a sample-once-per-image release, realized by a single precomputation pass, under which each patient contributes one release. Second, uniform noise is wasteful because channels differ in task importance. Using task-gradient energy as the importance measure, we derive CANAL, a closed-form water-filling allocation that gives important channels proportionally less noise, and prove it strictly minimizes importance-weighted distortion at a fixed budget. Third, the clipping caps and importance scores that drive the allocation are themselves data-dependent, so releasing them in the clear silently breaks the guarantee. We give a DP-honest budget split that charges each to the privacy budget, so the reported epsilon is the true epsilon. Across three medical segmentation benchmarks spanning dermoscopy, colonoscopy, and ultrasound, CANAL retains more task-relevant signal than uniform noise at the same privacy budget.",
    "affiliations": [
-    "Department of Computer Science, University of Alabama at Birmingham",
-    "Birmingham, AL, USA"
+    "Department of Computer Science, University of Alabama at Birmingham, Birmingham, AL, USA"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     1
+     0
     ],
-    null
+    [
+     0
+    ]
    ],
    "institutions": [
-    "University of Alabama at Birmingham",
-    null
+    "University of Alabama at Birmingham"
    ],
    "institution_ids": [
-    "008s83205",
-    null
+    "008s83205"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
-     "source": "ror"
+     "source": "ror",
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.13271",
@@ -2143,11 +2143,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.13294",
@@ -2209,11 +2209,11 @@
    "institution_ids": [
     "047426m28"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -2246,11 +2246,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.13298",
@@ -2623,11 +2623,11 @@
     "04qenc566",
     "02teq1165"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -2716,11 +2716,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.13397",
@@ -2912,11 +2912,11 @@
    "institutions": [
     "Scam.ai"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -3458,11 +3458,11 @@
     "03awzbc87",
     "03awzbc87"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -3501,11 +3501,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.13791",
@@ -3600,11 +3600,11 @@
    "institution_ids": [
     "03cve4549"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -3938,11 +3938,11 @@
    "institution_ids": [
     "01rn0fp76"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -4606,11 +4606,11 @@
     "0258gkt32",
     "03yacj906"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -4786,11 +4786,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.14106",
@@ -5079,11 +5079,11 @@
     null,
     "01nrxwf90"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -5158,11 +5158,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.14258",
@@ -5207,11 +5207,11 @@
    "institution_ids": [
     "024exxj48"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -5310,11 +5310,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.14284",
@@ -5607,11 +5607,11 @@
     "034t30j35",
     "00js3aw79"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -5969,11 +5969,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.14391",
@@ -6757,11 +6757,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.14560",
@@ -6938,11 +6938,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.14615",
@@ -7138,11 +7138,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.14654",
@@ -7245,11 +7245,11 @@
     "02tc3qm58",
     "00hswnk62"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -7534,11 +7534,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.14722",
@@ -7574,11 +7574,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.14725",
@@ -7733,11 +7733,11 @@
    "institutions": [
     null
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -7786,11 +7786,11 @@
    "institution_ids": [
     "02af4h012"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -8008,11 +8008,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.14973",
@@ -8048,11 +8048,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.15018",
@@ -8303,11 +8303,11 @@
    "institutions": [
     "Scam.ai"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -8607,11 +8607,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.15150",
@@ -9298,11 +9298,11 @@
    "institution_ids": [
     "01yqg2h08"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -9854,11 +9854,11 @@
    "institution_ids": [
     "0433kqc49"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -9890,11 +9890,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.15367",
@@ -10108,11 +10108,11 @@
     "00h2vm590",
     "00h2vm590"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -10253,11 +10253,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.15484",
@@ -10450,11 +10450,11 @@
     "043bpky34",
     "01y64my43"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -10645,11 +10645,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.15606",
@@ -11238,11 +11238,11 @@
     "04gcegc37",
     null
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -11282,11 +11282,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.15683",
@@ -11590,11 +11590,11 @@
     "0106qb496",
     "0106qb496"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -11629,11 +11629,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.15863",
@@ -11712,11 +11712,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.13152",
@@ -11924,11 +11924,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.13235",
@@ -12153,11 +12153,11 @@
    "institution_ids": [
     "0161xgx34"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -12588,11 +12588,11 @@
    "institution_ids": [
     "00wk2mp56"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -12980,11 +12980,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.14874",
@@ -13067,11 +13067,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.15364",
@@ -13106,11 +13106,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.15392",
@@ -13312,11 +13312,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.15659",
@@ -13358,11 +13358,11 @@
    "institution_ids": [
     "038zf2n28"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -13475,11 +13475,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.15726",
@@ -13727,11 +13727,11 @@
     null,
     "01n14yn69"
    ],
-   "extractor": 21,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-02"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
