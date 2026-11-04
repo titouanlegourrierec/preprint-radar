@@ -6367,10 +6367,9 @@
    "institutions": [
     "PhiGent Robotics"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -41520,10 +41519,9 @@
    "institutions": [
     "Apple"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -52810,10 +52808,9 @@
    "institutions": [
     "Google"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -64644,10 +64641,9 @@
    "institutions": [
     "OPPO US Research Center"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -71599,10 +71595,9 @@
    "institutions": [
     "Unity Technologies"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -75720,10 +75715,9 @@
     "Steven C.H. Hoi",
     "Salesforce Research"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -81893,10 +81887,9 @@
    "institutions": [
     "Tencent"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -85361,10 +85354,9 @@
    "institutions": [
     "Tencent"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -86977,10 +86969,9 @@
     "Diego",
     "Motional"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -100195,7 +100186,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-01"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "openalex"
@@ -103778,7 +103769,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-01"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "openalex"
@@ -115948,10 +115939,9 @@
     "Computer Science |",
     "Engineering}"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -121527,17 +121517,40 @@
    "journal_ref": "ICLR 2022",
    "venue": "ICLR",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2104.13921",
    "abstract": "We aim at advancing open-vocabulary object detection, which detects objects described by arbitrary text inputs. The fundamental challenge is the availability of training data. It is costly to further scale up the number of classes contained in existing object detection datasets. To overcome this challenge, we propose ViLD, a training method via Vision and Language knowledge Distillation. Our method distills the knowledge from a pretrained open-vocabulary image classification model (teacher) into a two-stage detector (student). Specifically, we use the teacher model to encode category texts and image regions of object proposals. Then we train a student detector, whose region embeddings of detected boxes are aligned with the text and image embeddings inferred by the teacher. We benchmark on LVIS by holding out all rare categories as novel categories that are not seen during training. ViLD obtains 16.1 mask AP$_r$ with a ResNet-50 backbone, even outperforming the supervised counterpart by 3.8. When trained with a stronger teacher model ALIGN, ViLD achieves 26.3 AP$_r$. The model can directly transfer to other datasets without finetuning, achieving 72.2 AP$_{50}$ on PASCAL VOC, 36.6 AP on COCO and 11.8 AP on Objects365. On COCO, ViLD outperforms the previous state-of-the-art by 4.8 on novel AP and 11.4 on overall AP. Code and demo are open-sourced at https://github.com/tensorflow/tpu/tree/master/models/official/detection/projects/vild.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Google Research, Nvidia"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Google"
+   ],
+   "institution_ids": [
+    "00njsd438"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2104.13921",
@@ -142951,10 +142964,9 @@
     "Meta",
     "Inria"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -162253,7 +162265,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-01"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "openalex"

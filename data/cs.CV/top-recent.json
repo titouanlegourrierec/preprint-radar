@@ -1,11 +1,11 @@
 {
  "schema_version": 1,
  "category": "cs.CV",
- "since": "2025-11-02",
+ "since": "2025-11-05",
  "papers": [
   {
    "arxiv_id": "2610.39551",
-   "announced": "2026-10-29",
+   "announced": "2026-10-30",
    "title": "Comprehensive empirical evaluation of feature extractors in computer vision",
    "authors": [
     "Murat Isik"
@@ -21,32 +21,96 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Feature detection and matching are fundamental components in computer vision, underpinning a broad spectrum of applications. This study offers a comprehensive evaluation of traditional feature detections and descriptors, analyzing methods such as Scale Invariant Feature Transform (SIFT), Speeded-Up Robust Features (SURF), Binary Robust Independent Elementary Features (BRIEF), Oriented FAST and Rotated BRIEF (ORB), Binary Robust Invariant Scalable Keypoints (BRISK), KAZE, Accelerated KAZE (AKAZE), Fast Retina Keypoint (FREAK), Dense and Accurate Invariant Scalable descriptor for Yale (DAISY), Features from Accelerated Segment Test (FAST), and STAR. Each feature extractor was assessed based on its architectural design and complexity, focusing on how these factors influence computational efficiency and robustness under various transformations. Utilizing the Image Matching Challenge Photo Tourism 2020 dataset, which includes over 1.5 million images, the study identifies the FAST algorithm as the most efficient detector when paired with the ORB descriptor and Brute-Force (BF) matcher, offering the fastest feature extraction and matching process. ORB is notably effective on affine transformed and brightened images, while AKAZE excels in conditions involving blurring, fisheye distortion, image rotation, and perspective distortions. Through more than 2 million comparisons, the study highlights the feature extractors that demonstrate superior resilience across various conditions, including rotation, scaling, blurring, brightening, affine transformations, perspective distortions, fisheye distortion, and salt-and-pepper noise",
-   "affiliations": [
-    "Ahi Evran University"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Ahi Evran University"
-   ],
-   "institution_ids": [
-    "05rrfpt58"
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-01"
+     "at": "2026-11-02"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-11-01"
+     "at": "2026-11-02"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.39551",
    "pdf_url": "https://arxiv.org/pdf/2610.39551"
+  },
+  {
+   "arxiv_id": "2606.15768",
+   "announced": "2026-10-30",
+   "title": "LaWAM: Latent World Action Models for Efficient Dynamics-Aware Robot Policies",
+   "authors": [
+    "Jialei Chen",
+    "Kai Wang",
+    "Kang Chen",
+    "Shuaihang Chen",
+    "Feng Gao",
+    "Wenhao Tang",
+    "Zhiyuan Li",
+    "Weilin Liu",
+    "Zhuyu Yao",
+    "Boxun Li",
+    "Yuanbo Xu",
+    "Chao Yu"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted at CoRL 2026. Project website: https://rlinf.github.io/LaWAM/",
+   "journal_ref": null,
+   "venue": "CoRL 2026",
+   "cross_list_from": "cs.RO",
+   "html_url": "https://arxiv.org/html/2606.15768v2",
+   "abstract": "Vision-Language-Action models (VLAs) leverage large-scale vision-language pretraining for semantic robot control, but often lack explicit foresight into how robot actions change the scene. World-Action Models (WAMs) address this limitation by conditioning policies on predicted futures, yet existing approaches typically rely on computationally expensive video generation with substantial pixel-level redundancy. We present LaWAM, a Latent World Action Model that exposes predictive dynamics to robot policies through compact latent visual subgoals instead of reconstructed future video. At the core of LaWAM is a latent-action-conditioned Latent World Model (LaWM). We obtain LaWM by training a latent action model in the latent space of a pretrained vision foundation model and repurposing its forward decoder to predict future observation features for scene evolution. LaWAM then conditions action generation on these predicted latent visual subgoals to enable dynamics-aware robot control. LaWAM achieves state-of-the-art or competitive success rates (SRs) across LIBERO (98.6% SR), RoboTwin (91.22% SR), and real-world manipulation tasks while retaining low-latency inference. LaWAM runs in 187 ms per action-chunk prediction and achieves up to 24x lower wall-clock latency than pixel-space WAMs.",
+   "affiliations": [
+    "Tsinghua University",
+    "Jilin University",
+    "Nankai University",
+    "Peking University",
+    "Harbin Institute of Technology",
+    "Zhongguancun Academy",
+    "Striding.AI",
+    "Infinigence AI"
+   ],
+   "author_affiliations": null,
+   "institutions": [
+    "Tsinghua University",
+    "Jilin University",
+    "Nankai University",
+    "Peking University",
+    "Harbin Institute of Technology",
+    "Zhongguancun Academy",
+    "Striding.AI",
+    "Infinigence AI"
+   ],
+   "institution_ids": [
+    "03cve4549",
+    "00js3aw79",
+    "01y1kjr75",
+    "02v51f717",
+    "01yqg2h08",
+    null,
+    null,
+    null
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-03"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-02"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2606.15768",
+   "pdf_url": "https://arxiv.org/pdf/2606.15768"
   },
   {
    "arxiv_id": "2610.34925",
@@ -135,11 +199,11 @@
     "053694011",
     "02jx3x895"
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -214,11 +278,11 @@
     "042nb2s44",
     null
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -290,11 +354,11 @@
     "01skt4w74",
     "0064kty71"
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -383,11 +447,11 @@
     "INSA – Rouen",
     "Inria Rhône-Alpes"
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -430,11 +494,11 @@
     "047hdnt12",
     null
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -520,11 +584,11 @@
     "04m8av638",
     "00t33hh48"
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -558,11 +622,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.17635",
@@ -607,11 +671,11 @@
    "institution_ids": [
     "04c4dkn09"
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -665,11 +729,11 @@
     "02zsxwr40",
     "02zsxwr40"
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -726,11 +790,11 @@
     null,
     "03q21mh05"
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -787,11 +851,11 @@
     null,
     "03q21mh05"
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -863,11 +927,11 @@
     "02e2nnq08",
     "01yqg2h08"
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -923,11 +987,11 @@
     "04fq9j139",
     "042nb2s44"
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror"
@@ -984,11 +1048,11 @@
    "institution_ids": [
     "042nb2s44"
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror"
@@ -1029,11 +1093,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.01939",
@@ -1111,11 +1175,11 @@
     "03rc6as71",
     "0130frc33"
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror"
@@ -1181,11 +1245,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39627",
@@ -1235,11 +1299,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39600",
@@ -1337,11 +1401,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34502",
@@ -1560,11 +1624,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.26274",
@@ -1602,11 +1666,11 @@
     null,
     "05x2bcf33"
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -1792,11 +1856,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.23369",
@@ -1950,11 +2014,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19142",
@@ -1995,11 +2059,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19138",
@@ -2301,11 +2365,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.17909",
@@ -2347,11 +2411,11 @@
     "00waaqh38",
     null
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -2558,11 +2622,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-03"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.15364",
@@ -2665,11 +2729,11 @@
    "institution_ids": [
     "03cve4549"
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror",
@@ -3425,11 +3489,11 @@
     null,
     "01pxwe438"
    ],
-   "extractor": 20,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-30"
+     "at": "2026-11-03"
     },
     "institutions": {
      "source": "ror"
@@ -5513,10 +5577,9 @@
    "institutions": [
     "Tencent"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -5839,84 +5902,6 @@
    },
    "abs_url": "https://arxiv.org/abs/2608.22299",
    "pdf_url": "https://arxiv.org/pdf/2608.22299"
-  },
-  {
-   "arxiv_id": "2608.20492",
-   "announced": "2026-08-20",
-   "title": "Annotations as Rollouts: Efficient and Scalable Reinforcement Learning for Video MLLMs",
-   "authors": [
-    "Yunheng Li",
-    "Guohong Mu",
-    "Hao Li",
-    "Shengsheng Qian",
-    "Dingwen Zhang",
-    "Qibin Hou",
-    "Ming-Ming Cheng"
-   ],
-   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
-   "subjects": [
-    "Computer Vision and Pattern Recognition (cs.CV)"
-   ],
-   "comments": "Project page: https://orarl.github.io/",
-   "journal_ref": null,
-   "venue": null,
-   "cross_list_from": null,
-   "html_url": null,
-   "abstract": "Multimodal large language models (MLLMs) have become a prevailing paradigm for unified video perception. However, post-training on large multi-task datasets remains challenging, as existing reinforcement learning methods sample on-policy groups with few high-quality rollouts even with costly chain-of-thought (CoT) generation. In this paper, we study the sample efficiency and scalability of RL post-training for video MLLMs and introduce OraRL. We identify an overlooked role for annotations: Beyond scoring rollouts, each can enter its on-policy group as an oracle rollout, a direct positive optimization target. Direct oracle integration, however, is nontrivial: a high-reward oracle raises the group baseline and inverts otherwise positive policy advantages, a failure we term advantage inversion. At the core of OraRL is a decoupled advantage estimator: policy rollouts determine an oracle-free baseline, while the oracle-policy gap modulates both a directional gain and a separate detached oracle advantage. Sign-balanced pruning improves efficiency: by retaining only the oracle and the strongest rollouts of each sign, OraRL requires just 2.2x the step time of SFT, less than half the 4.9x required by GRPO with CoT. OraRL scales with model size and data, surpassing its backbone from 0.8B to 9B and GRPO up to 100k prompts. Without chain-of-thought, Video-ORA-9B decodes in 130 ms instead of 4,780 ms. Compared with the respective prior best models, it raises temporal mIoU from 62.5 to 66.0, tracking AO from 73.0 to 78.2, segmentation from 64.3 to 70.4, and the three-benchmark spatial-intelligence macro average from 51.0 to 56.1; on VSI-Bench, it scores 73.1 against 55.0 for GPT-5 and 55.1 for Gemini-3-Pro.",
-   "affiliations": [
-    "Nankai University",
-    "Northwestern Polytechnical University",
-    "Chinese Academy of Sciences",
-    "Institute of Automation"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     1
-    ],
-    [
-     2,
-     3
-    ],
-    [
-     1
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Nankai University",
-    "Northwestern Polytechnical University",
-    "Chinese Academy of Sciences",
-    "Institute of Automation"
-   ],
-   "institution_ids": [
-    "01y1kjr75",
-    "01y0j0j86",
-    "034t30j35",
-    "022c3hy66"
-   ],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-25"
-    },
-    "institutions": {
-     "source": "openalex",
-     "at": "2026-10-25"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/2608.20492",
-   "pdf_url": "https://arxiv.org/pdf/2608.20492"
   },
   {
    "arxiv_id": "2608.18746",
@@ -6609,10 +6594,9 @@
    "institutions": [
     "OpenMOSS Team"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -9082,59 +9066,6 @@
    "pdf_url": "https://arxiv.org/pdf/2608.01410"
   },
   {
-   "arxiv_id": "2608.03979",
-   "announced": "2026-08-04",
-   "title": "Video-DeepResearch: Towards the Next-Generation Multimodal Deepresearch Agent",
-   "authors": [
-    "Zhen Fang",
-    "Yu Zeng",
-    "Wenxuan Huang",
-    "Yiming Zhao",
-    "Shiting Huang",
-    "Tianfei Ren",
-    "Qi Lu",
-    "Qingnan Ren",
-    "Qisheng Su",
-    "Lionel Z. Wang",
-    "Qingyu Yin",
-    "Shuang Chen",
-    "Zehui Chen",
-    "Lin Chen",
-    "Zhenfei Yin",
-    "Yao Hu",
-    "Shaohui Lin",
-    "Wanli Ouyang",
-    "Shaosheng Cao",
-    "Feng Zhao"
-   ],
-   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
-   "subjects": [
-    "Computer Vision and Pattern Recognition (cs.CV)",
-    "Artificial Intelligence (cs.AI)"
-   ],
-   "comments": null,
-   "journal_ref": null,
-   "venue": null,
-   "cross_list_from": null,
-   "html_url": null,
-   "abstract": "We introduce Video-DeepResearch (Video-DR), extending multimodal agents from static images to continuous video streams, a setting that demands dense spatiotemporal grounding coupled with open-web exploration. Preliminary evaluations reveal two critical bottlenecks in current models: (1) modality bias, where agents bypass visual tools in favor of textual search, and (2) parametric knowledge leakage, where models rely on internal memory rather than genuine tool-augmented execution. To address these challenges, we propose Video-DR, featuring a decoupled perception-exploration pipeline with stage-wise tool unlocking that compels exhaustive cross-frame visual grounding prior to web retrieval. Our framework adopts a two-stage training recipe: supervised fine-tuning followed by Group Relative Policy Optimization (GRPO), enabling autonomous exploration that breaks the imitation-learning ceiling. Furthermore, we curate Video-DR-Bench, a human-AI collaborative benchmark comprising 200 complex, multi-hop VQA instances. Empirical results demonstrate that our Video-DeepResearch-35B-A3B establishes a new state-of-the-art of 64.0% average accuracy, surpassing proprietary Claude-4.5-Sonnet (59.0%) by 5.0 points and significantly outperforming GPT-5 (52.5%) and Gemini 2.5 Pro (57.5%). The 30B-A3B variant achieves 59.3%, competitive with Claude-4.5-Sonnet and demonstrating the effectiveness of our training paradigm even at compact scale. Code: https://github.com/Osilly/Vision-DeepResearch.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-25"
-    },
-    "institutions": {
-     "source": "openalex",
-     "at": "2026-10-25"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/2608.03979",
-   "pdf_url": "https://arxiv.org/pdf/2608.03979"
-  },
-  {
    "arxiv_id": "2608.03974",
    "announced": "2026-08-04",
    "title": "JoyAI-Video-Edit: Real-Time Open-Ended Video Editing with Autoregressive Diffusion",
@@ -11544,68 +11475,6 @@
    "pdf_url": "https://arxiv.org/pdf/2607.19716"
   },
   {
-   "arxiv_id": "2607.22535",
-   "announced": "2026-07-24",
-   "title": "Robot-Factored World Models via Robot Rendering",
-   "authors": [
-    "Byungjun Kim",
-    "Taeksoo Kim",
-    "Hyunsoo Cha",
-    "Hanbyul Joo"
-   ],
-   "primary_subject": "Robotics (cs.RO)",
-   "subjects": [
-    "Robotics (cs.RO)",
-    "Computer Vision and Pattern Recognition (cs.CV)"
-   ],
-   "comments": "Project Page: https://bjkim95.github.io/rofacto/",
-   "journal_ref": null,
-   "venue": null,
-   "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2607.22535v1",
-   "abstract": "Action-conditioned video world models predict future observations from an initial observation and an action signal. In robotics, actions influence future observations through two distinct processes: they are first realized into robot motion by the robot body and controller, and the scene then responds through contact and object motion. Conditioning directly on action commands asks the world model to learn the realization process itself, while conditioning on logged future states leaks the interaction outcomes it is meant to predict. We propose robot-factored world models, which move two robot-specific factors outside the world model. First, action realization: each command is rolled through the robot's own controller and kinematics into a deployment-available nominal trajectory, a middle signal that avoids both action-realization learning and future-state leakage. Second, robot rendering: this nominal trajectory is rendered through the robot URDF, factoring the robot's geometry, kinematics, and appearance out of the model and into explicit rendered robot geometry. To resolve depth ambiguity, we pair end-effector depth with scene depth, giving geometric cues for contact and occlusion beyond image-plane overlap. Together, camera-aware static RGB/depth context and rendered robot geometry form a shared visual world-model interface that stays consistent across viewpoints and robot embodiments, so the model sees the action only as visible robot geometry and learns how objects respond to it. Our experiments show that the rendered interface outperforms vector-conditioned baselines and generalizes to unseen robot embodiments at inference. We further demonstrate that our model generates robot manipulation videos from human demonstrations by retargeting and rendering the hand motion as robot geometry.",
-   "affiliations": [
-    "Seoul National University",
-    "RLWRLD"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0,
-     1
-    ]
-   ],
-   "institutions": [
-    "Seoul National University",
-    "RLWRLD"
-   ],
-   "institution_ids": [
-    "04h9pn542",
-    null
-   ],
-   "extractor": 24,
-   "provenance": {
-    "affiliations": {
-     "source": "html",
-     "at": "2026-11-04"
-    },
-    "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/2607.22535",
-   "pdf_url": "https://arxiv.org/pdf/2607.22535"
-  },
-  {
    "arxiv_id": "2607.22393",
    "announced": "2026-07-24",
    "title": "SceneActBench: Can Agents Act on the 3D Scenes They See?",
@@ -12953,10 +12822,9 @@
     "Hy Vision Team",
     "Futian Laboratory"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -14281,10 +14149,9 @@
    "institutions": [
     "AMAP CV Lab"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -16306,10 +16173,9 @@
    "institutions": [
     "NVIDIA"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -19823,71 +19689,6 @@
    "pdf_url": "https://arxiv.org/pdf/2606.08242"
   },
   {
-   "arxiv_id": "2606.14748",
-   "announced": "2026-06-05",
-   "title": "Is My Vision-Language Data in Your AI? Membership Inference Test (MINT) Demo 2",
-   "authors": [
-    "Daniel DeAlcala",
-    "Gonzalo Mancera",
-    "Julian Fierrez",
-    "Aythami Morales",
-    "Ruben Tolosana",
-    "Ruben Vera-Rodriguez"
-   ],
-   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
-   "subjects": [
-    "Computer Vision and Pattern Recognition (cs.CV)",
-    "Artificial Intelligence (cs.AI)"
-   ],
-   "comments": "IEEE Conf. on Computers, Software, and Applications (COMPSAC), 2026",
-   "journal_ref": null,
-   "venue": null,
-   "cross_list_from": null,
-   "html_url": null,
-   "abstract": "We present the Membership Inference Test (MINT) Demo 2, a framework designed to improve transparency in machine learning training processes. MINT is a technique for experimentally determining whether specific data were used during machine learning model training. We establish the theoretical framework and propose multiple architectures for MINT depending on the amount of information known about the models that are being audited. Experimental results using a popular face recognition model, 4 state-of-the-art LLMs, and multiple, diverse, and large-scale public image and text databases achieve promising accuracy levels in the detection of training data of up to 90%. Building on these results, we introduce a comprehensive web platform1 that expands these capabilities to image and text modalities. The platform integrates a diverse technological stack, including MINT, aMINT, and gMINT, allowing users to audit a wide range of models. This demonstrator aims to promote AI transparency and provides a practical tool to foster compliance with emerging AI regulations.",
-   "affiliations": [
-    "Universidad Autónoma de Madrid"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Universidad Autónoma de Madrid"
-   ],
-   "institution_ids": [
-    "01cby8j38"
-   ],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
-    },
-    "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/2606.14748",
-   "pdf_url": "https://arxiv.org/pdf/2606.14748"
-  },
-  {
    "arxiv_id": "2606.07687",
    "announced": "2026-06-05",
    "title": "What Makes Video World Model Latents Action-Relevant: Prediction over Reconstruction",
@@ -20372,10 +20173,9 @@
    "institutions": [
     "Ultralytics"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -21086,52 +20886,6 @@
    },
    "abs_url": "https://arxiv.org/abs/2606.16533",
    "pdf_url": "https://arxiv.org/pdf/2606.16533"
-  },
-  {
-   "arxiv_id": "2606.15768",
-   "announced": "2026-06-01",
-   "title": "LaWAM: Latent World Action Models for Efficient Dynamics-Aware Robot Policies",
-   "authors": [
-    "Jialei Chen",
-    "Kai Wang",
-    "Kang Chen",
-    "Shuaihang Chen",
-    "Feng Gao",
-    "Wenhao Tang",
-    "Zhiyuan Li",
-    "Weilin Liu",
-    "Zhuyu Yao",
-    "Boxun Li",
-    "Yuanbo Xu",
-    "Chao Yu"
-   ],
-   "primary_subject": "Robotics (cs.RO)",
-   "subjects": [
-    "Robotics (cs.RO)",
-    "Artificial Intelligence (cs.AI)",
-    "Computer Vision and Pattern Recognition (cs.CV)"
-   ],
-   "comments": "Accepted at CoRL 2026. Project website: https://rlinf.github.io/LaWAM/",
-   "journal_ref": null,
-   "venue": "CoRL 2026",
-   "cross_list_from": "cs.RO",
-   "html_url": null,
-   "abstract": "Vision-Language-Action models (VLAs) leverage large-scale vision-language pretraining for semantic robot control, but often lack explicit foresight into how robot actions change the scene. World-Action Models (WAMs) address this limitation by conditioning policies on predicted futures, yet existing approaches typically rely on computationally expensive video generation with substantial pixel-level redundancy. We present LaWAM, a Latent World Action Model that exposes predictive dynamics to robot policies through compact latent visual subgoals instead of reconstructed future video. At the core of LaWAM is a latent-action-conditioned Latent World Model (LaWM). We obtain LaWM by training a latent action model in the latent space of a pretrained vision foundation model and repurposing its forward decoder to predict future observation features for scene evolution. LaWAM then conditions action generation on these predicted latent visual subgoals to enable dynamics-aware robot control. LaWAM achieves state-of-the-art or competitive success rates (SRs) across LIBERO (98.6% SR), RoboTwin (91.22% SR), and real-world manipulation tasks while retaining low-latency inference. LaWAM runs in 187 ms per action-chunk prediction and achieves up to 24x lower wall-clock latency than pixel-space WAMs.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
-    },
-    "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/2606.15768",
-   "pdf_url": "https://arxiv.org/pdf/2606.15768"
   },
   {
    "arxiv_id": "2606.14777",
@@ -22185,10 +21939,9 @@
    "institutions": [
     "X Square Robot Team"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -24854,10 +24607,9 @@
    "institutions": [
     "Google"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -25647,10 +25399,9 @@
     "AIM for Health Lab",
     "MVP Lab"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -30284,10 +30035,9 @@
    "institutions": [
     "University of Maryland"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -31345,10 +31095,9 @@
    "institutions": [
     "BeingBeyond Team"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -33681,10 +33430,9 @@
    "institutions": [
     "NVIDIA"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -36228,10 +35976,9 @@
    "institutions": [
     "Video-MME Team"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -36344,6 +36091,85 @@
    },
    "abs_url": "https://arxiv.org/abs/2604.04921",
    "pdf_url": "https://arxiv.org/pdf/2604.04921"
+  },
+  {
+   "arxiv_id": "2604.04913",
+   "announced": "2026-04-06",
+   "title": "A Frame is Worth One Token: Efficient Generative World Modeling with Delta Tokens",
+   "authors": [
+    "Tommie Kerssies",
+    "Gabriele Berton",
+    "Ju He",
+    "Qihang Yu",
+    "Wufei Ma",
+    "Daan de Geus",
+    "Gijs Dubbelman",
+    "Liang-Chieh Chen"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "CVPR 2026. Code and weights: https://deltatok.github.io",
+   "journal_ref": null,
+   "venue": "CVPR 2026",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Anticipating diverse future states is a central challenge in video world modeling. Discriminative world models produce a deterministic prediction that implicitly averages over possible futures, while existing generative world models remain computationally expensive. Recent work demonstrates that predicting the future in the feature space of a vision foundation model (VFM), rather than a latent space optimized for pixel reconstruction, requires significantly fewer world model parameters. However, most such approaches remain discriminative. In this work, we introduce DeltaTok, a tokenizer that encodes the VFM feature difference between consecutive frames into a single continuous \"delta\" token, and DeltaWorld, a generative world model operating on these tokens to efficiently generate diverse plausible futures. Delta tokens reduce video from a three-dimensional spatio-temporal representation to a one-dimensional temporal sequence, for example yielding a 1,024x token reduction with 512x512 frames. This compact representation enables tractable multi-hypothesis training, where many futures are generated in parallel and only the best is supervised. At inference, this leads to diverse predictions in a single forward pass. Experiments on dense forecasting tasks demonstrate that DeltaWorld forecasts futures that more closely align with real-world outcomes, while having over 35x fewer parameters and using 2,000x fewer FLOPs than existing generative world models. Code and weights: https://deltatok.github.io.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-04"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-04"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2604.04913",
+   "pdf_url": "https://arxiv.org/pdf/2604.04913"
+  },
+  {
+   "arxiv_id": "2604.04406",
+   "announced": "2026-04-06",
+   "title": "3D-Fixer: Coarse-to-Fine In-place Completion for 3D Scenes from a Single Image",
+   "authors": [
+    "Ze-Xin Yin",
+    "Liu Liu",
+    "Xinjie Wang",
+    "Wei Sui",
+    "Zhizhong Su",
+    "Jian Yang",
+    "Jin Xie"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "17 pages, 10 figures, CVPR 2026, project page: https://zx-yin.github.io/3dfixer",
+   "journal_ref": null,
+   "venue": "CVPR 2026",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Compositional 3D scene generation from a single view requires the simultaneous recovery of scene layout and 3D assets. Existing approaches mainly fall into two categories: feed-forward generation methods and per-instance generation methods. The former directly predict 3D assets with explicit 6DoF poses through efficient network inference, but they generalize poorly to complex scenes. The latter improve generalization through a divide-and-conquer strategy, but suffer from time-consuming pose optimization. To bridge this gap, we introduce 3D-Fixer, a novel in-place completion paradigm. Specifically, 3D-Fixer extends 3D object generative priors to generate complete 3D assets conditioned on the partially visible point cloud at the original locations, which are cropped from the fragmented geometry obtained from the geometry estimation methods. Unlike prior works that require explicit pose alignment, 3D-Fixer uses fragmented geometry as a spatial anchor to preserve layout fidelity. At its core, we propose a coarse-to-fine generation scheme to resolve boundary ambiguity under occlusion, supported by a dual-branch conditioning network and an Occlusion-Robust Feature Alignment (ORFA) strategy for stable training. Furthermore, to address the data scarcity bottleneck, we present ARSG-110K, the largest scene-level dataset to date, comprising over 110K diverse scenes and 3M annotated images with high-fidelity 3D ground truth. Extensive experiments show that 3D-Fixer achieves state-of-the-art geometric accuracy, which significantly outperforms baselines such as MIDI and Gen3DSR, while maintaining the efficiency of the diffusion process. Code and data will be publicly available at https://zx-yin.github.io/3dfixer.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-04"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-04"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2604.04406",
+   "pdf_url": "https://arxiv.org/pdf/2604.04406"
   },
   {
    "arxiv_id": "2604.04184",
@@ -37517,10 +37343,9 @@
    "institutions": [
     "ClawMark Team"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -38598,10 +38423,9 @@
    "institutions": [
     "Skywork AI"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -40337,10 +40161,9 @@
    "institutions": [
     "AMAP CV Lab"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -42228,10 +42051,9 @@
    "institutions": [
     "NVIDIA"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -42459,10 +42281,9 @@
    "institutions": [
     "NVIDIA"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -45706,17 +45527,68 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "We introduce LaMP, a dual-expert Vision-Language-Action framework that embeds dense 3D scene flow as a latent motion prior for robotic manipulation.Existing VLA models regress actions directly from 2D semantic visual features, forcing them to learn complex 3D physical interactions implicitly.This implicit learning strategy degrades under unfamiliar spatial dynamics.LaMP addresses this limitation by aligning a flow-matching Motion Expert with a policy-predicting Action Expert through gated cross-attention.Specifically, the Motion Expert generates a one-step partially denoised 3D scene flow, and its hidden states condition the Action Expert without full multi-step reconstruction.We evaluate LaMP on the LIBERO, LIBERO-Plus, and SimplerEnv-WidowX simulation benchmarks as well as real-world experiments.LaMP consistently outperforms evaluated VLA baselines across LIBERO, LIBERO-Plus, and SimplerEnv-WidowX benchmarks, achieving the highest reported average success rates under the same training budgets. On LIBERO-Plus OOD perturbations, LaMP shows improved robustness with an average 9.7% gain over the strongest prior baseline.Our project page is available at https://summerwxk.github.io/lamp-project-page/.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Shanghai Innovation Institute",
+    "Southeast University",
+    "Shanghai Jiao Tong University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     0
+    ]
+   ],
+   "institutions": [
+    "Shanghai Innovation Institute",
+    "Southeast University",
+    "Shanghai Jiao Tong University"
+   ],
+   "institution_ids": [
+    "01fatbw66",
+    "04ct4d772",
+    "0220qvk04"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-01"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-11-01"
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2603.25399",
@@ -46557,10 +46429,9 @@
    "institutions": [
     "Zhejiang UniversityTencent HunyuanNanyang Technological University"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -49669,10 +49540,9 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -50636,10 +50506,9 @@
    "institutions": [
     "AMAP CV Lab"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -52050,6 +51919,47 @@
    },
    "abs_url": "https://arxiv.org/abs/2602.04770",
    "pdf_url": "https://arxiv.org/pdf/2602.04770"
+  },
+  {
+   "arxiv_id": "2602.06035",
+   "announced": "2026-02-05",
+   "title": "InterPrior: Scaling Generative Control for Physics-Based Human-Object Interactions",
+   "authors": [
+    "Sirui Xu",
+    "Samuel Schulter",
+    "Morteza Ziyadi",
+    "Xialin He",
+    "Xiaohan Fei",
+    "Yu-Xiong Wang",
+    "Liangyan Gui"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Graphics (cs.GR)",
+    "Robotics (cs.RO)"
+   ],
+   "comments": "Webpage: https://sirui-xu.github.io/InterPrior/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Humans rarely plan whole-body interactions with objects at the level of explicit whole-body movements. High-level intentions, such as affordance, define the goal, while coordinated balance, contact, and manipulation can emerge naturally from underlying physical and motor priors. Scaling such priors is key to enabling humanoids to compose and generalize loco-manipulation skills across diverse contexts while maintaining physically coherent whole-body coordination. To this end, we introduce InterPrior, a scalable framework that learns a unified generative controller through large-scale imitation pretraining and post-training by reinforcement learning. InterPrior first distills a full-reference imitation expert into a versatile, goal-conditioned variational policy that reconstructs motion from multimodal observations and high-level intent. While the distilled policy reconstructs training behaviors, it does not generalize reliably due to the vast configuration space of large-scale human-object interactions. To address this, we apply data augmentation with physical perturbations, and then perform reinforcement learning finetuning to improve competence on unseen goals and initializations. Together, these steps consolidate the reconstructed latent skills into a valid manifold, yielding a motion prior that generalizes beyond the training data, e.g., it can incorporate new behaviors such as interactions with unseen objects. We further demonstrate its effectiveness for user-interactive control and its potential for real robot deployment.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-04"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-04"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2602.06035",
+   "pdf_url": "https://arxiv.org/pdf/2602.06035"
   },
   {
    "arxiv_id": "2602.06028",
@@ -54421,10 +54331,9 @@
    "institutions": [
     "Xiaohongshu Inc"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -54674,10 +54583,9 @@
    "institutions": [
     "AMAP CV Lab"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -54861,10 +54769,9 @@
     "Kinetix AI",
     "Blog"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -56552,10 +56459,9 @@
     "Inria",
     "NYU"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -58040,10 +57946,9 @@
    "institutions": [
     "Lightricks"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -59852,10 +59757,9 @@
    "institutions": [
     "LightOn"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -60331,10 +60235,9 @@
     "NVIDIA",
     "²NYU"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -60400,10 +60303,9 @@
    "institutions": [
     "NVIDIA"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -61940,10 +61842,9 @@
    "institutions": [
     "Tencent"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -63131,11 +63032,10 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-12"
+     "source": "openalex",
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
@@ -63425,6 +63325,44 @@
    "pdf_url": "https://arxiv.org/pdf/2512.19021"
   },
   {
+   "arxiv_id": "2512.06951",
+   "announced": "2025-12-21",
+   "title": "Task adaptation of Vision-Language-Action model: 1st Place Solution for the 2025 BEHAVIOR Challenge",
+   "authors": [
+    "Ilia Larchenko",
+    "Gleb Zarin",
+    "Akash Karnatak"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "2025 NeurIPS Behavior Challenge 1st place solution",
+   "journal_ref": null,
+   "venue": "NeurIPS 2025",
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "We present a vision-action policy that won 1st place in the 2025 BEHAVIOR Challenge - a large-scale benchmark featuring 50 diverse long-horizon household tasks in photo-realistic simulation, requiring bimanual manipulation, navigation, and context-aware decision making. Building on the Pi0.5 architecture, we introduce several innovations. Our primary contribution is correlated noise for flow matching, which improves training efficiency and enables correlation-aware inpainting for smooth action sequences. We also apply learnable mixed-layer attention and System 2 stage tracking for ambiguity resolution. Training employs multi-sample flow matching to reduce variance, while inference uses action compression and challenge-specific correction rules. Our approach achieves 26% q-score across all 50 tasks on both public and private leaderboards.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-04"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-04"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2512.06951",
+   "pdf_url": "https://arxiv.org/pdf/2512.06951"
+  },
+  {
    "arxiv_id": "2512.18099",
    "announced": "2025-12-19",
    "title": "SAM Audio: Segment Anything in Audio",
@@ -63505,10 +63443,9 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -65312,10 +65249,9 @@
    "institutions": [
     "Apple"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -68751,10 +68687,9 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -69783,10 +69718,9 @@
    "institutions": [
     "NVIDIA"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -70157,10 +70091,9 @@
    "institutions": [
     "Apple"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -73543,10 +73476,9 @@
    "institutions": [
     "Tencent"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -73857,6 +73789,174 @@
    "pdf_url": "https://arxiv.org/pdf/2511.17803"
   },
   {
+   "arxiv_id": "2511.17158",
+   "announced": "2025-11-21",
+   "title": "Exploring the added value of pretherapeutic MR descriptors in predicting breast cancer pathologic complete response to neoadjuvant chemotherapy",
+   "authors": [
+    "Caroline Malhaire",
+    "Fatine Selhane",
+    "Marie-Judith Saint-Martin",
+    "Vincent Cockenpot",
+    "Pia Akl",
+    "Enora Laas",
+    "Audrey Bellesoeur",
+    "Catherine Ala Eddine",
+    "Melodie Bereby-Kahane",
+    "Julie Manceau",
+    "Delphine Sebbag-Sfez",
+    "Jean-Yves Pierga",
+    "Fabien Reyal",
+    "Anne Vincent-Salomon",
+    "Herve Brisse",
+    "Frederique Frouin"
+   ],
+   "primary_subject": "Medical Physics (physics.med-ph)",
+   "subjects": [
+    "Medical Physics (physics.med-ph)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "European Radiology, 2023, 33 (11), pp.8142-8154",
+   "venue": null,
+   "cross_list_from": "physics.med-ph",
+   "html_url": null,
+   "abstract": "Objectives: To evaluate the association between pretreatment MRI descriptors and breast cancer (BC) pathological complete response (pCR) to neoadjuvant chemotherapy (NAC). Materials & Methods: Patients with BC treated by NAC with a breast MRI between 2016 and 2020 were included in this retrospective observational single-center study. MR studies were described using the standardized BI-RADS and breast edema score on T2-weighted MRI. Univariable and multivariable logistic regression analyses were performed to assess variables association with pCR according to residual cancer burden. Random forest classifiers were trained to predict pCR on a random split including 70% of the database and were validated on the remaining cases. Results: Among 129 BC, 59 (46%) achieved pCR after NAC (luminal (n=7/37, 19%), triple negative (TN) (n=30/55, 55%), HER2+ (n=22/37, 59%). Clinical and biological items associated with pCR were BC subtype (p<0.001), T stage 0/I/II (p=0.008), higher Ki67 (p=0.005) and higher tumor-infiltrating lymphocytes levels (p=0.016). Univariate analysis showed that the following MRI features, oval or round shape (p=0.047), unifocality (p=0.026), non-spiculated margins (p=0.018), no associated non-mass enhancement (NME) (p = 0.024) and a lower MRI size (p = 0.031) were significantly associated with pCR. Unifocality and non-spiculated margins remained independently associated with pCR at multivariable analysis. Adding significant MRI features to clinicobiological variables in random forest classifiers significantly increased sensitivity (0.67 versus 0.62), specificity (0.69 versus 0.67) and precision (0.71 versus 0.67) for pCR prediction. Conclusion: Non-spiculated margins and unifocality are independently associated with pCR and can increase models performance to predict BC response to NAC. Clinical Relevance Statement: A multimodal approach integrating pretreatment MRI features with clinicobiological predictors, including TILs, could be employed to develop machine learning models for identifying patients at risk of non-response. This may enable consideration of alternative therapeutic strategies to optimize treatment outcomes",
+   "affiliations": [
+    "Inserm",
+    "Université Paris Sciences et Lettres",
+    "Université Paris-Saclay",
+    "Institut Curie",
+    "Institut Gustave Roussy",
+    "Centre Léon Bérard",
+    "Hospices Civils de Lyon"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     5
+    ],
+    [
+     6
+    ],
+    [
+     3
+    ],
+    null,
+    [
+     1,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    null,
+    [
+     3
+    ],
+    null,
+    [
+     1,
+     3
+    ],
+    [
+     0,
+     3
+    ]
+   ],
+   "institutions": [
+    "Inserm",
+    "Université Paris Sciences et Lettres",
+    "Université Paris-Saclay",
+    "Institut Curie",
+    "Institut Gustave Roussy",
+    "Centre Léon Bérard",
+    "Hospices Civils de Lyon"
+   ],
+   "institution_ids": [
+    "02vjkv261",
+    "013cjyk83",
+    "03xjwb503",
+    "04t0gwh46",
+    "0321g0743",
+    "01cmnjq37",
+    "01502ca60"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-04"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-04"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.17158",
+   "pdf_url": "https://arxiv.org/pdf/2511.17158"
+  },
+  {
+   "arxiv_id": "2511.17052",
+   "announced": "2025-11-21",
+   "title": "PathAgent: Toward Interpretable Analysis of Whole-slide Pathology Images via Large Language Model-based Agentic Reasoning",
+   "authors": [
+    "Jingyun Chen",
+    "Linghan Cai",
+    "Zhikang Wang",
+    "Yi Huang",
+    "Songhan Jiang",
+    "Shenjin Huang",
+    "Hongpeng Wang",
+    "Yongbing Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "11 pages, 6 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Analyzing whole-slide images (WSIs) requires an iterative, evidence-driven reasoning process that parallels how pathologists dynamically zoom, refocus, and self-correct while collecting the evidence. However, existing computational pipelines often lack this explicit reasoning trajectory, resulting in inherently opaque and unjustifiable predictions. To bridge this gap, we present PathAgent, a training-free, large language model (LLM)-based agent framework that emulates the reflective, stepwise analytical approach of human experts. PathAgent can autonomously explore WSI, iteratively and precisely locating significant micro-regions using the Navigator module, extracting morphology visual cues using the Perceptor, and integrating these findings into the continuously evolving natural language trajectories in the Executor. The entire sequence of observations and decisions forms an explicit chain-of-thought, yielding fully interpretable predictions. Evaluated across five challenging datasets, PathAgent exhibits strong zero-shot generalization, surpassing task-specific baselines in both open-ended and constrained visual question-answering tasks. Moreover, a collaborative evaluation with human pathologists confirms PathAgent's promise as a transparent and clinically grounded diagnostic assistant.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-04"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-04"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.17052",
+   "pdf_url": "https://arxiv.org/pdf/2511.17052"
+  },
+  {
    "arxiv_id": "2511.16825",
    "announced": "2025-11-20",
    "title": "WorldGen: From Text to Traversable and Interactive 3D Worlds",
@@ -73981,10 +74081,9 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -75537,139 +75636,6 @@
    },
    "abs_url": "https://arxiv.org/abs/2511.01833",
    "pdf_url": "https://arxiv.org/pdf/2511.01833"
-  },
-  {
-   "arxiv_id": "2511.02832",
-   "announced": "2025-11-04",
-   "title": "TWIST2: Scalable, Portable, and Holistic Humanoid Data Collection System",
-   "authors": [
-    "Yanjie Ze",
-    "Siheng Zhao",
-    "Weizhuo Wang",
-    "Angjoo Kanazawa",
-    "Rocky Duan",
-    "Pieter Abbeel",
-    "Guanya Shi",
-    "Jiajun Wu",
-    "C. Karen Liu"
-   ],
-   "primary_subject": "Robotics (cs.RO)",
-   "subjects": [
-    "Robotics (cs.RO)",
-    "Computer Vision and Pattern Recognition (cs.CV)",
-    "Machine Learning (cs.LG)"
-   ],
-   "comments": "Website: https://yanjieze.com/TWIST2",
-   "journal_ref": null,
-   "venue": null,
-   "cross_list_from": "cs.RO",
-   "html_url": null,
-   "abstract": "Large-scale data has driven breakthroughs in robotics, from language models to vision-language-action models in bimanual manipulation. However, humanoid robotics lacks equally effective data collection frameworks. Existing humanoid teleoperation systems either use decoupled control or depend on expensive motion capture setups. We introduce TWIST2, a portable, mocap-free humanoid teleoperation and data collection system that preserves full whole-body control while advancing scalability. Our system leverages PICO4U VR for obtaining real-time whole-body human motions, with a custom 2-DoF robot neck (cost around $250) for egocentric vision, enabling holistic human-to-humanoid control. We demonstrate long-horizon dexterous and mobile humanoid skills and we can collect 100 demonstrations in 15 minutes with an almost 100% success rate. Building on this pipeline, we propose a hierarchical visuomotor policy framework that autonomously controls the full humanoid body based on egocentric vision. Our visuomotor policy successfully demonstrates whole-body dexterous manipulation and dynamic kicking tasks. The entire system is fully reproducible and open-sourced at https://yanjieze.com/TWIST2 . Our collected dataset is also open-sourced at https://twist-data.github.io .",
-   "affiliations": [
-    "Amazon",
-    "Stanford University"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     1
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Amazon",
-    "Stanford University"
-   ],
-   "institution_ids": [
-    "04mv4n011",
-    "00f54p054"
-   ],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
-    },
-    "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/2511.02832",
-   "pdf_url": "https://arxiv.org/pdf/2511.02832"
-  },
-  {
-   "arxiv_id": "2511.02717",
-   "announced": "2025-11-04",
-   "title": "An unscented Kalman filter method for real time input-parameter-state estimation",
-   "authors": [
-    "Marios Impraimakis",
-    "Andrew W. Smyth"
-   ],
-   "primary_subject": "Signal Processing (eess.SP)",
-   "subjects": [
-    "Signal Processing (eess.SP)",
-    "Artificial Intelligence (cs.AI)",
-    "Computer Vision and Pattern Recognition (cs.CV)",
-    "Systems and Control (eess.SY)",
-    "Audio and Speech Processing (eess.AS)"
-   ],
-   "comments": "author-accepted manuscript (AAM) published in Mechanical Systems and Signal Processing",
-   "journal_ref": "Mechanical Systems and Signal Processing 162 (2022): 108026",
-   "venue": null,
-   "cross_list_from": "eess.SP",
-   "html_url": null,
-   "abstract": "The input-parameter-state estimation capabilities of a novel unscented Kalman filter is examined herein on both linear and nonlinear systems. The unknown input is estimated in two stages within each time step. Firstly, the predicted dynamic states and the system parameters provide an estimation of the input. Secondly, the corrected with measurements states and parameters provide a final estimation. Importantly, it is demonstrated using the perturbation analysis that, a system with at least a zero or a non-zero known input can potentially be uniquely identified. This output-only methodology allows for a better understanding of the system compared to classical output-only parameter identification strategies, given that all the dynamic states, the parameters, and the input are estimated jointly and in real-time.",
-   "affiliations": [
-    "Columbia University"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Columbia University"
-   ],
-   "institution_ids": [
-    "00hj8s172"
-   ],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
-    },
-    "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/2511.02717",
-   "pdf_url": "https://arxiv.org/pdf/2511.02717"
   }
  ]
 }

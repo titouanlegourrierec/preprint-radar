@@ -4,6 +4,214 @@
  "year": 2025,
  "papers": [
   {
+   "arxiv_id": "2511.02832",
+   "announced": "2025-11-04",
+   "title": "TWIST2: Scalable, Portable, and Holistic Humanoid Data Collection System",
+   "authors": [
+    "Yanjie Ze",
+    "Siheng Zhao",
+    "Weizhuo Wang",
+    "Angjoo Kanazawa",
+    "Rocky Duan",
+    "Pieter Abbeel",
+    "Guanya Shi",
+    "Jiajun Wu",
+    "C. Karen Liu"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Website: https://yanjieze.com/TWIST2",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "Large-scale data has driven breakthroughs in robotics, from language models to vision-language-action models in bimanual manipulation. However, humanoid robotics lacks equally effective data collection frameworks. Existing humanoid teleoperation systems either use decoupled control or depend on expensive motion capture setups. We introduce TWIST2, a portable, mocap-free humanoid teleoperation and data collection system that preserves full whole-body control while advancing scalability. Our system leverages PICO4U VR for obtaining real-time whole-body human motions, with a custom 2-DoF robot neck (cost around $250) for egocentric vision, enabling holistic human-to-humanoid control. We demonstrate long-horizon dexterous and mobile humanoid skills and we can collect 100 demonstrations in 15 minutes with an almost 100% success rate. Building on this pipeline, we propose a hierarchical visuomotor policy framework that autonomously controls the full humanoid body based on egocentric vision. Our visuomotor policy successfully demonstrates whole-body dexterous manipulation and dynamic kicking tasks. The entire system is fully reproducible and open-sourced at https://yanjieze.com/TWIST2 . Our collected dataset is also open-sourced at https://twist-data.github.io .",
+   "affiliations": [
+    "Amazon",
+    "Stanford University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Amazon",
+    "Stanford University"
+   ],
+   "institution_ids": [
+    "04mv4n011",
+    "00f54p054"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.02832",
+   "pdf_url": "https://arxiv.org/pdf/2511.02832"
+  },
+  {
+   "arxiv_id": "2511.02717",
+   "announced": "2025-11-04",
+   "title": "An unscented Kalman filter method for real time input-parameter-state estimation",
+   "authors": [
+    "Marios Impraimakis",
+    "Andrew W. Smyth"
+   ],
+   "primary_subject": "Signal Processing (eess.SP)",
+   "subjects": [
+    "Signal Processing (eess.SP)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Systems and Control (eess.SY)",
+    "Audio and Speech Processing (eess.AS)"
+   ],
+   "comments": "author-accepted manuscript (AAM) published in Mechanical Systems and Signal Processing",
+   "journal_ref": "Mechanical Systems and Signal Processing 162 (2022): 108026",
+   "venue": null,
+   "cross_list_from": "eess.SP",
+   "html_url": null,
+   "abstract": "The input-parameter-state estimation capabilities of a novel unscented Kalman filter is examined herein on both linear and nonlinear systems. The unknown input is estimated in two stages within each time step. Firstly, the predicted dynamic states and the system parameters provide an estimation of the input. Secondly, the corrected with measurements states and parameters provide a final estimation. Importantly, it is demonstrated using the perturbation analysis that, a system with at least a zero or a non-zero known input can potentially be uniquely identified. This output-only methodology allows for a better understanding of the system compared to classical output-only parameter identification strategies, given that all the dynamic states, the parameters, and the input are estimated jointly and in real-time.",
+   "affiliations": [
+    "Columbia University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Columbia University"
+   ],
+   "institution_ids": [
+    "00hj8s172"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.02717",
+   "pdf_url": "https://arxiv.org/pdf/2511.02717"
+  },
+  {
+   "arxiv_id": "2511.01243",
+   "announced": "2025-11-03",
+   "title": "CenterMamba-SAM: Center-Prioritized Scanning and Temporal Prototypes for Brain Lesion Segmentation",
+   "authors": [
+    "Yu Tian",
+    "Zhongheng Yang",
+    "Chenshi Liu",
+    "Yiyun Su",
+    "Ziwei Hong",
+    "Zexi Gong",
+    "Jingyuan Xu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Brain lesion segmentation remains challenging due to small, low-contrast lesions, anisotropic sampling, and cross-slice discontinuities. We propose CenterMamba-SAM, an end-to-end framework that freezes a pretrained backbone and trains only lightweight adapters for efficient fine-tuning. At its core is the CenterMamba encoder, which employs a novel 3x3 corner-axis-center short-sequence scanning strategy to enable center-prioritized, axis-reinforced, and diagonally compensated information aggregation. This design enhances sensitivity to weak boundaries and tiny foci while maintaining sparse yet effective feature representation. A memory-driven structural prompt generator maintains a prototype bank across neighboring slices, enabling automatic synthesis of reliable prompts without user interaction, thereby improving inter-slice coherence. The memory-augmented multi-scale decoder integrates memory attention modules at multiple levels, combining deep supervision with progressive refinement to restore fine details while preserving global consistency. Extensive experiments on public benchmarks demonstrate that CenterMamba-SAM achieves state-of-the-art performance in brain lesion segmentation.",
+   "affiliations": [
+    "Northeastern University",
+    "Rutgers, The State University of New Jersey",
+    "Lehigh University",
+    "University of the Cumberlands"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ]
+   ],
+   "institutions": [
+    "Northeastern University",
+    "Rutgers, The State University of New Jersey",
+    "Lehigh University",
+    "University of the Cumberlands"
+   ],
+   "institution_ids": [
+    "04t5xt781",
+    "05vt9qd57",
+    "012afjb06",
+    "05jz3sn81"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-04"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-04"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.01243",
+   "pdf_url": "https://arxiv.org/pdf/2511.01243"
+  },
+  {
    "arxiv_id": "2511.23429",
    "announced": "2025-11-01",
    "title": "Hunyuan-GameCraft-2: Instruction-following Interactive Game World Model",
@@ -37,10 +245,9 @@
    "institutions": [
     "Tencent"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -1500,10 +1707,9 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -1697,10 +1903,9 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -4664,10 +4869,9 @@
    "institutions": [
     "BAAI"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -6632,10 +6836,9 @@
    "institutions": [
     "Apple"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -8863,10 +9066,9 @@
    "institutions": [
     "International Digital Economy Academy (IDEA)"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -12899,10 +13101,9 @@
     "Drago Anguelov",
     "Waymo LLC"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -25390,10 +25591,9 @@
    "institutions": [
     "Alibaba Group"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -29497,10 +29697,9 @@
    "institutions": [
     "Bosch (China) Investment Ltd"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -30315,10 +30514,9 @@
     "Purdue University",
     "Samsung"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -32320,10 +32518,9 @@
    "institutions": [
     "CreateAI"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -32353,7 +32550,7 @@
     "Artificial Intelligence (cs.AI)",
     "Robotics (cs.RO)"
    ],
-   "comments": "Accepted to ICML 2026",
+   "comments": "Accepted to ICML 2026. Code: https://github.com/alexwhz-sjtu/SpecPrune-VLA",
    "journal_ref": null,
    "venue": "ICML 2026",
    "cross_list_from": null,
@@ -33419,10 +33616,9 @@
    "institutions": [
     "Galaxea Team"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -33810,10 +34006,9 @@
    "institutions": [
     "Apple"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -34701,10 +34896,9 @@
    "institutions": [
     "Alibaba Group"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -37639,11 +37833,10 @@
     "WRI",
     "Inria"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-11-02"
+     "source": "openalex",
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
@@ -38027,10 +38220,9 @@
    "institutions": [
     "NVIDIA"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -43156,10 +43348,9 @@
    "institutions": [
     "AgiBot Genie Team"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -43676,10 +43867,9 @@
    "institutions": [
     "Tencent"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -44469,10 +44659,9 @@
    "institutions": [
     "Microsoft"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -45322,10 +45511,9 @@
    "institutions": [
     "Tencent"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -45720,10 +45908,9 @@
     "Tencent",
     "Tencent"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -50505,10 +50692,9 @@
    "institutions": [
     "Typeface"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -51653,10 +51839,9 @@
    "institutions": [
     "CUHK MMLab & ARISE Lab"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -55311,10 +55496,9 @@
    "institutions": [
     "UNC Chapel Hill"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -55820,7 +56004,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
    "comments": "Fix references",
-   "journal_ref": null,
+   "journal_ref": "Nat. Med. 32, 3695-3704 (2026)",
    "venue": null,
    "cross_list_from": "cs.AI",
    "html_url": "https://arxiv.org/html/2507.05201v1",
@@ -58521,10 +58705,9 @@
    "institutions": [
     "Maitrix.org"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -61225,10 +61408,9 @@
    "institutions": [
     "NVIDIA"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -63155,10 +63337,9 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -63275,10 +63456,9 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -63934,10 +64114,9 @@
    "institutions": [
     "Apple"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -76885,10 +77064,9 @@
    "institutions": [
     "Huawei"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -79108,10 +79286,9 @@
    "institutions": [
     "AI Research"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -79178,10 +79355,9 @@
    "institutions": [
     "Apple"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -80543,10 +80719,9 @@
    "institutions": [
     "Microsoft"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -81560,10 +81735,9 @@
    "institutions": [
     "StepFun & LightIllusions"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -83553,10 +83727,9 @@
     "NVIDIA",
     "Purdue University"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -90575,10 +90748,9 @@
    "institutions": [
     "Huawei"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -92606,10 +92778,9 @@
    "institutions": [
     "Purdue University"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -93182,10 +93353,9 @@
    "institutions": [
     "Apple"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -98389,10 +98559,9 @@
    "institutions": [
     "Skywork AI"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -98660,10 +98829,9 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -98976,10 +99144,9 @@
    "institutions": [
     "Sixiang Chen Guoxi Huang"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -102714,10 +102881,9 @@
    "institutions": [
     "Microsoft"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -104492,10 +104658,9 @@
    "institutions": [
     "See"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -107415,10 +107580,9 @@
    "institutions": [
     "StepFun"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -108882,10 +109046,9 @@
    "institutions": [
     "POSTECH"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -112643,10 +112806,9 @@
    "institutions": [
     "Simular Research"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -115895,10 +116057,9 @@
    "institutions": [
     "Apple"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -128378,10 +128539,9 @@
    "institutions": [
     "Nexar Inc"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -138579,10 +138739,9 @@
    "institutions": [
     "Jasper Research"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -143526,10 +143685,9 @@
    "institutions": [
     "StepFun"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -144749,10 +144907,9 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -145826,10 +145983,9 @@
     "Univ Gustave Eiffel",
     "EHESS"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -151467,10 +151623,9 @@
    "institutions": [
     "NVIDIA"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -161538,10 +161693,9 @@
    "institutions": [
     "Turing Inc"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -162329,10 +162483,9 @@
    "institutions": [
     "Tongyi Lab"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -165367,7 +165520,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-01"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "openalex"
@@ -169842,10 +169995,9 @@
    "institutions": [
     "Huawei"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {

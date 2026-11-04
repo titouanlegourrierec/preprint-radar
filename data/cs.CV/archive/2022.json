@@ -3797,17 +3797,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2212.00490",
    "abstract": "Most existing Image Restoration (IR) models are task-specific, which can not be generalized to different degradation operators. In this work, we propose the Denoising Diffusion Null-Space Model (DDNM), a novel zero-shot framework for arbitrary linear IR problems, including but not limited to image super-resolution, colorization, inpainting, compressed sensing, and deblurring. DDNM only needs a pre-trained off-the-shelf diffusion model as the generative prior, without any extra training or network modifications. By refining only the null-space contents during the reverse diffusion process, we can yield diverse results satisfying both data consistency and realness. We further propose an enhanced and robust version, dubbed DDNM+, to support noisy restoration and improve restoration quality for hard tasks. Our experiments on several IR tasks reveal that DDNM outperforms other state-of-the-art zero-shot IR methods. We also demonstrate that DDNM+ can solve complex real-world applications, e.g., old photo restoration.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Peking University Shenzhen Graduate School, Peng Cheng Laboratory"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Peking University"
+   ],
+   "institution_ids": [
+    "02v51f717"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2212.00490",
@@ -14657,10 +14677,9 @@
    "institutions": [
     "PhiGent Robotics"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -15981,10 +16000,9 @@
    "institutions": [
     "Xiaobing.AI"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -17641,10 +17659,9 @@
    "institutions": [
     "Red Dragon AI"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -20814,10 +20831,9 @@
    "institutions": [
     "Huawei"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -22173,10 +22189,9 @@
    "institutions": [
     "VinAI Research"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -27174,17 +27189,46 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2211.11018",
    "abstract": "We present an efficient text-to-video generation framework based on latent diffusion models, termed MagicVideo. MagicVideo can generate smooth video clips that are concordant with the given text descriptions. Due to a novel and efficient 3D U-Net design and modeling video distributions in a low-dimensional space, MagicVideo can synthesize video clips with 256x256 spatial resolution on a single GPU card, which takes around 64x fewer computations than the Video Diffusion Models (VDM) in terms of FLOPs. In specific, unlike existing works that directly train video models in the RGB space, we use a pre-trained VAE to map video clips into a low-dimensional latent space and learn the distribution of videos' latent codes via a diffusion model. Besides, we introduce two new designs to adapt the U-Net denoiser trained on image tasks to video data: a frame-wise lightweight adaptor for the image-to-video distribution adjustment and a directed temporal attention module to capture temporal dependencies across frames. Thus, we can exploit the informative weights of convolution operators from a text-to-image model for accelerating video training. To ameliorate the pixel dithering in the generated videos, we also propose a novel VideoVAE auto-encoder for better RGB reconstruction. We conduct extensive experiments and demonstrate that MagicVideo can generate high-quality video clips with either realistic or imaginary content. Refer to https://magicvideo.github.io/# for more examples.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "ByteDance Inc"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "ByteDance"
+   ],
+   "institution_ids": [
+    "04m8av638"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2211.11018",
@@ -30424,10 +30468,9 @@
    "institutions": [
     "Shopee"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -31877,10 +31920,9 @@
    "institutions": [
     "NVIDIA"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -35308,10 +35350,9 @@
    "institutions": [
     "Microsoft"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -35568,11 +35609,10 @@
    "institutions": [
     "LAION"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-11-02"
+     "source": "openalex",
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
@@ -35759,10 +35799,9 @@
    "institutions": [
     "Waymo LLC"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -36212,10 +36251,9 @@
    "institutions": [
     "Waymo LLC"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -37894,10 +37932,9 @@
    "institutions": [
     "Eyecan.ai"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -43370,10 +43407,9 @@
    "institutions": [
     "FAIR Labs"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -46317,17 +46353,40 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2209.14988",
    "abstract": "Recent breakthroughs in text-to-image synthesis have been driven by diffusion models trained on billions of image-text pairs. Adapting this approach to 3D synthesis would require large-scale datasets of labeled 3D data and efficient architectures for denoising 3D data, neither of which currently exist. In this work, we circumvent these limitations by using a pretrained 2D text-to-image diffusion model to perform text-to-3D synthesis. We introduce a loss based on probability density distillation that enables the use of a 2D diffusion model as a prior for optimization of a parametric image generator. Using this loss in a DeepDream-like procedure, we optimize a randomly-initialized 3D model (a Neural Radiance Field, or NeRF) via gradient descent such that its 2D renderings from random angles achieve a low loss. The resulting 3D model of the given text can be viewed from any angle, relit by arbitrary illumination, or composited into any 3D environment. Our approach requires no 3D training data and no modifications to the image diffusion model, demonstrating the effectiveness of pretrained image diffusion models as priors.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Google Research, UC Berkeley"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "01an7q238"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2209.14988",
@@ -52074,17 +52133,44 @@
    "journal_ref": "The Eleventh International Conference on Learning Representations (ICLR) 2023",
    "venue": "ICLR 2023",
    "cross_list_from": "stat.ML",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2209.14687",
    "abstract": "Diffusion models have been recently studied as powerful generative inverse problem solvers, owing to their high quality reconstructions and the ease of combining existing iterative solvers. However, most works focus on solving simple linear inverse problems in noiseless settings, which significantly under-represents the complexity of real-world problems. In this work, we extend diffusion solvers to efficiently handle general noisy (non)linear inverse problems via approximation of the posterior sampling. Interestingly, the resulting posterior sampling scheme is a blended version of diffusion sampling with the manifold constrained gradient without a strict measurement consistency projection step, yielding a more desirable generative path in noisy settings compared to the previous studies. Our method demonstrates that diffusion models can incorporate various measurement noise statistics such as Gaussian and Poisson, and also efficiently handle noisy nonlinear inverse problems such as Fourier phase retrieval and non-uniform deblurring. Code available at https://github.com/DPS2022/diffusion-posterior-sampling",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "KAIST, Los Alamos National Laboratory",
+    "Los Alamos National Laboratory"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Los Alamos National Laboratory",
+    "Los Alamos National Laboratory"
+   ],
+   "institution_ids": [
+    "01e41cf67",
+    "01e41cf67"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2209.14687",
@@ -54306,17 +54392,55 @@
    "journal_ref": null,
    "venue": "NeurIPS 2022",
    "cross_list_from": "cs.CL",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2209.09513",
    "abstract": "When answering a question, humans utilize the information available across different modalities to synthesize a consistent and complete chain of thought (CoT). This process is normally a black box in the case of deep learning models like large-scale language models. Recently, science question benchmarks have been used to diagnose the multi-hop reasoning ability and interpretability of an AI system. However, existing datasets fail to provide annotations for the answers, or are restricted to the textual-only modality, small scales, and limited domain diversity. To this end, we present Science Question Answering (ScienceQA), a new benchmark that consists of ~21k multimodal multiple choice questions with a diverse set of science topics and annotations of their answers with corresponding lectures and explanations. We further design language models to learn to generate lectures and explanations as the chain of thought (CoT) to mimic the multi-hop reasoning process when answering ScienceQA questions. ScienceQA demonstrates the utility of CoT in language models, as CoT improves the question answering performance by 1.20% in few-shot GPT-3 and 3.99% in fine-tuned UnifiedQA. We also explore the upper bound for models to leverage explanations by feeding those in the input; we observe that it improves the few-shot performance of GPT-3 by 18.96%. Our analysis further shows that language models, similar to humans, benefit from explanations to learn from fewer data and achieve the same performance with just 40% of the data. The data and code are available at https://scienceqa.github.io.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of California, Los Angeles, Arizona State University, Allen Institute for AI"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Los Angeles"
+   ],
+   "institution_ids": [
+    "046rm7j60"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2209.09513",
@@ -56339,10 +56463,9 @@
     "Microsoft",
     "Microsoft"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -59481,10 +59604,9 @@
    "institutions": [
     "AWS AI Labs"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -60865,10 +60987,9 @@
     "Tel-Aviv University",
     "NVIDIA"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -61756,10 +61877,9 @@
    "institutions": [
     "Samsung"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -64873,10 +64993,9 @@
    "institutions": [
     "AWS AI Labs"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -65309,10 +65428,9 @@
    "institutions": [
     "Huawei"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -66595,10 +66713,9 @@
    "institutions": [
     "Apple"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -82931,10 +83048,9 @@
    "institutions": [
     "JD Explore Academy"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -85359,10 +85475,9 @@
    "institutions": [
     "Sony"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -88272,10 +88387,9 @@
    "institutions": [
     "NVIDIA"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -89298,10 +89412,9 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -89447,10 +89560,9 @@
     "CCS Graduate School of Mobility",
     "Robotics ProgramKAIST"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -91880,10 +91992,9 @@
     "Microsoft",
     "Microsoft"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -91931,10 +92042,9 @@
    "institutions": [
     "NVIDIA"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -92660,10 +92770,9 @@
    "institutions": [
     "PathAI Inc"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -95643,10 +95752,9 @@
    "institutions": [
     "Paper ID ****"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -96974,11 +97082,10 @@
    "institutions": [
     "Google"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-11-02"
+     "source": "openalex",
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
@@ -103310,10 +103417,9 @@
    "institutions": [
     "Microsoft"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -104617,10 +104723,9 @@
     "Meta",
     "Meta"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -106175,10 +106280,9 @@
     "Sony",
     "Sony"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -115111,10 +115215,9 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -123250,10 +123353,9 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -123412,10 +123514,9 @@
    "institutions": [
     "Microsoft"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -124016,10 +124117,9 @@
    "institutions": [
     "UNC Chapel Hill"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -124455,10 +124555,9 @@
     null,
     "Google"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -131489,10 +131588,9 @@
    "institutions": [
     "Meta"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -141636,10 +141734,9 @@
    "institutions": [
     "PhiGent Robotics"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -155049,10 +155146,9 @@
     "Meta",
     "Inria"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {
@@ -169498,10 +169594,9 @@
     "ÉTS Montreal",
     "FiveAI"
    ],
-   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "html",
+     "source": "openalex",
      "at": "2026-11-04"
     },
     "institutions": {

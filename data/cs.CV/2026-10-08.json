@@ -9501,9 +9501,9 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Human-Computer Interaction (cs.HC)"
    ],
-   "comments": "8 pages, 1 figure, 1 table. Demo paper submitted to the MMM 2027 Demo Track",
+   "comments": "8 pages, 1 figure, 1 table. Accepted at the demonstration track at MMM 2027",
    "journal_ref": null,
-   "venue": null,
+   "venue": "MMM 2027",
    "cross_list_from": "cs.MM",
    "html_url": "https://arxiv.org/html/2610.10448v1",
    "abstract": "MemoCare is an interactive mobile system for automated multimodal cognitive screening. A React Native application combines spoken responses, temporal and spatial orientation, touchscreen actions, and visuoconstruction in complete English and Vietnamese workflows. Speech is transcribed by Google Speech-to-Text and scored locally with deterministic task-specific natural language processing rules; GPS coordinates are resolved by the MemoCare spatial module before answer matching; touch tasks are scored from interaction events; and the drawing task uses a three-model convolutional neural network consensus with separate visual interpretation. Software tests pass 151/151 predefined cases across speech/language, spatial-answer, and touch-interaction scoring, while spatial regression passes 48/48 four-country coordinate-resolution cases. For the drawing module, validation-selected ShuffleNetV2 x1.5 achieved 91.33% mean balanced accuracy and 78.87% exact three-criterion accuracy on a locked 71-image test set. Four clinician co-authors additionally inspected the end-to-end workflow, yielding a pooled median rating of 4/5 across eight criteria, with item-level medians ranging from 3 to 4.5. At MMM, attendees can directly try a shortened multimodal screening workflow and inspect automatic item-level and total scoring.",
