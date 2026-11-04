@@ -7935,17 +7935,49 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1711.08200",
    "abstract": "The work in this paper is driven by the question how to exploit the temporal cues available in videos for their accurate classification, and for human action recognition in particular? Thus far, the vision community has focused on spatio-temporal approaches with fixed temporal convolution kernel depths. We introduce a new temporal layer that models variable temporal convolution kernel depths. We embed this new temporal layer in our proposed 3D CNN. We extend the DenseNet architecture - which normally is 2D - with 3D filters and pooling kernels. We name our proposed video convolutional network `Temporal 3D ConvNet'~(T3D) and its new temporal layer `Temporal Transition Layer'~(TTL). Our experiments show that T3D outperforms the current state-of-the-art methods on the HMDB51, UCF101 and Kinetics datasets. The other issue in training 3D ConvNets is about training them from scratch with a huge labeled dataset to get a reasonable performance. So the knowledge learned in 2D ConvNets is completely ignored. Another contribution in this work is a simple and effective technique to transfer knowledge from a pre-trained 2D CNN to a randomly initialized 3D CNN for a stable weight initialization. This allows us to significantly reduce the number of training samples for 3D CNNs. Thus, by finetuning this network, we beat the performance of generic and recent methods in 3D CNNs, which were trained on large video datasets, e.g. Sports-1M, and finetuned on the target datasets, e.g. HMDB51/UCF101. The T3D codes will be released",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "ESAT-PSI, KU Leuven, University of Bonn, CV:HCI, KIT, Karlsruhe, Sensifai"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Bonn"
+   ],
+   "institution_ids": [
+    "041nas322"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.08200",
@@ -15695,19 +15727,46 @@
    "journal_ref": null,
    "venue": "NeurIPS 2017",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1711.03678",
    "abstract": "Intrinsic decomposition from a single image is a highly challenging task, due to its inherent ambiguity and the scarcity of training data. In contrast to traditional fully supervised learning approaches, in this paper we propose learning intrinsic image decomposition by explaining the input image. Our model, the Rendered Intrinsics Network (RIN), joins together an image decomposition pipeline, which predicts reflectance, shape, and lighting conditions given a single image, with a recombination function, a learned shading model used to recompose the original input based off of intrinsic image predictions. Our network can then use unsupervised reconstruction error as an additional signal to improve its intermediate representations. This allows large-scale unlabeled data to be useful during training, and also enables transferring learned knowledge to images of unseen object categories, lighting conditions, and shapes. Extensive experiments demonstrate that our method performs well on both intrinsic image decomposition and knowledge transfer.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "MIT",
+    "DeepMind"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Massachusetts Institute of Technology",
+    "Google DeepMind"
+   ],
+   "institution_ids": [
+    "042nb2s44",
+    "00971b260"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.03678",

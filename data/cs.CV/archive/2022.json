@@ -33182,19 +33182,43 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.CR",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2210.15127",
    "abstract": "Deep Neural Networks are vulnerable to Trojan (or backdoor) attacks. Reverse-engineering methods can reconstruct the trigger and thus identify affected models. Existing reverse-engineering methods only consider input space constraints, e.g., trigger size in the input space. Expressly, they assume the triggers are static patterns in the input space and fail to detect models with feature space triggers such as image style transformations. We observe that both input-space and feature-space Trojans are associated with feature space hyperplanes. Based on this observation, we design a novel reverse-engineering method that exploits the feature space constraint to reverse-engineer Trojan triggers. Results on four datasets and seven different attacks demonstrate that our solution effectively defends both input-space and feature-space Trojans. It outperforms state-of-the-art reverse-engineering methods and other types of defenses in both Trojaned model detection and mitigation tasks. On average, the detection accuracy of our method is 93%. For Trojan mitigation, our method can reduce the ASR (attack success rate) to only 0.26% with the BA (benign accuracy) remaining nearly unchanged. Our code can be found at https://github.com/RU-System-Software-and-Security/FeatureRE.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Rutgers University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Rutgers, The State University of New Jersey"
+   ],
+   "institution_ids": [
+    "05vt9qd57"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2210.15127",
@@ -65606,19 +65630,57 @@
    "journal_ref": null,
    "venue": "ECCV 2022",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2208.00368",
    "abstract": "Graph convolutional network based methods that model the body-joints' relations, have recently shown great promise in 3D skeleton-based human motion prediction. However, these methods have two critical issues: first, deep graph convolutions filter features within only limited graph spectrums, losing sufficient information in the full band; second, using a single graph to model the whole body underestimates the diverse patterns on various body-parts. To address the first issue, we propose adaptive graph scattering, which leverages multiple trainable band-pass graph filters to decompose pose features into richer graph spectrum bands. To address the second issue, body-parts are modeled separately to learn diverse dynamics, which enables finer feature extraction along the spatial dimensions. Integrating the above two designs, we propose a novel skeleton-parted graph scattering network (SPGSN). The cores of the model are cascaded multi-part graph scattering blocks (MPGSBs), building adaptive graph scattering on diverse body-parts, as well as fusing the decomposed features based on the inferred spectrum importance and body-part interactions. Extensive experiments have shown that SPGSN outperforms state-of-the-art methods by remarkable margins of 13.8%, 9.3% and 2.7% in terms of 3D mean per joint position error (MPJPE) on Human3.6M, CMU Mocap and 3DPW datasets, respectively.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Cooperative Medianet Innovation Center, Shanghai Jiao Tong University",
+    "Shanghai AI laboratory",
+    "Zhejiang University",
+    "Huawei Cloud & AI"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     3
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "Shanghai Artificial Intelligence Laboratory",
+    "Zhejiang University",
+    "Huawei"
+   ],
+   "institution_ids": [
+    "0220qvk04",
+    "03wkvpx79",
+    "00a2xv884",
+    null
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2208.00368",
@@ -69686,19 +69748,46 @@
    "journal_ref": null,
    "venue": "ECCV 2022",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2207.10213",
    "abstract": "We introduce the task of spotting temporally precise, fine-grained events in video (detecting the precise moment in time events occur). Precise spotting requires models to reason globally about the full-time scale of actions and locally to identify subtle frame-to-frame appearance and motion differences that identify events during these actions. Surprisingly, we find that top performing solutions to prior video understanding tasks such as action detection and segmentation do not simultaneously meet both requirements. In response, we propose E2E-Spot, a compact, end-to-end model that performs well on the precise spotting task and can be trained quickly on a single GPU. We demonstrate that E2E-Spot significantly outperforms recent baselines adapted from the video action detection, segmentation, and spotting literature to the precise spotting task. Finally, we contribute new annotations and splits to several fine-grained sports action datasets to make these datasets suitable for future work on precise spotting.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Stanford University",
+    "Adobe Research"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Stanford University",
+    "Adobe"
+   ],
+   "institution_ids": [
+    "00f54p054",
+    "059tvcg64"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2207.10213",
@@ -72212,19 +72301,38 @@
    "journal_ref": null,
    "venue": "ECCV 2022",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2207.06985",
    "abstract": "We present ObjectBox, a novel single-stage anchor-free and highly generalizable object detection approach. As opposed to both existing anchor-based and anchor-free detectors, which are more biased toward specific object scales in their label assignments, we use only object center locations as positive samples and treat all objects equally in different feature levels regardless of the objects' sizes or shapes. Specifically, our label assignment strategy considers the object center locations as shape- and size-agnostic anchors in an anchor-free fashion, and allows learning to occur at all scales for every object. To support this, we define new regression targets as the distances from two corners of the center cell location to the four sides of the bounding box. Moreover, to handle scale-variant objects, we propose a tailored IoU loss to deal with boxes with different sizes. As a result, our proposed object detector does not need any dataset-dependent hyperparameters to be tuned across datasets. We evaluate our method on MS-COCO 2017 and PASCAL VOC 2012 datasets, and compare our results to state-of-the-art methods. We observe that ObjectBox performs favorably in comparison to prior works. Furthermore, we perform rigorous ablation experiments to evaluate different components of our method. Our code is available at: https://github.com/MohsenZand/ObjectBox.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Dept. of Electrical and Computer Engineering, Ingenuity Labs Research Institute",
+    "Queen’s University, Kingston, Ontario, Canada"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "Ingenuity Labs Research Institute",
+    "Queen's University"
+   ],
+   "institution_ids": [
+    null,
+    "02y72wh86"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2207.06985",

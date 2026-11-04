@@ -29365,17 +29365,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2311.17907",
    "abstract": "With the onset of diffusion-based generative models and their ability to generate text-conditioned images, content generation has received a massive invigoration. Recently, these models have been shown to provide useful guidance for the generation of 3D graphics assets. However, existing work in text-conditioned 3D generation faces fundamental constraints: (i) inability to generate detailed, multi-object scenes, (ii) inability to textually control multi-object configurations, and (iii) physically realistic scene composition. In this work, we propose CG3D, a method for compositionally generating scalable 3D assets that resolves these constraints. We find that explicit Gaussian radiance fields, parameterized to allow for compositions of objects, possess the capability to enable semantically and physically consistent scenes. By utilizing a guidance framework built around this explicit representation, we show state of the art results, capable of even exceeding the guiding diffusion model in terms of object combinations and physics accuracy.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of California, Los Angeles"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Los Angeles"
+   ],
+   "institution_ids": [
+    "046rm7j60"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2311.17907",
@@ -30879,17 +30899,61 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2311.16424",
    "abstract": "Despite the recent advancements, conditional image generation still faces challenges of cost, generalizability, and the need for task-specific training. In this paper, we propose Manifold Preserving Guided Diffusion (MPGD), a training-free conditional generation framework that leverages pretrained diffusion models and off-the-shelf neural networks with minimal additional inference cost for a broad range of tasks. Specifically, we leverage the manifold hypothesis to refine the guided diffusion steps and introduce a shortcut algorithm in the process. We then propose two methods for on-manifold training-free guidance using pre-trained autoencoders and demonstrate that our shortcut inherently preserves the manifolds when applied to latent diffusion models. Our experiments show that MPGD is efficient and effective for solving a variety of conditional generation applications in low-compute settings, and can consistently offer up to 3.8x speed-ups with the same number of diffusion steps while maintaining high sample quality compared to the baselines.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Carnegie Mellon University, Sony AI, Sony Group Corporation, Stanford University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Stanford University"
+   ],
+   "institution_ids": [
+    "00f54p054"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2311.16424",
@@ -31804,17 +31868,46 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2311.16038",
    "abstract": "Understanding how the 3D scene evolves is vital for making decisions in autonomous driving. Most existing methods achieve this by predicting the movements of object boxes, which cannot capture more fine-grained scene information. In this paper, we explore a new framework of learning a world model, OccWorld, in the 3D Occupancy space to simultaneously predict the movement of the ego car and the evolution of the surrounding scenes. We propose to learn a world model based on 3D occupancy rather than 3D bounding boxes and segmentation maps for three reasons: 1) expressiveness. 3D occupancy can describe the more fine-grained 3D structure of the scene; 2) efficiency. 3D occupancy is more economical to obtain (e.g., from sparse LiDAR points). 3) versatility. 3D occupancy can adapt to both vision and LiDAR. To facilitate the modeling of the world evolution, we learn a reconstruction-based scene tokenizer on the 3D occupancy to obtain discrete scene tokens to describe the surrounding scenes. We then adopt a GPT-like spatial-temporal generative transformer to generate subsequent scene and ego tokens to decode the future occupancy and ego trajectory. Extensive experiments on the widely used nuScenes benchmark demonstrate the ability of OccWorld to effectively model the evolution of the driving scenes. OccWorld also produces competitive planning results without using instance and map supervision. Code: https://github.com/wzzheng/OccWorld.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Department of Automation, Tsinghua University, ChinaDepartment of Electronic Engineering, Tsinghua University, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "03cve4549"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2311.16038",
@@ -36598,17 +36691,49 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2311.03287",
    "abstract": "While GPT-4V(ision) impressively models both visual and textual information simultaneously, it's hallucination behavior has not been systematically assessed. To bridge this gap, we introduce a new benchmark, namely, the Bias and Interference Challenges in Visual Language Models (Bingo). This benchmark is designed to evaluate and shed light on the two common types of hallucinations in visual language models: bias and interference. Here, bias refers to the model's tendency to hallucinate certain types of responses, possibly due to imbalance in its training data. Interference pertains to scenarios where the judgment of GPT-4V(ision) can be disrupted due to how the text prompt is phrased or how the input image is presented. We identify a notable regional bias, whereby GPT-4V(ision) is better at interpreting Western images or images with English writing compared to images from other countries or containing text in other languages. Moreover, GPT-4V(ision) is vulnerable to leading questions and is often confused when interpreting multiple images together. Popular mitigation approaches, such as self-correction and chain-of-thought reasoning, are not effective in resolving these challenges. We also identified similar biases and interference vulnerabilities with LLaVA and Bard. Our results characterize the hallucination challenges in GPT-4V(ision) and state-of-the-art visual-language models, and highlight the need for new solutions. The Bingo benchmark is available at https://github.com/gzcch/Bingo.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "UNC-Chapel Hill, Carnegie Mellon University, Stanford University, Rutgers University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Rutgers, The State University of New Jersey"
+   ],
+   "institution_ids": [
+    "05vt9qd57"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2311.03287",
@@ -60039,17 +60164,43 @@
    "journal_ref": "The Twelfth International Conference on Learning Representations (ICLR 2024)",
    "venue": "ICLR 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2310.17347",
    "abstract": "While conditional diffusion models are known to have good coverage of the data distribution, they still face limitations in output diversity, particularly when sampled with a high classifier-free guidance scale for optimal image quality or when trained on small datasets. We attribute this problem to the role of the conditioning signal in inference and offer an improved sampling strategy for diffusion models that can increase generation diversity, especially at high guidance scales, with minimal loss of sample quality. Our sampling strategy anneals the conditioning signal by adding scheduled, monotonically decreasing Gaussian noise to the conditioning vector during inference to balance diversity and condition alignment. Our Condition-Annealed Diffusion Sampler (CADS) can be used with any pretrained model and sampling algorithm, and we show that it boosts the diversity of diffusion models in various conditional generation tasks. Further, using an existing pretrained diffusion model, CADS achieves a new state-of-the-art FID of 1.70 and 2.31 for class-conditional ImageNet generation at 256×256 and 512×512 respectively.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "ETH Zürich, DisneyResearch|Studios"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "ETH Zurich"
+   ],
+   "institution_ids": [
+    "05a28rw58"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2310.17347",
@@ -125447,19 +125598,61 @@
    "journal_ref": null,
    "venue": "NeurIPS 2023",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2306.15668",
    "abstract": "General physical scene understanding requires more than simply localizing and recognizing objects -- it requires knowledge that objects can have different latent properties (e.g., mass or elasticity), and that those properties affect the outcome of physical events. While there has been great progress in physical and video prediction models in recent years, benchmarks to test their performance typically do not require an understanding that objects have individual physical properties, or at best test only those properties that are directly observable (e.g., size or color). This work proposes a novel dataset and benchmark, termed Physion++, that rigorously evaluates visual physical prediction in artificial systems under circumstances where those predictions rely on accurate estimates of the latent physical properties of objects in the scene. Specifically, we test scenarios where accurate prediction relies on estimates of properties such as mass, friction, elasticity, and deformability, and where the values of those properties can only be inferred by observing how objects move and interact with other objects or fluids. We evaluate the performance of a number of state-of-the-art prediction models that span a variety of levels of learning vs. built-in knowledge, and compare that performance to a set of human predictions. We find that models that have been trained using standard regimes and datasets do not spontaneously learn to make inferences about latent properties, but also that models that encode objectness and physical states tend to make better predictions. However, there is still a huge gap between all models and human performance, and all models' predictions correlate poorly with those made by humans, suggesting that no state-of-the-art model is learning to make physical predictions in a human-like way. Project page: https://dingmyu.github.io/physion_v2/",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "MIT",
+    "UC Berkeley",
+    "MIT-IBM Watson AI Lab",
+    "Stanford",
+    "UMass Amherst"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    null,
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "Massachusetts Institute of Technology",
+    "University of California, Berkeley",
+    "MIT-IBM Watson AI Lab",
+    "Stanford University",
+    "University of Massachusetts Amherst"
+   ],
+   "institution_ids": [
+    "042nb2s44",
+    "01an7q238",
+    null,
+    "00f54p054",
+    "0072zz521"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2306.15668",
@@ -144349,19 +144542,58 @@
    "journal_ref": null,
    "venue": "IJCAI 2023",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2305.00666",
    "abstract": "In recent years, remarkable results have been achieved in self-supervised action recognition using skeleton sequences with contrastive learning. It has been observed that the semantic distinction of human action features is often represented by local body parts, such as legs or hands, which are advantageous for skeleton-based action recognition. This paper proposes an attention-based contrastive learning framework for skeleton representation learning, called SkeAttnCLR, which integrates local similarity and global features for skeleton-based action representations. To achieve this, a multi-head attention mask module is employed to learn the soft attention mask features from the skeletons, suppressing non-salient local features while accentuating local salient features, thereby bringing similar local features closer in the feature space. Additionally, ample contrastive pairs are generated by expanding contrastive pairs based on salient and non-salient features with global features, which guide the network to learn the semantic representations of the entire skeleton. Therefore, with the attention mask mechanism, SkeAttnCLR learns local features under different data augmentation views. The experiment results demonstrate that the inclusion of local feature similarity significantly enhances skeleton-based action representation. Our proposed SkeAttnCLR outperforms state-of-the-art methods on NTURGB+D, NTU120-RGB+D, and PKU-MMD datasets.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "School of Information Science and Engineering, Wuhan University of Science and Technology",
+    "University of North Carolina at Charlotte",
+    "Center for Research in Computer Vision, University of Central Florida",
+    "Peking University, Shenzhen Graduate School"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     3
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Wuhan University of Science and Technology",
+    "University of North Carolina at Charlotte",
+    "University of Central Florida",
+    "Peking University"
+   ],
+   "institution_ids": [
+    "00e4hrk88",
+    "04dawnj30",
+    "036nfer12",
+    "02v51f717"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2305.00666",
@@ -216796,17 +217028,46 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2302.08908",
    "abstract": "Layout-to-image generation refers to the task of synthesizing photo-realistic images based on semantic layouts. In this paper, we propose LayoutDiffuse that adapts a foundational diffusion model pretrained on large-scale image or text-image datasets for layout-to-image generation. By adopting a novel neural adaptor based on layout attention and task-aware prompts, our method trains efficiently, generates images with both high perceptual quality and layout alignment, and needs less data. Experiments on three datasets show that our method significantly outperforms other 10 generative models based on GANs, VQ-VAE, and diffusion models.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "USC Information Sciences Institute, Shanghai Jiao Tong University, Amazon Web Services"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Shanghai Jiao Tong University"
+   ],
+   "institution_ids": [
+    "0220qvk04"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2302.08908",

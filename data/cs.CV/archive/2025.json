@@ -668,19 +668,74 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2511.21135v1",
    "abstract": "Embodied navigation that adheres to social norms remains an open research challenge. Our SocialNav is a foundational model for socially-aware navigation with a hierarchical \"brain-action\" architecture, capable of understanding high-level social norms and generating low-level, socially compliant trajectories. To enable such dual capabilities, we construct the SocNav Dataset, a large-scale collection of 7 million samples, comprising (1) a Cognitive Activation Dataset providing social reasoning signals such as chain-of-thought explanations and social traversability prediction, and (2) an Expert Trajectories Pyramid aggregating diverse navigation demonstrations from internet videos, simulated environments, and real-world robots. A multi-stage training pipeline is proposed to gradually inject and refine navigation intelligence: we first inject general navigation skills and social norms understanding into the model via imitation learning, and then refine such skills through a deliberately designed Socially-Aware Flow Exploration GRPO (SAFE-GRPO), the first flow-based reinforcement learning framework for embodied navigation that explicitly rewards socially compliant behaviors. SocialNav achieves +38% success rate and +46% social compliance rate compared to the state-of-the-art method, demonstrating strong gains in both navigation performance and social compliance. Our project page: https://amap-eai.github.io/SocialNav/",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Amap, Alibaba Group, China",
+    "Zhejiang University, China"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "Alibaba Group",
+    "Zhejiang University"
+   ],
+   "institution_ids": [
+    "00k642b80",
+    "00a2xv884"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2511.21135",
@@ -893,19 +948,40 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2511.19797v1",
    "abstract": "We propose Terminal Velocity Matching (TVM), a generalization of flow matching that enables high-fidelity one- and few-step generative modeling. TVM models the transition between any two diffusion timesteps and regularizes its behavior at its terminal time rather than at the initial time. We prove that TVM provides an upper bound on the 2-Wasserstein distance between data and model distributions when the model is Lipschitz continuous. However, since Diffusion Transformers lack this property, we introduce minimal architectural changes that achieve stable, single-stage training. To make TVM efficient in practice, we develop a fused attention kernel that supports backward passes on Jacobian-Vector Products, which scale well with transformer architectures. On ImageNet-256x256, TVM achieves 3.29 FID with a single function evaluation (NFE) and 1.99 FID with 4 NFEs. It similarly achieves 4.32 1-NFE FID and 2.94 4-NFE FID on ImageNet-512x512, representing state-of-the-art performance for one/few-step models from scratch.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Luma AI"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Luma AI"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2511.19797",
@@ -2158,19 +2234,85 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2511.15658v1",
    "abstract": "Geospatial Foundation Models (GeoFMs) are transforming Earth Observation (EO), but evaluation lacks standardized protocols. GEO-Bench-2 addresses this with a comprehensive framework spanning classification, segmentation, regression, object detection, and instance segmentation across 19 permissively-licensed datasets. We introduce ''capability'' groups to rank models on datasets that share common characteristics (e.g., resolution, bands, temporality). This enables users to identify which models excel in each capability and determine which areas need improvement in future work. To support both fair comparison and methodological innovation, we define a prescriptive yet flexible evaluation protocol. This not only ensures consistency in benchmarking but also facilitates research into model adaptation strategies, a key and open challenge in advancing GeoFMs for downstream tasks. Our experiments show that no single model dominates across all tasks, confirming the specificity of the choices made during architecture design and pretraining. While models pretrained on natural images (ConvNext ImageNet, DINO V3) excel on high-resolution tasks, EO-specific models (TerraMind, Prithvi, and Clay) outperform them on multispectral applications such as agriculture and disaster response. These findings demonstrate that optimal model choice depends on task requirements, data modalities, and constraints. This shows that the goal of a single GeoFM model that performs well across all tasks remains open for future research. GEO-Bench-2 enables informed, reproducible GeoFM evaluation tailored to specific use cases. Code, data, and leaderboard for GEO-Bench-2 are publicly released under a permissive license.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "IBM Research Europe",
+    "Technical University Munich",
+    "Clark University",
+    "MBZUAI",
+    "NASA Impact",
+    "ESA Φ-lab",
+    "Arizona State University",
+    "ServiceNow Research"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     5
+    ],
+    [
+     1
+    ],
+    [
+     6
+    ],
+    [
+     0
+    ],
+    [
+     7
+    ]
+   ],
+   "institutions": [
+    "IBM",
+    "Technical University Munich",
+    "Clark University",
+    "MBZUAI",
+    "NASA Impact",
+    "ESA Φ-lab",
+    "Arizona State University",
+    "ServiceNow Research"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    "04123ky43",
+    null,
+    null,
+    null,
+    "03efmqc40",
+    null
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2511.15658",
@@ -2337,19 +2479,34 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2511.13720v1",
    "abstract": "Today's denoising diffusion models do not \"denoise\" in the classical sense, i.e., they do not directly predict clean images. Rather, the neural networks predict noise or a noised quantity. In this paper, we suggest that predicting clean data and predicting noised quantities are fundamentally different. According to the manifold assumption, natural data should lie on a low-dimensional manifold, whereas noised quantities do not. With this assumption, we advocate for models that directly predict clean data, which allows apparently under-capacity networks to operate effectively in very high-dimensional spaces. We show that simple, large-patch Transformers on pixels can be strong generative models: using no tokenizer, no pre-training, and no extra loss. Our approach is conceptually nothing more than \"Just image Transformers\", or JiT, as we call it. We report competitive results using JiT with large patch sizes of 16 and 32 on ImageNet at resolutions of 256 and 512, where predicting high-dimensional noised quantities can fail catastrophically. With our networks mapping back to the basics of the manifold, our research goes back to basics and pursues a self-contained paradigm for Transformer-based diffusion on raw natural data.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "MIT"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Massachusetts Institute of Technology"
+   ],
+   "institution_ids": [
+    "042nb2s44"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2511.13720",
@@ -4559,19 +4716,62 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.27234v1",
    "abstract": "Recent advances in language and vision have demonstrated that scaling up model capacity consistently improves performance across diverse tasks. In 3D visual geometry reconstruction, large-scale training has likewise proven effective for learning versatile representations. However, further scaling of 3D models is challenging due to the complexity of geometric supervision and the diversity of 3D data. To overcome these limitations, we propose MoRE, a dense 3D visual foundation model based on a Mixture-of-Experts (MoE) architecture that dynamically routes features to task-specific experts, allowing them to specialize in complementary data aspects and enhance both scalability and adaptability. Aiming to improve robustness under real-world conditions, MoRE incorporates a confidence-based depth refinement module that stabilizes and refines geometric estimation. In addition, it integrates dense semantic features with globally aligned 3D backbone representations for high-fidelity surface normal prediction. MoRE is further optimized with tailored loss functions to ensure robust learning across diverse inputs and multiple geometric tasks. Extensive experiments demonstrate that MoRE achieves state-of-the-art performance across multiple benchmarks and supports effective downstream applications without extra computation.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Shanghai Jiao Tong University",
+    "Alibaba Group"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "Alibaba Group"
+   ],
+   "institution_ids": [
+    "0220qvk04",
+    "00k642b80"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.27234",
@@ -5179,19 +5379,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.24474v1",
    "abstract": "Denoising generative models, such as diffusion and flow-based models, produce high-quality samples but require many denoising steps due to discretization error. Flow maps, which estimate the average velocity between timesteps, mitigate this error and enable faster sampling. However, their training typically demands architectural changes that limit compatibility with pretrained flow models. We introduce Decoupled MeanFlow, a simple decoding strategy that converts flow models into flow map models without architectural modifications. Our method conditions the final blocks of diffusion transformers on the subsequent timestep, allowing pretrained flow models to be directly repurposed as flow maps. Combined with enhanced training techniques, this design enables high-quality generation in as few as 1 to 4 steps. Notably, we find that training flow models and subsequently converting them is more efficient and effective than training flow maps from scratch. On ImageNet 256x256 and 512x512, our models attain 1-step FID of 2.16 and 2.12, respectively, surpassing prior art by a large margin. Furthermore, we achieve FID of 1.51 and 1.68 when increasing the steps to 4, which nearly matches the performance of flow models while delivering over 100x faster inference.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "KAIST"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Korea Advanced Institute of Science and Technology"
+   ],
+   "institution_ids": [
+    "05apxxy63"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.24474",
@@ -5215,19 +5433,53 @@
    "journal_ref": null,
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.24214v1",
    "abstract": "Multimodal Large Language Models (MLLMs) typically process a large number of visual tokens, leading to considerable computational overhead, even though many of these tokens are redundant. Existing visual token pruning methods primarily focus on selecting the most salient tokens based on attention scores, resulting in the semantic incompleteness of the selected tokens. In this paper, we propose a novel visual token pruning strategy, called Saliency-Coverage Oriented token Pruning for Efficient MLLMs (SCOPE), to jointly model both the saliency and coverage of the selected visual tokens to better preserve semantic completeness. Specifically, we introduce a set-coverage for a given set of selected tokens, computed based on the token relationships. We then define a token-coverage gain for each unselected token, quantifying how much additional coverage would be obtained by including it. By integrating the saliency score into the token-coverage gain, we propose our SCOPE score and iteratively select the token with the highest SCOPE score. We conduct extensive experiments on multiple vision-language understanding benchmarks using the LLaVA-1.5 and LLaVA-Next models. Experimental results demonstrate that our method consistently outperforms prior approaches. Our code is available at https://github.com/kinredon/SCOPE.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Electronic Science and Technology of China (UESTC)",
+    "Shenzhen Institute for Advanced Study, UESTC",
+    "CFAR, Agency for Science, Technology and Research (A*STAR), Singapore",
+    "IHPC, Agency for Science, Technology and Research (A*STAR), Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     2,
+     3
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   "institutions": [
+    "University of Electronic Science and Technology of China",
+    "University of Electronic Science and Technology of China",
+    "Agency for Science, Technology and Research",
+    "Agency for Science, Technology and Research"
+   ],
+   "institution_ids": [
+    "04qr3zq92",
+    "04qr3zq92",
+    "036wvzt09",
+    "036wvzt09"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.24214",
@@ -5253,19 +5505,44 @@
    "journal_ref": null,
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.24038v1",
    "abstract": "Vision-language models (VLMs) such as CLIP demonstrate strong generalization in zero-shot classification but remain highly vulnerable to adversarial perturbations. Existing methods primarily focus on adversarial fine-tuning or prompt optimization; they often overlook the gaps in CLIP's encoded features, which is shown as the text and image features lie far apart from each other. This misalignment is significantly amplified under adversarial perturbations, leading to severe degradation in classification performance. To address this problem, we propose Cross-modality Alignment, dubbed COLA, an optimal transport-based framework that explicitly addresses adversarial misalignment by restoring both global image-text alignment and local structural consistency in the feature space. (1) COLA first projects adversarial image embeddings onto a subspace spanned by class text features, effectively filtering out non-semantic distortions while preserving discriminative information. (2) It then models images and texts as discrete distributions over multiple augmented views and refines their alignment via OT, with the subspace projection seamlessly integrated into the cost computation. This design ensures stable cross-modal alignment even under adversarial conditions. COLA is training-free and compatible with existing fine-tuned models. Extensive evaluations across 14 zero-shot classification benchmarks demonstrate the effectiveness of COLA, especially with an average improvement of 6.7% on ImageNet and its variants under PGD adversarial attacks, while maintaining high accuracy on clean samples.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Science and Technology of China",
+    "Nanyang Technological University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Science and Technology of China",
+    "Nanyang Technological University"
+   ],
+   "institution_ids": [
+    "04c4dkn09",
+    "02e7b5302"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.24038",
@@ -5652,19 +5929,49 @@
    "journal_ref": "Advances in Neural Information Processing Systems, 2025",
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.22161v1",
    "abstract": "Participating in efforts to endow generative AI with the 3D physical world perception, we propose I2-NeRF, a novel neural radiance field framework that enhances isometric and isotropic metric perception under media degradation. While existing NeRF models predominantly rely on object-centric sampling, I2-NeRF introduces a reverse-stratified upsampling strategy to achieve near-uniform sampling across 3D space, thereby preserving isometry. We further present a general radiative formulation for media degradation that unifies emission, absorption, and scattering into a particle model governed by the Beer-Lambert attenuation law. By composing the direct and media-induced in-scatter radiance, this formulation extends naturally to complex media environments such as underwater, haze, and even low-light scenes. By treating light propagation uniformly in both vertical and horizontal directions, I2-NeRF enables isotropic metric perception and can even estimate medium properties such as water depth. Experiments on real-world datasets demonstrate that our method significantly improves both reconstruction fidelity and physical plausibility compared to existing approaches.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "The University of Tokyo",
+    "RIKEN",
+    "The University of Tokyo, RIKEN"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "University of Tokyo",
+    "RIKEN",
+    "University of Tokyo"
+   ],
+   "institution_ids": [
+    "057zh3y96",
+    "01sjwvz98",
+    "057zh3y96"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.22161",
@@ -28140,19 +28447,44 @@
    "journal_ref": null,
    "venue": "EMNLP 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2509.03986v1",
    "abstract": "Despite the success of Large Multimodal Models (LMMs) in recent years, prompt design for LMMs in Multiple-Choice Question Answering (MCQA) remains poorly understood. We show that even minor variations in prompt phrasing and structure can lead to accuracy deviations of up to 15% for certain prompts and models. This variability poses a challenge for transparent and fair LMM evaluation, as models often report their best-case performance using carefully selected prompts. To address this, we introduce Promptception, a systematic framework for evaluating prompt sensitivity in LMMs. It consists of 61 prompt types, spanning 15 categories and 6 supercategories, each targeting specific aspects of prompt formulation, and is used to evaluate 10 LMMs ranging from lightweight open-source models to GPT-4o and Gemini 1.5 Pro, across 3 MCQA benchmarks: MMStar, MMMU-Pro, MVBench. Our findings reveal that proprietary models exhibit greater sensitivity to prompt phrasing, reflecting tighter alignment with instruction semantics, while open-source models are steadier but struggle with nuanced and complex phrasing. Based on this analysis, we propose Prompting Principles tailored to proprietary and open-source LMMs, enabling more robust and fair model evaluation.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Mohamed Bin Zayed University of Artificial Intelligence",
+    "Swiss Federal Institute of Technology Lausanne (EPFL)",
+    "Australian National University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     2
+    ]
+   ],
+   "institutions": [
+    "Mohamed bin Zayed University of Artificial Intelligence",
+    "École Polytechnique Fédérale de Lausanne",
+    "Australian National University"
+   ],
+   "institution_ids": [
+    "0258gkt32",
+    "02s376052",
+    "019wvm592"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2509.03986",
@@ -30446,19 +30778,27 @@
    "journal_ref": null,
    "venue": "EMNLP 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2509.21486v1",
    "abstract": "Short video platforms are evolving rapidly, making the identification of inappropriate content increasingly critical. Existing approaches typically train separate and small classification models for each type of issue, which requires extensive human-labeled data and lacks cross-issue generalization. We propose a reasoning-enhanced multimodal large language model (MLLM) pretraining paradigm for unified inappropriate content detection. To address the distribution gap between short video content and the original pretraining data of MLLMs, as well as the complex issue definitions, we introduce three targeted pretraining tasks: (1) Caption, to enhance the MLLM's perception of video details; (2) Visual Question Answering (VQA), to deepen the MLLM's understanding of issue definitions and annotation guidelines; (3) Chain-of-Thought (CoT), to enhance the MLLM's reasoning capability. Experimental results show that our pretraining approach significantly improves the MLLM's performance in both zero-shot and supervised fine-tuning (SFT) settings. In addition, our pretrained model demonstrates strong generalization capabilities to emergent, previously unseen issues.",
-   "affiliations": [],
+   "affiliations": [
+    "TikTok"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "TikTok"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2509.21486",
@@ -34111,19 +34451,34 @@
    "journal_ref": null,
    "venue": "COLM 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2508.20279v1",
    "abstract": "Multimodal Large Language Models (MLLMs) have demonstrated strong performance across a wide range of vision-language tasks, yet their internal processing dynamics remain underexplored. In this work, we introduce a probing framework to systematically analyze how MLLMs process visual and textual inputs across layers. We train linear classifiers to predict fine-grained visual categories (e.g., dog breeds) from token embeddings extracted at each layer, using a standardized anchor question. To uncover the functional roles of different layers, we evaluate these probes under three types of controlled prompt variations: (1) lexical variants that test sensitivity to surface-level changes, (2) semantic negation variants that flip the expected answer by modifying the visual concept in the prompt, and (3) output format variants that preserve reasoning but alter the answer format. Applying our framework to LLaVA-1.5, LLaVA-Next-LLaMA-3, and Qwen2-VL, we identify a consistent stage-wise structure in which early layers perform visual grounding, middle layers support lexical integration and semantic reasoning, and final layers prepare task-specific outputs. We further show that while the overall stage-wise structure remains stable across variations in visual tokenization, instruction tuning data, and pretraining corpus, the specific layer allocation to each stage shifts notably with changes in the base LLM architecture. Our findings provide a unified perspective on the layer-wise organization of MLLMs and offer a lightweight, model-agnostic approach for analyzing multimodal representation dynamics.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Wisconsin–Madison"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Wisconsin–Madison"
+   ],
+   "institution_ids": [
+    "01y2jtd41"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2508.20279",
@@ -38054,19 +38409,73 @@
    "journal_ref": "Advances in Neural Information Processing Systems, Volume 37, Pages 86124-86144, Year 2024",
    "venue": "NeurIPS 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2508.09913v1",
    "abstract": "Detection of face forgery videos remains a formidable challenge in the field of digital forensics, especially the generalization to unseen datasets and common perturbations. In this paper, we tackle this issue by leveraging the synergy between audio and visual speech elements, embarking on a novel approach through audio-visual speech representation learning. Our work is motivated by the finding that audio signals, enriched with speech content, can provide precise information effectively reflecting facial movements. To this end, we first learn precise audio-visual speech representations on real videos via a self-supervised masked prediction task, which encodes both local and global semantic information simultaneously. Then, the derived model is directly transferred to the forgery detection task. Extensive experiments demonstrate that our method outperforms the state-of-the-art methods in terms of cross-dataset generalization and robustness, without the participation of any fake video in model training. Code is available at https://github.com/Eleven4AI/SpeechForensics.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Institute of Information Engineering, Chinese Academy of Sciences",
+    "School of Cyber Security, University of Chinese Academy of Sciences",
+    "Deakin University",
+    "Institute of Computing Technology, Chinese Academy of Sciences",
+    "Institute of Forensic Science, Ministry of Public Security",
+    "Harbin Engineering University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    null,
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    "University of Chinese Academy of Sciences",
+    "Deakin University",
+    "Chinese Academy of Sciences",
+    "Ministry of Public Security",
+    "Harbin Engineering University"
+   ],
+   "institution_ids": [
+    "034t30j35",
+    "05qbk4x57",
+    "02czsnj07",
+    "034t30j35",
+    "00r7b5207",
+    "03x80pn82"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2508.09913",
@@ -42985,19 +43394,43 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2508.06585v1",
    "abstract": "Multimodal Large Language Models (MLLMs) demonstrate remarkable fluency in understanding visual scenes, yet they exhibit a critical lack in a fundamental cognitive skill: object counting. This blind spot severely limits their reliability in real-world applications. To date, this capability has been largely unevaluated in complex scenarios, as existing benchmarks either feature sparse object densities or are confined to specific visual domains, failing to test models under realistic conditions. Addressing this gap, we introduce CountQA, a challenging new benchmark designed to probe this deficiency. Comprising over 1,500 question-answer pairs, CountQA features real-world images with high object density, clutter, and occlusion. We investigate this weakness by evaluating 15 prominent MLLMs on the CountQA benchmark and reveal that the top-performing model achieves a mere 42.9% accuracy, with performance declining as object counts rise. By providing a dedicated benchmark to diagnose and rectify this core weakness, CountQA paves the way for a new generation of MLLMs that are not only descriptively fluent but also numerically grounded and spatially aware. We will open-source the dataset and code upon paper acceptance to foster further research.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Google",
+    "Waymo"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Google",
+    "Waymo"
+   ],
+   "institution_ids": [
+    null,
+    null
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2508.06585",
@@ -63716,19 +64149,40 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2506.08008v1",
    "abstract": "Language provides a natural interface to specify and evaluate performance on visual tasks. To realize this possibility, vision language models (VLMs) must successfully integrate visual and linguistic information. Our work compares VLMs to a direct readout of their visual encoders to understand their ability to integrate across these modalities. Across a series of vision-centric benchmarks (e.g., depth estimation, correspondence), we find that VLMs perform substantially worse than their visual encoders, dropping to near-chance performance. We investigate these results through a series of analyses across the entire VLM: namely 1) the degradation of vision representations, 2) brittleness to task prompt, and 3) the language model's role in solving the task. We find that the bottleneck in performing these vision-centric tasks lies in this third category; VLMs are not effectively using visual information easily accessible throughout the entire model, and they inherit the language priors present in the LLM. Our work helps diagnose the failure modes of open-source VLMs, and presents a series of evaluations useful for future investigations into visual understanding within VLMs.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "UC Berkeley"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "01an7q238"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2506.08008",
@@ -65087,19 +65541,58 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2506.04353v1",
    "abstract": "We present ReXVQA, the largest and most comprehensive benchmark for visual question answering (VQA) in chest radiology, comprising approximately 696,000 questions paired with 160,000 chest X-rays studies across training, validation, and test sets. Unlike prior efforts that rely heavily on template based queries, ReXVQA introduces a diverse and clinically authentic task suite reflecting five core radiological reasoning skills: presence assessment, location analysis, negation detection, differential diagnosis, and geometric reasoning. We evaluate eight state-of-the-art multimodal large language models, including MedGemma-4B-it, Qwen2.5-VL, Janus-Pro-7B, and Eagle2-9B. The best-performing model (MedGemma) achieves 83.24% overall accuracy. To bridge the gap between AI performance and clinical expertise, we conducted a comprehensive human reader study involving 3 radiology residents on 200 randomly sampled cases. Our evaluation demonstrates that MedGemma achieved superior performance (83.84% accuracy) compared to human readers (best radiology resident: 77.27%), representing a significant milestone where AI performance exceeds expert human evaluation on chest X-ray interpretation. The reader study reveals distinct performance patterns between AI models and human experts, with strong inter-reader agreement among radiologists while showing more variable agreement patterns between human readers and AI models. ReXVQA establishes a new standard for evaluating generalist radiological AI systems, offering public leaderboards, fine-grained evaluation splits, structured explanations, and category-level breakdowns. This benchmark lays the foundation for next-generation AI systems capable of mimicking expert-level clinical reasoning beyond narrow pathology classification. Our dataset will be open-sourced at https://huggingface.co/datasets/rajpurkarlab/ReXVQA",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Saama AI Research",
+    "Seoul National University",
+    "Harvard Medical School"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Saama AI Research",
+    "Seoul National University",
+    "Harvard Medical School"
+   ],
+   "institution_ids": [
+    null,
+    "04h9pn542",
+    null
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2506.04353",
@@ -71938,19 +72431,56 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.CL",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2506.05453v1",
    "abstract": "Recent Multimodal Large Language Models (MLLMs) excel in vision-language understanding but face challenges in adapting to dynamic real-world scenarios that require continuous integration of new knowledge and skills. While continual learning (CL) offers a potential solution, existing benchmarks and methods suffer from critical limitations. In this paper, we introduce MLLM-CL, a novel benchmark encompassing domain and ability continual learning, where the former focuses on independently and identically distributed (IID) evaluation across evolving mainstream domains, whereas the latter evaluates on non-IID scenarios with new model abilities. Methodologically, we propose preventing catastrophic interference through parameter isolation and an MLLM-based routing mechanism. Extensive experiments demonstrate that our approach can integrate domain-specific knowledge and functional abilities with minimal forgetting, significantly outperforming existing methods. Our benchmark and code are available at https://github.com/bjzhb666/MLLM-CL.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Institute of Automation, Chinese Academy of Sciences (CASIA)",
+    "University of Chinese Academy of Sciences (UCAS)",
+    "University of Hong Kong",
+    "Centre for Artificial Intelligence and Robotics, HKISI, CAS"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    null,
+    null,
+    null,
+    [
+     2
+    ],
+    [
+     0,
+     3,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    "University of Chinese Academy of Sciences",
+    "University of Hong Kong",
+    "Centre for Artificial Intelligence and Robotics"
+   ],
+   "institution_ids": [
+    "034t30j35",
+    "05qbk4x57",
+    "02zhqgq86",
+    null
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2506.05453",
@@ -72120,19 +72650,65 @@
    "journal_ref": null,
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2506.05332v1",
    "abstract": "Recent long-form video-language understanding benchmarks have driven progress in video large multimodal models (Video-LMMs). However, the scarcity of well-annotated long videos has left the training of hour-long Video-LMMs underexplored. To close this gap, we present VideoMarathon, a large-scale hour-long video instruction-following dataset. This dataset includes around 9,700 hours of long videos sourced from diverse domains, ranging from 3 to 60 minutes per video. Specifically, it contains 3.3M high-quality QA pairs, spanning six fundamental topics: temporality, spatiality, object, action, scene, and event. Compared to existing video instruction datasets, VideoMarathon significantly extends training video durations up to 1 hour, and supports 22 diverse tasks requiring both short- and long-term video comprehension. Building on VideoMarathon, we propose Hour-LLaVA, a powerful and efficient Video-LMM for hour-scale video-language modeling. It enables hour-long video training and inference at 1-FPS sampling by leveraging a memory augmentation module, which adaptively integrates question-relevant and spatiotemporally informative semantics from the cached full video context. In our experiments, Hour-LLaVA achieves the best performance on multiple representative long video-language benchmarks, demonstrating the high quality of the VideoMarathon dataset and the superiority of the Hour-LLaVA model.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "AMD",
+    "University of Rochester"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "AMD",
+    "University of Rochester"
+   ],
+   "institution_ids": [
+    null,
+    "022kthw22"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2506.05332",
@@ -88818,19 +89394,49 @@
    "journal_ref": null,
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2505.18809v1",
    "abstract": "Video diffusion transformers have achieved remarkable progress in high-quality video generation, but remain computationally expensive due to the quadratic complexity of attention over high-dimensional video sequences. Recent acceleration methods enhance the efficiency by exploiting the local sparsity of attention scores; yet they often struggle with accelerating the long-range computation. To address this problem, we propose VORTA, an acceleration framework with two novel components: 1) a sparse attention mechanism that efficiently captures long-range dependencies, and 2) a routing strategy that adaptively replaces full 3D attention with specialized sparse attention variants. VORTA achieves an end-to-end speedup 1.76× without loss of quality on VBench. Furthermore, it can seamlessly integrate with various other acceleration methods, such as model caching and step distillation, reaching up to speedup 14.41× with negligible performance degradation. VORTA demonstrates its efficiency and enhances the practicality of video diffusion transformers in real-world settings. Codes and weights are available at https://github.com/wenhao728/VORTA.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Nanyang Technological University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Nanyang Technological University"
+   ],
+   "institution_ids": [
+    "02e7b5302"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2505.18809",
@@ -118945,18 +119551,49 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2503.12799v1",
    "abstract": "Despite great progress, existing multimodal large language models (MLLMs) are prone to visual hallucination, greatly impeding their trustworthy applications. In this paper, we study this problem from the perspective of visual-spatial reasoning, and propose a new learning task for MLLMs, termed Grounded Chain-of-Thought (GCoT). Different from recent visual CoT studies, which focus more on visual knowledge reasoning, GCoT is keen to helping MLLMs to recognize and ground the relevant visual cues step by step, thereby predicting the correct answer with grounding coordinates as the intuitive basis. To facilitate this task, we also carefully design and construct a dataset called multimodal grounded chain-of-thought (MM-GCoT) consisting of 24,022 GCoT examples for 5,033 images. Besides, a comprehensive consistency evaluation system is also introduced, including the metrics of answer accuracy, grounding accuracy and answer-grounding consistency. We further design and conduct a bunch of experiments on 12 advanced MLLMs, and reveal some notable findings: i. most MLLMs performs poorly on the consistency evaluation, indicating obvious visual hallucination; ii. visual hallucination is not directly related to the parameter size and general multimodal performance, i.e., a larger and stronger MLLM is not less affected by this issue. Lastly, we also demonstrate that the proposed dataset can help existing MLLMs to well cultivate their GCoT capability and reduce the inconsistent answering significantly. Moreover, their GCoT can be also generalized to exiting multimodal tasks, such as open-world QA and REC.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Key Laboratory of Multimedia Trusted Perception and Efficient Computing, Ministry of Education of China, Xiamen University, 361005, P.R. China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Xiamen University"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.12799",
@@ -132503,19 +133140,51 @@
    "journal_ref": "NeurIPS 2025",
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2503.18414v1",
    "abstract": "Representation Alignment (REPA) that aligns Diffusion Transformer (DiT) hidden-states with ViT visual encoders has proven highly effective in DiT training, demonstrating superior convergence properties, but it has not been validated on the canonical diffusion U-Net architecture that shows faster convergence compared to DiTs. However, adapting REPA to U-Net architectures presents unique challenges: (1) different block functionalities necessitate revised alignment strategies; (2) spatial-dimension inconsistencies emerge from U-Net's spatial downsampling operations; (3) space gaps between U-Net and ViT hinder the effectiveness of tokenwise alignment. To encounter these challenges, we propose U-REPA, a representation alignment paradigm that bridges U-Net hidden states and ViT features as follows: Firstly, we propose via observation that due to skip connection, the middle stage of U-Net is the best alignment option. Secondly, we propose upsampling of U-Net features after passing them through MLPs. Thirdly, we observe difficulty when performing tokenwise similarity alignment, and further introduces a manifold loss that regularizes the relative similarity between samples. Experiments indicate that the resulting U-REPA could achieve excellent generation quality and greatly accelerates the convergence speed. With CFG guidance interval, U-REPA could reach FID<1.5 in 200 epochs or 1M iterations on ImageNet 256 × 256, and needs only half the total epochs to perform better than REPA under sd-vae-ft-ema. Codes: https://github.com/YuchuanTian/U-REPA",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "State Key Lab of General AI, School of Intelligence Science and Technology, Peking University",
+    "Huawei Noah’s Ark Lab",
+    "The University of Sydney",
+    "School of Mathematical Sciences, Peking"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    null,
+    [
+     1,
+     2,
+     3
+    ],
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "Peking University",
+    "Huawei",
+    "University of Sydney",
+    "Peking"
+   ],
+   "institution_ids": [
+    "02v51f717",
+    null,
+    "0384j8v12",
+    null
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.18414",
@@ -141834,19 +142503,43 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2503.00266v1",
    "abstract": "Deep learning models have emerged as a powerful tool for various medical applications. However, their success depends on large, high-quality datasets that are challenging to obtain due to privacy concerns and costly annotation. Generative models, such as diffusion models, offer a potential solution by synthesizing medical images, but their practical adoption is hindered by long inference times. In this paper, we propose the use of an optimal transport flow matching approach to accelerate image generation. By introducing a straighter mapping between the source and target distribution, our method significantly reduces inference time while preserving and further enhancing the quality of the outputs. Furthermore, this approach is highly adaptable, supporting various medical imaging modalities, conditioning mechanisms (such as class labels and masks), and different spatial dimensions, including 2D and 3D. Beyond image generation, it can also be applied to related tasks such as image enhancement. Our results demonstrate the efficiency and versatility of this framework, making it a promising advancement for medical imaging applications. Code with checkpoints and a synthetic dataset (beneficial for classification and segmentation) is now available on: https://github.com/milad1378yz/MOTFM.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of British Columbia, Vancouver, Canada"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of British Columbia"
+   ],
+   "institution_ids": [
+    "03rmrcq20"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.00266",
@@ -173916,19 +174609,56 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2501.00654v1",
    "abstract": "Training vision-language models via instruction tuning relies on large data mixtures spanning diverse tasks and domains, yet these mixtures frequently include redundant information that increases computational costs without proportional gains. Existing methods typically rely on task-agnostic heuristics to estimate data importance, limiting their effectiveness across tasks. We introduce ICONS, a gradient-based Influence CONsensus approach for vision-language data Selection. Our method leverages first-order training dynamics to estimate each example's influence on validation performance, then aggregates these estimates across tasks via majority voting. This cross-task consensus identifies consistently valuable data points while mitigating score calibration and outlier sensitivity, enabling robust and scalable data selection for diverse multitask mixtures. Models trained on our selected 20% data subset from LLAVA-665K (respectively: from CAMBRIAN-7M, from VISION-FLAN-186K) retain 98.6% (respectively: 98.8%, 99.8%) of full-dataset performance. We demonstrate that our selected data generalizes to unseen tasks and model architectures, and release three compact subsets LLAVA-ICONS-133K, CAMBRIAN-ICONS-1.4M, and VISION-FLAN-ICONS-37K for efficient vision-language model development.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Princeton University",
+    "University of Washington",
+    "Google DeepMind",
+    "Allen Institute for AI"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Princeton University",
+    "University of Washington",
+    "Google DeepMind",
+    "Allen Institute for Artificial Intelligence"
+   ],
+   "institution_ids": [
+    "00hx57361",
+    "00cvxb145",
+    "00971b260",
+    "05w520734"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "html",
+     "at": "2026-11-04"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-11-01"
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2501.00654",
