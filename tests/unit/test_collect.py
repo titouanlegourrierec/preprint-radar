@@ -1223,7 +1223,7 @@ def test_archive_affiliations_read_no_cached_page_again_that_gave_none(
     store: PaperStore, tmp_path: Path, paper_html: Callable[[str], str], caplog: pytest.LogCaptureFixture
 ) -> None:
     caplog.set_level("INFO")
-    # A run before read their pages: read first again, they stopped the next as a layout change.
+    # A run before read their pages: each run would read them again, for nothing.
     read = [_archived(f"2501.{index:05d}", authors=("Yuyao Liu",)) for index in range(DRIFT_MIN_PAGES)]
     authors = ("Yuyao Liu", "Jiayuan Mao", "David Hsu", "Leslie Pack Kaelbling", "Tomás Lozano-Pérez")
     # Kept before the cache kept the tables of author blocks: read again.
@@ -1259,6 +1259,41 @@ def test_archive_affiliations_read_no_cached_page_again_that_gave_none(
     assert archived["2502.00001"].affiliations
     assert archived["2501.99999"] == stale
     assert all(f"https://arxiv.org/html/{paper.arxiv_id}v1" in cache for paper in read)
+
+
+def test_archive_affiliations_read_on_past_pages_that_give_none(
+    store: PaperStore, tmp_path: Path, paper_html: Callable[[str], str]
+) -> None:
+    # The pages the maintainer's run found empty, which a cache without them reads first:
+    # 126 of 140 on 2026-11-04, which stopped the run as a layout change.
+    empty = [_archived(f"2501.{index:05d}", authors=("Yuyao Liu",)) for index in range(DRIFT_MIN_PAGES + 1)]
+    authors = ("Yuyao Liu", "Jiayuan Mao", "David Hsu", "Leslie Pack Kaelbling", "Tomás Lozano-Pérez")
+    store.write_archive("cs.CV", [*empty, _archived("2502.00001", authors=authors)])
+    store.write_citations("cs.CV", {paper.arxiv_id: 100 for paper in empty}, source="S2")
+    cache = PageCache(tmp_path / "pages")
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        if request.url.path == "/html/2502.00001v1":
+            return httpx.Response(200, text=paper_html("2609.30249"))
+        return httpx.Response(200, text=NO_AFFILIATION_PAGE)
+
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        report = update_archive_affiliations(
+            store,
+            "cs.CV",
+            openalex_client=client,
+            today=TODAY,
+            site_client=client,
+            html=HtmlReading(limit=100, cache=cache),
+        )
+
+    assert report == ArchiveAffiliationsReport(
+        category="cs.CV", without=len(empty) + 1, from_published=0, pages=len(empty) + 1, from_pages=1
+    )
+    archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    assert archived["2502.00001"].affiliations
+    # Kept, so that the next run reads them no more.
+    assert all(f"https://arxiv.org/html/{paper.arxiv_id}v1" in cache for paper in empty)
 
 
 def _read_by(version: int, arxiv_id: str, affiliations: tuple[str, ...], authors: tuple[str, ...]) -> Paper:

@@ -562,6 +562,7 @@ go here until the next audit.
 | AFF-16 | Labs and campuses as their parent organization (ROR's relationships), once someone asks | P3 | deferred |
 | REL-11 | Removed or corrected records refreshed in readers' saved lists, once someone asks | P3 | deferred |
 | REL-13 | An OAI-PMH that fails makes the archive red, with no counts nor gains that week: the Sunday run of 2026-11-01 timed out at its first page for 13 minutes, and only the fallback four hours later updated the archive. The archive goes on with the catalog of the last complete harvest, at most 10 days old (`CATALOG_STALE_DAYS`), with a warning annotation `Catalog not refreshed`; the next harvest asks for what changed since that date. Older, or without a catalog, the run is red as before; an invalid page (`ParseError`) too | P2 | done |
+| OPS-12 | The archive's pages stopped as a layout change: on 2026-11-04, the first CI run with pages read 140 of the 917 highly cited papers without affiliations and stopped, 126 empty, every Sunday after to stop the same way. Those are the papers every other source failed, whose pages the maintainer's run of 2026-10-28 found empty, in a cache CI does not have. `archive-affiliations` no longer stops on empty pages (`HtmlReading.layout_stop`): it caches them, and the next runs skip them; the daily update's stop and the canary watch the layout | P1 | done |
 
 ## Second audit (2026-11-02)
 

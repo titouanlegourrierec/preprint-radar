@@ -100,7 +100,8 @@ for the next run. Nothing to do unless it repeats (<https://status.arxiv.org>).
 **Signal.** `gave no affiliation: has arXiv's layout changed?` (error annotation
 `Reading HTML pages failed`), often after a red *arXiv canary*.
 
-90% of at least 40 pages gave no affiliation. The run's papers go back to pending (`[]`
+90% of at least 40 pages gave no affiliation (not in `archive-affiliations`, whose
+papers mostly have none, OPS-12). The run's papers go back to pending (`[]`
 would be final) and their pages leave the cache, so a passing error page heals by itself.
 For a real change, `make test-network` shows what no longer parses: save one or two live
 pages as fixtures in `tests/fixtures/html/` (e-mails replaced by `author@example.org`),

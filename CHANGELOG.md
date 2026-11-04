@@ -21,6 +21,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 - The published versions' weekly run asks first for what the last one missed (OPS-7); a
   data run's summary shows only its new warnings (OPS-11); the workflows are audited by
   zizmor (PUB-7) and their limits hold their steps' (OPS-9).
+- The archive's pages no longer stop as a layout change when nearly all give no
+  affiliation, which those it reads mostly do (OPS-12).
 
 ### Interface
 

@@ -439,6 +439,7 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     of the step's 195 minutes: green, the rest waits), 5 failed pages in a row (arxiv.org
     down: red), or 90% of at least 40 pages without affiliation (a layout change: red, the
     run's papers set back to pending and their pages dropped from the cache).
+    `archive-affiliations` skips the last one (OPS-12): its papers' pages mostly have none.
     `tests/unit/test_exit_criteria.py` runs these end to end. SIGTERM and Ctrl-C save the
     progress first.
   - GitHub starts schedules hours late, so cron-job.org dispatches both data workflows on

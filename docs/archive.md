@@ -191,10 +191,15 @@ papers. `collect.update_archive_affiliations` fills those of the archive and of 
   Labs: the same LaTeXML, the latest version, `archive_page_url`; its `robots.txt` only
   disallows `/log/`; 1,735 of the 2,362 highly cited papers without affiliations on
   2026-10-28, Mask R-CNN's "Facebook AI Research (FAIR)" among them), the most cited first, read as the
-  daily update reads pages (15 s each, the same stops), from the cache when it holds them.
+  daily update reads pages (15 s each, the same stops but one), from the cache when it
+  holds them. Nearly every page giving nothing does not stop it as a layout change
+  (OPS-12): its papers are those every other source failed, most pages of those the
+  maintainer's run left have none, and CI's cache does not hold them (126 of 140 on
+  2026-11-04); the daily update's stop and the canary watch the layout.
   A 404 leaves `<id>v1.html.missing`, never asked again. A page that gives nothing stays
-  cached and is not read again while today's extraction finds nothing in it (read first,
-  such pages would stop the run as a layout change), unless `PageCache.stale`. Its
+  cached and is not read again while today's extraction finds nothing in it, unless
+  `PageCache.stale`: an extraction fix still reaches it, and a page an outage served empty
+  with a 200 is lost to that paper until the cache is. Its
   affiliations come with its `html_url`, the extractor's version and provenance `html`;
   ROR names their institutions, and those an interrupted run left unnamed. The maintainer
   runs it (a night for about 2,000 papers; done on 2026-10-28, 1,513 of 2,335 given

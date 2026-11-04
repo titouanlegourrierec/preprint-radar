@@ -98,12 +98,16 @@ class HtmlReading:
             backfill, a catchup page), so that the run ends cleanly before it is killed
             (``None``: no deadline).
         cache: Pages read before (their front matter); pages downloaded are added to it.
+        layout_stop: Whether nearly every page giving no affiliation stops the reading as a
+            layout change (:class:`Stop`): not for the archive's papers, whose pages mostly
+            have none.
     """
 
     limit: int | None = None
     save_every: int = DEFAULT_SAVE_EVERY
     deadline: float | None = None
     cache: PageCache | None = None
+    layout_stop: bool = True
 
 
 @dataclass(frozen=True, slots=True)
@@ -941,7 +945,7 @@ def _add_html_front_matter(
             logger.debug("[%d/%d] %s: %s", done, len(todo), paper.arxiv_id, front.affiliations)
             if not front.affiliations:
                 empty.append(index)
-                if _layout_changed(pages, len(empty)):
+                if reading.layout_stop and _layout_changed(pages, len(empty)):
                     logger.error(
                         "%d of %d HTML renderings gave no affiliation: has arXiv's layout changed? "
                         "Their papers wait for the next run",
@@ -1403,7 +1407,11 @@ def update_archive_affiliations(
     exist remembered in the cache. A paper
     whose page gives affiliations takes them, with the page's link; the others keep what
     they had. Progress is saved every ``html.save_every`` pages and on Ctrl-C; the reading
-    stops early as the update's does (:class:`Stop`). Last, the institutions of the
+    stops early as the update's does (:class:`Stop`), but not when nearly every page gives
+    no affiliation: those are the papers every other source failed, whose pages left by the
+    maintainer's runs mostly have none (126 of 140 on 2026-11-04, in a cache without them).
+    The daily update's stop and the canary watch arXiv's layout, and a page that gives
+    nothing stays cached, extracted again at every run. Last, the institutions of the
     affiliations read are named through ROR, with those an interrupted run left unnamed.
 
     Args:
@@ -1454,7 +1462,9 @@ def update_archive_affiliations(
         todo = _archive_pages(looked_up, reading.cache, store.load_citations(category))
         unread = [replace(paper.without_affiliations(), html_url=url) for paper, url in todo]
         pages = Pages(
-            site_client, reading, checkpoint=lambda current: save(changed | _with_affiliations(current))
+            site_client,
+            replace(reading, layout_stop=False),
+            checkpoint=lambda current: save(changed | _with_affiliations(current)),
         )
         read_papers, _ = enrich(unread, [pages])
         read = pages.read
@@ -1530,8 +1540,7 @@ def _archive_pages(
 
     Those arXiv or ar5iv renders, but for the pages they answered do not exist and those a run before
     read that give no affiliation today: their papers keep what they had, so each run would
-    read them again, first since cached, and their share of empty pages would stop it as a
-    layout change.
+    read them again from the cache, for nothing.
     """
     todo = [
         (paper, url)
