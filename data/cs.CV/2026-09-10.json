@@ -34,11 +34,11 @@
    "institution_ids": [
     "0491f5305"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
@@ -74,11 +74,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.09185",
@@ -310,11 +310,11 @@
    "institution_ids": [
     "03hz5th67"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
@@ -738,11 +738,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.09424",
@@ -791,11 +791,11 @@
    "institution_ids": [
     "02t274463"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
@@ -1649,11 +1649,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.09737",
@@ -1702,11 +1702,11 @@
     "0160cpw27",
     "0160cpw27"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
@@ -2006,11 +2006,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.09876",
@@ -2205,11 +2205,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.09895",
@@ -2486,11 +2486,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10001",
@@ -2605,11 +2605,11 @@
    "institution_ids": [
     "0258gkt32"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
@@ -2699,11 +2699,11 @@
     "01r024a98",
     "01r024a98"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
@@ -3317,11 +3317,11 @@
    "institution_ids": [
     "0030zas98"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
@@ -3351,30 +3351,27 @@
    "html_url": "https://arxiv.org/html/2609.10303v1",
    "abstract": "Face recognition (FR) is a widely used modality for biometric authentication, but conventional models rely on visible-spectrum imagery and degrade when high-quality RGB images cannot be captured. Cross-spectral face recognition addresses this limitation by matching visible images with other modalities such as thermal imagery, enabling more reliable performance in low-light, nighttime, and unconstrained conditions. However, progress is limited by the scarcity of paired visible-thermal data, which is difficult and costly to collect at scale. We propose SynThermFace, a framework that amplifies limited real visible-thermal supervision into larger paired adaptation datasets for cross-spectral face recognition. A diffusion model is first adapted using a limited set of paired visible--thermal images and then used to generate large-scale paired visible--synthetic thermal data from existing real or synthetic visible face datasets. The generated pairs are used to adapt a pretrained visible-spectrum face recognition model into a CFR model. Unlike synthesis-based approaches that require image translation at test time, the proposed method shifts generation to the training stage and performs inference with a single forward pass through the adapted recognition model. Under the same MCXFace real-pair protocol, PACT improves over the evaluated CFR adaptation baselines, isolating the effect of the proposed adaptation objective. Training PACT on larger generated paired datasets provides additional improvements over both the unadapted model and the real-pair PACT configuration. Cross-database evaluation on the Tufts dataset provides evidence that the learned representation transfers to an unseen database. The source code and trained models will be made publicly available.",
    "affiliations": [
-    "Idiap Research Institute",
-    "Rue Marconi 19, Martigny, Switzerland",
+    "Idiap Research Institute, Rue Marconi 19, Martigny, Switzerland",
     "University of Lausanne (UNIL), Lausanne, Switzerland"
    ],
    "author_affiliations": null,
    "institutions": [
     "Idiap Research Institute",
-    "Martigny",
     "University of Lausanne"
    ],
    "institution_ids": [
     "05932h694",
-    null,
     "019whta54"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10303",
@@ -3409,11 +3406,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10317",
@@ -3439,40 +3436,34 @@
    "html_url": "https://arxiv.org/html/2609.10322v1",
    "abstract": "Transferring the rich priors of large 2D foundation models to sparse 3D LiDAR remains challenging, as training native 3D foundation models at comparable scale is limited by data and annotation scarcity. We introduce a LiDAR-conditioned diffusion model trained on pseudo-labels from off-the-shelf 2D foundation models. The model supports multiple output modalities, including depth, semantic segmentation and instance prediction, selectable via a textual task prompt. Because the model is conditioned on LiDAR, both its outputs and its intermediate UNet features can be projected back onto the input point cloud, enabling analysis of a 3D representation learned entirely under 2D supervision. We study this representation directly in point-cloud space, explicitly excluding raw spatial coordinates to isolate feature content from projection geometry. Linear probes recover up to ~23% Mean Intersection over Union (MIoU) on 3D semantic classes, compared to ~3.5% for a matched Gaussian-noise control, indicating substantial non-trivial structure. Pairwise cosine similarity across modality-specific feature streams reveals a layered organization. Early encoder layers remain weakly aligned across modalities while individually decodable, intermediate layers converge toward a shared representation, and decoder layers re-specialize toward task-specific outputs. These findings indicate that LiDAR-conditioned diffusion models can induce structured 3D representations from 2D supervision alone, with a modality-dependent manifold that locally unifies near a shared bottleneck. This positions diffusion as a viable mechanism for transferring large-scale 2D priors into sparse 3D domains.",
    "affiliations": [
-    "Department of Electrical Engineering and Information Technology, Munich University of Applied Sciences",
-    "Munich, Bavaria 80335"
+    "Department of Electrical Engineering and Information Technology, Munich University of Applied Sciences, Munich, Bavaria 80335"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
    "institutions": [
-    "Munich University of Applied Sciences",
-    "Munich"
+    "Munich University of Applied Sciences"
    ],
    "institution_ids": [
-    "012k1v959",
-    null
+    "012k1v959"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-06"
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10322",
@@ -3623,14 +3614,31 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.10346v1",
    "abstract": "Multimodal large language models (MLLMs) process hundreds or thousands of visual tokens per image, incurring prohibitive inference costs. While existing vision token pruning methods mitigate this overhead, they implicitly assume that a single fixed pruning strategy can be applied uniformly across all inputs. Our analysis further reveals that ranking pruning methods by average benchmark accuracy conceals substantial sample-wise complementarity: although the average-best strategy excels overall, alternative strategies prove superior on a significant fraction of individual samples. To harness this diversity, we propose VIP-Router, a lightweight VIsion Pruning Router that adaptively selects the pruning strategy predicted to be best suited to each input at a specified pruning level. Conditioned on low-cost visual and textual features, VIP-Router identifies the most suitable candidate strategy while retaining full-token inference as an option when pruning is predicted to be unfavorable. Evaluated on a curated suite of pruning-sensitive visual perception benchmarks, VTC-Bench Group A, VIP-Router consistently outperforms the best fixed strategy baseline across all reduction ratios, achieving a 26.9% relative improvement in average accuracy, and a 22.0% relative increase in average utility after accounting for realized token cost. Crucially, VIP-Router operates in a plug-and-play manner without modifying underlying pruning algorithms or model weights, introducing trainable parameters equivalent to merely 0.017% of the backbone. Furthermore, VIP-Router proves effective across various MLLM backbones and yields consistent gains on unseen benchmarks, highlighting the potential of sample adaptive routing for visual token pruning.",
-   "affiliations": [],
+   "affiliations": [
+    "National University of Singapore",
+    "InfRec, Cardinal AI Lab",
+    "The Hong Kong University of Science and Technology"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 9,
+   "institutions": [
+    "National University of Singapore",
+    "Cardinal AI Lab",
+    "Hong Kong University of Science and Technology"
+   ],
+   "institution_ids": [
+    "01tgyzw49",
+    null,
+    "00q4vv597"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10346",
@@ -4423,11 +4431,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10518",
@@ -4549,11 +4557,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10540",
@@ -4660,11 +4668,11 @@
     "02egmk993",
     "03dbr7087"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
@@ -4743,11 +4751,11 @@
     "034t30j35",
     "034t30j35"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
@@ -4954,11 +4962,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.09250",
@@ -5011,11 +5019,11 @@
     null,
     "04dawnj30"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
@@ -5568,11 +5576,11 @@
    "institution_ids": [
     "00q4vv597"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-04"
     },
     "institutions": {
      "source": "ror",
@@ -5609,11 +5617,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10084",
@@ -5639,14 +5647,28 @@
    "cross_list_from": "cs.LG",
    "html_url": "https://arxiv.org/html/2609.10307v1",
    "abstract": "3D Gaussian Splatting (3DGS) renders novel views in real time, but an uncertainty heatmap does not certify that a rendered view meets a certain prediction coverage. We treat novel-view synthesis as structured regression and ask that, with probability at least 1-α, RGB prediction boxes cover at least a 1-β fraction of pixels in a new view. We propose View-Structured Conformal Prediction (VSCP). It splits the pre-calibration scale into a spatial shape from the renderer and a transferable view-difficulty factor, which predicts the smallest view-wise multiplier that shape needs. A held-out quantile over views (View-CP) then gives finite-sample validity even when transferring to new scenes. The same factorization makes the analysis exact: a conformity score is the ratio of oracle to predicted view difficulty, and excess width separates into a test-side and a calibration-side term. Across 13 real scenes, pixel-pooled calibration reaches 89.9% marginal pixel coverage but only 61.4% view-event coverage at a 90% target, while View-CP reaches 91.7–92.0%. At matched coverage VSCP cuts width by 22.1% against a constant scale, and matches a ten-model ensemble's 21.0% reduction using only one model per scene and four rather than ten rasterization passes per query. VSCP also improves on the closest single-model baseline, the 3DGS-U field, by 4.7 points (p=0.0225). The view predictor transfers from bounded source families to all nine unbounded Mip-NeRF~360 scenes. There the full scale beats the constant scale with 20.7% width saving on all nine scenes. It also keeps an 18.3% saving under a different densification backbone and runs at 216–280 FPS on an RTX~4090.",
-   "affiliations": [],
+   "affiliations": [
+    "School of Statistics and Data Science, LEBPS, KLMDASR, LPMC, AAIS, NITFID, Nankai University",
+    "Department of Aerospace Intelligent Science and Technology, School of Astronautics, Beihang University"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 9,
+   "institutions": [
+    "Nankai University",
+    "Beihang University"
+   ],
+   "institution_ids": [
+    "01y1kjr75",
+    "00wk2mp56"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10307",
@@ -6080,11 +6102,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-04"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10522",

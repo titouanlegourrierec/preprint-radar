@@ -1098,7 +1098,7 @@
    "journal_ref": null,
    "venue": "ISBI 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.37431v1",
+   "html_url": "https://arxiv.org/html/2610.37431v2",
    "abstract": "Convolutional neural networks (CNN) are widely used for medical image segmentation. However, they lack an inherent measure of confidence. Existing methods for estimating prediction uncertainty often require a custom network architecture and/or dedicated training setups and need to be trained from scratch. In addition, the deduction of a single confidence score per input from the uncertainty maps is not always straightforward. In this study, we explore voxel-based uncertainty estimation methods that can be added to existing segmentation pipelines without training from scratch. We also propose a novel method to estimate a single confidence score from the uncertainty maps. Our evaluations on different ROIs and modalities suggest that our confidence score can predict segmentation performance in unseen data.",
    "affiliations": [
     "University of Pennsylvania",
@@ -6388,7 +6388,7 @@
    "journal_ref": null,
    "venue": "WACV 2027",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.36460v1",
+   "html_url": "https://arxiv.org/html/2610.36460v2",
    "abstract": "Recent long-tailed recognition (LTR) methods incorporate neural collapse (NC) and align features to a fixed Equiangular Tight Frame (ETF) as a uniform target for all classes. However, forcing tail classes to fully collapse over-contracts their samples and weakens generalization. To address this, we propose a controlled partial neural collapse, realized through two coordinated controls on a backbone: the Class-Adaptive Sparse Activation (CASA) classifier and the ETF-constrained adaptive margin (ETF-AM) loss. Rather than forcing a uniform full collapse, this regime allows head classes to collapse along the ETF while tail classes retain within-class diversity. This prevents the tail from being forced into full collapse, which is suboptimal under imbalance. To set the dimensionality of collapse, CASA induces class-related node specialization through feature-conditioned gating so that tail classes occupy their own feature directions. For the clearance axis, ETF-AM applies a frequency-adaptive margin, with smaller margins for head classes and larger for tail classes. On CIFAR100-LT, ImageNet-LT, Places-LT, and iNaturalist-2018, our method achieves the best overall accuracy over prior methods. In the empirical analysis, within-class spread increases monotonically from head to tail classes, consistent with tail classes retaining variability rather than fully collapsing.",
    "affiliations": [
     "KAIST",
