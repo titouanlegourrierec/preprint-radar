@@ -454,13 +454,14 @@
   {
    "arxiv_id": "2610.42002",
    "announced": "2026-11-02",
-   "title": "GeoFlip: Benchmarking Geometry-Sensitive Physics in Video Generation",
+   "title": "GeoFlip Preview: Benchmarking Geometry-Sensitive Physics in Video Generation",
    "authors": [
     "Yuqi Li",
     "Junming Liu",
     "Bowen Hu",
     "Ruize Niu",
     "Huiran Duan",
+    "Ming-Hsuan Yang",
     "Yingli Tian",
     "Hao Wu"
    ],
@@ -472,13 +473,14 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.42002v1",
+   "html_url": "https://arxiv.org/html/2610.42002v2",
    "abstract": "Video generation models synthesize realistic motion, but can they respond correctly to changes in initial geometry? We introduce GeoFlip, a video generation benchmark centered on physical outcome flips induced by geometry. With shared physical settings and textual prompts held fixed, GeoFlip applies controlled interventions to support extent, object placement, and mechanism configuration, constructing paired scenes with contrasting reference events, such as remaining stable versus falling or tipping. These pairs test whether models translate geometric differences in the first frame into correct physical evolution. The benchmark comprises 482 scene pairs and 964 reference videos across six physical categories, with reference outcomes established through procedural scene construction, physics simulation, and numerical validation and verification of physical events. We evaluate 16 models for image to video generation along three dimensions: event correctness, structural integrity, and similarity to reference videos. We examine evaluation consistency with independent vision language judges. On the 442 conditions shared by all models, the highest event correctness averaged across tasks is 27.98%, revealing substantial limitations in physical generation conditioned on geometry. Model strengths vary across physical mechanisms, and the three evaluation dimensions capture distinct capabilities. Typical failures include ignoring geometric changes, generating incorrect object motion, bending rigid objects, and introducing additional components. Rank correlations between judges reach 0.906 for event correctness and 0.929 for structural integrity. By combining controlled geometric interventions, verifiable physical references, and multidimensional evaluation, GeoFlip assesses progress from visual realism toward physical consistency conditioned on geometry.",
    "affiliations": [
     "City University of New York, USA",
     "University of Melbourne, Australia",
     "Sun Yat-sen University, China",
     "The Chinese University of Hong Kong, Hong Kong, China",
+    "University of California, Merced, USA",
     "Carnegie Mellon University, USA"
    ],
    "author_affiliations": [
@@ -498,10 +500,13 @@
      0
     ],
     [
+     4
+    ],
+    [
      0
     ],
     [
-     4
+     5
     ]
    ],
    "institutions": [
@@ -509,6 +514,7 @@
     "University of Melbourne",
     "Sun Yat-sen University",
     "Chinese University of Hong Kong",
+    "University of California, Merced",
     "Carnegie Mellon University"
    ],
    "institution_ids": [
@@ -516,17 +522,18 @@
     "01ej9dk98",
     "0064kty71",
     "00t33hh48",
+    "00d9ah105",
     "05x2bcf33"
    ],
    "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-03"
+     "at": "2026-11-05"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-02"
+     "at": "2026-11-05"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.42002",

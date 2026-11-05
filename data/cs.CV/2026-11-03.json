@@ -516,7 +516,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.03455v1",
+   "html_url": "https://arxiv.org/html/2611.03455v2",
    "abstract": "Electron microscopy (EM) serves as a cornerstone in virology enabling the visualization of viral particles and is widely used in research, diagnostics and morphological characterization of pathogens. Computer-assisted image analysis can help facilitate and speed up this labor-intensive method, however, typical EM virus datasets are small and sparsely labeled, resulting in a lack of readily available deep learning models due to training limitations. To overcome data shortages and leverage content-rich, diverse sample backgrounds, we employed background-based data augmentation. To this end, we propose Bg-Mix, a form of data augmentation method, which decomposes training images into foreground objects and backgrounds and subsequently rearranges both into novel augmented images. This not only enhances the performance of object detection models but also increases the diversity of the training data. Using Bg-Mix provides an increase between +0.8 and +3.3 box mean average precision (mAP) points over the baseline when tested across two datasets using two architectures, thereby demonstrating its effectiveness.",
    "affiliations": [
     "Centre for Artificial Intelligence in Public Health Research, Robert Koch Institute, Berlin, Germany",
@@ -2318,11 +2318,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Accepted at NeurIPS 2026. 24 pages, including references, appendix, and checklist",
    "journal_ref": null,
-   "venue": null,
+   "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.03114v1",
+   "html_url": "https://arxiv.org/html/2611.03114v2",
    "abstract": "3D Gaussian Splatting (3DGS) has become a vital tool in novel view synthesis. 3D Gaussian functions with attributes like color, opacity, and scale are stacked together to explicitly model a radiance field. However, discrete 3D Gaussians usually produce poor depth with few geometry details but lots of floaters, which hinders the effective modeling of smooth radiance fields. To address this issue, we propose to learn a radiance field within a continuous view-dependent color field parameterized by neural networks. With continuous constraints in color, the bias on low-frequency signals of neural networks can highly encourage the geometry modeling to contribute to high-frequency color variations on images, getting rid of solely relying on the color attribute itself. Moreover, we impose a constraint to improve the Lipschitz continuity of the neural color field, making large changes of each Gaussian's color also match with large changes of its position in terms of a ratio. To this end, we additionally introduce novel self-learning strategies to improve the learning of the neural view-dependent color field without any external knowledge or priors, aiming for better generalization on unseen scenes. Our numerical and visual comparisons on widely used benchmarks justify our idea and show better ability of high fidelity geometry recovery in 3DGS. Project page: https://github.com/yangyixi21/Neural-Color-Fields-3DGS.",
    "affiliations": [
     "School of Software, Tsinghua University, Beijing, China",
@@ -3727,7 +3727,7 @@
   {
    "arxiv_id": "2611.02897",
    "announced": "2026-11-03",
-   "title": "PhotoGuider: Composition-Aware Cropping and 360$^{\\circ}$ View Framing with Explainable Photographic Assessments",
+   "title": "PhotoGuider: Composition-Aware Cropping and 360° View Framing with Explainable Photographic Assessments",
    "authors": [
     "Yuan-Kang Lee",
     "Kuan-Lin Chen",
@@ -3742,7 +3742,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.02897v1",
+   "html_url": "https://arxiv.org/html/2611.02897v2",
    "abstract": "Traditional image cropping assumes the photograph already contains the composition worth keeping, and asks only where to crop. A full 360° scene offers no such guarantee: the viewing direction in a scene has to be discovered before anything can be framed. We present PhotoGuider, a measure-then-frame method that answers both questions with compact learned scorers over one shared set of composition-aware features. The designed features are extracted using foundation and task-specific vision models and structured into four photographic tokens: Subject, Composition, Aesthetics, and Integrity. Our MLLM explainer is fine-tuned to generate composition-related explanations conditioned on images and measured token assessments. To our knowledge, PhotoGuider is the first method to combine explicit composition-based direction selection in 360° panoramas with refined framing, camera-parameter output for native re-rendering, and measurement-conditioned explanations. On two standard 2D cropping benchmarks, PhotoGuider achieves the highest average mIoU performance against ground-truth crops. In a blind ranking study, 120 participants ranked three cropping methods over 100 panoramic scenes from the public Poly Haven HDRI library, placing our framings first in 53.2% of cases, against 27.3% and 19.5% for two strong alternatives. Project page: https://ntuneillee.github.io/research/photoguider/",
    "affiliations": [
     "MediaTek Inc",
@@ -6264,11 +6264,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Project page: https://droliven.github.io/Gnomon4D",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.02474v1",
+   "html_url": "https://arxiv.org/html/2611.02474v2",
    "abstract": "World-action models (WAMs) use video-generation priors to jointly predict future observations and robot actions. Yet RGB futures entangle physical state changes with appearance, while frame-wise depth and point maps lack temporal correspondence. Existing 4D approaches either keep motion implicit in visual features or translate predicted traces into actions through a separate interface. We present Gnomon4D, a WAM that jointly generates future video, robot actions, and GeoDelta, a video-aligned 4D geometric motion field encoding the cross-frame image-plane displacement and depth change of embodiment and object points. By placing embodiment motion and object responses in a shared space, GeoDelta exposes their motion relations to the action expert at inference. Interaction-Salient Attention (InSAttn) uses these relations to focus spatial readout on task-relevant interaction regions, while Transition-Anchored Aggregation (TransAgg) aggregates evidence around changes in their relative motion, such as grasp and release. GeoDelta describes surface motion independently of embodiment-specific controls, providing a shared human--robot quasi-action for action-free pretraining on EgoManip-5000H followed by robot mid-training on Robot-30H. Gnomon4D leads on RoboTwin~2.0, VLABench, and RoboDojo, and outperforms the strongest real-robot baseline by 7.0 and 16.0 percentage points under in-distribution and out-of-distribution settings, respectively.",
    "affiliations": [
     "KlingAI Research",
@@ -6661,7 +6661,7 @@
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.02356v1",
+   "html_url": "https://arxiv.org/html/2611.02356v2",
    "abstract": "Cross-view object correspondence (CVOC) aims to establish associations of the same target between query and search videos captured from different viewpoints. Existing methods often rely on visual cues for CVOC. Despite recent progress, these methods struggle in complicated scenarios with substantial viewpoint changes and appearance variations, due to lacking sufficient target information. Addressing this, we introduce TeSCo, a framework that exploits rich Textual Semantics of an object, in addition to its visual cues, for cross-view object Correspondence. Our key insight is, textual description of a target, by capturing diverse attributes such as category, texture, and color, provides viewpoint- and appearance-invariant semantics, which are complementary to visual cues and can hence enhance correspondence robustness in complicated scenes. Inspired by this, TeSCo first generates a textual expression of the target from the given query view using a vision-language model, and then extracts textual feature to enhance visual features for localization in the search view. To realize this, we introduce a text-conditioned cross-modal fusion (TCF) module that incorporates the textual feature into visual features with text-guided modulation, producing more robust multimodal target representation for object correspondence. Since not all textual cues are equally compatible with the target in current search-view frame, we propose an iterative textual feature refinement (ITFR) module that progressively adjusts textual feature using search-view information before the TCF module, enabling search-view-aware textual semantics to be fused into visual features and leading to better performance. In extensive experiments on Ego-Exo4D and HANDAL-X, TeSCo demonstrates state-of-the-art results and largely outperforms other models, validating its efficacy. Our code is released at https://github.com/VAIL-Fan/TeSCo.",
    "affiliations": [
     "Department of Computer Science and Engineering, University of North Texas"
@@ -7260,7 +7260,7 @@
   {
    "arxiv_id": "2611.02197",
    "announced": "2026-11-03",
-   "title": "A conditional generative model for T2-weighted prostate MRI with downstream evaluation in clinically significant cancer classificatio",
+   "title": "Conditional Diffusion-Based Generation of T2-Weighted Prostate MRI for Clinically Significant Prostate Cancer Classification",
    "authors": [
     "Xavier Rafael-Palou",
     "Alejandro Vergara-Richart",
@@ -7278,7 +7278,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.02197v1",
+   "html_url": "https://arxiv.org/html/2611.02197v2",
    "abstract": "Scarce and unrepresentative training data limit the performance of prostate MRI prediction models. Synthetic T2-weighted (T2W) MRI may augment training data containing clinically significant prostate cancer (csPCa) and transition zone (TZ) lesions. In this retrospective, single-center, ethics-committee-approved study, we developed a conditional generative model for T2W prostate MRI extending MAISI-v2 with csPCa class, zonal, and lesion-mask-guided conditioning, incorporating a relative advantage weighted loss fine-tuned on 1,303 patients (1,654 lesions). Fidelity was assessed by incremental ablation, and downstream utility was evaluated with T2W-based csPCa classifiers across five simulated training-data scenarios, each testing 18 synthetic-data configurations. The proposed model reduced Fréchet inception distance (FID) from 13.28 (pretrained MAISI-v2) to 2.04 ±0.06 internally (PI-CAI: 3.83 ±0.51). Synthetic augmentation significantly increased AUC in all five scenarios (+0.027 to +0.088; adjusted p = 0.016–0.043), though cross-institutional augmentation of PI-CAI yielded a non-significant gain (+0.013; p = 0.397). Overall, our model improved T2W MRI fidelity, and synthetic images improved csPCa classification under simulated data constraints, although benefit did not transfer significantly across institutions.",
    "affiliations": [],
    "author_affiliations": null,
@@ -7384,12 +7384,11 @@
    "announced": "2026-11-03",
    "title": "Testing concept-level audits of melanoma classifiers with diffusion counterfactuals and matched positive controls",
    "authors": [
-    "Md. Shohanoor Rahman",
-    "Md. Hasibul Islam",
+    "Md Shohanoor Rahman",
+    "Md Hasibul Islam",
     "Md Kishor Morol",
-    "Moinul Hossain",
     "Dip Nandi",
-    "Liew Tze Hui"
+    "Tze Hui Liew"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
@@ -7401,11 +7400,11 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.02119v1",
+   "html_url": "https://arxiv.org/html/2611.02119v2",
    "abstract": "Concept-based explanations of melanoma classifiers are rarely tested against controls with known targets. We built a counterfactual audit from a diffusion model conditioned on seven 7-point checklist concepts and tested it with such controls. Colour-calibrated start noise reduced colour outliers from 78.5-84.8% to 6.6-13.3%. Four of seven knobs were target-dominant but also changed other concepts. Quartile-based positive controls were confounded, and the audit failed its pre-specified rule. It recovered the targets of all 16 controls matched on the generator's pseudo-labels and of 12 of 12 controls labelled by a second evaluator, for three concepts; concept activation vectors recovered fewer (11 of 16). In 18 permuted-label classifiers, significant sweep responses and target rankings also arose, whereas standardised effect margins separated the controls from these null classifiers. The pigmentation sweep raised the melanoma logit in 15 of 15 ISIC 2020 classifiers (+3.12 on average) and 6 of 6 HAM10000 classifiers (+4.01), about four times the null response in scale-free units; the regression effect did not transfer. An exploratory decomposition, evaluated against the controls, suggested that knob cross-talk partly hides vascular responses. Matched controls and null classifiers are practical checks of concept audits.",
    "affiliations": [
     "Department of Computer Science & Engineering, Rajshahi University of Engineering & Technology, Rajshahi, 6204, Bangladesh",
-    "Department of Computer Science, American International University-Bangladesh (AIUB), Dhaka, Bangladesh",
+    "Department of Computer Science & Engineering, American International University-Bangladesh (AIUB), Dhaka, Bangladesh",
     "ELITE Research Lab, Queens, NY, 11435, USA",
     "Centre for Intelligent Cloud Computing (CICC), COE of Advanced Cloud, Faculty of Information Science & Technology, Multimedia University, Jalan Ayer Keroh Lama, Bukit Beruang, Melaka, 75450, Malaysia"
    ],
@@ -7417,10 +7416,6 @@
      1
     ],
     [
-     2
-    ],
-    [
-     1,
      2
     ],
     [
@@ -7446,11 +7441,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-04"
+     "at": "2026-11-05"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-04"
+     "at": "2026-11-05"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.02119",
@@ -13059,11 +13054,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Accepted to NIPS 2026",
+   "comments": "Accepted to NeurIPS 2026",
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.00892v1",
+   "html_url": "https://arxiv.org/html/2611.00892v2",
    "abstract": "Reinforcement learning (RL) post-training has become an important paradigm for improving multimodal large language models (MLLMs), especially with automatically verifiable rewards. Self-supervised visual pretext tasks provide such rewards without human annotations. However, existing methods mainly exploit within-instance structure, offering limited supervision for cross-instance discrimination and fine-grained comparison. We introduce Group-and-Order Self-Supervised Reinforcement Learning (GO-SSL), a cross-instance jigsaw framework for vision-centric MLLM post-training. Given two visual instances, GO-SSL mixes their local elements and trains the model to group them by instance of origin while recovering the order within each group, coupling instance-level comparison with spatial, temporal, or geometric structure recovery. This paired formulation turns the same unlabeled data into richer verifiable supervision through diverse pairings, shuffles, and a random-to-hard curriculum. We instantiate GO-SSL mainly on cross-image jigsaw tasks and further extend it to 3D depth and video temporal ordering. Across diverse benchmarks, GO-SSL consistently improves over the base MLLM and prior self-supervised post-training baselines, with clear gains in fine-grained perception and spatial understanding. Further evaluations across model scales and families support its generality. These results suggest that cross-instance comparison provides a useful self-supervised RL signal for improving transferable visual understanding in MLLMs. Code is available at https://github.com/SEU-VIPGroup/GO-SSL.",
    "affiliations": [
     "School of Computer Science and Engineering, Southeast University",
@@ -22436,7 +22431,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2611.00180v1",
+   "html_url": "https://arxiv.org/html/2611.00180v2",
    "abstract": "Embodied agents are usually organized around individual tasks, yet the physical world keeps changing between tasks and during execution. We introduce LIFE (Lifelong Intelligence from Experience), a framework in which a robot observes continuously, remembers selectively, and turns experience into new capabilities. RoboBeats, a family of lightweight streaming gates, tracks conditions set by the agent and discovers new events, deciding when an observation warrants a response or a memory write. Selected observations enter Plastic Memory, a flat store of images and structured records that keeps the source evidence, so new fields and indexes can be added when later questions need them. When existing tools fall short, Explore-Distill-Mount (EDM) turns solutions found during problem solving into validated, reusable tools and skills. Under matched protocols, RoboBeats substantially improves condition tracking over its base models and, at the same writing budget, retains more useful evidence for memory question answering than uniform sampling. A case study of limited scale, replaying 24 hours of continuous video recorded by a real robot, illustrates how the integrated system builds memory from a day of experience and uses it to answer everyday questions. LIFE takes a step toward robots that become more familiar with their surroundings and more capable through experience: learning not only to complete tasks, but to live in the world.",
    "affiliations": [],
    "author_affiliations": null,
@@ -22523,7 +22518,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
-   "html_url": "https://arxiv.org/html/2611.00177v1",
+   "html_url": "https://arxiv.org/html/2611.00177v2",
    "abstract": "Egocentric observations provide a robot-centric view of manipulation processes, capturing contact interactions and object-state changes that are important for visuomotor policy learning but difficult to observe from external cameras. However, collecting such data at scale remains expensive due to additional hardware requirements and platform-specific deployment costs. Synthesizing egocentric observations from large-scale exocentric manipulation videos provides a scalable alternative. However, existing methods struggle to synthesize physically consistent and policy-relevant egocentric videos under substantial viewpoint transformations, severe occlusions, complex object interactions, and inherently sparse observations from available exocentric viewpoints.",
    "affiliations": [],
    "author_affiliations": null,
