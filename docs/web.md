@@ -376,8 +376,9 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   which keeps dark marks readable in the dark theme, hidden from screen readers since the
   name follows. About says they are trademarks, removed on request.
 - **A shared link's card** (UX-49, `tooling/share-card.ts`): Open Graph tags and
-  `public/share.png` (1200 by 630, from the designer's file with `rsvg-convert` and
-  ImageMagick), absolute when the build knows `PREPRINT_RADAR_SITE_URL`. Previews run no
+  `public/share.jpg` (the designer's light card, 1200 by 630, made a JPEG of quality 90 with
+  ImageMagick: WhatsApp shows no preview past about 300 kB, a new name makes the apps' caches
+  fetch it again), absolute when the build knows `PREPRINT_RADAR_SITE_URL`. Previews run no
   script and the site is one page, so every link shows that card. On a coarse pointer, Share
   opens the system share sheet (`native-share.ts`, Web Share API); elsewhere, or when it
   fails, the link is copied.

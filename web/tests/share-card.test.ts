@@ -18,7 +18,7 @@ describe("the card of a shared link (UX-49)", () => {
   it("gives its image an absolute address, under the site's path", () => {
     const tags = shareImageTags("https://example.github.io/preprint-radar");
     expect(tags[0]).toBe(
-      '<meta property="og:image" content="https://example.github.io/preprint-radar/share.png" />',
+      '<meta property="og:image" content="https://example.github.io/preprint-radar/share.jpg" />',
     );
     expect(shareImageTags("https://example.github.io/preprint-radar/")[0]).toBe(tags[0]);
     expect(tags).toContain(`<meta property="og:image:width" content="${SHARE_IMAGE_WIDTH}" />`);

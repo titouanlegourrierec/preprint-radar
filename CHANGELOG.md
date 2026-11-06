@@ -28,6 +28,7 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 - The search index is built in slices of 10 ms (WEB-7), the landing page loads the styles
   of the list alone (SCALE-6), and a few accessibility gaps are closed (WEB-8).
+- A shared link's card shows the designer's new image (UX-49).
 
 ## 1.2.0 (2026-11-02): the second audit, lighter lists, and affiliations read more surely
 
