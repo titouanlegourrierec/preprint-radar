@@ -467,6 +467,16 @@ country for 28,432 of the 31,743 papers (90%, 88% in v1.1.0). Extraction version
 hand-read reference set: strings 52 of 60, who is where 53 of 60. `validate`: no error, 1
 warning (an author-id list of `scholar.json` that does not fit its authors).
 
+*Result of v1.3.0 (2026-11-07; `make stats` and `make validate` that day).* The second
+audit's P3 items done but SCALE-5, the choice of a second category. Day files: 8,827
+papers, abstracts 100%, affiliations 83% of those tried (authors mapped 86%, institutions
+named 99%), venues 23%, citation counts 98%. Archive: 22,834 papers, affiliations 97%,
+authors mapped 98%, institutions named 100%, venues 89%, counts 100%. A country for 29,105
+of the 32,587 papers (89%). Extraction version 24; the hand-read reference set: strings 55
+of 60, who is where 55 of 60. `data/`: 94 MB, the repository 140 MB at GitHub (SCALE-1).
+`validate`: no error, 3 warnings (2610.24182's two authors holding a contact detail, PUB-8,
+and an author-id list of `scholar.json` that does not fit its authors).
+
 ## Backlog triage (2026-10-07)
 
 The audit items no row above named on 2026-10-07, checked against the code of that day (`b3bfefc`).

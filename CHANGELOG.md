@@ -10,6 +10,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ## Unreleased
 
+## 1.3.0 (2026-11-07): the second audit closed, extraction version 24, a new share card
+
 ### Pipeline
 
 - Extraction version 24 (AQ-9, AQ-11, AQ-12): links' labels glued to an affiliation
@@ -23,11 +25,15 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   zizmor (PUB-7) and their limits hold their steps' (OPS-9).
 - The archive's pages no longer stop as a layout change when nearly all give no
   affiliation, which those it reads mostly do (OPS-12).
+- Every deploy tests the app, data deploys included (OPS-10), the size guards count what
+  the site's files hold (SCALE-7), and the schedules' guard says what the run history gave
+  it (OPS-8).
 
 ### Interface
 
 - The search index is built in slices of 10 ms (WEB-7), the landing page loads the styles
   of the list alone (SCALE-6), and a few accessibility gaps are closed (WEB-8).
+- No request for a month's citation shard the build did not write (WEB-9).
 - A shared link's card shows the designer's new image (UX-49).
 
 ## 1.2.0 (2026-11-02): the second audit, lighter lists, and affiliations read more surely
