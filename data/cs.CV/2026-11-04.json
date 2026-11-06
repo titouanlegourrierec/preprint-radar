@@ -1859,11 +1859,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Accepted to WACV 2027. 37 pages, 27 figures, 4 tables, including the supplementary material",
+   "comments": "Accepted to WACV 2027. 37 pages, 27 figures, 4 tables, including the supplementary material. v2: code link moved from the conclusion to the abstract; results unchanged",
    "journal_ref": null,
    "venue": "WACV 2027",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.05004v1",
+   "html_url": "https://arxiv.org/html/2611.05004v2",
    "abstract": "Requested-value control is stricter than continuous steering: given c on a human-rating scale, the generated image should attain that value from only limited ratings. We present ScoreDial, which fits a differentiable regressor R to 100-479 human-rated images; once R is fixed, a requested value c is defined on its output scale, and learned target conditioning is paired with error-adaptive guidance that repeatedly reduces |R(x)-c| during sampling. Across tire slip resistance, interior visual complexity, food desire-to-eat, and soap translucency, using one set of sampler settings shared across all four, ScoreDial reaches requested values and achieves, on all four attributes, R-MAE at most 0.013 over a range of width 0.8 and Spearman ρ=0.980, the maximum attainable under our evaluation protocol. Because R also drives sampling, we evaluate agreement with R separately from matched sweeps, an independent auditor fitted to the same ratings on a backbone none of the deployed regressors uses, and blinded human judgments. MPGD-flow also reaches the requested values under R, but ScoreDial has larger auditor displacement on every attribute, the largest among all compared methods, and a stronger MPGD-flow setting gives up target agreement without closing this gap. On every attribute, removing target conditioning leaves low R-MAE but more than halves auditor displacement, separating precise score correction from attribute movement. Blinded rating studies with 15 raters per attribute show that mean human ratings track c on tire and soap, with linear $R^2=0.665$ and $R^2=0.786$, and in forced-choice comparisons of matched sweeps, raters chose ScoreDial's as the clearer progression in at least 84% of judgments against every baseline.",
    "affiliations": [
     "Keio University, Japan",
@@ -7266,7 +7266,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.04216v1",
+   "html_url": "https://arxiv.org/html/2611.04216v2",
    "abstract": "Self-attention has become the standard for modern sequence modeling, enabling Transformers to model long-range dependencies across a wide range of modalities. Despite these advances, its quadratic cost with respect to sequence length remains a significant computational bottleneck. Recent work addresses this limitation by introducing linear variants of self-attention, namely with kernel approximations of the softmax operator. However, their first-order aggregation restricts expressivity and struggles to capture higher-order structure. We propose Linear Stochastic Attention (LiSA), a linear attention plug-in module that enables higher-order token interactions via a stochastic diffusion process based on truncated random walks. LiSA incorporates adaptive locality, favoring semantically similar neighbors to preserve fine-grained structures, while maintaining stable and efficient training. We conduct extensive experiments on classification, semantic segmentation, and object detection tasks and show improved results over state-of-the-art methods.",
    "affiliations": [
     "LIVIA, ÉTS Montreal, Canada",

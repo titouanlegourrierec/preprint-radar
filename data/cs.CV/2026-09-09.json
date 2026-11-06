@@ -15180,11 +15180,11 @@
    "institution_ids": [
     "024mrxd33"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -15278,14 +15278,56 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.08607v2",
    "abstract": "We present GOLF, the first-place solution to the SHOW3D Interaction Field Estimation Challenge at HANDS@ECCV 2026. Given synchronized egocentric stereo views, the task is to predict a 3D vector from each of 21 hand joints to the closest point on the manipulated object. GOLF combines dense global context, locally sampled hand/object evidence, and common-frame Plücker-ray geometry. We adapt DINOv3 ViT-H+/16 with LoRA and trainable LayerNorm parameters, then jointly decode both interaction fields. Our primary model achieves an official score of 27.61 and a mean ADE of 27.96 mm on the hidden test set. An equal-weight ensemble with a complementary directly fine-tuned variant improves these results to an official score of 27.47 and a mean ADE of 27.82 mm, securing first place.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
-   "extractor": 9,
+   "affiliations": [
+    "JIIOV Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "JIIOV Technology"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.08607",
@@ -15369,11 +15411,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.08636",
@@ -15474,11 +15516,11 @@
     "04h1h0y33",
     null
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -15672,11 +15714,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.08730",
@@ -16010,11 +16052,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.08805",
@@ -16114,11 +16156,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.08818",
@@ -16179,11 +16221,11 @@
    "institution_ids": [
     "03cve4549"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -16317,11 +16359,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.08867",
@@ -16477,33 +16519,31 @@
    "html_url": "https://arxiv.org/html/2609.08914v2",
    "abstract": "Pixel-level annotation of fixed traffic-camera imagery is expensive, while crosswalk models trained from street-level imagery face a substantial viewpoint and appearance shift when applied to elevated CCTV. We investigate a data-efficient target-domain pipeline using 241 manually annotated CCTV images and 5,926 unlabeled CCTV frames. A source-domain experiment trains a 31.0M-parameter custom U-Net on 3,300 first-person-view (FPV) images and obtains 93.05% IoU on its 330-image FPV test split. This result is a source baseline, not transferred performance: the released CCTV notebook instantiates a 42.0M-parameter DeepLabV3-ResNet50 from torchvision weights, and no compatible mapping from the U-Net checkpoint is implemented. Training on 201 manual CCTV images and selecting on 40 held-out manual masks yields 88.91% IoU. The model then predicts all unlabeled frames; image-level certainty and a largest-component area prior rank the candidates, and the top 1,000 attain mean certainty 0.976 and mean combined score 0.988. A repository audit shows that the reported second-stage 98.52% IoU was measured on a 150-image split containing only teacher-generated pseudo-masks. Because of a directory-layout mismatch, the executed combined-data loader found zero manual samples and split 1,000 pseudo-labeled samples into 850 training and 150 evaluation samples. We therefore report 98.52% as internal pseudo-label agreement rather than human-ground-truth accuracy. The defensible target-domain result is 88.91% IoU on the 40 manual validation images. Batch-one FP32 inference at 512 x 512 requires 12.98 ms, corresponding to 77.03 FPS, on an NVIDIA RTX A6000 48 GB GPU. These findings support the practicality of confidence-and-geometry filtering while also showing why pseudo-label evaluation must remain isolated from the labels used for self-training.",
    "affiliations": [
-    "Department of Data Science, Graduate School of Kookmin University",
-    "Seoul 02707, Republic of Korea"
+    "Department of Data Science, Graduate School of Kookmin University, Seoul 02707, Republic of Korea"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     1
+     0
     ]
    ],
    "institutions": [
-    "Kookmin University",
-    null
+    "Kookmin University"
    ],
    "institution_ids": [
-    "0049erg63",
-    null
+    "0049erg63"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-06"
     },
     "institutions": {
-     "source": "ror"
+     "source": "ror",
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.08914",
@@ -16623,11 +16663,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.08999",
@@ -16654,14 +16694,31 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.09005v1",
    "abstract": "We present DXPR, a depth-based cross-modal place recognition (CMPR) framework that uses vision foundation models (VFMs) to match monocular camera queries against a LiDAR map without modality-specific encoders. This enables robots and autonomous vehicles to robustly localize using only cameras within pre-built LiDAR maps, even under severe seasonal, weather, and illumination changes. The key idea is to convert both camera images and LiDAR scans into a unified depth image representation so that a single VFM backbone with an aggregation head can learn modality-invariant global descriptors. To make pairwise metric learning faithful to scene geometry, we introduce a geometry-aware overlap miner: after cross-modal scale alignment of camera and LiDAR depth, we forward-warp measurements between views to compute a pixel-level overlap score. This score relabels ambiguous pairs and adaptively modulates the positive margin in a multi-similarity loss to avoid overfitting on weakly overlapping views. Extensive experiments on KITTI odometry and Boreas demonstrate strong performance and robustness across seasons, weather, and day/night. On KITTI, DXPR achieves near-perfect Recall@1 on most sequences and outperforms prior CMPR baselines. On Boreas, DXPR achieves intra-sequence performance on par with a strong single-modal baseline (DINOv2-SALAD), while showing clear improvements in the more challenging inter-sequence setting. Compared with RangeBEV, our method consistently performs better in both intra- and inter-sequence evaluations, demonstrating robustness under diverse seasonal and illumination changes.",
-   "affiliations": [],
+   "affiliations": [
+    "Department of Aerospace Engineering, Seoul National University, Seoul, Republic of Korea",
+    "InnoCORE AI-Transformed Aerospace Research Center, KAIST, Daejeon, Republic of Korea",
+    "Interdisciplinary Program in Artificial Intelligence, Seoul National University, Seoul, Republic of Korea"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 9,
+   "institutions": [
+    "Seoul National University",
+    "Korea Advanced Institute of Science and Technology",
+    "Seoul National University"
+   ],
+   "institution_ids": [
+    "04h9pn542",
+    null,
+    "04h9pn542"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.09005",
@@ -17661,11 +17718,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.05506",
@@ -17701,11 +17758,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.05507",
@@ -18041,11 +18098,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.05588",
@@ -18075,11 +18132,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.05783",
@@ -18234,11 +18291,11 @@
    "institution_ids": [
     "05d2yfz11"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -18766,11 +18823,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.06590",
@@ -18898,11 +18955,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.06746",
@@ -19120,11 +19177,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.07009",
@@ -19429,11 +19486,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.07213",
@@ -19605,11 +19662,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.07313",
@@ -20328,11 +20385,11 @@
     "00cvxb145",
     null
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -20443,11 +20500,11 @@
     "006e5kg04",
     "02e2c7k09"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -20482,11 +20539,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.08153",
@@ -20624,11 +20681,11 @@
    "institution_ids": [
     "030bhh786"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",

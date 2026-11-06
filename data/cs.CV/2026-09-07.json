@@ -25,11 +25,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04276",
@@ -423,11 +423,11 @@
     "04w9fbh59",
     "02zhqgq86"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -610,11 +610,11 @@
    "institution_ids": [
     "02nfy3535"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -1061,33 +1061,27 @@
    "html_url": "https://arxiv.org/html/2609.04555v1",
    "abstract": "Vision foundation models (VFMs) are valuable in data-scarce domains such as surgery, where a single pretrained backbone can provide rich representations for many downstream tasks. Yet the dominant self-supervised pretraining paradigm uses only RGB images, leaving readily available complementary signals, such as depth maps, unused. This is a particular missed opportunity in surgery, where natural-image VFMs transfer poorly while the scene geometry is rich and informative. With strong off-the-shelf models now able to produce pseudo-labeled dense depth for any image corpus, we hypothesize that such signals can be folded into pretraining to learn better representations. We present DART, an RGB-D pretraining recipe that builds on DINOv2 with a simple modification: a pixel-space depth reconstruction objective applied to masked iBOT patches, supervised by pseudo-labeled depth. Depth is used only during pretraining, so fine-tuning and inference remain RGB-only. We find that this pixel-level reconstruction head improves representation quality rather than disrupting it. We further show that depth, which encodes scene geometry, is more effective as a target than alternative dense signals such as Canny edges, confirming that the gains stem from depth rather than added supervision alone. Across eight surgical benchmarks spanning segmentation, depth estimation, and image-level recognition, DART outperforms both natural-image and in-domain baselines, including a vanilla DINOv2 trained on identical data, improving dense prediction while also strengthening image-level understanding. More broadly, DART shows that freely available geometric pseudo-labels can strengthen foundation model pretraining without extra labels or added inference cost, pointing toward stronger backbones for surgery.",
    "affiliations": [
-    "Vanderbilt University",
-    "West End Ave, Nashville, Tennessee, USA",
-    "Intuitive Surgical, Inc",
-    "Kifer Rd, Sunnyvale, California, USA"
+    "Vanderbilt University, 2305 West End Ave, Nashville, Tennessee, USA",
+    "Intuitive Surgical, Inc, 1020 Kifer Rd, Sunnyvale, California, USA"
    ],
    "author_affiliations": null,
    "institutions": [
     "Vanderbilt University",
-    null,
-    "Intuitive Surgical Inc",
-    null
+    "Intuitive Surgical Inc"
    ],
    "institution_ids": [
     "02vm5rt34",
-    null,
-    null,
     null
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04555",
@@ -1384,11 +1378,11 @@
    "institution_ids": [
     "047426m28"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -1590,11 +1584,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04709",
@@ -1626,11 +1620,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04716",
@@ -2012,11 +2006,11 @@
     null,
     "0384j8v12"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -2265,11 +2259,11 @@
     null,
     "012tb2g32"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -2570,19 +2564,16 @@
    "html_url": "https://arxiv.org/html/2609.04886v1",
    "abstract": "Changes in sensor height and viewpoint alter object-level point distributions, making cross-platform LiDAR unsupervised domain adaptation (UDA) difficult. Self-training uses labeled source scans and unlabeled target scans, yet a retained prediction may provide a useful target location while enclosing sparse foreground returns, background clutter, or points inconsistent with the predicted box. We refer to this mismatch as box-point inconsistency. We introduce SimFuse3D, which preserves the target placement and repairs the associated pseudo-object using measured geometry from labeled source scans. Object Memory retrieves a compatible labeled source instance. Target Simulation places its ground-truth box at the target location, aligns its points with the target viewing geometry, and filters the aligned crop to approximate the target observation. Confidence-Guided Multi-Stage Localization Reweighting (CMLR) maps each target pseudo-object confidence score to a bounded weight shared by RPN localization and R-CNN box regression. All components operate only during adaptation, leaving the detector architecture and inference graph unchanged. Across six cross-platform transfers, SimFuse3D exceeds Pi3DET-Net on every reported AP metric and ranks first among the compared adaptation methods on nearly all metrics. On nuScenes-to-KITTI, it ranks first among the compared adaptation methods with both evaluated detectors.",
    "affiliations": [
+    "Guangdong University of Technology",
     "SenseTime",
     "Hong Kong University of Science and Technology (Guangzhou)"
    ],
    "author_affiliations": [
-    null,
     [
      0
     ],
-    null,
-    null,
-    null,
     [
-     0
+     1
     ],
     [
      0
@@ -2595,25 +2586,39 @@
     ],
     [
      1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
     ]
    ],
    "institutions": [
+    "Guangdong University of Technology",
     "SenseTime",
     "Hong Kong University of Science and Technology (Guangzhou)"
    ],
    "institution_ids": [
+    "04azbjn80",
     "049wsmj07",
     "050h0vm43"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04886",
@@ -2865,11 +2870,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04911",
@@ -3318,11 +3323,11 @@
     "00a2xv884",
     "03cve4549"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -3558,11 +3563,11 @@
     null,
     "049tgcd06"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -4032,11 +4037,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.05174",
@@ -4105,11 +4110,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.05210",
@@ -4259,11 +4264,11 @@
     "Cisco Systems Inc",
     null
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -5076,11 +5081,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.05416",
@@ -5220,11 +5225,11 @@
    "institution_ids": [
     "0258gkt32"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -5360,11 +5365,11 @@
     "02d5ks197",
     null
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -5575,11 +5580,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04277",
@@ -6129,11 +6134,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04545",
@@ -6299,11 +6304,11 @@
    "institution_ids": [
     "0270vfa57"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
@@ -6436,11 +6441,11 @@
     null,
     "05htk5m33"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-06"
     },
     "institutions": {
      "source": "ror",
