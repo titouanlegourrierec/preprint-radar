@@ -822,6 +822,78 @@
    "pdf_url": "https://arxiv.org/pdf/1006.5902"
   },
   {
+   "arxiv_id": "1006.3679",
+   "announced": "2010-06-18",
+   "title": "Segmentation of Natural Images by Texture and Boundary Compression",
+   "authors": [
+    "Hossein Mobahi",
+    "Shankar R. Rao",
+    "Allen Y. Yang",
+    "Shankar S. Sastry",
+    "Yi Ma"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Information Theory (cs.IT)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We present a novel algorithm for segmentation of natural images that harnesses the principle of minimum description length (MDL). Our method is based on observations that a homogeneously textured region of a natural image can be well modeled by a Gaussian distribution and the region boundary can be effectively coded by an adaptive chain code. The optimal segmentation of an image is the one that gives the shortest coding length for encoding all textures and boundaries in the image, and is obtained via an agglomerative clustering process applied to a hierarchy of decreasing window sizes as multi-scale texture features. The optimal segmentation also provides an accurate estimate of the overall coding length and hence the true entropy of the image. We test our algorithm on the publicly available Berkeley Segmentation Dataset. It achieves state-of-the-art segmentation results compared to other existing methods.",
+   "affiliations": [
+    "University of Illinois Urbana-Champaign",
+    "HRL Laboratories",
+    "University of California, Berkeley",
+    "Microsoft Research Asia"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     3
+    ]
+   ],
+   "institutions": [
+    "University of Illinois Urbana-Champaign",
+    "HRL Laboratories",
+    "University of California, Berkeley",
+    "Microsoft"
+   ],
+   "institution_ids": [
+    "047426m28",
+    "05p7te762",
+    "01an7q238",
+    "0300m5276"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1006.3679",
+   "pdf_url": "https://arxiv.org/pdf/1006.3679"
+  },
+  {
    "arxiv_id": "1006.3056",
    "announced": "2010-06-15",
    "title": "Solving Inverse Problems with Piecewise Linear Estimators: From Gaussian Mixture Models to Structured Sparsity",
@@ -1507,78 +1579,6 @@
    },
    "abs_url": "https://arxiv.org/abs/1001.3503",
    "pdf_url": "https://arxiv.org/pdf/1001.3503"
-  },
-  {
-   "arxiv_id": "1001.2605",
-   "announced": "2010-01-15",
-   "title": "An Explicit Nonlinear Mapping for Manifold Learning",
-   "authors": [
-    "Hong Qiao",
-    "Peng Zhang",
-    "Di Wang",
-    "Bo Zhang"
-   ],
-   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
-   "subjects": [
-    "Computer Vision and Pattern Recognition (cs.CV)",
-    "Machine Learning (cs.LG)"
-   ],
-   "comments": null,
-   "journal_ref": null,
-   "venue": null,
-   "cross_list_from": null,
-   "html_url": null,
-   "abstract": "Manifold learning is a hot research topic in the field of computer science and has many applications in the real world. A main drawback of manifold learning methods is, however, that there is no explicit mappings from the input data manifold to the output embedding. This prohibits the application of manifold learning methods in many practical problems such as classification and target detection. Previously, in order to provide explicit mappings for manifold learning methods, many methods have been proposed to get an approximate explicit representation mapping with the assumption that there exists a linear projection between the high-dimensional data samples and their low-dimensional embedding. However, this linearity assumption may be too restrictive. In this paper, an explicit nonlinear mapping is proposed for manifold learning, based on the assumption that there exists a polynomial mapping between the high-dimensional data samples and their low-dimensional representations. As far as we know, this is the first time that an explicit nonlinear mapping for manifold learning is given. In particular, we apply this to the method of Locally Linear Embedding (LLE) and derive an explicit nonlinear manifold learning algorithm, named Neighborhood Preserving Polynomial Embedding (NPPE). Experimental results on both synthetic and real-world data show that the proposed mapping is much more effective in preserving the local neighborhood information and the nonlinear geometry of the high-dimensional data samples than previous work.",
-   "affiliations": [
-    "Chinese Academy of Sciences",
-    "Institute of Automation",
-    "China National Commission for Disaster Reduction",
-    "Academy of Mathematics and Systems Science",
-    "State Key Laboratory of Scientific and Engineering Computing"
-   ],
-   "author_affiliations": [
-    [
-     0,
-     1
-    ],
-    [
-     2
-    ],
-    [
-     0,
-     3
-    ],
-    [
-     0,
-     4
-    ]
-   ],
-   "institutions": [
-    "Chinese Academy of Sciences",
-    "Institute of Automation",
-    "China National Commission for Disaster Reduction",
-    "Academy of Mathematics and Systems Science",
-    "State Key Laboratory of Scientific and Engineering Computing"
-   ],
-   "institution_ids": [
-    "034t30j35",
-    "022c3hy66",
-    "029j8j127",
-    "02jkmyk67",
-    "02fp7dp35"
-   ],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-25"
-    },
-    "institutions": {
-     "source": "openalex",
-     "at": "2026-10-25"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/1001.2605",
-   "pdf_url": "https://arxiv.org/pdf/1001.2605"
   }
  ]
 }

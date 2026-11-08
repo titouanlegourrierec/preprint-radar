@@ -3785,7 +3785,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -16821,7 +16821,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -23254,64 +23254,6 @@
    },
    "abs_url": "https://arxiv.org/abs/2011.04305",
    "pdf_url": "https://arxiv.org/pdf/2011.04305"
-  },
-  {
-   "arxiv_id": "2011.04244",
-   "announced": "2020-11-01",
-   "title": "Real-time object detection method based on improved YOLOv4-tiny",
-   "authors": [
-    "Zicong Jiang",
-    "Liquan Zhao",
-    "Shuaiyang Li",
-    "Yanfei Jia"
-   ],
-   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
-   "subjects": [
-    "Computer Vision and Pattern Recognition (cs.CV)",
-    "Artificial Intelligence (cs.AI)"
-   ],
-   "comments": "14pages,7figures,2tables",
-   "journal_ref": "Journal of Network Intelligence, Volume 7, Number 1, February 2022",
-   "venue": null,
-   "cross_list_from": null,
-   "html_url": null,
-   "abstract": "The \"You only look once v4\"(YOLOv4) is one type of object detection methods in deep learning. YOLOv4-tiny is proposed based on YOLOv4 to simple the network structure and reduce parameters, which makes it be suitable for developing on the mobile and embedded devices. To improve the real-time of object detection, a fast object detection method is proposed based on YOLOv4-tiny. It firstly uses two ResBlock-D modules in ResNet-D network instead of two CSPBlock modules in Yolov4-tiny, which reduces the computation complexity. Secondly, it designs an auxiliary residual network block to extract more feature information of object to reduce detection error. In the design of auxiliary network, two consecutive 3x3 convolutions are used to obtain 5x5 receptive fields to extract global features, and channel attention and spatial attention are also used to extract more effective information. In the end, it merges the auxiliary network and backbone network to construct the whole network structure of improved YOLOv4-tiny. Simulation results show that the proposed method has faster object detection than YOLOv4-tiny and YOLOv3-tiny, and almost the same mean value of average precision as the YOLOv4-tiny. It is more suitable for real-time object detection.",
-   "affiliations": [
-    "Electric Power University",
-    "Beihua University"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     1
-    ]
-   ],
-   "institutions": [
-    "Electric Power University",
-    "Beihua University"
-   ],
-   "institution_ids": [
-    "01p4b7n26",
-    "013jjp941"
-   ],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex"
-    },
-    "institutions": {
-     "source": "openalex"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/2011.04244",
-   "pdf_url": "https://arxiv.org/pdf/2011.04244"
   },
   {
    "arxiv_id": "2011.02910",
@@ -36829,7 +36771,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -42623,7 +42565,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -76652,7 +76594,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -80607,7 +80549,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -84994,7 +84936,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -87484,7 +87426,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -101127,7 +101069,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -119267,7 +119209,7 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2003.04297",
    "abstract": "Contrastive unsupervised learning has recently shown encouraging progress, e.g., in Momentum Contrast (MoCo) and SimCLR. In this note, we verify the effectiveness of two of SimCLR's design improvements by implementing them in the MoCo framework. With simple modifications to MoCo—namely, using an MLP projection head and more data augmentation—we establish stronger baselines that outperform SimCLR and do not require large training batches. We hope this will make state-of-the-art unsupervised learning research more accessible. Code will be made public.",
    "affiliations": [
-    "Facebook AI Research (FAIR)"
+    "Meta"
    ],
    "author_affiliations": [
     [
@@ -119286,14 +119228,17 @@
    "institutions": [
     "Meta"
    ],
+   "institution_ids": [
+    "01zbnvs85"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2003.04297",
@@ -121116,7 +121061,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -124258,6 +124203,77 @@
    },
    "abs_url": "https://arxiv.org/abs/2003.08983",
    "pdf_url": "https://arxiv.org/pdf/2003.08983"
+  },
+  {
+   "arxiv_id": "2003.08934",
+   "announced": "2020-03-01",
+   "title": "NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis",
+   "authors": [
+    "Ben Mildenhall",
+    "Pratul P. Srinivasan",
+    "Matthew Tancik",
+    "Jonathan T. Barron",
+    "Ravi Ramamoorthi",
+    "Ren Ng"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Graphics (cs.GR)"
+   ],
+   "comments": "ECCV 2020 (oral). Project page with videos and code: http://tancik.com/nerf",
+   "journal_ref": null,
+   "venue": "ECCV 2020",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We present a method that achieves state-of-the-art results for synthesizing novel views of complex scenes by optimizing an underlying continuous volumetric scene function using a sparse set of input views. Our algorithm represents a scene using a fully-connected (non-convolutional) deep network, whose input is a single continuous 5D coordinate (spatial location (x,y,z) and viewing direction (θ, ϕ)) and whose output is the volume density and view-dependent emitted radiance at that spatial location. We synthesize views by querying 5D coordinates along camera rays and use classic volume rendering techniques to project the output colors and densities into an image. Because volume rendering is naturally differentiable, the only input required to optimize our representation is a set of images with known camera poses. We describe how to effectively optimize neural radiance fields to render photorealistic novel views of scenes with complicated geometry and appearance, and demonstrate results that outperform prior work on neural rendering and view synthesis. View synthesis results are best viewed as videos, so we urge readers to view our supplementary video for convincing comparisons.",
+   "affiliations": [
+    "University of California, Berkeley",
+    "Google",
+    "University of California San Diego"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Berkeley",
+    "Google",
+    "University of California San Diego"
+   ],
+   "institution_ids": [
+    "01an7q238",
+    "00njsd438",
+    "0168r3w48"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2003.08934",
+   "pdf_url": "https://arxiv.org/pdf/2003.08934"
   },
   {
    "arxiv_id": "2003.08834",
@@ -131386,7 +131402,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -141288,7 +141304,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -142027,7 +142043,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"

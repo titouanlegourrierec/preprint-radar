@@ -932,84 +932,6 @@
    "pdf_url": "https://arxiv.org/pdf/2112.12750"
   },
   {
-   "arxiv_id": "2112.12744",
-   "announced": "2021-12-23",
-   "title": "AI-based Reconstruction for Fast MRI -- A Systematic Review and Meta-analysis",
-   "authors": [
-    "Yutong Chen",
-    "Carola-Bibiane Schönlieb",
-    "Pietro Liò",
-    "Tim Leiner",
-    "Pier Luigi Dragotti",
-    "Ge Wang",
-    "Daniel Rueckert",
-    "David Firmin",
-    "Guang Yang"
-   ],
-   "primary_subject": "Image and Video Processing (eess.IV)",
-   "subjects": [
-    "Image and Video Processing (eess.IV)",
-    "Artificial Intelligence (cs.AI)",
-    "Computer Vision and Pattern Recognition (cs.CV)",
-    "Medical Physics (physics.med-ph)"
-   ],
-   "comments": "42 pages, 5 figures, Proceedings of the IEEE",
-   "journal_ref": null,
-   "venue": null,
-   "cross_list_from": "eess.IV",
-   "html_url": null,
-   "abstract": "Compressed sensing (CS) has been playing a key role in accelerating the magnetic resonance imaging (MRI) acquisition process. With the resurgence of artificial intelligence, deep neural networks and CS algorithms are being integrated to redefine the state of the art of fast MRI. The past several years have witnessed substantial growth in the complexity, diversity, and performance of deep learning-based CS techniques that are dedicated to fast MRI. In this meta-analysis, we systematically review the deep learning-based CS techniques for fast MRI, describe key model designs, highlight breakthroughs, and discuss promising directions. We have also introduced a comprehensive analysis framework and a classification system to assess the pivotal role of deep learning in CS-based acceleration for MRI.",
-   "affiliations": [
-    "University of Cambridge",
-    "University Medical Center Utrecht",
-    "Imperial College London",
-    "Rensselaer Polytechnic Institute"
-   ],
-   "author_affiliations": [
-    null,
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     1
-    ],
-    [
-     2
-    ],
-    [
-     3
-    ],
-    null,
-    null,
-    null
-   ],
-   "institutions": [
-    "University of Cambridge",
-    "University Medical Center Utrecht",
-    "Imperial College London",
-    "Rensselaer Polytechnic Institute"
-   ],
-   "institution_ids": [
-    "013meh722",
-    "0575yy874",
-    "041kmwe10",
-    "01rtyzb94"
-   ],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex"
-    },
-    "institutions": {
-     "source": "openalex"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/2112.12744",
-   "pdf_url": "https://arxiv.org/pdf/2112.12744"
-  },
-  {
    "arxiv_id": "2112.12610",
    "announced": "2021-12-23",
    "title": "PandaSet: Advanced Sensor Suite Dataset for Autonomous Driving",
@@ -6399,7 +6321,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -41578,7 +41500,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -52858,20 +52780,54 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2109.00137",
    "abstract": "We find that across a wide range of robot policy learning scenarios, treating supervised policy learning with an implicit model generally performs better, on average, than commonly used explicit models. We present extensive experiments on this finding, and we provide both intuitive insight and theoretical arguments distinguishing the properties of implicit models compared to their explicit counterparts, particularly with respect to approximating complex, potentially discontinuous and multi-valued (set-valued) functions. On robotic policy learning tasks we show that implicit behavioral cloning policies with energy-based models (EBM) often outperform common explicit (Mean Square Error, or Mixture Density) behavioral cloning policies, including on tasks with high-dimensional action spaces and visual image inputs. We find these policies provide competitive results or outperform state-of-the-art offline reinforcement learning methods on the challenging human-expert tasks from the D4RL benchmark suite, despite using no reward information. In the real world, robots with implicit policies can learn complex and remarkably subtle behaviors on contact-rich tasks from human demonstrations, including tasks with high combinatorial complexity and tasks requiring 1mm precision.",
    "affiliations": [
-    "Robotics at Google"
+    "Google"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
    "institutions": [
     "Google"
+   ],
+   "institution_ids": [
+    "00njsd438"
    ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2109.00137",
@@ -64700,7 +64656,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -71654,7 +71610,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -75763,22 +75719,42 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2107.07651",
    "abstract": "Large-scale vision and language representation learning has shown promising improvements on various vision-language tasks. Most existing methods employ a transformer-based multimodal encoder to jointly model visual tokens (region-based image features) and word tokens. Because the visual tokens and word tokens are unaligned, it is challenging for the multimodal encoder to learn image-text interactions. In this paper, we introduce a contrastive loss to ALign the image and text representations BEfore Fusing (ALBEF) them through cross-modal attention, which enables more grounded vision and language representation learning. Unlike most existing methods, our method does not require bounding box annotations nor high-resolution images. In order to improve learning from noisy web data, we propose momentum distillation, a self-training method which learns from pseudo-targets produced by a momentum model. We provide a theoretical analysis of ALBEF from a mutual information maximization perspective, showing that different training tasks can be interpreted as different ways to generate views for an image-text pair. ALBEF achieves state-of-the-art performance on multiple downstream vision-language tasks. On image-text retrieval, ALBEF outperforms methods that are pre-trained on orders of magnitude larger datasets. On VQA and NLVR$^2$, ALBEF achieves absolute improvements of 2.37% and 3.84% compared to the state-of-the-art, while enjoying faster inference speed. Code and pre-trained models are available at https://github.com/salesforce/ALBEF/.",
    "affiliations": [
-    "Steven C.H. Hoi",
-    "Salesforce Research"
+    "Salesforce"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
    "institutions": [
-    "Steven C.H. Hoi",
-    "Salesforce Research"
+    "Salesforce"
+   ],
+   "institution_ids": [
+    "057315g56"
    ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2107.07651",
@@ -81946,7 +81922,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -85413,7 +85389,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -87028,7 +87004,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -100242,7 +100218,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -103825,7 +103801,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -115976,33 +115952,29 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2104.05358",
    "abstract": "We propose a novel unpaired image-to-image translation method that uses denoising diffusion probabilistic models without requiring adversarial training. Our method, UNpaired Image Translation with Denoising Diffusion Probabilistic Models (UNIT-DDPM), trains a generative model to infer the joint distribution of images over both domains as a Markov chain by minimising a denoising score matching objective conditioned on the other domain. In particular, we update both domain translation models simultaneously, and we generate target domain images by a denoising Markov Chain Monte Carlo approach that is conditioned on the input source domain images, based on Langevin dynamics. Our approach provides stable model training for image-to-image translation and generates high-quality image outputs. This enables state-of-the-art Fréchet Inception Distance (FID) performance on several public datasets, including both colour and multispectral imagery, significantly outperforming the contemporary adversarial image-to-image translation methods.",
    "affiliations": [
-    "Computer Science |",
-    "Engineering}"
+    "Durham University"
    ],
    "author_affiliations": [
+    null,
+    null,
     [
      0
-    ],
-    [
-     0
-    ],
-    [
-     0,
-     1
     ]
    ],
    "institutions": [
-    "Computer Science |",
-    "Engineering}"
+    "Durham University"
+   ],
+   "institution_ids": [
+    "01v29qb04"
    ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2104.05358",
@@ -142977,18 +142949,16 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2103.01988",
    "abstract": "Recently, self-supervised learning methods like MoCo, SimCLR, BYOL and SwAV have reduced the gap with supervised methods. These results have been achieved in a control environment, that is the highly curated ImageNet dataset. However, the premise of self-supervised learning is that it can learn from any random image and from any unbounded dataset. In this work, we explore if self-supervision lives to its expectation by training large models on random, uncurated images with no supervision. Our final SElf-supERvised (SEER) model, a RegNetY with 1.3B parameters trained on 1B random images with 512 GPUs achieves 84.2% top-1 accuracy, surpassing the best self-supervised pretrained model by 1% and confirming that self-supervised learning works in a real world setting. Interestingly, we also observe that self-supervised models are good few-shot learners achieving 77.9% top-1 with access to only 10% of ImageNet. Code: https://github.com/facebookresearch/vissl",
    "affiliations": [
-    "Facebook AI Research",
-    "Inria"
+    "Meta",
+    "Institut polytechnique de Grenoble",
+    "Centre National de la Recherche Scientifique",
+    "Institut national de recherche en sciences et technologies du numérique"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     0,
-     1
-    ],
-    [
      0
     ],
     [
@@ -143004,6 +142974,12 @@
      0
     ],
     [
+     0
+    ],
+    [
+     1,
+     2,
+     3,
      0
     ],
     [
@@ -143018,16 +142994,24 @@
    ],
    "institutions": [
     "Meta",
-    "Inria"
+    "Institut polytechnique de Grenoble",
+    "Centre National de la Recherche Scientifique",
+    "Institut national de recherche en sciences et technologies du numérique"
+   ],
+   "institution_ids": [
+    "01zbnvs85",
+    "05sbt2524",
+    "02feahw73",
+    "02kvxyf05"
    ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2103.01988",
@@ -162321,7 +162305,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -170094,6 +170078,43 @@
    },
    "abs_url": "https://arxiv.org/abs/2101.10955",
    "pdf_url": "https://arxiv.org/pdf/2101.10955"
+  },
+  {
+   "arxiv_id": "2101.10862",
+   "announced": "2021-01-01",
+   "title": "HANA: A HAndwritten NAme Database for Offline Handwritten Text Recognition",
+   "authors": [
+    "Christian M. Dahl",
+    "Torben Johansen",
+    "Emil N. Sørensen",
+    "Simon Wittrock"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Econometrics (econ.EM)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Methods for linking individuals across historical data sets, typically in combination with AI based transcription models, are developing rapidly. Probably the single most important identifier for linking is personal names. However, personal names are prone to enumeration and transcription errors and although modern linking methods are designed to handle such challenges, these sources of errors are critical and should be minimized. For this purpose, improved transcription methods and large-scale databases are crucial components. This paper describes and provides documentation for HANA, a newly constructed large-scale database which consists of more than 3.3 million names. The database contain more than 105 thousand unique names with a total of more than 1.1 million images of personal names, which proves useful for transfer learning to other settings. We provide three examples hereof, obtaining significantly improved transcription accuracy on both Danish and US census data. In addition, we present benchmark results for deep learning models automatically transcribing the personal names from the scanned documents. Through making more challenging large-scale databases publicly available we hope to foster more sophisticated, accurate, and robust models for handwritten text recognition.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2101.10862",
+   "pdf_url": "https://arxiv.org/pdf/2101.10862"
   },
   {
    "arxiv_id": "2101.10861",

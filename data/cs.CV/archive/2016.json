@@ -3749,7 +3749,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -9601,7 +9601,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -10749,6 +10749,68 @@
    },
    "abs_url": "https://arxiv.org/abs/1611.06757",
    "pdf_url": "https://arxiv.org/pdf/1611.06757"
+  },
+  {
+   "arxiv_id": "1611.06646",
+   "announced": "2016-11-01",
+   "title": "Self-Supervised Video Representation Learning With Odd-One-Out Networks",
+   "authors": [
+    "Basura Fernando",
+    "Hakan Bilen",
+    "Efstratios Gavves",
+    "Stephen Gould"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted in In IEEE International Conference on Computer Vision and Pattern Recognition CVPR 2017",
+   "journal_ref": null,
+   "venue": "CVPR 2017",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We propose a new self-supervised CNN pre-training technique based on a novel auxiliary task called \"odd-one-out learning\". In this task, the machine is asked to identify the unrelated or odd element from a set of otherwise related elements. We apply this technique to self-supervised video representation learning where we sample subsequences from videos and ask the network to learn to predict the odd video subsequence. The odd video subsequence is sampled such that it has wrong temporal order of frames while the even ones have the correct temporal order. Therefore, to generate a odd-one-out question no manual annotation is required. Our learning machine is implemented as multi-stream convolutional neural network, which is learned end-to-end. Using odd-one-out networks, we learn temporal representations for videos that generalizes to other related tasks such as action recognition. On action classification, our method obtains 60.3% on the UCF101 dataset using only UCF101 data for training which is approximately 10% better than current state-of-the-art self-supervised learning methods. Similarly, on HMDB51 dataset we outperform self-supervised state-of-the art methods by 12.7% on action classification task.",
+   "affiliations": [
+    "Australian National University",
+    "University of Oxford",
+    "University of Amsterdam"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Australian National University",
+    "University of Oxford",
+    "University of Amsterdam"
+   ],
+   "institution_ids": [
+    "019wvm592",
+    "052gg0110",
+    "04dkp9463"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1611.06646",
+   "pdf_url": "https://arxiv.org/pdf/1611.06646"
   },
   {
    "arxiv_id": "1611.06624",
@@ -14819,7 +14881,7 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/1610.07629",
    "abstract": "The diversity of painting styles represents a rich visual vocabulary for the construction of an image. The degree to which one may learn and parsimoniously capture this visual vocabulary measures our understanding of the higher level features of paintings, if not images in general. In this work we investigate the construction of a single, scalable deep network that can parsimoniously capture the artistic style of a diversity of paintings. We demonstrate that such a network generalizes across a diversity of artistic styles by reducing a painting to a point in an embedding space. Importantly, this model permits a user to explore new painting styles by arbitrarily combining the styles learned from individual paintings. We hope that this work provides a useful step towards building rich models of paintings and offers a window on to the structure of the learned representation of artistic style.",
    "affiliations": [
-    "Google Brain, Mountain View, CA"
+    "Google"
    ],
    "author_affiliations": [
     [
@@ -14835,14 +14897,17 @@
    "institutions": [
     "Google"
    ],
+   "institution_ids": [
+    "00njsd438"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1610.07629",
@@ -20772,7 +20837,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -24149,7 +24214,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -24631,7 +24696,7 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/1607.02555",
    "abstract": "We present a dataset for evaluating the tracking accuracy of monocular visual odometry and SLAM methods. It contains 50 real-world sequences comprising more than 100 minutes of video, recorded across dozens of different environments -- ranging from narrow indoor corridors to wide outdoor scenes. All sequences contain mostly exploring camera motion, starting and ending at the same position. This allows to evaluate tracking accuracy via the accumulated drift from start to end, without requiring ground truth for the full sequence. In contrast to existing datasets, all sequences are photometrically calibrated. We provide exposure times for each frame as reported by the sensor, the camera response function, and dense lens attenuation factors. We also propose a novel, simple approach to non-parametric vignette calibration, which requires minimal set-up and is easy to reproduce. Finally, we thoroughly evaluate two existing methods (ORB-SLAM and DSO) on the dataset, including an analysis of the effect of image resolution, camera field of view, and the camera motion direction.",
    "affiliations": [
-    "Technical University Munich"
+    "Technical University of Munich"
    ],
    "author_affiliations": [
     [
@@ -24645,16 +24710,19 @@
     ]
    ],
    "institutions": [
-    "Technical University Munich"
+    "Technical University of Munich"
+   ],
+   "institution_ids": [
+    "02kkvpp62"
    ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1607.02555",
@@ -25893,6 +25961,58 @@
    },
    "abs_url": "https://arxiv.org/abs/1606.03798",
    "pdf_url": "https://arxiv.org/pdf/1606.03798"
+  },
+  {
+   "arxiv_id": "1606.02228",
+   "announced": "2016-06-13",
+   "title": "Systematic evaluation of CNN advances on the ImageNet",
+   "authors": [
+    "Dmytro Mishkin",
+    "Nikolay Sergievskiy",
+    "Jiri Matas"
+   ],
+   "primary_subject": "Neural and Evolutionary Computing (cs.NE)",
+   "subjects": [
+    "Neural and Evolutionary Computing (cs.NE)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Submitted to CVIU Special Issue on Deep Learning. Updated dataset quality experiment",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.NE",
+   "html_url": null,
+   "abstract": "The paper systematically studies the impact of a range of recent advances in CNN architectures and learning methods on the object categorization (ILSVRC) problem. The evalution tests the influence of the following choices of the architecture: non-linearity (ReLU, ELU, maxout, compatibility with batch normalization), pooling variants (stochastic, max, average, mixed), network width, classifier design (convolutional, fully-connected, SPP), image pre-processing, and of learning parameters: learning rate, batch size, cleanliness of the data, etc. The performance gains of the proposed modifications are first tested individually and then in combination. The sum of individual gains is bigger than the observed improvement when all modifications are introduced, but the \"deficit\" is small suggesting independence of their benefits. We show that the use of 128x128 pixel images is sufficient to make qualitative conclusions about optimal network structure that hold for the full size Caffe and VGG nets. The results are obtained an order of magnitude faster than with the standard 224 pixel images.",
+   "affiliations": [
+    "Czech Technical University in Prague"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Czech Technical University in Prague"
+   ],
+   "institution_ids": [
+    "03kqpb082"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1606.02228",
+   "pdf_url": "https://arxiv.org/pdf/1606.02228"
   },
   {
    "arxiv_id": "1606.03498",
@@ -30862,7 +30982,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -36490,7 +36610,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -42512,6 +42632,69 @@
    },
    "abs_url": "https://arxiv.org/abs/1601.07140",
    "pdf_url": "https://arxiv.org/pdf/1601.07140"
+  },
+  {
+   "arxiv_id": "1601.06892",
+   "announced": "2016-01-01",
+   "title": "ReconNet: Non-Iterative Reconstruction of Images from Compressively Sensed Random Measurements",
+   "authors": [
+    "Kuldeep Kulkarni",
+    "Suhas Lohit",
+    "Pavan Turaga",
+    "Ronan Kerviche",
+    "Amit Ashok"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted at IEEE International Conference on Computer Vision and Pattern Recognition (CVPR), 2016",
+   "journal_ref": null,
+   "venue": "CVPR 2016",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The goal of this paper is to present a non-iterative and more importantly an extremely fast algorithm to reconstruct images from compressively sensed (CS) random measurements. To this end, we propose a novel convolutional neural network (CNN) architecture which takes in CS measurements of an image as input and outputs an intermediate reconstruction. We call this network, ReconNet. The intermediate reconstruction is fed into an off-the-shelf denoiser to obtain the final reconstructed image. On a standard dataset of images we show significant improvements in reconstruction results (both in terms of PSNR and time complexity) over state-of-the-art iterative CS reconstruction algorithms at various measurement rates. Further, through qualitative experiments on real data collected using our block single pixel camera (SPC), we show that our network is highly robust to sensor noise and can recover visually better quality images than competitive algorithms at extremely low sensing rates of 0.1 and 0.04. To demonstrate that our algorithm can recover semantically informative images even at a low measurement rate of 0.01, we present a very robust proof of concept real-time visual tracking application.",
+   "affiliations": [
+    "Arizona State University",
+    "University of Arizona"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Arizona State University",
+    "University of Arizona"
+   ],
+   "institution_ids": [
+    "03efmqc40",
+    "03m2x1q45"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1601.06892",
+   "pdf_url": "https://arxiv.org/pdf/1601.06892"
   },
   {
    "arxiv_id": "1601.06759",

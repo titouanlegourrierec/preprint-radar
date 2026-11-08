@@ -18136,7 +18136,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -18567,7 +18567,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -21032,8 +21032,6 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/1911.05248",
    "abstract": "Deep neural network pruning and quantization techniques have demonstrated it is possible to achieve high levels of compression with surprisingly little degradation to test set accuracy. However, this measure of performance conceals significant differences in how different classes and images are impacted by model compression techniques. We find that models with radically different numbers of weights have comparable top-line performance metrics but diverge considerably in behavior on a narrow subset of the dataset. This small subset of data points, which we term Pruning Identified Exemplars (PIEs) are systematically more impacted by the introduction of sparsity. Compression disproportionately impacts model performance on the underrepresented long-tail of the data distribution. PIEs over-index on atypical or noisy images that are far more challenging for both humans and algorithms to classify. Our work provides intuition into the role of capacity in deep neural networks and the trade-offs incurred by compression. An understanding of this disparate impact is critical given the widespread deployment of compressed models in the wild.",
    "affiliations": [
-    "Google Brain",
-    "MILA",
     "Google"
    ],
    "author_affiliations": [
@@ -21041,11 +21039,9 @@
      0
     ],
     [
-     1
+     0
     ],
-    [
-     2
-    ],
+    null,
     [
      0
     ],
@@ -21054,18 +21050,19 @@
     ]
    ],
    "institutions": [
-    "Google",
-    "MILA",
     "Google"
+   ],
+   "institution_ids": [
+    "00njsd438"
    ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1911.05248",
@@ -21484,7 +21481,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -21581,7 +21578,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -22594,15 +22591,54 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Deep Learning has pushed the limits of what was possible in the domain of Digital Image Processing. However, that is not to say that the traditional computer vision techniques which had been undergoing progressive development in years prior to the rise of DL have become obsolete. This paper will analyse the benefits and drawbacks of each approach. The aim of this paper is to promote a discussion on whether knowledge of classical computer vision techniques should be maintained. The paper will also explore how the two sides of computer vision can be combined. Several recent hybrid methodologies are reviewed which have demonstrated the ability to improve computer vision performance and to tackle problems not suited to Deep Learning. For example, combining traditional computer vision techniques with Deep Learning has been popular in emerging domains such as Panoramic Vision and 3D vision for which Deep Learning models have not yet been fully optimised",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Munster Technological University",
+    "Institute of Technology Tralee"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    null,
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Munster Technological University",
+    "Institute of Technology Tralee"
+   ],
+   "institution_ids": [
+    "013xpqh61",
+    "00rt8gn18"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1910.13796",
@@ -24133,7 +24169,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -25879,7 +25915,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -30494,7 +30530,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -34199,7 +34235,7 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/1909.03012",
    "abstract": "As artificial intelligence and machine learning algorithms make further inroads into society, calls are increasing from multiple stakeholders for these algorithms to explain their outputs. At the same time, these stakeholders, whether they be affected citizens, government regulators, domain experts, or system developers, present different requirements for explanations. Toward addressing these needs, we introduce AI Explainability 360 (http://aix360.mybluemix.net/), an open-source software toolkit featuring eight diverse and state-of-the-art explainability methods and two evaluation metrics. Equally important, we provide a taxonomy to help entities requiring explanations to navigate the space of explanation methods, not only those in the toolkit but also in the broader literature on explainability. For data scientists and other users of the toolkit, we have implemented an extensible software architecture that organizes methods according to their place in the AI modeling pipeline. We also discuss enhancements to bring research innovations closer to consumers of explanations, ranging from simplified, more accessible versions of algorithms, to tutorials and an interactive web demo to introduce AI explainability to different audiences and application domains. Together, our toolkit and taxonomy can help identify gaps where more explainability methods are needed and provide a platform to incorporate them as they are developed.",
    "affiliations": [
-    "IBM Research"
+    "IBM"
    ],
    "author_affiliations": [
     [
@@ -34208,6 +34244,7 @@
     [
      0
     ],
+    null,
     [
      0
     ],
@@ -34226,12 +34263,7 @@
     [
      0
     ],
-    [
-     0
-    ],
-    [
-     0
-    ],
+    null,
     [
      0
     ],
@@ -34266,14 +34298,17 @@
    "institutions": [
     "IBM"
    ],
+   "institution_ids": [
+    "05hh8d621"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1909.03012",
@@ -36990,7 +37025,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -41221,6 +41256,64 @@
    "pdf_url": "https://arxiv.org/pdf/1909.03402"
   },
   {
+   "arxiv_id": "1909.03388",
+   "announced": "2019-09-01",
+   "title": "L_DMI: An Information-theoretic Noise-robust Loss Function",
+   "authors": [
+    "Yilun Xu",
+    "Peng Cao",
+    "Yuqing Kong",
+    "Yizhou Wang"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": "Accepted by NeurIPS 2019",
+   "journal_ref": null,
+   "venue": "NeurIPS 2019",
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "Accurately annotating large scale dataset is notoriously expensive both in time and in money. Although acquiring low-quality-annotated dataset can be much cheaper, it often badly damages the performance of trained models when using such dataset without particular treatment. Various methods have been proposed for learning with noisy labels. However, most methods only handle limited kinds of noise patterns, require auxiliary information or steps (e.g. , knowing or estimating the noise transition matrix), or lack theoretical justification. In this paper, we propose a novel information-theoretic loss function, $L_{DMI}$, for training deep neural networks robust to label noise. The core of $L_{DMI}$ is a generalized version of mutual information, termed Determinant based Mutual Information (DMI), which is not only information-monotone but also relatively invariant. To the best of our knowledge, $L_{DMI}$ is the first loss function that is provably robust to instance-independent label noise, regardless of noise pattern, and it can be applied to any existing classification neural networks straightforwardly without any auxiliary information. In addition to theoretical justification, we also empirically show that using $L_{DMI}$ outperforms all other counterparts in the classification task on both image dataset and natural language dataset include Fashion-MNIST, CIFAR-10, Dogs vs. Cats, MR with a variety of synthesized noise patterns and noise amounts, as well as a real-world dataset Clothing1M. Codes are available at https://github.com/Newbeeer/L_DMI .",
+   "affiliations": [
+    "Peking University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Peking University"
+   ],
+   "institution_ids": [
+    "02v51f717"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1909.03388",
+   "pdf_url": "https://arxiv.org/pdf/1909.03388"
+  },
+  {
    "arxiv_id": "1909.03360",
    "announced": "2019-09-01",
    "title": "Episode-based Prototype Generating Network for Zero-Shot Learning",
@@ -43219,26 +43312,58 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/1908.10543",
    "abstract": "Establishing visual correspondences under large intra-class variations, which is often referred to as semantic correspondence or semantic matching, remains a challenging problem in computer vision. Despite its significance, however, most of the datasets for semantic correspondence are limited to a small amount of image pairs with similar viewpoints and scales. In this paper, we present a new large-scale benchmark dataset of semantically paired images, SPair-71k, which contains 70,958 image pairs with diverse variations in viewpoint and scale. Compared to previous datasets, it is significantly larger in number and contains more accurate and richer annotations. We believe this dataset will provide a reliable testbed to study the problem of semantic correspondence and will help to advance research in this area. We provide the results of recent methods on our new dataset as baselines for further research. Our benchmark is available online at http://cvlab.postech.ac.kr/research/SPair-71k/.",
    "affiliations": [
-    "POSTECH",
-    "NPRC",
-    "Inria",
-    "DI ENS"
+    "Centre National de la Recherche Scientifique",
+    "Université Paris Sciences et Lettres",
+    "École Normale Supérieure - PSL",
+    "Département d'Informatique",
+    "Institut national de recherche en sciences et technologies du numérique"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2,
+     3
+    ],
+    [
+     0,
+     1,
+     2,
+     3
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     0,
+     1,
+     2,
+     3
+    ]
+   ],
    "institutions": [
-    "POSTECH",
-    "NPRC",
-    "Inria",
-    "DI ENS"
+    "Centre National de la Recherche Scientifique",
+    "Université Paris Sciences et Lettres",
+    "École Normale Supérieure - PSL",
+    "Département d'Informatique",
+    "Institut national de recherche en sciences et technologies du numérique"
+   ],
+   "institution_ids": [
+    "02feahw73",
+    "013cjyk83",
+    "05a0dhs15",
+    "05y6rqs46",
+    "02kvxyf05"
    ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1908.10543",
@@ -62007,7 +62132,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -68688,7 +68813,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -73321,7 +73446,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -73709,7 +73834,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -77771,37 +77896,35 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/1905.01392",
    "abstract": "The growing interest in both the automation of machine learning and deep learning has inevitably led to the development of a wide variety of automated methods for neural architecture search. The choice of the network architecture has proven to be critical, and many advances in deep learning spring from its immediate improvements. However, deep learning techniques are computationally intensive and their application requires a high level of domain knowledge. Therefore, even partial automation of this process helps to make deep learning more accessible to both researchers and practitioners. With this survey, we provide a formalism which unifies and categorizes the landscape of existing methods along with a detailed analysis that compares and contrasts the different approaches. We achieve this via a comprehensive discussion of the commonly adopted architecture search spaces and architecture optimization algorithms based on principles of reinforcement learning and evolutionary algorithms along with approaches that incorporate surrogate and one-shot models. Additionally, we address the new research directions which include constrained and multi-objective architecture search as well as automated data augmentation, optimizer and activation function search.",
    "affiliations": [
-    "IBM Research AI",
-    "IBM Technology Campus, Damastown Ind. Park, Dublin, D15HN66, Ireland",
-    "IBM T.J. Watson Research Center, Yorktown Heights, NY 10598, USA"
+    "IBM",
+    "IBM Research - Ireland"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
      0,
      1
     ],
-    [
-     0,
-     2
-    ]
+    null
    ],
    "institutions": [
     "IBM",
-    "IBM",
     "IBM"
+   ],
+   "institution_ids": [
+    "05hh8d621",
+    "04jnxr720"
    ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1905.01392",
@@ -80711,7 +80834,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -81801,7 +81924,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -82666,7 +82789,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -98436,7 +98559,7 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/1904.00625",
    "abstract": "The performance on deep learning is significantly affected by volume of training data. Models pre-trained from massive dataset such as ImageNet become a powerful weapon for speeding up training convergence and improving accuracy. Similarly, models based on large dataset are important for the development of deep learning in 3D medical images. However, it is extremely challenging to build a sufficiently large dataset due to difficulty of data acquisition and annotation in 3D medical imaging. We aggregate the dataset from several medical challenges to build 3DSeg-8 dataset with diverse modalities, target organs, and pathologies. To extract general medical three-dimension (3D) features, we design a heterogeneous 3D network called Med3D to co-train multi-domain 3DSeg-8 so as to make a series of pre-trained models. We transfer Med3D pre-trained models to lung segmentation in LIDC dataset, pulmonary nodule classification in LIDC dataset and liver segmentation on LiTS challenge. Experiments show that the Med3D can accelerate the training convergence speed of target 3D medical tasks 2 times compared with model pre-trained on Kinetics dataset, and 10 times compared with training from scratch as well as improve accuracy ranging from 3% to 20%. Transferring our Med3D model on state-the-of-art DenseASPP segmentation network, in case of single model, we achieve 94.6% Dice coefficient which approaches the result of top-ranged algorithms on the LiTS challenge.",
    "affiliations": [
-    "Tencent YouTu X-Lab, Shenzhen, China"
+    "Tencent"
    ],
    "author_affiliations": [
     [
@@ -98452,14 +98575,17 @@
    "institutions": [
     "Tencent"
    ],
+   "institution_ids": [
+    "00hhjss72"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1904.00625",
@@ -105156,7 +105282,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -112261,7 +112387,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -113246,6 +113372,75 @@
    },
    "abs_url": "https://arxiv.org/abs/1902.03729",
    "pdf_url": "https://arxiv.org/pdf/1902.03729"
+  },
+  {
+   "arxiv_id": "1902.03682",
+   "announced": "2019-02-10",
+   "title": "Paradigm shift in electron-based crystallography via machine learning",
+   "authors": [
+    "Kevin Kaufmann",
+    "Chaoyi Zhu",
+    "Alexander S. Rosengarten",
+    "Daniel Maryanovsky",
+    "Tyler J. Harrington",
+    "Eduardo Marin",
+    "Kenneth S. Vecchio"
+   ],
+   "primary_subject": "Materials Science (cond-mat.mtrl-sci)",
+   "subjects": [
+    "Materials Science (cond-mat.mtrl-sci)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "35 pages, 17 figures with extended data included",
+   "journal_ref": "Science 367 (2020) 564-568",
+   "venue": null,
+   "cross_list_from": "cond-mat.mtrl-sci",
+   "html_url": null,
+   "abstract": "Accurately determining the crystallographic structure of a material, organic or inorganic, is a critical primary step in material development and analysis. The most common practices involve analysis of diffraction patterns produced in laboratory XRD, TEM, and synchrotron X-ray sources. However, these techniques are slow, require careful sample preparation, can be difficult to access, and are prone to human error during analysis. This paper presents a newly developed methodology that represents a paradigm change in electron diffraction-based structure analysis techniques, with the potential to revolutionize multiple crystallography-related fields. A machine learning-based approach for rapid and autonomous identification of the crystal structure of metals and alloys, ceramics, and geological specimens, without any prior knowledge of the sample, is presented and demonstrated utilizing the electron backscatter diffraction (EBSD) technique. Electron backscatter diffraction patterns are collected from materials with well-known crystal structures, then a deep neural network model is constructed for classification to a specific Bravais lattice or point group. The applicability of this approach is evaluated on diffraction patterns from samples unknown to the computer without any human input or data filtering. This is in comparison to traditional Hough transform EBSD, which requires that you have already determined the phases present in your sample. The internal operations of the neural network are elucidated through visualizing the symmetry features learned by the convolutional neural network. It is determined that the model looks for the same features a crystallographer would use, even though it is not explicitly programmed to do so. This study opens the door to fully automated, high-throughput determination of crystal structures via several electron-based diffraction techniques.",
+   "affiliations": [
+    "University of California San Diego"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California San Diego"
+   ],
+   "institution_ids": [
+    "0168r3w48"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1902.03682",
+   "pdf_url": "https://arxiv.org/pdf/1902.03682"
   },
   {
    "arxiv_id": "1902.03451",
@@ -120625,33 +120820,43 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/1901.10436",
    "abstract": "Face recognition is a long standing challenge in the field of Artificial Intelligence (AI). The goal is to create systems that accurately detect, recognize, verify, and understand human faces. There are significant technical hurdles in making these systems accurate, particularly in unconstrained settings due to confounding factors related to pose, resolution, illumination, occlusion, and viewpoint. However, with recent advances in neural networks, face recognition has achieved unprecedented accuracy, largely built on data-driven deep learning methods. While this is encouraging, a critical aspect that is limiting facial recognition accuracy and fairness is inherent facial diversity. Every face is different. Every face reflects something unique about us. Aspects of our heritage - including race, ethnicity, culture, geography - and our individual identify - age, gender, and other visible manifestations of self-expression, are reflected in our faces. We expect face recognition to work equally accurately for every face. Face recognition needs to be fair. As we rely on data-driven methods to create face recognition technology, we need to ensure necessary balance and coverage in training data. However, there are still scientific questions about how to represent and extract pertinent facial features and quantitatively measure facial diversity. Towards this goal, Diversity in Faces (DiF) provides a data set of one million annotated human face images for advancing the study of facial diversity. The annotations are generated using ten well-established facial coding schemes from the scientific literature. The facial coding schemes provide human-interpretable quantitative measures of facial features. We believe that by making the extracted coding schemes available on a large set of faces, we can accelerate research and development towards creating more fair and accurate facial recognition systems.",
    "affiliations": [
-    "Contact"
+    "IBM",
+    "IBM Research - Thomas J. Watson Research Center"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ]
    ],
    "institutions": [
-    "Contact"
+    "IBM",
+    "IBM"
+   ],
+   "institution_ids": [
+    "05hh8d621",
+    "0265w5591"
    ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1901.10436",
@@ -120891,7 +121096,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",

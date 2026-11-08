@@ -4664,7 +4664,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -16498,7 +16498,7 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/1711.00489",
    "abstract": "It is common practice to decay the learning rate. Here we show one can usually obtain the same learning curve on both training and test sets by instead increasing the batch size during training. This procedure is successful for stochastic gradient descent (SGD), SGD with momentum, Nesterov momentum, and Adam. It reaches equivalent test accuracies after the same number of training epochs, but with fewer parameter updates, leading to greater parallelism and shorter training times. We can further reduce the number of parameter updates by increasing the learning rate ε and scaling the batch size B ∝ε. Finally, one can increase the momentum coefficient m and scale B ∝1/(1-m), although this tends to slightly reduce the test accuracy. Crucially, our techniques allow us to repurpose existing training schedules for large batch training with no hyper-parameter tuning. We train ResNet-50 on ImageNet to 76.1% validation accuracy in under 30 minutes.",
    "affiliations": [
-    "Google Brain"
+    "Google"
    ],
    "author_affiliations": [
     [
@@ -16510,21 +16510,22 @@
     [
      0
     ],
-    [
-     0
-    ]
+    null
    ],
    "institutions": [
     "Google"
    ],
+   "institution_ids": [
+    "00njsd438"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.00489",
@@ -23517,7 +23518,7 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/1709.01134",
    "abstract": "For computer vision applications, prior works have shown the efficacy of reducing numeric precision of model parameters (network weights) in deep neural networks. Activation maps, however, occupy a large memory footprint during both the training and inference step when using mini-batches of inputs. One way to reduce this large memory footprint is to reduce the precision of activations. However, past works have shown that reducing the precision of activations hurts model accuracy. We study schemes to train networks from scratch using reduced-precision activations without hurting accuracy. We reduce the precision of activation maps (along with model parameters) and increase the number of filter maps in a layer, and find that this scheme matches or surpasses the accuracy of the baseline full-precision network. As a result, one can significantly improve the execution efficiency (e.g. reduce dynamic memory footprint, memory bandwidth and computational energy) and speed up the training and inference process with appropriate hardware support. We call our scheme WRPN - wide reduced-precision networks. We report results and show that WRPN scheme is better than previously reported accuracies on ILSVRC-12 dataset while being computationally less expensive compared to previously reported reduced-precision networks.",
    "affiliations": [
-    "Accelerator Architecture Lab, Intel"
+    "Intel"
    ],
    "author_affiliations": [
     [
@@ -23536,14 +23537,17 @@
    "institutions": [
     "Intel"
    ],
+   "institution_ids": [
+    "01ek73717"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1709.01134",
@@ -34833,29 +34837,34 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/1707.02812",
    "abstract": "Adversarial samples are strategically modified samples, which are crafted with the purpose of fooling a classifier at hand. An attacker introduces specially crafted adversarial samples to a deployed classifier, which are being mis-classified by the classifier. However, the samples are perceived to be drawn from entirely different classes and thus it becomes hard to detect the adversarial samples. Most of the prior works have been focused on synthesizing adversarial samples in the image domain. In this paper, we propose a new method of crafting adversarial text samples by modification of the original samples. Modifications of the original text samples are done by deleting or replacing the important or salient words in the text or by introducing new words in the text sample. Our algorithm works best for the datasets which have sub-categories within each of the classes of examples. While crafting adversarial samples, one of the key constraint is to generate meaningful sentences which can at pass off as legitimate from language (English) viewpoint. Experimental results on IMDB movie review dataset for sentiment analysis and Twitter dataset for gender detection show the efficiency of our proposed method.",
    "affiliations": [
-    "IBM India Research Lab (IRL), Bangalore, India",
-    "IBM India Research Lab (IRL), New Delhi, India"
+    "IBM",
+    "IBM Research - India"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     1
+     1,
+     0
     ]
    ],
    "institutions": [
     "IBM",
     "IBM"
    ],
+   "institution_ids": [
+    "034ahpr11",
+    "014wt7r80"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1707.02812",
@@ -38319,7 +38328,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -40039,7 +40048,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -40515,7 +40524,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -41572,7 +41581,7 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/1706.05587",
    "abstract": "In this work, we revisit atrous convolution, a powerful tool to explicitly adjust filter's field-of-view as well as control the resolution of feature responses computed by Deep Convolutional Neural Networks, in the application of semantic image segmentation. To handle the problem of segmenting objects at multiple scales, we design modules which employ atrous convolution in cascade or in parallel to capture multi-scale context by adopting multiple atrous rates. Furthermore, we propose to augment our previously proposed Atrous Spatial Pyramid Pooling module, which probes convolutional features at multiple scales, with image-level features encoding global context and further boost performance. We also elaborate on implementation details and share our experience on training our system. The proposed `DeepLabv3' system significantly improves over our previous DeepLab versions without DenseCRF post-processing and attains comparable performance with other state-of-art models on the PASCAL VOC 2012 semantic image segmentation benchmark.",
    "affiliations": [
-    "Google Inc"
+    "Google"
    ],
    "author_affiliations": [
     [
@@ -41591,14 +41600,17 @@
    "institutions": [
     "Google"
    ],
+   "institution_ids": [
+    "00njsd438"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1706.05587",
@@ -42247,7 +42259,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -56227,20 +56239,45 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/1703.10277",
    "abstract": "We propose a new method for semantic instance segmentation, by first computing how likely two pixels are to belong to the same object, and then by grouping similar pixels together. Our similarity metric is based on a deep, fully convolutional embedding model. Our grouping method is based on selecting all points that are sufficiently similar to a set of \"seed points\", chosen from a deep, fully convolutional scoring model. We show competitive results on the Pascal VOC instance segmentation benchmark.",
    "affiliations": [
-    "Google Inc., USA"
+    "Google"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
    "institutions": [
     "Google"
+   ],
+   "institution_ids": [
+    "00njsd438"
    ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1703.10277",
@@ -59658,81 +59695,6 @@
    "pdf_url": "https://arxiv.org/pdf/1703.10553"
   },
   {
-   "arxiv_id": "1703.10476",
-   "announced": "2017-03-01",
-   "title": "Speaking the Same Language: Matching Machine to Human Captions by Adversarial Training",
-   "authors": [
-    "Rakshith Shetty",
-    "Marcus Rohrbach",
-    "Lisa Anne Hendricks",
-    "Mario Fritz",
-    "Bernt Schiele"
-   ],
-   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
-   "subjects": [
-    "Computer Vision and Pattern Recognition (cs.CV)",
-    "Artificial Intelligence (cs.AI)",
-    "Computation and Language (cs.CL)"
-   ],
-   "comments": "16 pages, Published in ICCV 2017",
-   "journal_ref": null,
-   "venue": "ICCV 2017",
-   "cross_list_from": null,
-   "html_url": null,
-   "abstract": "While strong progress has been made in image captioning over the last years, machine and human captions are still quite distinct. A closer look reveals that this is due to the deficiencies in the generated word distribution, vocabulary size, and strong bias in the generators towards frequent captions. Furthermore, humans -- rightfully so -- generate multiple, diverse captions, due to the inherent ambiguity in the captioning task which is not considered in today's systems. To address these challenges, we change the training objective of the caption generator from reproducing groundtruth captions to generating a set of captions that is indistinguishable from human generated captions. Instead of handcrafting such a learning target, we employ adversarial training in combination with an approximate Gumbel sampler to implicitly match the generated distribution to the human one. While our method achieves comparable performance to the state-of-the-art in terms of the correctness of the captions, we generate a set of diverse captions, that are significantly less biased and match the word statistics better in several aspects.",
-   "affiliations": [
-    "Max Planck Society",
-    "Max Planck Institute for Informatics",
-    "Meta",
-    "University of California, Berkeley"
-   ],
-   "author_affiliations": [
-    [
-     0,
-     1
-    ],
-    [
-     2,
-     3
-    ],
-    [
-     3
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ]
-   ],
-   "institutions": [
-    "Max Planck Society",
-    "Max Planck Institute for Informatics",
-    "Meta",
-    "University of California, Berkeley"
-   ],
-   "institution_ids": [
-    "01hhn8329",
-    "01w19ak89",
-    "01zbnvs85",
-    "01an7q238"
-   ],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-18"
-    },
-    "institutions": {
-     "source": "openalex",
-     "at": "2026-10-18"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/1703.10476",
-   "pdf_url": "https://arxiv.org/pdf/1703.10476"
-  },
-  {
    "arxiv_id": "1703.10155",
    "announced": "2017-03-01",
    "title": "CVAE-GAN: Fine-Grained Image Generation through Asymmetric Training",
@@ -61482,7 +61444,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",

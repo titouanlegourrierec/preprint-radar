@@ -7777,6 +7777,66 @@
    "pdf_url": "https://arxiv.org/pdf/1510.07493"
   },
   {
+   "arxiv_id": "1510.06939",
+   "announced": "2015-10-23",
+   "title": "Objects2action: Classifying and localizing actions without any video example",
+   "authors": [
+    "Mihir Jain",
+    "Jan C. van Gemert",
+    "Thomas Mensink",
+    "Cees G. M. Snoek"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The goal of this paper is to recognize actions in video without the need for examples. Different from traditional zero-shot approaches we do not demand the design and specification of attribute classifiers and class-to-attribute mappings to allow for transfer from seen classes to unseen classes. Our key contribution is objects2action, a semantic word embedding that is spanned by a skip-gram model of thousands of object categories. Action labels are assigned to an object encoding of unseen video based on a convex combination of action and object affinities. Our semantic embedding has three main characteristics to accommodate for the specifics of actions. First, we propose a mechanism to exploit multiple-word descriptions of actions and objects. Second, we incorporate the automated selection of the most responsive objects per action. And finally, we demonstrate how to extend our zero-shot approach to the spatio-temporal localization of actions in video. Experiments on four action datasets demonstrate the potential of our approach.",
+   "affiliations": [
+    "Institut national de recherche en sciences et technologies du numérique",
+    "University of Amsterdam"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Institut national de recherche en sciences et technologies du numérique",
+    "University of Amsterdam"
+   ],
+   "institution_ids": [
+    "02kvxyf05",
+    "04dkp9463"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1510.06939",
+   "pdf_url": "https://arxiv.org/pdf/1510.06939"
+  },
+  {
    "arxiv_id": "1510.06895",
    "announced": "2015-10-23",
    "title": "Nonconvex Nonsmooth Low-Rank Minimization via Iteratively Reweighted Nuclear Norm",
@@ -13872,7 +13932,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"

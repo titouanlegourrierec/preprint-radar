@@ -929,6 +929,74 @@
    "pdf_url": "https://arxiv.org/pdf/1210.1207"
   },
   {
+   "arxiv_id": "1209.6560",
+   "announced": "2012-09-28",
+   "title": "Sparse Modeling of Intrinsic Correspondences",
+   "authors": [
+    "J. Pokrass",
+    "A. M. Bronstein",
+    "M. M. Bronstein",
+    "P. Sprechmann",
+    "G. Sapiro"
+   ],
+   "primary_subject": "Graphics (cs.GR)",
+   "subjects": [
+    "Graphics (cs.GR)",
+    "Computational Geometry (cs.CG)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.GR",
+   "html_url": null,
+   "abstract": "We present a novel sparse modeling approach to non-rigid shape matching using only the ability to detect repeatable regions. As the input to our algorithm, we are given only two sets of regions in two shapes; no descriptors are provided so the correspondence between the regions is not know, nor we know how many regions correspond in the two shapes. We show that even with such scarce information, it is possible to establish very accurate correspondence between the shapes by using methods from the field of sparse modeling, being this, the first non-trivial use of sparse models in shape correspondence. We formulate the problem of permuted sparse coding, in which we solve simultaneously for an unknown permutation ordering the regions on two shapes and for an unknown correspondence in functional representation. We also propose a robust variant capable of handling incomplete matches. Numerically, the problem is solved efficiently by alternating the solution of a linear assignment and a sparse coding problem. The proposed methods are evaluated qualitatively and quantitatively on standard benchmarks containing both synthetic and scanned objects.",
+   "affiliations": [
+    "Tel Aviv University",
+    "Università della Svizzera italiana",
+    "Duke University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Tel Aviv University",
+    "Università della Svizzera italiana",
+    "Duke University"
+   ],
+   "institution_ids": [
+    "04mhzgx49",
+    "03c4atk17",
+    "00py81415"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1209.6560",
+   "pdf_url": "https://arxiv.org/pdf/1209.6560"
+  },
+  {
    "arxiv_id": "1209.1960",
    "announced": "2012-09-10",
    "title": "A Comparative Study of Efficient Initialization Methods for the K-Means Clustering Algorithm",
@@ -2253,66 +2321,6 @@
    },
    "abs_url": "https://arxiv.org/abs/1204.2742",
    "pdf_url": "https://arxiv.org/pdf/1204.2742"
-  },
-  {
-   "arxiv_id": "1204.1393",
-   "announced": "2012-04-06",
-   "title": "Continuous Markov Random Fields for Robust Stereo Estimation",
-   "authors": [
-    "Koichiro Yamaguchi",
-    "Tamir Hazan",
-    "David McAllester",
-    "Raquel Urtasun"
-   ],
-   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
-   "subjects": [
-    "Computer Vision and Pattern Recognition (cs.CV)"
-   ],
-   "comments": null,
-   "journal_ref": null,
-   "venue": null,
-   "cross_list_from": null,
-   "html_url": null,
-   "abstract": "In this paper we present a novel slanted-plane MRF model which reasons jointly about occlusion boundaries as well as depth. We formulate the problem as the one of inference in a hybrid MRF composed of both continuous (i.e., slanted 3D planes) and discrete (i.e., occlusion boundaries) random variables. This allows us to define potentials encoding the ownership of the pixels that compose the boundary between segments, as well as potentials encoding which junctions are physically possible. Our approach outperforms the state-of-the-art on Middlebury high resolution imagery as well as in the more challenging KITTI dataset, while being more efficient than existing slanted plane MRF-based methods, taking on average 2 minutes to perform inference on high resolution imagery.",
-   "affiliations": [
-    "Toyota Technological Institute at Chicago",
-    "Toyota Central Research and Development Laboratories"
-   ],
-   "author_affiliations": [
-    [
-     0,
-     1
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Toyota Technological Institute at Chicago",
-    "Toyota Central Research and Development Laboratories"
-   ],
-   "institution_ids": [
-    "02sn5gb64",
-    "05mjgqe69"
-   ],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-25"
-    },
-    "institutions": {
-     "source": "openalex",
-     "at": "2026-10-25"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/1204.1393",
-   "pdf_url": "https://arxiv.org/pdf/1204.1393"
   },
   {
    "arxiv_id": "1204.5309",

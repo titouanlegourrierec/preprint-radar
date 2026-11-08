@@ -980,7 +980,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -4648,6 +4648,48 @@
    "pdf_url": "https://arxiv.org/pdf/1812.07003"
   },
   {
+   "arxiv_id": "1812.06934",
+   "announced": "2018-12-01",
+   "title": "Three-Dimensional Dose Prediction for Lung IMRT Patients with Deep Neural Networks: Robust Learning from Heterogeneous Beam Configurations",
+   "authors": [
+    "Ana M. Barragan-Montero",
+    "Dan Nguyen",
+    "Weiguo Lu",
+    "Mu-Han Lin",
+    "Xavier Geets",
+    "Edmond Sterpin",
+    "Steve Jiang"
+   ],
+   "primary_subject": "Medical Physics (physics.med-ph)",
+   "subjects": [
+    "Medical Physics (physics.med-ph)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "physics.med-ph",
+   "html_url": null,
+   "abstract": "The use of neural networks to directly predict three-dimensional dose distributions for automatic planning is becoming popular. However, the existing methods only use patient anatomy as input and assume consistent beam configuration for all patients in the training database. The purpose of this work is to develop a more general model that, in addition to patient anatomy, also considers variable beam configurations, to achieve a more comprehensive automatic planning with a potentially easier clinical implementation, without the need of training specific models for different beam settings.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1812.06934",
+   "pdf_url": "https://arxiv.org/pdf/1812.06934"
+  },
+  {
    "arxiv_id": "1812.06775",
    "announced": "2018-12-01",
    "title": "Variational Autoencoders Pursue PCA Directions (by Accident)",
@@ -5292,7 +5334,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -13878,7 +13920,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"
@@ -27943,7 +27985,7 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/1809.04184",
    "abstract": "The design of neural network architectures is an important component for achieving state-of-the-art performance with machine learning systems across a broad array of tasks. Much work has endeavored to design and build architectures automatically through clever construction of a search space paired with simple learning algorithms. Recent progress has demonstrated that such meta-learning methods may exceed scalable human-invented architectures on image classification tasks. An open question is the degree to which such methods may generalize to new domains. In this work we explore the construction of meta-learning techniques for dense image prediction focused on the tasks of scene parsing, person-part segmentation, and semantic image segmentation. Constructing viable search spaces in this domain is challenging because of the multi-scale representation of visual information and the necessity to operate on high resolution imagery. Based on a survey of techniques in dense image prediction, we construct a recursive search space and demonstrate that even with efficient random search, we can identify architectures that outperform human-invented architectures and achieve state-of-the-art performance on three dense prediction tasks including 82.7% on Cityscapes (street scene parsing), 71.3% on PASCAL-Person-Part (person-part segmentation), and 87.9% on PASCAL VOC 2012 (semantic image segmentation). Additionally, the resulting architecture is more computationally efficient, requiring half the parameters and half the computational cost as previous state of the art systems.",
    "affiliations": [
-    "Google Inc"
+    "Google"
    ],
    "author_affiliations": [
     [
@@ -27974,14 +28016,17 @@
    "institutions": [
     "Google"
    ],
+   "institution_ids": [
+    "00njsd438"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1809.04184",
@@ -51731,7 +51776,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -60038,7 +60083,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -68705,6 +68750,42 @@
    "pdf_url": "https://arxiv.org/pdf/1804.00389"
   },
   {
+   "arxiv_id": "1804.11191",
+   "announced": "2018-04-01",
+   "title": "How convolutional neural network see the world - A survey of convolutional neural network visualization methods",
+   "authors": [
+    "Zhuwei Qin",
+    "Fuxun Yu",
+    "Chenchen Liu",
+    "Xiang Chen"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "32 pages, 21 figures. Mathematical Foundations of Computing",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Nowadays, the Convolutional Neural Networks (CNNs) have achieved impressive performance on many computer vision related tasks, such as object detection, image recognition, image retrieval, etc. These achievements benefit from the CNNs outstanding capability to learn the input features with deep layers of neuron structures and iterative training process. However, these learned features are hard to identify and interpret from a human vision perspective, causing a lack of understanding of the CNNs internal working mechanism. To improve the CNN interpretability, the CNN visualization is well utilized as a qualitative analysis method, which translates the internal features into visually perceptible patterns. And many CNN visualization works have been proposed in the literature to interpret the CNN in perspectives of network structure, operation, and semantic concept. In this paper, we expect to provide a comprehensive survey of several representative CNN visualization methods, including Activation Maximization, Network Inversion, Deconvolutional Neural Networks (DeconvNet), and Network Dissection based visualization. These methods are presented in terms of motivations, algorithms, and experiment results. Based on these visualization methods, we also discuss their practical applications to demonstrate the significance of the CNN interpretability in areas of network design, optimization, security enhancement, etc.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1804.11191",
+   "pdf_url": "https://arxiv.org/pdf/1804.11191"
+  },
+  {
    "arxiv_id": "1804.11013",
    "announced": "2018-04-01",
    "title": "Cycle-Consistent Deep Generative Hashing for Cross-Modal Retrieval",
@@ -77047,6 +77128,64 @@
    "pdf_url": "https://arxiv.org/pdf/1803.08904"
   },
   {
+   "arxiv_id": "1803.08842",
+   "announced": "2018-03-23",
+   "title": "Audio-Visual Event Localization in Unconstrained Videos",
+   "authors": [
+    "Yapeng Tian",
+    "Jing Shi",
+    "Bochen Li",
+    "Zhiyao Duan",
+    "Chenliang Xu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "23 pages, 7 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1803.08842",
+   "abstract": "In this paper, we introduce a novel problem of audio-visual event localization in unconstrained videos. We define an audio-visual event as an event that is both visible and audible in a video segment. We collect an Audio-Visual Event(AVE) dataset to systemically investigate three temporal localization tasks: supervised and weakly-supervised audio-visual event localization, and cross-modality localization. We develop an audio-guided visual attention mechanism to explore audio-visual correlations, propose a dual multimodal residual network (DMRN) to fuse information over the two modalities, and introduce an audio-visual distance learning network to handle the cross-modality localization. Our experiments support the following findings: joint modeling of auditory and visual modalities outperforms independent modeling, the learned attention can capture semantics of sounding objects, temporal alignment is important for audio-visual fusion, the proposed DMRN is effective in fusing audio-visual features, and strong correlations between the two modalities enable cross-modality localization.",
+   "affiliations": [
+    "Department of Computer Science, University of Rochester",
+    "Department of Electrical and Computer Engineering, University of Rochester"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "University of Rochester",
+    "University of Rochester"
+   ],
+   "institution_ids": [
+    "022kthw22",
+    "022kthw22"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1803.08842",
+   "pdf_url": "https://arxiv.org/pdf/1803.08842"
+  },
+  {
    "arxiv_id": "1803.08679",
    "announced": "2018-03-23",
    "title": "Learning Spatial-Temporal Regularized Correlation Filters for Visual Tracking",
@@ -77642,6 +77781,80 @@
    },
    "abs_url": "https://arxiv.org/abs/1803.07835",
    "pdf_url": "https://arxiv.org/pdf/1803.07835"
+  },
+  {
+   "arxiv_id": "1803.07781",
+   "announced": "2018-03-21",
+   "title": "Exploiting deep residual networks for human action recognition from skeletal data",
+   "authors": [
+    "Huy-Hieu Pham",
+    "Louahdi Khoudour",
+    "Alain Crouzil",
+    "Pablo Zegers",
+    "Sergio A. Velastin"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "This version corresponds to the pre-print of the paper accepted for Computer Vision and Image Understanding (CVIU)",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The computer vision community is currently focusing on solving action recognition problems in real videos, which contain thousands of samples with many challenges. In this process, Deep Convolutional Neural Networks (D-CNNs) have played a significant role in advancing the state-of-the-art in various vision-based action recognition systems. Recently, the introduction of residual connections in conjunction with a more traditional CNN model in a single architecture called Residual Network (ResNet) has shown impressive performance and great potential for image recognition tasks. In this paper, we investigate and apply deep ResNets for human action recognition using skeletal data provided by depth sensors. Firstly, the 3D coordinates of the human body joints carried in skeleton sequences are transformed into image-based representations and stored as RGB images. These color images are able to capture the spatial-temporal evolutions of 3D motions from skeleton sequences and can be efficiently learned by D-CNNs. We then propose a novel deep learning architecture based on ResNets to learn features from obtained color-based representations and classify them into action classes. The proposed method is evaluated on three challenging benchmark datasets including MSR Action 3D, KARD, and NTU-RGB+D datasets. Experimental results demonstrate that our method achieves state-of-the-art performance for all these benchmarks whilst requiring less computation resource. In particular, the proposed method surpasses previous approaches by a significant margin of 3.4% on MSR Action 3D dataset, 0.67% on KARD dataset, and 2.5% on NTU-RGB+D dataset.",
+   "affiliations": [
+    "Centre d'Études et d'Expertise sur les Risques, l'Environnement, la Mobilité et l'Aménagement",
+    "Université Toulouse III - Paul Sabatier",
+    "Institut de Recherche en Informatique de Toulouse",
+    "Université de Toulouse",
+    "Queen Mary University of London",
+    "Universidad Carlos III de Madrid"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     1,
+     2,
+     3
+    ],
+    null,
+    [
+     4,
+     5
+    ]
+   ],
+   "institutions": [
+    "Centre d'Études et d'Expertise sur les Risques, l'Environnement, la Mobilité et l'Aménagement",
+    "Université Toulouse III - Paul Sabatier",
+    "Institut de Recherche en Informatique de Toulouse",
+    "Université de Toulouse",
+    "Queen Mary University of London",
+    "Universidad Carlos III de Madrid"
+   ],
+   "institution_ids": [
+    "05k0nvr25",
+    "02v6kpv12",
+    "01rx4qw44",
+    "01ahyrz84",
+    "026zzn846",
+    "03ths8210"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1803.07781",
+   "pdf_url": "https://arxiv.org/pdf/1803.07781"
   },
   {
    "arxiv_id": "1803.07728",
@@ -82202,7 +82415,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -82278,6 +82491,53 @@
    },
    "abs_url": "https://arxiv.org/abs/1803.08450",
    "pdf_url": "https://arxiv.org/pdf/1803.08450"
+  },
+  {
+   "arxiv_id": "1803.08375",
+   "announced": "2018-03-01",
+   "title": "Deep Learning using Rectified Linear Units (ReLU)",
+   "authors": [
+    "Abien Fred Agarap"
+   ],
+   "primary_subject": "Neural and Evolutionary Computing (cs.NE)",
+   "subjects": [
+    "Neural and Evolutionary Computing (cs.NE)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": "9 pages, 5 figures, 5 tables",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.NE",
+   "html_url": null,
+   "abstract": "The Rectified Linear Unit (ReLU) is a foundational activation function in artficial neural networks. Recent literature frequently misattributes its origin to the 2018 (initial) version of this paper, which exclusively investigated ReLU at the classification layer. This paper formally corrects the citation record by tracing the mathematical lineage of piecewise linear functions from early biological models to their definitive integration into deep learning by Nair & Hinton (2010). Alongside this historical rectification, we present a comprehensive empirical comparison of the ReLU, Hyperbolic Tangent (Tanh), and Logistic (Sigmoid) activation functions across image classification, text classification, and image reconstruction tasks. To ensure statistical robustness, we evaluated these functions using 10 independent randomized trials and assessed significance using the non-parametric Kruskal-Wallis H test. The empirical data validates the theoretical limitations of saturating functions. Sigmoid failed to converge in deep convolutional vision tasks due to the vanishing gradient problem, thus yielding accuracies equivalent to random probability. Conversely, ReLU and Tanh exhibited stable convergence. ReLU achieved the highest mean accuracy and F1-score on image classification and text classification tasks, while Tanh yielded the highest peak signal to noise ratio in image reconstruction. Ultimately, this study confirms a statistically significant performance variance among activations, thus reaffirming the necessity of non-saturating functions in deep architectures, and restores proper historical attribution to prior literature.",
+   "affiliations": [
+    "De La Salle University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "De La Salle University"
+   ],
+   "institution_ids": [
+    "04xftk194"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1803.08375",
+   "pdf_url": "https://arxiv.org/pdf/1803.08375"
   },
   {
    "arxiv_id": "1803.08319",
@@ -90845,7 +91105,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "openalex"

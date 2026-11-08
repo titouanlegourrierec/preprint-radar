@@ -14680,7 +14680,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -16003,7 +16003,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -17662,7 +17662,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -20806,7 +20806,7 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2211.02556",
    "abstract": "In this paper, we present Pangu-Weather, a deep learning based system for fast and accurate global weather forecast. For this purpose, we establish a data-driven environment by downloading 43 years of hourly global weather data from the 5th generation of ECMWF reanalysis (ERA5) data and train a few deep neural networks with about 256 million parameters in total. The spatial resolution of forecast is 0.25°×0.25°, comparable to the ECMWF Integrated Forecast Systems (IFS). More importantly, for the first time, an AI-based method outperforms state-of-the-art numerical weather prediction (NWP) methods in terms of accuracy (latitude-weighted RMSE and ACC) of all factors (e.g., geopotential, specific humidity, wind speed, temperature, etc.) and in all time ranges (from one hour to one week). There are two key strategies to improve the prediction accuracy: (i) designing a 3D Earth Specific Transformer (3DEST) architecture that formulates the height (pressure level) information into cubic data, and (ii) applying a hierarchical temporal aggregation algorithm to alleviate cumulative forecast errors. In deterministic forecast, Pangu-Weather shows great advantages for short to medium-range forecast (i.e., forecast time ranges from one hour to one week). Pangu-Weather supports a wide range of downstream forecast scenarios, including extreme weather forecast (e.g., tropical cyclone tracking) and large-member ensemble forecast in real-time. Pangu-Weather not only ends the debate on whether AI-based methods can surpass conventional NWP methods, but also reveals novel directions for improving deep learning weather forecast systems.",
    "affiliations": [
-    "Huawei Cloud Computing, Shenzhen, Guangdong 518129, China"
+    "Huawei Technologies"
    ],
    "author_affiliations": [
     [
@@ -20831,14 +20831,17 @@
    "institutions": [
     "Huawei"
    ],
+   "institution_ids": [
+    "00cmhce21"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2211.02556",
@@ -22192,7 +22195,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -30471,7 +30474,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -31914,20 +31917,63 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2211.01324",
    "abstract": "Large-scale diffusion-based generative models have led to breakthroughs in text-conditioned high-resolution image synthesis. Starting from random noise, such text-to-image diffusion models gradually synthesize images in an iterative fashion while conditioning on text prompts. We find that their synthesis behavior qualitatively changes throughout this process: Early in sampling, generation strongly relies on the text prompt to generate text-aligned content, while later, the text conditioning is almost entirely ignored. This suggests that sharing model parameters throughout the entire generation process may not be ideal. Therefore, in contrast to existing works, we propose to train an ensemble of text-to-image diffusion models specialized for different synthesis stages. To maintain training efficiency, we initially train a single model, which is then split into specialized models that are trained for the specific stages of the iterative generation process. Our ensemble of diffusion models, called eDiff-I, results in improved text alignment while maintaining the same inference computation cost and preserving high visual quality, outperforming previous large-scale text-to-image diffusion models on the standard benchmark. In addition, we train our model to exploit a variety of embeddings for conditioning, including the T5 text, CLIP text, and CLIP image embeddings. We show that these different embeddings lead to different behaviors. Notably, the CLIP image embedding allows an intuitive way of transferring the style of a reference image to the target text-to-image output. Lastly, we show a technique that enables eDiff-I's \"paint-with-words\" capability. A user can select the word in the input text and paint it in a canvas to control the output, which is very handy for crafting the desired image in mind. The project page is available at https://deepimagination.cc/eDiff-I/",
    "affiliations": [
-    "NVIDIA Corporation"
+    "Nvidia"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
    "institutions": [
     "NVIDIA"
+   ],
+   "institution_ids": [
+    "03jdj4y14"
    ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2211.01324",
@@ -35377,7 +35423,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -35578,69 +35624,63 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2210.08402",
    "abstract": "Groundbreaking language-vision architectures like CLIP and DALL-E proved the utility of training on large amounts of noisy image-text data, without relying on expensive accurate labels used in standard vision unimodal supervised learning. The resulting models showed capabilities of strong text-guided image generation and transfer to downstream tasks, while performing remarkably at zero-shot classification with noteworthy out-of-distribution robustness. Since then, large-scale language-vision models like ALIGN, BASIC, GLIDE, Flamingo and Imagen made further improvements. Studying the training and capabilities of such models requires datasets containing billions of image-text pairs. Until now, no datasets of this size have been made openly available for the broader research community. To address this problem and democratize research on large-scale multi-modal models, we present LAION-5B - a dataset consisting of 5.85 billion CLIP-filtered image-text pairs, of which 2.32B contain English language. We show successful replication and fine-tuning of foundational models like CLIP, GLIDE and Stable Diffusion using the dataset, and discuss further experiments enabled with an openly available dataset of this scale. Additionally we provide several nearest neighbor indices, an improved web-interface for dataset exploration and subset generation, and detection scores for watermark, NSFW, and toxic content detection. Announcement page https://laion.ai/laion-5b-a-new-era-of-open-large-scale-multi-modal-datasets/",
    "affiliations": [
-    "LAION"
+    "Technische Universität Darmstadt",
+    "Technical University of Munich",
+    "University of Washington",
+    "Forschungszentrum Jülich",
+    "Jülich Supercomputing Centre"
    ],
    "author_affiliations": [
+    null,
+    null,
     [
      0
     ],
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
     [
-     0
+     1
     ],
     [
-     0
+     2
+    ],
+    null,
+    [
+     3,
+     4
     ],
     [
-     0
+     1
     ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
+    null,
+    null
    ],
    "institutions": [
-    "LAION"
+    "Technische Universität Darmstadt",
+    "Technical University of Munich",
+    "University of Washington",
+    "Forschungszentrum Jülich",
+    "Jülich Supercomputing Centre"
+   ],
+   "institution_ids": [
+    "05n911h24",
+    "02kkvpp62",
+    "00cvxb145",
+    "02nv7yv05",
+    "04g2j9721"
    ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2210.08402",
@@ -35826,7 +35866,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -36278,7 +36318,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -37959,7 +37999,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -43434,7 +43474,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -46522,6 +46562,57 @@
    },
    "abs_url": "https://arxiv.org/abs/2209.14792",
    "pdf_url": "https://arxiv.org/pdf/2209.14792"
+  },
+  {
+   "arxiv_id": "2209.14733",
+   "announced": "2022-09-29",
+   "title": "Hyper-Representations as Generative Models: Sampling Unseen Neural Network Weights",
+   "authors": [
+    "Konstantin Schürholt",
+    "Boris Knyazev",
+    "Xavier Giró-i-Nieto",
+    "Damian Borth"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "36th Conference on Neural Information Processing Systems (NeurIPS 2022). arXiv admin note: text overlap with arXiv:2207.10951",
+   "journal_ref": null,
+   "venue": "NeurIPS 2022",
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "Learning representations of neural network weights given a model zoo is an emerging and challenging area with many potential applications from model inspection, to neural architecture search or knowledge distillation. Recently, an autoencoder trained on a model zoo was able to learn a hyper-representation, which captures intrinsic and extrinsic properties of the models in the zoo. In this work, we extend hyper-representations for generative use to sample new model weights. We propose layer-wise loss normalization which we demonstrate is key to generate high-performing models and several sampling methods based on the topology of hyper-representations. The models generated using our methods are diverse, performant and capable to outperform strong baselines as evaluated on several downstream tasks: initialization, ensemble sampling and transfer learning. Our results indicate the potential of knowledge aggregation from model zoos to new models via hyper-representations thereby paving the avenue for novel research directions.",
+   "affiliations": [
+    "University of St.Gallen"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of St.Gallen"
+   ],
+   "institution_ids": [
+    "0561a3s31"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2209.14733",
+   "pdf_url": "https://arxiv.org/pdf/2209.14733"
   },
   {
    "arxiv_id": "2209.14540",
@@ -56466,35 +56557,34 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2209.04934",
    "abstract": "Partial differential equations (PDEs) see widespread use in sciences and engineering to describe simulation of physical processes as scalar and vector fields interacting and coevolving over time. Due to the computationally expensive nature of their standard solution methods, neural PDE surrogates have become an active research topic to accelerate these simulations. However, current methods do not explicitly take into account the relationship between different fields and their internal components, which are often correlated. Viewing the time evolution of such correlated fields through the lens of multivector fields allows us to overcome these limitations. Multivector fields consist of scalar, vector, as well as higher-order components, such as bivectors and trivectors. Their algebraic properties, such as multiplication, addition and other arithmetic operations can be described by Clifford algebras. To our knowledge, this paper presents the first usage of such multivector representations together with Clifford convolutions and Clifford Fourier transforms in the context of deep learning. The resulting Clifford neural layers are universally applicable and will find direct use in the areas of fluid dynamics, weather forecasting, and the modeling of physical systems in general. We empirically evaluate the benefit of Clifford neural layers by replacing convolution and Fourier operations in common neural PDE surrogates by their Clifford counterparts on 2D Navier-Stokes and weather modeling tasks, as well as 3D Maxwell equations. For similar parameter count, Clifford neural layers consistently improve generalization capabilities of the tested neural PDE surrogates. Source code for our PyTorch implementation is available at https://microsoft.github.io/cliffordlayers/.",
    "affiliations": [
-    "Microsoft Research AI4Science",
-    "Microsoft Autonomous Systems and Robotics Research"
+    "Microsoft"
    ],
    "author_affiliations": [
     [
      0
     ],
+    null,
     [
      0
     ],
     [
      0
-    ],
-    [
-     1
     ]
    ],
    "institutions": [
-    "Microsoft",
     "Microsoft"
+   ],
+   "institution_ids": [
+    "00d0nc645"
    ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2209.04934",
@@ -58967,6 +59057,61 @@
    "pdf_url": "https://arxiv.org/pdf/2208.09588"
   },
   {
+   "arxiv_id": "2208.09579",
+   "announced": "2022-08-20",
+   "title": "Learning in Audio-visual Context: A Review, Analysis, and New Perspective",
+   "authors": [
+    "Yake Wei",
+    "Di Hu",
+    "Yapeng Tian",
+    "Xuelong Li"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "https://gewu-lab.github.io/audio-visual-learning/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Sight and hearing are two senses that play a vital role in human communication and scene understanding. To mimic human perception ability, audio-visual learning, aimed at developing computational approaches to learn from both audio and visual modalities, has been a flourishing field in recent years. A comprehensive survey that can systematically organize and analyze studies of the audio-visual field is expected. Starting from the analysis of audio-visual cognition foundations, we introduce several key findings that have inspired our computational studies. Then, we systematically review the recent audio-visual learning studies and divide them into three categories: audio-visual boosting, cross-modal perception and audio-visual collaboration. Through our analysis, we discover that, the consistency of audio-visual data across semantic, spatial and temporal support the above studies. To revisit the current development of the audio-visual learning field from a more macro view, we further propose a new perspective on audio-visual scene understanding, then discuss and analyze the feasible future direction of the audio-visual learning area. Overall, this survey reviews and outlooks the current audio-visual learning field from different aspects. We hope it can provide researchers with a better understanding of this area. A website including constantly-updated survey is released: https://gewu-lab.github.io/audio-visual-learning/.",
+   "affiliations": [
+    "Renmin University of China"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Renmin University of China"
+   ],
+   "institution_ids": [
+    "041pakw92"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2208.09579",
+   "pdf_url": "https://arxiv.org/pdf/2208.09579"
+  },
+  {
    "arxiv_id": "2208.10335",
    "announced": "2022-08-19",
    "title": "Intensity-Aware Loss for Dynamic Facial Expression Recognition in the Wild",
@@ -59631,7 +59776,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -60980,19 +61125,14 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2208.01618",
    "abstract": "Text-to-image models offer unprecedented freedom to guide creation through natural language. Yet, it is unclear how such freedom can be exercised to generate images of specific unique concepts, modify their appearance, or compose them in new roles and novel scenes. In other words, we ask: how can we use language-guided models to turn our cat into a painting, or imagine a new product based on our favorite toy? Here we present a simple approach that allows such creative freedom. Using only 3-5 images of a user-provided concept, like an object or a style, we learn to represent it through new \"words\" in the embedding space of a frozen text-to-image model. These \"words\" can be composed into natural language sentences, guiding personalized creation in an intuitive way. Notably, we find evidence that a single word embedding is sufficient for capturing unique and varied concepts. We compare our approach to a wide range of baselines, and demonstrate that it can more faithfully portray the concepts across a range of applications and tasks. Our code, data and new words will be available at: https://textual-inversion.github.io",
    "affiliations": [
-    "Tel-Aviv University",
-    "NVIDIA"
+    "Tel Aviv University"
    ],
    "author_affiliations": [
     [
-     0,
-     1
-    ],
-    [
      0
     ],
     [
-     1
+     0
     ],
     [
      0
@@ -61001,24 +61141,29 @@
      0
     ],
     [
-     1
+     0
+    ],
+    [
+     0
     ],
     [
      0
     ]
    ],
    "institutions": [
-    "Tel-Aviv University",
-    "NVIDIA"
+    "Tel Aviv University"
+   ],
+   "institution_ids": [
+    "04mhzgx49"
    ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2208.01618",
@@ -61879,7 +62024,7 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2208.11247",
    "abstract": "Transformer-based methods have achieved impressive image restoration performance due to their capacities to model long-range dependency compared to CNN-based methods. However, advances like SwinIR adopts the window-based and local attention strategy to balance the performance and computational overhead, which restricts employing large receptive fields to capture global information and establish long dependencies in the early layers. To further improve the efficiency of capturing global information, in this work, we propose SwinFIR to extend SwinIR by replacing Fast Fourier Convolution (FFC) components, which have the image-wide receptive field. We also revisit other advanced techniques, i.e, data augmentation, pre-training, and feature ensemble to improve the effect of image reconstruction. And our feature ensemble method enables the performance of the model to be considerably enhanced without increasing the training and testing time. We applied our algorithm on multiple popular large-scale benchmarks and achieved state-of-the-art performance comparing to the existing methods. For example, our SwinFIR achieves the PSNR of 32.83 dB on Manga109 dataset, which is 0.8 dB higher than the state-of-the-art SwinIR method.",
    "affiliations": [
-    "Samsung Research China - Beijing (SRC-B)"
+    "Samsung"
    ],
    "author_affiliations": [
     [
@@ -61901,14 +62046,17 @@
    "institutions": [
     "Samsung"
    ],
+   "institution_ids": [
+    "04yt00889"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2208.11247",
@@ -65020,7 +65168,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -65455,7 +65603,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -66778,7 +66926,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -83159,7 +83307,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -85586,7 +85734,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -88498,7 +88646,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -89523,7 +89671,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -89671,7 +89819,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -90960,6 +91108,65 @@
    "pdf_url": "https://arxiv.org/pdf/2206.06922"
   },
   {
+   "arxiv_id": "2206.06544",
+   "announced": "2022-06-01",
+   "title": "A Survey of Automated Data Augmentation Algorithms for Deep Learning-based Image Classification Tasks",
+   "authors": [
+    "Zihan Yang",
+    "Richard O. Sinnott",
+    "James Bailey",
+    "Qiuhong Ke"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "68 pages, 9 figures. Submitted to Knowledge and Information Systems (KAIS)",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In recent years, one of the most popular techniques in the computer vision community has been the deep learning technique. As a data-driven technique, deep model requires enormous amounts of accurately labelled training data, which is often inaccessible in many real-world applications. A data-space solution is Data Augmentation (DA), that can artificially generate new images out of original samples. Image augmentation strategies can vary by dataset, as different data types might require different augmentations to facilitate model training. However, the design of DA policies has been largely decided by the human experts with domain knowledge, which is considered to be highly subjective and error-prone. To mitigate such problem, a novel direction is to automatically learn the image augmentation policies from the given dataset using Automated Data Augmentation (AutoDA) techniques. The goal of AutoDA models is to find the optimal DA policies that can maximize the model performance gains. This survey discusses the underlying reasons of the emergence of AutoDA technology from the perspective of image classification. We identify three key components of a standard AutoDA model: a search space, a search algorithm and an evaluation function. Based on their architecture, we provide a systematic taxonomy of existing image AutoDA approaches. This paper presents the major works in AutoDA field, discussing their pros and cons, and proposing several potential directions for future improvements.",
+   "affiliations": [
+    "University of Melbourne",
+    "Monash University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Melbourne",
+    "Monash University"
+   ],
+   "institution_ids": [
+    "01ej9dk98",
+    "02bfwt286"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-08"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2206.06544",
+   "pdf_url": "https://arxiv.org/pdf/2206.06544"
+  },
+  {
    "arxiv_id": "2206.06522",
    "announced": "2022-06-01",
    "title": "LST: Ladder Side-Tuning for Parameter and Memory Efficient Transfer Learning",
@@ -92103,7 +92310,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -92153,7 +92360,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -92881,7 +93088,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -95863,7 +96070,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -97184,20 +97391,56 @@
    "html_url": "https://ar5iv.labs.arxiv.org/html/2205.11487",
    "abstract": "We present Imagen, a text-to-image diffusion model with an unprecedented degree of photorealism and a deep level of language understanding. Imagen builds on the power of large transformer language models in understanding text and hinges on the strength of diffusion models in high-fidelity image generation. Our key discovery is that generic large language models (e.g. T5), pretrained on text-only corpora, are surprisingly effective at encoding text for image synthesis: increasing the size of the language model in Imagen boosts both sample fidelity and image-text alignment much more than increasing the size of the image diffusion model. Imagen achieves a new state-of-the-art FID score of 7.27 on the COCO dataset, without ever training on COCO, and human raters find Imagen samples to be on par with the COCO data itself in image-text alignment. To assess text-to-image models in greater depth, we introduce DrawBench, a comprehensive and challenging benchmark for text-to-image models. With DrawBench, we compare Imagen with recent methods including VQ-GAN+CLIP, Latent Diffusion Models, and DALL-E 2, and find that human raters prefer Imagen over other models in side-by-side comparisons, both in terms of sample quality and image-text alignment. See https://imagen.research.google/ for an overview of the results.",
    "affiliations": [
-    "Google Research, Brain Team, Toronto, Ontario, Canada"
+    "Google"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null,
+    null,
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
    "institutions": [
     "Google"
+   ],
+   "institution_ids": [
+    "00njsd438"
    ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
+     "source": "openalex",
+     "at": "2026-11-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2205.11487",
@@ -103528,7 +103771,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -104834,7 +105077,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -106391,7 +106634,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -115326,7 +115569,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -123464,7 +123707,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -123625,7 +123868,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -124228,7 +124471,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -124666,7 +124909,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -131699,7 +131942,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -141845,7 +142088,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -155257,7 +155500,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
@@ -169705,7 +169948,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-04"
+     "at": "2026-11-08"
     },
     "institutions": {
      "source": "ror",
