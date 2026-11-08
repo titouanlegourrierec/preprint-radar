@@ -135,14 +135,18 @@ entries" headings against `parse_catchup` (`sources/arxiv_listing.py`).
 **Signal.** `Data validation` in the job summary lists `ERROR` lines; the *Commit data*
 step is skipped and *Keep the data that failed validation* ran.
 
-The data is kept, unpushed, in the run's `data-commit` artifact (7 days):
+The data is kept, unpushed, in the run's `data-commit` artifact (7 days): main's commit,
+and the data branch's when the run changed the archive's files (SCALE-8):
 
 ```bash
 gh run download <run id> -n data-commit
 git fetch data-commit.bundle HEAD:recovered-data
+git -C .data-branch fetch ../data-branch.bundle HEAD:recovered-data-branch
 ```
 
-Check out `recovered-data`, fix what `make validate` reports (usually a code bug first,
+Check out `recovered-data` (and `recovered-data-branch` in `.data-branch/`, then `make
+data-pull FORCE=1` would undo it: copy its files with `bash .github/scripts/data-branch.sh
+assemble`), fix what `make validate` reports (usually a code bug first,
 with a test), and push. Doing nothing only helps a passing cause (a file `main` broke,
 fixed since): the next run collects the same papers again, and a misread record fails the
 same way until the code is fixed.
@@ -164,15 +168,19 @@ Affiliations corrected by hand (`make pin`) are never set aside: validation fail
 
 ### The data commit could not be pushed
 
-**Signal.** `changed both in this run and on main; nothing was pushed.`,
-`The data commit replayed on main does not validate; nothing was pushed.` or
-`The data commit could not be pushed; nothing was pushed.`
+**Signal.** `changed both in this run and on` (main, or the data branch), `The data
+commit replayed on main does not validate; nothing was pushed.` or `The data commit could
+not be pushed; nothing was pushed.`
 
-`main` moved during the run on a file that `commit-data.sh` does not settle (any but
-`index.json`, `citations.json`, `citation-gains.json`), the commit replayed on it failed
-`validate` (which then lists why, OPS-4), or three pushes were refused.
-Recover the `data-commit` artifact as above, rebase it on `main`, settle the conflict (keep
-both sides' papers; `preprint-radar index` rewrites the index), validate and push.
+`main` or the data branch moved during the run on a file that `commit-data.sh` does not
+settle (any but `index.json`, `citations.json`, `citation-gains.json`), the commits
+replayed on them failed `validate` (which then lists why, OPS-4), or three pushes were
+refused. Recover the `data-commit` artifact as above, rebase each commit on its branch,
+settle the conflict (keep both sides' papers; `preprint-radar index` rewrites the index),
+validate and push, the data branch first (`make data-push`).
+The data branch is pushed before main: when main alone was refused, the data branch holds
+the run's archive and only `data-commit.bundle` is in the artifact; `validate` then fails
+on an `index.json` that does not list it, until main's commit is pushed.
 
 ### Semantic Scholar rejected the API key
 
@@ -426,8 +434,9 @@ Not in git, set on 2026-11-02 (PUB-3); check them after any change to the workfl
 - Rulesets: `main` (the default branch) refuses force-pushes and deletion; the `v*` tags
   refuse being moved or deleted. Pushes that only add commits, the bot's included, go
   through: no pull request or check is required, which would stop `commit-data.sh`. To
-  rewrite `main` once (moving `data/` off it, [below](#the-site-or-the-repository-grows-too-large)),
-  disable its ruleset for that push and enable it again.
+  rewrite `main`'s history once (dropping the archive's old versions, [below](#the-site-or-the-repository-grows-too-large)),
+  disable its ruleset for that push and enable it again. The data branch has none: the
+  archive force-pushes it when it squashes it ([The data branch](#the-data-branch)).
 - Actions: the default `GITHUB_TOKEN` reads only (every job declares what it needs), and
   every action must be pinned by a full commit SHA, nested ones included.
 - Security: private vulnerability reporting is on, as `SECURITY.md` says; secret scanning,
@@ -462,22 +471,58 @@ for 92 MB of `data/`.
 The repository is another matter. The weekly archive rewrites all its year files, and
 GitHub stores each new version as a delta against a base of its own choosing, often
 another year's file: 2024.json as a 2.4 MB delta on 2025.json, where its previous version
-gives 16 KB. On 2026-11-02, GitHub counted 112 MB (a mirror clone downloads 148 MB) for
-31 MB of objects once repacked; about 9 MB more a week, which reaches the 500 MB warning
-in 2027 with cs.CV alone. In order:
+gives a few KB. Our pushes send good deltas (0.4 MB for a week's archive); GitHub's own
+packing does this, and a gc by GitHub Support (2026-11-04) kept it. On 2026-11-08,
+`archive/` was 119 of the 144 MB GitHub stored, against 19 MB for its whole history
+repacked, and grew about 9 MB a week. So the files only the archive rewrites live on the
+data branch, squashed monthly ([The data branch](#the-data-branch), SCALE-8): GitHub keeps
+a month of their history. The versions `main`'s history holds stay, about 114 MB more
+than repacked; the day files, rewritten rarely, are stored well (13 MB).
 
-1. `Storage bloat` (GitHub's size above three times the repacked one): ask GitHub Support
-   to run a garbage collection of the repository, which repacks it on their side; check
-   the next canary.
+1. `Storage bloat` (GitHub's size above the repacked one by more than 150 MB): the
+   squashes free nothing, GitHub keeping the history they drop. Ask GitHub Support to run
+   a garbage collection, which deletes what no branch reaches; check the next canary.
 2. A site warning: check that pruning is on (the repository variable
    `PREPRINT_RADAR_ARCHIVE_PRUNE` is `true`; decision 2: older day files leave the site
    and the working tree, not the git history; the archive keeps their cited papers).
-3. `Repository growing` with no bloat, or bloat back within weeks of a gc: move the files
-   rewritten each week (`archive/`, `top-recent.json`, `scholar.json`, `citations.json`,
-   `citation-gains.json`, `topics.json`) off `main`, to an orphan `data` branch squashed
-   monthly that the workflows commit to and *Deploy site* checks out beside `main` (or
-   publish them through the Pages artifact only). The day files, written once, can stay.
-   Disable the `main` ruleset for the push that removes them (above).
+3. `Repository growing` (500 MB, years away at a few MB of day files a month): rewrite
+   `main`'s history without the archive's files (`git filter-repo`), with its ruleset off,
+   every clone cloned again and the tags `v0.1.0` onward moved, their releases with them.
+
+## The data branch
+
+The files only the weekly archive rewrites (`archive/`, `top-recent.json`, `scholar.json`,
+`citation-gains.json`, `topics.json`, `trends.json`, `cohorts.json`) live on the orphan
+`data` branch at their paths under `data/`, git-ignored on `main` (SCALE-8). The pipeline
+still reads one `data/`: every workflow job that reads it checks the branch out in
+`.data-branch/` and copies its files in (`.github/scripts/data-branch.sh assemble`), and
+`commit-data.sh` commits them there, pushing the data branch before `main`, whose
+`index.json` lists the archive years. *Archive* squashes the branch into one commit of
+its tree on its first run of a month (`The data branch is one commit again`), so that it
+holds a month of history. The branch holds no workflow, so a push to it runs none: the
+data workflows call *Deploy site* themselves, and `make data-push` validates first and
+dispatches *Deploy site* when `main`'s push does not deploy.
+
+On a clone of yours, after `git pull`:
+
+```bash
+make data-pull
+```
+
+which checks the branch out in `.data-branch/` (a worktree) the first time, follows it
+(reset to GitHub's, a squash having replaced its history), and copies its files into
+`data/`; every `make` command that reads `data/` refuses to run without them. After a
+change to the data, `make data-commit MSG="fix(data): …"` commits `data/` on both branches
+and `make data-push` validates it, pushes the data branch, then `main`, and deploys. `make data-pull` refuses while
+`data/` holds changes to the branch's files not committed (`FORCE=1` drops them) or the
+branch holds commits not pushed.
+
+**Signal.** `holds no checkout of the data branch`: a job lost its second checkout, or a
+clone of yours was never given one (`make data-pull`).
+
+**Signal.** `The data branch could not be squashed; the next archive tries again.` (a
+warning): the branch moved between the archive's push and its squash, a push of yours;
+next Sunday's run squashes it.
 
 ## How long things take
 

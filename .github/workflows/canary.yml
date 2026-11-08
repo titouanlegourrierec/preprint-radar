@@ -39,8 +39,8 @@ jobs:
     # A mirror clone and its repack: about two minutes.
     timeout-minutes: 15
     steps:
-      # GitHub's size of the repository (KB, about what a clone downloads): above 500 MB, move
-      # data/ off main (docs/operations.md, "The site or the repository grows").
+      # GitHub's size of the repository (KB, about what a clone downloads): above 500 MB, see
+      # docs/operations.md, "The site or the repository grows".
       - name: Check the repository size
         env:
           GH_TOKEN: ${{ github.token }}
@@ -56,8 +56,9 @@ jobs:
       # GitHub stores the weekly rewrites of archive/ against bases of its own choosing
       # (2024.json as a 2.4 MB delta on 2025.json, where its last version gives 16 KB):
       # its size above counts that bloat, which a repack of the same objects leaves out
-      # (SCALE-1). Several times the repacked size: ask GitHub Support to gc the
-      # repository; data that grows the repacked size: the migration of docs/operations.md.
+      # (SCALE-1). The data branch, squashed monthly, keeps a month of it (SCALE-8); the
+      # versions main's history holds stay, 114 MB more than repacked on 2026-11-08. More
+      # than 150 MB of bloat: the squashes free nothing (docs/operations.md).
       - name: Check the size the data takes
         env:
           GH_TOKEN: ${{ github.token }}
@@ -69,6 +70,6 @@ jobs:
           size=$(( $(gh api "repos/$REPOSITORY" --jq .size) / 1024 ))
           echo "**Repacked size.** ${packed} MB, GitHub's ${size} MB" >> "$GITHUB_STEP_SUMMARY"
           echo "::notice title=Repacked size::${packed} MB, GitHub's ${size} MB"
-          if [ "$size" -gt $(( 3 * packed )) ]; then
+          if [ "$size" -gt $(( packed + 150 )) ]; then
             echo "::warning title=Storage bloat::GitHub stores ${size} MB for ${packed} MB of repacked objects: ask GitHub Support to gc the repository (docs/operations.md)"
           fi

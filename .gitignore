@@ -33,3 +33,14 @@ experiments/
 
 # Personal Claude Code settings (the shared launch config is committed)
 .claude/settings.local.json
+
+# The files only the weekly archive rewrites live on the data branch (SCALE-8), checked out
+# in .data-branch/ and copied into data/ (.github/scripts/data-branch.sh, whose list this is)
+/.data-branch/
+/data/*/archive/
+/data/*/top-recent.json
+/data/*/scholar.json
+/data/*/citation-gains.json
+/data/*/topics.json
+/data/*/trends.json
+/data/*/cohorts.json

@@ -10,6 +10,14 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ## Unreleased
 
+### Data
+
+- The files only the weekly archive rewrites (`archive/`, `top-recent.json`,
+  `scholar.json`, `citation-gains.json`, `topics.json`, `trends.json`, `cohorts.json`)
+  are on the `data` branch, at the same paths, squashed monthly: GitHub stored their weekly
+  versions badly, 119 of the repository's 144 MB. The site serves the same files; a clone
+  reads them from that branch, `make data-pull` copying them into `data/` (SCALE-8).
+
 ## 1.3.0 (2026-11-07): the second audit closed, extraction version 24, a new share card
 
 ### Pipeline

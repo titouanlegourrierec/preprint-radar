@@ -81,6 +81,16 @@ jobs:
           ref: main
           # Only the commit step gets a token that can push (PUB-2).
           persist-credentials: false
+      # The files only the archive rewrites, on the data branch, copied into data/ (SCALE-8).
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: data
+          path: .data-branch
+          # A month of commits at most (commit-data.sh squashes it).
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Assemble data/
+        run: bash .github/scripts/data-branch.sh assemble
       - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
         with:
           enable-cache: true
@@ -255,7 +265,9 @@ jobs:
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: data-commit
-          path: data-commit.bundle
+          path: |
+            data-commit.bundle
+            data-branch.bundle
           retention-days: 7
 
       # The newest day and its age, the coverage tables and stale warnings, on the run's

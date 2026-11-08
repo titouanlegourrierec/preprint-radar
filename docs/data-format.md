@@ -9,7 +9,11 @@ is missing here.
 ## Where to read it
 
 - The repository's `data/`, as the workflows commit it: once a weekday for the papers, on
-  Sundays for the archive and the weekly counts.
+  Sundays for the archive and the weekly counts. The files only the weekly archive
+  rewrites (`archive/`, `top-recent.json`, `scholar.json`, `citation-gains.json`,
+  `topics.json`, `trends.json`, `cohorts.json`) are on the `data` branch, at the same
+  paths, since 1.4.0; `main` has the others, and an `index.json` that lists the archive
+  years the data branch holds. The data branch keeps a month of history.
 - The site, which serves the same files under `data/`:
   `https://titouanlegourrierec.github.io/preprint-radar/data/index.json`,
   `…/data/cs.CV/2026-10-26.json`. Its files carry a few fields more, which the build

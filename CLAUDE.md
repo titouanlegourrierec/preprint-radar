@@ -42,6 +42,11 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   DOI), the graph, no page error. CI runs it after the build; keep `e2e/data` valid when
   the format changes. `make test-network`: the parsers against the live arXiv (slow).
 - `make format`: auto-fix formatting and lint. `make dev` / `make preview`: the site locally.
+- `make data-pull` after every `git pull`: the files only the weekly archive rewrites live
+  on the orphan `data` branch (SCALE-8), checked out in `.data-branch/` (a worktree) and
+  copied into `data/`; every `make` command that reads `data/` refuses without them. A
+  change to `data/`: `make data-commit MSG="…"` (both branches) then `make data-push`
+  (validates, pushes the data branch first, deploys). `docs/operations.md`, *The data branch*.
 - `make logo NAME="…" URL=<file page> [VIEW_BOX="x y w h"] [PNG=128]`: add or replace an
   institution's logo, chosen by hand on Commons or a Wikipedia (PROD-23, `docs/web.md`);
   `make logos-review` draws them all as the site does, light and dark: look before keeping
@@ -194,7 +199,11 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     unwrapped lines (`09:52:13 INFO name: message`), so logs stay greppable and tests
     assert on text. `stats` draws rich tables in a terminal, the plain `format_*` text
     elsewhere.
-- `data/` (generated, committed and deployed; written by `store/paper_store.py`):
+- `data/` (generated, committed and deployed; written by `store/paper_store.py`). `archive/`,
+  `top-recent.json`, `scholar.json`, `citation-gains.json`, `topics.json`, `trends.json`
+  and `cohorts.json` are committed on the `data` branch, git-ignored on `main`
+  (`.github/scripts/data-branch.sh` holds the list, `.gitignore` the same): GitHub stored
+  their weekly versions as deltas on other years' files, 119 of its 144 MB on 2026-11-08.
   - `index.json`: categories, days, archive years (optional `archives`) and counts.
   - `<category>/<YYYY-MM-DD>.json`: the papers announced that day.
   - `<category>/archive/<YYYY>.json`: papers kept for their citations, by year of first
@@ -429,12 +438,20 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     triggering commit, else a queued run starts from stale data), run
     `.github/scripts/validate-data.sh` (a structural error pushes nothing), and commit
     through `.github/scripts/commit-data.sh`, the only step given a token that can push (no
-    checkout keeps its credentials, PUB-2), which rebases onto a `main` that moved during
-    the run: on a conflict it writes `index.json` again and keeps the run's
-    `citations.json` and `citation-gains.json`, and validates the replayed tree again
+    checkout keeps its credentials, PUB-2). It commits the data branch's files there and
+    the rest on `main`, pushes the data branch first, and rebases each commit onto a branch
+    that moved during the run: on a conflict it writes `index.json` again and keeps the
+    run's `citations.json` and `citation-gains.json`, and validates the replayed tree again
     (OPS-4); on any other conflict, a tree that does not validate, or after three
-    refused pushes, it uploads the commit as `data-commit.bundle`
-    (`tests/unit/test_commit_data.py`).
+    refused pushes, it uploads the commits as `data-commit.bundle` and
+    `data-branch.bundle` (`tests/unit/test_commit_data.py`). `archive.yml` passes
+    `--squash-monthly`: on its first run of a month the data branch becomes one commit of
+    its tree, force-pushed (no ruleset on it), so that GitHub keeps a month of its history.
+  - Every job that reads `data/` checks out the data branch in `.data-branch/` and runs
+    `data-branch.sh assemble` before (`tests/unit/test_data_branch.py` checks the
+    workflows): without it the archive reads as empty, and would be pushed so. The data
+    branch holds no workflow, so its pushes run none: `make data-push` validates first and
+    dispatches *Deploy site*.
   - Reading HTML pages stops early three ways (`collect.Stop`): the deadline (CI passes 175
     of the step's 195 minutes: green, the rest waits), 5 failed pages in a row (arxiv.org
     down: red), or 90% of at least 40 pages without affiliation (a layout change: red, the
@@ -464,9 +481,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   - `extraction-diff.yml` (by hand, on a branch): what its extraction changes against
     `main`'s over the daily runs' page cache, before a heuristic is merged.
   - Sizes (ARCH-1): `deploy.yml` fails a site above 800 MB (Pages refuses 1 GB) and warns
-    above 600 MB; `canary.yml` warns above 500 MB of repository. Either triggers moving
-    `data/` off `main` (`docs/operations.md`); pruning, a rolling year of day files
-    (decision 2), is on since 2026-10-06 (`PREPRINT_RADAR_ARCHIVE_PRUNE`).
+    above 600 MB; `canary.yml` warns above 500 MB of repository, and of `Storage bloat`
+    past 150 MB more than the repository repacked: the squashes freeing nothing
+    (`docs/operations.md`). Pruning, a rolling year of day files (decision 2), is on since
+    2026-10-06 (`PREPRINT_RADAR_ARCHIVE_PRUNE`).
 
 ## Working agreements
 

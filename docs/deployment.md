@@ -8,7 +8,9 @@ A GitHub fork never runs the data workflows on schedule, so that turning its Act
 does not crawl arXiv daily: only runs started by hand or dispatched go on. For daily runs,
 push a copy instead.
 
-1. Push the repository to GitHub.
+1. Push the repository to GitHub, with its `data` branch, which holds the archive's files
+   (`git push origin main data`; [operations.md](operations.md#the-data-branch)). To start
+   another category from nothing, make it an orphan branch of an empty commit.
 2. In *Settings → Pages*, set *Source* to **GitHub Actions**.
 3. In *Settings → Secrets and variables → Actions → Variables*, optionally set:
    - `PREPRINT_RADAR_CATEGORIES`: space-separated categories (default `cs.CV`);
@@ -37,4 +39,5 @@ push a copy instead.
    ([operations.md](operations.md#the-outside-scheduler)).
 
 *Update data* then runs every weekday and *Archive* every Sunday; each commits its data
-and redeploys the site. *Deploy site* also runs on every push to `web/` or `data/`.
+and redeploys the site. *Deploy site* also runs on every push to `web/` or `data/` on `main`; the data branch,
+which holds no workflow, runs none (`make data-push` dispatches the deploy).

@@ -9,12 +9,17 @@ for the site.
 git clone --filter=blob:none https://github.com/titouanlegourrierec/preprint-radar.git
 cd preprint-radar
 make install            # Python and web dependencies, git hooks
+make data-pull          # the archive's files, from the data branch, into data/
 cp .env.example .env    # then set PREPRINT_RADAR_CONTACT
 make dev                # the site on http://localhost:5173, over ../data
 ```
 
 Most of the history is past versions of `data/`: the partial clone above downloads the
-files of the commit checked out, and past versions only when a command needs them.
+files of the commit checked out, and past versions only when a command needs them. The
+files only the weekly archive rewrites live on the `data` branch; `make data-pull` copies
+them into `data/` and follows the branch after each `git pull`, and `make data-commit` and
+`make data-push` commit and push a change to `data/` on both branches
+([operations.md](operations.md#the-data-branch)).
 
 ## Everyday commands
 

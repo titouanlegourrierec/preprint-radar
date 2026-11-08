@@ -2,6 +2,7 @@ name: Deploy site
 
 on:
   push:
+    # Not the data branch, which holds no workflow: make data-push dispatches this (SCALE-8).
     branches: [main]
     paths: ["web/**", "data/**", ".github/workflows/deploy.yml"]
   workflow_dispatch:
@@ -33,6 +34,16 @@ jobs:
           # When called after a data update, build the commit that was just pushed.
           ref: main
           persist-credentials: false
+      # The files only the archive rewrites, on the data branch, copied into data/ (SCALE-8).
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: data
+          path: .data-branch
+          # A month of commits at most (commit-data.sh squashes it).
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Assemble data/
+        run: bash .github/scripts/data-branch.sh assemble
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24

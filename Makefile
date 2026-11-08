@@ -26,6 +26,8 @@ MAX_HTML ?=
 SINCE ?=
 UNTIL ?=
 ID ?=
+MSG ?=
+FORCE ?=
 CATEGORY_ARGS := $(foreach category,$(CATEGORIES),--category $(category))
 MAX_HTML_ARG := $(if $(MAX_HTML),--max-html $(MAX_HTML))
 UNTIL_ARG := $(if $(UNTIL),--until $(UNTIL))
@@ -50,6 +52,8 @@ help: ## Show this help
 	printf "  %s%-14s%s %s\n" "$$cyan" "DRY_RUN=1" "$$reset" "archive: report what would change, write nothing"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "PRUNE=1" "$$reset" "archive: delete the day files older than 12 months"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "ID" "$$reset" "remove, pin: the papers' arXiv ids, space-separated"; \
+	printf "  %s%-14s%s %s\n" "$$cyan" "MSG" "$$reset" "data-commit: the commit message of both branches"; \
+	printf "  %s%-14s%s %s\n" "$$cyan" "FORCE=1" "$$reset" "data-pull: drop the changes data/ holds to the data branch's files"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "NAME, URL" "$$reset" "logo: the institution, as the site names it, and its file's page (VIEW_BOX crops an SVG, PNG=128 draws a too detailed one as a PNG, LICENSE for a file outside Commons)"; \
 	printf "\nExamples: make update CATEGORIES=\"cs.CV cs.LG\" MAX_HTML=50\n"; \
 	printf "          make backfill SINCE=2026-09-01\n"; \
@@ -125,105 +129,126 @@ pre-commit: ## Run all git hooks on all files (with prek)
 
 ##@ Data
 
+# The files only the weekly archive rewrites live on the data branch (SCALE-8), checked out
+# in .data-branch/ and copied into data/: every command that reads data/ needs them there.
+DATA_BRANCH := bash .github/scripts/data-branch.sh
+
+.PHONY: data-ready
+data-ready:
+	@$(DATA_BRANCH) check
+
+.PHONY: data-pull
+data-pull: ## Copy the data branch's files (the archive's) into data/, after a pull of main (FORCE=1 drops their changes in data/)
+	@FORCE=$(FORCE) $(DATA_BRANCH) pull
+
+.PHONY: data-commit
+data-commit: ## Commit data/ on both branches, the archive's files on the data branch (MSG="...")
+	@if [ -z "$(MSG)" ]; then echo 'Usage: make data-commit MSG="chore(data): ..."' >&2; exit 2; fi
+	@$(DATA_BRANCH) commit "$(MSG)"
+
+.PHONY: data-push
+data-push: validate ## Validate data/, push the data branch, then main, and deploy the site
+	@$(DATA_BRANCH) push
+
 .PHONY: update
-update: ## Add recent papers to data/, with abstracts and affiliations (slow)
+update: data-ready ## Add recent papers to data/, with abstracts and affiliations (slow)
 	uv run preprint-radar -v update $(CATEGORY_ARGS) $(MAX_HTML_ARG)
 
 .PHONY: update-quick
-update-quick: ## Add recent papers to data/ without reading HTML pages (fast)
+update-quick: data-ready ## Add recent papers to data/ without reading HTML pages (fast)
 	uv run preprint-radar -v update $(CATEGORY_ARGS) --max-html 0
 
 .PHONY: backfill
-backfill: ## Add past days (SINCE to UNTIL) to data/, with abstracts and affiliations (slow)
+backfill: data-ready ## Add past days (SINCE to UNTIL) to data/, with abstracts and affiliations (slow)
 	@if [ -z "$(SINCE)" ]; then echo "Usage: make backfill SINCE=YYYY-MM-DD [UNTIL=YYYY-MM-DD]" >&2; exit 2; fi
 	uv run preprint-radar -v backfill $(CATEGORY_ARGS) --since $(SINCE) $(UNTIL_ARG) $(MAX_HTML_ARG)
 
 .PHONY: archive
-archive: ## Keep the most cited older papers in data/ (first run: about 2 hours)
+archive: data-ready ## Keep the most cited older papers in data/ (first run: about 2 hours)
 	uv run preprint-radar -v archive $(CATEGORY_ARGS) $(ARCHIVE_ARGS)
 
 .PHONY: institutions
-institutions: ## Name the institutions of stored affiliations through ROR, then the rules (minutes)
+institutions: data-ready ## Name the institutions of stored affiliations through ROR, then the rules (minutes)
 	uv run preprint-radar -v institutions $(CATEGORY_ARGS)
 
 .PHONY: affiliations
-affiliations: ## Ask OpenAlex for the affiliations of stored papers without an HTML page (seconds)
+affiliations: data-ready ## Ask OpenAlex for the affiliations of stored papers without an HTML page (seconds)
 	uv run preprint-radar -v affiliations $(CATEGORY_ARGS)
 
 .PHONY: archive-affiliations
-archive-affiliations: ## Affiliations for highly cited papers without any: OpenAlex (seconds); MAX_HTML=N reads N pages too (15 s each)
+archive-affiliations: data-ready ## Affiliations for highly cited papers without any: OpenAlex (seconds); MAX_HTML=N reads N pages too (15 s each)
 	uv run preprint-radar -v archive-affiliations $(CATEGORY_ARGS) $(MAX_HTML_ARG)
 
 .PHONY: institutions-again
-institutions-again: ## Name the stored institutions again with today's rules, archive included (offline)
+institutions-again: data-ready ## Name the stored institutions again with today's rules, archive included (offline)
 	uv run preprint-radar -v institutions --again $(CATEGORY_ARGS)
 
 .PHONY: reextract
-reextract: ## Read again the pages of papers extracted by an older version (cache first; MAX_HTML downloads)
+reextract: data-ready ## Read again the pages of papers extracted by an older version (cache first; MAX_HTML downloads)
 	uv run preprint-radar -v reextract $(CATEGORY_ARGS) $(MAX_HTML_ARG)
 
 .PHONY: reclean
-reclean: ## Clean the stored affiliations again after a change to the heuristics (offline)
+reclean: data-ready ## Clean the stored affiliations again after a change to the heuristics (offline)
 	uv run preprint-radar -v reclean $(CATEGORY_ARGS)
 
 .PHONY: venues
-venues: ## Detect the stored venues again after a change to the detection (offline)
+venues: data-ready ## Detect the stored venues again after a change to the detection (offline)
 	uv run preprint-radar -v venues $(CATEGORY_ARGS)
 
 .PHONY: remove
-remove: ## Remove papers (ID="...") from every file of data/ for good, on request (offline)
+remove: data-ready ## Remove papers (ID="...") from every file of data/ for good, on request (offline)
 	@if [ -z "$(ID)" ]; then echo "Usage: make remove ID=\"2610.00001 ...\"" >&2; exit 2; fi
 	uv run preprint-radar remove $(CATEGORY_ARGS) $(ID)
 
 .PHONY: pin
-pin: ## Keep the affiliations corrected by hand in papers' files (ID="..."), on request (offline)
+pin: data-ready ## Keep the affiliations corrected by hand in papers' files (ID="..."), on request (offline)
 	@if [ -z "$(ID)" ]; then echo "Usage: make pin ID=\"2610.00001 ...\"" >&2; exit 2; fi
 	uv run preprint-radar pin $(CATEGORY_ARGS) $(ID)
 
 .PHONY: citations
-citations: ## Fetch the citation counts of stored papers without one (ALL=1: every paper)
+citations: data-ready ## Fetch the citation counts of stored papers without one (ALL=1: every paper)
 	uv run preprint-radar -v citations $(CATEGORY_ARGS) $(if $(ALL),--all)
 
 .PHONY: scholar
-scholar: ## Fetch the DOI, published venue and author ids of every stored paper (minutes)
+scholar: data-ready ## Fetch the DOI, published venue and author ids of every stored paper (minutes)
 	uv run preprint-radar -v scholar $(CATEGORY_ARGS)
 
 .PHONY: code
-code: ## Fetch the GitHub stars (Hugging Face likes) of the code stored papers link (GITHUB_TOKEN; about 5 minutes; NEW=1: those without yet)
+code: data-ready ## Fetch the GitHub stars (Hugging Face likes) of the code stored papers link (GITHUB_TOKEN; about 5 minutes; NEW=1: those without yet)
 	uv run preprint-radar -v code $(CATEGORY_ARGS) $(if $(NEW),--new)
 
 .PHONY: countries
-countries: ## Place the institutions of stored papers in their country, from OpenAlex (seconds; ALL=1: every institution again)
+countries: data-ready ## Place the institutions of stored papers in their country, from OpenAlex (seconds; ALL=1: every institution again)
 	uv run preprint-radar -v countries $(CATEGORY_ARGS) $(if $(ALL),--all)
 
 .PHONY: trends
-trends: ## Count the topics of the catalog's titles, rising, cooling and new (offline, under a minute; after an archive)
+trends: data-ready ## Count the topics of the catalog's titles, rising, cooling and new (offline, under a minute; after an archive)
 	uv run preprint-radar -v trends $(CATEGORY_ARGS)
 
 .PHONY: validate
-validate: ## Check data/ against its contract (errors fail, heuristic warnings do not)
+validate: data-ready ## Check data/ against its contract (errors fail, heuristic warnings do not)
 	@uv run preprint-radar validate
 
 .PHONY: stats
-stats: ## Show how much of data/ is enriched, per day and per archive year
+stats: data-ready ## Show how much of data/ is enriched, per day and per archive year
 	@uv run preprint-radar stats $(CATEGORY_ARGS)
 
 .PHONY: quality-affiliations
-quality-affiliations: ## Count signs of wrong affiliations, with examples, stored and from the page cache
+quality-affiliations: data-ready ## Count signs of wrong affiliations, with examples, stored and from the page cache
 	@uv run preprint-radar stats --affiliations --page-cache-dir .cache/front-matter $(CATEGORY_ARGS)
 
 .PHONY: extraction-diff
-extraction-diff: ## List the papers today's extraction changes, from the page cache (words lost first)
+extraction-diff: data-ready ## List the papers today's extraction changes, from the page cache (words lost first)
 	@uv run preprint-radar stats --affiliations --page-cache-dir .cache/front-matter --changes $(CATEGORY_ARGS)
 
 ##@ Web app
 
 .PHONY: dev
-dev: $(WEB)/node_modules ## Start the site with hot reload on http://localhost:5173
+dev: $(WEB)/node_modules data-ready ## Start the site with hot reload on http://localhost:5173
 	cd $(WEB) && npm run dev
 
 .PHONY: build
-build: $(WEB)/node_modules ## Build the site into web/dist, as deployed on GitHub Pages
+build: $(WEB)/node_modules data-ready ## Build the site into web/dist, as deployed on GitHub Pages
 	cd $(WEB) && npm run build
 
 .PHONY: preview
