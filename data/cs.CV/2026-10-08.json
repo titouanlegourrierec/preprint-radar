@@ -2843,7 +2843,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -3186,17 +3186,45 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Infrared small target detection aims to accurately identify and locate dim targets in complex backgrounds and supports applications such as maritime surveillance and military search and rescue. However, the small size and weak contrast of infrared targets make it difficult to balance detection accuracy and false alarms. This paper proposes a selective attention network (SANet) for infrared small target detection. A dual-path semantic-aware module combines standard and pinwheel-shaped convolutions to preserve local spatial consistency and capture broader contextual information. Spatial and channel attention further refine the features and improve target-background discrimination. To address the limitations of static skip connections in U-Net, a selective attention fusion module adaptively integrates features across scales using spatially varying weights. It selectively enhances salient regions and improves discrimination between true targets and false alarms. Experiments on three public benchmarks, NUAA-SIRST, IRSTD-1K, and NUDT-SIRST, show that SANet achieves competitive performance in intersection over union (IoU), normalized IoU, detection probability, and false alarm rate. Its IoU exceeds that of the second-best method by 1.93, 4.32, and 2.21 percentage points, respectively. These results support the effectiveness of SANet in dim-target perception, discriminative feature representation, and background suppression.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Jiangxi University of Finance and Economics"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Jiangxi University of Finance and Economics"
+   ],
+   "institution_ids": [
+    "03efmyj29"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.09875",
@@ -4900,7 +4928,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -5624,17 +5652,34 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Latent actions supervise robot policies with action-like codes inferred from visual transitions, and their usefulness hinges on two questions: what a code keeps from a transition, and whether it still means the same thing when reused in a different initial state. The first is a tension in time: an endpoint difference discards how motion unfolds, while the full sequence admits nuisance variation. The second is left open by reconstruction, which only ever observes a latent together with the state it came from. We argue that both questions can be answered in the same place. TERRA (Temporal Effect Representation and Relational Alignment) describes a transition by a compact temporal effect, its net feature change together with a low-order within-window dynamics component, and learns a continuous latent from this effect. The same effect space then serves as the reference for reuse: Effect-Anchored Transport (EAT) decodes a latent in other initial states and anchors the resulting effect to the one observed at its source, so that the latent is shaped by what it does across contexts rather than only by the transition it came from. With frozen linear readers, TERRA predicts actions more accurately than UniVLA and a LAPA-style baseline, degrades more slowly under visual distractors, and keeps transported transitions faithful to the donor action as the recipient context moves farther away; a same-budget control shows that these gains come largely from EAT. At matched pretraining scale, the complete system reaches 93.4% average success on LIBERO, compared with 91.8% for UniVLA.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Central Florida"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Central Florida"
+   ],
+   "institution_ids": [
+    "036nfer12"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.09509",
@@ -6680,17 +6725,47 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Effective remote monitoring and surveillance using drones are frequently impeded by severe environmental and thermal clutter, dynamic vegetation, target camouflage, and system latency. Drawing inspiration from the hunting strategies of birds of prey that hover and stabilize their vision to isolate subtle ground motion, we introduce trACT (temporal revelation Airborne Camera Trap), a lightweight, real-time aerial robotics framework designed for autonomous consumer drones. The system integrates Temporal Max Pooling (TMP), a low-level signal processing method that transforms imperceptible movement across a rolling integration window into robust value and time encodings, with self-supervised motion anomaly detection to isolate target motion from background environmental motion caused by wind gusts and drone drift. To overcome mechanical and processing delays, trACT combines motion prediction with automated gimbal-stabilized optical zoom verification and equitable multi-target verification balancing. Extensive real-world field experiments in densely forested wildlife habitats and surveillance scenarios demonstrate that trACT successfully bridges the gap between wide-area aerial monitoring and precise, autonomous target verification under challenging operational conditions.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Johannes Kepler University of Linz",
+    "Deutsches Zentrum für Luft- und Raumfahrt e. V. (DLR)",
+    "BOKU University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Johannes Kepler University of Linz",
+    "Deutsches Zentrum für Luft- und Raumfahrt e. V. (DLR)",
+    "BOKU University"
+   ],
+   "institution_ids": [
+    "052r2xn60",
+    "04bwf3e34",
+    "057ff4y42"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.09417",
@@ -11210,7 +11285,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -11283,7 +11358,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",

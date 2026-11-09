@@ -81,11 +81,11 @@
    "institutions": [
     "NVIDIA"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "ror",
@@ -291,7 +291,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -330,11 +330,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01740",
@@ -484,11 +484,11 @@
     "Ulster University",
     "Dr B R Ambedkar National Institute of Technology Jalandhar"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "ror",
@@ -693,11 +693,11 @@
    "institution_ids": [
     "04tj63d06"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "ror",
@@ -773,11 +773,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01795",
@@ -808,7 +808,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -1164,11 +1164,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01840",
@@ -1194,17 +1194,39 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Digital volume correlation (DVC) provides three-dimensional full-field displacement measurements from volumetric images, but how the internal resolution of a machine-learning-based DVC model affects accuracy and operating range remains poorly understood. Here, we present RAFT-DVC, a resolution-aware family of recurrent all-pairs field transforms (RAFT)-based DVC solvers with encoder downsampling factors s = 2, 4, and 8. Using a matched design, we find that the three solvers localize displacement to approximately 0.017 feature-grid voxel, giving an empirical raw-volume error scaling of approximately 0.017s voxel. The solvers exhibit complementary operating regimes governed jointly by displacement reach and volumetric-texture compatibility. Synthetic benchmarks show that RAFT-DVC achieves errors of the same order as tuned classical DVC under fine-texture, small-to-moderate-displacement conditions and becomes competitive or advantageous under coarse-texture, large-displacement conditions. Frequency-swept tests quantify deformation spatial resolution, while tiled inference enables dense estimation on large volumes. Evaluation on confocal volumetric images acquired during indentation illustrates the importance of matching solver operating regime to deformation magnitude and image texture. Tests on micro-CT images of elastomeric foam, despite training only on particle-labeled synthetic data, provide evidence of cross-texture transfer. We also identify coordinate-order inconsistencies in three-dimensional RAFT correlation sampling and introduce a non-cubic impulse test to verify sampler geometry independently of network training. Correcting the sampler improves native-input accuracy and generalization to unseen volume dimensions. Together, these results establish RAFT-DVC as a fast, resolution-aware framework for dense DVC with characterized accuracy and operating regimes.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Texas at Austin",
+    "Texas Materials Institute"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Texas at Austin",
+    "Texas Materials Institute"
+   ],
+   "institution_ids": [
+    "00hj54h04",
+    "02q1tb011"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01876",
@@ -1247,11 +1269,11 @@
     "052gg0110",
     null
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "ror",
@@ -1304,11 +1326,11 @@
    "institution_ids": [
     "02jqj7156"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "ror",
@@ -1524,11 +1546,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01928",
@@ -1557,11 +1579,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01963",
@@ -1821,11 +1843,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.02002",
@@ -1975,11 +1997,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.02028",
@@ -2084,11 +2106,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.02039",
@@ -2114,39 +2136,34 @@
    "html_url": "https://arxiv.org/html/2609.02063v1",
    "abstract": "Single-image super-resolution (SISR) requires global context modeling for structurally consistent reconstruction. Fourier operators are increasingly adopted for global feature modeling. However, their periodic spectral bases constrain the representation of localized aperiodic variations, limiting the recovery of irregular structures and fine details. In dynamical systems, the Laplace neural operator extends Fourier modes to complex frequencies and decomposes the output signal into complementary steady-state and transient responses to jointly model periodic and aperiodic information. We derive, for the first time, an approximate steady-transient decomposition for two-dimensional feature maps, providing an analytical basis for the proposed complex-frequency decomposition. Accordingly, we propose LaST-SR, centered on a Complex-Frequency Decomposition module that couples a global full-spectrum Fourier branch for image-wide dependencies and long-range structural consistency with a window-conditioned local complex-frequency branch for localized, content-dependent aperiodic variations. To fuse the resulting features, we further design a Steady-Transient Collaborative Aggregation module for cross-branch interaction and joint aggregation. Experiments on five benchmarks show that LaST-SR achieves the best PSNR/SSIM among the compared methods for ×2 and ×4 SISR. Ablation studies further validate the effectiveness of the proposed architecture and its key modeling mechanisms.",
    "affiliations": [
-    "School of Mathematics",
-    "Southeast University",
-    "Nanjing, China"
+    "School of Mathematics, Southeast University, Nanjing, China"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     1
+     0
     ],
     [
-     2
+     0
     ]
    ],
    "institutions": [
-    null,
-    "Southeast University",
-    "Nanjing"
+    "Southeast University"
    ],
    "institution_ids": [
-    null,
-    "04ct4d772",
     null
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-09"
     },
     "institutions": {
-     "source": "ror"
+     "source": "ror",
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.02063",
@@ -2325,11 +2342,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.02088",
@@ -2490,7 +2507,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -2556,11 +2573,11 @@
     null,
     "04ksd4g47"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "ror",
@@ -2595,11 +2612,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.02171",
@@ -2681,11 +2698,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.02187",
@@ -3027,11 +3044,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.02233",
@@ -4805,7 +4822,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",

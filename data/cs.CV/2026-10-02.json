@@ -405,17 +405,62 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Distribution Matching Distillation (DMD) trains a few-step student from the difference between separately estimated target and student scores, so it must keep an auxiliary diffusion model fitted to the student's evolving distribution at extra memory and computation cost. We introduce DMAD, Distribution Matching as Adversarial Distillation, which recasts distribution matching as classification and learns the required log-density ratios directly. Two discriminator heads on a shared backbone distinguish real data and teacher samples from the student's, and linear losses on their logits train the student without auxiliary score fitting. We prove that at the discriminator optimum these losses recover the distribution-matching gradient underlying DMD, through the classical identity linking discriminator logits to log-density ratios. We further introduce gap-based reweighting, which adapts teacher supervision across noise levels from the real-data head's empirical logit gap between real and teacher samples. DMAD reaches a Fréchet Inception Distance (FID) of 1.04 with one-step generation on ImageNet-64x64, 14.47 with four-step SDXL on COCO-10K, and a VBench total score of 85.15 with four-step Wan2.1-T2V-14B, the best values among the compared few-step methods and the multi-step teachers. On MiniMax-H3-33B, our four-step student achieves overall human preference rates of 79.1% over DMD2 and 84.6% over rCM for joint audio-video generation, excluding ties. Our code, models and demos are available at https://yzmblog.github.io/projects/DMAD.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "ByteDance",
+    "Texas A&M University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "ByteDance",
+    "Texas A&M University"
+   ],
+   "institution_ids": [
+    "04m8av638",
+    "01f5ytq51"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.02188",
@@ -1324,17 +1369,41 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Recent vision-language models (VLMs) exhibit remarkable generalization and reasoning abilities, yet 3D understanding in these models is limited by data scale, training diversity, and reasoning capacity. Instead of naively extending these models into 3D, we take a different approach: we enable powerful 2D VLMs to operate reliably in 3D by introducing 3D grounding and iterative feedback loops with two novel concepts: Canonical Coordinate Framing (CCF) and Task-Adaptive Feedback (TAF). CCF serves as a unified visual representation that anchors both inputs and outputs to a shared Euclidean coordinate system, solving common challenges in 3D grounding such as axis ambiguity, inconsistent metric scale, and floating references. Complementary to this structured framing of the 3D inputs, TAF closes the reasoning loop with task-adaptive dynamic feedback that enables 2D VLMs to perform varied open-vocabulary tasks within their native visual context. Building on this foundation, we introduce 3D-Prog, a 3D understanding, reasoning, and generation framework that jointly employs the capabilities of CCF and TAF together with powerful VLMs. Without requiring any retraining, 3D-Prog performs open-vocabulary 3D understanding, manipulation, and generation across both object-level and scene-level tasks. Our experiments show that the joint use of CCF and TAF transforms 2D VLMs into geometry-aware 3D programmers, achieving consistent, interpretable, and high-quality results across diverse 3D tasks.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Sofia University \"St. Kliment Ohridski\""
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Sofia University \"St. Kliment Ohridski\""
+   ],
+   "institution_ids": [
+    "02jv3k292"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.02021",
@@ -1830,17 +1899,31 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Complex surgical procedures around critical anatomy, such as the endoscopic endonasal skull base surgery, requires significant practice and training on the part of the surgeon before they are allowed to perform the operation on a live patient. This training in typically done in cadaveric specimens, due to them containing the same critical structures as a living human. However, cadavers are not a perfect 1-to-1 substitute for a living patient. The dead and preserved tissues of a cadaver are colored completely differently than a living human, and -- without complex and expensive pumping systems -- do not bleed in the same way. As a result, identifying the critical pieces of anatomy that make this procedure so complex can be quite different in a live case than in a surgeon's cadaveric practice. This paper presents EndoLive, a framework for real-time style transfer between cadaveric endoscopic video and living human endoscopic video. Our method combines the ConStructS GAN model for realistic style transfer for surgical applications, with the HyPER-GAN model that can learn complex translations and perform them in real-time. We train EndoLive on unpaired cadaveric and live images taken from an endoscope, and test the trained model with cadaveric video, on a variety of devices. Experimental results demonstrate that EndoLive can perform cadaveric-to-live translation at speeds well above the minimum necessary for real-time, while maintaining semantic consistency of critical anatomical structures. Our source code is available at https://github.com/griffhurt/endolive.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Pittsburgh"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Pittsburgh"
+   ],
+   "institution_ids": [
+    "01an3r305"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.01956",
@@ -2634,7 +2717,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -2953,7 +3036,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -4455,7 +4538,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -5740,7 +5823,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -6055,17 +6138,252 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Intracranial aneurysm rupture is associated with substantial morbidity and mortality, yet aneurysm detection remains challenging, particularly for small lesions and on routine non-angiographic imaging examinations. To support the development and evaluation of artificial intelligence (AI) algorithms for intracranial aneurysm detection and localization, the Radiological Society of North America (RSNA), in collaboration with the American Society of Neuroradiology (ASNR), the Society of Neurointerventional Surgery (SNIS), and the European Society of Neuroradiology (ESNR), curated the RSNA Intracranial Aneurysm (RSNA-ICA) Dataset. Developed for the 2025 RSNA Intracranial Aneurysm Detection Challenge, RSNA-ICA is a large, publicly available, expert-annotated dataset comprising 7202 CTA, MRA, and MRI series from 4278 adult patients collected across 21 institutions in 12 countries spanning five continents. The dataset includes 2566 CTA, 2166 MRA, and 2470 MRI series from patients with and without intracranial saccular aneurysms, providing substantial geographic and imaging diversity. Expert annotations indicate both aneurysm presence and location, and 178 series additionally include three-dimensional segmentations of challenge-defined vascular locations. RSNA-ICA was used to develop and evaluate algorithms in the 2025 RSNA Intracranial Aneurysm Detection Challenge. Of the 7202 image series, 5041 are publicly available through MIRA (https://mira.rsna.org/dataset/7), while the remainder were used for challenge public and private test sets. The dataset is freely available to the research community for noncommercial use and provides a comprehensive resource for advancing AI-based aneurysm detection across both angiographic and routine neuroimaging examinations.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Aga Khan University Hospital",
+    "Bucharest Emergency University Hospital",
+    "Innsbruck Medical University",
+    "Universität Innsbruck",
+    "Ümraniye Eğitim ve Araştırma Hastanesi",
+    "Sağlık Bilimleri Üniversitesi",
+    "Royal Prince Alfred Hospital",
+    "Kingston Health Sciences Centre",
+    "University Hospital of Bern",
+    "Hospital Regional Universitario de Málaga",
+    "University Hospitals of Cleveland",
+    "American University of Beirut Medical Center",
+    "University Hospitals Cleveland Medical Center",
+    "University of Zurich",
+    "Gold Coast Hospital",
+    "University of Rochester Medicine",
+    "Chiang Mai University",
+    "Mayo Clinic",
+    "Thomas Jefferson University",
+    "Stanford University",
+    "Alfred Hospital",
+    "Jackson Laboratory",
+    "Harvard University",
+    "Massachusetts General Hospital",
+    "Stanford Medicine",
+    "Loyola University Medical Center",
+    "University of California, Irvine",
+    "Loyola Medicine",
+    "St.John's Medical College Hospital",
+    "Universidade Federal de São Paulo",
+    "University of Toronto",
+    "University of Virginia",
+    "Imam Khomeini Hospital",
+    "Advanced Diagnostic and Interventional Radiology Research Center",
+    "Ohio State University",
+    "Tehran University of Medical Sciences",
+    "Northwestern University",
+    "University of Utah",
+    "University of California San Diego",
+    "Scripps Clinic Medical Group",
+    "Northwestern Medicine",
+    "University of Utah Health Care",
+    "Southampton General Hospital"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    [
+     0,
+     1
+    ],
+    [
+     2,
+     3,
+     4,
+     5
+    ],
+    null,
+    [
+     6,
+     7
+    ],
+    [
+     8,
+     9
+    ],
+    null,
+    null,
+    [
+     10,
+     11,
+     12
+    ],
+    [
+     13,
+     14
+    ],
+    [
+     15,
+     16
+    ],
+    [
+     17
+    ],
+    [
+     18,
+     19
+    ],
+    [
+     20,
+     21
+    ],
+    [
+     22,
+     23,
+     24,
+     19
+    ],
+    [
+     25,
+     26,
+     27
+    ],
+    [
+     28,
+     29
+    ],
+    [
+     30,
+     31
+    ],
+    [
+     32,
+     33,
+     34,
+     35
+    ],
+    [
+     36,
+     37,
+     38,
+     39,
+     40,
+     41
+    ],
+    null,
+    null,
+    null,
+    [
+     42
+    ]
+   ],
+   "institutions": [
+    "Aga Khan University Hospital",
+    "Bucharest Emergency University Hospital",
+    "Innsbruck Medical University",
+    "Universität Innsbruck",
+    "Ümraniye Eğitim ve Araştırma Hastanesi",
+    "Sağlık Bilimleri Üniversitesi",
+    "Royal Prince Alfred Hospital",
+    "Kingston Health Sciences Centre",
+    "University Hospital of Bern",
+    "Hospital Regional Universitario de Málaga",
+    "University Hospitals of Cleveland",
+    "American University of Beirut Medical Center",
+    "University Hospitals Cleveland Medical Center",
+    "University of Zurich",
+    "Gold Coast Hospital",
+    "University of Rochester Medicine",
+    "Chiang Mai University",
+    "Mayo Clinic",
+    "Thomas Jefferson University",
+    "Stanford University",
+    "Alfred Hospital",
+    "Jackson Laboratory",
+    "Harvard University",
+    "Massachusetts General Hospital",
+    "Stanford Medicine",
+    "Loyola University Medical Center",
+    "University of California, Irvine",
+    "Loyola Medicine",
+    "St.John's Medical College Hospital",
+    "Universidade Federal de São Paulo",
+    "University of Toronto",
+    "University of Virginia",
+    "Imam Khomeini Hospital",
+    "Advanced Diagnostic and Interventional Radiology Research Center",
+    "Ohio State University",
+    "Tehran University of Medical Sciences",
+    "Northwestern University",
+    "University of Utah",
+    "University of California San Diego",
+    "Scripps Clinic Medical Group",
+    "Northwestern Medicine",
+    "University of Utah Health Care",
+    "Southampton General Hospital"
+   ],
+   "institution_ids": [
+    "05xcx0k58",
+    "051v1dy68",
+    "03pt86f80",
+    "054pv6659",
+    "023wdy559",
+    "03k7bde87",
+    "05gpvde20",
+    "05bwaty49",
+    "01q9sj412",
+    "01mqsmm97",
+    "0130jk839",
+    "00wmm6v75",
+    "01gc0wp38",
+    "02crff812",
+    "05eq01d13",
+    "00trqv719",
+    "05m2fqn25",
+    "02qp3tb03",
+    "00ysqcn41",
+    "00f54p054",
+    "01wddqe20",
+    "021sy4w91",
+    "03vek6s52",
+    "002pd6e78",
+    "03mtd9a03",
+    "05xcyt367",
+    "04gyf1771",
+    "04azs9g49",
+    "04z7fc725",
+    "02k5swt12",
+    "03dbr7087",
+    "0153tk833",
+    "05v2x6b69",
+    "00mvm1h40",
+    "00rs6vg23",
+    "01c4pz451",
+    "000e0be47",
+    "03r0ha626",
+    "0168r3w48",
+    "01z719741",
+    "04fzwnh64",
+    "047s7ex42",
+    "011cztj49"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.01135",
@@ -6096,7 +6414,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -9392,7 +9710,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -10240,13 +10558,38 @@
    "cross_list_from": "cs.RO",
    "html_url": null,
    "abstract": "We study test-time evolution for humanoid loco-manipulation: solving tasks that a controller was never trained for by repurposing its existing skills, improving from its own attempts, and retaining what it learns, without retraining. Our key insight is that a broad controller already holds much of the competence a new task needs, and that this competence becomes accessible through an interface between planning and control that is expressive enough to specify contact-rich, multi-stage interactions, yet executable and measurable enough that execution feedback can guide planning from experience. InterEvolve realizes this interface with two components. First, we develop an object-aware forward-backward (FB) behavioral foundation model, whose object residuals on a frozen body prior turn a new reward about the body or objects into loco-manipulation behavior at test time. Second, we specify tasks as reward programs: staged rewards with completion conditions and tunable constants. A large language model (LLM) agent revises the program structure in context, drawing on execution feedback and a skill library of verified programs, while a numerical optimizer tunes its constants. With every candidate verified across parallel simulation scenarios, the program explores new ways to induce, repurpose, and compose the controller's existing motor competence for the task at hand, and thus improves over iterations. Experiments show that human-designed rewards leave much of the FB model's loco-manipulation competence untapped, whereas the programs InterEvolve evolves release it, sometimes through novel strategies. It further produces behaviors for diverse tasks, complex scenes, and long-horizon compositions in simulation, and evolved skills run autonomously on a physical Unitree G1 from egocentric onboard perception.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of Illinois Urbana-Champaign"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Illinois Urbana-Champaign"
+   ],
+   "institution_ids": [
+    "047426m28"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.02196",
@@ -10483,17 +10826,28 @@
    "cross_list_from": "cs.RO",
    "html_url": null,
    "abstract": "Autonomous driving systems have become a central focus of intelligent transportation research, with End-to-End Learning and Modular Architectures offering two prominent design paradigms for their implementation. E2E Learning uses deep learning algorithms to map raw sensory inputs directly to driving actuators, providing a streamlined and adaptable solution. while Modular Architectures employ a pipeline-based approach, dividing the system into distinct subsystems for perception, cognition, planning, and control. This paper presents a comprehensive comparative analysis of these paradigms, focusing on their strengths, limitations, and trade-offs to provide insights into their suitability for various autonomous driving applications. The study evaluates key factors such as interpretability, scalability, robustness, and real-world applicability. While End-to-End Learning emphasizes simplicity and adaptability in dynamic environments, it lacks transparency and is highly dependent on large datasets. Conversely, Modular Architectures offer superior interpretability and task-specific optimization, but face challenges related to integration complexity and scalability. To address these limitations, hybrid approaches that combine the strengths of both paradigms have emerged, offering a promising direction for overcoming these challenges. Beyond this comparative synthesis, following work proposes a Four-Dimensional Architecture Selection Framework, comprising twelve binary criteria across safety, operating environment, data/computational resources, and deployment context, and validate it against ten published autonomous driving systems, correctly recommending 7/10 deployed architectures. This work synthesizes existing literature to highlight key trade-offs between the paradigms and identifies hybrid architectures as a promising direction for future research.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Technische Hochschule Ingolstadt"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Technische Hochschule Ingolstadt"
+   ],
+   "institution_ids": [
+    "02bxzcy64"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.01746",
@@ -10890,17 +11244,48 @@
    "cross_list_from": "cs.AI",
    "html_url": null,
    "abstract": "Modern retrieval systems must both be automated and interactive, allowing users to search and refine results in real time. We present AiSearch, a flexible multimodal retrieval framework that leverages the zero shot capabilities of Vision Language Models (VLMs) for natural language search over images and videos. AiSearch supports interactive search refinement through user feedback to tailor results to the user's intent, and allows visual benchmarking across multiple VLMs, enabling users to select the most suitable model for their task.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Agency for Science, Technology and Research",
+    "Institute of Advanced Intelligence and Computing"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Agency for Science, Technology and Research",
+    "Institute of Advanced Intelligence and Computing"
+   ],
+   "institution_ids": [
+    "036wvzt09",
+    "01eczt548"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.01389",
@@ -12239,17 +12624,51 @@
    "cross_list_from": "cs.GR",
    "html_url": null,
    "abstract": "Recent advances in Gaussian Splatting (GS) compression have enabled substantial reductions in GS model size. Reliable objective quality assessment is therefore essential for comparing compression methods and guiding the development of more efficient GS codecs. Existing GS quality assessment typically relies on image and video quality metrics, requiring rendering of predefined viewpoints and making the quality estimate dependent on the selected views. This paper introduces GS-PQM, a novel full-reference quality metric for post-training GS compression that operates directly in the GS parameter domain. GS-PQM estimates perceptual quality from a set of parameter-domain distortion errors using a Support Vector Regression model. Experimental results show that GS-PQM outperforms 25 existing image, video, and point-cloud quality metrics in assessing compressed GS content, providing an accurate and computationally efficient alternative to rendering-based quality assessment.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Lisbon",
+    "Instituto de Telecomunicações",
+    "Instituto Superior Técnico"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "University of Lisbon",
+    "Instituto de Telecomunicações",
+    "Instituto Superior Técnico"
+   ],
+   "institution_ids": [
+    "01c27hj86",
+    "02ht4fk33",
+    "03db2by73"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.00195",
@@ -12338,7 +12757,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",

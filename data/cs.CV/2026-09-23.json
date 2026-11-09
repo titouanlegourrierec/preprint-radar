@@ -502,17 +502,33 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Laryngeal high-speed videoendoscopy (HSV) offers an effective means of observing the motion of different laryngeal structures along with vibratory behaviors of the vocal folds under various voicing conditions. Segmentation of laryngeal tissues enables analysis of different tissue structures and their dynamics, helping characterize the involvement of laryngeal muscles in voice production. Given the large number of HSV frames, automating this task is imperative. While deep learning-based methods have been implemented in previous studies to segment laryngeal structures, they have not been applied to HSV data during connected speech, which poses significant challenges due to excessive tissue movements and image quality limitations associated with fiberoptic image acquisition. The application of deep learning to connected speech data is critical for capturing nonstationary laryngeal behaviors and identifying anomalous patterns associated with voice disorders. The present study aims to address these gaps by training U-Net models to detect the aryepiglottic folds and arytenoid cartilages, vocal folds, epiglottis, and glottal area, using HSV data from both sustained vowel phonation and connected speech obtained from normophonic and disordered voices. Image pre-processing techniques, including noise removal and histogram equalization, were applied to improve the quality of the training HSV images and enhance network performance. Finally, to evaluate the accuracy and reliability of the networks, quantitative performance metrics were used alongside qualitative visual inspection of the test images. The high performance of the developed networks, with overall accuracies exceeding 95%, establishes their potential as reliable tools for automated laryngeal image analysis, quantitative characterization of laryngeal dynamics, and future detection of anomalous laryngeal behaviors in clinical settings.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Michigan State University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Michigan State University"
+   ],
+   "institution_ids": [
+    "05hs6h993"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.26636",
@@ -2623,17 +2639,37 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Vision-Language Models (VLMs) offer promising capabilities for automated sports coaching but face a fundamental limitation: they implicitly compare against professional standards, making their feedback impractical for developing players. We present CricRAG, a retrieval-augmented framework that aligns VLMs with skill-appropriate benchmarks for personalized cricket coaching. Our key insight is that by retrieving similar-but-better techniques as reference points, we can guide VLMs to provide developmentally appropriate feedback that mirrors human coaching practices. We contribute: (1) a labelled dataset of 288 cricket technique videos spanning multiple skill levels, (2) an efficient motion retrieval pipeline using contrastive learning that achieves 78% top-3 retrieval accuracy, (3) a frame sampling technique that reduces inference costs, and (4) a retrieval-augmented approach that significantly improves feedback alignment with coaching principles, achieving up to 94% agreement with professional assessments compared to 67% without retrieval context.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Indian Institute of Science Education and Research, Bhopal",
+    "Indian Institute of Technology Jodhpur"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Indian Institute of Science Education and Research, Bhopal",
+    "Indian Institute of Technology Jodhpur"
+   ],
+   "institution_ids": [
+    "02rb21j89",
+    "03yacj906"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.26056",
@@ -4486,17 +4522,71 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Atomic-scale phase imaging is central to resolving defects, interfaces, and weakly scattering atoms that govern the behavior of nanoscale materials. Electron ptychography delivers sub-ångström phase sensitivity but remains an offline technique, because its iterative reconstruction is computationally expensive and sensitive to experimental calibration, preventing live use during data acquisition. Here, a ptychography-supervised local inference framework is presented that converts four-dimensional scanning transmission electron microscopy (4D-STEM) into an acquisition-compatible phase-imaging workflow. Physics-constrained reference phase maps reconstructed from a single experimental AuPd dataset serve as teacher labels for a compact model that predicts local phase patches directly from diffraction measurements, without explicit probe input or online iterative optimization. Full-field images are assembled by deterministic overlap stitching. The workflow reaches an online latency of about 0.27 ms per probe position and a throughput of about 20,000 positions per second, an approximately 1,000-fold speed-up over GPU-accelerated ePIE, while preserving atomic-scale lattice contrast and reciprocal-space fidelity. Without fine-tuning, the same model transfers across materials (WS2), defocus conditions (high-entropy alloy nanoparticles), and instruments (hBN at 300 kV). The approach amortizes ptychographic redundancy into a fast, generalizable workflow that enables real-time atomic-scale phase imaging for materials microscopy.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Fudan University",
+    "National Tsing Hua University",
+    "National Institutes of Applied Research",
+    "National Center for Instrumentation Research",
+    "Agency for Science, Technology and Research",
+    "Institute for Infocomm Research",
+    "University of Sydney",
+    "Sydney Microscopy & Microanalysis"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     6,
+     7
+    ],
+    [
+     6,
+     7
+    ],
+    [
+     6
+    ]
+   ],
+   "institutions": [
+    "Fudan University",
+    "National Tsing Hua University",
+    "National Institutes of Applied Research",
+    "National Center for Instrumentation Research",
+    "Agency for Science, Technology and Research",
+    "Institute for Infocomm Research",
+    "University of Sydney",
+    "Sydney Microscopy & Microanalysis"
+   ],
+   "institution_ids": [
+    "013q1eq08",
+    "00zdnkx70",
+    "05wcstg80",
+    "05mraaf88",
+    "036wvzt09",
+    "053rfa017",
+    "0384j8v12",
+    "02441px27"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.25684",
@@ -6041,7 +6131,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",

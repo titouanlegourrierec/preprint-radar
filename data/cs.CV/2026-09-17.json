@@ -27,7 +27,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -708,17 +708,63 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Pathology vision-language models are commonly built by pretraining or fine-tuning large encoders on paired image-caption data. We asked whether a pathology vision-language model can instead be assembled by parameter-efficient alignment of frozen unimodal foundation models, leaving their pretrained representations untouched. Here we present Lumen, which aligns frozen Virchow2 and BioMedBERT backbones using rank-4 adapters and projection heads, training only 0.40% of the total parameters on the public QUILT-1M corpus. Across nine public zero-shot patch benchmarks, Lumen achieved the highest mean chance-corrected balanced accuracy, 0.546 versus 0.461 for the strongest baseline (paired difference 0.086, 95% CI 0.042-0.136). On lymph-node metastasis detection, Lumen reached an AUROC of 0.964 (95% CI 0.956-0.971) on 4,214 held-out internal slides and 0.955 (95% CI 0.942-0.966) on 2,368 slides across nine external cohorts and six organs. At the internally calibrated threshold, it outperformed all vision-language baselines, with a balanced accuracy of 0.909 (95% CI 0.896-0.923) internally and 0.915 (95% CI 0.902-0.929) externally. Lumen performed competitively across the evaluations, with the exception of cross-modal retrieval, where it ranked third behind CONCH and PathGen-L/14. Fully fine-tuning both encoders gave Lumen no consistent benefit over low-rank adaptation, although it improved retrieval. Aligning frozen unimodal foundation models therefore yields strong and transferable performance at patch and slide level while training only a small fraction of the parameters.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Bern",
+    "University Hospital Cologne",
+    "University Hospital of Bern"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Bern",
+    "University Hospital Cologne",
+    "University Hospital of Bern"
+   ],
+   "institution_ids": [
+    "02k7v4d05",
+    "05mxhda18",
+    "01q9sj412"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.17868",
@@ -4303,7 +4349,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -5023,7 +5069,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -6029,7 +6075,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",

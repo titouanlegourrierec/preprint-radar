@@ -2950,7 +2950,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -4208,18 +4208,31 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Ptychographic phase reconstruction is commonly formulated as an iterative inverse problem, requiring repeated object-probe updates and resulting in substantial computational cost for large-scale 4D-STEM data. We present a direct local-to-global learning framework that reconstructs full-field phase maps from diffraction measurements without iterative refinement during inference. The proposed network predicts local wrapped-phase patches from individual diffraction patterns using a sine-cosine representation, and the predictions are assembled into a full-field reconstruction using calibrated scan positions and Gaussian-weighted stitching. To evaluate generalization beyond the training domain, the model is trained on one material and directly applied to another in a zero-shot setting without target-domain fine-tuning. Experiments on AuPd and MoS$_2$ demonstrate consistent cross-material transfer in both directions, with the proposed method achieving the best full-field MSE, PSNR, and MS-SSIM among the evaluated learning-based methods. Compared with the iterative ePIE approach, the proposed direct local-to-global pipeline reduces end-to-end reconstruction time by approximately 10x, demonstrating its potential for efficient and transferable ptychographic reconstruction.",
-   "affiliations": [],
+   "affiliations": [
+    "National Yang Ming Chiao Tung University",
+    "National Center for High-Performance Computing",
+    "National Institutes of Applied Research"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "National Yang Ming Chiao Tung University",
+    "National Center for High-Performance Computing",
+    "National Institutes of Applied Research"
+   ],
+   "institution_ids": [
+    "00se2k293",
+    "01jpzd518",
+    "05wcstg80"
+   ],
    "withdrawn": true,
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.13969",
@@ -6725,7 +6738,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -6791,7 +6804,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -9929,7 +9942,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -10213,17 +10226,108 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Multimodal agents can create complex videos in software such as Blender by coding without relying on diffusion models. Yet video understanding benchmarks still evaluate models mainly through question answering. If an agent truly understands a video, it can reconstruct it programmatically. We introduce BVB, Blender-VideoBench, a benchmark that tests this ability by asking agents to reconstruct real-world videos as animated Blender scenes. To ensure fair comparison, each agent programs the reconstruction through a lightweight harness, Mini-BVB, in an identical sandbox under a shared cost limit. The benchmark renders each reconstruction from its animated camera and evaluates it on two axes: (1) Dual VQA measures how many spatiotemporal facts the reconstruction preserves. (2) Latent Similarity measures how closely the reconstruction matches the source video perceptually. Our overall score, a square-root mean, favors balanced performance. We evaluate 51 configurations from 10 model families and analyze semantic retention, perceptual similarity, reasoning effort, and cost. The best model reaches 88.6 Latent Similarity but retains only 53.7% of the source-correct spatiotemporal answers. Additional reasoning improves visual similarity but does not close this gap in factual accuracy. In a blind study with 15 raters and five configurations, Latent Similarity correlates strongly with human preference. These results show that programmatic reconstruction is a viable test of agentic video understanding, and that semantic retention remains the main challenge.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Washington",
+    "University of Rochester",
+    "Carnegie Mellon University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    null,
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    null,
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "University of Washington",
+    "University of Rochester",
+    "Carnegie Mellon University"
+   ],
+   "institution_ids": [
+    "00cvxb145",
+    "022kthw22",
+    "05x2bcf33"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.15478",

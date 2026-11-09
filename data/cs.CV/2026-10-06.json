@@ -806,17 +806,31 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "A significant problem in endoscopic image analysis is that the machine learning (ML) models used for this purpose usually underperform when applied on images acquired from endoscopes that are different from those used to acquire the images of their training set. The main difference of the images originating from different endoscopes is their color distributions, which depend both on the image sensors and the light sources used. Although previous studies have highlighted this challenge, to the best of our knowledge it has not been previously explicitly tackled. This study focuses on this problem and proposes very simple but impactful method. It implements a reference-based image harmonization that reduces global appearance differences between endoscopic datasets. Specifically, it extracts global color statistics from a chosen reference dataset in the CIE-Lab color space and applies a statistical channel-wise transformation to map each target image toward the appearance of the images of the reference dataset. The method is evaluated in the context of polyp detection in both flexible colonoscopy and capsule endoscopy datasets using a dataset-level cross validation protocol. The results indicate that the proposed harmonization consistently improves cross-dataset performance up to 30.7%, outperforming relevant baseline and state-of-the-art methods. The results indicate that a substantial part of the generalization gap is driven by low-level appearance variation that can be mitigated without retraining.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Thessaly"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Thessaly"
+   ],
+   "institution_ids": [
+    "04v4g9h31"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.06663",
@@ -1125,17 +1139,66 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Early osteoarthritis detection through quantitative MRI (qMRI) requires accurate cartilage and meniscus segmentation, traditionally necessitating time-consuming, costly 3D high-resolution Double Echo Steady-State (DESS) MRI scans. This study developed a multi-task conditional generative adversarial network (MT-cGAN) to simultaneously synthesize DESS-like images and segment tissues directly from qMRI echo images. This retrospective study evaluated 508 knee MRI volumes from 361 subjects (mean age: 40.4 ±12.2 years; 179 female) across three cohorts. Ground truth segmentation masks were generated from DESS images using a pretrained model with manual correction, and $T_{1ρ}$ and $T_2$ maps were computed from magnetization-prepared angle-modulated partitioned k-space spoiled gradient echo snapshots (MAPSS) echo images. MT-cGAN was trained to jointly synthesize DESS-like images and segment cartilage and meniscus directly from echo images. Model performance was evaluated using Dice score for segmentation accuracy and coefficient of variation (CV) for $T_{1ρ}$ and $T_2$ quantification. MT-cGAN achieved the highest segmentation performance, mean Dice score 0.84 (range: 0.80–0.86) across all cartilage and meniscus compartments and significantly outperformed the state-of-the-art conditional GAN model with transfer learning (mean Dice, 0.82; p < 0.001, Wilcoxon signed-rank test). For relaxometry quantification, MT-cGAN demonstrated the highest consistency with the reference DESS protocol, yielding the lowest CV ($T_{1ρ}$: 1.84%, $T_2$: 1.81%). The proposed MT-cGAN accurately segmented cartilage and menisci while providing reliable $T_{1ρ}$ and $T_2$ quantification directly from echo images. By eliminating the need for separate morphological DESS scans, this workflow reduces required scan times to facilitate the clinical translation of qMRI.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Cleveland Clinic",
+    "Cleveland Clinic Research",
+    "Case Western Reserve University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "Cleveland Clinic",
+    "Cleveland Clinic Research",
+    "Case Western Reserve University"
+   ],
+   "institution_ids": [
+    "03xjacd83",
+    "053229s83",
+    "051fd9666"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.06602",
@@ -3759,17 +3822,33 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Computational pathology has the potential to improve clinical outcomes through a demonstrated increase in diagnostic and prognostic accuracy. However, the development and validation of deep learning algorithms still require annotated data, a costly procedure involving expert pathologists who already face critical workforce shortages. Existing coreset selection methods to optimize annotation efforts currently all rely on hyperparameters tuned on natural-image benchmarks that do not transfer to histopathology and are cumbersome to use in clinical practice. In this study, we present GCcore, a novel label-free coreset selection method that embeds every image of a dataset with any pathology foundation model and greedily selects the samples that collectively maximize the global coverage of the embedding space. The proposed method provides a lower-bound guarantee on the global coverage of the returned coreset for any coreset size, while being completely hyperparameter-free and deterministic. We demonstrate GCcore's superior performance over 14 baselines including state-of-the-art methods across 10 tasks and datasets spanning whole slide image classification, tile classification, and tissue segmentation, where it ranks first on six and within the top three on nine, while also demonstrating how existing methods can shift by up to five rank positions depending on their hyperparameter settings. Code is publicly available at https://github.com/OncoAI-ULBHUB/GCcore.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Université Libre de Bruxelles",
+    "Institut Jules Bordet"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "Université Libre de Bruxelles",
+    "Institut Jules Bordet"
+   ],
+   "institution_ids": [
+    "01r9htc13",
+    "05e8s8534"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.05987",
@@ -5030,17 +5109,70 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "A video assistant must speak when its instruction warrants a response and stay silent otherwise. We introduce a benchmark that evaluates this decision for the complete system of model, memory, and response controller. InteractionBench covers query responses, event triggers, and ongoing updates in 1,060 interactions over 812 videos, with 69 negative streams and 53 suites that pair counted events with look-alike near misses. It scores content accuracy, timing accuracy, and silence compliance on the video clock. Timely speech costs silence across systems. Polled Qwen3-VL-8B reaches 77.8 timing accuracy but 10.9 silence compliance. A native real-time interaction system reaches 29.2 silence compliance at 66.8 timing accuracy, yet emits on 89.9% of negative streams. No open-weight system clears a third of the near-miss suites. Fewer replies help only when chosen, as random deletion merely trades timing for silence. Offline scores miss these failures and mispredict online behavior. Adding restraint is costly, as the native system's controller adds little by itself and agentic systems add it only at about 30 s per poll.Project page: https://www.enxinsong.com/projects/interactionbench/ Code: https://github.com/Espere-1119-Song/InteractionBench Data: https://huggingface.co/datasets/InteractionBench/InteractionBench",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Pennsylvania",
+    "Stanford University",
+    "University of Illinois Urbana-Champaign",
+    "Princeton University",
+    "Hong Kong Polytechnic University",
+    "University of California San Diego"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ],
+    [
+     4
+    ],
+    [
+     5
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Pennsylvania",
+    "Stanford University",
+    "University of Illinois Urbana-Champaign",
+    "Princeton University",
+    "Hong Kong Polytechnic University",
+    "University of California San Diego"
+   ],
+   "institution_ids": [
+    "00b30xv10",
+    "00f54p054",
+    "047426m28",
+    "00hx57361",
+    "0030zas98",
+    "0168r3w48"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.05775",
@@ -5166,7 +5298,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -5200,7 +5332,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
@@ -9992,17 +10124,28 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "In worker-equipment proximity monitoring, video transformers are widely used for collision anticipation and have demonstrated strong performance. However, their accuracy comes with substantial computational demands, creating a tension with the need for low-latency inference on mobile robots and the pursuit of lower-carbon computation in construction. To address this, this study investigates where computation within an established video transformer is redundant and whether that redundancy can be removed without materially degrading predictive performance. Using VideoMAEv2-Base on the Nexar Collision Prediction dataset, we first examine how collision-relevant information evolves across network depth and then investigate two complementary forms of redundancy: structured capacity redundancy in multilayer perceptrons (MLPs) and spatiotemporal redundancy in the token stream. Linear probes show that interpretable motion cues, including flow magnitude, looming, and approach versus retreat, are most accessible at intermediate layers, whereas collision-label discrimination strengthens toward the final layer. Token redundancy is axis-specific: adjacent temporal-token similarity reaches 0.970 in later layers, while spatial similarity falls to 0.297, indicating substantially greater redundancy across time than across space. Exploiting this asymmetry, temporal token merging reduces backbone computation from 356.99 to 178.50 GFLOPs and latency from 12.69 to 7.21 ms per clip, a 1.76x speedup, while mean average precision changes only from 0.7478 to 0.7443. Importance-guided retention of 50% of MLP units preserves an AUC of 0.753, compared with 0.529 under matched random retention, and reveals that pruning alters score calibration before discriminative ranking collapses. These findings establish a new pathway for pursuing faster algorithms through targeted temporal token compression and neuron pruning.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Sydney"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Sydney"
+   ],
+   "institution_ids": [
+    "0384j8v12"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.04727",
@@ -13187,17 +13330,52 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Clinical MRI routinely acquires multiple contrast-weighted images of the same anatomy for complementary tissue characterization. However, current accelerated MRI methods typically reconstruct each contrast independently, without fully exploiting shared anatomical information. This work aims to learn anatomical representations invariant to contrast-dependent appearance for reconstruction of accelerated multi-contrast MRI. We propose MAX (MAnifold eXpansion), a subject-specific framework that learns anatomical representations from a single fully sampled reference contrast. To address the under-constrained separation of shared anatomy and contrast-dependent components from a single image, MAX expands the multi-contrast manifold using anatomy-preserving intensity augmentations. A disentangled implicit neural representation models augmented samples using shared spatial coordinates for anatomy and spatially invariant coordinates for contrast appearance. The learned anatomical representation is then fixed, with the contrast representation adapted to the undersampled target data, followed by unrolled refinement. Theoretical analyses further provide insight into the disentangled representation learning and explain how the learned anatomical representation improves the target contrast reconstruction. At R = 8 for brain MRI and R = 6 for knee MRI, MAX achieves the highest mean PSNR and SSIM across all tasks, improving PSNR by more than 1 dB over the strongest baseline for both brain contrasts. MAX more faithfully recovers subtle anatomical and pathological structures and remains robust to inter-contrast motion, structural heterogeneity between reference and target contrasts, and measurement noise. Therefore, MAX provides a general strategy for leveraging high-quality reference scans in accelerated MRI and has the potential to be extended to other reference-assisted MRI inverse problems.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Harvard University",
+    "Massachusetts General Hospital",
+    "Athinoula A. Martinos Center for Biomedical Imaging"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    null,
+    [
+     0,
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "Harvard University",
+    "Massachusetts General Hospital",
+    "Athinoula A. Martinos Center for Biomedical Imaging"
+   ],
+   "institution_ids": [
+    "03vek6s52",
+    "002pd6e78",
+    "032q5ym94"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.04028",
@@ -13766,17 +13944,31 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Recovering executable CAD programs from 3D meshes is challenging due to the compositional nature of CAD construction and the interaction between discrete modeling choices and continuous parameters. Many learning-based methods predict complete programs in a single pass and rely predominantly on sketch-extrude representations, limiting operation diversity and opportunities to correct geometric errors during reconstruction. We introduce StepCAD, a generative optimization approach that combines a state-conditioned CAD policy with geometry-guided search. Given an input mesh, the policy predicts construction actions conditioned on both target and intermediate geometry, and an IoU-guided tree search refines the resulting program through local edits. We also introduce ARCADE-1.5M, a large-scale dataset of 1.5M executable CAD programs spanning diverse operations, sequences with a maximum length of 150+ counted operations, and 12.5M intermediate state-action transitions. Experiments across multiple CAD reconstruction benchmarks show that StepCAD achieves state-of-the-art geometric reconstruction accuracy with consistently high validity, yielding up to 87.2% relative IoU improvement over the strongest evaluated baseline, with particularly large gains on complex shapes. Project page: https://ghadinehme.com/stepcad.github.io/",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Massachusetts Institute of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Massachusetts Institute of Technology"
+   ],
+   "institution_ids": [
+    "042nb2s44"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.03799",
@@ -13929,17 +14121,34 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The rapid growth of deep learning has substantially increased the energy consumption associated with model training, making energy efficiency an increasingly relevant design criterion. This study empirically measures the energy variation of training seven modern computer vision architectures, MobileNetV3-Small, MobileNetV3-Large, EfficientNet-B0, EfficientNet-B1, ViT-B/32, ConvNeXt-Tiny, and ViT-B/16 for the ImageNet-1k classification task, using a homogeneous 10,000-image subset (ImageNet-10k) and a uniform 40-epoch baseline configuration executed on two NVIDIA Tesla P100 GPUs at the Bioinformatics and Computational Biology Center of Colombia (BIOS). Energy was recorded directly via NVML and contrasted with the computational complexity of each model. The results show a Pearson correlation of 0.85 between floating-point operations (GFLOPs) and energy consumption in kWh, indicating that computational complexity is a strong but imperfect predictor of energy expenditure: architectures with comparable GFLOPs exhibited consumption differing by up to 3.1x due to differences in the hardware efficiency of their dominant operations. The EfficientNet variants offered the best balance between classification performance (Val Top-5 up to 97.15%) and energy efficiency (0.457-0.611 kWh), while Vision Transformers exhibited the highest relative energy consumption and lower classification performance under the evaluated configuration. These findings guide architecture selection in energy-constrained computing environments.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Universitat de les Illes Balears"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Universitat de les Illes Balears"
+   ],
+   "institution_ids": [
+    "03e10x626"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.03772",
@@ -14069,17 +14278,30 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The magnitude of the generalized Euclidean cross product is a Gram volume whose degree under common scaling is fixed by the integer dimension of the spanning frame. We formulate a generalized Fractal Cross Product (FCP) as a nonlinear radial deformation with a prescribed positive degree D, which may be non-integer. The scalar construction applies in any ambient dimension m≥k, while its canonically oriented vector form requires codimension one. It recovers the classical generalized cross product exactly at D=k and retains orthogonality, alternation, rotation equivariance, and D-homogeneity, but is generally not multilinear. For exact self-similar frame systems, the construction also obeys a scale-balance law at the similarity dimension. We derive a differentiable, dimensionless image response and a non-circular empirical accumulation exponent obtained by regressing raw angular Gram responses across patch widths. Binary64 calculations recover the finite-frame identities to roundoff, while raster experiments recover the Sierpiński-triangle value 1.5849625 at three resolutions. In five-seed medical-imaging comparisons, FCP-centered fusion increased mean area under the receiver operating characteristic curve from 0.7264 to 0.8135 and from 0.5843 to 0.6765 on the random and hospital-separated Retinal Image Database for Optic Nerve Evaluation partitions, respectively, and from 0.7403 to 0.7475 on FracAtlas. On FracAtlas, balanced accuracy increased from 0.6186 to 0.6721 and the harmonic mean of precision and sensitivity from 0.3669 to 0.4457. These results support the utility of the complete fusion framework, but do not isolate the effect of FCP from that of its complementary descriptors and fusion head.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Hamad bin Khalifa University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "Hamad bin Khalifa University"
+   ],
+   "institution_ids": [
+    "03eyq4y97"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.03755",
@@ -15721,7 +15943,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-08"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "openalex",

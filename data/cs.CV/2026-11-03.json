@@ -224,7 +224,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.03597v1",
+   "html_url": "https://arxiv.org/html/2611.03597v2",
    "abstract": "Understanding how neurons respond to visual stimulus is an important question in both deep learning and neuroscience. It has significant implications for enhancing the interpretability of black-box artificial neural networks and for understanding the visual representation in the human brain. We propose a structured visual representations landscape and design an activation-based prior that allows us to effectively regularize the landscape with activations from brain regions or neural network units. Our model Vis-Lens integrates a variational autoencoder and a diffusion model into an image generation framework. It enables the generation of natural, realistic preferred images by directly modifying the activation-regularized latent codes without per-image iterative optimization. We demonstrate the effectiveness of our framework on both artificial neural networks and human visual cortex using functional magnetic resonance imaging (fMRI) data. Our framework improves activation modulation and image realism compared with a recent state-of-the-art method for generating preferred visual representations of these neural targets.",
    "affiliations": [
     "University of Illinois Urbana-Champaign, Urbana, Illinois, United States",
@@ -397,7 +397,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Accepted at NeurIPS 2026. Project page: https://physicalvision.github.io/CoLa3D/",
+   "comments": "Accepted at NeurIPS 2026. Project page: https://master-cai.github.io/CoLa3D/",
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
@@ -997,7 +997,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "14 pages, 4 figures",
+   "comments": "11 pages, 4 figures",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -1416,8 +1416,8 @@
    "announced": "2026-11-03",
    "title": "Mesh-Agnostic Refinement Models for Latent Space Encoding of 3D Human Body Shapes",
    "authors": [
-    "Chaima Zouaouid",
-    "Jonathan Cerqueirab",
+    "Chaima Zouaoui",
+    "Jonathan Cerqueira",
     "Sylvain Arguillere",
     "Martin Bauer",
     "Nicolas Charon",
@@ -1432,7 +1432,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.03285v1",
+   "html_url": "https://arxiv.org/html/2611.03285v2",
    "abstract": "Parametric human body models such as the Skinned Multi-Person Linear (SMPL) model provide compact representations of human shape and pose, but their reconstructions remain affected by both errors in estimated latent parameters and limitations in the decoder's expressive capacity. We propose a framework for refining these reconstructions by exploiting the geometric discrepancy between an initial decoded surface and a target mesh, without requiring vertex correspondences between them. The framework comprises three complementary approaches. Latent-VaRefine uses varifold-distance gradients to correct the estimated latent code while preserving the original parametric representation. Vertex-VaRefine processes multiscale varifold-gradient features with a DiffusionNet backbone to predict vertex displacements in a canonical pose, yielding an approximately pose-equivariant refinement pipeline. ElaOpt directly optimizes surface deformations under elastic regularization and normal-direction constraints.",
    "affiliations": [
     "Université de Lille, Département de Mathématiques, Bâtiment M2, Avenue Carl Gauss, Cité Scientifique, Villeneuve-d’Ascq, 59655, Nord, France",
@@ -1460,11 +1460,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-04"
+     "at": "2026-11-09"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-04"
+     "at": "2026-11-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.03285",
@@ -4370,16 +4370,17 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "The preliminary draft is withdrawn for further revision",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.02780v1",
+   "html_url": null,
    "abstract": "Interleaved multimodal chain-of-thought reasoning improves the visual reasoning capabilities of multimodal large language models by dynamically incorporating visual evidence during reasoning. However, existing methods primarily select evidence from historical context. When the reasoning focus shifts, history-guided evidence may remain focused on prior regions and fail to cover the visual information required by the next step. We refer to this lag between visual evidence and subsequent reasoning demands as Temporal Evidence Myopia. To address this issue, we propose Lookahead Prediction-guided Adaptive Visual Refocusing (LPAVR), a training-free test-time framework. LPAVR transforms Multi-Token Prediction (MTP) from a decoding acceleration mechanism into a lookahead signal for anticipating upcoming reasoning intent. During MTP decoding, the draft head generates multiple future tokens, while the target model verifies them in parallel and retains the longest prefix consistent with its decoding trajectory. This target-verified prefix contains near-future semantics, which LPAVR uses to construct lookahead-guided visual evidence and assess whether history-guided evidence covers the indicated regions. If the coverage is sufficient, the history-guided evidence is retained; otherwise, LPAVR switches to the lookahead-guided evidence. This better aligns the visual context with upcoming reasoning and improves consistency between draft predictions and target-model decoding. Experiments on multiple multimodal reasoning benchmarks show that LPAVR improves both reasoning accuracy and the acceptance rates of MTP speculative tokens, jointly enhancing visual reasoning and speculative decoding efficiency.",
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
    "extractor": 24,
+   "withdrawn": true,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -5824,11 +5825,11 @@
     "Computation and Language (cs.CL)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "Technical report, 38 pages, 7 figures. Project page: https://haoquanzhang.github.io/pixel-bench",
+   "comments": "Technical report, 38 pages, 7 figures. Project page: https://haoquanzhang.github.io/pixelbench",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.02540v1",
+   "html_url": "https://arxiv.org/html/2611.02540v2",
    "abstract": "Large language models (LLMs) can generate visual assets through text-based formats such as SVG and CAD, but these symbolic representations describe images using high-level primitives rather than explicit raster values. We ask whether LLMs can instead generate pixel images directly through their existing vocabulary, without a learned image tokenizer or decoder. We introduce PixelBench, a benchmark for text-to-pixel (T2P) and image-to-pixel (I2P) generation across multiple resolutions, together with a complementary pixel-understanding evaluation. Models generate an RGB color palette followed by a grid of indices specifying the palette color of each output pixel. In T2P, the strongest models produce recognizable images directly from text. In I2P, the strongest models outperform palette-matched downsampling and specialized pixelization algorithms at low resolutions. Pixel-understanding performance correlates strongly with generation performance. A resolution-scaling study shows that pixel-generation performance often improves initially before declining at high resolutions. Finally, we introduce Pixel Reconstruction Tuning (PRT), which augments visual instruction tuning with caption-palette-grid trajectories. We post-train Molmo2-4B from its pretraining checkpoint by mixing general instruction data with our curated PRT data, improving performance across 16 visual-centric benchmarks, indicating that explicit pixel reconstruction can provide useful auxiliary supervision.",
    "affiliations": [
     "CUHK",
@@ -13062,7 +13063,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Accepted to NIPS 2026",
+   "comments": "Accepted to NeurIPS 2026",
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
@@ -13266,7 +13267,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Distributed, Parallel, and Cluster Computing (cs.DC)"
    ],
-   "comments": "Also published as a Zenodo record, DOI 10.5281/zenodo.23803987",
+   "comments": "Also published as a Zenodo record, DOI https://doi.org/10.5281/zenodo.23803987",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -15018,11 +15019,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Robotics (cs.RO)"
    ],
-   "comments": "34 pages (8-page main text and appendix), 7 figures, 21 tables",
+   "comments": "39 pages, 9 figures",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.00482v1",
+   "html_url": "https://arxiv.org/html/2611.00482v2",
    "abstract": "The absolute trajectory error (ATE) is the standard measure of camera-motion accuracy, from SLAM to feed-forward 3D reconstruction. On the common Sintel protocol, a constant-velocity straight line using no images has a lower mean ATE than 10 of 11 recent models re-run with official code. Two properties of ATE's alignment explain this. First, it maps any constant-velocity prediction onto the best-fitting line through the true path, so the line scores the path's regression residual. A residual signal-to-noise ratio (SNR) criterion predicts when moving a prediction towards its constant-velocity fit lowers ATE. It gives the outcome for 95% of 1056 model-clip pairs, 98% of 792 held-out pairs and 97% of 1034 ScanNet pairs, and it separates Sintel (median SNR 0.86) from TUM, ScanNet and full-length Bonn and Wild-SLAM (2.7 to 27), where straightening raises every model's mean ATE. Second, position-only alignment ignores where cameras look: rotating a trajectory by 30 degrees against its orientations leaves ATE unchanged, yet worsens the reprojection of static points for every model on Sintel, TUM and ScanNet in the main setting, and the line, second by mean ATE on Sintel, places them worst by geometric mean: a lower ATE need not mean better geometry. Fitting the alignment's rotation to the predicted orientations gives pose-anchored ATE, a one-function change in ATE's units costing 0.17 ms per clip (ATE: 0.11 ms). It ranks every image-free reference below every model on Sintel, tracks the reprojection error under rotation and straightening, where ATE does not (Spearman 0.61 vs. 0.32), largely preserves the models' order, and ties 10-frame translational relative pose error (RPE) and the discernible trajectory error (DTE) on our rotation and reference tests. Code, predictions and results will be released.",
    "affiliations": [
     "Duke University"
@@ -15461,11 +15462,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Accepted at IEEE/CVF WACV 2027",
    "journal_ref": null,
-   "venue": null,
+   "venue": "WACV 2027",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.00375v1",
+   "html_url": "https://arxiv.org/html/2611.00375v2",
    "abstract": "Future dynamic novel-view synthesis requires extrapolating multiple motion regimes within the same scene. A single dynamics model may not simultaneously represent stationary regions, coordinated motion, local interactions, and articulated trajectories. We introduce Motion Regime Expert Routing for Gaussian Splatting (MoRE-GS), a causal, render-aware framework for forecasting dynamic 3D Gaussian scenes. MoRE-GS freezes a Gaussian representation reconstructed exclusively from the observed temporal prefix and forecasts its control-keypoint motion using four complementary experts: persistence, a coefficient-space Transformer, a graph convolutional network, and a structured Transformer with rigid and non-rigid motion constraints. A compact routing table assigns expert mixtures across soft motion groups and forecast-horizon bins, while a persistence gate suppresses unreliable extrapolation. Across D-NeRF and HyperNeRF scenes, MoRE-GS achieves improved performance against other methods, and these results demonstrate that renderer-calibrated composition of complementary motion predictors improves causal dynamic Gaussian forecasting across heterogeneous motion regimes. Project page: https://advanced-vision-and-learning-lab.github.io/MoRE-GS-website/",
    "affiliations": [
     "Department of Electrical and Computer Engineering, Texas A&M University",
@@ -16278,7 +16279,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.00107v1",
+   "html_url": "https://arxiv.org/html/2611.00107v2",
    "abstract": "Multi-modal fusion algorithms combining conventional frame-based cameras and event cameras have recently attracted substantial research attention. Typically, existing approaches convert event streams into frames, voxels, or tensors, and then learn the required spatiotemporal information from these transformed event representations for fusion with conventional frame-camera data. Obviously, such paradigms only exploit the limited representational capacity of event data. Moreover, standard training pipelines fail to fully leverage diverse model parameters obtained throughout the learning process. In this paper, we propose a novel mutual distillation method leveraging multi-view teacher network weights to better integrate multiple event representations and achieve model-parameter level fusion. Specifically, we employ multiple encoders to extract different types of event representations and perform mutual knowledge distillation at both the feature-level and logit-level in this process. Afterwards, we perform a dynamic hierarchical model merge strategy on the model parameters from the first stage to yield a unified multi-modal RGB-Event representation model. Experimental results across multiple event-based datasets demonstrate that our proposed framework achieves significant performance improvements.",
    "affiliations": [],
    "author_affiliations": null,
@@ -17395,7 +17396,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "31 pages, 8 figures. Checker released as floorcheck v0.1.1, https://doi.org/10.5281/zenodo.23129970",
+   "comments": "v2: retitled and reframed around a calibrated sample-level check protocol; main text shortened and revised, with supporting detail moved to the appendices. 30 pages, 8 figures. Checker released as floorcheck v0.1.1, https://doi.org/10.5281/zenodo.23129970. Supplementary material 1 (transfer specification) is the ancillary file anc/specification.pdf",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -21018,7 +21019,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
-   "html_url": "https://arxiv.org/html/2611.01617v1",
+   "html_url": "https://arxiv.org/html/2611.01617v2",
    "abstract": "Speculative decoding accelerates vision-language model (VLM) inference without altering the output distribution, yet two factors limit its gains. Existing drafters either lack the image evidence required for visually grounded tokens or pay to condition on every visual token, although a short draft block typically depends on only a few image regions. Moreover, the value of verifying additional candidates varies with GPU load, so no fixed verification structure is efficient across serving conditions. We present Uni-LaSpec, a block-parallel speculative decoding framework that addresses both factors. To improve draft quality, Uni-LaSpec reuses the verifier's own attention: the query retained from the preceding verification ranks the cached, int8-quantized visual keys, and a cross-layer vote selects a few visual tokens that the drafter fuses through gated cross-attention. Acceptance-aware training further weights each draft position by its contribution to the accepted prefix. To allocate verification, a marginal-cost criterion selects the structure per request and per round: draft trees exploit idle verifier capacity under light load, whereas a dynamic head truncates linear drafts under heavy load. Across six VLMs from three model families and 17 text and multimodal benchmarks, selecting eight visual tokens retains at least 98.6% of the acceptance obtained from the full image at sub-millisecond selection cost. With greedy decoding at concurrency one, Uni-LaSpec achieves up to 5.11x text and 3.24x multimodal throughput over autoregressive decoding. Across six load levels and three GPU types, it outperforms autoregressive decoding in every setting and matches or exceeds the best fixed verification strategy in 123 of 144 settings; under bursty arrivals, it reduces mean end-to-end latency by 47.6% relative to linear verification.",
    "affiliations": [
     "University of Science and Technology of China",
@@ -21537,7 +21538,7 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "19 pages, 6 figures, 6 tables",
+   "comments": "formatting error",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
