@@ -10,6 +10,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ## Unreleased
 
+## 1.4.0 (2026-11-09): the archive's files on a data branch
+
 ### Data
 
 - The files only the weekly archive rewrites (`archive/`, `top-recent.json`,

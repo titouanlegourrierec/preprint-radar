@@ -477,6 +477,17 @@ of 60, who is where 55 of 60. `data/`: 94 MB, the repository 140 MB at GitHub (S
 `validate`: no error, 3 warnings (2610.24182's two authors holding a contact detail, PUB-8,
 and an author-id list of `scholar.json` that does not fit its authors).
 
+*Result of v1.4.0 (2026-11-09; `make stats` and `make validate` that day).* SCALE-8: the
+files only the archive rewrites on the `data` branch since 2026-11-08, the first daily run
+over both branches green. Day files: 8,944 papers, abstracts 100%, affiliations 84% of
+those tried (authors mapped 86%, institutions named 99%), venues 23%, citation counts 98%.
+Archive: 22,907 papers, affiliations 97%, authors mapped 98%, venues 89%, counts 100%. A
+country for 29,377 of the 32,759 papers (90%). The hand-read reference set: strings 55 of
+60, who is where 55 of 60. `data/`: 95 MB, the repository 153 MB at GitHub, the data
+branch's first squash due on 2026-12-06. `validate`: no error, 3 warnings (2610.24182's two
+authors holding a contact detail, a gain of `citation-gains.json` for a paper no longer
+stored).
+
 ## Backlog triage (2026-10-07)
 
 The audit items no row above named on 2026-10-07, checked against the code of that day (`b3bfefc`).
