@@ -6,7 +6,7 @@
   {
    "arxiv_id": "2611.06918",
    "announced": "2026-11-05",
-   "title": "From Pixels to Actions -- Towards Native Vision-Language-Action Policies",
+   "title": "From Pixels to Actions--Towards Native Vision-Language-Action Policies",
    "authors": [
     "Weichen Fan",
     "Haiwen Diao",
@@ -34,7 +34,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.06918v2",
+   "html_url": "https://arxiv.org/html/2611.06918v3",
    "abstract": "Vision-language-action models are typically built on a simple premise: perception is first compressed by visual encoders, and action reasoning begins only afterwards. Yet manipulation often hinges on precisely the visual signals most vulnerable to this abstraction, e.g., local geometry, boundaries, depth, and subtle state changes. This raises a fundamental question: should action policies inherit a fixed visual endpoint, or directly access evolving visual computation? We introduce NEO-VLA, a structurally encoder-free vision-language-action framework. Images are tokenized by lightweight patch convolutional layers and evolve jointly with language throughout the backbone, allowing a flow-matching action expert to draw from instruction-conditioned visual representations at different depths. This simple change reveals a consistent pattern. Native architectures outperform encoder-based counterparts under controlled comparisons; full fine-tuning reduces but does not erase the gap, and additional scale alone cannot recover it. More strikingly, layer-wise probing shows that the action-critical signals often peak well before the final visual representation. Across diverse manipulation settings and distribution shifts, NEO-VLA consequently achieves stronger and more robust control. Together, these results suggest that embodied control benefits from access to visual representations across the computational hierarchy, rather than a fixed encoder output.",
    "affiliations": [],
    "author_affiliations": null,
@@ -867,7 +867,7 @@
    "journal_ref": null,
    "venue": "WACV 2027",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.06781v1",
+   "html_url": "https://arxiv.org/html/2611.06781v2",
    "abstract": "Sign language generation (SLG) maps written sentences into signing motion while preserving both lexical content and fine-grained articulation. This requires a model to decide what signs should be expressed and to realize them through precise handshape, trajectory, facial expression and body coordination. Existing pose-based systems and reconstruction-only motion tokenizers often entangle these two decisions, leaving the generator without an explicit text-aligned intermediate target for what to sign before refining how to sign it. To address this issue, we introduce Semantic Residual Vector Quantization (SRVQ), a framework for SLG that frames generation as a two-level process moving from semantics to kinematics. The newly introduced SRV Quantizer learns a hierarchy in which the first residual level encodes sign content and subsequent levels refine pose, handshape, trajectory, and body coordination, all within a single quantizer and without separate semantic representations or external planning stages. Through word-aware conditioning for hierarchical code generation, a masked semantic generator predicts semantic codes and a kinematic generator completes the residual codes for full SMPL-X motion synthesis. We evaluate using retrieval and FID in a shared text-motion embedding space, alongside standard geometric metrics. On CSL-Daily and Phoenix-2014T, SRVQ achieves R@1 of 82.3 and 70.3, outperforming the previous SOTA by 30 and 46 points, respectively.",
    "affiliations": [
     "University of Trento",
@@ -2824,7 +2824,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.06343v1",
+   "html_url": "https://arxiv.org/html/2611.06343v2",
    "abstract": "Unified Multimodal Models (UMMs) aim to support visual understanding and generation within a single model. Existing post-training methods either use understanding as a fixed teacher to improve generation, or rely on ground-truth trajectories to supervise both understanding and generation. Prism instead derives bidirectional supervision from self-generated interleaved rollouts, constructing training targets according to the reliability of their text and image chains. We propose Prism, a bidirectional self-teaching post-training method for UMMs. Like a prism decomposing mixed light, Prism decouples a coupled interleaved trajectory into a text chain and an image chain, assesses the reliability of each chain, and constructs a corresponding training target from their reliability states. Experiments on both SenseNova-U1 and BAGEL show that Prism improves both understanding and generation. On the generation side, GenEval improves from 85.8 to 89.2 (+3.4), and DPG improves from 86.1 to 87.3 (+1.2) on SenseNova-U1. On the understanding side, the total MME score improves from 2282.6 to 2311.6, and MMVP improves from 58.0 to 62.0. Consistent improvements are observed on BAGEL. These results highlight that Prism enables coordinated improvements in generation and understanding by constructing reliability-guided self-training targets from self-generated trajectories, without relying on an external verifier or externally annotated corrected trajectories during target construction.",
    "affiliations": [
     "Xi’an Jiaotong University",
@@ -7429,7 +7429,7 @@
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.05407v1",
+   "html_url": "https://arxiv.org/html/2611.05407v2",
    "abstract": "Diffusion image generators are successful due to accurate denoising networks and strong numerical samplers. Yet the two components are not fully matched. During sampling, the denoiser predicts for the next step based on flawed input that differ much from the real data. This train-test gap, or exposure bias, caps image generation quality (i.e., blurry, lacking in details or awkward in shape). To mitigate the problem, we propose PEEK, a novel training-free deterministic sampler plugin. At each eligible denoising step, PEEK first performs a provisional one-step update, evaluates the denoiser once at the look-ahead state, and interpolates it with the one-step-later prediction to form the next noisy state. By taking the additional step, we obtain a generally more-image-like prediction from the higher-signal noisy state, mitigating the exposure bias. To optimize the interpolation positions, PEEK searches for an interpolation schedule search made efficient by the prefix and baseline noise-schedule-rebasing caches. On 8 pixel-space and latent-space diffusion models with unconditional, label-guided, and text-guided settings across various output resolutions, PEEK consistently improves over NFE-matched baselines, with FID improvements up to 49.3% at minimal extra computation cost (e.g., the one-time-per-model calibration takes at most 2.2 minutes across our experiments.). Project website is at https://dachengruoque.github.io/PEEK-Video/.",
    "affiliations": [
     "National University of Singapore"

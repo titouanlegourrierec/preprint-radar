@@ -2737,7 +2737,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.03043v1",
+   "html_url": "https://arxiv.org/html/2611.03043v2",
    "abstract": "Complex video editing requires understanding complex instructions while jointly fulfilling multiple editing requests. Meeting these demands through dense model scaling substantially increases computational cost. We introduce VideoEditor-MoE, the first open-source mixture-of-experts framework for video editing. Beyond sparse MLP-MoE layers, MoE-Attention expands attention capacity through routed key--value experts while preserving global interactions among video tokens. Initialized from a 5B video editing model, VideoEditor-MoE scales to 14B and 56B parameters, with approximately 8B parameters activated per token in both variants. Comparisons with existing methods and two complementary baselines, Explicit-MoE and MLP-MoE, assess its benefits over explicit expert guidance and MLP-only expert architectures. Further analyses demonstrate that all experts remain active and reveal that learned routing responds more strongly to sample content and diffusion noise levels than to human-defined editing categories. Spatial analysis further indicates sensitivity to object-level semantic features. We also identify decoupled weight decay as a strategy for stabilizing expert scaling.",
    "affiliations": [],
    "author_affiliations": null,
@@ -6821,11 +6821,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Quantitative Methods (q-bio.QM)"
    ],
-   "comments": "64 pages: 10-page main text with 4 figures and 1 table, plus references and a 49-page appendix with 15 figures and 25 tables. Accepted at NeurIPS 2026, Track on Evaluations and Datasets",
+   "comments": "66 pages: 10-page main text with 4 figures and 1 table, plus references and appendix with 15 figures and 25 tables. Accepted at NeurIPS 2026, Track on Evaluations and Datasets",
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.02324v1",
+   "html_url": "https://arxiv.org/html/2611.02324v2",
    "abstract": "Understanding how cells respond to perturbations over time is central to cell biology and drug discovery. Live-cell imaging captures the dynamics of perturbation-induced phenotypes in individual cells. While fluorescence imaging can visualize specific molecular phenotypes, labeling and repeated illumination often affect cell health. Virtual staining offers an alternative by predicting these fluorescence images from images acquired without fluorescent labels. Although many virtual staining models have been developed, their performance on volumetric time-lapse data remains poorly characterized. We address this gap with an evaluation suite for 3D time-lapse virtual staining of live cells. The suite combines paired 3D time-lapse images acquired with and without fluorescent labels, a set of baseline models, and three metric tiers measuring pixel-level fidelity, organelle segmentation performance, and single-cell phenotype similarity. Using this evaluation suite, we study metric and model behavior across 3 cell types, 2 microscopes, 4 organelles, and 3 perturbation states. We find that regression baselines better predict the spatial localization of target organelles, whereas the generative baseline better captures the distribution of phenotypes across cells. These differences expose trade-offs between structural and phenotypic fidelity that are obscured by single-metric evaluation and suggest how virtual staining models can be developed for diverse downstream tasks such as localization, segmentation, tracking, and phenotypic profiling. We release the curated datasets, baseline checkpoints, and evaluation code as part of DynaCell, a broader framework for image-based profiling of cell-state dynamics.",
    "affiliations": [
     "Biohub, San Francisco, 94158, UCSF, San Francisco, 94158",
@@ -7558,11 +7558,11 @@
     "Artificial Intelligence (cs.AI)",
     "Robotics (cs.RO)"
    ],
-   "comments": null,
+   "comments": "The manuscript requires substantial revisions to its methodology, experimental analysis, and presentation of the findings. The authors believe that the current version may not accurately reflect the intended research contributions and could potentially mislead or confuse readers. Therefore, we request withdrawal of this version to avoid further dissemination of potentially misleading information.",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.02076v1",
+   "html_url": null,
    "abstract": "Diffusion driving vision-language-action models repeatedly execute the backbone at every denoising stage, incurring substantial inference cost, while it remains unclear whether all scenes require the same decoding computation. To distinguish when a trajectory becomes readable from how much further refinement it requires, we analyze trajectory readout across network depth and decoding progress. We identify a depth-decoding dissociation in which late-layer representations already support useful trajectory readout after the first forward sweep, whereas early-layer representations benefit more from continued decoding. We further find that both the preferred readout layer and decoding depth vary across scenes. Based on these observations, we propose a scene-adaptive readout and decoding framework. A scene-conditioned readout MoE adaptively weights and combines trajectory predictions from layer-specific late-layer representations after a single backbone sweep, while an adaptive decoding policy applies additional native refinement only when required by the scene. We evaluate our framework on two diffusion driving VLAs across the Waymo E2E and nuScenes benchmarks. Our method improves validation RFS by up to 0.56 while also improving test performance, and achieves an end-to-end speedup of up to 6.0× on Waymo E2E, while consistently reducing trajectory error on nuScenes. These results demonstrate that scene-level readout and decoding allocation improves planning quality while avoiding unnecessary decoding. Our code is available at https://github.com/sjyu001/SARD",
    "affiliations": [
     "Korea Advanced Institute of Science and Technology (KAIST)"
@@ -7594,6 +7594,7 @@
     "05apxxy63"
    ],
    "extractor": 24,
+   "withdrawn": true,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -14249,11 +14250,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Accepted at International Symposium on Information and Communication Technology (SOICT) 2026",
    "journal_ref": null,
-   "venue": null,
+   "venue": "SOICT 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.00683v1",
+   "html_url": "https://arxiv.org/html/2611.00683v2",
    "abstract": "Reference-based style personalization should reproduce the appearance of a style reference while preserving the subject specified by a content prompt. In visual autoregressive models, dominant reference features can also carry object and spatial information, causing content leakage. We propose Content-Preserving Principal Feature Blending (CoPFB), a training-free method that estimates a low-rank content basis from a clean generation branch and removes the content-aligned component of the style residual. CoPFB applies rank-one blending at the first two autoregressive scales, followed by weaker content-projected refinement at the next three scales. On 1,900 combinations of Parti content prompts and FineStyle reference images, CoPFB improves text alignment from 0.293 to 0.297 and the harmonic score from 0.391 to 0.393 over PFB+SAC, while style similarity decreases from 0.590 to 0.577. CoPFB requires no fine-tuning or learnable parameters. Project page: https://vdkhoi20.github.io/CoPFB/.",
    "affiliations": [
     "University of Science, Ho Chi Minh City, Vietnam",
@@ -19445,11 +19446,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "-",
+   "comments": "Accepted at WACV 2027 Algorithm Track",
    "journal_ref": null,
-   "venue": null,
+   "venue": "WACV 2027",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.00022v1",
+   "html_url": "https://arxiv.org/html/2611.00022v2",
    "abstract": "Frozen visual encoders make prototype heads competitive in few-shot class-incremental learning (FSCIL), but it remains unclear how much of the residual head gap is sensitive to noisy novel-class means rather than to the subsequent changes introduced by classifier refitting. On identical features, we construct a retrospective matched counterfactual: first replace each five-shot novel mean with its complete-data counterpart under fixed cosine scoring, then fit a linear probe. Across sixteen strong encoder dataset pairs, mean replacement accounts for the majority of this ordered gap. Shot and classwise diagnostics support a finite-sample mechanism, whereas a weaker base-only encoder does not satisfy the same criterion. This diagnosis motivates ShrinkSel, a support-only selector over prototype radius and covariance shrinkage whose family contains shared LDA as an exact fallback. Across sixteen evaluated pairs, it improves LDA on fifteen by 0.04-1.52 points and selects the exact LDA endpoint on Aircraft. We further introduce Query Prototype Rectification (QPR), a batch-transductive extension that uses gated unlabeled queries to update novel directions while preserving the selected geometry. On CLIP ViT-B/16, QPR adds 1.21-2.03 points; exact query-wise self-exclusion retains the benefit, showing that the gains do not require self-inclusion. The update repairs scarce novel prototypes at a measurable base-class cost and weakens with plentiful supports or very small cohorts. Thus, the evidence available for prototype estimation is a central constraint in frozen-feature FSCIL.",
    "affiliations": [
     "Islamic University of Technology"
@@ -22591,7 +22592,8 @@
    "authors": [
     "Li Jiatai",
     "Cao Wenfei",
-    "Chen Yang"
+    "Chen Yang",
+    "Miao Kun"
    ],
    "primary_subject": "Image and Video Processing (eess.IV)",
    "subjects": [
@@ -22599,14 +22601,15 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "14 pages, 4 figures",
+   "comments": "13 pages, 4 figures",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "eess.IV",
-   "html_url": "https://arxiv.org/html/2611.00157v1",
+   "html_url": "https://arxiv.org/html/2611.00157v2",
    "abstract": "Fourier phase retrieval reconstructs images from magnitude measurements without phase information, but noise and channel ambiguities make natural color-image recovery challenging. Although diffusion-prior methods provide strong image constraints, their recovery can deteriorate under stronger measurement noise, and repeated generative updates incur substantial computational cost. This paper proposes FlowFPR, which integrates a pretrained Flow Matching prior with relaxed averaged alternating reflections for oversampled Fourier phase retrieval. Each outer iteration obtains a clean image estimate through a single time-dependent Flow prediction, applies measurement-consistency correction, and reconstructs the next path state after fusing the two candidates. This process requires no backpropagation of measurement errors through the Flow network. To address ineffective or excessive correction caused by prescribed fusion weights and fixed inner depths, we introduce adaptive fusion based on residual improvement and a controlled inner search combining early stopping with best-so-far candidate selection. Their combination yields a joint variant alongside the basic method and the two independent improvements. Experiments on natural face images under a common ground-truth-assisted multiple-restart evaluation protocol show that the joint variant achieves the best mean quality among the evaluated methods at the two tested nonzero noise levels, while same-hardware timing demonstrates lower end-to-end runtime than the diffusion-based baselines.",
    "affiliations": [
-    "School of Mathematics and Statistics, Shaanxi Normal University, Xi’an 710119, China"
+    "School of Mathematics and Statistics, Shaanxi Normal University, Xi’an 710119, China",
+    "Division of Data Information, Zhejiang National Mobilization Commission, Hangzhou 310002, China"
    ],
    "author_affiliations": [
     [
@@ -22617,23 +22620,28 @@
     ],
     [
      0
+    ],
+    [
+     1
     ]
    ],
    "institutions": [
-    "Shaanxi Normal University"
+    "Shaanxi Normal University",
+    "Zhejiang National Mobilization Commission"
    ],
    "institution_ids": [
-    "0170z8493"
+    "0170z8493",
+    null
    ],
    "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-04"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-04"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.00157",

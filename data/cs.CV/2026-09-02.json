@@ -23,14 +23,31 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.00036v2",
    "abstract": "The total scaled-gradient variation (TSGV) regularizer, derived from sparse modeling of piecewise-linear structures, has been shown to preserve edges and corners in image restoration. However, its highly nonconvex and nonlinear nature poses severe computational challenges, as existing methods often suffer from parameter sensitivity or lack convergence guarantees. To overcome this, we propose a tailored bilinear decomposition that decouples the nonlinear weighted gradient in the TSGV regularizer. This approach yields an equivalent optimization problem governed by cone or sphere constraints, depending on the chosen scaling function. In particular, the cone constraint plays a central role in characterizing edge- and corner-preserving behavior. We solve this reformulation using the alternating minimization method (AMM) equipped with a majorization--minimization strategy, ensuring a monotonic decrease in energy without step-size tuning. Furthermore, we provide a geometric interpretation of the edge-preserving properties of these constraints by analyzing their asymptotic behavior near image singularities. We establish the global convergence of the proposed method to a critical point within the Kurdyka--Łojasiewicz framework. Extensive numerical experiments on Gaussian denoising and non-line-of-sight (NLOS) imaging show that the proposed method achieves PSNR and SSIM competitive with or superior to representative variational methods, especially at high noise levels, and improves the structural reconstruction under dense and sparse scanning.",
-   "affiliations": [],
+   "affiliations": [
+    "Yau Mathematical Sciences Center, Tsinghua University, Beijing 100084, China",
+    "School of Mathematical Sciences, Nankai University, Tianjin, 300071, China",
+    "School of Mathematical Sciences and Institute of Mathematics and Interdisciplinary Sciences, Tianjin Normal University, Tianjin, 300387, China"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 9,
+   "institutions": [
+    "Tsinghua University",
+    "Nankai University",
+    "Tianjin Normal University"
+   ],
+   "institution_ids": [
+    "03cve4549",
+    "01y1kjr75",
+    null
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00036",
@@ -245,11 +262,11 @@
    "institution_ids": [
     "0570trv98"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -322,30 +339,30 @@
    "html_url": "https://arxiv.org/html/2609.00206v1",
    "abstract": "Despite their growing use in video moderation, multimodal large language models (MLLMs) exhibit a compositional safety blind spot: videos composed of seemingly benign components can convey harmful meaning when interpreted as a whole. We refer to this phenomenon as Distributed Implicit Harm (DIH), where harm arises from relations among components distributed along a decomposition axis of the video, rather than from any single explicit cue. Among many possible axes, we study two representative cases: temporally distributed harm across visual segments (DIH-T) and cross-modal harm between audio and visual streams (DIH-M). Studying and mitigating DIH at scale requires data that is difficult to collect: such videos lack compositional harm annotations, evade retrieval based on local visual cues, keywords, or single-modality signals, and are consequently absent from existing safety datasets. To bridge this gap, we develop a multi-agent synthesis framework that composes individually benign components into harmful scenarios and generates diverse DIH videos with explicit reasoning annotations, yielding a dataset of over 9,000 videos spanning visual-only and audio-visual settings. Benchmarking over 30 MLLMs spanning frontier proprietary models and leading open-source systems reveals substantial and consistent deficits in detecting both DIH-T and DIH-M. Notably, this failure persists even among the strongest frontier models: they often correctly assess individual components in isolation but fail to recognize the harmful meaning that emerges from their composition. We further evaluate these models on a manually collected set of real-world DIH videos from social media and observe the same failure mode, highlighting DIH as a practical and underexplored challenge for video moderation.",
    "affiliations": [
-    "The Chinese University of Hong Kong, Shenzhen",
     "State University of New York at Buffalo",
-    "Kling Team, Kuaishou Technology"
+    "Kling Team, Kuaishou Technology",
+    "The Chinese University of Hong Kong, Shenzhen"
    ],
    "author_affiliations": null,
    "institutions": [
-    "Chinese University of Hong Kong, Shenzhen",
     "State University of New York",
-    "Kuaishou"
+    "Kuaishou",
+    "Chinese University of Hong Kong, Shenzhen"
    ],
    "institution_ids": [
-    "02d5ks197",
     "01q1z8k08",
-    "0258as409"
+    "0258as409",
+    "02d5ks197"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00206",
@@ -770,11 +787,11 @@
    "institution_ids": [
     "03xrrjk67"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -942,11 +959,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00396",
@@ -1330,11 +1347,11 @@
     "Siemens Healthineers AG",
     "Otto-von-Guericke-University"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -1431,11 +1448,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00591",
@@ -1476,11 +1493,11 @@
    "institution_ids": [
     "00za53h95"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -1580,11 +1597,11 @@
    "institution_ids": [
     "02teq1165"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -1904,11 +1921,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00663",
@@ -2150,11 +2167,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00712",
@@ -2182,14 +2199,31 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.00713v1",
    "abstract": "Estimation of the absolute pose of an object is an essential task for various robotic applications. Recently, incorporating gravity direction as prior information has emerged as a popular approach to simplify absolute pose estimation. However, developing a robust and efficient algorithm to solve this challenging problem remains a difficult question due to large amounts of mismatches. In addition, obtaining an accurate pose solution from selected inlier correspondences with gravity prior is still a research gap. In this paper, we propose a novel transformation strategy that exploits geometric relations derived from the gravity prior. Through transformation decoupling, the original 6 degrees of freedom (DoF) absolute pose estimation problem is simplified into a 4-DoFs problem: 1-DoF for the rotation angle and 3-DoFs for translation, significantly improving the efficiency. For the 1-DoF rotation angle, we apply a one-dimensional global voting algorithm for optimal estimation. Once the optimal rotation is obtained, the mismatched correspondences are preliminarily filtered, and translation estimation, a linear problem, can be easily solved. Furthermore, to obtain accurate pose results, we introduce a novel pose refinement algorithm to enhance the accuracy of both rotation and translation. Extensive experiments on synthetic data and three publicly available real-world datasets (TUM RGB-D, ETH3D, and RobotCar) demonstrate that the proposed method achieves stronger performance compared to existing state-of-the-art (SOTA) approaches. To further validate our method, we integrated it into ORB-SLAM2. The results on the KITTI dataset show it effectively reduces drift and improves trajectory alignment during relocalization. The source code will be released upon acceptance.",
-   "affiliations": [],
+   "affiliations": [
+    "School of Automation, Southeast University, Nanjing, China",
+    "Chair of Robotics, Artificial Intelligence and Real-time Systems, Technical University of Munich, Munich, Germany",
+    "Faculty of Data Science, City University of Macau, Macau, China"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 9,
+   "institutions": [
+    "Southeast University",
+    "Technical University of Munich",
+    "City University of Macau"
+   ],
+   "institution_ids": [
+    "04ct4d772",
+    "02kkvpp62",
+    null
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00713",
@@ -2555,11 +2589,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00788",
@@ -2590,11 +2624,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00798",
@@ -2628,11 +2662,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00811",
@@ -2777,11 +2811,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00816",
@@ -3262,11 +3296,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00868",
@@ -4133,11 +4167,11 @@
    "institution_ids": [
     "02fa3aq29"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -4232,11 +4266,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00996",
@@ -4390,11 +4424,11 @@
     null,
     "03kqpb082"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
