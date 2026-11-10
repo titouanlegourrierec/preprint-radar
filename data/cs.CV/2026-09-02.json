@@ -4519,14 +4519,25 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.01059v1",
    "abstract": "As Vision-Language Models (VLMs) tackle dynamic 3D spatial reasoning, ego-motion perception becomes essential to resolve monocular scale ambiguity. However, current models often overfit to smooth trajectory priors rather than genuinely understanding physical motion. Consequently, their spatial reasoning degrades severely under large displacements, a phenomenon we term Kinematic Collapse. This failure stems from spurious visual-motion correlations in natural videos and a lack of explicit physical supervision. To evaluate this, we introduce Dyn-3D, a benchmark using counterfactual 3D rendering to rigorously decouple visual changes from true kinematic properties. Furthermore, we propose the TempoVista framework, featuring the Kinematic-GSPO algorithm. By embedding metric physical ground truth into policy optimization, TempoVista explicitly grounds visual representations in 3D space. Experiments demonstrate that our approach significantly improves both motion estimation and robust spatial reasoning by utilizing camera dynamics as an effective geometric calibration signal.",
-   "affiliations": [],
+   "affiliations": [
+    "InkMind Team"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 9,
+   "institutions": [
+    "InkMind Team"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01059",
@@ -4557,11 +4568,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01092",
@@ -4715,11 +4726,11 @@
    "institution_ids": [
     "00mkhxb43"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -4987,11 +4998,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01172",
@@ -5139,11 +5150,11 @@
     "00jtmb277",
     "00c7x4a95"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -5251,11 +5262,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01276",
@@ -5288,11 +5299,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01277",
@@ -5508,11 +5519,11 @@
    "institution_ids": [
     "02smfhw86"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -5565,11 +5576,11 @@
    "institution_ids": [
     "03cve4549"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -5638,14 +5649,37 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.01370v1",
    "abstract": "Data is important in many deep learning-based inverse problem solvers. However, obtaining sufficient paired data in many scenarios remains highly challenging, while unpaired data is cheap. To maximize data utilization, this paper proposes LUD-DIF, a diffusion-based approach for solving inverse problems with unpaired data. Starting from the evidence lower bound (ELBO) of the joint distribution, we decouple it into two independent diffusion processes under the weak-coupling assumption. The method provides theoretical support from a variational inference perspective, derives the loss function, quantitatively analyzes the error bound introduced by the assumption, and offers a theorem-motivated heuristic for hyperparameter selection. Experimental results demonstrate that LUD-DIF achieves outstanding performance on multiple image inverse problems, validating its effectiveness and generalization capability in unpaired inverse problem settings.",
-   "affiliations": [],
+   "affiliations": [
+    "Yau Mathematical Sciences Center, Tsinghua University, Beijing, China",
+    "Department of Mathematical Sciences, Tsinghua University, Beijing, China",
+    "Institut für Geometrie und Praktische Mathematik, RWTH Aachen University, Aachen, Germany",
+    "School of Artificial Intelligence, Wuhan University, Wuhan, Hubei, China",
+    "Department of Applied Mathematics, The Hong Kong Polytechnic University, Hong Kong, China"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 9,
+   "institutions": [
+    "Tsinghua University",
+    "Tsinghua University",
+    "RWTH Aachen University",
+    "Wuhan University",
+    "Hong Kong Polytechnic University"
+   ],
+   "institution_ids": [
+    "03cve4549",
+    "03cve4549",
+    "04xfq0f34",
+    "033vjfk17",
+    "0030zas98"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01370",
@@ -5692,11 +5726,11 @@
     null,
     "02smfhw86"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror"
@@ -6027,11 +6061,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01433",
@@ -6936,11 +6970,11 @@
     "036xnae80",
     "036xnae80"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -7003,11 +7037,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00028",
@@ -7047,11 +7081,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00061",
@@ -7142,11 +7176,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00355",
@@ -7459,11 +7493,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00555",
@@ -8013,11 +8047,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00870",
@@ -8048,14 +8082,37 @@
    "cross_list_from": "cs.AI",
    "html_url": "https://arxiv.org/html/2609.00885v1",
    "abstract": "Denoising diffusion models are the dominant architecture for image generation, whereas most natural language generation and modeling are primarily handled by well-known transformer architectures employing attention mechanism. Here, we show that diffusion models also inherently use an attention mechanism very similar to that of transformers. Therefore, attention emerges as a universal machine learning principle, based on a general training objective. We also show similarities in basic functional principle of auto-encoders and attention-based models. These equivalences allows us to interchange these designs based on practical requirements. As an example, we can reformulate the diffusion framework to reduce the lengthy training process and computation-intensive image generation. Using this approach, a simplified algorithm is proposed for image generation which is based on attention mechanism. Results show that the attention-based implementation achieves comparable performance with significantly less effort and computational resources.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
-   "extractor": 9,
+   "affiliations": [
+    "School of Electrical Engineering, Iran University of Science & Technology, Tehran, IRAN",
+    "Independent researcher"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    null,
+    [
+     1
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "Iran University of Science and Technology",
+    null
+   ],
+   "institution_ids": [
+    "01jw2p796",
+    null
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00885",
@@ -8086,11 +8143,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00920",
@@ -8142,11 +8199,11 @@
     "02kkvpp62",
     "02b6qw903"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -8307,11 +8364,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01051",
@@ -8353,11 +8410,11 @@
     "05sbt2524",
     "055khg266"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -8390,11 +8447,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01072",
@@ -8660,11 +8717,11 @@
    "institutions": [
     "Bloomberg"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror"
@@ -8854,11 +8911,11 @@
     "02sv65x64",
     "05krs5044"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",

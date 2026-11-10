@@ -22,14 +22,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2608.28663v1",
    "abstract": "Reliable individual cattle identification supports disease surveillance, vaccination records, breeding management, and livestock insurance. Although the bovine muzzle provides a stable, non-contact biometric, existing muzzle-recognition systems largely assume a closed set of enrolled animals, limiting their practical deployment. We reformulate cattle muzzle biometrics as an open-set, gallery-based identification problem that can reject previously unseen animals and support incremental enrollment without model retraining. We introduce a leakage-controlled evaluation protocol based on identity-disjoint splits, per-fold retraining, held-out threshold calibration, verified duplicate removal, and bootstrap confidence intervals. We evaluate the framework using two contrasting embedding configurations: a hybrid CNN-ViT metric-learning model and the MegaDescriptor-L foundation model. Under oracle threshold selection, the hybrid model achieves detection-and-identification rates of 98.3%, 96.4%, and 93.6% at target false-acceptance rates of 10^(-1), 10^(-2), and 10^(-3), respectively, while MegaDescriptor-L achieves 99.3%, 98.1%, and 96.1%. However, deployable threshold calibration reveals a substantial difference between oracle and calibrated performance: the hybrid model achieves a false-acceptance rate of 1.03% at a 1% target, whereas MegaDescriptor-L reaches 2.44%. Incremental enrollment further achieves Rank-1 accuracy above 91% with a single reference image and up to 97.3% with eight reference images, without retraining the model or degrading the existing gallery. These results demonstrate that threshold calibration, leakage control, and embedding quality are critical for reliable open-set cattle identification and provide a practical evaluation framework for deployment-oriented animal biometric systems.",
-   "affiliations": [],
+   "affiliations": [
+    "Map Mentors Department of Electronics School of Environmental,Lalitpur, Nepal and Computer Engineering Civil, Agricultural andFort Valley State University",
+    "Tribhuvan University, Nepal Mechanical EngineeringFort Valley, GA, USA"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 9,
+   "institutions": [
+    "Agricultural andFort Valley State University",
+    "Tribhuvan University"
+   ],
+   "institution_ids": [
+    null,
+    "02rg1r889"
+   ],
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.28663",
@@ -67,11 +81,11 @@
    "institution_ids": [
     "02qyf5152"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -145,11 +159,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.28669",
@@ -315,11 +329,11 @@
    "institution_ids": [
     "04tj63d06"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -373,11 +387,11 @@
    "institution_ids": [
     "04tj63d06"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -671,11 +685,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.28680",
@@ -790,11 +804,11 @@
     null,
     "010nsgg66"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -950,11 +964,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.28689",
@@ -1568,18 +1582,25 @@
    "affiliations": [
     "School of Information Technology, Monash University, Selangor, Malaysia"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
    "institutions": [
     "Monash University"
    ],
    "institution_ids": [
     "02bfwt286"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -1776,11 +1797,11 @@
     "01a77tt86",
     "03angcq70"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -1917,11 +1938,11 @@
     "0160cpw27",
     "00ayhx656"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -2058,11 +2079,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.28814",
@@ -2147,11 +2168,11 @@
     null,
     "04v76ef78"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -2470,11 +2491,11 @@
     null,
     "035b05819"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -2584,11 +2605,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.28982",
@@ -2888,11 +2909,11 @@
    "institution_ids": [
     "046865y68"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -3210,11 +3231,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.29113",
@@ -3675,11 +3696,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.29160",
@@ -3759,8 +3780,7 @@
    "abstract": "In this work, we introduce a novel tensor-based functional for targeted image enhancement and denoising. Via explicit regularization, our formulation incorporates application dependent and contextual information using first principles. Few works in literature treat variational models that describe both application dependent information and contextual knowledge of the denoising problem. We prove the existence of a minimizer and present results on tensor symmetry constraints, convexity, and geometric interpretation of the proposed functional. We show that our framework excels in applications where nonlinear functions are present such as in gamma correction and targeted value range filtering. We also study general denoising performance where we show comparable results to dedicated PDE-based state of the art methods.",
    "affiliations": [
     "Heidelberg University",
-    "Heidelberg Collaboratory for Image Processing (HCI)",
-    "Im Neuenheimer Feld 205, 69 120 Heidelberg, Germany",
+    "Heidelberg Collaboratory for Image Processing (HCI), Im Neuenheimer Feld 205, 69 120 Heidelberg, Germany",
     "Linköping University",
     "Department of Electrical Engineering, 581 83 Linköping, Sweden",
     "Department of Science and Technology, 581 83 Linköping, Sweden"
@@ -3769,7 +3789,6 @@
    "institutions": [
     "Heidelberg University",
     "Heidelberg Collaboratory for Image Processing (HCI)",
-    null,
     "Linköping University",
     null,
     null
@@ -3777,20 +3796,19 @@
    "institution_ids": [
     "038t36y30",
     null,
-    null,
     "05ynxx418",
     null,
     null
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.29164",
@@ -3828,11 +3846,11 @@
    "institution_ids": [
     "011gmn932"
    ],
-   "extractor": 7,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -3996,11 +4014,11 @@
     "01j33xk10",
     "05trd4x28"
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
@@ -4088,11 +4106,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.29187",
@@ -4457,11 +4475,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.29230",
@@ -4505,11 +4523,11 @@
     null,
     null
    ],
-   "extractor": 9,
+   "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-11-10"
     },
     "institutions": {
      "source": "ror",
