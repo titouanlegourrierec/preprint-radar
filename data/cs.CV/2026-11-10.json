@@ -16,11 +16,11 @@
     "Computation and Language (cs.CL)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "Preprint v1 (2026-10-21). 11 pages, 4 figures, 6 tables. A corrected-prompt retrain of the REALCOUNT adaptation arms is in progress; v2 will update those results. Comments welcome",
+   "comments": "13 pages, 4 figures, 8 tables. Preprint v2 (2026-11-10). Corrected-prompt retrain; Tables 5-8 updated; Appendix A item 5 closed. Comments welcome",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.09949v1",
+   "html_url": "https://arxiv.org/html/2611.09949v2",
    "abstract": "Video LLMs fail conspicuously at counting how many times an object crosses the screen, a failure attributed to missing object permanence. Using construction-grounded synthetic testbeds with independently validated labels, we show this attribution is incomplete: the count signal is present but unread - linear probes decode per-window presence at 93% while global count decoding collapses to a duration confound. Concurrent work reports the same representation-output dissociation for repetition counting; we show that in exit-and-reappear event counting it is repairable: two readout-directed repairs (episode-localization supervision and a discrete event-symbol side channel) raise same-object counting from 46.7% to 65.0% (oracle 66.7%) on a chance-33% benchmark across 7B-30B systems. Transfer to an independent factory costs nothing, and an audit of the measurement apparatus exposes four data-integrity failures that had obscured the boundary. A real-video audit (REALCOUNT, n=18, blind-audited) shows the boundary persists - best 55.6% at chance 33.3% - and symbol transfer fails zero-shot. A 1-epoch in-domain adaptation bench is negative (six levers at 28-50%), but a 3-epoch schedule shows this is budget-limited for the symbol channel: with a 3-epoch schedule and sequence-disjoint oracle timelines the reader reaches 94.4% on REALCOUNT, and with the deployed detector's timelines a 2-epoch run reaches 72.2%. The residual gap is detector evidence and the reader's match to detector noise, not reader capacity: a frozen-feature boundary probe finds the signal weak (AUC 0.62 over a 0.51 permutation control) and non-transferring across clips (0.77 within-clip vs. 0.62 across windows).",
    "affiliations": [
     "Independent Researcher"
@@ -518,11 +518,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Robotics (cs.RO)"
    ],
-   "comments": "16 pages, 10 figures, CoRL Workshop",
+   "comments": "14 pages, 8 figures, CoRL Workshop",
    "journal_ref": null,
    "venue": "CoRL Workshop",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.09964v1",
+   "html_url": "https://arxiv.org/html/2611.09964v2",
    "abstract": "Pretrained vision language action (VLA) models show strong zero-shot performance, but are rarely deployed directly and are often first post-trained on demonstrations from the target setting. Yet VLAs are typically compared by zero-shot or full-data fine-tuned success, revealing little about the data and compute required for adaptation. We study adaptation efficiency for six VLAs ($π_{0}$, $π_{0.5}$, and GR00T N1-N1.7) on four LIBERO suites, varying both demonstrations and training steps. This reveals differences hidden by full-data fine-tuning: models within two points on the full LIBERO-Spatial dataset differ by up to 3× in success with 50 demonstrations. $π_{0.5}$ needs 2–5× fewer demonstrations than $π_{0}$ and is the most sample-efficient model at every budget, with the largest gap on the long-horizon suite. Within GR00T, N1.5 adapts more efficiently than N1.6 and N1.7 on three of four suites, despite their stronger zero-shot performance. We study one pretraining factor behind these differences by freezing the VLM during finetuning: this severely degrades the π models, whose VLM is jointly trained with the action expert during pretraining, but barely affects GR00T models. Finally, validation loss on held-out demonstrations tracks closed-loop success within a suite, but understates how much more sample-efficient $π_{0.5}$ is than $π_{0}$.",
    "affiliations": [
     "Stanford University",
@@ -3526,7 +3526,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.10441v1",
+   "html_url": "https://arxiv.org/html/2611.10441v2",
    "abstract": "Visual data are often expressed through multiple complementary modalities (e.g., images and segmentation masks), each capturing different aspects of the same underlying structure. Most existing multimodal methods adopt a top-down paradigm, learning a shared latent variable through joint training from scratch, which limits scalability. We propose Split and Bridge (SnB), a bottom-up framework for multimodal generation that couples pretrained unimodal diffusion models at sampling time. Rather than learning a unified latent space, SnB generates coherent multimodal samples by following a shared diffusion trajectory up to a split point and then branching into modality-specific trajectories guided by a bridge module. This design enables plug-and-play reuse of powerful pretrained models without joint training, making it scalable and easily adaptable. Across standard benchmarks (PolyMNIST, CelebAMask-HQ) and more complex settings (PIE-Bench++, ROCO), SnB achieves a strong balance between sample quality and coherence. We show that SnB naturally extends to downstream zero-shot tasks such as interleaved co-generation, image editing, and style coupling/decoupling. Our results demonstrate that bottom-up generation provides a practical framework that complements existing top-down multimodal approaches. Code is available at https://github.com/AhmadArrabi/SnB",
    "affiliations": [
     "Department of Computer Science, University of Vermont",
@@ -8783,22 +8783,30 @@
     "Dingning Luo",
     "Shuo Dou",
     "Tong Jiang",
+    "Zhenhua Duan",
+    "Jiachen Zhu",
     "Xianfeng Li"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "15 pages, includes supplementary material",
+   "comments": "10pages, unincludes supplementary material",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.11378v1",
+   "html_url": "https://arxiv.org/html/2611.11378v2",
    "abstract": "Salient and camouflaged object detection (SOD and COD) both recover foreground support, yet most joint methods output only a binary mask and therefore cannot distinguish the type. USC12K distinguishes the two types, but its baseline USCNet still binds foreground existence to the type within a single normalization, so the failure source cannot be attributed. Our cross-task study shows that foreground localization transfers between SOD and COD, whereas type discrimination does not: a COD-only model recovers foreground on SOD images but its type judgement follows the training distribution rather than the foreground-background relation, so the two decisions require separate mechanisms. SegDis factorizes the output into an explicit foreground probability and a conditional type probability given foreground: FLR provides high-quality task-agnostic support, and RTA refines the SOD/COD assignment from the foreground-background relation without a task identifier. Because support is explicit, each ground-truth foreground pixel is classified as correct-type, type-swapped, or missed, so foreground-recovery and type-assignment errors are diagnosed separately. With PVT-v2-B2, SegDis attains 68.98% FG-mIoU and 78.35% mIoU on USC12K at about one-eighth of USCNet's parameters; CSCS is 5.75.",
    "affiliations": [
     "Macau University of Science and Technology"
    ],
    "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
     [
      0
     ],
@@ -8822,11 +8830,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-10"
+     "at": "2026-11-11"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-10"
+     "at": "2026-11-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.11378",
@@ -10633,7 +10641,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "eess.IV",
-   "html_url": "https://arxiv.org/html/2611.10091v1",
+   "html_url": "https://arxiv.org/html/2611.10091v2",
    "abstract": "Speckle is an inherent characteristic of synthetic aperture radar (SAR) imagery that complicates image interpretation and the extraction of reliable information. Although deep-learning-based despeckling methods have demonstrated promising performance, their applicability across different polarimetric configurations is often limited by the need for specialized architectures or separate training procedures. This paper presents a unified deep-learning framework for despeckling single-, dual-, and full-polarization SAR data using a single trained convolutional neural network. The proposed approach adopts a common nine-channel representation of the polarimetric covariance matrix and a polarization-aware masking strategy to accommodate different configurations without modifying the network architecture. Qualitative and quantitative comparison on three different scenes from different sensors demonstrate competitive performance across the considered experiments and support the feasibility of a unified, polarization-flexible approach to SAR despeckling across different polarimetric configurations.",
    "affiliations": [],
    "author_affiliations": null,
@@ -11578,11 +11586,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "Accepted at NeurIPS 2026",
+   "comments": "Accepted at NeurIPS 2026. Gregory and Minh contributed equally",
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": "cs.AI",
-   "html_url": "https://arxiv.org/html/2611.10552v1",
+   "html_url": "https://arxiv.org/html/2611.10552v2",
    "abstract": "Multimodal Large Language Models (MLLMs) inherit strong textual reasoning capabilities from their language backbones and text pretraining, but often fail to apply the same level of competency to visual inputs. We show that this degradation cannot be attributed to only perception failures, by evaluating models on semantically-equivalent text and rendered-text image inputs: models can accurately read text in the images and recover near-text performance when provided their own transcriptions, but just cannot reason well on the images directly. We characterize this discrepancy as a modality reasoning-access gap, where models fail to route perceived visual content into existing reasoning machinery accessible with text. To bridge this, we propose TIGER (Text-to-Image Gap-targeted training for Enhanced Reasoning), which first mines synthetic modality counterfactuals where a model succeeds on a text problem but fails when provided the corresponding rendered image, and post-trains the model on the image input via Group Relative Policy Optimization (GRPO), along with SFT and DPO variants. Importantly, although trained exclusively on synthetic rendered-text images with no multimodal annotations, TIGER results in model performance improvements across diverse real-world visual benchmarks including geometric diagrams (MathVerse), multi-disciplinary sciences (EMMA, MMMU), complex charts (ChartQAPro), and embodied spatial reasoning (RoboSpatial-Home). TIGER also complements existing state-of-the-art RLVR visual reasoning methods, yielding further performance gains. Analysis involving reasoning-subspace activation and activation patching provide support indicating that TIGER helps to align visual-to-reasoning pathways toward text reasoning states. Our implementation is available at https://github.com/minhngh/Tiger.",
    "affiliations": [
     "Department of Computer Science, National University of Singapore, Singapore"
@@ -11690,7 +11698,7 @@
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": "cs.LG",
-   "html_url": "https://arxiv.org/html/2611.10655v1",
+   "html_url": "https://arxiv.org/html/2611.10655v2",
    "abstract": "Continual learning suffers from catastrophic forgetting, leading to the loss of past knowledge and unstable adaptation across task streams. Existing approaches typically address this issue through replay buffers, architectural changes, or additional regularization terms. We argue that forgetting is a consequence of unstable learning dynamics, which may benefit from an optimizer-level solution. The main challenge is that learning dynamics are time-dependent, as demonstrated by empirical phenomena such as the stability gap. First, we formally prove that, for distance-based classifiers, bounded parameter drift guarantees bounded margin erosion under a local score-stability condition. Based on this insight, we propose STABLE, a primal-dual optimizer with adaptive drift control. STABLE enforces a drift budget by increasing the dual variable when the budget is violated and decreasing it otherwise. This results in high stability without penalizing plasticity. Experiments on long-horizon unimodal streams and CLIP-based multimodal streams show that vanilla PEFT baselines trained with STABLE match or outperform specialized continual learning methods. In the multimodal setting, STABLE further preserves zero-shot transfer, matching or exceeding dedicated multimodal continual learning methods.",
    "affiliations": [
     "Department of Computer Science, University of Pisa",
@@ -13857,7 +13865,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.12657v1",
+   "html_url": "https://arxiv.org/html/2611.12657v2",
    "abstract": "Sliced inference such as SAHI is the standard remedy for small objects in high-resolution imagery, but its gains are usually measured against low-resolution baselines. We revisit sliced inference with scale as the explicit variable and ask when tiling actually pays off. We compare seven dense detectors from four families on VisDrone and DOTA, under pre-specified hypotheses, calibration-only tuning and a single evaluation on held-out test data. Two findings emerge. First, much of the benefit attributed to slicing is a resolution effect: on VisDrone, a single pass trained at a higher resolution outperforms tiling with box fusion (merging decoded boxes) for every detector that could be trained at that resolution, and at equal compute a higher resolution helps more than a larger model. Second, tiles carry complementary information that box fusion wastes. We introduce SCAHI (Slicing with Coverage-Aware Hyper Inference), which accumulates the dense outputs of all passes with weights that give every image position the same total coverage, and reads objects off a peak grid fine enough to keep crowded neighbours apart. On identical passes, SCAHI outperforms box fusion for every YOLO detector on both datasets and matches it for FCOS. On DOTA, whose images far exceed the resolution a single pass can be trained at, tiles with SCAHI beat the best single pass for every detector, by 4.3 to 5.6 mAP50 at 2048 px, and replacing only SAHI's merge step by SCAHI adds 2.3 to 4.0 mAP50. An ablation attributes the gain to the border weighting and the resolution of the peak grid. Source code is available at https://github.com/beckerio/scahi.",
    "affiliations": [
     "Fraunhofer IOSB, Ettlingen, Germany"
@@ -16931,7 +16939,7 @@
     "Wenshuo Tao",
     "Zhuo Huang",
     "Shuo Chen",
-    "Mingming Cheng",
+    "Ming-Ming Cheng",
     "Xiang Li"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
@@ -16942,7 +16950,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.11824v1",
+   "html_url": "https://arxiv.org/html/2611.11824v2",
    "abstract": "When a vision-language model encounters a new class or domain, how much should it trust its learned prompts? Because source adaptation can correct pretrained errors on some target images while disturbing valid predictions on others, we introduce Contextual Adaptive Fusion (CAF), which retains four prediction branches by pairing frozen and prompted visual and textual representations. To arbitrate when branches disagree on an image, CAF combines each branch's predictive confidence with how frequently the branches favor its proposed class across the unlabeled target collection, placing greater trust in predictions that are locally confident yet less dominated by collection-wide frequency bias. The fusion coefficients are learned once on source data and remain fixed at inference. Trained on ImageNet, CAF achieves 69.96% average accuracy across ten cross-dataset benchmarks (1.92 percentage points above ManiPT) and remains highly competitive across four ImageNet variants, setting a new best of 52.21% on ImageNet-S. In base-to-novel transfer across eleven datasets, CAF further reaches 79.77% novel-class accuracy and an 82.81% harmonic mean. Code is available at https://github.com/zhenyuanchenai/CAF.",
    "affiliations": [
     "VCIP, College of Computer Science, Nankai University, China",
@@ -16965,6 +16973,7 @@
      4
     ],
     [
+     1,
      0
     ],
     [
@@ -16991,11 +17000,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-10"
+     "at": "2026-11-11"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-10"
+     "at": "2026-11-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.11824",
@@ -17007,6 +17016,8 @@
    "title": "Direct Trajectory Optimization for Inference-Time Alignment of Text-to-Image Diffusion Models",
    "authors": [
     "Huixuan Zhang",
+    "Li Lin",
+    "Junzhe Zhang",
     "Xiaojun Wan"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
@@ -17018,12 +17029,18 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.11821v1",
+   "html_url": "https://arxiv.org/html/2611.11821v2",
    "abstract": "Alignment of text-to-image diffusion models with reward functions is a key challenge in controllable generation. Existing approaches typically rely on optimizing model inputs or fine-tuning denoising networks, which requires computationally expensive backpropagation through large denoising models. In this work, we propose Direct Trajectory Optimization (DTO), a training-free framework that performs alignment by directly optimizing the sampling trajectory of diffusion models. Specifically, DTO treats intermediate denoising scores and sampled noise as the optimization variables, eliminating the need for gradients through the denoising network. To mitigate the out-of-distribution problem, we introduce Reward-Optimized Score Guidance, which interpolates between the optimized scores and the pretrained model predictions to stabilize sampling, while providing a provable theoretical guarantee of reward improvement under constrained distributions. Empirically, DTO improves alignment performance across three diffusion models on two benchmarks, outperforming existing inference-time alignment methods while maintaining high efficiency. These results suggest that trajectory-level optimization is a promising direction for efficient and effective diffusion model alignment.",
    "affiliations": [
     "Wangxuan Institute of Computer Technology, Peking University"
    ],
    "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
     [
      0
     ],
@@ -17041,11 +17058,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-10"
+     "at": "2026-11-11"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-10"
+     "at": "2026-11-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.11821",

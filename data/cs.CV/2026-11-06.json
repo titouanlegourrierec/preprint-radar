@@ -2008,7 +2008,8 @@
    "title": "Towards Scalable Diagnostic-Driven Whole-Slide Image Retrieval for Pathology Archives",
    "authors": [
     "Jingsong Liu",
-    "Youssef Wally Han Li",
+    "Youssef Wally",
+    "Han Li",
     "Weiwei Zhou",
     "Jing Dai",
     "Elisabeth Wetzer",
@@ -2023,7 +2024,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.07935v1",
+   "html_url": "https://arxiv.org/html/2611.07935v2",
    "abstract": "The growing adoption of digital pathology has rapidly expanded collections of hematoxylin-and-eosin whole-slide images, yet efficient navigation through these archives remains challenging, as metadata is often inconsistent or unavailable. Content-based image retrieval addresses this challenge by identifying similar cases directly from visual representations instead of manual annotations or metadata. Existing retrieval systems have demonstrated promising performance but largely rely on handcrafted indexing pipelines and predefined sampling strategies, constraining scalability and generalization. Here, we present CLEAR-WSI (Constant-Length Embedding for Automatic Retrieval of Whole-Slide Images) as a scalable, diagnostic-driven slide-retrieval framework, validated on both public and clinical data. Using a fixed-length slide embedding, CLEAR-WSI refines retrieved candidates with either a predicted diagnostic label or the ground-truth label, depending on the retrieval setting. Newly processed cases are subsequently added to the expanding memory bank, allowing the retrieval archive to grow over time. On a comprehensive benchmark consisting of two public and one private clinical datasets representing four retrieval tasks, CLEAR-WSI improves Precision@5 over the strongest evaluated baseline, with gains on CAMELYON16 (3.10), BRACS-1 (2.75), BRACS-2 (1.95), and X-HER2 (3.75). Additional ablation and latency studies further examine the contribution of each component and highlight its potential for scalable deployment.",
    "affiliations": [],
    "author_affiliations": null,
@@ -2032,7 +2033,7 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-06"
+     "at": "2026-11-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.07935",

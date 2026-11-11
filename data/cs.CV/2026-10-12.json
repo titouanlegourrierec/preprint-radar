@@ -1161,7 +1161,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-12"
+     "at": "2026-11-11"
     },
     "institutions": {
      "source": "openalex",
@@ -3680,17 +3680,39 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Currently, the animal production sector is undergoing rapid development of techniques that allow automatic monitoring of animal behaviour and health. This paper presents a computer vision-based approach for the automatic recognition of labor contractions in cows. During the course of the study, videos depicting 100 cow births were collected. From the obtained videos, 8500 cow contraction actions and about 25 000 non-contraction sequences were extracted which constituted the dataset. Leveraging image processing techniques and deep learning algorithms like Convolutional Neural Networks (CNNs) and Vision Transformers (ViTs), our methodology extracts relevant features from video frames to detect and classify contractions. Our study demonstrates a high accuracy rate of over 95% in detecting labor contractions. This automated system has the potential to enhance productivity and animal welfare in the dairy industry by providing real-time monitoring and facilitating timely intervention during difficult calvings. The video demonstration of the system can be found at the following URL: https://www.youtube.com/watch?v=8fTSG5D7dZ0",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Warsaw University of Life Sciences",
+    "Warsaw University of Technology"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Warsaw University of Life Sciences",
+    "Warsaw University of Technology"
+   ],
+   "institution_ids": [
+    "05srvzs48",
+    "00y0xnp53"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-12"
+     "at": "2026-11-11"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-12"
+     "at": "2026-11-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.13242",
@@ -4508,17 +4530,32 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Image-based 3D reconstruction provides a scalable representation for building inspection and maintenance. However, photorealistic reconstruction alone does not fully provide the geometric measurability, semantic structure, and interactive information access required for engineering applications. This study proposes a measurable semantic 3D Gaussian Splatting (3DGS) framework with region and depth supervision for interactive building inspection from multi-view imagery. Mask-based region supervision suppresses irrelevant backgrounds and focuses optimization on target regions. Point-wise depth supervision guides Gaussian centers toward physical surfaces using reference geometry derived from multi-view stereo (MVS) point clouds, providing geometric anchors for measuring physical dimensions and areas. A semantic Gaussian field associates learnable class features with individual Gaussian primitives, enabling semantic rendering and component-level inspection. These capabilities are operationalized through AEC-SplatTwin, an interactive building inspection platform supporting real-time visualization, semantic analysis, quantitative measurement, and multimodal large language model (MLLM)-assisted interaction. On the synthetic UAV-inspection QuakeCity and smartphone-captured HKUPB datasets, the framework reduces Gaussian-center depth MAE by 58.1% and 86.8%, while its semantic field achieves mIoU values of 0.8529 and 0.8642. On HKUPB, the mean relative errors for height, width, and area measurements are 0.33%, 1.07%, and 0.60%. These results show that the proposed framework extends 3DGS beyond visual reconstruction into a measurable, semantically structured, and interactive engineering representation for building inspection.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Hong Kong"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "University of Hong Kong"
+   ],
+   "institution_ids": [
+    "02zhqgq86"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-12"
+     "at": "2026-11-11"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-12"
+     "at": "2026-11-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.13143",
@@ -7789,17 +7826,46 @@
    "cross_list_from": "cs.RO",
    "html_url": null,
    "abstract": "Generalist robot policies are trained with imitation learning and are bounded by the quality and coverage of their demonstrations. Reinforcement learning can improve and extend them, either by fine-tuning the policy weights or by training a small module to steer the input noise of a frozen generative policy. When tasks arrive sequentially, both approaches suffer from catastrophic forgetting. Fine-tuning on a task degrades prior tasks, and steering only shifts forgetting to the shared steering module. We propose Dream to Remember (D2R), which continually steers a frozen generalist policy toward new tasks, while retaining its earlier skills. As the steering module learns a new task, a frozen pretrained world model rehearses prior tasks through imagined rollouts, anchoring the module to its earlier behavior without a replay buffer or new data. When the world model is faithful enough, D2R learns the new task entirely in imagination. Otherwise, it learns the task in the environment while using the world model only to rehearse prior tasks. On CALVIN, D2R improves eight tasks in sequence entirely in imagination, raising average success from 63.7% to 74.8%, while LoRA fine-tuning on the same sequence drops it to 11.7%. With a frozen off-the-shelf generalist policy and world model, $π_0$ and A2World, D2R learns unseen LIBERO-90 tasks in the environment while keeping $π_0$'s performance on the LIBERO suites it was fine-tuned on, even though the world model is not accurate enough for policy optimization. Finally, on a real Franka robot, D2R improves three tasks in sequence entirely in imagination while retaining the earlier improvements.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Freiburg",
+    "Technical University of Munich"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Freiburg",
+    "Technical University of Munich"
+   ],
+   "institution_ids": [
+    "0245cg223",
+    "02kkvpp62"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-12"
+     "at": "2026-11-11"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-12"
+     "at": "2026-11-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.13816",
@@ -7996,17 +8062,59 @@
    "cross_list_from": "eess.IV",
    "html_url": null,
    "abstract": "Machine learning models are increasingly used for automated feature extraction from weakly annotated bioimaging data, such as microscopy and cytomorphology images. Due to the sole dependency of automated feature extraction, existing methods yield inconsistent classification performance across weakly annotated datasets. Here, we propose a model-agnostic knowledge augmentation method that enables ML models to exploit domain knowledge beyond what automated feature extraction can capture. The proposed approach improves classification performance across seven ML architectures. When integrated with masked autoencoder-based self-supervised learning, our method achieves the strongest overall performance, improving precision by 2.9% over the next-best method on three in-house microscopy datasets and by an average of 6.8% across three public cytomorphology benchmarks. We perform nucleus-level classification based on mislocalization of TAR DNA-binding protein 43 (TDP-43) from the nucleus to the cytoplasm, a phenotype linked to Amyotrophic Lateral Sclerosis (ALS), using three independent microscopy datasets of motor neurons derived from human induced pluripotent stem cells. Accurate quantification of this phenotype at scale remains challenging and may contribute to inconsistencies across studies. Application of the best-performing model to these microscopy datasets reveals biological interpretations related to ALS, including dose-dependent effects of the proteasomal stressor, MG132, and the oxidative stressor, sodium arsenite (SA), on TDP-43 mislocalization, variable pathology in motor neurons from sporadic and familial ALS donors, and a lack of protection of the pharmacological compounds, edaravone and niclosamide, against SA-induced TDP-43 mislocalization. Together, our pipeline enables in-vitro cellular image analysis to advance understanding of ALS-associated pathology and potential treatments.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Melbourne",
+    "University of Sydney",
+    "University of Wollongong",
+    "Florey Institute of Neuroscience and Mental Health"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    null,
+    null,
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Melbourne",
+    "University of Sydney",
+    "University of Wollongong",
+    "Florey Institute of Neuroscience and Mental Health"
+   ],
+   "institution_ids": [
+    "01ej9dk98",
+    "0384j8v12",
+    "00jtmb277",
+    "03a2tac74"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-12"
+     "at": "2026-11-11"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-12"
+     "at": "2026-11-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.13637",
