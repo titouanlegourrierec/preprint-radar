@@ -8438,7 +8438,7 @@
   {
    "arxiv_id": "2611.05843",
    "announced": "2026-11-05",
-   "title": "Dual Flow: Joint Image-Measurement Flow for Inverse Problems",
+   "title": "Dual Flow: Joint Image-Measurement Interpolation for Inverse Problems",
    "authors": [
     "Sevket Ege Yesilyurt",
     "Figen S. Oktem"
@@ -8448,7 +8448,7 @@
     "Image and Video Processing (eess.IV)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "17 pages, 8 figures. Our code is available at https://github.com/METU-SPACE-Lab/Dual-Flow",
+   "comments": "20 pages, 9 figures. Our code is available at https://github.com/METU-SPACE-Lab/Dual-Flow",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "eess.IV",
@@ -8539,8 +8539,7 @@
    "announced": "2026-11-05",
    "title": "When can multi-fragment 2D/3D registration be trusted? Calibrated certification and uncertainty-driven view planning for pelvic fracture fluoroscopy",
    "authors": [
-    "Bowen Xiang",
-    "Michael I. Miga"
+    "Bowen Xiang"
    ],
    "primary_subject": "Image and Video Processing (eess.IV)",
    "subjects": [
@@ -8551,15 +8550,12 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "eess.IV",
-   "html_url": "https://arxiv.org/html/2611.05618v1",
+   "html_url": "https://arxiv.org/html/2611.05618v2",
    "abstract": "Registering a segmented CT to fluoroscopy can locate every fracture fragment but can guide surgery only when trusted. After each shot, our closed loop registers all fragments, bounds their errors with a calibrated sandwich covariance, flags implausible or ambiguous ones, and stops or plans the next view. On simulated fluoroscopy of 60 held-out fracture CTs with realistic image uncertainty, 95% bounds covered 83% of unflagged fragments and 91% of those within 5mm, but from the second view on 14% failed by over 5mm, a third with bounds of at most 2mm. A fragment's shift when a view was added separated tightly bounded failures best (exploratory; AUC 0.94, bound 0.81). Requiring that the newest view moved no fragment beyond its bound, preferred post hoc, lowered false stops at 2mm from 23% to 6% overall, with 345 instead of 362 correct ones but more trajectories uncertified; delaying the stop did not, and other signals at equal acceptance left 10-15% false. With a segmentation error shared by all views (median Dice 0.89), 21% of this rule's stops were false against 10% without it (15 cases; exploratory). Minimax planning certified sooner than the clinical protocol without the check (4.20 versus 4.72 shots, Holm p <0.001), but no criterion reached the pre-specified endpoint, a true 2mm error, significantly sooner, even in the true basin. On real fluoroscopy of five intact pelves no 2mm certificate was false. Trust takes evidence across views, not only a calibrated local bound.",
    "affiliations": [
     "Department of Biomedical Engineering, Vanderbilt University, 2301 Vanderbilt Place, Nashville, TN 37235, USA"
    ],
    "author_affiliations": [
-    [
-     0
-    ],
     [
      0
     ]
@@ -8574,11 +8570,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-05"
+     "at": "2026-11-13"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-05"
+     "at": "2026-11-13"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.05618",

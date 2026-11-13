@@ -13087,11 +13087,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Robotics (cs.RO)"
    ],
-   "comments": null,
+   "comments": "Project page (https://char-lotte-xia.github.io/swam-official/). Paper (https://arxiv.org/abs/2611.12870). Code (https://github.com/shaaaaron/SWAM). Hugging Face paper page and discussion (https://huggingface.co/papers/2611.12870)",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.12870v1",
+   "html_url": "https://arxiv.org/html/2611.12870v2",
    "abstract": "World action models jointly predict video and actions conditioned on language. Existing studies focus primarily on architectures and training mechanisms, typically treating language-video alignment acquired through video pretraining as an established foundation. However, introducing action learning may impair this alignment. Principled guidance on data and supervision design for maintaining language-video alignment during action learning remains limited. To investigate this, we curate a pool of approximately 47,000 hours of general videos, egocentric videos, UMI demonstrations, and robot demonstrations. Building on this, we systematically study how language-video supervision, language-video-action supervision, and the joint use of these two forms affect WAM performance. In particular, we examine how language annotation quality affects pretrained language-video capabilities, and how action supervision from UMI and robot demonstrations extends these capabilities to language-video-action modeling. To better scale the model, we further conduct detailed studies on joint training recipe and model architecture. Under a fixed training budget, mixing egocentric videos and UMI demonstrations improves control generalization. Model architecture affects how effectively these experiences are used, while scaling pretraining under the selected configuration brings further gains. The resulting recipe, post-trained on RoboTwin Clean demonstrations only, achieves success rates of 88.10% and 61.56% under Easy (Clean-to-Clean) and Hard (Clean-to-Random) conditions, respectively. Our model achieves 40.00% SR across three real-world tasks, compared with 23.33% for the strongest baseline, indicating better generalization under unseen conditions. We release the curated data, training code, and model weights.",
    "affiliations": [],
    "author_affiliations": null,
@@ -13865,7 +13865,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.12657v2",
+   "html_url": "https://arxiv.org/html/2611.12657v3",
    "abstract": "Sliced inference such as SAHI is the standard remedy for small objects in high-resolution imagery, but its gains are usually measured against low-resolution baselines. We revisit sliced inference with scale as the explicit variable and ask when tiling actually pays off. We compare seven dense detectors from four families on VisDrone and DOTA, under pre-specified hypotheses, calibration-only tuning and a single evaluation on held-out test data. Two findings emerge. First, much of the benefit attributed to slicing is a resolution effect: on VisDrone, a single pass trained at a higher resolution outperforms tiling with box fusion (merging decoded boxes) for every detector that could be trained at that resolution, and at equal compute a higher resolution helps more than a larger model. Second, tiles carry complementary information that box fusion wastes. We introduce SCAHI (Slicing with Coverage-Aware Hyper Inference), which accumulates the dense outputs of all passes with weights that give every image position the same total coverage, and reads objects off a peak grid fine enough to keep crowded neighbours apart. On identical passes, SCAHI outperforms box fusion for every YOLO detector on both datasets and matches it for FCOS. On DOTA, whose images far exceed the resolution a single pass can be trained at, tiles with SCAHI beat the best single pass for every detector, by 4.3 to 5.6 mAP50 at 2048 px, and replacing only SAHI's merge step by SCAHI adds 2.3 to 4.0 mAP50. An ablation attributes the gain to the border weighting and the resolution of the peak grid. Source code is available at https://github.com/beckerio/scahi.",
    "affiliations": [
     "Fraunhofer IOSB, Ettlingen, Germany"
@@ -14962,11 +14962,11 @@
     "Jiahao Wang",
     "Qiankai Xu",
     "Bing Yuan",
-    "Jinze Bai",
-    "Youbin Wu",
     "Jingjia Huang",
     "Ruyang Liu",
-    "Yanxu Hu"
+    "Yanxu Hu",
+    "Yufeng Zhou",
+    "Yi Lin"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
@@ -15172,7 +15172,7 @@
   {
    "arxiv_id": "2611.12144",
    "announced": "2026-11-10",
-   "title": "DisasterVL: Evidence-Based Visual Reasoning Dataset and Model for Disaster Scene Understanding",
+   "title": "DisasterVLG: Vision-Language Grounding and Evidence-Based Reasoning for Disaster Scene Understanding",
    "authors": [
     "Ali Diba",
     "Aisha Al-Mohannadi",
@@ -15188,7 +15188,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.12144v1",
+   "html_url": "https://arxiv.org/html/2611.12144v2",
    "abstract": "We introduce DisasterVL, a dataset and benchmark for evidence-grounded reasoning about disaster imagery. It contains approximately 1.2 million images from 142 countries, paired with 25 million structured annotations covering scene captions, incident and location assessments, spatial relationships, and visual question answering (VQA). The VQA annotations link answers to visible evidence and include questions about both present and absent cues, multiple answer formats, and difficulty labels. Region-level annotations link caption phrases to bounding boxes and spatial relationships to the regions they connect. The test set contains 38,254 images spanning 75 countries and 28 hazard types. Gemini 3.1 Pro audited the test annotations, and human reviewers validated a stratified subset. On this benchmark, the 9B DisasterVLM model outperforms the evaluated general-purpose baselines on captioning, open-ended VQA, incident reasoning, and region-level grounding. Gains in text overlap are larger than gains in evidence scores. We plan to publicly release the dataset, trained models, and code.",
    "affiliations": [
     "Qatar Computing Research Institute, Hamad Bin Khalifa University, Doha, Qatar",
@@ -18708,7 +18708,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2611.12038v1",
+   "html_url": "https://arxiv.org/html/2611.12038v2",
    "abstract": "This paper presents DPGS-SLAM (Diffusion-Prior and Provenance-Aware Monocular Gaussian Splatting SLAM) for dense mapping in environments containing dynamic objects. Dynamic observations can contaminate camera tracking and scene reconstruction in visual SLAM (simultaneous localization and mapping). Although 3DGS (3D Gaussian splatting) enables efficient dense mapping, existing 3DGS-SLAM systems may exhibit instability when dynamic objects violate their underlying static-scene assumption. Excluding dynamic observations can reduce their influence on tracking and mapping, but may leave occluded static backgrounds missing or weakly constrained. Our proposed DPGS-SLAM is a monocular RGB SLAM framework that supports provisional representations of insufficiently observed static backgrounds through asynchronous diffusion-based background completion and provenance-aware Gaussian mapping. Dynamic regions are identified through optical-flow-based motion discovery and temporally consistent mask propagation by SAM2 (segment anything model 2). For selected keyframes, a fine-tuned diffusion inpainting model generates plausible background appearance in occluded regions, while Metric3D v2 predicts metric depth from the completed images to initialize provisional Gaussian primitives. Provenance labels distinguish generated primitives from observation-supported primitives, excluding generated content from camera-pose estimation and observed-map optimization. When previously occluded backgrounds become visible, eligible generated primitives are removed, and observation-supported primitives are independently initialized from real RGB observations and predicted depth. Experimental results demonstrated competitive camera tracking, with average ATE RMSE values of 1.2 cm on TUM RGB-D and 2.7 cm on BONN RGB-D. On StaDy4D, DPGS-SLAM improved average PSNR by 4.60 dB over WildGS-SLAM using only monocular RGB input.",
    "affiliations": [
     "Graduate School of Information, Production and Systems, Waseda University, Kitakyushu, Fukuoka 808-0135, Japan",

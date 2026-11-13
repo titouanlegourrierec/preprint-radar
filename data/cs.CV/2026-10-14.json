@@ -2833,17 +2833,46 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Few-step distillation reduces the sampling cost of diffusion and flow models, but existing approaches often require auxiliary score models or specialized architectures. We show that simple on-policy velocity regression already provides a strong foundation for 4-NFE generation. To represent teacher velocity variation within each coarse transition, we introduce Pivot, a training-only residual proxy that separates local corrections from the student's interval-mean prediction. We further repel the student from weaker teacher predictions, providing a lightweight mechanism for avoiding undesirable modes. The resulting framework, Simplified Matching Distillation (SMD), remains entirely regression-based, requires neither online score estimation nor adversarial training, and leaves the deployed generator unchanged. We evaluate SMD on image generation and editing, 3D generation, video synthesis, and joint audio--video generation, scaling to 33 billion parameters. At 4-NFE, SMD outperforms strong few-step baselines and surpasses multi-step teachers on several benchmarks. It also supports cross-model, multi-teacher, and causal-video distillation.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Microsoft",
+    "New York University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null,
+    [
+     0
+    ],
+    null,
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Microsoft",
+    "New York University"
+   ],
+   "institution_ids": [
+    "00d0nc645",
+    "0190ak572"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.18472",
@@ -6843,17 +6872,32 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "3D scene graph prediction is commonly supervised with local object and predicate classification losses. Although effective for slot-wise label prediction, this formulation does not provide a graph-level semantic distance between a predicted scene graph and its ground truth: semantically mild label errors and structurally disruptive relational errors can be treated similarly, and subject-predicate-object facts are not compared as scene-level units. We propose Contextual Hellinger Triplet Geometry, a graph-level supervision objective that measures the semantic and structural discrepancy between 3D scene graphs. Our key idea is to reinterpret the conventional classifier outputs of a 3D scene graph predictor as an aligned probabilistic scene graph field, where object and predicate predictions jointly define contextual subject-predicate-object facts. This formulation yields a differentiable metric-based training objective with an efficient factorized implementation and can be applied to existing 3D scene graph prediction architectures without modifying their network design. Experiments on 3DSSG demonstrate that our supervision improves downstream graph-conditioned 3D scene generation, while ablation studies confirm the complementary roles of the proposed graph-level terms and user studies show better graph descriptiveness, relation plausibility, and structural preservation.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Sookmyung Women's University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Sookmyung Women's University"
+   ],
+   "institution_ids": [
+    "00vvvt117"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.17705",
@@ -6885,7 +6929,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     },
     "institutions": {
      "source": "openalex",
@@ -9153,17 +9197,56 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Automating aerial wildlife surveys requires reliable animal detection, consistent delineation of observation strips, and correction for repeated coverage between successive images. We present a unified three-branch deep learning framework that integrates these tasks through WildSeg, WildMatch and WildDet. WildSeg combines rod segmentation with geometric refinement to delineate counting strips from aircraft-mounted markers. WildMatch uses teacher-student distillation to learn dense image correspondences and identify overlapping survey areas without relying on geolocation metadata. WildDet combines dual-scale detection with feature fusion, density supervision and empty-image gating to support animal detection and counting. We evaluated the framework using oblique aerial imagery of four antelope species from the Great Nile Migration Landscape in South Sudan. WildSeg achieved reliable rod extraction, while WildMatch approached teacher-level accuracy with a substantially lighter and faster model. Both modules maintained high accuracy on resized images, improving processing efficiency. WildDet improved detection performance across all four species and reduced detection-based count MAE, RMSE and mean bias by 21.0%, 4.6% and 27.8%, respectively, relative to YOLO11. By connecting spatial survey constraints with animal detection, the framework provides a practical and computationally efficient approach to processing large aerial image collections for wildlife monitoring and population surveys.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Sun Yat-sen University",
+    "University of Twente",
+    "Princeton University",
+    "University College Cork"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null,
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Sun Yat-sen University",
+    "University of Twente",
+    "Princeton University",
+    "University College Cork"
+   ],
+   "institution_ids": [
+    "0064kty71",
+    "006hf6230",
+    "00hx57361",
+    "03265fv13"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.17067",
@@ -11635,17 +11718,50 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Financial candlestick understanding requires locating visual elements, aligning them across trading dates and panels, and combining observations through numerical and financial reasoning. Answer accuracy alone does not reveal whether predictions are supported by chart evidence. We introduce Code-Interactive Financial Candlestick Reasoning and present Fin-Thinker, a model based on Qwen3.5-9B that generates and executes code to acquire evidence and perform computations. The model uses the returned observations to guide subsequent reasoning. To train these capabilities, we construct FinKLine-32K with 32,184 replay-verified code-observation trajectories collected through teacher-guided student exploration. These include successful solutions with and without error recovery. Our three-stage training framework combines foundational visual-code fine-tuning, financial process supervision of successful reasoning and corrective continuations, and execution-feedback reinforcement learning. For evaluation, we introduce FinKLineBench with 1,200 questions across 138 financial task types to assess answer correctness, code execution, and evidence grounding separately. On FinKLineBench, Fin-Thinker improves strict accuracy by 13.1 and 33.2 percentage points over the best-performing direct-answer baseline among those evaluated and its base model with sandbox access, respectively. Training-stage ablations further show that financial process supervision and execution-feedback reinforcement learning yield successive improvements in both answer accuracy and GPT-5.6-judged grounded accuracy.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Wuhan University",
+    "Nanyang Technological University",
+    "Zhejiang University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Wuhan University",
+    "Nanyang Technological University",
+    "Zhejiang University"
+   ],
+   "institution_ids": [
+    "033vjfk17",
+    "02e7b5302",
+    "00a2xv884"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.16587",
@@ -13719,17 +13835,37 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Automated visual inspection is essential for efficient repair and recycling of metallic components. AI-based defect detection is a strong fit. However, it is often constrained by scarce, low-diversity training data. To address this gap, we study Generative AI-driven synthetic image generation using Progressive Growing GANs (ProGAN). We implement a ProGAN pipeline with Wasserstein loss and gradient penalty and evaluate key hyperparameters on two public datasets, MVTec AD (metal nut) and MPDD (tube). As a result, training remained stable and the model yielded realistic images. These images can augment training data, improve robustness, and reduce the cost of collecting rare defects.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "RWTH Aachen University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "RWTH Aachen University"
+   ],
+   "institution_ids": [
+    "04xfq0f34"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.16287",
@@ -18657,7 +18793,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     },
     "institutions": {
      "source": "openalex",
@@ -19154,17 +19290,40 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The world has seen several threats that include resource depletion, food security, poverty and inequality, difficulties associated with urbanization, migration, and environmental effects. The World Risk Index (WRI) is a metric that is used to measure the susceptibility of nations against natural disasters and related risks that is reported by the Humanitarian Data Exchange. The WRI is comprised of factors such as susceptibility, vulnerability to natural hazards, and coping mechanisms. The WRI index has allowed to recognize regions in advance in order to face threats and situations beforehand. This study was conducted by analyzing the data that was related to years from 2000 to 2025 using data visualization techniques. Python related libraries of Matplotlib, Seaborn, and Geopandas were used due to their efficiency and usability in analyzing WRI data. As per the analysis, it was identified that countries of Philippines, Mexico, Indonesia, and India were recorded with high WRI index values that showed these nations should be prepared for natural disasters and situations. Hence, this study has provided insights using data visualization techniques in understanding natural disasters and threats so that necessary measures can be taken",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Sri Lanka Institute of Information Technology",
+    "University of Helsinki",
+    "University of Peradeniya"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Sri Lanka Institute of Information Technology",
+    "University of Helsinki",
+    "University of Peradeniya"
+   ],
+   "institution_ids": [
+    "00fhk4582",
+    "040af2s02",
+    "025h79t26"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.15064",
@@ -19189,17 +19348,29 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Accurate and efficient analysis of dental radiographs has become increasingly important for disease diagnosis and clinical decision making. In particular, dental radiographs segmentation plays a critical role as it is challenging due to several reasons, such as low contrast, noise in the images, variations in the image quality, etc. Previous studies have primarily addressed these challenges using convolutional neural networks (CNN)-based models. However, direct comparison of these segmentation models is still challenging due to the variations among the experimental settings. Therefore, we mainly compared four segmentation models, including Pyramid Scene Parsing Network (PSPNet), DeepLabV3, UNet, and UNet++, through a fair, controlled experimentation setting under varying conditions such as image sizes and batch sizes. For this, we used 1269 dental radiography images, and prior to training, we implemented a series of preprocessing techniques. To assess the models, we used several metrics, including Dice coefficient (DICE), Intersection over Union (IoU), accuracy, precision, training and validation losses. According to our results, UNet++ demonstrated the highest IoU score of 0.6719, and a DICE value of 0.7869, showing superior results in terms of segmentation, specifically when configured with an image size of 300x300 and a batch size of 16. In addition, we also explored the effect of image resolutions and batch sizes on model performance and accuracy under different architectures. Therefore, this study provides insights into the strengths of different segmentation models and the potential of deep learning-based semantic segmentation methods for improving automated dental radiograph analysis.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Sri Lanka Institute of Information Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "Sri Lanka Institute of Information Technology"
+   ],
+   "institution_ids": [
+    "00fhk4582"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.15061",
@@ -19228,17 +19399,45 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "This study aims to evaluate and compare convolutional neural network (CNN) architectures, specifically AlexNet, Inception, LeNet, VGG16, and MobileNet, for diagnosing branch dieback (seca-dos-ponteiros) in pequi trees (Caryocar brasiliense). This disease represents a severe threat to tree development and fruit yield, causing substantial economic and ecological losses. The methodology implements computer vision techniques using Python libraries, including Scikit-learn, NumPy, TensorFlow, and Matplotlib, to process and evaluate visual data. The CNN models analyze images of leaves, branches, and flower spikes to detect pathological patterns, such as alterations in texture and coloration. Ultimately, this comparative analysis identifies the most effective architecture for accurately distinguishing healthy plants from diseased ones.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Universidade Federal do Rio de Janeiro",
+    "Federal Center for Technological Education Celso Suckow da Fonseca",
+    "Universidade Federal Fluminense"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Universidade Federal do Rio de Janeiro",
+    "Federal Center for Technological Education Celso Suckow da Fonseca",
+    "Universidade Federal Fluminense"
+   ],
+   "institution_ids": [
+    "03490as77",
+    "03j8tnm47",
+    "02rjhbb08"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.15049",
@@ -22591,7 +22790,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     },
     "institutions": {
      "source": "openalex",
@@ -24263,17 +24462,55 @@
    "cross_list_from": "cs.RO",
    "html_url": "https://arxiv.org/html/2610.18826v2",
    "abstract": "We introduce WorldOracle, a benchmark specifically designed to evaluate action-conditioned world models (ACWMs) against paired real-world executions. Given the same initial observation and low-level action sequence, WorldOracle asks whether a predicted rollout reproduces what happens in the real world, including physical consequences and task-state transitions. We evaluate models along four complementary dimensions: physical state correctness, interaction spatial alignment, key interaction area fidelity, and multi-view action coherence. To support this evaluation, we curate real-world training and evaluation suites that cover different interaction dynamics and embodiments. The evaluation suite contains long, multi-segment episodes with both successful and failed executions, enabling evaluation across varied action outcomes and behavior distributions. Experiments on seven representative ACWMs reveal distinct model strengths and failure modes. WorldOracle provides a systematic foundation for measuring and advancing action-conditioned world modeling for manipulation. We will release the datasets, evaluation code, and leaderboard.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Princeton University",
+    "University of Toronto",
+    "University of Texas at Austin"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    null,
+    null,
+    null,
+    null,
+    [
+     1
+    ],
+    null,
+    null,
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     2
+    ],
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "Princeton University",
+    "University of Toronto",
+    "University of Texas at Austin"
+   ],
+   "institution_ids": [
+    "00hx57361",
+    "03dbr7087",
+    "00hj54h04"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.18826",
@@ -25647,17 +25884,65 @@
    "cross_list_from": "eess.IV",
    "html_url": null,
    "abstract": "High-dimensional microscopy captures features across space, time, and spectrum, but complex backgrounds obscure signals. We present Background2Background (B2B), a self-supervised background removal framework leveraging the backgrounds larger correlation relative to the signal. Local pixel shuffling disrupts signal correlations while preserving background structure, transforming signals into effective noise for Noise2Noise-based background removal. Across fluorescence, stimulated Raman scattering and mid-infrared photothermal imaging, B2B achieves over 40-fold background suppression and reveals hidden signatures.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Boston University",
+    "Georgia Institute of Technology",
+    "Emory University",
+    "Wallace H. Coulter Department of Biomedical Engineering"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2,
+     3
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "Boston University",
+    "Georgia Institute of Technology",
+    "Emory University",
+    "Wallace H. Coulter Department of Biomedical Engineering"
+   ],
+   "institution_ids": [
+    "05qwgg493",
+    "01zkghx44",
+    "03czfpz43",
+    "02j15s898"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.17615",
@@ -26787,17 +27072,49 @@
    "cross_list_from": "cs.CL",
    "html_url": null,
    "abstract": "Omni-modal large language models (Omni-LLMs) extend LLMs to process heterogeneous modalities (e.g., vision, audio, and IMU signals) alongside language, enabling a broader range of multimodal tasks. Yet we find that these models often fail to express information from non-textual modalities even when they perceive it correctly. We term this disconnect knows-but-cannot-say. To investigate this phenomenon, we introduce Token-level Modality Alignment (TMA), which measures the alignment between individual modality representations and response representations. Our analysis shows that non-textual representations are less aligned with response tokens and receive less attention than textual representations, suggesting a potential explanation for uneven modality preferences. Motivated by these findings, we propose OmniCatalyst, a simple perceive → infer strategy that complements the original modality inputs with self-generated text, making non-textual knowledge more accessible. Across seven Omni-LLMs, OmniCatalyst consistently improves performance (+7.29%) and yields more balanced modality preferences, with further gains from diverse training strategies. Further analysis demonstrates that the knowledge extraction phases increase TMA, suggesting that improved alignment makes non-textual information more accessible during response generation. In summary, our findings uncover how Omni-LLMs can better express modality knowledge through language. Our code is available at https://github.com/naver-ai/OmniLLM.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Korea Advanced Institute of Science and Technology",
+    "NAVER Cloud",
+    "Naver"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "Korea Advanced Institute of Science and Technology",
+    "NAVER Cloud",
+    "Naver"
+   ],
+   "institution_ids": [
+    "05apxxy63",
+    "041051y78",
+    "04nzrnx83"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-14"
+     "at": "2026-11-13"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.16135",
