@@ -10,6 +10,12 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ## Unreleased
 
+### Pipeline
+
+- A weekday found neither listed nor on its catchup page is looked for again by the
+  scheduled fallback, arXiv announcing some days after the morning run (OPS-13); `make
+  data-pull` follows a data branch a `git fetch` moved.
+
 ## 1.4.0 (2026-11-09): the archive's files on a data branch
 
 ### Data

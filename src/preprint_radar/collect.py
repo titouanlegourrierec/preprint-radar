@@ -131,6 +131,9 @@ class UpdateReport:
             not saved, they are fetched again next run.
         caught_up: The day the recent listing lacked, and the papers of it taken from its
             catchup page (:func:`_missing_day`): arXiv served a listing out of date.
+        unannounced: The weekday the recent listing lacked and whose catchup page gave no
+            paper: a holiday, or an announcement arXiv made after the run (2026-11-13),
+            which the scheduled fallback looks for again (OPS-13).
         steps: What each enrichment step of the run did (:func:`steps.enrich`).
     """
 
@@ -146,6 +149,7 @@ class UpdateReport:
     stopped: Stop | None = None
     failed_days: tuple[date, ...] = ()
     caught_up: tuple[date, int] | None = None
+    unannounced: date | None = None
     steps: tuple[StepCount, ...] = ()
 
     @property
@@ -191,7 +195,8 @@ def update_category(
     """
     listing = fetch_listing(site_client, category)
     day = today()
-    caught_up = _missing_day(site_client, category, listing, day)
+    missing = _missing_day(site_client, category, listing, day)
+    caught_up = missing or ()
     known = {paper.arxiv_id: paper for paper in store.iter_papers()}
     removed = store.removed(category)
     papers = [
@@ -225,16 +230,23 @@ def update_category(
         abstracts=counts[0].done,
         counts=(*counts, *read),
     )
+    if missing is None:
+        return replace(report, unannounced=day)
     return replace(report, caught_up=(day, len(caught_up))) if caught_up else report
 
 
-def _missing_day(client: HttpClient, category: str, listing: Listing, day: date) -> tuple[Paper, ...]:
+def _missing_day(client: HttpClient, category: str, listing: Listing, day: date) -> tuple[Paper, ...] | None:
     """The papers announced on ``day`` from its catchup page, when the listing has none of them.
 
     arXiv's cache served the listing page hours old on 2026-10-15: the runs of 06:17 and
     06:43 UTC got one without that day, announced late, which its catchup page held whole.
     Asked for on a weekday the listing lacks only; a day without announcement (a holiday)
-    gives an empty page. Papers listed on an earlier day too stay there.
+    gives an empty page, and so did 2026-11-13's at 06:17 UTC, announced later. Papers
+    listed on an earlier day too stay there.
+
+    Returns:
+        The day's papers; none when the listing has the day or it is a weekend; ``None``
+        when the listing lacks the weekday and its catchup page gave no paper (OPS-13).
     """
     if day.weekday() >= _SATURDAY or any(paper.announced >= day for paper in listing.papers):
         return ()
@@ -247,9 +259,16 @@ def _missing_day(client: HttpClient, category: str, listing: Listing, day: date)
             day.isoformat(),
             exc,
         )
-        return ()
+        return None
     listed = {paper.arxiv_id for paper in listing.papers}
     papers = tuple(paper for paper in catchup.papers if paper.arxiv_id not in listed)
+    if not catchup.papers:
+        logger.info(
+            "%s: nothing announced on %s yet: a holiday, or an announcement still to come",
+            category,
+            day.isoformat(),
+        )
+        return None
     if papers:
         logger.warning(
             "%s: the listing lacks %s: its %s papers come from its catchup page",
@@ -1913,4 +1932,5 @@ def format_report(report: UpdateReport) -> str:
             if report.caught_up
             else ""
         )
+        + (f"; nothing announced on {report.unannounced.isoformat()} yet" if report.unannounced else "")
     )

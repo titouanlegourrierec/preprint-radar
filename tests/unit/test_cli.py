@@ -116,6 +116,29 @@ def test_update_warns_of_a_listing_out_of_date(
     assert "the listing lacked 2026-09-28: 4 papers from its catchup page" in out
 
 
+def test_update_notes_a_weekday_not_announced_yet(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, listing_html: str, capsys: pytest.CaptureFixture[str]
+) -> None:
+    # 2026-11-13: the listing of 06:17 UTC lacked the day, and its catchup page was empty.
+    def get_text(_: HttpClient, url: str, *, params: Mapping[str, str | int] | None = None) -> str:
+        del params
+        if "/list/" in url:
+            return listing_html
+        raise NotFoundError(url)
+
+    monkeypatch.setattr(HttpClient, "get_text", get_text)
+    monkeypatch.setattr("preprint_radar.collect.today", lambda: date(2026, 9, 28))
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+
+    assert (
+        main(["update", "--data-dir", str(tmp_path / "data"), "--crawl-delay", "0", "--max-html", "0"]) == 0
+    )
+
+    out = capsys.readouterr().out
+    assert "::notice title=No announcement yet::cs.CV: 7 listed, 7 new" in out
+    assert "nothing announced on 2026-09-28 yet" in out
+
+
 @pytest.mark.usefixtures("offline")
 def test_update_catches_up_on_days_after_an_outage(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]

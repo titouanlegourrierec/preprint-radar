@@ -249,6 +249,15 @@ def test_a_scheduled_run_reads_again_a_day_taken_from_a_catchup_page(run_guard: 
     assert "::notice title=Day read again::" in guard.log
 
 
+def test_a_scheduled_run_looks_again_for_a_day_not_announced_yet(run_guard: Callable[..., Guard]) -> None:
+    # Today's run found the day neither listed nor on its catchup page: arXiv announced it
+    # after the run (2026-11-13), or it is a holiday (OPS-13).
+    guard = run_guard("schedule", prints="43377643152", annotations="No announcement yet")
+
+    assert guard.output == {"run": "true"}
+    assert "::notice title=Day read again::" in guard.log
+
+
 def test_a_scheduled_run_says_when_the_workflow_was_not_dispatched(run_guard: Callable[..., Guard]) -> None:
     # The outside scheduler's token expired, or it failed (OPS-5).
     guard = run_guard("schedule", dispatched="0")

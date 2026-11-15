@@ -301,6 +301,18 @@ def test_update_takes_a_weekday_the_listing_lacks_from_its_catchup_page(
     assert "cs.CV: the listing lacks 2026-09-28: its 2 papers come from its catchup page" in caplog.text
 
 
+def test_update_takes_nothing_from_a_catchup_page_of_papers_already_listed(
+    fake: FakeArxiv, store: PaperStore, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    # The day was announced (its page lists a paper), but only cross-lists listed before.
+    fake.catchup_pages = {"/catchup/cs.CV/2026-09-28": _catchup_page(["2609.28466"], on="Mon, 28 Sep 2026")}
+
+    report = _run_on(date(2026, 9, 28), fake, store, monkeypatch)
+
+    assert (report.caught_up, report.unannounced) == (None, None)
+    assert "the listing lacks" not in caplog.text
+
+
 @pytest.mark.parametrize(
     ("day", "page", "asked"),
     [
@@ -329,6 +341,9 @@ def test_update_reads_a_catchup_page_only_for_a_weekday_the_listing_lacks(
     assert report.caught_up is None
     assert report.listed == 7
     assert ("whose catchup page could not be read" in caplog.text) == (page == "failing")
+    # A weekday the listing lacks, with nothing from its page, is looked for again (OPS-13).
+    assert report.unannounced == (day if asked else None)
+    assert (f"nothing announced on {day.isoformat()} yet" in format_report(report)) == asked
 
 
 RUN_DAY = date(2026, 10, 15)  # a Thursday

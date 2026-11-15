@@ -10,7 +10,9 @@
 #
 # Today's fallback goes on even after a success when that run took the day from a catchup
 # page, which arXiv may still have been filling (its "Listing out of date" annotation,
-# OPS-3: 26 of 2026-10-30's 233 papers); and one that goes on says so when the outside
+# OPS-3: 26 of 2026-10-30's 233 papers), or found nothing announced today, which arXiv may
+# announce later ("No announcement yet", OPS-13: 2026-11-13's 196 papers waited for the
+# next weekday); a holiday costs a second run. And one that goes on says so when the outside
 # scheduler did not dispatch the workflow today, whose token expires (OPS-5).
 #
 # Usage: skip-if-done.sh <workflow file> [days back, 0 by default: today], with GH_TOKEN
@@ -37,13 +39,14 @@ days_ago() {
   date -u -d "@$epoch" +%Y-%m-%d 2>/dev/null || date -u -r "$epoch" +%Y-%m-%d
 }
 
-# Whether that run took the day from a catchup page: one of its jobs has the annotation.
-# Without an answer, it did not: the day is then read again by the next day's listing.
+# Whether that run took the day from a catchup page, or found it not announced yet: one of
+# its jobs has either annotation. Without an answer, it did not: the day is then read by
+# the next day's listing.
 partial_day() {
   local job
   for job in $(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$1/jobs" --jq '.jobs[].id' 2>/dev/null); do
     if gh api "repos/$GITHUB_REPOSITORY/check-runs/$job/annotations" --jq '.[].title' 2>/dev/null |
-      grep -qx "Listing out of date"; then
+      grep -qxE "Listing out of date|No announcement yet"; then
       return 0
     fi
   done
@@ -73,7 +76,7 @@ if [ "${GITHUB_EVENT_NAME:-}" = schedule ]; then
     # missed (2026-10-22) left no trace of why (OPS-8).
     echo "Successful runs of $workflow since $since: ${done:-none}"
     if [ -n "$done" ] && [ "$back" -eq 0 ] && partial_day "$done"; then
-      echo "::notice title=Day read again::Today's run of $workflow took the day from a catchup page arXiv may still have been filling, so this scheduled run reads it again"
+      echo "::notice title=Day read again::Today's run of $workflow took the day from a catchup page arXiv may still have been filling, or found it not announced yet, so this scheduled run reads it again"
     elif [ -n "$done" ]; then
       run=false
       if [ "$back" -eq 0 ]; then

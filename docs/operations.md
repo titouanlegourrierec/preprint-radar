@@ -239,6 +239,13 @@ read that day's catchup page instead, which arXiv may still have been filling (2
 again`, OPS-3), from a listing that has it. If the page could not be read, the next run's
 listing has the day, or dispatch *Update data* with the day as *since*.
 
+**Signal.** Notice annotation `No announcement yet` (`nothing announced on` the day `yet`):
+the listing lacked today and its catchup page was empty. A holiday, or an announcement
+arXiv made after the run: on 2026-11-13, 06:17 UTC found nothing and its 196 papers came
+hours later (OPS-13). The scheduled fallback looks again (notice `Day read again`); on a
+holiday it finds nothing either, a second run for nothing. A day still missing after it:
+the next weekday's listing has it, or dispatch *Update data* now.
+
 ### Semantic Scholar keeps refusing
 
 **Signal.** `Semantic Scholar keeps refusing; stopping after` in the citations step, or in

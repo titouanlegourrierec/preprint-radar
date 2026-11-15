@@ -904,6 +904,9 @@ def _publish_update(report: UpdateReport) -> None:
         github_annotation("error", "Catchup pages failed", line)
     if report.caught_up:
         github_annotation("warning", "Listing out of date", line)
+    if report.unannounced:
+        # The scheduled fallback looks again: arXiv may announce after the run (OPS-13).
+        github_annotation("notice", "No announcement yet", line)
     if report.stopped is Stop.DEADLINE:
         github_annotation("warning", "Out of time", line)
     elif report.html_failed:
