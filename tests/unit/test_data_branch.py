@@ -206,6 +206,21 @@ def test_pull_refuses_commits_not_pushed(clone: Path) -> None:
     assert "make data-push" in result.stderr
 
 
+def test_pull_follows_a_branch_a_fetch_of_main_moved(clone: Path, tmp_path: Path) -> None:
+    # The archive pushed to the data branch; `git fetch` (or `git pull` of main) moved
+    # origin/data before data-pull ran (2026-11-15).
+    _script(clone, "pull")
+    other = tmp_path / "other"
+    _git(tmp_path, "clone", "--quiet", "--branch", "data", str(tmp_path / "origin.git"), str(other))
+    _write(other, ARCHIVE, {"papers": ["archived"]})
+    _git(other, "commit", "--quiet", "-am", "archive")
+    _git(other, "push", "--quiet", "origin", "HEAD:data")
+    _git(clone, "fetch", "--quiet")
+
+    assert _script(clone, "pull").returncode == 0
+    assert _read(clone, ARCHIVE) == {"papers": ["archived"]}
+
+
 def test_pull_follows_a_squashed_branch(clone: Path, tmp_path: Path) -> None:
     _script(clone, "pull")
     # The archive squashes the branch into a new first commit, with the week's archive.

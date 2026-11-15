@@ -88,14 +88,18 @@ case ${1:-} in
           exit 1
         fi
       fi
-      # Its last commit must be on GitHub: a squash replaces the branch's history, so it is
-      # reset to GitHub's, never merged.
+      # Its last commit must be on GitHub, now or before a squash replaced the branch's
+      # history: the branch is reset to GitHub's, never merged. A fetch of main moves
+      # origin/data too, so it is not enough that the commit be its tip.
+      head=$(git -C "$BRANCH_DIR" rev-parse HEAD)
       known=$(git -C "$BRANCH_DIR" rev-parse --verify --quiet refs/remotes/origin/data || true)
-      if [ "$(git -C "$BRANCH_DIR" rev-parse HEAD)" != "$known" ]; then
+      git -C "$BRANCH_DIR" fetch --quiet origin data
+      if [ "$head" != "$known" ] &&
+        ! git -C "$BRANCH_DIR" merge-base --is-ancestor "$head" origin/data &&
+        ! git -C "$BRANCH_DIR" reflog show --format=%H refs/remotes/origin/data 2>/dev/null | grep -qx "$head"; then
         echo "The data branch holds commits not pushed: make data-push first." >&2
         exit 1
       fi
-      git -C "$BRANCH_DIR" fetch --quiet origin data
       git -C "$BRANCH_DIR" reset --quiet --hard origin/data
       git -C "$BRANCH_DIR" clean --quiet -fd
     fi
