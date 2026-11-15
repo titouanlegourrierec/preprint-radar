@@ -1737,9 +1737,9 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Robotics (cs.RO)"
    ],
-   "comments": null,
+   "comments": "ECCV 2026. Code: https://github.com/ori-drs/drs-vpt Project page: https://ori-drs.github.io/drs-vpt-pages/",
    "journal_ref": null,
-   "venue": null,
+   "venue": "ECCV 2026",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.12557v1",
    "abstract": "We present DRS-VPT, a feed-forward transformer architecture for foundational image-to-scan registration. Given query images and a reference 3D point cloud, the model predicts the scan pose and point map alongside the poses and point maps of each camera, all expressed in the first camera's frame. It additionally predicts a coarse-to- fine pyramid of per-point and per-pixel features for direct reprojective alignment of the scan to the first image. This formulation unifies downstream tasks such as camera-LiDAR calibration in autonomous driving and indoor camera-to-map relocalization. A single DRS-VPT model achieves state-of-the-art performance for image-to-LiDAR registration in autonomous driving, competitive indoor relocalization without training map-specific weights, and strong zero-shot transfer to unseen environments. We also show qualitatively that the model learns complex scan-to-image projection properties such as occlusion of back-facing points.",
@@ -2461,7 +2461,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "14 pages,12 figures",
+   "comments": "35 pages,14 figures",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,

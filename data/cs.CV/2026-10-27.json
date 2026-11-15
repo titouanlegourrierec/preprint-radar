@@ -2781,7 +2781,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "27 pages including supplementary material. Expanded the mechanism analysis, updated the experiments and figures, and revised the author list",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -7953,7 +7953,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Updated author list and affiliations. Research content unchanged",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -8850,7 +8850,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Computation and Language (cs.CL)"
    ],
-   "comments": null,
+   "comments": "We are withdrawing this paper to revise how its contribution is framed. The scorer overlaps with existing database augmentation and late-fusion methods, and its residual term adds little under leakage-free evaluation. We will also fix minor errors, with an overstated claim in Sec. 4.2, a rounding error in Sec. 4.3, and I2T results in App. D.2 that no table supports",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -8877,6 +8877,7 @@
     "0258gkt32"
    ],
    "extractor": 24,
+   "withdrawn": true,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -15171,7 +15172,7 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "27 pages, 7 figures. Updated public release (1,586 items), results, figures, and release documentation; original-cohort analyses identified in captions. Dataset and code: https://github.com/elorian-ai/DecoyCount",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
@@ -17301,9 +17302,9 @@
     "Machine Learning (cs.LG)",
     "Image and Video Processing (eess.IV)"
    ],
-   "comments": null,
+   "comments": "Accepted at URUCON 2026",
    "journal_ref": null,
-   "venue": null,
+   "venue": "URUCON 2026",
    "cross_list_from": "cs.CL",
    "html_url": null,
    "abstract": "Optical Character Recognition (OCR) is essential for digitizing historical archives, yet standard evaluation metrics such as Character Error Rate (CER) do not necessarily reflect whether meaningful information, such as names, dates, and identifiers, is preserved. In this work, we investigate entitylevel analysis of OCR errors as a complementary perspective for evaluating OCR quality in historical documents. Using a publicly available benchmark of 175 documents from the Berrutti Archive, augmented with 5,209 manually annotated entity mentions that will be released upon acceptance, we compare sequence-recognition OCR systems, OCR-specialized vision-language models, and general-purpose vision-language models. Beyond global transcription accuracy, we analyze entity preservation and recoverability under varying character-level edit tolerances. Our experiments show that OCR rankings depend on the evaluation criterion: while Qwen 3.6 achieves the highest entity coverage across all tested tolerances, several systems with lower exact-match coverage recover substantially when small errors are tolerated, suggesting that many of their errors correspond to localized character-level deviations rather than fundamentally incorrect entity transcriptions. Conversely, some systems remain unable to recover many entities even under relaxed matching. These findings show that OCR quality cannot be fully characterized by aggregate transcription metrics alone and highlight the importance of evaluating how OCR errors affect the preservation and recoverability of meaningful information.",

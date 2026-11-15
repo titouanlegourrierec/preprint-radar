@@ -1419,9 +1419,9 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Accepted to NeurIPS 2026 (Evaluations & Datasets Track)",
    "journal_ref": null,
-   "venue": null,
+   "venue": "NeurIPS 2026",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2608.28699v1",
    "abstract": "Understanding long-form video remains a fundamental challenge for multimodal large language models (MLLMs). Sparse frame sampling fails to capture fine-grained visual details, while dense sampling quickly exceeds context length limits. Retrieval-augmented generation (RAG) offers a promising middle ground by selectively retrieving relevant video segments for grounded generation, yet its effectiveness critically depends on the quality of the video segments used as retrieval units. In this paper, we investigate RAG for movie understanding, which demands story-level reasoning over characters, events, and narrative arcs spanning hours of content. Scene segmentation, a long-studied problem that partitions movies into semantically coherent units, is a natural candidate for defining such retrieval units. We reexamine whether existing methods actually serve this role through comprehensive evaluation on downstream movie understanding tasks, and find that they consistently fail to outperform naive uniform temporal chunking. Our audit of the most standard scene segmentation benchmarks reveals why: current annotations prioritize visually salient transitions over narrative event structure. Motivated by this mismatch, we introduce NarraScene, a narrative-centric scene segmentation dataset annotated with a three-level cognitive taxonomy spanning physical, character, and narrative change, where every valid boundary requires a narrative-level shift. When used as retrieval units, these narrative-grounded segments outperform uniform chunking on downstream movie understanding tasks, suggesting that the central challenge for scene segmentation in movie RAG is not detecting boundaries, but identifying the narrative event units that matter for movie understanding.",
@@ -6109,7 +6109,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "25 pages, 25 figures. Camera-ready version. Accepted to EMNLP 2026 Main Conference",
+   "comments": "25 pages, 25 figures. Accepted to EMNLP 2026 Main Conference. v2: removes an inaccurate description in Sec. 3.3 and corrects the VisA image AP in Table 1 (from 89.7 to 89.8); all other results are unchanged",
    "journal_ref": null,
    "venue": "EMNLP 2026",
    "cross_list_from": null,
@@ -9032,7 +9032,7 @@
     "Artificial Intelligence (cs.AI)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "35 pages, 11 figures",
+   "comments": "30 pages, 11 figures",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,

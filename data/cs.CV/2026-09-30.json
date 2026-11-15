@@ -1597,7 +1597,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "15 pages",
+   "comments": "17 pages",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -5650,9 +5650,9 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Submitted to WACV 2027",
+   "comments": "Accepted to the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV) 2027",
    "journal_ref": null,
-   "venue": null,
+   "venue": "WACV 2027",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.37314v1",
    "abstract": "Synthetic anomaly generation helps expand industrial anomaly datasets when real defects are scarce or unavailable. Existing approaches lie at two extremes: procedural approaches are fast but struggle to represent complex anomalies, while generative approaches produce diverse defects but require costly per-sample generation. We present FLASH, a framework that decouples defect generation from anomaly synthesis under a ``generate once, synthesize many'' paradigm. Given only normal images, FLASH uses Vision-Language Model (VLM) guidance and an image-generation model to produce a small set of defect images, from which it extracts, validates, and banks reusable defect patches. For synthesis of anomalous images, Object Boundary Suppression (OBS) first identifies the probable foreground object-aware region of the host image, while Multi-Resolution Spectral Pyramid (MRSP) noise generates diverse, size-controllable masks that determine the defect location and spatial extent. It then composes a large and diverse synthetic anomalous image set by localizing the defect region, sampling size-controllable placement masks and seamlessly blending retrieved defects onto new defect-free images without further need for image generation. Experiments on the MVTec AD 2 dataset show that FLASH-generated anomalies nearly close the calibration gap on real defects, reaching 78.1% image-level F1 against an 83.6% real-anomaly upper bound and providing the most consistent calibration transfer across detectors among procedural and generative alternatives. Moreover, FLASH synthesizes anomalies more than 11.95x faster than per-sample generative approaches.",

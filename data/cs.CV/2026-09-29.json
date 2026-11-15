@@ -4622,9 +4622,9 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Robotics (cs.RO)"
    ],
-   "comments": null,
+   "comments": "Accepted to NeurIPS 2026",
    "journal_ref": null,
-   "venue": null,
+   "venue": "NeurIPS 2026",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.34982v1",
    "abstract": "Vision-Language-Action (VLA) models have shown great promise for robotic manipulation by mapping multi-modal semantics to physical actions. However, this mapping inherently struggles to align these coarse-grained semantics with fine-grained temporal execution. It leaves VLA models with limited generalization and insufficient robustness in cluttered environments. To overcome this issue, we propose ActionUNet, an efficient multi-scale fine-tuning framework that enhances pre-trained VLA models with minimal computational cost. ActionUNet first constructs a lightweight temporal U-Net within the temporal-aligned action feature space to fuse hierarchical structural priors, effectively bridging the scale gap between semantics and temporal executions. Recognizing that multi-scale modeling can disrupt microscopic temporal continuity and cause mechanical oscillations, ActionUNet then employs a conditional SIREN as a continuous action decoder. Equipped with explicit second-order smoothness constraints, this decoder guarantees temporal continuity and reduces high-frequency motion jitter. By smoothing temporal discontinuities from multi-scale fusion, this continuous formulation reduces mechanical execution failures while preserving the base VLA model's generalization and manipulation robustness. Extensive experiments on RoboTwin 2.0 and LIBERO-Plus benchmarks, together with real-world hard evaluations, demonstrate that ActionUNet significantly improves π0.5 success rates by absolute 9.8%, 6.1%, and 11.4%, respectively, while also generalizing to the regression-based OpenVLA-OFT backbone, highlighting its effectiveness and efficiency as a fine-tuning strategy. Code and implementation details are available at https://github.com/Di-Zhu123/ActionUNet.",
@@ -7119,7 +7119,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "19 pages,7 figures, conference",
+   "comments": "23 pages,7 figures",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -24600,7 +24600,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "Accepted to NeurIPS 2026",
+   "comments": "NeurIPS 2026",
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,

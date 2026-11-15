@@ -4124,8 +4124,8 @@
     "Robotics (cs.RO)"
    ],
    "comments": "10 pages, 4 figures, 3 tables",
-   "journal_ref": null,
-   "venue": null,
+   "journal_ref": "MaCVi @ WACV 2027",
+   "venue": "WACV 2027",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.40900v1",
    "abstract": "Reliable visual perception is essential for safe autonomous underwater exploration. Yet vision models pretrained on terrestrial images become less reliable underwater, where turbidity, backscatter, and wavelength-dependent attenuation alter scene appearance. Existing adaptation methods either spread adapters equally across the encoder depth or select layers using the divergence between two fixed domains. In this paper, we introduce AquaProbe for measuring how the location of the domain gap changes with water type and imaging range. AquaProbe separates newly introduced divergence from that accumulated through a frozen vision encoder using paired clean and physically rendered images and allocates a fixed LoRA budget according to the measured profile. The segmentation mean Intersection-over-Union (mIoU) for the proportional LoRA rank allocation, based on the measured profile, is 70.1; this is a better result than uniform LoRA rank allocation by 1.9 mIoU points while having the same parameter budget of 0.59 million adapter parameters. The three-way router, conditioned on estimated condition clusters, achieves 70.6 mIoU on the standard SUIM split and 63.4 AUDRC under held-out degradation.",

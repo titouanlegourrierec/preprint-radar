@@ -328,9 +328,9 @@
     "Machine Learning (cs.LG)",
     "Optimization and Control (math.OC)"
    ],
-   "comments": "18 pages, 7 figures",
+   "comments": "17 pages, 7 figures. Paper accepted to NeurIPS 2026 workshop Sim2Science: ML with Imperfect Scientific Models",
    "journal_ref": null,
-   "venue": null,
+   "venue": "NeurIPS 2026 Workshop",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.04325v1",
    "abstract": "We explore the use of simulated data for training a model for protein annotation in crowded cryo-electron tomography volumes reconstructed from images collected at limited tilt angles and severely corrupted by the measurement operator. Firstly, we leverage the corruptions imposed by the forward model to generate domain-specific augmented paired views of the exact same scene for an invariance objective integrated into the LeJEPA self-supervised training framework. Secondly, we use additional information from the simulation pipeline such as the positions and identity of proteins in the simulated volumes to inform the architecture of the model and the loss function, so that semantic information is localised at protein positions in the resulting dense feature volume. The resulting model, CARNIVAL, is evaluated without finetuning on classification and detection tasks in real tomograms, using a benchmark dataset containing multiple protein types and two tomogram processing types. We show that CARNIVAL outperforms a state-of-the-art model trained using a contrastive objective on simulated data but without forward model-based paired views or privileged information.",
@@ -1524,9 +1524,9 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": null,
+   "comments": "NeurIPS 2026",
    "journal_ref": null,
-   "venue": null,
+   "venue": "NeurIPS 2026",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.04698v1",
    "abstract": "Vision transformers typically treat every image token as equally important, yet for most tasks in computer vision only a fraction are needed. Adaptive computation methods accelerate inference by choosing which tokens to process, but existing methods struggle at extreme sparsity and require heuristics that may not generalize like token diversity and attention scores. We address these limitations with LookThere, achieving a new pareto frontier in performance-compute trade-offs through an end-to-end reinforcement learning framework that jointly trains a shallow input selector and a deep representation extractor. The selector learns where to look and the extractor learns what to see, together saving computation by selecting only what is worth processing for a given task without relying on auxiliary signals. We show that LookThere only selects the task-specific input, excelling at sparse recognition in high-resolution settings (traffic signs, billiards), and maintaining accuracy with as little as 0.2% of the input. It generalizes across tasks and models, including global recognition (ImageNet classification), local recognition (ADE20K segmentation), zero-shot classification (by distillation), and regression (counting). Across all settings, LookThere surpasses state-of-the-art selection to provide a general and scalable framework for specialized and efficient adaptive computation.",
