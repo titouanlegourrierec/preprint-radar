@@ -980,7 +980,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -5334,7 +5334,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -13920,7 +13920,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "openalex"
@@ -15085,78 +15085,6 @@
    },
    "abs_url": "https://arxiv.org/abs/1811.10787",
    "pdf_url": "https://arxiv.org/pdf/1811.10787"
-  },
-  {
-   "arxiv_id": "1811.10742",
-   "announced": "2018-11-01",
-   "title": "Joint Monocular 3D Vehicle Detection and Tracking",
-   "authors": [
-    "Hou-Ning Hu",
-    "Qi-Zhi Cai",
-    "Dequan Wang",
-    "Ji Lin",
-    "Min Sun",
-    "Philipp Krähenbühl",
-    "Trevor Darrell",
-    "Fisher Yu"
-   ],
-   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
-   "subjects": [
-    "Computer Vision and Pattern Recognition (cs.CV)"
-   ],
-   "comments": "18 pages, 12 figures. Add supplementary material. Accepted by ICCV 2019. Website: https://eborboihuc.github.io/Mono-3DT Code: https://github.com/ucbdrive/3d-vehicle-tracking Video: https://youtu.be/EJAtOCKI31g",
-   "journal_ref": null,
-   "venue": "ICCV 2019",
-   "cross_list_from": null,
-   "html_url": null,
-   "abstract": "Vehicle 3D extents and trajectories are critical cues for predicting the future location of vehicles and planning future agent ego-motion based on those predictions. In this paper, we propose a novel online framework for 3D vehicle detection and tracking from monocular videos. The framework can not only associate detections of vehicles in motion over time, but also estimate their complete 3D bounding box information from a sequence of 2D images captured on a moving platform. Our method leverages 3D box depth-ordering matching for robust instance association and utilizes 3D trajectory prediction for re-identification of occluded vehicles. We also design a motion learning module based on an LSTM for more accurate long-term motion extrapolation. Our experiments on simulation, KITTI, and Argoverse datasets show that our 3D tracking pipeline offers robust data association and tracking. On Argoverse, our image-based method is significantly better for tracking 3D vehicles within 30 meters than the LiDAR-centric baseline methods.",
-   "affiliations": [
-    "National Tsing Hua University",
-    "University of California, Berkeley",
-    "Massachusetts Institute of Technology"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    null,
-    [
-     1
-    ],
-    [
-     2
-    ],
-    [
-     0
-    ],
-    null,
-    [
-     1
-    ],
-    [
-     1
-    ]
-   ],
-   "institutions": [
-    "National Tsing Hua University",
-    "University of California, Berkeley",
-    "Massachusetts Institute of Technology"
-   ],
-   "institution_ids": [
-    "00zdnkx70",
-    "01an7q238",
-    "042nb2s44"
-   ],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex"
-    },
-    "institutions": {
-     "source": "openalex"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/1811.10742",
-   "pdf_url": "https://arxiv.org/pdf/1811.10742"
   },
   {
    "arxiv_id": "1811.10698",
@@ -18967,74 +18895,6 @@
    },
    "abs_url": "https://arxiv.org/abs/1811.01238",
    "pdf_url": "https://arxiv.org/pdf/1811.01238"
-  },
-  {
-   "arxiv_id": "1811.00995",
-   "announced": "2018-11-01",
-   "title": "Invertible Residual Networks",
-   "authors": [
-    "Jens Behrmann",
-    "Will Grathwohl",
-    "Ricky T. Q. Chen",
-    "David Duvenaud",
-    "Jörn-Henrik Jacobsen"
-   ],
-   "primary_subject": "Machine Learning (cs.LG)",
-   "subjects": [
-    "Machine Learning (cs.LG)",
-    "Artificial Intelligence (cs.AI)",
-    "Computer Vision and Pattern Recognition (cs.CV)",
-    "Machine Learning (stat.ML)"
-   ],
-   "comments": null,
-   "journal_ref": "Proceedings of the International Conference on Machine Learning (ICML), 2019",
-   "venue": "ICML 2019",
-   "cross_list_from": "cs.LG",
-   "html_url": "https://ar5iv.labs.arxiv.org/html/1811.00995",
-   "abstract": "We show that standard ResNet architectures can be made invertible, allowing the same model to be used for classification, density estimation, and generation. Typically, enforcing invertibility requires partitioning dimensions or restricting network architectures. In contrast, our approach only requires adding a simple normalization step during training, already available in standard frameworks. Invertible ResNets define a generative model which can be trained by maximum likelihood on unlabeled data. To compute likelihoods, we introduce a tractable approximation to the Jacobian log-determinant of a residual block. Our empirical evaluation shows that invertible ResNets perform competitively with both state-of-the-art image classifiers and flow-based generative models, something that has not been previously achieved with a single architecture.",
-   "affiliations": [
-    "University of Bremen, Center for Industrial Mathematics",
-    "Vector Institute and University of Toronto"
-   ],
-   "author_affiliations": [
-    [
-     0,
-     1
-    ],
-    [
-     1
-    ],
-    [
-     1
-    ],
-    [
-     1
-    ],
-    [
-     1
-    ]
-   ],
-   "institutions": [
-    "University of Bremen",
-    "University of Toronto"
-   ],
-   "institution_ids": [
-    "04ers2y35",
-    "03dbr7087"
-   ],
-   "extractor": 24,
-   "provenance": {
-    "affiliations": {
-     "source": "html",
-     "at": "2026-11-04"
-    },
-    "institutions": {
-     "source": "ror",
-     "at": "2026-10-28"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/1811.00995",
-   "pdf_url": "https://arxiv.org/pdf/1811.00995"
   },
   {
    "arxiv_id": "1811.00982",
@@ -51776,7 +51636,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -60083,7 +59943,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -82415,7 +82275,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -91105,7 +90965,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "openalex"

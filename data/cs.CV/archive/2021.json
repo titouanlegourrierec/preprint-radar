@@ -6321,7 +6321,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -21290,60 +21290,6 @@
    },
    "abs_url": "https://arxiv.org/abs/2111.03472",
    "pdf_url": "https://arxiv.org/pdf/2111.03472"
-  },
-  {
-   "arxiv_id": "2111.01898",
-   "announced": "2021-11-02",
-   "title": "A high performance fingerprint liveness detection method based on quality related features",
-   "authors": [
-    "Javier Galbally",
-    "Fernando Alonso-Fernandez",
-    "Julian Fierrez",
-    "Javier Ortega-Garcia"
-   ],
-   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
-   "subjects": [
-    "Computer Vision and Pattern Recognition (cs.CV)"
-   ],
-   "comments": "Published at Elsevier Future Generation Computer Systems journal",
-   "journal_ref": null,
-   "venue": null,
-   "cross_list_from": null,
-   "html_url": null,
-   "abstract": "A new software-based liveness detection approach using a novel fingerprint parameterization based on quality related features is proposed. The system is tested on a highly challenging database comprising over 10,500 real and fake images acquired with five sensors of different technologies and covering a wide range of direct attack scenarios in terms of materials and procedures followed to generate the gummy fingers. The proposed solution proves to be robust to the multi-scenario dataset, and presents an overall rate of 90% correctly classified samples. Furthermore, the liveness detection method presented has the added advantage over previously studied techniques of needing just one image from a finger to decide whether it is real or fake. This last characteristic provides the method with very valuable features as it makes it less intrusive, more user friendly, faster and reduces its implementation costs.",
-   "affiliations": [
-    "Universidad Autónoma de Madrid"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    null,
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Universidad Autónoma de Madrid"
-   ],
-   "institution_ids": [
-    "01cby8j38"
-   ],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
-    },
-    "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/2111.01898",
-   "pdf_url": "https://arxiv.org/pdf/2111.01898"
   },
   {
    "arxiv_id": "2111.15669",
@@ -41500,7 +41446,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -64656,7 +64602,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -71610,7 +71556,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -74029,7 +73975,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "Fix a typo in Eq. 13",
+   "comments": "Fix a typo (TDA -> TFA)",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -81922,7 +81868,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -85389,7 +85335,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -87004,7 +86950,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -100218,7 +100164,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "openalex"
@@ -103801,7 +103747,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "openalex"
@@ -107005,6 +106951,63 @@
    },
    "abs_url": "https://arxiv.org/abs/2105.04881",
    "pdf_url": "https://arxiv.org/pdf/2105.04881"
+  },
+  {
+   "arxiv_id": "2105.04880",
+   "announced": "2021-05-01",
+   "title": "Consistent Multiple Graph Embedding for Multi-View Clustering",
+   "authors": [
+    "Yiming Wang",
+    "Dongxia Chang",
+    "Zhiqiang Fu",
+    "Yao Zhao"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Distributed, Parallel, and Cluster Computing (cs.DC)"
+   ],
+   "comments": null,
+   "journal_ref": "IEEE Transactions on Multimedia, 2021",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Graph-based multi-view clustering aiming to obtain a partition of data across multiple views, has received considerable attention in recent years. Although great efforts have been made for graph-based multi-view clustering, it remains a challenge to fuse characteristics from various views to learn a common representation for clustering. In this paper, we propose a novel Consistent Multiple Graph Embedding Clustering framework(CMGEC). Specifically, a multiple graph auto-encoder(M-GAE) is designed to flexibly encode the complementary information of multi-view data using a multi-graph attention fusion encoder. To guide the learned common representation maintaining the similarity of the neighboring characteristics in each view, a Multi-view Mutual Information Maximization module(MMIM) is introduced. Furthermore, a graph fusion network(GFN) is devised to explore the relationship among graphs from different views and provide a common consensus graph needed in M-GAE. By jointly training these models, the common latent representation can be obtained which encodes more complementary information from multiple views and depicts data more comprehensively. Experiments on three types of multi-view datasets demonstrate CMGEC outperforms the state-of-the-art clustering methods.",
+   "affiliations": [
+    "Beijing Jiaotong University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Beijing Jiaotong University"
+   ],
+   "institution_ids": [
+    "01yj56c84"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2105.04880",
+   "pdf_url": "https://arxiv.org/pdf/2105.04880"
   },
   {
    "arxiv_id": "2105.04668",
@@ -162305,7 +162308,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "openalex"
@@ -172678,59 +172681,6 @@
    },
    "abs_url": "https://arxiv.org/abs/2101.06072",
    "pdf_url": "https://arxiv.org/pdf/2101.06072"
-  },
-  {
-   "arxiv_id": "2101.05307",
-   "announced": "2021-01-01",
-   "title": "Explainability of deep vision-based autonomous driving systems: Review and challenges",
-   "authors": [
-    "Éloi Zablocki",
-    "Hédi Ben-Younes",
-    "Patrick Pérez",
-    "Matthieu Cord"
-   ],
-   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
-   "subjects": [
-    "Computer Vision and Pattern Recognition (cs.CV)",
-    "Artificial Intelligence (cs.AI)",
-    "Machine Learning (cs.LG)",
-    "Robotics (cs.RO)"
-   ],
-   "comments": "IJCV 2022",
-   "journal_ref": null,
-   "venue": "IJCV 2022",
-   "cross_list_from": null,
-   "html_url": null,
-   "abstract": "This survey reviews explainability methods for vision-based self-driving systems trained with behavior cloning. The concept of explainability has several facets and the need for explainability is strong in driving, a safety-critical application. Gathering contributions from several research fields, namely computer vision, deep learning, autonomous driving, explainable AI (X-AI), this survey tackles several points. First, it discusses definitions, context, and motivation for gaining more interpretability and explainability from self-driving systems, as well as the challenges that are specific to this application. Second, methods providing explanations to a black-box self-driving system in a post-hoc fashion are comprehensively organized and detailed. Third, approaches from the literature that aim at building more interpretable self-driving systems by design are presented and discussed in detail. Finally, remaining open-challenges and potential future research directions are identified and examined.",
-   "affiliations": [
-    "Sorbonne Université"
-   ],
-   "author_affiliations": [
-    null,
-    [
-     0
-    ],
-    null,
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Sorbonne Université"
-   ],
-   "institution_ids": [
-    "02en5vm52"
-   ],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex"
-    },
-    "institutions": {
-     "source": "openalex"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/2101.05307",
-   "pdf_url": "https://arxiv.org/pdf/2101.05307"
   },
   {
    "arxiv_id": "2101.05278",

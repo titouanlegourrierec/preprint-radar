@@ -12105,6 +12105,98 @@
    "pdf_url": "https://arxiv.org/pdf/2212.04048"
   },
   {
+   "arxiv_id": "2212.03863",
+   "announced": "2022-12-01",
+   "title": "X-Paste: Revisiting Scalable Copy-Paste for Instance Segmentation using CLIP and StableDiffusion",
+   "authors": [
+    "Hanqing Zhao",
+    "Dianmo Sheng",
+    "Jianmin Bao",
+    "Dongdong Chen",
+    "Dong Chen",
+    "Fang Wen",
+    "Lu Yuan",
+    "Ce Liu",
+    "Wenbo Zhou",
+    "Qi Chu",
+    "Weiming Zhang",
+    "Nenghai Yu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "ICML 2023, code is available at https://github.com/yoctta/XPaste",
+   "journal_ref": null,
+   "venue": "ICML 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Copy-Paste is a simple and effective data augmentation strategy for instance segmentation. By randomly pasting object instances onto new background images, it creates new training data for free and significantly boosts the segmentation performance, especially for rare object categories. Although diverse, high-quality object instances used in Copy-Paste result in more performance gain, previous works utilize object instances either from human-annotated instance segmentation datasets or rendered from 3D object models, and both approaches are too expensive to scale up to obtain good diversity. In this paper, we revisit Copy-Paste at scale with the power of newly emerged zero-shot recognition models (e.g., CLIP) and text2image models (e.g., StableDiffusion). We demonstrate for the first time that using a text2image model to generate images or zero-shot recognition model to filter noisily crawled images for different object categories is a feasible way to make Copy-Paste truly scalable. To make such success happen, we design a data acquisition and processing framework, dubbed ``X-Paste\", upon which a systematic study is conducted. On the LVIS dataset, X-Paste provides impressive improvements over the strong baseline CenterNet2 with Swin-L as the backbone. Specifically, it archives +2.6 box AP and +2.1 mask AP gains on all classes and even more significant gains with +6.8 box AP, +6.5 mask AP on long-tail classes. Our code and models are available at https://github.com/yoctta/XPaste.",
+   "affiliations": [
+    "University of Science and Technology of China",
+    "Microsoft"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Science and Technology of China",
+    "Microsoft"
+   ],
+   "institution_ids": [
+    "04c4dkn09",
+    "00d0nc645"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2212.03863",
+   "pdf_url": "https://arxiv.org/pdf/2212.03863"
+  },
+  {
    "arxiv_id": "2212.03741",
    "announced": "2022-12-01",
    "title": "FineDance: A Fine-grained Choreography Dataset for 3D Full Body Dance Generation",
@@ -14680,7 +14772,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -16003,7 +16095,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -17662,7 +17754,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -22195,7 +22287,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -30474,7 +30566,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -35423,7 +35515,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -35866,7 +35958,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -36318,7 +36410,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -37999,7 +38091,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -43474,7 +43566,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -58850,6 +58942,80 @@
    "pdf_url": "https://arxiv.org/pdf/2208.11021"
   },
   {
+   "arxiv_id": "2208.10590",
+   "announced": "2022-08-22",
+   "title": "A Survey and Framework of Cooperative Perception: From Heterogeneous Singleton to Hierarchical Cooperation",
+   "authors": [
+    "Zhengwei Bai",
+    "Guoyuan Wu",
+    "Matthew J. Barth",
+    "Yongkang Liu",
+    "Emrah Akin Sisbot",
+    "Kentaro Oguchi",
+    "Zhitong Huang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Under Review. arXiv admin note: text overlap with arXiv:2201.11871",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Perceiving the environment is one of the most fundamental keys to enabling Cooperative Driving Automation (CDA), which is regarded as the revolutionary solution to addressing the safety, mobility, and sustainability issues of contemporary transportation systems. Although an unprecedented evolution is now happening in the area of computer vision for object perception, state-of-the-art perception methods are still struggling with sophisticated real-world traffic environments due to the inevitably physical occlusion and limited receptive field of single-vehicle systems. Based on multiple spatially separated perception nodes, Cooperative Perception (CP) is born to unlock the bottleneck of perception for driving automation. In this paper, we comprehensively review and analyze the research progress on CP and, to the best of our knowledge, this is the first time to propose a unified CP framework. Architectures and taxonomy of CP systems based on different types of sensors are reviewed to show a high-level description of the workflow and different structures for CP systems. Node structure, sensor modality, and fusion schemes are reviewed and analyzed with comprehensive literature to provide detailed explanations of specific methods. A Hierarchical CP framework is proposed, followed by a review of existing Datasets and Simulators to sketch an overall landscape of CP. Discussion highlights the current opportunities, open challenges, and anticipated future trends.",
+   "affiliations": [
+    "University of California, Riverside",
+    "Toyota Motor North America",
+    "Leidos"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "University of California, Riverside",
+    "Toyota Motor North America",
+    "Leidos"
+   ],
+   "institution_ids": [
+    "03nawhv43",
+    "0076knn86",
+    "012cvds63"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2208.10590",
+   "pdf_url": "https://arxiv.org/pdf/2208.10590"
+  },
+  {
    "arxiv_id": "2208.10358",
    "announced": "2022-08-22",
    "title": "A Medical Semantic-Assisted Transformer for Radiographic Report Generation",
@@ -59776,7 +59942,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -65168,7 +65334,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -65603,7 +65769,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -66926,7 +67092,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -83307,7 +83473,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -85734,7 +85900,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -88646,7 +88812,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -89671,7 +89837,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -89819,7 +89985,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -92310,7 +92476,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -92360,7 +92526,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -93088,7 +93254,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -96070,7 +96236,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -103771,7 +103937,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -105077,7 +105243,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -105482,6 +105648,62 @@
    },
    "abs_url": "https://arxiv.org/abs/2205.10536",
    "pdf_url": "https://arxiv.org/pdf/2205.10536"
+  },
+  {
+   "arxiv_id": "2205.10528",
+   "announced": "2022-05-01",
+   "title": "PointVector: A Vector Representation In Point Cloud Analysis",
+   "authors": [
+    "Xin Deng",
+    "WenYu Zhang",
+    "Qing Ding",
+    "XinMing Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by CVPR2023",
+   "journal_ref": null,
+   "venue": "CVPR 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In point cloud analysis, point-based methods have rapidly developed in recent years. These methods have recently focused on concise MLP structures, such as PointNeXt, which have demonstrated competitiveness with Convolutional and Transformer structures. However, standard MLPs are limited in their ability to extract local features effectively. To address this limitation, we propose a Vector-oriented Point Set Abstraction that can aggregate neighboring features through higher-dimensional vectors. To facilitate network optimization, we construct a transformation from scalar to vector using independent angles based on 3D vector rotations. Finally, we develop a PointVector model that follows the structure of PointNeXt. Our experimental results demonstrate that PointVector achieves state-of-the-art performance 72.3% mIOU on the S3DIS Area 5 and 78.4% mIOU on the S3DIS (6-fold cross-validation) with only 58% model parameters of PointNeXt. We hope our work will help the exploration of concise and effective feature representations. The code will be released soon.",
+   "affiliations": [
+    "University of Science and Technology of China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Science and Technology of China"
+   ],
+   "institution_ids": [
+    "04c4dkn09"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2205.10528",
+   "pdf_url": "https://arxiv.org/pdf/2205.10528"
   },
   {
    "arxiv_id": "2205.10337",
@@ -106634,7 +106856,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -115569,7 +115791,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -123707,7 +123929,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -123868,7 +124090,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -124471,7 +124693,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -124909,7 +125131,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -131942,7 +132164,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -142088,7 +142310,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -155500,7 +155722,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
@@ -169948,7 +170170,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-08"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "ror",
