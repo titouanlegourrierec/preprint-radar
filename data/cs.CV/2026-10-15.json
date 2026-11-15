@@ -2777,17 +2777,56 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Accurately delineating Arctic coastal polynyas from sea ice concentration data remains challenging because of complex coastal geometry and spatially heterogeneous ice conditions. We develop a daily sea ice concentration (SIC) mapping framework based on hierarchical partitioning, connected-component analysis, and differentiated region growing for polynya and open-water regions. Applied to September-May ice seasons from 2002/03 to 2024/25, the framework achieves a mean overall accuracy of 96.74% and a mean kappa coefficient of 0.93 in the 63-scene visual assessment. Sensitivity experiments reveal a consistent pattern: the absolute magnitude of SIC-defined polynya extent is strongly configuration-dependent, whereas major temporal features are comparatively more stable. Relative to a 75% upper SIC threshold, seasonal extent integrals differ by 13.48%, 32.47%, and 65.04% at thresholds of 80%, 85%, and 90%, respectively, while the broad interannual structure remains recognizable. The response is also strongly regional and seasonal, with the largest threshold sensitivity in the Central Arctic Ocean, very weak sensitivity in the Gulf of St. Lawrence, and greater pan-Arctic curve separation from January onward. At an 80% threshold, product-comparison MAPE is 68.19% between the 6.25 and 25 km products and 11.47% between the 12.5 and 25 km products under their respective comparison periods and reference definitions. Regional product disagreement is likewise heterogeneous. Together, these results show that reproducible long-term polynya monitoring requires a fixed and explicitly documented combination of SIC product, threshold, and spatial classification rules, while broad temporal patterns can remain informative even when absolute extent differs substantially.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Space Engineering University",
+    "Sun Yat-sen University",
+    "Southern Marine Science and Engineering Guangdong Laboratory (Zhuhai)",
+    "Beijing Automotive Group"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "Space Engineering University",
+    "Sun Yat-sen University",
+    "Southern Marine Science and Engineering Guangdong Laboratory (Zhuhai)",
+    "Beijing Automotive Group"
+   ],
+   "institution_ids": [
+    "04rj1td02",
+    "0064kty71",
+    "03swgqh13",
+    "05tq31x39"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-15"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-15"
+     "at": "2026-11-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.19647",
@@ -4504,17 +4543,42 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Catheter obstruction is the commonest cause of shunt failure; freehand insertion at Keen's point leaves the tip free in cerebrospinal fluid in only one case in ten. We built a digital twin that reconstructs skull, scalp, ear and ventricles from preoperative CT by deterministic geometry, searches every entry around Keen's point for the perpendicular trajectory with the longest intraventricular length under safety constraints, and returns the plan as two ruler measurements from the ear and two depths. Executed freehand in 11 consecutive adults (IDEAL Stage 2a), it achieved Hayhurst Grade 1 placement in 10 of 11 against 22 of 213 historically (p = 9 x 10^-9), median entry and angular deviations 2.5 mm and 5.9 degrees, 1.4 cm more intraventricular catheter than Keen's point, and no intraoperative complication. The technique was unchanged; the gain came from choosing entry and depth per patient. Whether it lowers revision is the next stage's hypothesis.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Agency for Science, Technology and Research",
+    "Thammasat University Hospital",
+    "Institute of Advanced Intelligence and Computing"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     1
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "Agency for Science, Technology and Research",
+    "Thammasat University Hospital",
+    "Institute of Advanced Intelligence and Computing"
+   ],
+   "institution_ids": [
+    "036wvzt09",
+    "02s7hnh67",
+    "01eczt548"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-15"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-15"
+     "at": "2026-11-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.20074",
@@ -4876,7 +4940,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-15"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "openalex",
@@ -5969,7 +6033,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-15"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "openalex",
@@ -7286,17 +7350,32 @@
    "cross_list_from": "eess.IV",
    "html_url": null,
    "abstract": "Purpose: Free-breathing abdominal MRI is limited by respiratory motion, which introduces image artifacts and k-space inconsistencies. Existing reconstruction approaches often depend on pre-estimated motion fields or external respiratory surrogate signals. We propose a coupled reconstruction-motion estimation algorithm for self-navigated free-breathing acquisition, in which motion is represented by compact Gaussian primitives and jointly refined with the image estimates during iterative reconstruction. Methods: An iterative reconstruction that alternates between data consistency updates and motion modelling was proposed. Respiratory motion was represented using Gaussian primitives. A Gaussian splatting was integrated into the reconstruction algorithm. The method was evaluated on self-navigated free-breathing Cartesian gradient-echo (GRE) acquisition in four healthy volunteers, including retrospective scan shortening experiments, and was compared with regularized compressed sensing (CS) reconstruction. Results: Respiratory motion states were reconstructed in approximately 1.5 min. Compared with CS, the proposed method improved visual image quality, particularly in coronal liver views, and better preserved anatomical structures in retrospectively shortened acquisitions. These findings provide proof of concept for the proposed method. Conclusion: The proposed coupled reconstruction-motion estimation algorithm improved visual image quality compared with CS alone. Gaussian primitives provided a compact and sufficiently flexible representation of nonrigid respiratory motion with practical runtime, supporting further scanner integration and validation in larger cohorts.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Siemens Healthineers"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "Siemens Healthineers"
+   ],
+   "institution_ids": [
+    "0449c4c15"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-15"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-15"
+     "at": "2026-11-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.19120",
@@ -7927,17 +8006,37 @@
    "cross_list_from": "physics.optics",
    "html_url": null,
    "abstract": "Computational compressive imaging, such as single-pixel imaging and lensless imaging, is a promising imaging technique, enabling the reconstruction of objects from under-sampled measurements through compressed sensing algorithms or deep learning methods. However, the demand for electronic computational resources grows rapidly when recovering high-resolution and multi-dimensional images and training neural networks with numerous parameters, which has become a bottleneck for the widespread adoption of this technique. Here, we propose a physics-driven reconstruction framework that formulates imaging inverse problems as Ising models and directly recovers target objects through the self-evolution of non-von Neumann Ising machines toward the ground state of the Hamiltonian. We employ a simulated-annealing-based Ising solver to demonstrate this proof-of-concept by reconstructing objects in both single-pixel imaging and a lensless diffuser camera at sampling rates ranging from 1% to 25%. By further incorporating a foreground-sparsity constraint and a smoothness constraint, the reconstruction quality of our method is comparable to or even better than that of mainstream algorithms. This approach has the potential to substantially reduce the electronic computational burden of inverse reconstruction, paving the way for real-time, low-power computational imaging.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Shanghai Jiao Tong University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "Shanghai Jiao Tong University"
+   ],
+   "institution_ids": [
+    "0220qvk04"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-15"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-15"
+     "at": "2026-11-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.19778",
@@ -8298,17 +8397,53 @@
    "cross_list_from": "cs.CL",
    "html_url": null,
    "abstract": "Context can improve large language model performance, but these gains may be lost after context removal. Inspired by biological systems consolidation, we formulate Memory Consolidation (MC) as internalizing these gains while preserving non-target capabilities, connecting context-specified editing, skill learning, and behavioral steering under a common objective. We introduce a five-task-family testbed measuring consolidation and retention under single, batch, and sequential updates. We propose Cortex, which generates prospective queries to anticipate uses of context and distills context-conditioned outputs into mergeable low-rank or structural feed-forward network updates. Across 4B--120B dense and mixture-of-experts backbones, including both text-only and multimodal models, Cortex lies on the empirical consolidation--retention Pareto frontier in most evaluated settings. After 50 sequential factual edits on a 14B model, Cortex-Structural recovers 88.9% of the context-induced gain while retaining 99.8% of original non-target performance.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "ByteDance",
+    "Zhejiang University",
+    "Tsinghua University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    null,
+    null,
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    null,
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "ByteDance",
+    "Zhejiang University",
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "04m8av638",
+    "00a2xv884",
+    "03cve4549"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-15"
+     "at": "2026-11-15"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-15"
+     "at": "2026-11-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.20399",
