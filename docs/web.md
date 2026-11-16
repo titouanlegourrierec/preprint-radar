@@ -45,7 +45,8 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 - Several names or venues (SRCH-21): the authors, affiliations and venues are lists, of which
   a paper needs one, and it passes every other filter ("by Hao Li or Kaiming He, at CVPR").
   A name or venue clicked on a card joins those set (`withName`, `withVenue`, once each; any
-  venue replaces the others); a Rankings row or a graph node shows its own papers, that name
+  venue replaces the others), replacing the text typed it starts with ("gra", then Grace
+  Hopper clicked, is her alone); a Rankings row or a graph node shows its own papers, that name
   alone. In the sidebar the text typed is the last name, applied as it is typed; Enter, a
   suggestion chosen (`insertReplacementText`, spelling corrections off) or leaving the field
   keeps it as a chip under the field, which empties for another (`NamesInput`). The venue

@@ -8,6 +8,7 @@ import type { Period } from "../period";
 import {
   activeFilterCount,
   type FacetCount,
+  isActive,
   type NameFilter,
   type SearchFilters,
   typed,
@@ -145,7 +146,8 @@ function NamesInput({
   const keep = () => {
     if (!typing) return;
     setDraft("");
-    onChange(withName(kept, typed(draft)));
+    // Spaces alone are no name.
+    onChange(isActive(typed(draft)) ? withName(kept, typed(draft)) : kept);
   };
   return (
     <div class="names-field">

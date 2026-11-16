@@ -84,9 +84,15 @@ export function sameName(a: NameFilter, b: NameFilter): boolean {
   return a.exact === b.exact && searchKey(a.text) === searchKey(b.text);
 }
 
-/** The names with one more, unless they hold it already (SRCH-21). */
+/**
+ * The names with one more, unless they hold it already (SRCH-21). A name clicked replaces
+ * the text typed that it starts with: "gra", then Grace Hopper clicked, is her alone.
+ */
 export function withName(names: readonly NameFilter[], name: NameFilter): NameFilter[] {
-  return names.some((known) => sameName(known, name)) ? [...names] : [...names, name];
+  const kept = name.exact
+    ? names.filter((known) => known.exact || !startsWords(name.text, known.text))
+    : [...names];
+  return kept.some((known) => sameName(known, name)) ? kept : [...kept, name];
 }
 
 /**

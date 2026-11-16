@@ -225,6 +225,17 @@ describe("PaperIndex", () => {
       exactly("Hao Li"),
       typed("Hao Li"),
     ]);
+    // A name clicked replaces the text typed that it starts with, not other text.
+    expect(withName([typed("kai"), typed("hao")], exactly("Kaiming He"))).toEqual([
+      typed("hao"),
+      exactly("Kaiming He"),
+    ]);
+    expect(withName([typed("he")], exactly("Kaiming He"))).toEqual([exactly("Kaiming He")]);
+    expect(withName([exactly("Kai Zhang")], exactly("Kaiming He"))).toEqual([
+      exactly("Kai Zhang"),
+      exactly("Kaiming He"),
+    ]);
+    expect(withName([typed("kai")], typed("hao"))).toEqual([typed("kai"), typed("hao")]);
     expect(withVenue(["CVPR*"], "ICCV*")).toEqual(["CVPR*", "ICCV*"]);
     expect(withVenue(["CVPR*"], "CVPR*")).toEqual(["CVPR*"]);
     expect(withVenue(["CVPR*"], ANY_VENUE)).toEqual([ANY_VENUE]);

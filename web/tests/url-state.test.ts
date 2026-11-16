@@ -73,20 +73,23 @@ describe("url state", () => {
       ...DEFAULT_STATE,
       filters: {
         ...DEFAULT_STATE.filters,
-        authors: [exactly("Hao Li"), typed("kai"), exactly("Kaiming He")],
+        authors: [exactly("Hao Li"), typed("yu"), exactly("Kaiming He")],
         affiliations: [exactly("MIT"), exactly("Hong Kong, China")],
         venues: ["CVPR*", "ICCV 2025"],
       },
     };
     const search = writeState(state);
     expect(search).toBe(
-      "?by=Hao+Li&author=kai&by=Kaiming+He&at=MIT&at=Hong+Kong%2C+China&venue=CVPR*&venue=ICCV+2025",
+      "?by=Hao+Li&author=yu&by=Kaiming+He&at=MIT&at=Hong+Kong%2C+China&venue=CVPR*&venue=ICCV+2025",
     );
     expect(readState(search)).toEqual(state);
     // A name twice is one, empty ones none; any venue holds the others.
     expect(readState("?by=Hao+Li&by=hao+li&by=&author=Hao+Li").filters.authors).toEqual([
       exactly("Hao Li"),
       typed("Hao Li"),
+    ]);
+    expect(readState("?author=gra&by=Grace+Hopper").filters.authors).toEqual([
+      exactly("Grace Hopper"),
     ]);
     expect(readState("?venue=CVPR*&venue=*").filters.venues).toEqual(["*"]);
     expect(readState("?venue=*&venue=CVPR*&venue=").filters.venues).toEqual(["CVPR*"]);
@@ -461,7 +464,7 @@ describe("listKey", () => {
 describe("the URL's parameters", () => {
   it("are all documented in docs/web.md", () => {
     const read = new Set([
-      ...[...source.matchAll(/params\.get(?:All)?\("(\w+)"\)/g)].map((match) => match[1]),
+      ...[...source.matchAll(/params\s*\.get(?:All)?\("(\w+)"\)/g)].map((match) => match[1]),
       ...[...source.matchAll(/readNames\(params, "(\w+)", "(\w+)"\)/g)].flatMap((match) => [
         match[1],
         match[2],

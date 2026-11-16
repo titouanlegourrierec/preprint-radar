@@ -191,6 +191,10 @@ test("names add up, each paper having one of them (SRCH-21)", async ({ page }) =
   await page.getByRole("button", { name: "Remove the author Ada Lovelace" }).click();
   await expect(page.getByText("2 of 4 cs.CV papers")).toBeVisible();
   await expect(page).toHaveURL(/\?author=grace$/);
+  // Spaces alone keep no chip.
+  await field.fill("  ");
+  await field.press("Enter");
+  await expect(chips).toHaveText(["grace ×"]);
   expect(errors).toEqual([]);
 });
 
@@ -793,16 +797,17 @@ test("Back and Forward between a typed name and a clicked one keep the history",
   page,
 }) => {
   await page.goto("./?author=gra");
+  // The name clicked replaces the text it starts with (SRCH-21).
   await page.getByRole("button", { name: "Grace Hopper" }).first().click();
-  await expect(page).toHaveURL(/by=Grace/);
+  await expect(page).toHaveURL(/\?by=Grace\+Hopper$/);
   const entries = await page.evaluate("history.length");
   await page.goBack();
-  await expect(page).toHaveURL(/author=gra/);
+  await expect(page).toHaveURL(/\?author=gra$/);
   // Past the typing pause, nothing was pushed over the entry Forward leads to.
   await page.waitForTimeout(400);
   expect(await page.evaluate("history.length")).toBe(entries);
   await page.goForward();
-  await expect(page).toHaveURL(/by=Grace/);
+  await expect(page).toHaveURL(/\?by=Grace\+Hopper$/);
 });
 
 test("Rankings lists the institutions of the papers shown", async ({ page }) => {
