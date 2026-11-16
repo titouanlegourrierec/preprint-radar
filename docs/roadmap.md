@@ -488,6 +488,17 @@ branch's first squash due on 2026-12-06. `validate`: no error, 3 warnings (2610.
 authors holding a contact detail, a gain of `citation-gains.json` for a paper no longer
 stored).
 
+*Result of v1.5.0 (2026-11-16; `make stats` and `make validate` that day).* SRCH-21: several
+authors, affiliations and venues at once, matching all or any; SRCH-22: a search's link to
+copy; OPS-13: a day announced after the morning run is read by the fallback. Day files:
+9,606 papers, abstracts 100%, affiliations 84% of those tried (authors mapped 86%,
+institutions named 99%), venues 25%, citation counts 100%. Archive: 22,974 papers,
+affiliations 97%, authors mapped 98%, venues 89%, counts 100%. A country for 29,331 of the
+32,579 papers (90%). The hand-read reference set: strings 55 of 60, who is where 55 of 60.
+`data/`: 97 MB, the repository 168 MB at GitHub (the data branch's weekly archives until its
+first squash, due on 2026-12-06). `validate`: no error, 3 warnings (2610.24182's two authors
+holding a contact detail, 2609.02831's last author alone placed at every affiliation).
+
 ## Backlog triage (2026-10-07)
 
 The audit items no row above named on 2026-10-07, checked against the code of that day (`b3bfefc`).

@@ -10,6 +10,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ## Unreleased
 
+## 1.5.0 (2026-11-16): several authors, affiliations and venues at once
+
 ### Search
 
 - Several authors, affiliations or venues filter together: a paper needs one of each list
