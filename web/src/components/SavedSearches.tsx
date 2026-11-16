@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { LOCALE } from "../locale";
+import { shareLink } from "../native-share";
 import { type SavedSearch, type SearchOf, savedSearch, searchOf } from "../saved-searches";
 import type { PaperIndex } from "../search";
-import { CheckIcon } from "./icons";
+import { CheckIcon, LinkIcon } from "./icons";
 
 interface Props {
   searches: SavedSearch[];
@@ -51,6 +52,18 @@ export function SavedSearches({
     if (fresh) setAdded(fresh.search);
     known.current = new Set(searches.map(({ search }) => search));
   }, [searches]);
+  // The link of the search shown, as the address bar holds it (its period, view and sort
+  // too): a phone's share sheet, else copied, the button saying so (UX-49).
+  const [link, setLink] = useState<"copied" | "refused" | null>(null);
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(timer.current), []);
+  async function copyLink(name: string) {
+    const shared = await shareLink({ title: name, text: name, url: window.location.href });
+    if (shared !== "copied" && shared !== "refused") return;
+    setLink(shared);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setLink(null), shared === "copied" ? 1500 : 4000);
+  }
 
   if (searches.length === 0 && shown === null) return null;
   return (
@@ -60,22 +73,37 @@ export function SavedSearches({
       </h2>
       {/* Saved, it says so quietly and keeps the focus; pressed again, it forgets it. */}
       {shown !== null && (
-        <button
-          type="button"
-          class={`link-button${savedShown ? " saved-searches__saved" : ""}`}
-          aria-pressed={Boolean(savedShown)}
-          title={savedShown ? "Saved: press again to remove it" : undefined}
-          onClick={() => (savedShown ? onRemove(savedShown) : onSave())}
-        >
-          {savedShown ? (
-            <>
-              <CheckIcon />
-              Saved
-            </>
-          ) : (
-            "Save this search"
-          )}
-        </button>
+        <div class="saved-searches__actions">
+          <button
+            type="button"
+            class={`link-button${savedShown ? " saved-searches__saved" : ""}`}
+            aria-pressed={Boolean(savedShown)}
+            title={savedShown ? "Saved: press again to remove it" : undefined}
+            onClick={() => (savedShown ? onRemove(savedShown) : onSave())}
+          >
+            {savedShown ? (
+              <>
+                <CheckIcon />
+                Saved
+              </>
+            ) : (
+              "Save this search"
+            )}
+          </button>
+          <button
+            type="button"
+            class="link-button saved-searches__link"
+            title="Copy a link to this search: whoever opens it sees the same words, filters and period"
+            onClick={() => copyLink(shown.name)}
+          >
+            {link === "copied" ? <CheckIcon /> : <LinkIcon />}
+            {link === "copied"
+              ? "Link copied"
+              : link === "refused"
+                ? "Copy it from the address bar"
+                : "Copy link"}
+          </button>
+        </div>
       )}
       {searches.length > 0 && (
         <ul class="saved-searches__list">

@@ -209,6 +209,20 @@ test("names and affiliations match all together, or any of them (SRCH-21)", asyn
   expect(errors).toEqual([]);
 });
 
+test("a search's link is copied whole, to open the same papers (SRCH-22)", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.context().grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.goto("./?by=Ada+Lovelace&aff=manchester&match=any");
+  await expect(page.getByText("3 of 4 cs.CV papers")).toBeVisible();
+  await page.getByRole("button", { name: "Copy link" }).click();
+  await expect(page.getByRole("button", { name: "Link copied" })).toBeVisible();
+  const link = String(await page.evaluate("navigator.clipboard.readText()"));
+  expect(link).toBe(page.url());
+  await page.goto(link);
+  await expect(page.getByText("3 of 4 cs.CV papers")).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
 test("a paper link opens the paper", async ({ page }) => {
   await page.goto("./?from=2026-09-24&paper=2609.00004");
   const card = page.locator("article.paper--target");

@@ -17,6 +17,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   chip that removes it; links repeat the parameter (`?by=Hao+Li&by=Kaiming+He`), and old
   ones read as before. Match any widens them to the papers of one of the authors,
   affiliations or venues (`?match=any`, SRCH-21).
+- Copy link, beside Save this search, copies the link of the search shown, or opens a
+  phone's share sheet (SRCH-22).
 
 ### Pipeline
 

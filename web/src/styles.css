@@ -3037,6 +3037,19 @@ input[type="range"] {
   font-size: 0.85rem;
 }
 
+/* Save this search · Copy link (SRCH-22), on one row while they fit. */
+.saved-searches__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+}
+
+.link-button.saved-searches__link {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
 .saved-searches__title {
   margin: 0;
   font-size: 0.85rem;

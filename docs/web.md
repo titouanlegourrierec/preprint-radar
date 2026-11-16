@@ -436,7 +436,11 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   toggle (UX-59): saved, it reads "✓ Saved", muted and pressed, and keeps the focus; pressed
   again, it forgets the search. The saved search shown is pressed in the list, as the
   reading list's folder shown; the row just saved arrives with a bump (not those there when
-  the list first draws), and each count of new papers pops as it arrives.
+  the list first draws), and each count of new papers pops as it arrives. Beside Save,
+  Copy link (SRCH-22) gives the search shown to someone else: the address bar's link, its
+  period, view and sort too, through a phone's share sheet or copied ("Link copied"); a
+  refused clipboard says to copy it from the address bar. A saved search stays in this
+  browser: its link is what one shares.
 - **The list** (`components/PaperList.tsx`, `paging.ts`) adds `PAGE_SIZE` (40) cards as its
   end comes into view and starts over only for a new list (`listKey`). A card that leaves
   (seen while seen papers are hidden, unsaved from the reading list) does not collapse the
