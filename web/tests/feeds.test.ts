@@ -43,6 +43,11 @@ describe("feed paths", () => {
     const two = { ...at, affiliations: [exactly("MIT"), exactly("Stanford University")] };
     expect(feedOf("cs.CV", two, known)?.name).toBe("CVPR");
     expect(feedOf("cs.CV", { ...two, venues: ["CVPR*", "ICCV*"] }, known)).toBeNull();
+    // Nor does one of an institution or a venue.
+    expect(feedOf("cs.CV", { ...at, matchAny: true }, known)).toBeNull();
+    expect(feedOf("cs.CV", { ...NO_FILTERS, venues: ["CVPR*"], matchAny: true }, known)?.name).toBe(
+      "CVPR",
+    );
     // An institution of the archive alone has no feed: the venue's, if any, instead.
     expect(feedOf("cs.CV", at, () => false)?.path).toBe("feeds/cs.CV/venues/cvpr.xml");
     expect(

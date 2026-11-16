@@ -7,6 +7,7 @@ import { LOCALE } from "../locale";
 import type { Period } from "../period";
 import {
   activeFilterCount,
+  choiceCount,
   type FacetCount,
   isActive,
   type NameFilter,
@@ -27,6 +28,7 @@ import {
 } from "./icons";
 import { lazyView } from "./lazy-view";
 import { PeriodPicker } from "./PeriodPicker";
+import { Segmented } from "./Segmented";
 import { VenueSelect } from "./VenueSelect";
 
 // The archive's years, which the Papers list never shows, come with Highly cited or
@@ -79,6 +81,11 @@ interface Props {
     | { active: boolean; onChange: (active: boolean) => void; since: number | undefined }
     | undefined;
 }
+
+const MATCHES = [
+  ["all", "Match all"],
+  ["any", "Match any"],
+] as const;
 
 /** Chips that each remove one value of a filter, under its field (SRCH-21). */
 function FilterChips({
@@ -335,6 +342,21 @@ export function Sidebar(props: Props) {
               />
             )}
           </div>
+
+          {/* With two of the authors, affiliations and venues set: one of each, or of all. */}
+          {choiceCount(filters) > 1 && (
+            <Segmented
+              legend="Papers matching"
+              class="segmented--match"
+              options={MATCHES}
+              value={filters.matchAny ? "any" : "all"}
+              titles={{
+                all: "Papers of one of the authors, at one of the affiliations and venues",
+                any: "Papers of one of the authors, affiliations or venues",
+              }}
+              onChange={(match) => onFilters({ ...filters, matchAny: match === "any" })}
+            />
+          )}
 
           {(props.subjects.length > 1 || filters.subject) && (
             <label class="field field--select">

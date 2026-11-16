@@ -60,6 +60,9 @@ describe("saved searches", () => {
       "by Hao Li or Kaiming He · at MIT or stanford · CVPR, any year or ICCV 2025",
     );
     expect(saved && searchOf(saved)).toEqual({ query: "", filters });
+    expect(savedSearch({ query: "", filters: { ...filters, matchAny: true } })?.name).toBe(
+      "by Hao Li or Kaiming He, or at MIT or stanford, or CVPR, any year or ICCV 2025",
+    );
   });
 
   it("read only what is a search, once", () => {

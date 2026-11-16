@@ -38,7 +38,8 @@ export interface NameFilter {
 
 /**
  * The filters of a search. A paper passes every filter set; the authors, affiliations and
- * venues are lists, of which it needs one (SRCH-21: "by Hao Li or Kaiming He").
+ * venues are lists, of which it needs one (SRCH-21: "by Hao Li or Kaiming He"), and with
+ * {@link SearchFilters.matchAny} one of all three.
  */
 export interface SearchFilters {
   excludeCrossLists: boolean;
@@ -52,6 +53,11 @@ export interface SearchFilters {
    * `venues.ts`), or {@link ANY_VENUE} alone, which holds the others.
    */
   venues: string[];
+  /**
+   * A paper needs one of the authors, affiliations and venues together, not one of each
+   * (SRCH-21: "by Hao Li, or at MIT"); the other filters still narrow it.
+   */
+  matchAny: boolean;
   /**
    * A country of the papers' institutions, its ISO code ("FR", PROD-22), as the build
    * merges them from their ROR ids (`Paper.countries`).
@@ -76,8 +82,26 @@ export const NO_FILTERS: SearchFilters = {
   affiliations: [],
   subject: null,
   venues: [],
+  matchAny: false,
   country: null,
 };
+
+/**
+ * How many of the authors, affiliations and venues are set: with two or more, a paper may
+ * need one of each or one of all ({@link SearchFilters.matchAny}).
+ */
+export function choiceCount(filters: SearchFilters): number {
+  return choicesSet(filters).filter(Boolean).length;
+}
+
+/** Whether the authors, the affiliations and the venues are set, in this order. */
+function choicesSet(filters: SearchFilters): boolean[] {
+  return [
+    filters.authors.some(isActive),
+    filters.affiliations.some(isActive),
+    filters.venues.length > 0,
+  ];
+}
 
 /** Whether two name filters are the same: the same name, both clicked or both typed. */
 export function sameName(a: NameFilter, b: NameFilter): boolean {
@@ -655,6 +679,24 @@ function listedUnder(paper: Paper, subject: string): boolean {
   return subjectsOf(paper).some((listed) => subjectCode(listed) === code);
 }
 
+/**
+ * Whether a paper matches the authors, affiliations and venues set: one of each, or with
+ * `matchAny` one of them all (SRCH-21).
+ */
+function matchesChoices(paper: Paper, filters: SearchFilters): boolean {
+  const tests = [
+    // Institutions are only named when an affiliation filter needs them.
+    () => matchesOne(paper, filters.authors, matchesAuthor),
+    () => matchesOne(paper, filters.affiliations, matchesAffiliation),
+    () =>
+      filters.venues.length === 0 ||
+      filters.venues.some((venue) => matchesVenue(paper.venue, venue)),
+  ];
+  if (!filters.matchAny || choiceCount(filters) < 2) return tests.every((test) => test());
+  const set = choicesSet(filters);
+  return tests.some((test, i) => set[i] && test());
+}
+
 /** Whether a paper matches one of the names set, if any is (SRCH-21). */
 function matchesOne(
   paper: Paper,
@@ -677,12 +719,8 @@ export function matchesFilters(paper: Paper, filters: SearchFilters): boolean {
   return (
     !(filters.excludeCrossLists && paper.cross_list_from !== null) &&
     (!filters.withCode || codeUrl(paper) !== null) &&
-    matchesOne(paper, filters.authors, matchesAuthor) &&
-    // Institutions are only named when an affiliation filter needs them.
-    matchesOne(paper, filters.affiliations, matchesAffiliation) &&
+    matchesChoices(paper, filters) &&
     (filters.subject === null || listedUnder(paper, filters.subject)) &&
-    (filters.venues.length === 0 ||
-      filters.venues.some((venue) => matchesVenue(paper.venue, venue))) &&
     (filters.country === null || inCountry(paper, filters.country))
   );
 }

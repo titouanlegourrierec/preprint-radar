@@ -198,6 +198,17 @@ test("names add up, each paper having one of them (SRCH-21)", async ({ page }) =
   expect(errors).toEqual([]);
 });
 
+test("names and affiliations match all together, or any of them (SRCH-21)", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("./?by=Ada+Lovelace&aff=manchester");
+  // No paper of Ada Lovelace is from Manchester.
+  await expect(page.getByText("0 of 4 cs.CV papers")).toBeVisible();
+  await page.getByRole("button", { name: "Match any" }).click();
+  await expect(page.getByText("3 of 4 cs.CV papers")).toBeVisible();
+  await expect(page).toHaveURL(/&match=any$/);
+  expect(errors).toEqual([]);
+});
+
 test("a paper link opens the paper", async ({ page }) => {
   await page.goto("./?from=2026-09-24&paper=2609.00004");
   const card = page.locator("article.paper--target");

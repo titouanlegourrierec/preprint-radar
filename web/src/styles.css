@@ -1397,6 +1397,11 @@ html {
   position: static;
 }
 
+/* Match all or any of the authors, affiliations and venues (SRCH-21): the field's width. */
+.segmented--match > .segmented__option {
+  flex: 1;
+}
+
 .info__button {
   position: relative;
   display: grid;

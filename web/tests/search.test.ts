@@ -9,6 +9,7 @@ import {
   byGains,
   byStarGains,
   byStars,
+  choiceCount,
   exactly,
   hasSearchWords,
   matchesFilters,
@@ -217,6 +218,35 @@ describe("PaperIndex", () => {
     // Empty names filter nothing, nor keep anything by themselves.
     expect(kept({ authors: [typed("  "), exactly("Ada Lovelace")] })).toEqual(["3"]);
     expect(kept({ authors: [typed("  ")] })).toEqual(["1", "2", "3"]);
+  });
+
+  it("keeps the papers of one of the names and venues all together, with matchAny", () => {
+    const team = [
+      makePaper({ arxiv_id: "1", authors: ["Hao Li"], affiliations: ["MIT"], venue: null }),
+      makePaper({ arxiv_id: "2", authors: ["Kaiming He"], affiliations: ["Meta"], venue: null }),
+      makePaper({ arxiv_id: "3", authors: ["Ada"], affiliations: ["Meta"], venue: "CVPR 2026" }),
+      makePaper({ arxiv_id: "4", authors: ["Bob"], affiliations: ["Meta"], venue: null }),
+    ];
+    const kept = (filters: Partial<typeof NO_FILTERS>) =>
+      team
+        .filter((paper) => matchesFilters(paper, { ...NO_FILTERS, ...filters }))
+        .map((paper) => paper.arxiv_id);
+    const choices = {
+      authors: [exactly("Hao Li"), exactly("Kaiming He")],
+      affiliations: [typed("mit")],
+      venues: ["CVPR*"],
+    };
+
+    expect(choiceCount({ ...NO_FILTERS, ...choices })).toBe(3);
+    expect(kept(choices)).toEqual([]);
+    expect(kept({ ...choices, matchAny: true })).toEqual(["1", "2", "3"]);
+    // The other filters still narrow the papers.
+    expect(kept({ ...choices, matchAny: true, withCode: true })).toEqual([]);
+    // One kind of choice set: matchAny changes nothing; nor do empty names count.
+    expect(kept({ authors: [exactly("Kaiming He")], matchAny: true })).toEqual(["2"]);
+    expect(
+      kept({ authors: [exactly("Kaiming He")], affiliations: [typed(" ")], matchAny: true }),
+    ).toEqual(["2"]);
   });
 
   it("adds a name or a venue once, any venue holding the others (SRCH-21)", () => {

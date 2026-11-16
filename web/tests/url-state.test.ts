@@ -34,6 +34,7 @@ describe("url state", () => {
         affiliations: [exactly("MIT")],
         subject: null,
         venues: ["ECCV 2026"],
+        matchAny: true,
         country: "FR",
       },
       paper: "2609.30234",
@@ -92,6 +93,12 @@ describe("url state", () => {
       exactly("Grace Hopper"),
     ]);
     expect(readState("?venue=CVPR*&venue=*").filters.venues).toEqual(["*"]);
+    // Matching any is written where it changes the papers only.
+    const any = { ...state.filters, matchAny: true };
+    expect(writeState({ ...state, filters: any })).toMatch(/&match=any$/);
+    expect(writeState({ ...state, filters: { ...any, venues: [], affiliations: [] } })).not.toMatch(
+      /match/,
+    );
     expect(readState("?venue=*&venue=CVPR*&venue=").filters.venues).toEqual(["CVPR*"]);
   });
 

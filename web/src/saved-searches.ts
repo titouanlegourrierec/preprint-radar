@@ -39,15 +39,21 @@ function either(values: readonly string[]): string {
   return values.join(" or ");
 }
 
-/** "gaussian splatting · by Hao Li or Kaiming He · at MIT · ECCV 2026". */
+/**
+ * "gaussian splatting · by Hao Li or Kaiming He · at MIT · ECCV 2026", or with `matchAny`
+ * "by Hao Li or Kaiming He, or at MIT".
+ */
 export function searchName({ query, filters }: SearchOf): string {
   const { authors, affiliations, venues, subject, excludeCrossLists, withCode } = filters;
   const texts = (names: readonly NameFilter[]) => either(names.map((name) => name.text));
-  return [
-    query.trim(),
+  const choices = [
     authors.length > 0 && `by ${texts(authors)}`,
     affiliations.length > 0 && `at ${texts(affiliations)}`,
     either(venues.map(venueLabel)),
+  ].filter((choice): choice is string => Boolean(choice));
+  return [
+    query.trim(),
+    ...(filters.matchAny ? [choices.join(", or ")] : choices),
     subject,
     excludeCrossLists && "no cross-lists",
     withCode && "with code",

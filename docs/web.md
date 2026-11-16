@@ -51,7 +51,10 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   suggestion chosen (`insertReplacementText`, spelling corrections off) or leaving the field
   keeps it as a chip under the field, which empties for another (`NamesInput`). The venue
   select adds the one chosen, naming how many are set; each chip, there and above the
-  papers, removes its value alone. A feed follows one institution or one venue only.
+  papers, removes its value alone. With two of the three set, Match all / Match any
+  (`matchAny`, `choiceCount`) chooses between one of each and one of them all ("by Hao Li,
+  or at KAIST"); the other filters still narrow either. A feed follows one institution or
+  one venue only, never a match of any.
 - Typed text applies, and enters the URL, after a 150 ms pause, the field showing it at once
   (`hooks/use-url-state.ts`, `isTypedChange`, PERF-4); a click, a chip kept or removed apply
   at once.
@@ -185,6 +188,7 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `by`, `at` | An author or an institution, as clicked: that name only; repeated for several, in their order with `author` and `aff` (SRCH-21) | none | the lists, Rankings |
   | `author`, `aff` | Typed author or affiliation text: word starts; repeated as well | none | the same |
   | `venue` | A venue (`ECCV 2026`), a family (`ECCV*`) or any (`*`, which holds the others); repeated for several | none | the lists, Rankings, the graph |
+  | `match` | `any`: a paper of one of the authors, affiliations and venues set, not one of each; written with two of them set only (SRCH-21) | all | the lists, Rankings |
   | `country` | A country of the papers' institutions, its ISO code (`FR`, PROD-22) | none | the lists, Rankings |
   | `subject` | A subject, primary or cross-listed (`Machine Learning (cs.LG)`) | none | the lists, Rankings |
   | `xl` | `0`: cross-lists hidden; no control sets it, old links and saved searches do (its chip clears it) | shown | the lists, Rankings |

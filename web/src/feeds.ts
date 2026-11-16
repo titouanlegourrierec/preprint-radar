@@ -4,7 +4,7 @@
  * lab or a conference without a server or an account. The site links the feed of the
  * institution or venue a list is filtered on.
  */
-import type { SearchFilters } from "./search";
+import { choiceCount, type SearchFilters } from "./search";
 import { searchKey } from "./text";
 import { ANY_VENUE, familyOf, MAJOR_VENUES, venueFamily } from "./venues";
 
@@ -56,6 +56,8 @@ export function feedOf(
   filters: SearchFilters,
   hasFeed: (institution: string) => boolean,
 ): FeedLink | null {
+  // The papers of one of an institution and a venue are neither's feed.
+  if (filters.matchAny && choiceCount(filters) > 1) return null;
   const affiliation = filters.affiliations.length === 1 ? filters.affiliations[0] : undefined;
   const venue = filters.venues.length === 1 ? filters.venues[0] : undefined;
   if (affiliation?.exact && hasFeed(affiliation.text)) {

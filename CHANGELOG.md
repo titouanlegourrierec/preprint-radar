@@ -15,7 +15,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 - Several authors, affiliations or venues filter together: a paper needs one of each list
   (and every other filter), a name or venue clicked on a card joining those set, each a
   chip that removes it; links repeat the parameter (`?by=Hao+Li&by=Kaiming+He`), and old
-  ones read as before (SRCH-21).
+  ones read as before. Match any widens them to the papers of one of the authors,
+  affiliations or venues (`?match=any`, SRCH-21).
 
 ### Pipeline
 

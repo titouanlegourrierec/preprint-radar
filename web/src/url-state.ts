@@ -8,6 +8,7 @@ import {
 import type { EntityKind } from "./graph";
 import { between, DEFAULT_PERIOD, isIsoDay, type Period, rangeOf } from "./period";
 import {
+  choiceCount,
   exactly,
   type NameFilter,
   NO_FILTERS,
@@ -193,6 +194,7 @@ export function readState(search: string): ViewState {
         .getAll("venue")
         .filter(Boolean)
         .reduce<string[]>((venues, venue) => withVenue(venues, venue), []),
+      matchAny: params.get("match") === "any",
       // An ISO code, as the build writes them ("FR"); anything else filters nothing.
       country: COUNTRY_RE.test(params.get("country") ?? "") ? params.get("country") : null,
     },
@@ -240,6 +242,8 @@ export function writeState(state: ViewState): string {
   names(state.filters.affiliations, "at", "aff");
   set("subject", state.filters.subject);
   for (const venue of state.filters.venues) params.append("venue", venue);
+  // Only where it changes the papers: two of the authors, affiliations and venues set.
+  set("match", state.filters.matchAny && choiceCount(state.filters) > 1 ? "any" : null);
   set("country", state.filters.country);
   const query = params.toString();
   return query ? `?${query}` : "";
