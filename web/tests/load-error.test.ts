@@ -18,11 +18,19 @@ describe("activeFilterCount", () => {
     expect(
       activeFilterCount({
         ...NO_FILTERS,
-        author: exactly("Ada"),
-        affiliation: typed("  "),
-        venue: "*",
+        authors: [exactly("Ada")],
+        affiliations: [typed("  ")],
+        venues: ["*"],
         withCode: true,
       }),
     ).toBe(3);
+    // A chip each (SRCH-21).
+    expect(
+      activeFilterCount({
+        ...NO_FILTERS,
+        authors: [exactly("Ada"), typed("bob")],
+        venues: ["CVPR*", "ICCV*"],
+      }),
+    ).toBe(4);
   });
 });

@@ -22,6 +22,8 @@ import {
   subjectsOf,
   typed,
   valueCounts,
+  withName,
+  withVenue,
 } from "../src/search";
 import { makePaper } from "./fixtures";
 
@@ -183,30 +185,70 @@ describe("PaperIndex", () => {
 
   it("applies structured filters", () => {
     expect(ids("", { ...NO_FILTERS, excludeCrossLists: true })).not.toContain("2609.00002");
-    expect(ids("", { ...NO_FILTERS, affiliation: typed("NVIDIA") })).toEqual(["2609.00001"]);
-    expect(ids("", { ...NO_FILTERS, author: exactly("Jane Doe") })).toEqual(["2609.00001"]);
+    expect(ids("", { ...NO_FILTERS, affiliations: [typed("NVIDIA")] })).toEqual(["2609.00001"]);
+    expect(ids("", { ...NO_FILTERS, authors: [exactly("Jane Doe")] })).toEqual(["2609.00001"]);
     expect(ids("", { ...NO_FILTERS, subject: "Machine Learning (cs.LG)" })).toEqual(["2609.00002"]);
     expect(ids("", { ...NO_FILTERS, withCode: true })).toEqual(["2609.00003"]);
   });
 
+  it("keeps the papers of one of several names or venues, and of every filter (SRCH-21)", () => {
+    const team = [
+      makePaper({ arxiv_id: "1", authors: ["Hao Li"], affiliations: ["MIT"], venue: "CVPR 2026" }),
+      makePaper({ arxiv_id: "2", authors: ["Kaiming He"], affiliations: ["Meta"], venue: null }),
+      makePaper({
+        arxiv_id: "3",
+        authors: ["Ada Lovelace"],
+        affiliations: ["MIT"],
+        venue: "ICCV 2025",
+      }),
+    ];
+    const kept = (filters: Partial<typeof NO_FILTERS>) =>
+      team
+        .filter((paper) => matchesFilters(paper, { ...NO_FILTERS, ...filters }))
+        .map((paper) => paper.arxiv_id);
+
+    expect(kept({ authors: [exactly("Hao Li"), typed("kaiming")] })).toEqual(["1", "2"]);
+    expect(kept({ affiliations: [typed("meta"), typed("mit")] })).toEqual(["1", "2", "3"]);
+    expect(kept({ venues: ["CVPR*", "ICCV 2025"] })).toEqual(["1", "3"]);
+    // One of the names, and one of the venues.
+    expect(
+      kept({ authors: [exactly("Hao Li"), exactly("Kaiming He")], venues: ["CVPR*"] }),
+    ).toEqual(["1"]);
+    // Empty names filter nothing, nor keep anything by themselves.
+    expect(kept({ authors: [typed("  "), exactly("Ada Lovelace")] })).toEqual(["3"]);
+    expect(kept({ authors: [typed("  ")] })).toEqual(["1", "2", "3"]);
+  });
+
+  it("adds a name or a venue once, any venue holding the others (SRCH-21)", () => {
+    expect(withName([exactly("Hao Li")], exactly("hao li"))).toEqual([exactly("Hao Li")]);
+    expect(withName([exactly("Hao Li")], typed("Hao Li"))).toEqual([
+      exactly("Hao Li"),
+      typed("Hao Li"),
+    ]);
+    expect(withVenue(["CVPR*"], "ICCV*")).toEqual(["CVPR*", "ICCV*"]);
+    expect(withVenue(["CVPR*"], "CVPR*")).toEqual(["CVPR*"]);
+    expect(withVenue(["CVPR*"], ANY_VENUE)).toEqual([ANY_VENUE]);
+    expect(withVenue([ANY_VENUE], "CVPR*")).toEqual(["CVPR*"]);
+  });
+
   it("filters by venue, or keeps every paper accepted somewhere", () => {
-    expect(ids("", { ...NO_FILTERS, venue: "NeurIPS 2026" })).toEqual(["2609.00002"]);
-    expect(ids("", { ...NO_FILTERS, venue: ANY_VENUE })).toEqual(["2609.00002"]);
-    expect(ids("", { ...NO_FILTERS, venue: "NeurIPS" })).toEqual([]);
-    expect(ids("", { ...NO_FILTERS, venue: "NeurIPS*" })).toEqual(["2609.00002"]);
+    expect(ids("", { ...NO_FILTERS, venues: ["NeurIPS 2026"] })).toEqual(["2609.00002"]);
+    expect(ids("", { ...NO_FILTERS, venues: [ANY_VENUE] })).toEqual(["2609.00002"]);
+    expect(ids("", { ...NO_FILTERS, venues: ["NeurIPS"] })).toEqual([]);
+    expect(ids("", { ...NO_FILTERS, venues: ["NeurIPS*"] })).toEqual(["2609.00002"]);
   });
 
   it("matches typed filters at the start of words, ignoring case and accents", () => {
-    expect(ids("", { ...NO_FILTERS, affiliation: typed("nvid") })).toEqual(["2609.00001"]);
-    expect(ids("", { ...NO_FILTERS, affiliation: typed("mit") }).sort()).toEqual([
+    expect(ids("", { ...NO_FILTERS, affiliations: [typed("nvid")] })).toEqual(["2609.00001"]);
+    expect(ids("", { ...NO_FILTERS, affiliations: [typed("mit")] }).sort()).toEqual([
       "2609.00001",
       "2609.00002",
     ]);
-    expect(ids("", { ...NO_FILTERS, author: typed("perez") })).toEqual(["2609.00001"]);
-    expect(ids("", { ...NO_FILTERS, author: typed("  ") })).toHaveLength(3);
-    expect(ids("", { ...NO_FILTERS, author: exactly("") })).toHaveLength(3);
+    expect(ids("", { ...NO_FILTERS, authors: [typed("perez")] })).toEqual(["2609.00001"]);
+    expect(ids("", { ...NO_FILTERS, authors: [typed("  ")] })).toHaveLength(3);
+    expect(ids("", { ...NO_FILTERS, authors: [exactly("")] })).toHaveLength(3);
     // Inside a word is not the start of one.
-    expect(ids("", { ...NO_FILTERS, affiliation: typed("vidia") })).toEqual([]);
+    expect(ids("", { ...NO_FILTERS, affiliations: [typed("vidia")] })).toEqual([]);
   });
 
   it.each([
@@ -249,7 +291,7 @@ describe("PaperIndex", () => {
     ];
     const kept = (text: string) =>
       named
-        .filter((paper) => matchesFilters(paper, { ...NO_FILTERS, affiliation: typed(text) }))
+        .filter((paper) => matchesFilters(paper, { ...NO_FILTERS, affiliations: [typed(text)] }))
         .map((paper) => paper.arxiv_id);
 
     expect(kept("nus")).toEqual(["1", "2"]);
@@ -269,7 +311,7 @@ describe("PaperIndex", () => {
     ];
     const kept = (filter: ReturnType<typeof exactly>) =>
       people
-        .filter((paper) => matchesFilters(paper, { ...NO_FILTERS, author: filter }))
+        .filter((paper) => matchesFilters(paper, { ...NO_FILTERS, authors: [filter] }))
         .map((paper) => paper.arxiv_id);
 
     expect(kept(exactly("Hao Li"))).toEqual(["1", "3"]);
@@ -308,7 +350,7 @@ describe("PaperIndex", () => {
     ];
     const kept = (filter: ReturnType<typeof exactly>) =>
       labs
-        .filter((paper) => matchesFilters(paper, { ...NO_FILTERS, affiliation: filter }))
+        .filter((paper) => matchesFilters(paper, { ...NO_FILTERS, affiliations: [filter] }))
         .map((paper) => paper.arxiv_id);
 
     expect(kept(exactly("Intel"))).toEqual(["1"]);
@@ -327,18 +369,18 @@ describe("PaperIndex", () => {
     const find = (query: string, affiliation: string | null = null) =>
       named.search(
         query,
-        { ...NO_FILTERS, affiliation: affiliation ? typed(affiliation) : null },
+        { ...NO_FILTERS, affiliations: affiliation ? [typed(affiliation)] : [] },
         "relevance",
       ).length;
 
     // "MIT" is named Massachusetts Institute of Technology, as in the graph.
     expect(
-      ids("", { ...NO_FILTERS, affiliation: typed("Massachusetts Institute") }).sort(),
+      ids("", { ...NO_FILTERS, affiliations: [typed("Massachusetts Institute")] }).sort(),
     ).toEqual(["2609.00001", "2609.00002"]);
     expect(
       ids("", {
         ...NO_FILTERS,
-        affiliation: exactly("Massachusetts Institute of Technology"),
+        affiliations: [exactly("Massachusetts Institute of Technology")],
       }).sort(),
     ).toEqual(["2609.00001", "2609.00002"]);
     expect(find("", "University of Padua")).toBe(1);
@@ -390,32 +432,34 @@ describe("PaperIndex", () => {
   });
 
   it("leaves the names filtered on out of the results' highlights (SRCH-8)", () => {
-    const [result] = index.search("", { ...NO_FILTERS, author: exactly("Jane Doe") }, "newest");
+    const [result] = index.search("", { ...NO_FILTERS, authors: [exactly("Jane Doe")] }, "newest");
     expect(result?.highlights).toEqual([]);
   });
 
   it("highlights a typed filter's words but its stop words, as word starts, in its line", () => {
-    expect(nameHighlights({ ...NO_FILTERS, affiliation: typed("University of Tokyo") })).toEqual({
-      authors: [],
-      affiliations: ["university", "tokyo"],
-      institution: null,
-    });
-    const typedHao = nameHighlights({ ...NO_FILTERS, author: typed("hao") });
+    expect(nameHighlights({ ...NO_FILTERS, affiliations: [typed("University of Tokyo")] })).toEqual(
+      {
+        authors: [],
+        affiliations: ["university", "tokyo"],
+        institutions: [],
+      },
+    );
+    const typedHao = nameHighlights({ ...NO_FILTERS, authors: [typed("hao")] });
     expect(typedHao.affiliations).toEqual([]);
     expect(highlight("Haoran Li", typedHao.authors).some((segment) => segment.match)).toBe(true);
-    expect(nameHighlights({ ...NO_FILTERS, author: typed("  ") }).authors).toEqual([]);
+    expect(nameHighlights({ ...NO_FILTERS, authors: [typed("  ")] }).authors).toEqual([]);
   });
 
   it("highlights a clicked name as a whole, not words starting like it", () => {
     const needles = nameHighlights({
       ...NO_FILTERS,
-      author: exactly("Hao Li"),
-      affiliation: exactly("NVIDIA"),
+      authors: [exactly("Hao Li")],
+      affiliations: [exactly("NVIDIA")],
     });
     expect(needles).toEqual({
       authors: [wholeWord("hao li")],
       affiliations: [wholeWord("nvidia")],
-      institution: "nvidia",
+      institutions: ["nvidia"],
     });
     const marked = (text: string, terms: readonly string[]) =>
       highlight(text, terms)
@@ -426,6 +470,20 @@ describe("PaperIndex", () => {
     expect(marked("NVIDIA Research", needles.affiliations)).toEqual(["NVIDIA"]);
   });
 
+  it("highlights every name of several (SRCH-21)", () => {
+    expect(
+      nameHighlights({
+        ...NO_FILTERS,
+        authors: [exactly("Hao Li"), typed("kai")],
+        affiliations: [exactly("NVIDIA"), typed("mit"), exactly("Meta")],
+      }),
+    ).toEqual({
+      authors: [wholeWord("hao li"), "kai"],
+      affiliations: [wholeWord("nvidia"), "mit", wholeWord("meta")],
+      institutions: ["nvidia", "meta"],
+    });
+  });
+
   it("marks whole the affiliations of a clicked institution, however they write it", () => {
     const paper = makePaper({
       arxiv_id: "1",
@@ -434,7 +492,7 @@ describe("PaperIndex", () => {
     });
     const names = nameHighlights({
       ...NO_FILTERS,
-      affiliation: exactly("Indian Institute of Technology Kanpur"),
+      affiliations: [exactly("Indian Institute of Technology Kanpur")],
     });
     const marked = (affiliation: string) =>
       highlight(affiliation, affiliationNeedles(paper, affiliation, names, ["lab"]))
@@ -447,7 +505,10 @@ describe("PaperIndex", () => {
 
   it("keeps a typed word whole across its punctuation", () => {
     const marked = (typedText: string, text: string) =>
-      highlight(text, nameHighlights({ ...NO_FILTERS, affiliation: typed(typedText) }).affiliations)
+      highlight(
+        text,
+        nameHighlights({ ...NO_FILTERS, affiliations: [typed(typedText)] }).affiliations,
+      )
         .filter((segment) => segment.match)
         .map((segment) => segment.text);
     expect(marked("AT&T", "AT&T Labs Research")).toEqual(["AT&T"]);
@@ -473,7 +534,7 @@ describe("PaperIndex", () => {
   });
 
   it("marks a typed name whose pieces start words, as the filter keeps it", () => {
-    const filters = { ...NO_FILTERS, author: typed("J.Smith") };
+    const filters = { ...NO_FILTERS, authors: [typed("J.Smith")] };
     const paper = makePaper({ arxiv_id: "1", authors: ["John Smith", "Jane Doe"] });
     const marked = (text: string, needles: string[]) =>
       highlight(text, needles)
@@ -482,13 +543,13 @@ describe("PaperIndex", () => {
     expect(matchesFilters(paper, filters)).toBe(true);
     expect(marked("John Smith, Jane Doe", nameHighlights(filters).authors)).toEqual(["John Smith"]);
     // An initial alone marks nothing.
-    const initial = nameHighlights({ ...NO_FILTERS, author: typed("J. Smith") }).authors;
+    const initial = nameHighlights({ ...NO_FILTERS, authors: [typed("J. Smith")] }).authors;
     expect(marked("John Smith, Jane Doe", initial)).toEqual(["Smith"]);
   });
 
   it("matches a clicked name across its punctuation, as the filter does", () => {
     const marked = (name: string, text: string) =>
-      highlight(text, nameHighlights({ ...NO_FILTERS, author: exactly(name) }).authors)
+      highlight(text, nameHighlights({ ...NO_FILTERS, authors: [exactly(name)] }).authors)
         .filter((segment) => segment.match)
         .map((segment) => segment.text);
     expect(marked("Julia A. Schnabel", "Julia A Schnabel")).toEqual(["Julia A Schnabel"]);

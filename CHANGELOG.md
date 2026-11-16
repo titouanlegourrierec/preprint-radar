@@ -10,6 +10,13 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ## Unreleased
 
+### Search
+
+- Several authors, affiliations or venues filter together: a paper needs one of each list
+  (and every other filter), a name or venue clicked on a card joining those set, each a
+  chip that removes it; links repeat the parameter (`?by=Hao+Li&by=Kaiming+He`), and old
+  ones read as before (SRCH-21).
+
 ### Pipeline
 
 - A weekday found neither listed nor on its catchup page is looked for again by the

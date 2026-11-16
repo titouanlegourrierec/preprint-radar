@@ -30,10 +30,10 @@ describe("url state", () => {
       filters: {
         excludeCrossLists: true,
         withCode: true,
-        author: typed("Ada"),
-        affiliation: exactly("MIT"),
+        authors: [typed("Ada")],
+        affiliations: [exactly("MIT")],
         subject: null,
-        venue: "ECCV 2026",
+        venues: ["ECCV 2026"],
         country: "FR",
       },
       paper: "2609.30234",
@@ -49,16 +49,47 @@ describe("url state", () => {
 
   it("keeps clicked names apart from typed text", () => {
     const filters = (author: ReturnType<typeof typed>, affiliation: ReturnType<typeof typed>) =>
-      writeState({ ...DEFAULT_STATE, filters: { ...DEFAULT_STATE.filters, author, affiliation } });
+      writeState({
+        ...DEFAULT_STATE,
+        filters: { ...DEFAULT_STATE.filters, authors: [author], affiliations: [affiliation] },
+      });
 
     expect(filters(exactly("Hao Li"), exactly("Intel"))).toBe("?by=Hao+Li&at=Intel");
     expect(filters(typed("hao"), typed("intel"))).toBe("?author=hao&aff=intel");
     // Links made before exact filters keep working, as typed text.
     expect(readState("?author=Hao+Li&aff=MIT").filters).toMatchObject({
-      author: typed("Hao Li"),
-      affiliation: typed("MIT"),
+      authors: [typed("Hao Li")],
+      affiliations: [typed("MIT")],
     });
-    expect(readState("?by=Hao+Li&author=hao").filters.author).toEqual(exactly("Hao Li"));
+    // Both, since several names filter together (SRCH-21).
+    expect(readState("?by=Hao+Li&author=hao").filters.authors).toEqual([
+      exactly("Hao Li"),
+      typed("hao"),
+    ]);
+  });
+
+  it("repeats a parameter for several names or venues, in their order (SRCH-21)", () => {
+    const state = {
+      ...DEFAULT_STATE,
+      filters: {
+        ...DEFAULT_STATE.filters,
+        authors: [exactly("Hao Li"), typed("kai"), exactly("Kaiming He")],
+        affiliations: [exactly("MIT"), exactly("Hong Kong, China")],
+        venues: ["CVPR*", "ICCV 2025"],
+      },
+    };
+    const search = writeState(state);
+    expect(search).toBe(
+      "?by=Hao+Li&author=kai&by=Kaiming+He&at=MIT&at=Hong+Kong%2C+China&venue=CVPR*&venue=ICCV+2025",
+    );
+    expect(readState(search)).toEqual(state);
+    // A name twice is one, empty ones none; any venue holds the others.
+    expect(readState("?by=Hao+Li&by=hao+li&by=&author=Hao+Li").filters.authors).toEqual([
+      exactly("Hao Li"),
+      typed("Hao Li"),
+    ]);
+    expect(readState("?venue=CVPR*&venue=*").filters.venues).toEqual(["*"]);
+    expect(readState("?venue=*&venue=CVPR*&venue=").filters.venues).toEqual(["CVPR*"]);
   });
 
   it("round-trips the graph's focus", () => {
@@ -256,9 +287,9 @@ describe("highly cited view", () => {
 });
 
 describe("isNavigation", () => {
-  const filtered = (author: ReturnType<typeof typed> | null) => ({
+  const filtered = (...authors: ReturnType<typeof typed>[]) => ({
     ...DEFAULT_STATE,
-    filters: { ...DEFAULT_STATE.filters, author },
+    filters: { ...DEFAULT_STATE.filters, authors },
   });
 
   it("keeps a step for another view, paper, period, year or clicked filter", () => {
@@ -270,12 +301,19 @@ describe("isNavigation", () => {
     ).toBe(true);
     expect(isNavigation(DEFAULT_STATE, filtered(exactly("Hao Li")))).toBe(true);
     expect(isNavigation(filtered(exactly("Hao Li")), filtered(typed("Hao Li")))).toBe(true);
+    // A name joining another is a step (SRCH-21).
+    expect(
+      isNavigation(filtered(exactly("Hao Li")), filtered(exactly("Hao Li"), exactly("Kaiming He"))),
+    ).toBe(true);
   });
 
   it("replaces the entry for typing and sorting", () => {
     expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, query: "gaussian" })).toBe(false);
     expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, sort: "citations" })).toBe(false);
     expect(isNavigation(filtered(typed("hao")), filtered(typed("hao l")))).toBe(false);
+    expect(
+      isNavigation(filtered(exactly("Hao Li")), filtered(exactly("Hao Li"), typed("kai"))),
+    ).toBe(false);
     expect(
       isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, rank: "author", metric: "papers" }),
     ).toBe(false);
@@ -291,44 +329,71 @@ describe("isTypedChange", () => {
   const filters = (patch: Partial<SearchFilters>): SearchFilters => ({ ...NO_FILTERS, ...patch });
 
   it("waits for a pause when only the typed author or affiliation text changes", () => {
-    expect(isTypedChange(NO_FILTERS, filters({ author: typed("k") }))).toBe(true);
-    expect(isTypedChange(filters({ author: typed("k") }), filters({ author: typed("ka") }))).toBe(
-      true,
-    );
+    expect(isTypedChange(NO_FILTERS, filters({ authors: [typed("k")] }))).toBe(true);
     expect(
-      isTypedChange(filters({ affiliation: typed("MI") }), filters({ affiliation: typed("MIT") })),
+      isTypedChange(filters({ authors: [typed("k")] }), filters({ authors: [typed("ka")] })),
     ).toBe(true);
-    // An edited clicked name stays applied until the pause.
     expect(
-      isTypedChange(filters({ author: exactly("Kaiming He") }), filters({ author: typed("Kaim") })),
+      isTypedChange(
+        filters({ affiliations: [typed("MI")] }),
+        filters({ affiliations: [typed("MIT")] }),
+      ),
+    ).toBe(true);
+    // Another name typed beside those kept (SRCH-21).
+    expect(
+      isTypedChange(
+        filters({ authors: [exactly("Kaiming He")] }),
+        filters({ authors: [exactly("Kaiming He"), typed("Hao")] }),
+      ),
     ).toBe(true);
     // Other filters set before are kept as they are.
     expect(
       isTypedChange(
-        filters({ withCode: true, venue: "ECCV*", author: exactly("Kaiming He") }),
+        filters({ withCode: true, venues: ["ECCV*"], authors: [exactly("Kaiming He")] }),
         filters({
           withCode: true,
-          venue: "ECCV*",
-          author: exactly("Kaiming He"),
-          affiliation: typed("M"),
+          venues: ["ECCV*"],
+          authors: [exactly("Kaiming He")],
+          affiliations: [typed("M")],
         }),
       ),
     ).toBe(true);
   });
 
   it("applies at once a name clicked, a filter cleared, any other filter, or no change", () => {
-    const typing = filters({ author: typed("kai") });
-    expect(isTypedChange(typing, filters({ author: exactly("Kaiming He") }))).toBe(false);
+    const typing = filters({ authors: [typed("kai")] });
+    expect(isTypedChange(typing, filters({ authors: [exactly("Kaiming He")] }))).toBe(false);
     expect(isTypedChange(typing, NO_FILTERS)).toBe(false);
-    expect(isTypedChange(typing, filters({ author: typed("kai") }))).toBe(false);
+    // A name kept, removed or replacing another (SRCH-21).
+    expect(isTypedChange(typing, filters({ authors: [typed("kai"), exactly("Kaiming He")] }))).toBe(
+      false,
+    );
+    expect(
+      isTypedChange(
+        filters({ authors: [typed("kai"), typed("hao")] }),
+        filters({ authors: [typed("hao")] }),
+      ),
+    ).toBe(false);
+    expect(
+      isTypedChange(
+        filters({ authors: [exactly("Kaiming He")] }),
+        filters({ authors: [typed("Kaim")] }),
+      ),
+    ).toBe(false);
+    expect(isTypedChange(typing, filters({ authors: [typed("kai")] }))).toBe(false);
     expect(isTypedChange(typing, { ...typing, withCode: true })).toBe(false);
     expect(isTypedChange(typing, { ...typing, excludeCrossLists: true })).toBe(false);
-    expect(isTypedChange(typing, { ...typing, venue: "ECCV 2026" })).toBe(false);
+    expect(isTypedChange(typing, { ...typing, venues: ["ECCV 2026"] })).toBe(false);
+    expect(
+      isTypedChange({ ...typing, venues: ["ECCV*"] }, { ...typing, venues: ["ECCV*", "CVPR*"] }),
+    ).toBe(false);
     expect(isTypedChange(typing, { ...typing, subject: "Robotics (cs.RO)" })).toBe(false);
     // Typed text with another filter in the same change (a link, Back) applies with it.
-    expect(isTypedChange(typing, filters({ author: typed("kaim"), withCode: true }))).toBe(false);
+    expect(isTypedChange(typing, filters({ authors: [typed("kaim")], withCode: true }))).toBe(
+      false,
+    );
     expect(
-      isTypedChange(typing, filters({ author: typed("kaim"), affiliation: exactly("MIT") })),
+      isTypedChange(typing, filters({ authors: [typed("kaim")], affiliations: [exactly("MIT")] })),
     ).toBe(false);
   });
 });
@@ -396,8 +461,8 @@ describe("listKey", () => {
 describe("the URL's parameters", () => {
   it("are all documented in docs/web.md", () => {
     const read = new Set([
-      ...[...source.matchAll(/params\.get\("(\w+)"\)/g)].map((match) => match[1]),
-      ...[...source.matchAll(/readName\(params, "(\w+)", "(\w+)"\)/g)].flatMap((match) => [
+      ...[...source.matchAll(/params\.get(?:All)?\("(\w+)"\)/g)].map((match) => match[1]),
+      ...[...source.matchAll(/readNames\(params, "(\w+)", "(\w+)"\)/g)].flatMap((match) => [
         match[1],
         match[2],
       ]),

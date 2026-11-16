@@ -85,6 +85,8 @@ import {
   type SearchResult,
   subjectFacets,
   valueCounts,
+  withName,
+  withVenue,
 } from "./search";
 import { shareHash } from "./share";
 import { searchKey } from "./text";
@@ -397,10 +399,10 @@ export function App() {
     () =>
       state.view === "graph" && load.status === "ready"
         ? load.index
-            .search(query, { ...NO_FILTERS, venue: state.filters.venue }, "newest")
+            .search(query, { ...NO_FILTERS, venues: state.filters.venues }, "newest")
             .map(({ paper }) => paper)
         : [],
-    [state.view, load, query, state.filters.venue],
+    [state.view, load, query, state.filters.venues],
   );
   // Suggestions come from every loaded paper, so they do not vanish as filters narrow
   // results; the most frequent values are kept, then listed alphabetically.
@@ -425,7 +427,8 @@ export function App() {
   const resultPapers = useMemo(() => results.map(({ paper }) => paper), [results]);
   const nameTerms = useMemo(() => nameHighlights(filters), [filters]);
   // The feed of the institution or major venue the papers are filtered on (§17.1 #6).
-  const feedInstitution = state.view === "papers" ? filters.affiliation : null;
+  const feedInstitution =
+    state.view === "papers" && filters.affiliations.length === 1 ? filters.affiliations[0] : null;
   const feedKnown = useMemo(() => {
     if (!(feedInstitution?.exact && load.status === "ready")) return false;
     const key = searchKey(feedInstitution.text);
@@ -728,8 +731,8 @@ export function App() {
             query={state.query}
             onQuery={(value) => update({ query: value })}
             venues={venueCounts}
-            venue={state.filters.venue}
-            onVenue={(venue) => setFilters({ ...state.filters, venue })}
+            chosenVenues={state.filters.venues}
+            onVenues={(venues) => setFilters({ ...state.filters, venues })}
             theme={resolved}
             // A graph of archive years lists its papers in Highly cited, over the same years: the
             // Papers view would load the recent days instead.
@@ -738,8 +741,8 @@ export function App() {
                 view: archived ? "cited" : "papers",
                 filters: {
                   ...NO_FILTERS,
-                  venue: state.filters.venue,
-                  [kind === "institution" ? "affiliation" : "author"]: exactly(label),
+                  venues: state.filters.venues,
+                  [kind === "institution" ? "affiliations" : "authors"]: [exactly(label)],
                 },
               })
             }
@@ -1124,7 +1127,8 @@ export function App() {
                       view: archived ? "cited" : "papers",
                       filters: {
                         ...state.filters,
-                        [kind === "institution" ? "affiliation" : "author"]: exactly(name),
+                        // That name alone: the row counts its papers (SRCH-21).
+                        [kind === "institution" ? "affiliations" : "authors"]: [exactly(name)],
                       },
                     })
                   }
@@ -1262,10 +1266,26 @@ export function App() {
                     onToggleSaved={toggleSaved}
                     seenIds={triaged ? triage.seen : undefined}
                     onToggleSeen={triaged ? triage.toggleSeen : undefined}
-                    onAuthor={(author) => setFilters({ ...state.filters, author: exactly(author) })}
-                    onVenue={(venue) => setFilters({ ...state.filters, venue })}
+                    // A name or venue clicked on a card joins those chosen (SRCH-21).
+                    onAuthor={(author) =>
+                      setFilters({
+                        ...state.filters,
+                        authors: withName(state.filters.authors, exactly(author)),
+                      })
+                    }
+                    onVenue={(venue) =>
+                      setFilters({
+                        ...state.filters,
+                        venues: withVenue(state.filters.venues, venue),
+                      })
+                    }
                     logoOf={logoOf}
-                    onAffiliation={(affiliation) => setFilters({ ...state.filters, affiliation })}
+                    onAffiliation={(affiliation) =>
+                      setFilters({
+                        ...state.filters,
+                        affiliations: withName(state.filters.affiliations, affiliation),
+                      })
+                    }
                     onMove={custom && !sharing ? readingList.move : undefined}
                     folders={
                       state.view === "reading-list" && !sharing

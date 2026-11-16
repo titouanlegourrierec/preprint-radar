@@ -56,7 +56,7 @@ const found = (query: string, filters = NO_FILTERS) =>
 describe("relevance on real cases", () => {
   it("finds a person, not the names that contain theirs", () => {
     expect(found("Wei Li")).toEqual(["2609.10001"]);
-    expect(found("", { ...NO_FILTERS, author: exactly("Hao Li") })).toEqual(["2609.10003"]);
+    expect(found("", { ...NO_FILTERS, authors: [exactly("Hao Li")] })).toEqual(["2609.10003"]);
   });
 
   it("finds acronyms as words: GAN papers before authors named Gan", () => {
@@ -83,7 +83,7 @@ describe("relevance on real cases", () => {
       " https://arxiv.org/abs/2609.10003 ",
       "arxiv.org/pdf/2609.10003v1.pdf",
     ]) {
-      expect(found(query, { ...NO_FILTERS, author: typed("nobody") })).toEqual(["2609.10003"]);
+      expect(found(query, { ...NO_FILTERS, authors: [typed("nobody")] })).toEqual(["2609.10003"]);
     }
     expect(found("2609.99999")).toEqual([]);
     expect(arxivIdOf("cs/0601001v2")).toBe("cs/0601001");
@@ -98,7 +98,7 @@ describe("relevance on real cases", () => {
 
   it("filters institutions by acronym and by clicked name", () => {
     const at = (affiliation: ReturnType<typeof typed>) =>
-      found("", { ...NO_FILTERS, affiliation }).sort();
+      found("", { ...NO_FILTERS, affiliations: [affiliation] }).sort();
     expect(at(typed("nus"))).toEqual(["2609.10001"]);
     expect(at(typed("hku"))).toEqual([]);
     // Intel Labs is Intel; "Institute of Artificial Intelligence" is not.

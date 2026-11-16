@@ -42,8 +42,18 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   (`src/preprint_radar/institutions.py`, AFF-13). Typed text (`author`, `aff`) matches word
   prefixes (`startsWords`), but a known acronym (`acronymOf`, `ACRONYMS` in
   `institutions.ts`) means its institution ("HKU" is not "HKUST").
+- Several names or venues (SRCH-21): the authors, affiliations and venues are lists, of which
+  a paper needs one, and it passes every other filter ("by Hao Li or Kaiming He, at CVPR").
+  A name or venue clicked on a card joins those set (`withName`, `withVenue`, once each; any
+  venue replaces the others); a Rankings row or a graph node shows its own papers, that name
+  alone. In the sidebar the text typed is the last name, applied as it is typed; Enter, a
+  suggestion chosen (`insertReplacementText`, spelling corrections off) or leaving the field
+  keeps it as a chip under the field, which empties for another (`NamesInput`). The venue
+  select adds the one chosen, naming how many are set; each chip, there and above the
+  papers, removes its value alone. A feed follows one institution or one venue only.
 - Typed text applies, and enters the URL, after a 150 ms pause, the field showing it at once
-  (`hooks/use-url-state.ts`, `isTypedChange`, PERF-4); a click applies at once.
+  (`hooks/use-url-state.ts`, `isTypedChange`, PERF-4); a click, a chip kept or removed apply
+  at once.
 - Authors are keyed by name, since Semantic Scholar splits prolific authors into several
   profiles (AFF-H, decision 13). `graph.countPeople` groups a name's profiles (`author_ids`,
   added by the build) that share an institution or a co-author; more than one group of
@@ -171,9 +181,9 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `window` | `year`: the last 12 months against the 12 before (PROD-20); a change replaces the entry | `quarter` (90 days against a year before) | Trends |
   | `topic` | A topic key (`world model`, `vla`): the one opened; a history step | none | Trends |
   | `compare` | Topic keys drawn by the explorer, comma-separated, five at most; a change replaces the entry | none | Trends |
-  | `by`, `at` | An author or an institution, as clicked: that name only | none | the lists, Rankings |
-  | `author`, `aff` | Typed author or affiliation text: word starts | none | the same |
-  | `venue` | A venue (`ECCV 2026`), a family (`ECCV*`) or any (`*`) | none | the lists, Rankings, the graph |
+  | `by`, `at` | An author or an institution, as clicked: that name only; repeated for several, in their order with `author` and `aff` (SRCH-21) | none | the lists, Rankings |
+  | `author`, `aff` | Typed author or affiliation text: word starts; repeated as well | none | the same |
+  | `venue` | A venue (`ECCV 2026`), a family (`ECCV*`) or any (`*`, which holds the others); repeated for several | none | the lists, Rankings, the graph |
   | `country` | A country of the papers' institutions, its ISO code (`FR`, PROD-22) | none | the lists, Rankings |
   | `subject` | A subject, primary or cross-listed (`Machine Learning (cs.LG)`) | none | the lists, Rankings |
   | `xl` | `0`: cross-lists hidden; no control sets it, old links and saved searches do (its chip clears it) | shown | the lists, Rankings |

@@ -74,7 +74,10 @@ describe("candidateTest (PROD-21)", () => {
     expect(candidateTest("", NO_FILTERS)).toBeNull();
     expect(candidateTest("the of", NO_FILTERS)).toBeNull();
     expect(candidateTest("-survey", NO_FILTERS)).toBeNull();
-    expect(passing("", { ...NO_FILTERS, venue: ANY_VENUE })).toEqual(["2609.00002", "2609.00005"]);
+    expect(passing("", { ...NO_FILTERS, venues: [ANY_VENUE] })).toEqual([
+      "2609.00002",
+      "2609.00005",
+    ]);
   });
 
   it("lets through every paper the index finds", () => {
@@ -126,7 +129,7 @@ describe("candidateTest (PROD-21)", () => {
   it("leaves out the papers without the words, and those the filters leave out", () => {
     expect(passing("diffusion")).toEqual(["2609.00002"]);
     expect(passing("gaussian")).toEqual(["2609.00001", "2609.00005"]);
-    expect(passing("gaussian", { ...NO_FILTERS, venue: "CVPR*" })).toEqual(["2609.00005"]);
+    expect(passing("gaussian", { ...NO_FILTERS, venues: ["CVPR*"] })).toEqual(["2609.00005"]);
     expect(passing("nerf OR robot")).toEqual(["2609.00003"]);
     expect(passing("2609.00003")).toEqual(["2609.00003"]);
   });

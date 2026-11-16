@@ -1194,6 +1194,31 @@ html {
   gap: 8px;
 }
 
+/* A filter of several values, of which a paper needs one (SRCH-21): its chips under it. */
+.names-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.filter-chips .chip {
+  max-width: 100%;
+  overflow: hidden;
+  border-color: var(--accent);
+  color: var(--text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .filters summary {
   min-height: 24px;
   cursor: pointer;
@@ -1304,7 +1329,8 @@ html {
   font-size: 0.85rem;
 }
 
-.filters__body .field + .toggle {
+.filters__body .field + .toggle,
+.filters__body .names-field + .toggle {
   margin-top: 4px;
 }
 

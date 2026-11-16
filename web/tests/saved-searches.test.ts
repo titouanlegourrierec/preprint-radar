@@ -14,9 +14,9 @@ describe("saved searches", () => {
     query: "gaussian splatting",
     filters: {
       ...NO_FILTERS,
-      author: exactly("Hao Li"),
-      affiliation: typed("mit"),
-      venue: "ECCV 2026",
+      authors: [exactly("Hao Li")],
+      affiliations: [typed("mit")],
+      venues: ["ECCV 2026"],
     },
   };
 
@@ -39,13 +39,27 @@ describe("saved searches", () => {
         query: "",
         filters: {
           ...NO_FILTERS,
-          venue: "*",
+          venues: ["*"],
           subject: "Robotics (cs.RO)",
           excludeCrossLists: true,
           withCode: true,
         },
       }),
     ).toBe("any venue · Robotics (cs.RO) · no cross-lists · with code");
+  });
+
+  it("name several values of a filter as a choice (SRCH-21)", () => {
+    const filters = {
+      ...NO_FILTERS,
+      authors: [exactly("Hao Li"), exactly("Kaiming He")],
+      affiliations: [exactly("MIT"), typed("stanford")],
+      venues: ["CVPR*", "ICCV 2025"],
+    };
+    const saved = savedSearch({ query: "", filters });
+    expect(saved?.name).toBe(
+      "by Hao Li or Kaiming He · at MIT or stanford · CVPR, any year or ICCV 2025",
+    );
+    expect(saved && searchOf(saved)).toEqual({ query: "", filters });
   });
 
   it("read only what is a search, once", () => {

@@ -14,6 +14,8 @@ import {
   type SearchFilters,
   type SortOrder,
   typed,
+  withName,
+  withVenue,
 } from "./search";
 import { COMPARED, WINDOW_NAMES, type WindowName } from "./trends";
 import type { CountryMetric } from "./world";
@@ -141,14 +143,18 @@ function readPeriod(params: URLSearchParams): Period {
 }
 
 /**
- * A name filter from the URL: `exactKey` holds a clicked name (`?by=Hao Li`, `?at=MIT`),
- * `typedKey` typed text (`?author=`, `?aff=`, which links made before exact filters use).
+ * The name filters of the URL, in their order: `exactKey` holds a clicked name (`?by=Hao
+ * Li`, `?at=MIT`), `typedKey` typed text (`?author=`, `?aff=`, which links made before exact
+ * filters use); each repeated for several names (SRCH-21: `?by=Hao+Li&by=Kaiming+He`).
  */
-function readName(params: URLSearchParams, exactKey: string, typedKey: string): NameFilter | null {
-  const exact = params.get(exactKey);
-  if (exact) return exactly(exact);
-  const text = params.get(typedKey);
-  return text ? typed(text) : null;
+function readNames(params: URLSearchParams, exactKey: string, typedKey: string): NameFilter[] {
+  let names: NameFilter[] = [];
+  for (const [key, text] of params) {
+    if (text === "") continue;
+    if (key === exactKey) names = withName(names, exactly(text));
+    else if (key === typedKey) names = withName(names, typed(text));
+  }
+  return names;
 }
 
 /** Parse the view state from a query string, so that searches can be shared as links. */
@@ -180,10 +186,13 @@ export function readState(search: string): ViewState {
     filters: {
       excludeCrossLists: params.get("xl") === "0",
       withCode: params.get("code") === "1",
-      author: readName(params, "by", "author"),
-      affiliation: readName(params, "at", "aff"),
+      authors: readNames(params, "by", "author"),
+      affiliations: readNames(params, "at", "aff"),
       subject: params.get("subject"),
-      venue: params.get("venue"),
+      venues: params
+        .getAll("venue")
+        .filter(Boolean)
+        .reduce<string[]>((venues, venue) => withVenue(venues, venue), []),
       // An ISO code, as the build writes them ("FR"); anything else filters nothing.
       country: COUNTRY_RE.test(params.get("country") ?? "") ? params.get("country") : null,
     },
@@ -222,11 +231,15 @@ export function writeState(state: ViewState): string {
   set("scope", STORE_VIEWS.has(state.view) ? state.scope : null);
   set("xl", state.filters.excludeCrossLists ? "0" : null);
   set("code", state.filters.withCode ? "1" : null);
-  const { author, affiliation } = state.filters;
-  set(author?.exact ? "by" : "author", author?.text ?? null);
-  set(affiliation?.exact ? "at" : "aff", affiliation?.text ?? null);
+  const names = (filters: readonly NameFilter[], exactKey: string, typedKey: string) => {
+    for (const { text, exact } of filters) {
+      if (text !== "") params.append(exact ? exactKey : typedKey, text);
+    }
+  };
+  names(state.filters.authors, "by", "author");
+  names(state.filters.affiliations, "at", "aff");
   set("subject", state.filters.subject);
-  set("venue", state.filters.venue);
+  for (const venue of state.filters.venues) params.append("venue", venue);
   set("country", state.filters.country);
   const query = params.toString();
   return query ? `?${query}` : "";
@@ -238,7 +251,7 @@ export function writeState(state: ViewState): string {
  * replace the current history entry instead of adding one per keystroke or choice.
  */
 function navigationKey(state: ViewState): string {
-  const { author, affiliation } = state.filters;
+  const { authors, affiliations } = state.filters;
   return writeState({
     ...state,
     query: "",
@@ -249,32 +262,45 @@ function navigationKey(state: ViewState): string {
     compare: DEFAULT_STATE.compare,
     filters: {
       ...state.filters,
-      author: author?.exact ? author : null,
-      affiliation: affiliation?.exact ? affiliation : null,
+      authors: authors.filter((name) => name.exact),
+      affiliations: affiliations.filter((name) => name.exact),
     },
   });
 }
 
-function sameName(a: NameFilter | null, b: NameFilter | null): boolean {
-  return a === b || (a !== null && b !== null && a.text === b.text && a.exact === b.exact);
+function sameNames(a: readonly NameFilter[], b: readonly NameFilter[]): boolean {
+  return (
+    a.length === b.length &&
+    a.every((name, i) => name.text === b[i]?.text && name.exact === b[i]?.exact)
+  );
+}
+
+/** Whether going from `before` to `after` only types: the same clicked names, no fewer typed. */
+function onlyTyped(before: readonly NameFilter[], after: readonly NameFilter[]): boolean {
+  const clicked = (names: readonly NameFilter[]) => names.filter((name) => name.exact);
+  const typedCount = (names: readonly NameFilter[]) => names.length - clicked(names).length;
+  return sameNames(clicked(before), clicked(after)) && typedCount(after) >= typedCount(before);
 }
 
 /**
  * Whether going from the filters applied to these only changes the text typed in the author
  * or affiliation filter, which then waits for a pause in the typing, like the search words
- * (PERF-4). A name clicked, a filter cleared or any other filter applies at once, with
- * whatever was typed; an edited clicked name stays applied until the pause.
+ * (PERF-4). A name clicked or removed, a field cleared or any other filter applies at once,
+ * with whatever was typed.
  */
 export function isTypedChange(from: SearchFilters, to: SearchFilters): boolean {
   for (const key of Object.keys(NO_FILTERS) as (keyof SearchFilters)[]) {
-    if (key !== "author" && key !== "affiliation" && from[key] !== to[key]) return false;
+    if (key === "authors" || key === "affiliations") continue;
+    const same =
+      key === "venues" ? from.venues.join("\n") === to.venues.join("\n") : from[key] === to[key];
+    if (!same) return false;
   }
-  const names: [NameFilter | null, NameFilter | null][] = [
-    [from.author, to.author],
-    [from.affiliation, to.affiliation],
+  const names: [NameFilter[], NameFilter[]][] = [
+    [from.authors, to.authors],
+    [from.affiliations, to.affiliations],
   ];
-  const changed = names.filter(([before, after]) => !sameName(before, after));
-  return changed.length > 0 && changed.every(([, after]) => after !== null && !after.exact);
+  const changed = names.filter(([before, after]) => !sameNames(before, after));
+  return changed.length > 0 && changed.every(([before, after]) => onlyTyped(before, after));
 }
 
 /**

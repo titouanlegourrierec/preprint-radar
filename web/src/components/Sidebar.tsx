@@ -11,8 +11,10 @@ import {
   type NameFilter,
   type SearchFilters,
   typed,
+  withName,
 } from "../search";
 import type { ArchiveSummary, DaySummary, TopRecentSummary } from "../types";
+import { venueLabel } from "../venues";
 import type { ArchivePicker as ArchiveYearsPicker } from "./ArchiveYears";
 import {
   AuthorsIcon,
@@ -77,46 +79,122 @@ interface Props {
     | undefined;
 }
 
-function FilterInput({
+/** Chips that each remove one value of a filter, under its field (SRCH-21). */
+function FilterChips({
+  label,
+  values,
+  onRemove,
+}: {
+  label: string;
+  values: { text: string; title: string }[];
+  onRemove: (index: number) => void;
+}) {
+  if (values.length === 0) return null;
+  return (
+    <ul class="filter-chips" aria-label={`${label} filters`}>
+      {values.map(({ text, title }, i) => (
+        // A typed name and the same clicked share a text.
+        <li key={`${i} ${text}`}>
+          <button
+            type="button"
+            class="chip"
+            title={title}
+            aria-label={`Remove the ${label.toLowerCase()} ${text}`}
+            onClick={() => onRemove(i)}
+          >
+            {text} <span aria-hidden="true">×</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/**
+ * An author or affiliation filter of several names, of which a paper needs one (SRCH-21):
+ * the text typed applies as it is typed, the last of the names; Enter, a suggestion chosen
+ * or leaving the field keeps it, as a chip under the field, and empties the field for
+ * another. Names clicked on cards join them as chips.
+ */
+function NamesInput({
   label,
   icon,
   example,
-  value,
+  values,
   suggestions,
   onChange,
 }: {
   label: string;
   icon: JSX.Element;
   example: string;
-  value: NameFilter | null;
+  values: NameFilter[];
   suggestions: FacetCount[];
-  onChange: (value: NameFilter | null) => void;
+  onChange: (values: NameFilter[]) => void;
 }) {
   const listId = `${label.toLowerCase()}-suggestions`;
+  // The text being typed, the last name while it is: a name clicked, a chip removed or
+  // another link drop it from the names, and the field shows nothing.
+  const [draft, setDraft] = useState("");
+  const last = values.at(-1);
+  const typing = draft !== "" && last !== undefined && !last.exact && last.text === draft;
+  const kept = typing ? values.slice(0, -1) : values;
+  const type = (text: string) => {
+    setDraft(text);
+    onChange(text ? [...kept, typed(text)] : kept);
+  };
+  const keep = () => {
+    if (!typing) return;
+    setDraft("");
+    onChange(withName(kept, typed(draft)));
+  };
   return (
-    <label class="field">
-      {icon}
-      <input
-        type="search"
-        list={listId}
-        aria-label={label}
-        placeholder={`${label}, e.g. ${example}`}
-        // A clicked name matches exactly; once edited, the text matches word prefixes. Its
-        // name says what a filled field filters, its placeholder gone.
-        title={
-          value?.exact ? `${label}: this name exactly; edit it to match the start of words` : label
-        }
-        value={value?.text ?? ""}
-        onInput={(event) =>
-          onChange(event.currentTarget.value ? typed(event.currentTarget.value) : null)
-        }
+    <div class="names-field">
+      <label class="field">
+        {icon}
+        <input
+          type="search"
+          list={listId}
+          aria-label={label}
+          placeholder={
+            kept.length > 0 ? `or another ${label.toLowerCase()}` : `${label}, e.g. ${example}`
+          }
+          title={`${label}: the start of its words; Enter keeps it, for another`}
+          // A suggestion chosen is kept, and only one replaces the text so (spelling
+          // corrections, which would also, are off).
+          autocorrect="off"
+          spellcheck={false}
+          value={typing ? draft : ""}
+          onInput={(event) => {
+            const text = event.currentTarget.value;
+            if (event instanceof InputEvent && event.inputType !== "insertReplacementText") {
+              type(text);
+            } else if (text) {
+              setDraft("");
+              onChange(withName(kept, typed(text)));
+            } else {
+              type("");
+            }
+          }}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") keep();
+          }}
+          onBlur={keep}
+        />
+        <datalist id={listId}>
+          {suggestions.map(({ value: suggestion }) => (
+            <option key={suggestion} value={suggestion} />
+          ))}
+        </datalist>
+      </label>
+      <FilterChips
+        label={label}
+        values={kept.map(({ text, exact }) => ({
+          text,
+          title: exact ? "This name exactly" : "Names starting with these words",
+        }))}
+        onRemove={(index) => onChange(values.filter((_, i) => i !== index))}
       />
-      <datalist id={listId}>
-        {suggestions.map(({ value: suggestion }) => (
-          <option key={suggestion} value={suggestion} />
-        ))}
-      </datalist>
-    </label>
+    </div>
   );
 }
 
@@ -216,32 +294,44 @@ export function Sidebar(props: Props) {
       >
         <summary>Filters{active > 0 ? ` (${active})` : ""}</summary>
         <div class="filters__body">
-          <FilterInput
+          <NamesInput
             label="Author"
             icon={<AuthorsIcon />}
             example="Kaiming He"
-            value={filters.author}
+            values={filters.authors}
             suggestions={props.authors}
-            onChange={(author) => onFilters({ ...filters, author })}
+            onChange={(authors) => onFilters({ ...filters, authors })}
           />
-          <FilterInput
+          <NamesInput
             label="Affiliation"
             icon={<InstitutionIcon />}
             example="KAIST"
-            value={filters.affiliation}
+            values={filters.affiliations}
             suggestions={props.affiliations}
-            onChange={(affiliation) => onFilters({ ...filters, affiliation })}
+            onChange={(affiliations) => onFilters({ ...filters, affiliations })}
           />
 
-          {/* The select names itself "Venue". */}
-          <div class="field field--select">
-            <VenueIcon />
-            <VenueSelect
-              venues={props.venues}
-              value={filters.venue}
-              onChange={(venue) => onFilters({ ...filters, venue })}
-            />
-            <SelectChevron />
+          <div class="names-field">
+            {/* The select names itself "Venue". */}
+            <div class="field field--select">
+              <VenueIcon />
+              <VenueSelect
+                venues={props.venues}
+                values={filters.venues}
+                onChange={(venues) => onFilters({ ...filters, venues })}
+              />
+              <SelectChevron />
+            </div>
+            {/* One venue the select shows; several it counts, named here. */}
+            {filters.venues.length > 1 && (
+              <FilterChips
+                label="Venue"
+                values={filters.venues.map((venue) => ({ text: venueLabel(venue), title: venue }))}
+                onRemove={(index) =>
+                  onFilters({ ...filters, venues: filters.venues.filter((_, i) => i !== index) })
+                }
+              />
+            )}
           </div>
 
           {(props.subjects.length > 1 || filters.subject) && (

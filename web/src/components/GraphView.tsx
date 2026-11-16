@@ -78,8 +78,9 @@ interface Props {
   query: string;
   onQuery: (query: string) => void;
   venues: FacetCount[];
-  venue: string | null;
-  onVenue: (venue: string | null) => void;
+  /** The venues chosen, of which a paper needs one (SRCH-21). */
+  chosenVenues: string[];
+  onVenues: (venues: string[]) => void;
   onShowPapers: (kind: EntityKind, label: string) => void;
   /** Show one paper in the list, expanded (its permalink). */
   onOpenPaper: (paper: Paper) => void;
@@ -490,8 +491,8 @@ export function GraphView(props: Props) {
           query={props.query}
           onQuery={props.onQuery}
           venues={props.venues}
-          venue={props.venue}
-          onVenue={props.onVenue}
+          chosenVenues={props.chosenVenues}
+          onVenues={props.onVenues}
         />
         <div class="graph__side">
           <GraphFind

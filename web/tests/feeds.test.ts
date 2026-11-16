@@ -21,28 +21,32 @@ describe("feed paths", () => {
   const known = () => true;
 
   it("are the feed of the institution clicked, else of the major venue", () => {
-    const at = { ...NO_FILTERS, affiliation: exactly("MIT"), venue: "CVPR*" };
+    const at = { ...NO_FILTERS, affiliations: [exactly("MIT")], venues: ["CVPR*"] };
     expect(feedOf("cs.CV", at, known)).toEqual({
       path: "feeds/cs.CV/institutions/mit.xml",
       name: "MIT",
       kind: "institution",
     });
     // Typed text is no institution's name.
-    expect(feedOf("cs.CV", { ...at, affiliation: typed("MIT") }, known)).toEqual({
+    expect(feedOf("cs.CV", { ...at, affiliations: [typed("MIT")] }, known)).toEqual({
       path: "feeds/cs.CV/venues/cvpr.xml",
       name: "CVPR",
       kind: "venue",
     });
-    expect(feedOf("cs.CV", { ...NO_FILTERS, venue: "CVPR 2026" }, known)?.name).toBe("CVPR");
-    expect(feedOf("cs.CV", { ...NO_FILTERS, venue: "CVPR 2026 Workshop" }, known)).toBeNull();
-    expect(feedOf("cs.CV", { ...NO_FILTERS, venue: "TPAMI 2026" }, known)).toBeNull();
-    expect(feedOf("cs.CV", { ...NO_FILTERS, venue: "*" }, known)).toBeNull();
-    expect(feedOf("cs.CV", { ...NO_FILTERS, affiliation: exactly("?!") }, known)).toBeNull();
+    expect(feedOf("cs.CV", { ...NO_FILTERS, venues: ["CVPR 2026"] }, known)?.name).toBe("CVPR");
+    expect(feedOf("cs.CV", { ...NO_FILTERS, venues: ["CVPR 2026 Workshop"] }, known)).toBeNull();
+    expect(feedOf("cs.CV", { ...NO_FILTERS, venues: ["TPAMI 2026"] }, known)).toBeNull();
+    expect(feedOf("cs.CV", { ...NO_FILTERS, venues: ["*"] }, known)).toBeNull();
+    expect(feedOf("cs.CV", { ...NO_FILTERS, affiliations: [exactly("?!")] }, known)).toBeNull();
     expect(feedOf("cs.CV", NO_FILTERS, known)).toBeNull();
+    // A feed follows one institution or venue, not a choice of several (SRCH-21).
+    const two = { ...at, affiliations: [exactly("MIT"), exactly("Stanford University")] };
+    expect(feedOf("cs.CV", two, known)?.name).toBe("CVPR");
+    expect(feedOf("cs.CV", { ...two, venues: ["CVPR*", "ICCV*"] }, known)).toBeNull();
     // An institution of the archive alone has no feed: the venue's, if any, instead.
     expect(feedOf("cs.CV", at, () => false)?.path).toBe("feeds/cs.CV/venues/cvpr.xml");
     expect(
-      feedOf("cs.CV", { ...NO_FILTERS, affiliation: exactly("OpenAI") }, () => false),
+      feedOf("cs.CV", { ...NO_FILTERS, affiliations: [exactly("OpenAI")] }, () => false),
     ).toBeNull();
   });
 });

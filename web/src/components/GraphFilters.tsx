@@ -25,8 +25,9 @@ interface Props {
   query: string;
   onQuery: (query: string) => void;
   venues: FacetCount[];
-  venue: string | null;
-  onVenue: (venue: string | null) => void;
+  /** The venues chosen, of which a paper needs one (SRCH-21). */
+  chosenVenues: string[];
+  onVenues: (venues: string[]) => void;
 }
 
 /**
@@ -79,7 +80,7 @@ export function GraphFilters(props: Props) {
       )}
       <span class="graph-chips__select">
         <VenueIcon />
-        <VenueSelect venues={props.venues} value={props.venue} onChange={props.onVenue} />
+        <VenueSelect venues={props.venues} values={props.chosenVenues} onChange={props.onVenues} />
         <SelectChevron />
       </span>
       {query !== "" && (

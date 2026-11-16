@@ -96,7 +96,7 @@ describe("a row of Rankings and the papers it shows", () => {
     for (const row of ranked) {
       const filters = {
         ...NO_FILTERS,
-        [kind === "institution" ? "affiliation" : "author"]: exactly(row.name),
+        [kind === "institution" ? "affiliations" : "authors"]: [exactly(row.name)],
       };
       const shown = tricky.filter((paper) => matchesFilters(paper, filters));
       expect([row.name, shown.length]).toEqual([row.name, row.papers]);

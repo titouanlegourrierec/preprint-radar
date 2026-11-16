@@ -36,18 +36,22 @@ export interface NameFilter {
   exact: boolean;
 }
 
+/**
+ * The filters of a search. A paper passes every filter set; the authors, affiliations and
+ * venues are lists, of which it needs one (SRCH-21: "by Hao Li or Kaiming He").
+ */
 export interface SearchFilters {
   excludeCrossLists: boolean;
   /** Papers that link their code (`codeUrl`). */
   withCode: boolean;
-  author: NameFilter | null;
-  affiliation: NameFilter | null;
+  authors: NameFilter[];
+  affiliations: NameFilter[];
   subject: string | null;
   /**
-   * A venue as detected in the comments (e.g. "ECCV 2026"), a family of them ("ECCV*",
-   * `venues.ts`), or {@link ANY_VENUE}.
+   * Venues as detected in the comments (e.g. "ECCV 2026"), families of them ("ECCV*",
+   * `venues.ts`), or {@link ANY_VENUE} alone, which holds the others.
    */
-  venue: string | null;
+  venues: string[];
   /**
    * A country of the papers' institutions, its ISO code ("FR", PROD-22), as the build
    * merges them from their ROR ids (`Paper.countries`).
@@ -68,12 +72,32 @@ export function exactly(text: string): NameFilter {
 export const NO_FILTERS: SearchFilters = {
   excludeCrossLists: false,
   withCode: false,
-  author: null,
-  affiliation: null,
+  authors: [],
+  affiliations: [],
   subject: null,
-  venue: null,
+  venues: [],
   country: null,
 };
+
+/** Whether two name filters are the same: the same name, both clicked or both typed. */
+export function sameName(a: NameFilter, b: NameFilter): boolean {
+  return a.exact === b.exact && searchKey(a.text) === searchKey(b.text);
+}
+
+/** The names with one more, unless they hold it already (SRCH-21). */
+export function withName(names: readonly NameFilter[], name: NameFilter): NameFilter[] {
+  return names.some((known) => sameName(known, name)) ? [...names] : [...names, name];
+}
+
+/**
+ * The venues with one more (SRCH-21): {@link ANY_VENUE} holds every other, so it replaces
+ * them, and a venue added to it replaces it.
+ */
+export function withVenue(venues: readonly string[], venue: string): string[] {
+  if (venue === ANY_VENUE) return [ANY_VENUE];
+  const others = venues.filter((known) => known !== ANY_VENUE);
+  return others.includes(venue) ? others : [...others, venue];
+}
 
 /** One side of an `OR` (SRCH-6): a word, as typed, or a `"phrase"`, as its {@link searchKey}. */
 export interface Alternative {
@@ -533,12 +557,12 @@ export function arxivIdOf(query: string): string | null {
   return ARXIV_ID_RE.exec(query.trim())?.[1] ?? null;
 }
 
-/** How many filters narrow the papers, for the Filters summary. */
+/** How many filters narrow the papers, for the Filters summary: a chip each. */
 export function activeFilterCount(filters: SearchFilters): number {
   return [
-    isActive(filters.author),
-    isActive(filters.affiliation),
-    filters.venue !== null,
+    ...filters.authors.map(isActive),
+    ...filters.affiliations.map(isActive),
+    ...filters.venues.map(() => true),
     filters.country !== null,
     filters.subject !== null,
     filters.excludeCrossLists,
@@ -625,22 +649,34 @@ function listedUnder(paper: Paper, subject: string): boolean {
   return subjectsOf(paper).some((listed) => subjectCode(listed) === code);
 }
 
+/** Whether a paper matches one of the names set, if any is (SRCH-21). */
+function matchesOne(
+  paper: Paper,
+  names: readonly NameFilter[],
+  matches: (paper: Paper, filter: NameFilter) => boolean,
+): boolean {
+  const active = names.filter(isActive);
+  return active.length === 0 || active.some((name) => matches(paper, name));
+}
+
 /**
  * A clicked author or institution matches that name only (folded and with punctuation
  * collapsed, as {@link searchKey} does), and an institution by the name the graph gives it,
  * whatever the affiliation string ("CMU" for "Carnegie Mellon University"). Typed text
  * matches word prefixes of authors, or of affiliations and their institutions'
- * names: see {@link startsWords}.
+ * names: see {@link startsWords}. A paper matches one of the authors, one of the
+ * affiliations and one of the venues set (SRCH-21), and every other filter.
  */
 export function matchesFilters(paper: Paper, filters: SearchFilters): boolean {
   return (
     !(filters.excludeCrossLists && paper.cross_list_from !== null) &&
     (!filters.withCode || codeUrl(paper) !== null) &&
-    (!isActive(filters.author) || matchesAuthor(paper, filters.author)) &&
+    matchesOne(paper, filters.authors, matchesAuthor) &&
     // Institutions are only named when an affiliation filter needs them.
-    (!isActive(filters.affiliation) || matchesAffiliation(paper, filters.affiliation)) &&
+    matchesOne(paper, filters.affiliations, matchesAffiliation) &&
     (filters.subject === null || listedUnder(paper, filters.subject)) &&
-    (filters.venue === null || matchesVenue(paper.venue, filters.venue)) &&
+    (filters.venues.length === 0 ||
+      filters.venues.some((venue) => matchesVenue(paper.venue, venue))) &&
     (filters.country === null || inCountry(paper, filters.country))
   );
 }
@@ -668,14 +704,14 @@ export interface NameHighlights {
   /** In the affiliation line only. */
   affiliations: string[];
   /**
-   * The key of the institution clicked: a card marks whole the affiliations it names,
+   * The keys of the institutions clicked: a card marks whole the affiliations they name,
    * however they write it ("IIT Kanpur" for Indian Institute of Technology Kanpur).
    */
-  institution: string | null;
+  institutions: string[];
 }
 
 /** A filter's needles: a clicked name whole, typed words as word starts, as each matches. */
-function filterNeedles(filter: NameFilter | null): string[] {
+function filterNeedles(filter: NameFilter): string[] {
   if (!isActive(filter)) return [];
   // The filters compare `searchKey`s, whose punctuation the needle's words may stand
   // across: "Julia A. Schnabel" marks "Julia A Schnabel", "Xi'an" marks "Xi’an".
@@ -697,11 +733,12 @@ function filterNeedles(filter: NameFilter | null): string[] {
  * institution.
  */
 export function nameHighlights(filters: SearchFilters): NameHighlights {
-  const { affiliation } = filters;
   return {
-    authors: filterNeedles(filters.author),
-    affiliations: filterNeedles(affiliation),
-    institution: affiliation?.exact && isActive(affiliation) ? searchKey(affiliation.text) : null,
+    authors: filters.authors.flatMap(filterNeedles),
+    affiliations: filters.affiliations.flatMap(filterNeedles),
+    institutions: filters.affiliations
+      .filter((filter) => filter.exact && isActive(filter))
+      .map((filter) => searchKey(filter.text)),
   };
 }
 
@@ -716,8 +753,7 @@ export function affiliationNeedles(
   highlights: readonly string[],
 ): string[] {
   const institution = institutionsOf(paper)[paper.affiliations?.indexOf(affiliation) ?? -1];
-  const clicked =
-    names.institution !== null && institution && searchKey(institution) === names.institution;
+  const clicked = institution && names.institutions.includes(searchKey(institution));
   return [
     ...highlights,
     ...names.affiliations,

@@ -3,7 +3,7 @@
  * saved search is the query and filters of a view, as the URL writes them, so that it reads
  * back with {@link readState} and works on any period.
  */
-import type { SearchFilters } from "./search";
+import type { NameFilter, SearchFilters } from "./search";
 import { DEFAULT_STATE, readState, writeState } from "./url-state";
 import { venueLabel } from "./venues";
 
@@ -34,14 +34,20 @@ export function searchOf(saved: SavedSearch): SearchOf {
   return { query, filters };
 }
 
-/** "gaussian splatting · by Hao Li · at MIT · ECCV 2026". */
+/** Several values of a filter: "Hao Li or Kaiming He". */
+function either(values: readonly string[]): string {
+  return values.join(" or ");
+}
+
+/** "gaussian splatting · by Hao Li or Kaiming He · at MIT · ECCV 2026". */
 export function searchName({ query, filters }: SearchOf): string {
-  const { author, affiliation, venue, subject, excludeCrossLists, withCode } = filters;
+  const { authors, affiliations, venues, subject, excludeCrossLists, withCode } = filters;
+  const texts = (names: readonly NameFilter[]) => either(names.map((name) => name.text));
   return [
     query.trim(),
-    author && `by ${author.text}`,
-    affiliation && `at ${affiliation.text}`,
-    venue && venueLabel(venue),
+    authors.length > 0 && `by ${texts(authors)}`,
+    affiliations.length > 0 && `at ${texts(affiliations)}`,
+    either(venues.map(venueLabel)),
     subject,
     excludeCrossLists && "no cross-lists",
     withCode && "with code",
