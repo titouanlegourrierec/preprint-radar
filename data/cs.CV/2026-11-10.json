@@ -2414,7 +2414,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.10260v1",
+   "html_url": "https://arxiv.org/html/2611.10260v2",
    "abstract": "Accelerated magnetic resonance imaging (MRI) forms images from incomplete Fourier measurements, shifting acquisition burden to computational reconstruction. Deep unrolled networks interleave learned regularization and data consistency, yet typically estimate the full unmeasured spectrum at every cascade. We propose STAIRS (Staging the Inverse Problem via Admissible-Support Scheduling), which projects intermediate reconstructions onto nested Fourier supports that expand to the full spectrum and conditions each update on its support transition. Conditional increments of a regularized log-determinant score of training covariance define a normalized spectral coordinate, accounting for dependencies between newly and previously admitted frequencies. Dyadic targets allocate larger coordinate increments to earlier cascades and are mapped to fixed supports before training, enabling coarse-to-fine reconstruction with unchanged sampling masks and data consistency. On fastMRI and Stanford2D, STAIRS improves matched Transformer (HUMUSNet) and convolutional (NAFNet) backbones in single- and multi-coil reconstruction, including radiologist-annotated pathology regions. It also outperforms predictor-based progression with lower parameter overhead and inference latency. Stage-wise analysis shows repeated error correction by projection and lower intermediate reconstruction errors than the backbones alone throughout support expansion. Ablations favor dyadic allocation over uniform expansion for square and line-band supports and over manual front-loading for square windows. Support projection alone improves reconstruction, and transition conditioning strengthens the gain. Cross-dataset evaluation shows improvements for both backbones in both directions. Support allocation thus complements regularizer design in unrolled MRI reconstruction.",
    "affiliations": [],
    "author_affiliations": null,
@@ -5075,7 +5075,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "20 pages, 8 figures, 9 tables",
+   "comments": "21 pages, 8 figures, 8 tables",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -6725,7 +6725,7 @@
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.10908v1",
+   "html_url": "https://arxiv.org/html/2611.10908v2",
    "abstract": "Forensic verification has converged on a binary \"real vs. fake\" label that confates fully synthetic, tampered, and AI-retouched images despite their very different consequences. We argue that GenAI manipulations decompose along two complementary channels: a camera channel of sensor fingerprints (destroyed by neural processing), and a semantic channel of scene-level coherence (disrupted by content edits). Each manipulation type leaves a distinctive two-channel signature. We instantiate this taxonomy in 2CAP (2-Channel Authenticity Protocol), pairing a contrastively-trained camera encoder with a frozen semantic encoder to serve two applications on a shared backbone: (i) four-class authenticity classification via cross-attention fusion with learnable reliability weights; and (ii) evidence generation, where an authentic image serves as a reference for a query and the two encoders produce per-channel alignment scores together with a patch-level saliency map. These signals are supplied as privileged context to a frozen Vision-Language Model (VLM) through an Observe-Generate-Refine loop, yielding explanations with localization without forensic fine-tuning. On a multi-source benchmark, 2CAP attains the best classification performance, including strong retouching detection where existing methods fail, and improves explanation quality.",
    "affiliations": [
     "Google",
@@ -13865,7 +13865,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.12657v3",
+   "html_url": "https://arxiv.org/html/2611.12657v4",
    "abstract": "Sliced inference such as SAHI is the standard remedy for small objects in high-resolution imagery, but its gains are usually measured against low-resolution baselines. We revisit sliced inference with scale as the explicit variable and ask when tiling actually pays off. We compare seven dense detectors from four families on VisDrone and DOTA, under pre-specified hypotheses, calibration-only tuning and a single evaluation on held-out test data. Two findings emerge. First, much of the benefit attributed to slicing is a resolution effect: on VisDrone, a single pass trained at a higher resolution outperforms tiling with box fusion (merging decoded boxes) for every detector that could be trained at that resolution, and at equal compute a higher resolution helps more than a larger model. Second, tiles carry complementary information that box fusion wastes. We introduce SCAHI (Slicing with Coverage-Aware Hyper Inference), which accumulates the dense outputs of all passes with weights that give every image position the same total coverage, and reads objects off a peak grid fine enough to keep crowded neighbours apart. On identical passes, SCAHI outperforms box fusion for every YOLO detector on both datasets and matches it for FCOS. On DOTA, whose images far exceed the resolution a single pass can be trained at, tiles with SCAHI beat the best single pass for every detector, by 4.3 to 5.6 mAP50 at 2048 px, and replacing only SAHI's merge step by SCAHI adds 2.3 to 4.0 mAP50. An ablation attributes the gain to the border weighting and the resolution of the peak grid. Source code is available at https://github.com/beckerio/scahi.",
    "affiliations": [
     "Fraunhofer IOSB, Ettlingen, Germany"
@@ -14262,7 +14262,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.12508v1",
+   "html_url": "https://arxiv.org/html/2611.12508v2",
    "abstract": "Generalizing deepfake detection across facial manipulation and fully generated video remains challenging due to forgery traces varying with the manipulation method and scene content. Explicit spatial and temporal feature differences offer a way to capture this variation, but also respond to natural texture and motion, motivating their joint interpretation with appearance features. We investigate whether combining multiscale feature differences with adapted appearance representations improves detection across both forgery categories. We introduce Multiscale Appearance-Residual Streams (MARS), a two-path video detector. The residual path applies fixed spatial and temporal difference-of-Gaussians operators to frozen intermediate features and models the resulting differences alongside appearance context across frames. The semantic path adapts the encoder's normalization parameters for frame classification, and a clip-dependent gate combines their predictions. Under a shared protocol across seven datasets, MARS achieves the highest average AUROC of 91.43%, outperforming seven compared detectors. When trained on facial manipulations alone, MARS achieves 93.99% AUROC on GenVideo and 75.50% on DF26, demonstrating transfer to generated videos without generated-video training data. MARS also provides signed patch and frame contributions, whose faithfulness we evaluate through controlled spatial and temporal removal against random controls. MARS is publicly available for research: Project page: https://vectorinstitute.github.io/mars/ Github: https://github.com/VectorInstitute/mars",
    "affiliations": [
     "Vector Institute for Artificial Intelligence, Toronto, Canada"

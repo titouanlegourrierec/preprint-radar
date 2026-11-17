@@ -1247,6 +1247,7 @@
     "Ziang Cao",
     "Cheng Huang Yean",
     "Jackson Peng",
+    "Yichen Zhao",
     "Rui Duan",
     "Yaobo Liu",
     "Zetong Wang",
@@ -1260,12 +1261,15 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.17060v1",
+   "html_url": "https://arxiv.org/html/2611.17060v2",
    "abstract": "Large foundation models such as GPT-6 Astra and Claude Fable 5.1 have recently been shown to control robots directly from visual observations. They nevertheless remain brittle on long-horizon, contact-rich tasks in real-world environments. Further progress depends on two complementary resources: demonstrations of human behavior that supervise how tasks are performed, and interactive environments in which policies can be rolled out, evaluated, and improved in closed loop. Language models have advanced along well-characterized scaling laws; the corresponding question for physical AI is how capability scales with environments and behaviors, which first requires identifying which data to scale and how to produce and reuse such data continuously. To address this question, we introduce Ropedia Xperience 2, comprising 1,589 released metric-scale 3D scans and a collection of 4,230 egocentric recordings of 74 tasks (131 hours). We further show that each capture can be repurposed for robot learning: scenes are converted into physically interactive simulation environments, human motion is retargeted to whole-body robot trajectories, and additional robot behaviors are obtained through virtual teleoperation and automated long-horizon trajectory generation. We propose this joint capture of environments and behaviors as a gold standard for physical AI data collection, laying a data foundation for establishing scaling laws over environments and behaviors.",
    "affiliations": [
     "Ropedia Research Team"
    ],
    "author_affiliations": [
+    [
+     0
+    ],
     [
      0
     ],
@@ -1340,11 +1344,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-15"
+     "at": "2026-11-17"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-15"
+     "at": "2026-11-17"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.17060",
@@ -1353,7 +1357,7 @@
   {
    "arxiv_id": "2611.17048",
    "announced": "2026-11-13",
-   "title": "AURA 2.0: From User-Driven Responses to Model-Initiated Conversations in Streaming Video",
+   "title": "Beyond Answering: Learning to Speak First and Act in Streaming Video",
    "authors": [
     "Shuhan Li",
     "Huankang Guan",
@@ -1383,7 +1387,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.17048v1",
+   "html_url": "https://arxiv.org/html/2611.17048v2",
    "abstract": "Most AI assistants respond only when prompted, remaining silent even when events in the video stream offer meaningful opportunities for conversation. To move beyond purely user-driven interaction, we present AURA 2.0, a streaming video large language model that introduces three core upgrades to AURA. The key advance is Model-Initiated Conversation (MIC), which enables the model to identify topics worth discussing in the evolving visual stream and initiate conversations at appropriate moments without a user query. Stream-Aware Tool Calling (SATC) enables the model to invoke external tools using the current visual and conversational context and incorporate returned information into the ongoing interaction. Interactive Visual Grounding (IVG) supports visual grounding in both user inputs and model outputs. The model can identify objects marked by users on video frames and produce frame-aligned bounding boxes to link its responses to specific objects and regions. To develop these capabilities, we construct a dedicated streaming interaction dataset and adopt a three-stage training scheme to integrate the new behaviors with AURA's existing streaming interaction abilities. We further incorporate Long-Horizon Interaction Memory (LHIM) to maintain contextual continuity over extended video streams. Evaluations on public streaming benchmarks show that AURA 2.0 achieves leading performance among open-source streaming models, while targeted evaluations further validate its new interaction capabilities. We open-source the model weights and inference code.",
    "affiliations": [
     "Huawei Research",
@@ -1781,7 +1785,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.16869v1",
+   "html_url": "https://arxiv.org/html/2611.16869v2",
    "abstract": "Raysemble reconstructs eight lumbar and pelvic bones from a single X-ray by separating shape and placement. Each 3D query samples regional and global features at its image projection. A shared decoder predicts normalized bone shapes. Predicted depth and camera geometry determine 3D centers and scales for resampling these shapes onto a common grid in millimeters. Evaluation uses 23 held-out patients with 43 CT scans, each generating one simulated anteroposterior radiograph. Without rigid alignment to CT,Raysemble leads 15 evaluated methods, averaging 65.24% Dice, 9.09 mm HD95, and 3.32 mm ASSD over three random seeds. With identical inputs, it improves Dice over VolumeNeRF by 5.86 percentage points.",
    "affiliations": [
     "ORBIT Lab, College of Medicine and Biomedical Information Engineering,Northeastern University, Shenyang 110016, China",
@@ -1850,7 +1854,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.16861v1",
+   "html_url": "https://arxiv.org/html/2611.16861v2",
    "abstract": "While language-model agents excel at long-horizon coding and terminal tasks, this success relies on two conditions: explicit text specifications and immediate execution feedback. However, neither condition holds in real-world problems where critical information exists only in images, leaving it unclear whether long-horizon capability transfers from text to visual reasoning. In such visual settings, because rules and clues resist text transcription and lack test-case feedback, agents must repeatedly inspect images, simulate spatial transformations, and autonomously cross-check clues. Despite this challenge, existing evaluations fail to capture such capability: visual reasoning benchmarks largely reduce tasks to single-turn, short-chain question answering, whereas agent benchmarks focus on text-based environments or interactive states that permit trial-and-error. To bridge this gap, we introduce Visual Cipher Bench, a collection of 40 original visual puzzles across four categories: spatial manipulation and simulation, logical constraints and planning, rule induction, and knowledge-based decoding. Each puzzle provides only one to three black-and-white line drawings and a minimal submission instruction, requiring agents to discover the underlying solving mechanism entirely from the images. Across 29 reasoning-effort configurations of eight frontier models, even the strongest model, GPT-6 Astra (max), achieves only 26.7% accuracy, while five of the eight models score below 1%. Yet on a ten-task subset, providing a single non-spoiler mechanism hint boosts accuracy from 7.8% to 55.6%. This sharp contrast shows that the primary bottleneck of current agents lies not in executing multi-step plans, but in autonomously discovering rules from visual evidence. Visual Cipher Bench thus provides a rigorous benchmark for measuring long-horizon visual reasoning in agents.",
    "affiliations": [
     "Navers Lab, Einsia.AI, Tsinghua University"
@@ -2365,11 +2369,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": null,
+   "comments": "21 pages. Revised the human evaluation protocol, clarified the generation task-success and repair pass-vote metrics, and updated Table 1 and the appendix",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.16748v1",
+   "html_url": "https://arxiv.org/html/2611.16748v2",
    "abstract": "Video generation models produce visually realistic videos but still struggle with physical dynamics and causal consistency. Learning from generated videos requires fine-grained physical supervision, yet reliable quality judgments, correction pairs, and controlled variations are difficult to obtain. Large language models (LLMs) possess physical knowledge, but struggle to reliably guide video generation models in producing their training videos. We present PhysLoop, a unified harness designed to support physically grounded self-improvement in video generation models. The harness guides and constrains LLMs throughout video generation, selection, and correction, distilling their physical knowledge into physically consistent videos. The framework supports controllable training-data construction and inference-time video repair. By identifying and correcting failures, PhysLoop marks a key milestone toward recursive self-improvement (RSI) in video generation models with limited human intervention. We release 100K videos spanning diverse, realistic indoor and outdoor scenes, along with generation tools and two evaluation datasets: PhysLoop-Gen and PhysLoop-Repair. We evaluate controllable generation and localized repair on these datasets, respectively, and assess physical behavior on the external Physics-IQ Verified benchmark.",
    "affiliations": [],
    "author_affiliations": null,
@@ -3664,12 +3668,12 @@
    "title": "PhysCapBench: A Cross-Domain Benchmark for Physically Grounded Video Captioning",
    "authors": [
     "Haofeng Wang",
+    "Xuanyi Liu",
     "Pengcheng Wen",
     "Ruiqi Li",
     "Yuhao Zhang",
     "Tiange Zhang",
     "Boren Zheng",
-    "Xuanyi Liu",
     "Siyu Tao",
     "Danni Yu",
     "Gan Lin",
@@ -3684,20 +3688,92 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": "Project page: https://hfwang2001.github.io/physcapbench-site/",
+   "comments": "Updated author order. Project page: https://hfwang2001.github.io/physcapbench-site/",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.16424v1",
+   "html_url": "https://arxiv.org/html/2611.16424v2",
    "abstract": "Physical AI aims to learn transferable physical knowledge from real-world experience to understand, predict, and act in the physical world. Internet videos and embodied demonstrations provide complementary observations of motion, interaction, and state evolution. A foundational data challenge is to measure and preserve this physical information as training supervision. In video-language pretraining, captions express observed processes in language, yet a semantically correct description can omit the interactions and transitions that define those processes. Rich physical experience in video does not automatically translate into sufficient language supervision. This gap calls for a yardstick to assess annotation quality, compare captioning strategies, and guide training-data refinement. Motivated by our data construction for world-model pretraining, we introduce PhysCapBench, to our knowledge the first unified physical-caption benchmark spanning all three domains: third-person scenes, egocentric manipulation, and handheld-gripper demonstrations. It provides human-verified annotations for 1,500 video sequences and evaluates accuracy and coverage through seven physical dimensions. We examine downstream utility through video reconstruction and manipulation-policy fine-tuning. Physical captions reduce reconstruction LPIPS by 8.6-9.5% on third-person videos and 26.9-30.9% on egocentric videos relative to metadata captions. Training-instruction enrichment improves both PhysCapBench scores and policy success, including a 7.5-percentage-point gain for pi0.5 on a RoboTwin 2.0 subtask. PhysCapBench makes the physical content of language supervision inspectable and comparable, providing a cross-domain basis for its evaluation and improvement.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Beijing Academy of Artificial Intelligence",
+    "Peking University",
+    "Beihang University",
+    "Tsinghua University",
+    "Physis"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1,
+     4
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Beijing Academy of Artificial Intelligence",
+    "Peking University",
+    "Beihang University",
+    "Tsinghua University",
+    "Physis"
+   ],
+   "institution_ids": [
+    "016a74861",
+    "02v51f717",
+    "00wk2mp56",
+    "03cve4549",
+    null
+   ],
    "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-15"
+     "at": "2026-11-17"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-17"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.16424",
@@ -4400,7 +4476,7 @@
    "journal_ref": null,
    "venue": "ICME 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.16269v1",
+   "html_url": "https://arxiv.org/html/2611.16269v2",
    "abstract": "Distinguishing different heat sources in low-resolution infrared (IR) images is inherently difficult, as multiple thermal emitters often collapse into ambiguous and overlapping responses. Existing super-resolution methods hallucinate structures from such ambiguous 2D evidence, leading to thermal drift, boundary merging, and unreliable restoration under infrared degradations. We propose FlowIR, a depth-driven rectified flow framework that resolves thermal ambiguity by injecting 3D geometric cues into the generation process. Pseudo-3D depth lifting and depth-guided 3D convolutions disentangle overlapping foreground objects, while cluster-wise inter-attention suppresses cross-source feature contamination. A Thermal-Geometry Consistency Loss further enforces geometric alignment during refinement. Built upon a lightweight rectified flow backbone, FlowIR restores IR images in only a few steps, producing sharply separated, degradation-robust, and geometrically faithful high-resolution results.",
    "affiliations": [
     "Dalian University of Technology, Dalian, China",
@@ -4754,7 +4830,8 @@
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
-    "Computer Vision and Pattern Recognition (cs.CV)"
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Robotics (cs.RO)"
    ],
    "comments": null,
    "journal_ref": null,
@@ -5748,7 +5825,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.15764v1",
+   "html_url": "https://arxiv.org/html/2611.15764v2",
    "abstract": "Diffusion-based makeup and anime portraits are increasingly popular in online content creation (e.g., virtual makeup editing and anime avatar generation), but their altered appearances can hinder face recognition (FR) in identity-based content screening. Existing methods mainly adapt FR encoders or restore input images. The former require costly gallery re-encoding, while the latter may be incomplete or distort identity-related facial details. To address these limitations, we aim to correct identity features within a frozen FR model to recover its output embeddings in its original space. Appearance changes vary in strength and affect facial regions differently. To this end, we propose Adaptive Identity Feature Recovery (AIFR), a framework that inserts a lightweight recovery module at a single intermediate layer to predict sample-level correction strength and spatially adaptive residual updates. Module training uses fused identity targets to guide embedding recovery in the original FR space and an identity-shift score to regulate correction strength and limit unnecessary changes. At inference, AIFR processes a single portrait in one forward pass without reference images, producing recovered embeddings that can be directly matched with existing gallery templates without re-encoding. With only 1.22M trainable parameters, AIFR improves the average TAR at FAR=$10^{-4}$ from 66.1% to 90.2% over the original ArcFace, and further experiments show improvements across unseen makeup styles, stylization strengths, and generators. Beyond recognition, the recovered embeddings can directly condition a pretrained Arc2Face model to generate faces with improved identity preservation, showing compatibility with embedding-conditioned downstream generation.",
    "affiliations": [
     "The Hong Kong Polytechnic University",
@@ -7404,7 +7481,7 @@
    "journal_ref": "Proceedings of the 34th ACM International Conference on Multimedia (MM '26), 2026",
    "venue": "ACM MM 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.15328v1",
+   "html_url": "https://arxiv.org/html/2611.15328v2",
    "abstract": "Multilingual Text-Based Person Retrieval (TBPR) aims to retrieve individuals with texts in multiple languages. Despite its practical importance, it has been overlooked by existing research, which mainly focuses on English-only retrieval. The only prior attempt at multilingual TBPR suffers from (1) the absence of a large-scale, multilingual pretraining dataset and (2) a suboptimal model architecture for multilingual text encoding and cross-modal alignment, which employs a shared encoder that overlooks linguistic heterogeneity and relies on English as a pivot for cross-modal alignment, introducing English-centric bias. For this, we contribute MultiPedes, the first large-scale, pedestrian-centric multilingual pretraining dataset. It contains 10 million image-text pairs across four languages, constructed by a multilingual quality-aware data construction pipeline. We also propose ViSeLA (Vision-grounded Semantic Learning and Alignment), a novel framework featuring: (1) a semantic-aware multilingual learning module that extends the mixture-of-experts architecture by routing language-invariant semantics to specialized experts for improved multilingual feature learning; and (2) a vision-grounded cross-modal alignment module that employs a semantic probe to capture fine-grained semantics across modalities, enabling direct cross-modal alignment without relying on a pivot language. Extensive experiments on both multilingual and English-only TBPR datasets demonstrate the effectiveness of ViSeLA. The dataset and code are available at https://github.com/Flame-Chasers/ViSeLA",
    "affiliations": [
     "Soochow University, Suzhou, China",
@@ -7998,7 +8075,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.15260v1",
+   "html_url": "https://arxiv.org/html/2611.15260v2",
    "abstract": "Plan-conditioned driving world models are used to compare candidate plans, so their forecast should change with the plan as the real scene would, yet widely used control metrics check only whether the camera follows the command. Recorded drives already contain real outcomes of plans that were never driven: retiming a log gives pose-matched images and LiDAR for other speeds, and a stereo rig records a laterally shifted view. Against these references, released world models move their camera but barely move the scene: their scene response, the share of the real change in distance that the forecast reproduces, reaches at most about a third of real video's, and the trajectory score cannot tell an executed speed command from an ignored one. Interventions inside the generator trace the failure to the plan's channel. The forecast geometry follows the context frames; once they carry the planned geometry, plan tokens add little. ReTime-Compose therefore delivers the plan as geometry, without training. It transports the frames of one logged-speed rollout to the planned cameras, and the frozen model completes only what no frame covers. Frozen generators then follow a 0.54 m lateral shift nearly as the real scene does on KITTI, nuScenes and Argoverse 2, and respond more than re-sampling to slow-down plans in three generators and to speed-up plans in two.",
    "affiliations": [
     "Chongqing University"
@@ -8761,7 +8838,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.15146v1",
+   "html_url": "https://arxiv.org/html/2611.15146v2",
    "abstract": "High-dynamic-range (HDR) displays are now common, but most video content, such as archival footage, broadcast material, and the output of generative video models, exists only in standard dynamic range (SDR). The need is sharpest for generated video, which has no HDR master at all and is graded alongside live-action and visual-effects material finished in HDR. Converting SDR to HDR means undoing a tone-mapping operation that was never recorded, and clipping destroys the radiance wherever it acts, so HDR recovery is a blind inverse problem. Methods built on generative video priors fill clipped regions with plausible structure, but their reconstructions are systematically biased: in every public method we test, saturated content leans too bright or too dark, and the direction of the lean moves with the tone operator behind the input. We call this failure the luminance error, measure both its magnitude and its sign, and make it the focus of this work. Reframing ITM as posterior inference under an unknown operator locates the failure in two places and yields two corrections. A fixed affine functional of the video-diffusion latent reads log-luminance without decoding; on that coordinate an asymmetric loss selects an expectile of the posterior, applied only where clipping leaves luminance unconstrained. We also synthesize training SDR through an explicit family of tone operators, so the model marginalizes over what the observation cannot show. Trained this way, our luminance error stays flatter across operators and smaller on average than any public method, and the full system achieves the best perceptual quality on all three benchmarks.",
    "affiliations": [],
    "author_affiliations": null,
@@ -9269,7 +9346,7 @@
   {
    "arxiv_id": "2611.15047",
    "announced": "2026-11-13",
-   "title": "Saying No by Asking Yes: Affirmative Decomposition and Evidence Reflection for Frozen CLIP",
+   "title": "Negation Through Affirmation: Leveraging Positive Evidence in Vision-Language Models",
    "authors": [
     "Aashish Pokhrel",
     "Tejas Anvekar",
@@ -9279,11 +9356,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "27 pages, 6 figures",
+   "comments": "26 pages, 6 figures",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.15047v1",
+   "html_url": "https://arxiv.org/html/2611.15047v2",
    "abstract": "Frozen vision-language models often match concepts mentioned in a caption without respecting their negation: a query \"a kitchen with no toaster\" favors an image containing a toaster. Yet these models are substantially stronger at matching affirmative descriptions. We exploit this asymmetry with Negation-Aware Evidence Scoring (NAES), which reformulates negated descriptions into affirmative queries and combines their evidence by caption structure. A lightweight text decomposer, NegSplit, identifies this structure by extracting negated spans and the remaining affirmative context. For captions with an affirmative remainder, NAES matches that content and applies a presence-based correction for the denial. When no affirmative content remains, it queries the denied object's presence and reflects the evidence around a reference to score the negated description. With LAION-2B CLIP, NAES achieves 82.4% accuracy on COCO-MCQ and 93.0% on VOC2007-MCQ, surpassing KTN by 2.9 and 0.9 percentage points; with OpenAI CLIP, it exceeds PeakPatch accuracy by 4.4 and 26.0 points, respectively. NAES also improves negated-description retrieval on COCO and MSR-VTT, with gains extending to SigLIP, SigLIP 2, and larger CLIP encoders. The strongest multiple-choice results use competing descriptions to center and align evidence; retrieval improvements persist without this conditioning. These findings show that explicitly separating affirmative matching from denied-object evidence can substantially improve negation-aware ranking.",
    "affiliations": [],
    "author_affiliations": null,
