@@ -3209,7 +3209,7 @@
     "Thomas Paillot",
     "Antoine Affouard",
     "Vanessa Hequet",
-    "Herv{é} Go{ë}au",
+    "Hervé Goëau",
     "Pierre Bonnet"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
@@ -3226,35 +3226,7 @@
     "IROKO: Sciences environnementales guidées par les données",
     "UMR Botanique et Modélisation de l’Architecture des Plantes et des végétations"
    ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     1
-    ],
-    [
-     0
-    ],
-    [
-     1
-    ],
-    [
-     1
-    ],
-    [
-     1
-    ],
-    [
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "IROKO: Sciences environnementales guidées par les données",
     "UMR Botanique et Modélisation de l’Architecture des Plantes et des végétations"
@@ -4085,7 +4057,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.16400v1",
+   "html_url": "https://arxiv.org/html/2611.16400v2",
    "abstract": "An assistant watching a worker can prepare for an emerging need before the worker is ready to receive http://help.As the need evolves, the assistant must maintain preparation until a response is due, or withdraw it if the need disappears. Video anticipation and interactive response benchmarks leave this interval between early evidence and response largely unmeasured. We introduce FuGIBench (Future-Grounded Interaction), a streaming-video benchmark in which a model chooses among waiting, reversible preparation, and response given a causal video prefix and a task contract. The benchmark contains 19,893 synthetic tool-assistance videos across ten tool tasks, in handover, ordinary-activity, and cancelled-need tracks. One primary score credits sustained preparation, incorporates response-interval alignment, and penalizes activity when the reference prescribes waiting. On a frozen set of 1,000 episodes, a reference system with a longer preparation lead has poorer response alignment, while similar handover leads accompany different levels of activity during ordinary work in matched scenarios. Together with cancellation analyses, these results show why evaluating preparation requires tracking decisions as needs develop, become actionable, or disappear.",
    "affiliations": [
     "The Hong Kong University of Science and Technology (ust.hk)",
@@ -11652,7 +11624,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
-   "html_url": "https://arxiv.org/html/2611.15481v1",
+   "html_url": "https://arxiv.org/html/2611.15481v2",
    "abstract": "Recently developed remote sensing (RS) agents execute real-world tasks with complex workflows through multi-step tool invocation. These agents, however, typically rely on predefined expertise or parameter updates. They thus require updating expert knowledge or retraining models whenever new tools, tasks, or execution patterns emerge, limiting their continual adaptability in dynamic Earth environments. In this work, we seek to equip general-purpose agents with RS tool-call knowledge that can be automatically extracted from demonstrated trajectories without expert intervention or parameter updates. Specifically, we propose SkillEarth, a self-evolving skill extraction method that externalizes RS tool-call knowledge as reusable, retrievable, and evolvable skill files and refines them through observation-grounded evolution. Unlike existing automatic skill extraction methods that rely on outcome-based reflection to refine skills holistically, SkillEarth grounds skill evolution in real tool-chain execution and combines dual-judge feedback with a grounded observation routing graph for precise component-level refinement. The resulting skills are generalizable, reliable, and transferable: they improve overall RS tool-call performance across three frontier LLMs and four open-source LLMs, are refined through real tool execution feedback, and support cross-model reuse without retraining. Experiments on OpenEarth-Bench and Earth-Bench demonstrate that SkillEarth achieves better tool selection, argument correctness, execution-order consistency, and task completion than existing RS agents and skill extraction methods.",
    "affiliations": [
     "Institute for AI Industry Research (AIR), Tsinghua University",

@@ -497,7 +497,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.21530v1",
+   "html_url": "https://arxiv.org/html/2611.21530v2",
    "abstract": "An embodied speaker's expressiveness depends not only on what is said, but also on how the voice sounds and how the body moves. However, existing joint speech-motion generation models are largely driven implicitly by transcript semantics or intermediate speech representations, offering little explicit control over motion hierarchy, body parts, or vocal style. To bridge this gap, we construct MotionSpeech, a structured benchmark for controllable joint speech-motion generation that includes transcripts, voice-style descriptions, and motion conditions at two hierarchical levels. Building on this benchmark, we propose DuoFlow, a dual-stream latent flow transformer that jointly denoises speech and motion under a shared noise level and a unified second-based temporal coordinate. Modality-specific residual connectors inject structured conditions into the corresponding streams, layer-wise bidirectional cross-modal attention coordinates their generation, and a monotonic phoneme pathway combines normalized progress anchors with CTC supervision to strengthen speech temporal modeling. DuoFlow provides a unified interface for fine-grained motion and vocal-style control and demonstrates the ability to synthesize high-quality, synchronized, and instruction-consistent speech-motion sequences.",
    "affiliations": [
     "Tsinghua University",
@@ -607,11 +607,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": null,
+   "comments": "hand-controlled video generation",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.21479v1",
+   "html_url": "https://arxiv.org/html/2611.21479v2",
    "abstract": "Interactive video world models enable exploration through text and camera controls, yet direct object interaction requires finer control. Hands provide a natural interface, but translating continuous hand movements into coherent visual responses remains challenging because of complex hand-object dynamics and demanding real-time computation. To address these challenges, we introduce LynnReal-Hand, a hand-controlled video world model that unifies precise interaction modeling with efficient streaming generation. We curate 100K interaction clips spanning diverse real and synthetic environments and develop hand-aware supervision to improve fine-grained hand motions and object interactions. Building on this foundation, we learn a causal flow map for few-step generation and introduce region-aware score distillation that combines complementary video and image priors to refine interaction dynamics and visual appearance. To further reduce inference latency, we propose Ultra-Fast-VAE, a compact video decoder that preserves high reconstruction fidelity with substantially lower computational cost. Extensive evaluations on HandBench demonstrate superior hand-following accuracy and visual quality compared with existing approaches. Our full-sequence model achieves an FVD of 181.67 and a MANO Dice score of 93.02, while the three-step causal model maintains a MANO Dice score of 92.49. For real-time interaction, 540p streaming on a single H200 reaches 18.03 FPS with 741ms latency and an optimized peak GPU memory footprint of only 34.89GB. We will release the datasets, model weights, and the full training and inference code to support research on hand-controlled video world models.",
    "affiliations": [],
    "author_affiliations": null,
@@ -1859,7 +1859,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.21233v1",
+   "html_url": "https://arxiv.org/html/2611.21233v2",
    "abstract": "This study proposes a real-time gaze-tracking system that uses a standard RGB webcam to estimate screen coordinates. The system combines ETH-XGaze-based gaze estimation with nine-point calibration and polynomial ridge regression. To reduce errors caused by changes in head position, it also applies a conditional residual correction derived from head and pose features extracted with RTMPose. Whether this correction is used depends on the reliability of the detected features and the characteristics of the calibration data. In a preliminary experiment, one participant completed trials at 12 screen targets. The resulting mean screen-coordinate error was 204.24 pixels, which was 35.83% lower than that of xgaze-js and 57.69% lower than that of gaze_tracker. The system produced valid gaze estimates for all 12 targets. These preliminary findings demonstrate the feasibility of combining user-specific calibration with conditional pose-based correction for webcam gaze tracking. Because the evaluation involved only one participant, further experiments with more participants and a wider range of postures are required.",
    "affiliations": [
     "Kookmin University, Seoul, Republic of Korea",
@@ -2285,7 +2285,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.21126v1",
+   "html_url": "https://arxiv.org/html/2611.21126v2",
    "abstract": "Feed-forward 4D driving-scene reconstruction enables efficient modeling of dynamic autonomous-driving scenes, but current methods suffer from two complementary failure modes: semantic leakage of traffic participants into the static representation and geometric drift of Gaussian locations across viewpoints. We propose IGRecon4D, a feed-forward dynamic scene reconstruction framework that addresses these failures with training-time instance-prior distillation and LiDAR-anchored Gaussian positioning. Specifically, an instance-level semantic branch provides a potentially dynamic participant prior, which is distilled into dynamic-mask learning through the Instance-Dynamic Consistency Constraint to encourage high-recall localization of traffic-participant regions prone to dynamic-static leakage. In parallel, sparse LiDAR measurements guide dense depth estimation, and the resulting depths are back-projected to anchor Gaussian positions for improved multi-view geometric consistency. Experiments on the Waymo Open Dataset and zero-shot evaluation on nuScenes demonstrate improved full-image reconstruction on the main benchmark and stronger traffic-participant-region reconstruction under cross-dataset evaluation.",
    "affiliations": [
     "School of Intelligence Science and Technology, Nanjing University"
@@ -2877,7 +2877,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.21054v1",
+   "html_url": null,
    "abstract": "Dataset distillation (DD) replaces large training datasets with smaller synthetic ones to reduce computational costs. While traditionally used for classification, we present, to our knowledge, the first DD study for line-level handwritten text recognition (HTR). Unlike classification tasks, which use discrete labels, HTR employs unaligned sequences from a virtually infinite output space as labels. To adapt classification-based DD methods to this scenario, we define text pseudo-classes by clustering transcriptions based on character n-grams. We adapt gradient matching (GM), distribution matching (DM) and trajectory matching (MTT) to a Convolutional Recurrent Neural Network (CRNN) trained with Connectionist Temporal Classification (CTC). In this process, synthetic line images are generated by optimising only the pixels of real starting lines (either randomly chosen or selected as text medoids), while keeping their original transcriptions fixed. Across four datasets (IAM, George Washington, READ 2016, LAM) and three budgets (1–10 % of the training lines), no distilled set outperforms its real initialisation lines. Random lines prove better than medoids, and further optimisation only degrades recognition. Methodologically, DM lowers its objective without benefit, while GM and MTT barely move theirs. We turn these findings into guidelines for evaluating data compression in HTR.",
    "affiliations": [
     "University of Alicante, Spain",
@@ -3006,7 +3006,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.21038v1",
+   "html_url": "https://arxiv.org/html/2611.21038v2",
    "abstract": "Few-step autoregressive video diffusion enables efficient long video generation, but inference still incurs substantial computational costs from repeated denoising and KV cache operations. Existing acceleration methods reduce parts of this overhead, while historical KV reading and cache construction remain costly across video chunks. To address these challenges, we propose ScoutCache, a training-free framework that jointly optimizes denoising, historical KV reading, and cache construction. We observe that shallow feature changes provide useful information for estimating clean latent updates, while historical KV dependence varies across Transformer layers and attention heads but remains relatively stable across video chunks. Based on these observations, we develop Conditional Denoising Readout (CDR) to estimate intermediate denoising updates from shallow feature changes and known noise variations. We further introduce Output Risk Guided Historical KV Reading (ORHR) to allocate historical reading budgets based on attention output perturbations, and Content and Coverage Guided Sparse Cache Construction (CCSC) to reduce cache construction costs by selecting informative spatial tokens while maintaining spatial coverage. Extensive experiments on Self-Forcing and LongLive using VBench and MovieGen demonstrate that ScoutCache achieves up to 2.28× and 1.86× speedups, respectively, while consistently improving generation quality without modifying pretrained model parameters.",
    "affiliations": [
     "The Hong Kong University of Science and Technology (Guangzhou)",
@@ -3315,11 +3315,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "10 pages, 5 figures. Equal contribution: Qixuan Wu and Xiaole Yang. Corresponding authors: Yuguang Yang and Baochang Zhang",
+   "comments": "17 pages, 5 figures. Equal contribution: Qixuan Wu and Xiaole Yang. Corresponding authors: Yuguang Yang and Baochang Zhang",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.20971v1",
+   "html_url": "https://arxiv.org/html/2611.20971v2",
    "abstract": "Pretrained video representations provide rich temporal information for robotic manipulation, yet effectively integrating them into existing vision-language-action (VLA) policies remains challenging. We present Flow-Aware Visual Residual Alignment (FAVR), a lightweight framework for flow-aware visual conditioning of frozen VLA policies. FAVR maintains a compact temporal visual state through linear Test-Time Training (TTT) and retrieves action-conditioned visual features throughout flow-based action generation. By exploiting the affine structure of the frozen action head, we explicitly characterize how injected visual features influence predicted action velocities and formulate flow-aware channel selection as a box-constrained optimization problem. We develop a FISTA-based solver for joint gate optimization and derive an efficient closed-form approximation through diagonalization and rescaling. With only 1.74-2.19M trainable parameters and 5,000 adaptation steps, FAVR improves pretrained VLA policies across benchmarks. On RoboTwin 2.0, FAVR improves LingBot-VLA from 87.12% to 90.04% under clean conditions and from 86.88% to 89.38% under randomized conditions. A controlled ablation on five RoboTwin tasks further shows that flow-aware gating increases average success from 72.0% with a gate shared across flow steps to 82.0%, demonstrating the benefit of adapting visual conditioning throughout action generation.",
    "affiliations": [
     "School of Artificial Intelligence, Beihang University, Beijing, China",
@@ -5320,11 +5320,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "9 pages, including references and supplementary material",
+   "comments": "Accepted at the CVPR 2026 Workshop on Synthetic & Adversarial Forensics (SAFE). 9 pages, including references and supplementary material",
    "journal_ref": null,
-   "venue": null,
+   "venue": "CVPR 2026 Workshop",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.20625v1",
+   "html_url": "https://arxiv.org/html/2611.20625v2",
    "abstract": "While text-to-image (T2I) diffusion models achieve remarkable quality, they risk producing harmful content. Existing safety mechanisms often rely on indiscriminate, global interventions that induce unintended semantic drift and degrade image quality. To address this, we propose Adaptive Spatial Classifier Guidance (ASCG), a necessity-driven framework that employs probabilistic monitoring to activate guidance selectively upon harm detection. By leveraging Grad-CAM for localized suppression, ASCG effectively removes harmful concepts while preserving superior semantic fidelity compared to conventional methods. Furthermore, we overcome the limitations of traditional metrics like NudeNet—which fails to assess semantic integrity—by introducing a VLM-based evaluation framework to provide a fine-grained, robust analysis of both safety and context preservation. Our results demonstrate that ASCG not only balances safety and fidelity but also exhibits remarkable plug-and-play synergy with existing frameworks to establish state-of-the-art performance.",
    "affiliations": [
     "KAIST, Republic of Korea"
@@ -6356,7 +6356,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.20433v1",
+   "html_url": "https://arxiv.org/html/2611.20433v2",
    "abstract": "Scene chronology aims to reconstruct a scene across visits separated by hours or days, during which objects may change in position, presence or shape. Such reconstruction must retain every earlier state, yet each revisit often provides only a few images. Storing a complete model for each visit duplicates the unchanged scene, whereas updating a single shared model alters earlier states. We present ReScene, which stores each visit as an immutable compact update, so that any earlier visit can be recovered exactly by applying the stored updates in order, without retaining past images. To localise each update, ReScene attributes the disagreement between the preceding reconstruction and the new images to individual Gaussians through their compositing weights. This attribution guides the suppression of outdated Gaussians and the refinement of persistent ones, while newly visible surfaces are initialised from learned multi-view depth. We also introduce Multi-State, a benchmark of non-rigid deformation and partial material removal, including synthetic scenes with ground-truth geometry. ReScene achieves quality higher than sequential 3DGS checkpointing with 2.5–4.8× less uncompressed history storage. At comparable PSNR, it also reduces foreground depth error by 3.2× relative to sequential ChronoGS, showing that accurate rendering does not necessarily imply accurate geometry. Code and benchmark are available at https://waychin-weiqin.github.io/ReScene/.",
    "affiliations": [
     "RMIT University"
@@ -6559,7 +6559,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.20385v1",
+   "html_url": "https://arxiv.org/html/2611.20385v2",
    "abstract": "Can a vision-language model look at a picture of a chain reaction and tell what will happen? Recent multimodal models describe scenes fluently and solve textbook physics problems, which suggests they should also predict how a scene of ramps, ledges, pendulums, seesaws and dominoes plays out once a ball is pushed. We tested this claim on 30 models from 10 families and reached a clear conclusion: unaided, no model predicts the outcome reliably. We built DominoBench, a benchmark of still images of 2D rigid-body scenes whose outcome a physics simulator computes. It holds 854 items in 427 minimal pairs, in which a change of one to three grid steps in one quantity decides whether one person survives, and every item comes with a four-rung hint ladder ending in the exact calculation that decides the outcome. Unaided, frontier models from Anthropic, Google and OpenAI are right about the person whose fate flips in at most 72% of items and answer both twins of a pair correctly in at most 34%. Pointing at the deciding step helps little, and exact geometry given as text barely helps, yet once the deciding calculation and the quantities it needs, including speeds that a still image cannot show, are written out, the same models reach 82-92% on the deciding person, while small open-weight models stay near chance. Physical prediction from a still image therefore fails at the quantitative step: the strongest models use the deciding quantity when they are given it, but do not produce it on their own. For models that plan or act in the physical world, a fluent account of a scene is thus no evidence of a correct prediction: such models must find and compute the deciding quantity unprompted, and DominoBench tests whether they do.",
    "affiliations": [
     "University of Southern California"
@@ -6863,14 +6863,14 @@
    "announced": "2026-11-17",
    "title": "Words Speak Louder? Exploring the Language Shortcut of LLM-Driven Incomplete Multimodal Learning",
    "authors": [
-    "Wenhao Li",
+    "Qiangchang Wang",
     "Chong Xiao",
     "Xiaokun Bai",
     "Rundong He",
     "Zhuang Qi",
     "Xusheng Liang",
     "Zhibin Wu",
-    "Qiangchang Wang"
+    "Wenhao Li"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
@@ -6881,58 +6881,58 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.20349v1",
+   "html_url": "https://arxiv.org/html/2611.20349v2",
    "abstract": "Is a face or a voice still heard once the words are known? Incomplete multimodal learning increasingly uses large language models (LLMs) as fusion engines: modality features enter as token blocks and missing modalities become placeholders. We find that LLM-driven fusion can override non-verbal evidence it can read. Contrasting its full-input prediction with counterfactual views, the same model shown one modality or no content, we identify language shortcuts. We build MR-Bench: MR-Bench-A types every test sample of four sentiment benchmarks; MR-Bench-H contains 900 human-validated clips (620 language-shortcut, LS; 280 non-verbal-shortcut, NS) from seven sources, and every model is scored on all of them. Zero-shot MLLMs solve at most 32.7% of the LS clips; adding the transcript to the muted video lowers vision-language accuracy by 46.1-53.1 points. Yet inverting a text-only model's answers solves 94.4%, so LS accuracy alone cannot establish use of non-verbal evidence. Inside the fusion LLM, fused states align increasingly with the text view late in the decoder. Counterfactual-View Reliability learning (CoVeR) trains views as unimodal judges and withholds fused supervision where they disagree. It achieves state-of-the-art results on five benchmarks without extra inference cost in accuracy mode. On MR-Bench-H, it reaches 61.7% LS and 93.6% NS accuracy; robust mode raises LS accuracy to 63.0% while lowering NS accuracy to 84.8%. Among LS clips solved without text, adding text causes errors on 30.1% with CoVeR versus 32.2% with LLM-Fusion. Project page: https://peacelwh.github.io/CoVeR/.",
    "affiliations": [
-    "Shandong University",
-    "Shenzhen Loop Area Institute",
     "The Hong Kong Polytechnic University",
     "National University of Singapore",
+    "Shandong University",
+    "Shenzhen Loop Area Institute",
     "City University of Hong Kong"
    ],
    "author_affiliations": [
+    null,
+    null,
+    null,
+    null,
     [
      0,
      1
     ],
-    null,
-    null,
+    [
+     2,
+     3,
+     4
+    ],
     null,
     [
      2,
      3
-    ],
-    [
-     0,
-     1,
-     4
-    ],
-    null,
-    null
+    ]
    ],
    "institutions": [
-    "Shandong University",
-    "Shenzhen Loop Area Institute",
     "Hong Kong Polytechnic University",
     "National University of Singapore",
+    "Shandong University",
+    "Shenzhen Loop Area Institute",
     "City University of Hong Kong"
    ],
    "institution_ids": [
-    "0207yh398",
-    null,
     "0030zas98",
     "01tgyzw49",
+    "0207yh398",
+    null,
     "03q8dnn23"
    ],
    "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-17"
+     "at": "2026-11-18"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-17"
+     "at": "2026-11-18"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.20349",
@@ -7866,7 +7866,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.20090v1",
+   "html_url": "https://arxiv.org/html/2611.20090v2",
    "abstract": "Masked modeling is the dominant self-supervised paradigm for point-cloud videos. However, it leaks the information it is meant to predict, whether it reconstructs masked points as in MAE-style methods or predicts their latent features. Because point-cloud tokens are anchored at points sampled from each frame, querying a target at its own position reveals where its geometry has moved, in reconstruction and latent prediction alike. For latent predictors, random spatio-temporal masks introduce a further shortcut, as visible frames on both sides of each target allow interpolation rather than forecasting. The pretext task thus reduces to completion. Once the target positions are withheld, a masked latent predictor performs only slightly better than copying the last frame. To remove this leakage, we propose PointWM, a latent world model that turns completion into forecasting by predicting the features and geometry of future frames from strictly earlier context. Each target is queried only with its last-seen position and timestamp, while a latent action learned without annotations is meant to capture the part of the future that the past leaves undetermined. On HOI4D action segmentation with a P4Transformer backbone, PointWM improves F1@50 over training from scratch by 24.9 offline and 29.1 under strictly causal inference. These results show the promise of latent world models as a leakage-free pretraining paradigm for point-cloud videos.Our code is publicly available at https://github.com/InitalZ/PointWM.",
    "affiliations": [
     "Xi’an Jiaotong University",
@@ -8400,11 +8400,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": null,
+   "comments": "Code: https://github.com/sypsyp97/lightalign",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.20000v1",
+   "html_url": "https://arxiv.org/html/2611.20000v2",
    "abstract": "The Platonic Representation Hypothesis posits that models trained on different modalities converge toward a shared representation. Related work aligns frozen image and text encoders on natural images without paired data. We test zero-pair alignment on five datasets across four modalities: natural images, environmental audio, chest radiographs, and 3D computed tomography (CT). It succeeds only on COCO and fails on the other four. We analyze the failures and find that alignment must first locate the subspace where the modalities co-vary and then orient the mapping within it. Consistent with previous studies, medical imaging is the hardest case: its shared subspace carries the smallest fraction of the variance. When this fraction is small, alignment needs image-text pairs, and random-matrix theory predicts how many pairs are needed. These findings motivate LightAlign: a few pairs let a ridge regression between two frozen encoders locate and orient the mapping simultaneously, and a classifier fitted only on report text then predicts findings from the mapped images. On 3D CT, LightAlign surpasses models trained end to end on image-report pairs without finding-level labels: with only 200 pairs, LightAlign outperforms CT-CLIP on CT-RATE (0.754 vs. 0.733 AUROC), and with only 100 CT-RATE pairs, it does so on RAD-ChestCT, an out-of-distribution dataset from a different hospital. On CheXpert, it reaches 0.862 mean AUROC with only about 5% as many pairs as models trained on MIMIC-CXR.",
    "affiliations": [
     "Pattern Recognition Lab, Friedrich-Alexander-Universität Erlangen-Nürnberg, Erlangen, Germany",
@@ -9681,7 +9681,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.19780v1",
+   "html_url": "https://arxiv.org/html/2611.19780v2",
    "abstract": "In subject-driven text-to-image generation, quantitatively evaluating localized visual consistency across varying poses and environments remains a major challenge. Existing metrics either rely on global image embeddings (CLIP, DINO) and Vision-Language Models (VLMs) that pool spatial representations and miss fine-grained textural artifacts, or depend on scalar threshold-gated dense metrics such as Visual-Semantic Matching (VSM) that suffer from point-alignment dropouts, severe threshold sensitivity, and score instability. To overcome these limitations, we propose TF-VSM, a fully continuous, threshold-free visual-consistency metric paired with an extended feature-disentanglement retraining schedule for dual-branch ResNet feature-aggregation networks. Rather than enforcing rigid binary cutoffs $(T_s,T_v)$, TF-VSM weights every object point by a non-linear semantic match confidence $w_j=ReLU(ŝ_j)^2$ and continuously integrates visual similarity over all consistency levels r∈[0,1], yielding a closed-form confidence-weighted score without any hand-tuned hyperparameters. On a controlled 100-pair benchmark with ground-truth inpainting oracles, TF-VSM attains Pearson 0.638 and Spearman 0.674 oracle correlation, improving over the pretrained VSM baseline (0.454/0.589) by +0.171/+0.116 after retraining, and drastically outperforming CLIP (-0.052/-0.004), DINO (0.087/0.121), and VLMs (0.096/0.003). Six diagnostic ablations confirm that smooth confidence weighting is the right mechanism, that hard semantic gating is brittle (dropping to 0.533 Pearson at $T_s{=}0.8$), and that the threshold-free metric is essentially invariant to the training-time loss balance α that the thresholded metric still depends on.",
    "affiliations": [
     "School of Information Engineering, Chang’an University, Xi’an, China"
@@ -10125,7 +10125,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.19745v1",
+   "html_url": "https://arxiv.org/html/2611.19745v2",
    "abstract": "Recent efforts to improve the efficiency of multimodal large language models (MLLMs) have explored visual token pruning, quantization, and feature compression. However, the properties that determine whether transformed visual tokens remain usable by a frozen decoder are not well characterized. We introduce TIVS (Token Identity Versus Statistics), a training-free intervention framework that separately studies sequence permutation, token retention, numerical precision, and statistical replacement under controlled conditions. On 192 POPE questions, three token permutations change TinyLLaVA accuracy by only -0.17 percentage points on average, while changing 4.69% of individual predictions. Diagonal and rank-64 Gaussian replacements decrease accuracy by 25.0 and 28.1 points on the same subset. Further experiments with exact moment constraints, quantization error, token retention, and additional visual tasks reveal how strongly the effects depend on the original feature values and the evaluation setting. These findings provide an empirical basis for assessing visual token transformations in frozen MLLMs and designing more reliable multimodal interfaces.",
    "affiliations": [
     "Central South University",
@@ -13350,7 +13350,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.18861v1",
+   "html_url": "https://arxiv.org/html/2611.18861v2",
    "abstract": "Block-sparse featurizers (BSFs) use groups of learned directions to capture the multidimensional structure of visual concepts. However, grouping alone does not ensure that information about a concept is consolidated within a single group. We introduce Guided Group Featurizers (GGF), a novel object-guided extension that uses object annotations for initialization and training while preserving the BSF architecture. We assess whether each group's strongest response regions share an object type, part or material across images. Blinded reviews give GGF groups an average semantic coherence score of 94.1±0.9%, versus 83.0±1.9% for SLiCS and 65.3±2.2% for supervised Vanilla BSF. GGF's consolidation advantage extends to unguided categories: one selected group per category covers 65.6±2.4% of target-containing crops, versus 58.2±2.2% for supervised Vanilla BSF, at approximately 5% false-positive rates for both. Across COCO and VOC, GGF also improves single-group object Capture and localization over Vanilla BSFs, SLiCS and Concept-SAE. Its groups produce more focused and reproducible object responses while supporting recognition and retaining associations under rotation, scale and brightness changes. GGF also uses fewer learned parameters than Concept-SAE and shorter recorded VOC training loops than both supervised alternatives. These findings support object guidance for organizing more interpretable BSF groups and show that response concentration extends to categories excluded from guidance.",
    "affiliations": [
     "Algoverse AI Research"
@@ -13440,11 +13440,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "homepage: https://meigen-ai.github.io/LongCat-Video-Avatar-1.6-Page/ Github: https://github.com/meituan-longcat/LongCat-Video",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2611.18822v2",
    "abstract": "Recent advances in audio-driven avatar video generation have enabled increasingly realistic synthesis, yet achieving precise lip-audio synchronization, natural, human-like motion, and visual consistency over long sequences remains challenging. We present LongCat-Video-Avatar 1.6, which builds on LongCat-Video-Avatar 1.5 to improve expressive naturalness and reduce error accumulation during extended generation, e.g., exaggerated lip movements and overly red, temporally unstable lip coloration, enhance the naturalness of facial expressions and coordinated head and body movements. These improvements are driven by a refined post-training pipeline that integrates reinforcement learning, improved classifier-free guidance strategies for DMD-based few-step distillation, long-video rollouts, and on-policy distillation. Together, these refinements improve expressive realism and enable the generation of videos exceeding 10 minutes while maintaining visual quality and temporal consistency. Arena evaluations show that LongCat-Video-Avatar 1.6 outperforms its predecessor and competing commercial audio-driven avatar models, demonstrating the effectiveness of the improved post-training pipeline.",
    "affiliations": [],
    "author_affiliations": null,
@@ -13872,7 +13872,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.18770v1",
+   "html_url": "https://arxiv.org/html/2611.18770v2",
    "abstract": "Aerial perception systems are increasingly expected to support diverse tasks, yet existing solutions remain fundamentally tied to task-specific outputs. Detection, segmentation, and other perception objectives are usually learned either by separate models or by sharing a backbone with multiple task heads, leaving the model itself unaware of the common structure underlying these tasks. We are interested in asking: can a single perception representation support different levels of understanding without being designed for any specific task? We notice that occupancy is a promising task-agnostic representation for drone perception. By modeling the spatial existence and semantics of the environment, it naturally bridges different perception granularities, from coarse scene understanding to fine-grained object localization. Therefore, we introduce AerialOcc, a unified occupancy-based perception model that enables multiple drone perception tasks from a single inference process, without maintaining task-specific prediction heads. To facilitate this direction, we construct AerialOcc-20K, a large-scale multi-class occupancy dataset for aerial environments. Extensive experiments show that AerialOcc achieves competitive performance across diverse perception tasks while preserving a unified architecture. Our findings demonstrate that occupancy can serve as a universal perception interface, offering a new perspective toward flexible and scalable visual intelligence for autonomous drones from a common 3D scene representation. Models and data are publicly available at https://github.com/guxiang2002/AerialOcc",
    "affiliations": [
     "Hohai University",
