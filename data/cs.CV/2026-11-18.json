@@ -151,11 +151,11 @@
     "Machine Learning (cs.LG)",
     "Robotics (cs.RO)"
    ],
-   "comments": "Equal contribution: John Gideon and Anshul Gupta. 8 pages, 6 figures. Submitted to CVPR 2027",
+   "comments": "Equal contribution: John Gideon and Anshul Gupta. 8 pages, 6 figures",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23211v1",
+   "html_url": "https://arxiv.org/html/2611.23211v2",
    "abstract": "Human cognitive state (e.g., distraction, stress), gaze, and behavior interact with the driving environment in subtle ways that AI could use to assist drivers, but ground-truth labels for human cognitive state levels are costly to obtain at scale. We propose a multimodal masked-diffusion autoencoder, ID-MAE, that adds a self-supervised objective to impairment prediction: alongside predicting the impairment label as a masked token, it reconstructs masked gaze and trajectory. To probe the effects of different modalities and types of impairments on model inference, we introduce DIVERT, a driving-simulator dataset containing 103 hours of driving data (n = 109) with ten impairment inductions spanning cognitive, visual, and emotional states, recorded with gaze, vehicle state, and scene video. We demonstrate how ID-MAE affords significant improvements in impairment inference results on both the DIVERT dataset and existing datasets, and enables strong results in additional tasks, such as trajectory and gaze prediction. For location-matched pairs, our model achieves a paired AUC of 0.706 for impairment detection on DIVERT, compared to 0.590 without reconstruction loss, improving over existing baselines. We probe the design space in terms of input modalities, masking scheme, positional encoding, attention mechanism, and decoding. We also investigate the interaction between various impairments in training and inference, demonstrating that visually demanding distractions are separable from cognitive distractions. Code and data will be available upon acceptance.",
    "affiliations": [
     "Toyota Research Institute, USA"
@@ -397,7 +397,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23187v1",
+   "html_url": "https://arxiv.org/html/2611.23187v2",
    "abstract": "Abstracting structured buildings from limited observations is essential for 3D urban modeling and digital twins. Partial point clouds and overhead images of the same building provide incomplete 3D surface measurements and visual cues to its footprint, roof geometry, and rooftop structures, respectively. This motivates a unified framework that aligns geometric and visual cues in 3D and reconstructs buildings from either or both modalities. Building on this connection, we present Any2Building, a unified model for Level of Detail 2 (LoD2) building reconstruction from partial point clouds, overhead images, or both, with optional coarse geometric priors. At its core is an occupancy-grounded shared spatial queries representation that organizes available observations within a common 3D grid. Supervised by complete building surface voxels, these queries connect observational evidence to target geometry, enabling a shared generator to learn structural priors across tasks and providing spatial guidance for recovering missing structure. A trained voxel conditional surface-generation and low-poly remeshing pipeline then converts the predicted structure into compact LoD2 building models. To support this framework, we introduce BuildingWorld-Image, comprising approximately one million paired samples of partial point clouds, overhead images, and LoD2 building models across 18 cities. Experiments on multiple benchmarks demonstrate that Any2Building outperforms existing methods in geometric reconstruction accuracy across unimodal and multimodal point-cloud completion, single-image building generation, and prior-assisted generation, while maintaining detailed and robust recovery when point cloud input modality is degraded.",
    "affiliations": [
     "The Hong Kong University of Science and Technology, Guangzhou, China"
@@ -1487,7 +1487,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23048v1",
+   "html_url": "https://arxiv.org/html/2611.23048v2",
    "abstract": "Global canopy height maps are increasingly used to estimate forest carbon, yet their regional accuracy is rarely tested. We present wall-to-wall maps of canopy height (10~m) and aboveground carbon density (30~m) for the Brazilian Atlantic Forest in 2024. Height was predicted by a deep learning network fusing Sentinel-2 reflectance, Sentinel-1 and ALOS PALSAR backscatter and ALOS elevation, trained on 7,179 and tested on 1,793 patches (58,800~km$^2$) from a statewide airborne LiDAR campaign over São Paulo state, Brazil. On held-out test patches, the root mean square error is 3.05~m at 10~m and 2.58~m at 30~m, and the model was validated at two LiDAR sites outside São Paulo. Over the same pixels, the Meta and World Resources Institute global product has more than twice this error. A power law fitted to 124 inventory plots converted canopy height to above ground carbon density. The remaining forest holds 1,944~Tg~C over 28.3~Mha. Global products therefore need local validation before use in carbon accounting.",
    "affiliations": [
     "Department of Forest Sciences, “Luiz de Queiroz” College of Agriculture, University of São Paulo (USP/ESALQ), Piracicaba, SP, Brazil",
@@ -1741,7 +1741,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23034v1",
+   "html_url": "https://arxiv.org/html/2611.23034v2",
    "abstract": "Multi-Teacher On-Policy Distillation (MOPD) enables a single student to absorb the skills of several domain teachers by learning from its own generated responses. We present Multimodal Model Multi-Teacher On-Policy Distillation Reasoner (M3OPD-Reasoner), a fully open recipe for post-training vision-language models (VLMs) over three reasoning domains: image STEM, image perception, and video. We curate two datasets, M3OPD-SFT-1.35M for supervised fine-tuning (SFT) and M3OPD-RL-193K for reinforcement learning (RL) with verifiable rewards. On these data, we compare post-training recipes that start from Qwen3.5-9B: training one model on the mixed data of all domains (MixSFT and MixRL), and training one teacher per domain with Group Sequence Policy Optimization (GSPO), directly or after an SFT warm-up, and distilling the teachers into one student with MOPD. We evaluate on 21 image STEM, image perception, and video reasoning benchmarks after we decontaminate the training data against them. The comparison establishes MOPD of teachers trained with GSPO directly from Qwen3.5-9B as the best recipe: the student closely matches each teacher on its own domain and is on average above the mixed-training baselines on the same prompts. Since MOPD already merges the domain capabilities that MixRL would otherwise have to learn, its student is a stronger starting point for RL, and we ask whether the same data can carry the model further from there: we add MixRL on top of the MOPD student, on the same prompts and with the same settings, which, to our knowledge, no prior VLM recipe has studied. The same prompts still improve the MOPD student, with no collapse, and give our main model, M3OPD-Reasoner-9B. MOPD and MixRL can therefore work as consecutive stages that get more out of the same data. We release all data, the training code, and the checkpoints of every stage.",
    "affiliations": [
     "A*STAR",
@@ -1806,11 +1806,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": null,
+   "comments": "Source Code: https://github.com/kongwoang/DGSP",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23030v1",
+   "html_url": "https://arxiv.org/html/2611.23030v2",
    "abstract": "Not every perception error changes the planner's action. Yet adaptive-resolution perception chooses where to spend high-resolution computation from image cues, which can neither reliably point to an object that low resolution missed nor tell which objects matter to the planner. We observe that the planner can say where an object would matter before anything is seen: inserting a hypothetical object at a location tests whether its action would change. Decision-Guided Speculative Perception (DGSP) treats the low-resolution scene and its action as a draft and probes the planner in this way to obtain a decision-sensitivity field, the locations where an unseen object would change the action. Only this field and the support, the detections on which the current action rests, are verified at high resolution, repeatedly until the action is stable. For two planner classes, we prove that DGSP returns exactly the action of whole-frame high-resolution perception if crop detections match whole-frame ones and the crops cover the field, conditions that real images meet approximately. On three driving datasets, it reproduces this action on about 98% of frames with about a quarter of the pixels. At the pixel cost of uniform downscaling, it repairs more of the draft's disagreements with this action, brakes falsely less often, and recovers many more of the decision-relevant objects that the draft misses.",
    "affiliations": [
     "Hanoi University of Science and Technology",
@@ -2426,7 +2426,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.22925v1",
+   "html_url": "https://arxiv.org/html/2611.22925v2",
    "abstract": "Visual proxies decouple explicit world-state simulation from photorealistic video synthesis, offering a controllable interface for both offline clip creation and real-time interactive streaming. Yet a practical renderer must address two challenges. Upstream proxies vary from coarse layouts to fine articulated geometry depending on the interaction, and streaming inference must operate in a few causal steps without accumulating drift across self-generated history. We present Invoker-Render, pairing a bidirectional creation model with a causal four-step streaming model under a shared conditioning interface over structural proxies, an appearance reference, and language. Trained on an aligned approximately 200-hour multi-granularity corpus, Invoker-Render honors fine geometric constraints when supplied while synthesizing plausible local motion under coarse proxies, enabling runtime selection of input detail. To bridge bidirectional creation and real-time streaming without compounding step compression and rollout drift, we introduce Progressive Forcing (ProForcing). ProForcing first trains a causal predictor and distills it into a four-step renderer using histories derived from training videos. Training then shifts to continuous self-generated rollouts. A pipelined serving stack supports efficient streaming inference. Experiments show versatile control across proxy families, granularities, and camera paths, consistent gains over recent streaming baselines, and stable 30-minute racing rollouts that preserve scene and subject appearance.",
    "affiliations": [
     "Westlake University",
@@ -3499,7 +3499,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.22815v1",
+   "html_url": "https://arxiv.org/html/2611.22815v2",
    "abstract": "We show that an appropriate visual harness can substantially improve the performance of general vision-language models (VLMs) across diverse medical imaging tasks. We introduce \\ours, a medical visual harness that equips general VLMs with interactive visual tools and systematic diagnostic evidence management. With \\ours, general VLMs interactively explore medical images and progressively acquire diagnostic evidence, which is preserved in a lossless memory for subsequent retrieval and use. After submitting an initial answer, the VLM receives an assessment of potential omissions and the reliability of identified findings. This assessment guides further image inspection and measurement, followed by answer revision in an iterative agentic loop until sufficient evidence is obtained. Across 11 tasks and four imaging modalities, \\ours improves performance on all tasks with Qwen3.8-27B, with notable gains in spleen measurement (63.3% to 98.3%), renal search (57.5% to 71.2%), and pulmonary nodule detection (0.0% to 28.2%). High-capability API-based VLMs achieve even higher performance with \\ours. For example, GPT-6.1 Sol improves pulmonary nodule detection from 10.8% to 69.2% with \\ours, demonstrating the complementary benefits of stronger model capabilities and an effective medical visual harness. Our results highlight the potential of visual harnesses as a new paradigm for scaling general VLMs to medical imaging tasks.",
    "affiliations": [
     "New Jersey Institute of Technology",
@@ -4071,7 +4071,8 @@
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
-    "Computer Vision and Pattern Recognition (cs.CV)"
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
    ],
    "comments": "28 pages, 15 figures, 16 tables; includes supplementary material",
    "journal_ref": null,
@@ -4379,11 +4380,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "18 pages, 11 Figures, 10 tables. Submitted to CVPR 2027",
+   "comments": "18 pages, 11 Figures, 10 tables",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.22699v1",
+   "html_url": null,
    "abstract": "Unregistered hyperspectral image super-resolution aims to recover a high-resolution HSI from a low-resolution hyperspectral observation and an unregistered high-resolution RGB reference. Although recent methods have begun to address the geometric misalignment between the two modalities, their evaluation is still constrained by the lack of a large-scale public benchmark based on real two-camera RGB--HSI acquisitions with a high-resolution HSI reference. To address this gap, we introduce DUET, the first large-scale public dataset for unregistered RGB-guided hyperspectral super-resolution, comprising 403 indoor and outdoor scenes captured with two separate RGB and hyperspectral cameras. We further propose TANGO (Two-camera AligNment with Gated Occlusions), which first compensates for the dominant cross-camera displacement through end-to-end global alignment and then refines the remaining inconsistencies with a coarse-to-fine local feature alignment. A learned gating mechanism further attenuates the RGB guidance where the two views cannot be consistently matched. Experimental results show that TANGO achieves state-of-the-art performance on both DUET and REAL across all evaluated scale factors, outperforming the strongest competitor on DUET by up to 2.29 dB in PSNR while requiring 2.5× fewer FLOPs. The code and dataset will be available at https://github.com/FagiolottoConSombrero/TANGO-DUET",
    "affiliations": [
     "University of Milano-Bicocca"
@@ -4688,7 +4689,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.22669v1",
+   "html_url": "https://arxiv.org/html/2611.22669v2",
    "abstract": "Driving world models forecast what a vehicle's sensors will record next. Most forecast camera video and some add LiDAR, but thermal cameras, which still see in darkness and some adverse weather, are rarely a forecast target, and to our knowledge no world model forecasts all three sensors. We study joint forecasting of RGB, thermal, and LiDAR on real adverse-weather sequences of the DSERT-RoLL dataset. We post-train a pretrained video world model for each sensor and represent LiDAR as a depth video aligned with the RGB camera, with densification and encoding chosen by what the model's video tokenizer can reconstruct. A tri-sensor model sees all three sensors as one video. We score LiDAR in meters against measured returns and compare against persistence baselines passed through the same tokenizer as the model. With this matching, an apparent loss of the thermal model to persistence in fog disappears. On all 58 validation sequences in six weather conditions, post-trained RGB and thermal forecasts beat compression-matched persistence. Joint training lowers the LiDAR error at 2s by 2.1m at a small cost in camera fidelity, and only the tri-sensor model's LiDAR forecasts beat persistence in mean error. Blanking one sensor degrades the forecasts of the others more in snow than in fog.",
    "affiliations": [
     "Dept. of Computer Science and Engineering, North South University, Dhaka, Bangladesh",
@@ -6390,11 +6391,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": "https://github.com/yfChang-cv/MAVE",
+   "comments": "Project page: https://yfchang-cv.github.io/MAVE/. Code: https://github.com/yfChang-cv/MAVE",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.22464v1",
+   "html_url": "https://arxiv.org/html/2611.22464v2",
    "abstract": "Animated 3D blockouts support previsualization and provide structural conditions for video generation, but manually reconstructing them from reference videos is costly. This limits both their use by creators and the production of paired training data. We introduce MAVEBench, a benchmark of 50 film shots and 416 keyframes for evaluating camera motion, spatial layout, and character blocking. We propose MAVE, a video-to-blockout framework combining Metric observation, Agentic modeling, and evidence-based VErification. It first recovers cameras, human motion, and geometric evidence in a shared metric coordinate system. An agent then constructs an editable environment under constraints from these observations, while programmatic checks report inconsistencies to guide refinement. The outputs are editable Blender scenes and frame-aligned blockout videos. On MAVEBench, MAVE improves overall scores by 27.5-41.1 points across three agents over their corresponding vanilla baselines. With DeepSeek-1017, it achieves a score of 73.2 at an average API cost of only USD 0.054 per shot, outperforming the strongest vanilla baseline while reducing total reconstruction time by 53%. We also construct MAVEData-3K, a dataset of 3,000 blockout-video pairs for model training, and will release it publicly. Creators can change viewpoints and character paths, then render the edited scenes to condition video generation. Code is available at https://github.com/yfChang-cv/MAVE.",
    "affiliations": [
     "GigaAI",
@@ -7573,7 +7574,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.22287v1",
+   "html_url": "https://arxiv.org/html/2611.22287v2",
    "abstract": "Latent diffusion models rely on a decoder to map denoised latents to pixels, adding complexity and inference cost. We introduce Decoding Without a Decoder (DWD), which lets a finetuned diffusion transformer produce final pixels directly through a linear head. Unlike previous methods, where the denoising output leads to final pixels, DWD separates the two roles: the original denoising head continues to drive sampling, then the new DWD head predicts the pixels at the final step. We extend pretrained latent models with DWD efficiently by finetuning only the last few transformer blocks, training the DWD head with pixel quality losses while anchoring the denoising head to the pretrained model to preserve the sample trajectory. Across latent image and video generators, DWD removes the decoder and reduces inference cost while maintaining or even improving pixel quality. On Wan video generation, it visibly reduces detail distortion and flickering, lowering warping error by 23%. Remarkably, the same separation also improves pixel diffusion models that do not even use a decoder: a final-step DWD head produces substantially better texture detail in text-to-image generation, and improves ImageNet FID from 1.55 to 1.43, a new state of the art among pixel flow models.",
    "affiliations": [
     "Luma AI",
@@ -10709,11 +10710,11 @@
     "Robotics (cs.RO)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "34 pages, 19 figures. Project Page: https://sjijs.github.io/RFW-S_website/",
+   "comments": "34 pages, 19 figures. Project Page: https://roboflywheel-com.github.io/RoboFlywheel-Soft/",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2611.23056v1",
+   "html_url": "https://arxiv.org/html/2611.23056v2",
    "abstract": "Large-scale robotic simulation requires diverse deformable objects with executable physical properties and realistic interaction behaviors. However, existing 3D asset collections primarily emphasize visual diversity, while scalable physical construction and verification remain challenging. We introduce RFW-S, a large-scale dataset of 83,365 simulation-verified assets spanning 485 everyday categories across five structural families: soft solids, cloth sheets, shells, garments, and bags. We develop an automated pipeline integrating reference-guided 3D generation, structure-aware physical modeling, and LLM-assisted parameter estimation and calibration. To ensure physical reliability, we introduce an independent simulation verification framework that evaluates object behaviors under interactions distinct from those used for parameter calibration. Extensive experiments demonstrate the effectiveness of independent verification and characterize deformable responses under different physical configurations. We further evaluate robotic grasping in terms of both task success and object integrity, and demonstrate the physical realism of our simulated objects through sim-to-real replay of fragile-object manipulation. RFW-S provides a scalable foundation for physically grounded simulation and embodied robotic learning.",
    "affiliations": [],
    "author_affiliations": null,
@@ -11209,7 +11210,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
-   "html_url": "https://arxiv.org/html/2611.22565v1",
+   "html_url": "https://arxiv.org/html/2611.22565v2",
    "abstract": "Turning a CAD model into a machining program requires both process knowledge and geometric precision. Language models can generate such workflows by writing geometry and toolpath code for each part, but this makes numerical execution part of the model's task. We introduce MillBill, an agent that separates machining decisions from their geometric execution and verification. Given a boundary-representation part, stock, and material, a locally hosted, mid-sized open model proposes operations and cutting parameters for indexed three-axis machining. A geometric harness generates toolpaths, simulates material removal, and returns feedback for plan refinement. Setup planning accounts for what the available cutters can physically reach, rather than visibility alone. We evaluate the resulting programs by the fraction of the target surface area within the specified tolerance after simulated machining. With Qwen3.8-27B, MillBill outperforms frontier-model approaches that construct their own geometry and toolpath workflows on the evaluated machining tasks. Code: https://github.com/kulibinai/millbill",
    "affiliations": [
     "Lomonosov Moscow State University",
@@ -11274,7 +11275,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
-   "html_url": "https://arxiv.org/html/2611.22563v1",
+   "html_url": "https://arxiv.org/html/2611.22563v2",
    "abstract": "CAD practitioners often work with proprietary parts that they are unwilling to share with external services. For individuals and small companies, bringing this work in-house also requires computational resources they can afford. We introduce CADMAGEDDON, an open-source agent that reconstructs editable CAD from meshes and can run locally on single-GPU systems and current-generation laptops. The method decomposes this complex task into a chain of simple visual decisions about what to construct and what to correct. Geometric tools support precise construction, allowing the agent to focus on visual reasoning. Using the mid-sized Qwen3.8-27B model, CADMAGEDDON outperforms prior approaches, including systems based on frontier models, in reconstruction quality on all the main benchmarks. CADMAGEDDON integrates with FreeCAD, bringing its reconstructions into practitioners' existing CAD workflows. Code: https://github.com/kulibinai/cadmageddon",
    "affiliations": [
     "Lomonosov Moscow State University",
@@ -11668,11 +11669,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "18 pages, 11 figures, 7 tables. Project page: https://heaveho-humanoid.github.io/",
+   "comments": "18 pages, 10 figures, 7 tables. Project page: https://heaveho-humanoid.github.io/",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2611.22275v1",
+   "html_url": "https://arxiv.org/html/2611.22275v2",
    "abstract": "Collaboration promises to extend humanoid capabilities beyond what individual robots can achieve. However, realizing this potential requires coordinated whole-body interactions, coherent long-horizon planning, and precise synchronization across robots. We introduce Heave-Ho, a decentralized framework for long-horizon collaborative multi-humanoid loco-manipulation. At the low level, we develop a multi-agent post-training framework that adapts a humanoid foundation tracking model to physically coupled interactions between humanoids, enabling coordinated decentralized control from local observations alone. At the high level, we train a vision-language planner and design a speech-based leader-follower coordination mechanism to synchronize decentralized execution without network communication. Trained with two identical humanoids, our system scales to teams of up to ten robots and generalizes to heterogeneous teams without retraining. To benchmark these capabilities, we introduce HH-Bench, comprising 12 tasks involving teams of 2 to 10 humanoids, including heterogeneous teams. Systematic evaluations show that Heave-Ho consistently outperforms baseline methods, while real-world experiments demonstrate robust decentralized collaboration across challenging tasks.",
    "affiliations": [
     "University of Southern California",

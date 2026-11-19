@@ -1301,7 +1301,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.21365v1",
+   "html_url": "https://arxiv.org/html/2611.21365v2",
    "abstract": "Today, state-of-the-art methods for quality control (QC) are based on Machine Vision, combining deep learning (DL) models with camera-based inspection. Yet, the integration of such solutions in industrial applications is often impeded by data sparsity and trust in model reliability. While synthetic data offers a promising approach to generate the necessary data with perfect annotations, it poses risks related to performance degradation due to the possible occurrence of the sim-to-real gap. This study conducts experiments using the ensemble method to estimate the predictive uncertainty of DL models trained on synthetic data. The results show that predictive uncertainty increases under the sim-to-real domain shift. However, the observed performance drop is dominated by a systematic sim-to-real bias rather than by ensemble disagreement.These findings contribute to the effective utilization of synthetic data in industrial settings while highlighting the importance of risk assessment for the deployment of DL solutions for QC tasks.",
    "affiliations": [],
    "author_affiliations": null,
@@ -2520,7 +2520,7 @@
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.21102v1",
+   "html_url": "https://arxiv.org/html/2611.21102v2",
    "abstract": "Recovering 3D pose and shape of birds from single images is bottlenecked by the long tail of avian diversity: out of ~10,000 species, only a few dozen have 3D-labeled training data, and in-the-wild test sets routinely contain species never seen at training. Generalizing across clades is therefore a central problem. The current state of the art, AniMer+, mitigates it with a family-level contrastive loss that conveys only a binary same-family indicator per pair and discards the continuous structure of the species tree. We propose a taxonomic Ornstein-Uhlenbeck prior on the shape code of the AVES parametric bird mesh model: a multivariate Gaussian whose covariance decays exponentially with Linnaean rank distance, with a learnable selection strength and noise scale. The prior generalizes family contrastive into a continuous, generative form, exposing the graded cross- and within-family similarity that a binary indicator cannot, and brings continuous comparative phylogenetics in as a biology-grounded inductive bias for the long tail. Our method improves over AniMer+ on both metrics of the unseen-species CowBird benchmark and on CtrlAVES3D, while remaining comparable on seen-species CUB. A permutation ablation isolates taxonomic structure from generic Gaussian smoothing, and a rank-granularity ablation identifies cross-order distinctions (the structure beyond a family-vs-not indicator) as the dominant source of the unseen-species gain.",
    "affiliations": [
     "Department of Computer Science and Engineering, Chung-Ang University, South Korea",
@@ -6596,7 +6596,7 @@
    "authors": [
     "Johannes Fabian Hahn",
     "Mao Shan",
-    "Julie Stephany Berrio Pere"
+    "Julie Stephany Berrio Perez"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
@@ -6607,7 +6607,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.20382v1",
+   "html_url": "https://arxiv.org/html/2611.20382v2",
    "abstract": "Intelligent Speed Assistance (ISA) systems rely on cameras to recognize speed-limit signs, yet existing benchmarks underrepresent the weathered, dirty, and overgrown signs commonly encountered on rural roads. We use generative image editing to introduce different forms of wear into real street-level images of speed-limit signs. The resulting ISA-Wear dataset contains paired original and edited images. Guided by text instructions, a multimodal image-editing model adds snow, rust, vegetation, faded paint, or mud to the speed-limit sign in a street-level frame at three severity levels. Where appropriate, the surrounding scene is adapted as well, and the viewpoint is kept. Every edited frame has an unedited counterpart, and we only evaluate frames whose original is recognized correctly, so any failure can be attributed to the wear. Since the model alters the sign's geometry in 21% of the edits, all edits are filtered by a geometric check and a manual review. Severity is measured as the LPIPS distance between the original and the edited sign plate. On 716 worn frames, we find that in detect-then-read pipelines, wear breaks detection before it breaks reading. The detector finds only 62% of the worn signs, even though it finds every one of them in the original frames. Missed detections account for 78–87% of failed reads, a pattern that a zero-shot detector shares. Given the annotated sign box, as in the crop-based benchmarks, a classifier still reads 78% of the worn signs, but only 56% when it has to rely on the detector",
    "affiliations": [
     "Department of Informatics, University of Hamburg, Germany",
@@ -6640,11 +6640,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-17"
+     "at": "2026-11-19"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-17"
+     "at": "2026-11-19"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.20382",
@@ -6832,7 +6832,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.20351v1",
+   "html_url": "https://arxiv.org/html/2611.20351v2",
    "abstract": "Directly aligning trajectory-distilled video generators slashes rollout costs and optimizes the deployed few-step model without teacher fine-tuning or re-distillation. However, conventional flow-matching preference objectives assume single-head local velocity supervision, mismatching the finite-interval, block-average transition interface of trajectory-distilled generators such as Parallel Decoding Distillation (PDD) and Parametric Trajectory Distillation (PTD). Naively supervising only the primary initial-subinterval velocity sub-head rather than the fused block-average velocity at block starts (DirectAlign) induces a severe training--inference mismatch that degrades quality below the unaligned baseline. We introduce BlockAlign, an interface-consistent preference optimization framework that constructs states at valid block boundaries, queries the fused block-level velocity predictor, and supervises span-normalized transition residuals-seamlessly supporting DPO-, NFT-, and rollout-style objectives while preserving the native few-step sampler. We further build a unified post-training pipeline integrating offline pairs, reward-free semi-online continuations, and online rollouts with hierarchical preference selection and objective-aware block scheduling. Experiments on multi-reference video generation across MiniMax-H3 Ref2VA and an in-house model RefVid-V4 show that BlockAlign consistently outperforms unaligned distilled models and DirectAlign in structural plausibility, reference consistency, and visual quality. Notably, our approach unlocks PDD's 5x few-step rollout speedup for 3x faster end-to-end online training, achieving statistically significant human preference gains over PDD baselines (54.0% vs. 33.3% wins/losses, or 61.8% non-tie win rate on RefVid-V4; 51.3% vs. 34.7%, or 59.7% non-tie win rate on MiniMax-H3) and up to an 82.7% win rate against DirectAlign.",
    "affiliations": [
     "Alibaba Group"
@@ -7056,7 +7056,7 @@
     "Bharath Seshadri",
     "Bailey Miller",
     "George Kopanas",
-    "Ionnais Gkioulekas",
+    "Ioannis Gkioulekas",
     "Bernd Bickel"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
@@ -7064,11 +7064,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Graphics (cs.GR)"
    ],
-   "comments": "18 pages",
+   "comments": "18 pages; correct an author's name",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.20283v1",
+   "html_url": "https://arxiv.org/html/2611.20283v2",
    "abstract": "We present a method for inferring the interior temperature distribution of a solid object from registered multi-view visible-spectrum and thermal images, even when the thermal views cover only part of its surface. We formulate steady-state heat conduction as a Laplace boundary value problem and solve it with a direct boundary integral equation discretized over a point cloud: a Gaussian reconstruction of the visible-spectrum images supplies the boundary geometry, and the thermal images supply the boundary data. We do not build surface or volume meshes at any stage in our method. Instead, we sample collocation points from rendered depth without the pixels at depth discontinuities, and use a density subtraction that keeps the interior evaluation accurate up to the surface. The whole chain is differentiable, and we use it to recover the pose and depth of heating pipes, insulation defects, and the shape of cracks from thermal images. We validate our method through experiments on boundary value problems with Dirichlet-only and mixed Dirichlet and Robin boundaries, using synthetic and real captured data on scenes with challenging topology. These experiments show that our method matches analytical solutions and has better accuracy than FEM solvers.",
    "affiliations": [
     "ETH Zürich, Zürich, Switzerland",
@@ -7103,17 +7103,17 @@
    "institution_ids": [
     "05a28rw58",
     "05x2bcf33",
-    "00971b260"
+    null
    ],
    "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-17"
+     "at": "2026-11-19"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-17"
+     "at": "2026-11-19"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.20283",
@@ -8243,7 +8243,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.20011v1",
+   "html_url": "https://arxiv.org/html/2611.20011v2",
    "abstract": "Vision-Language-Action models (VLAs) and World-Action Models (WAMs) have emerged in autonomous driving with the promise of strong generalization to long-tail scenarios. Although these models achieve state-of-the-art results on autonomous driving benchmarks, most existing benchmarks are dominated by nominal scenarios and therefore cannot test this promise. To test one such long-tail capability that is critical for safety, we introduce ReactBench-AD, a benchmark that measures how driving models react to objects that appear in the ego vehicle's path. Built on real NAVSIM and PhysicalAI-Autonomous-Vehicles scenes, ReactBench-AD composites a crossing pedestrian, a standing pedestrian, or a stationary car consistently across all camera views and history frames. Each edited scene thus forms an exact, pixel-level counterfactual pair with its original, which allows us to isolate the causal effect of the inserted object on the predicted trajectory. Evaluating four VLAs and two WAMs, we find that they react weakly, often barely at all. Finally, we test how easily one of the evaluated VLAs, ReCogDrive, can be taught to brake hard for imminent hazards: a short fine-tuning stage on edited scenes substantially improves its reactions, with the learned behavior generalizing to unseen objects and fully real scenes, at minimal cost to nominal driving. These results call into question the out-of-the-box long-tail capabilities of these models, but suggest that they can be a strong foundation for acquiring them with little additional training, highlighting the value of real or synthetic data that demonstrates the long-tail behaviors nominal datasets rarely contain. Code and data will be made publicly available.",
    "affiliations": [
     "University of Limerick",
@@ -9194,7 +9194,7 @@
   {
    "arxiv_id": "2611.19839",
    "announced": "2026-11-17",
-   "title": "Passable for Whom? Few-Shot Personal Calibration of Sidewalk Accessibility Perception",
+   "title": "Passable for Whom? Few-Shot Learning for Personal Calibration of Sidewalk Accessibility Perception for Human-Centered Autonomous Driving",
    "authors": [
     "Wesley Maia",
     "Angel Martinez-Sanchez",
@@ -9210,7 +9210,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.19839v1",
+   "html_url": "https://arxiv.org/html/2611.19839v2",
    "abstract": "Whether a sidewalk is passable depends on who is trying to pass: people who use the same mobility aid disagree about the same image, so one label per scene, or per aid, is wrong for many of them. We introduce few-shot personal accessibility perception: from K answers of a person never seen before, predict their judgment of sidewalk scenes never seen before. PassCal separates a shared description of the scene from the person's interpretation of it. The description comes from the internal state of a frozen vision-language model (VLM) and from barrier type, severity and context properties predicted by a detector trained on 14.9k public audits; the interpretation, a calibration of the person's response style and a weighting of the properties, is fit from their answers. On 8,883 judgments in which each of 135 verified mobility-aid users rated the same 50 sidewalk scenes, with people and scenes both held out, eight answers lower the Brier score from 0.550 to 0.479. The same VLM prompted with those answers reaches 0.562, and the same calibration without the scene 0.521. Conformal risk control turns predictions into passable, blocked or \"depends on you\" statements with a bounded expected rate of wrong statements over people; at 5%, eight answers raise the share of decisive scenes from 27% to 42%. Audit-supervised properties improve all sixteen vision and VLM encoders we test and outperform attributes from a sidewalk navigation VLM.",
    "affiliations": [
     "University of California, Merced"
@@ -9583,7 +9583,7 @@
     "Xinghao Ding",
     "Yue Huang",
     "Yuzhi Huang",
-    "Xiaodong Tu",
+    "Xiaotong Tu",
     "Jingyan Jiang"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
@@ -9594,7 +9594,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.19803v1",
+   "html_url": "https://arxiv.org/html/2611.19803v2",
    "abstract": "Dynamic spatial reasoning from monocular video enables vision-language models (VLMs) to understand how 3D environments evolve over time, supporting physical world understanding and embodied intelligence. Existing efforts primarily address observed-dynamics understanding, whereas agents in dynamic environments also require future-dynamics prediction beyond the observation boundary. Moreover, external geometric processing and textual descriptions can increase inference complexity or lose information when representing continuous dynamics. These limitations motivate a shared internal state that preserves observed dynamics and remains predictive beyond the input video. Accordingly, we present Pros4D, a framework for modeling evolving 4D worlds in latent space that unifies retrospective understanding of observed-dynamics with prospective reasoning for future-dynamics prediction. Specifically, Pros4D-Engine derives geometry-grounded supervision and constructs paired examples for both tasks, while Pros4D-Bench evaluates them across eight spatial task categories spanning dynamic cameras, objects, and scenes. At the model level, Pros4D compresses observed dynamics into latent observed states and autoregressively rolls them forward into latent future states. 4D Latent Alignment (4DLA) grounds these states through complementary visual-semantic and geometric supervision, while joint language supervision connects them to task reasoning. Experiments across benchmarks show consistent improvements over strong baselines in both capabilities.",
    "affiliations": [
     "XMU",
@@ -9622,11 +9622,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-17"
+     "at": "2026-11-19"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-17"
+     "at": "2026-11-19"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.19803",
