@@ -90,11 +90,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Preview version (main paper only); This work began in December 2024. Project page at https://world-snapshot.github.io/WSMs; GitHub org at https://github.com/World-Snapshot; Hugging Face org at https://huggingface.co/World-Snapshot; This is an empirical article that attempts to unify thousands of visual tasks through a single methodology. Patent pending (inventors: SF and DM)",
+   "comments": "Full version, 227 Pages (Add appendixes, tutorials, and memoirs). This work began in December 2024. Project page at https://world-snapshot.github.io/WSMs . GitHub org at https://github.com/World-Snapshot . This is an empirical article that attempts to unify thousands of visual tasks through a single methodology. Patent pending (inventors: SF and DM)",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.24917v1",
+   "html_url": "https://arxiv.org/html/2611.24917v2",
    "abstract": "In this paper, we propose a Unified Law for Visual Tasks, which could be further divided into Four Laws of Computer Vision, with the goal of enabling a single framework or method to uniformly train on and perform nearly all visual tasks. Our starting point is an inspiration and hypothesis: if the world information is encoded into image, which we call World Snapshots, then image processing is world processing, and image generation is World Snapshot generation. Furthermore, if all visual and visualization tasks can be reformulated as generation tasks, then a unified method, World Snapshot Models (WSMs), can perform the vast majority of visual tasks, much as large language models have largely unified natural language processing. This paper validates these laws across more than 1,000 trained and evaluated visual tasks (defined by distinct input-output mappings) and presents a unified training framework for future visual-task research and applications.",
    "affiliations": [
     "Rutgers, USA",
@@ -2313,11 +2313,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "29 pages, including appendices",
+   "comments": "29 pages, including appendices; author metadata simplified; paper content unchanged",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.24451v1",
+   "html_url": "https://arxiv.org/html/2611.24451v2",
    "abstract": "Query-based camera-radar detectors choose where and over which frames each object query samples from the query's position or feature. We test whether radar evidence around the query should also set these choices at the 150 m range of MAN TruckScenes, where recall differs across object-level radar-return counts within every range band. EviScope is a minimal test: the current frame's returns form a non-learned bird's-eye evidence field, which each query reads at its decoded centre to scale its radial sampling extent and to weight eight frames. It adds 5,450 parameters (0.009%) to RaCFormer, with no latency increase in our timing. Our module-free recipe exceeds the published TruckScenes mAP (25.9 over seven runs against 24.1), so we measure the module only against its own baseline at matched seeds. The evidence a query reads rises with its object's return count (Spearman 0.51) but captures zero-return objects only in part, and the learned radius tracks it (ρ≈-0.91 in four runs). Over seven four-epoch pairs the module changes NDS by +0.31±0.36 and mAP by -0.27±0.22 (mean ± SE). Against a geometry-only conditioner with the same parameter count, trained at three matched seeds, it is higher by +1.25±0.72 NDS and +0.87±0.21 mAP, on mAP in every pair, and the control's mean NDS is near the baseline's. An exploratory far-range gain failed an internally pre-specified held-out test, and large inference-time substitution penalties also occur without query-local evidence: neither learned allocation nor inference-time dependence substitutes for matched end-to-end comparisons.",
    "affiliations": [
     "Institute of Automation, Chinese Academy of Sciences, Beijing, China",
@@ -5140,11 +5140,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Project page: https://linfeng-tang.github.io/GenRF",
+   "comments": null,
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.24157v1",
+   "html_url": "https://arxiv.org/html/2611.24157v2",
    "abstract": "Multi-modal image fusion combines complementary observations to improve scene visibility and perception. However, in real-world acquisition, differences in sensing principles and configurations introduce geometric discrepancies, while degradations further compromise source quality. Existing methods typically rely on explicit registration, yet large parallax complicates correspondence estimation, while mismatched fields of view leave some regions without cross-modal counterparts. Meanwhile, independent restoration underuses cross-modal information, whereas restoration-fusion methods assuming alignment remain vulnerable to misregistration. This study revisits misaligned and degraded image fusion in the era of generative foundation models, in which cross-attention enables position-agnostic complementary information aggregation, while generative priors support degradation recovery and inference in missing regions. Building on this perspective, we propose GenRF, which adapts pretrained FLUX through LoRA to jointly enhance degraded observations, infer missing cross-modal context, and fuse complementary information without explicitly estimating deformation fields. Extensive experiments on real-world infrared and visible captures show that GenRF delivers high-quality fusion directly from unregistered, degraded images without preprocessing, while improving downstream task performance under misalignment. Additional experiments demonstrate that GenRF can generalize to misaligned multi-exposure and multi-focus image fusion without task-specific fine-tuning. Project: https://linfeng-tang.github.io/GenRF.",
    "affiliations": [
     "Wuhan University, China",
@@ -7422,7 +7422,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23958v1",
+   "html_url": "https://arxiv.org/html/2611.23958v2",
    "abstract": "We introduce DORMS (Depth-Ordered Region Merging for Segmentation), a purely algorithmic approach to image segmentation from monocular depth maps, requiring no neural networks or learned parameters in the segmentation process. An off-the-shelf monocular depth estimator provides the input depth maps. Our method constructs depth-ordered merge trees through a deterministic union-find sweep, combining component area, depth persistence, and spatial contact constraints to guide region merging. A threshold search determines the segmentation granularity according to a specified target region count, while global depth detrending improves the separation of local geometric structures. Extensive experiments on COCO Panoptic, Cityscapes, and ADE20K demonstrate consistent improvements over classical segmentation baselines and competitive performance against zero-shot neural segmentation models. Notably, our method outperforms all evaluated zero-shot models on Cityscapes, while remaining competitive with several approaches on COCO and ADE20K. These results highlight the potential of purely algorithmic geometric reasoning for image segmentation without learned segmentation models.",
    "affiliations": [],
    "author_affiliations": null,
@@ -9056,7 +9056,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23845v1",
+   "html_url": "https://arxiv.org/html/2611.23845v2",
    "abstract": "Text-conditioned 3D indoor scene generation requires layouts satisfying geometric, functional, and semantic constraints. However, existing diffusion methods rely primarily on static textual conditions, limiting their ability to assess evolving scenes and translate semantic discrepancies into executable object-level corrections. MLLM-based post-hoc refinement provides semantic feedback but remains decoupled from denoising, potentially disrupting scene coherence.We propose ReflectScene, an MLLM-guided closed-loop diffusion framework. First, we introduce Hierarchical Prior-Grounded Scene Understanding that aligns structured layouts with multi-view visual evidence, to interpret object-specific context and scene global semantics via a frozen multi-modal large language model (MLLM). Second, we propose MLLM-Guided Semantic Reward Evaluation to distill MLLM's diagnoses and assessments on possible candidate corrections into a lightweight Reward Predictor, enabling correction decision making with reduced computation burden. Finally, Decision-Conditioned Trajectory-Consistent Diffusion is proposed to integrate selected corrections through transient conditioning and persistent clean-estimate projection, correcting object layout in the generated scene while preserving non-target arrangements throughout denoising.Experiments on 3D-FRONT demonstrate improved functional consistency and semantic alignment while maintaining competitive generation quality and diversity.",
    "affiliations": [
     "Xidian University",
@@ -9183,7 +9183,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23822v1",
+   "html_url": "https://arxiv.org/html/2611.23822v2",
    "abstract": "The computation of correlation features is crucial for optical flow estimation. Existing methods (e.g., RAFT) perform fixed-radius lookups on a cost volume, yielding a set of correlation features for each position; alternatively, WAFT performs single-point feature indexing, yielding one correlation feature vector per position. None of them designs a suitable correlation feature sampling scheme for each position according to regional characteristics. Our insight is that not every position requires the same sampling scheme. Applying an identical sampling scheme to every position is either redundant or insufficient and ignores the specific characteristics of the corresponding region. This paper rethinks the design of feature sampling and investigates the following question: should the support of feature sampling—i.e., the extent and directions over which evidence is aggregated—be learned separately for each query position? To study this question, we propose SAGE (Sampling with Anisotropic Gaussian Expectation). This method replaces single-point sampling with a per-pixel anisotropic Gaussian expectation on a fixed candidate grid centered on the current optical flow estimate. A positive-definite precision matrix controls the scale, anisotropy, and orientation of the sampling support, with single-point sampling included as its limiting case. Consequently, the sampling support becomes an explicit and analyzable design variable and provides a principled way to analyze how directional feature aggregation affects correspondence learning. Extensive experiments show that SAGE, while adding only 1.5% multiply-accumulate operations (MACs), effectively improves zero-shot cross-dataset generalization. When trained only on FlyingChairs and FlyingThings, SAGE reduces the end-point error (EPE) by 24.2% and 16.4% on Sintel clean and final, and reduces KITTI F1-epe and F1-all by 7.2% and 11.6%.",
    "affiliations": [
     "Ningxia Institute of Science and Technology Development Strategy and Information"
@@ -10856,7 +10856,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23615v1",
+   "html_url": "https://arxiv.org/html/2611.23615v2",
    "abstract": "In weight-space programming, a language model edits a network's weights directly, without gradients. We ask what a successful repair of this kind relies on. We plant faults in the weights of two vision-language models, SmolVLM-256M and LFM2-VL-450M, and check each edit made by a coding agent against the original weights. Without being told where to look, the agent finds rescaled rows in the projector and noise in the vision encoder of both models, infers the unknown scale factors, restores most or all of the rescaled weights to their exact original values, and returns accuracy to near its original level; programs that it writes from such weights repair unseen checkpoints of the same model without feedback. These repairs depend on a trace of how the faults were computed. The original weights have 16-bit precision, and faults computed in 32-bit arithmetic leave low bits that only the damaged weights carry. Rounding those bits away leaves each model's answers to our test questions unchanged, and the agent, unaided, then restores no weight exactly: on SmolVLM it no longer finds the damage, and in a single session on LFM2-VL its only gain comes from rescaling answer-token embeddings, which changes how often the model answers yes. Marking the damaged weights again in their low bits brings the edits back to them. Rounded weights still hold statistical evidence of the rescaling, in the distribution of stored values and in row norms, and one sentence in the prompt that names such a statistic directs the agent's edits to the damaged rows on both models. Swapped rows or columns, which leave the set of stored values unchanged, are not found unaided on either model within our session budgets. We recommend that studies of weight repair report the number format of the weights and include a rounded control.",
    "affiliations": [
     "The University of Texas at Austin"
@@ -11606,7 +11606,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23446v1",
+   "html_url": "https://arxiv.org/html/2611.23446v2",
    "abstract": "Compact convolutional backbones such as EfficientNet achieve strong parameter efficiency through local depthwise separable convolutions, yet two structural questions remain central to hybrid design: where does global self-attention improve recognition over pure convolution, and can repeated blocks share weights without losing representational capacity? We investigate both questions on ImageNet-1k (50,000-image validation) using controlled EfficientNet-B0 experiments. First, we show that wrapping a classification backbone in multi-scale feature pyramids (BiFPN) fails to outperform a plain MBConv trunk (69.99% - 71.81% vs. 72.86% plain B0) until paired with stage attention (73.15%). In contrast, keeping the MBConv trunk intact and inserting lightweight zero-gated residual self-attention adapters at stages P3 (28x28 windowed), P4 (14x14 global), and P5 (7x7 global) reaches 74.02% standalone and outperforms a bit-for-bit matched plain-B0 control by +0.954 percentage points (73.88% vs. 72.92%) across an 88-epoch stateless replay schedule, with learned attention amplitude rising monotonically with semantic depth (27.2% at P3 -> 45.4% at P4 -> 66.3% at P5). Second, we evaluate recurrent weight sharing across repeated MBConv blocks with pass-specific BatchNorm statistics (+1,536 parameters per pass). While post-hoc kernel averaging degrades accuracy to 17.03% and single-template stage tying (-27.6% parameters) plateaus at 66.10%, alternating two shared block templates ([B1, A, B, A]) in Stage 6 cuts total model parameters by 10.9% (582K weights) and recovers by +10.82 points in a single epoch to 70.92% (-1.84 points vs. unshared control).",
    "affiliations": [
     "GE Appliances, a Haier company"
@@ -12592,7 +12592,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2611.24171v1",
+   "html_url": "https://arxiv.org/html/2611.24171v2",
    "abstract": "World models support autonomous driving by evaluating candidate trajectories through predicted future scene evolution. However, accurate future prediction does not ensure road-compliant execution; when all candidates violate road boundaries, re-ranking cannot select a feasible trajectory. We propose Physics-Guided Search Distillation (PGSD), a single-view planning framework that combines future representations and execution feedback for verified beyond-pool repair through three components: (1) Execution-Aware Selection checks ego-vehicle road compliance under simulated execution and selects the highest-scoring feasible trajectory; (2) a Clearance-Aware Search Teacher generates beyond-pool corrections and selects demonstrations with larger minimum road-boundary clearance during execution to buffer imitation errors; and (3) a Future-Conditioned Repair Student predicts one correction from rewarder features and execution feedback for single-rollout verification. The pretrained planner and rewarder remain frozen; no future scenes are generated online. On NAVSIM v1, single-view PGSD achieves 90.97 PDMS, exceeding all compared prior single-view planners and retaining 73.2% of the search teacher's PDMS gain over execution-aware selection. On NAVSIM v2 navhard, it reaches 38.96 EPDMS, improving on WorldDrive by 11.24 points (40.5%). The student replaces up to ten search rollouts with a single verification rollout per repair trigger. HUGSIM Hard examples provide qualitative evidence of zero-shot transfer.",
    "affiliations": [
     "Yanshan University, Xiaomi Corporation, KAIST, Tsinghua University, Beijing Automotive Technology Center Co., Ltd"
@@ -12636,7 +12636,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2611.24138v1",
+   "html_url": "https://arxiv.org/html/2611.24138v2",
    "abstract": "Embodied models depend on real interaction data, yet collecting it on physical robots is slow and labor-intensive. Recent ego-to-robot pipelines retarget first-person view human videos to robot data via transferring hand and arm motion. They judge fidelity mainly by visual appearance. However, trajectories often fail in terms of physics: fingers hover beside objects, and grippers close on empty space. We argue that how the object moves and the contacts that drive the motion count. Thus, we present Ego2X, an object-centric framework that converts monocular egocentric video into physically executable robot data across dexterous hands and parallel grippers. Ego2X centers on CORE (Contact-centric Object-interaction REpresentation), which records each contact on the object by its surface anchor, as well as relative force, grasp mode, and interaction state. Throughout the pipeline, CORE corrects hand-object drift via object-relative constraints, steers inverse kinematics toward contacts the robot must realize, and preserves held objects during arm erasure and robot compositing. On HOT3D, contact-driven correction reduces in-contact hand depth error by 33.7%, while on EgoDex, contact-driven retargeting realizes 62.9% of annotated contacts, surpassing the official HuRo pipeline (27.9%). In RoboTwin 2.0, post-training X-VLA on Ego2X episodes alone, without simulator demonstrations, raises task success rate from 40.5% zero-shot to 67.0% across 200 paired scenes. We will publicly release our conversion pipeline and CORE-annotated dataset for dexterous hands and parallel grippers.",
    "affiliations": [
     "Beijing University of Posts and Telecommunications (bupt.edu.cn)",
@@ -13207,7 +13207,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "physics.med-ph",
-   "html_url": "https://arxiv.org/html/2611.23788v1",
+   "html_url": "https://arxiv.org/html/2611.23788v2",
    "abstract": "Rigid motion of a patient head during head cone-beam CT (CBCT) scan can degrade image quality and complicate recovery of accurate anatomical structures from the measured projections. We present a 3D flow-matching prior approach that learns the image changes induced by motion. Its geometry-bridge connects motion-corrupted and motion-free Feldkamp-Davis-Kress (FDK) reconstructed images of the same source volume through progressively reduced simulated motion. The forward projector's geometry derivative supplies analytic velocity targets along this path. A plug-and-play loop encompasses the learned image updates together with spline-based pose estimation, conjugate-gradient data consistency, and image total-variation regularization. Both the refined image volume and the FDK reconstructed image volume at the estimated poses are evaluated. On simulated 360-view scans from 30 held-out CQ500 patients with nominal per-component motion amplitudes within 10 mm / 10 degrees, the framework achieved state-of-the-art image reconstruction quality and motion accuracy in comparison with other methos such as learned autofocus and diffusion-based joint reconstruction. Mean peak signal-to-noise ratio (PSNR) reached 37.1 dB and mean detector-plane reprojection error (RPE) was 0.27 mm. With matched endpoints at the inference settings, the geometry bridge improved PSNR by 1.6 dB and reduced RPE by 33% relative to image-linear training. With 50 prior updates and coarse-to-fine motion estimation, total processing time averaged 9.1 minutes per patient on an RTX A6000.",
    "affiliations": [
     "Department of Nuclear and Quantum Engineering, Korea Advanced Institute of Science and Technology (KAIST), Daejeon 34141, South Korea"
@@ -13804,7 +13804,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
-   "html_url": "https://arxiv.org/html/2611.23445v1",
+   "html_url": "https://arxiv.org/html/2611.23445v2",
    "abstract": "Deep vision models operating in resource-constrained environments depend heavily on low-bit quantization, yet compressing weights below 4 bits frequently induces catastrophic accuracy collapse. While mixed-precision recovery strategies aim to rescue accuracy by selectively retaining high-precision parameters, the fundamental mechanics of where and why these models collapse remain poorly understood. In this study, we systematically analyze the anatomy of quantization collapse across standard Vision CNNs (including ResNet and EfficientNet backbones) evaluated on the full 50,000-image ImageNet-1k validation set. First, we map the exact progression of degradation, demonstrating that collapse is highly non-linear and concentrated in late-stage pointwise projections and depthwise layers. Second, we introduce a structured, multi-step recovery waterfall that evaluates selective integer precision (INT4/INT8) and selective floating-point scales. We show that keeping less than 5% of critical layer activations in 8-bit precision recovers up to 92% of the accuracy lost during aggressive sub-4-bit compression. Finally, we bridge the hardware reality gap by evaluating deployment performance on standard ARM and x86 CPU architectures. We show that while low-bit quantization reduces memory storage requirements, standard runtime software bit-unpacking introduces a 1.48x to 21.5x execution slowdown depending on batch size, highlighting a critical trade-off between model footprint and actual edge throughput. Our findings provide a practical blueprint for navigating the limits of sub-4-bit deployment without sacrificing hardware performance.",
    "affiliations": [
     "GE Appliances, a Haier company"
@@ -14083,11 +14083,11 @@
     "Cryptography and Security (cs.CR)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "10 pages, 4 figures, 5 tables",
+   "comments": "29 pages, 14 figures, 20 tables. v2 adds an appendix and two reference hardware designs",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.CR",
-   "html_url": "https://arxiv.org/html/2611.23350v1",
+   "html_url": "https://arxiv.org/html/2611.23350v2",
    "abstract": "Watermark detectors held by a provider cannot be checked by third parties, and a party that can detect a mark can usually also forge it. We study a two-layer image watermark in which the Fourier transform at the core of the pipeline is performed by a coherent optical 4F unit. Layer 1 carries an Ed25519 signature bound to the image content in Fourier magnitudes, so anyone with the public key verifies offline. Layer 2 is a key-defined carrier written by a secret phase hologram and read by a matched-filter correlator. The optics is a scalar-diffraction simulation with finite modulator bits, pixel aperture, pupil, defocus, misalignment, and sensor noise. No hardware is built. All criteria were fixed in a hashed specification before any optical result. The simulated optical signer reproduces the digital pipeline (field error 1.7e-15, bit agreement 99.997%), verifies at least 99.5% of 877 images under each of 8 post-sensor settings, one unattacked, and accepts none of 40,670 unmarked images. The optical carrier is key-selective: the matched key detects it on 99.8% of the unattacked images, and detection falls to 0% under a scale error of 1% and to 0% under a mask shift of 1 bin. Security rests on the signature and the content binding, for which we separate what is provable from what is measured.",
    "affiliations": [
     "University of California, Los Angeles"

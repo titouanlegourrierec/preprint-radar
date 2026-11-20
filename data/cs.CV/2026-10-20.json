@@ -2005,17 +2005,53 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Human egocentric experience offers a rich foundation for learning how the world is organized and how it changes through interaction. Realizing this potential at scale requires turning growing volumes of recordings into learning resources that connect scene structure, object semantics, and interaction histories across viewpoints and time, while reducing dependence on costly manual annotation. We introduce HOLI-WORLD, an integrated ecosystem connecting experience capture, world representation, automated data construction, model learning, and independent evaluation. To sup- port learning at scale, HOLIWORLD-Foundry combines complementary static and dynamic perception to automatically construct world records that connect persistent scene structure and evolving object states with interaction histories and supporting observations. HOLIWORLD-Data organizes these records from approximately 100 self-collected scenes into grounded learning resources, including approximately 80K QA pairs used to train HOLIWORLD-VL-4B. Independent human annotations of heldout recordings form HOLIWORLD-Bench, supporting evaluation of both annotation quality and learned spatial and temporal understanding. Experiments on ScanNet, ScanNet++, Aria Digital Twin, and HOLIWORLD-Bench demonstrate strong performance in static perception and dynamic tracking, while training on HOLIWORLD-Data substantially improves HOLIWORLD-VL-4B's spatial and temporal reasoning on HOLI- WORLD-Bench and EgoDynamic4D. HOLIWORLD provides a practical foundation for expanding learning resources from the continuous flow of human experience and advancing machine understanding of the dynamic world.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Nanyang Technological University",
+    "Hong Kong University of Science and Technology",
+    "Peking University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    null,
+    null,
+    null,
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Nanyang Technological University",
+    "Hong Kong University of Science and Technology",
+    "Peking University"
+   ],
+   "institution_ids": [
+    "02e7b5302",
+    "00q4vv597",
+    "02v51f717"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.26549",
@@ -2521,17 +2557,43 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Document understanding is increasingly judged on where an answer comes from, scored against annotated gold locations as if each fact lived in one place. In long visual documents, a fact often lives in several places: a chart value is restated in the text, a key figure reappears in the summary. We ask how often such copies occur in standard benchmarks and what they do to evaluation. We annotate 420 questions from MMLongBench-Doc and MMDocRAG with the locations that independently establish each required fact, checked by two independent reviewers. Copies are common and often cross-modal: 19.5% of MMLongBench-Doc test questions have a strict copy outside the gold, and in 28% of MMDocRAG questions a non-gold candidate alone supplies a required fact. Single-gold scoring then fails in three predictable ways. A retriever that finds a copy is scored as a miss: page recall@1 of text and visual retrievers is underestimated by 13-24 points on questions with a cross-page copy. A model that cites a copy is scored as citing wrongly: crediting equivalent evidence reverses 11% of pairwise orderings among 65 competitive MMDocRAG systems. Masking the gold region leaves the fact available elsewhere: with a copy in the input, 41-56% of correct answers across four models survive it yet fail once every annotated instance is masked. Set-level masking with automatically found copies closes 78% of the gap to masking every annotated instance at matched granularity (three models); an unverified key-string rule lowers survival at least as far but masks three times the area. We release the annotations and redundancy-aware metrics.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Zhejiang University",
+    "Geely"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Zhejiang University",
+    "Geely"
+   ],
+   "institution_ids": [
+    "00a2xv884",
+    "0446d5v35"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.26401",
@@ -2975,17 +3037,57 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Autoregressive Diffusion Transformers have emerged as a powerful paradigm for long video generation. However, they are often constrained by prohibitive computational overhead and substantial memory footprints. This inefficiency arises from dense computation mechanisms that allocate uniform processing resources across all spatiotemporal regions, failing to leverage the inherent temporal redundancy of video where motion is typically confined to sparse areas. In this paper, we propose Dynamics-Aware Sparse Attention (DASA), a unified framework that shifts from dense computation to sparse, motion-driven generation to eliminate both storage and computational redundancies. Inspired by video codec principles, our approach explicitly decouples video content into dynamic and static regions. To mitigate memory bottlenecks, we selectively compress the historical KV cache by retaining only dynamic features within the generated chunk. Furthermore, to reduce computational overhead, we employ a region-level computation allocation strategy based on localized dynamics. Additionally, a dynamics-guided distillation method is introduced to enhance performance via a lightweight distillation training process. Experiments on VBench demonstrate that our approach accelerates autoregressive video generation by 2.16x, while preserving high visual fidelity.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Alibaba Group",
+    "Zhejiang University",
+    "Monash University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Alibaba Group",
+    "Zhejiang University",
+    "Monash University"
+   ],
+   "institution_ids": [
+    "00k642b80",
+    "00a2xv884",
+    "02bfwt286"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.26262",
@@ -3546,17 +3648,59 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Autoregressive (AR) video diffusion has emerged as a leading paradigm for efficient video generation, yet its practical deployment remains bottlenecked by the trade-off between generation quality and inference efficiency. We attribute this bottleneck to three error sources in AR rollouts: the base model error, the train-inference distribution mismatch, and the upstream error propagation. Building on this decomposition, we derive closed-form upper bounds on the per-step and cumulative errors, providing a principled basis for jointly optimizing generation quality and inference efficiency. Guided by this analysis, we propose TriTD, a Tri-Partite Trajectory-Distribution co-optimized distillation framework with three complementary modules. First, for ODE initialization, we adopt a Next-Node Trajectory Distillation (NTD) objective, which shortens the supervision horizon and admits a lower regression-error floor. Second, we introduce Chunk-Graded Noising (CGN), a monotonically non-decreasing per-chunk noising schedule that helps narrow the expected train-inference noise mismatch and removes redundant KV-cache updates, yielding substantial speedups at no quality cost. Third, we propose Orthogonal-Parallel DMD (OP-DMD), a distribution-matching loss that retains the original DMD supervision while introducing an additional regression constraint in the orthogonal subspace to suppress off-axis drift, improving both training stability and final generation quality. Extensive experiments show that TriTD consistently surpasses existing baselines in visual quality while reaching a real-time throughput of 26.8 FPS on a single H100 GPU, delivering a balanced quality-efficiency solution for interactive streaming video generation.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Hong Kong",
+    "ByteDance",
+    "Tsinghua University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "University of Hong Kong",
+    "ByteDance",
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "02zhqgq86",
+    "04m8av638",
+    "03cve4549"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.26165",
@@ -4732,7 +4876,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
@@ -6798,17 +6942,35 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Accurate recognition of construction site elements is essential for the application of deep learning (DL) in the construction industry. Despite rapid advances in computer vision, the adoption of DL in construction has been limited by the lack of structured, publicly available datasets aligned with established industry standards. To address this gap, we introduce the Residential Construction Dataset Using CSI Divisions (ResCD-CSI) image dataset, a manually labeled image benchmark organized according to the divisional structure defined by the Construction Specifications Institute (CSI). The dataset comprises high-resolution images collected from active residential construction sites across the United States, capturing diverse building components, materials, and equipment under real-world conditions. In total, 16,365 objects spanning 14 major CSI divisions were precisely annotated using bounding boxes, ensuring consistency and reliability for object detection tasks. By aligning with the CSI divisional framework, ResCD-CSI establishes a standardized resource that bridges construction practice with computer vision research and supports the development of Artificial Intelligence-driven solutions for residential construction monitoring.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "SUNY College of Environmental Science and Forestry",
+    "Syracuse University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "SUNY College of Environmental Science and Forestry",
+    "Syracuse University"
+   ],
+   "institution_ids": [
+    "00qv0tw17",
+    "025r5qe02"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.25535",
@@ -8078,17 +8240,46 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Turning a moving-camera perspective video into a 360\\deg video requires more than just generating content outside the input frame: observations revealed over time must be preserved, unseen regions completed, and the resulting scene kept consistent as the camera viewpoint changes. Existing methods assign these different requirements to a single conditional video model, requiring them to be jointly learned from panoramic video data. We instead present a modular, 3D-driven framework that distributes these three responsibilities across specialized components, all connected through a shared scene representation. Input observations are reconstructed explicitly in 3D, while a pretrained panoramic image model completes unobserved content from a selected panoramic render. This generated content is lifted into the shared 3D scene, where it remains spatially anchored across camera viewpoints. Without requiring any additional panoramic-video training, our framework achieves state-of-the-art input-view fidelity, perceptual quality, and geometric consistency on a static-scene subset of the Argus evaluation set. These results support our decomposed, 3D-driven formulation as a promising alternative to direct video generation in this setting.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Boston University",
+    "University of Cambridge"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Boston University",
+    "University of Cambridge"
+   ],
+   "institution_ids": [
+    "05qwgg493",
+    "013meh722"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.25395",
@@ -10054,7 +10245,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
@@ -10491,17 +10682,52 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Lipreading ability varies widely, including among people who are hard of hearing. Although mouth-directed attention is linked to speechreading outcomes, it remains unclear how much lipreading skill can be inferred from viewing behavior and which signals carry this information. We examine whether individual differences in lipreading ability are reflected in viewing behavior during silent speech and quantify the contributions of gaze dynamics, pupil-linked signals, and spatial viewing allocation. We introduce the Lipreading Perception Study (LiPS) dataset and a tracker-independent preprocessing pipeline that synchronizes SR Research EyeLink gaze and pupil recordings with the stimuli. Twenty-four adults (age 32 ± 10 years) completed a four-alternative forced-choice silent lipreading task. An extreme-groups protocol yielded 18 participants labeled as stronger or weaker lipreaders. Each participant-trial included four aligned views: lip-region images, frame-level gaze, pupil summaries, and spatial viewing proportions. A four-branch neural network with cross-modal attention predicted labels using participant-disjoint splits and systematic ablations. The full model reached accuracy 0.680 ± 0.040 across five folds, outperforming naive fusion baselines in accuracy. The pupil and viewing-summary branch was most informative: removing it caused the largest degradation (0.618 accuracy, 0.623 AUC), while it alone achieved 0.675 accuracy. The lip-image stream contributed little to participant-level discrimination. Individual differences in lipreading are reflected in pupil-linked and frame-level gaze signals rather than in how much time a viewer spends looking at the mouth. Synchronized gaze and pupillary measures may provide objective markers of visual speech perception, warranting investigation in larger, clinically diverse populations. LiPS provides a resource for extending this work.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Indian Institute of Technology Ropar",
+    "University of Oulu",
+    "Indian Institute of Technology BHU",
+    "Banaras Hindu University",
+    "Zhejiang University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     4
+    ],
+    [
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "Indian Institute of Technology Ropar",
+    "University of Oulu",
+    "Indian Institute of Technology BHU",
+    "Banaras Hindu University",
+    "Zhejiang University"
+   ],
+   "institution_ids": [
+    "02qkhhn56",
+    "03yj89h83",
+    "01kh5gc44",
+    "04cdn2797",
+    "00a2xv884"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.24898",
@@ -13678,17 +13904,57 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Cotton sustains the textile economies of over 80 countries with an annual yield of 113 million bales, yet 30-60% of yield losses are still attributed to viral, bacterial, and fungal diseases that remain undetected until manual field scouting. To address this critical issue, the integration of Unmanned Aerial Vehicle (UAV) imagery with deep learning offers a scalable early-warning system; however, existing models suffer from low early-stage accuracy, poor transferability, and high computational cost. In this paper, we propose Cotton-Vision, a fully convolutional single-stage detector that synergizes three lightweight architectural innovations: Ghost Bottleneck modules for a 20% parameter reduction, Efficient Channel Attention (ECA) for adaptive feature recalibration, and Cross-Stage Partial (CSP) fusion for enriched gradient flow. The network is trained on a novel dataset collected across seven cotton fields in the Punjab province of Pakistan, comprising over 2,700 high-resolution drone images. Extensive data augmentation (rotation, shear, exposure, and saturation) expands the dataset to 11,704 training samples. On a held-out test set, Cotton-Vision achieves a precision of 97.7%, a recall of 77.7%, an mAP@50 of 85.6%, and an mAP@50-95 of 76.6%. These results represent a 10-20% improvement in precision, recall, and mAP over state-of-the-art baselines, including YOLOv5, YOLOv8, YOLOv11, YOLOv12, RT-DETR, and RF-DETR. Through a comprehensive ablation study, we demonstrate that each proposed architectural enhancement contributes to the model's superior performance, yielding a 12-16% mAP improvement over the baseline architecture. Our findings confirm that this synergy of lightweight and attention-based modules provides a robust, computationally viable solution for early cotton disease detection.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "National University of Sciences and Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "National University of Sciences and Technology"
+   ],
+   "institution_ids": [
+    "03w2j5y17"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.24182",
@@ -15353,17 +15619,46 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Visual token pruning is increasingly used to reduce the memory and inference costs of vision-language models. Existing work has largely focused on designing method-specific selectors and demonstrating incremental improvements over prior methods at selected token budgets. It remains unclear whether the resulting performance reflects an inherent limit of visual token pruning or the limitations of current token-selection algorithms. We take a complementary perspective and ask: how well can visual token pruning perform when offline search cost is not the primary constraint? We formulate pruning for general image understanding as selecting, under a fixed budget, one shared visual-token subset that supports a broad distribution of questions about an image. We approximate this utility with a finite auxiliary QA set generated by a frontier VLM and optimize a teacher-forced answer-probability objective with the evaluated model frozen. Motivated by the conceptual monotonicity and diminishing returns of adding visual evidence, we construct nested subsets greedily and introduce QA mini-batch greedy (QA-MBG), which estimates token marginal gains from randomly sampled QA components at each step. Empirically, QA-MBG is both cheaper and more effective than full greedy. With one frontier-VLM call and approximately 0.5 H100 GPU-hours per image, it produces a nested subset trajectory covering keep ratios up to 0.3. Across Qwen3-VL-4B and Gemma~4 E4B on 900 images from nine benchmarks, we find significant headroom over evaluated pruning baselines on held-out QA and image-grounded long-form generation, while the searched subsets substantially narrow the gap to full-token inference.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Qualcomm"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Qualcomm"
+   ],
+   "institution_ids": [
+    "002zrf773"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.23974",
@@ -15680,17 +15975,144 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Reliable fetal brain biometry on magnetic resonance imaging (MRI) is essential for diagnosing congenital brain anomalies, but artificial intelligence models often lose accuracy under domain shifts. We developed BioTTA, a backbone-agnostic, source-free unsupervised test-time adaptation framework that adapts pretrained models online to individual unlabeled target volumes. This retrospective multicohort study included 394 reconstructed 3D fetal brain MRI volumes at 20-39 gestational weeks, with 11 biometric measurements annotated by radiologists. BioTTA was developed on single-center turbo spin-echo MRI and evaluated on three datasets representing cross-sequence, cross-center, and cross-nation shifts. Biometry accuracy was assessed using mean absolute error (MAE) and the percentage of correct measurements within 4 mm. A web-based reporting platform mapped measurements onto normative growth trajectories and was evaluated against radiologists in four multicenter disease cohorts covering germinal matrix-intraventricular hemorrhage, ventriculomegaly, and cerebellar abnormality. Across all three target datasets, BioTTA outperformed auto-SVRTK, source-only models, and FetalSynthGen, while matching models finetuned with target labels. MAEs ranged from 1.10 to 1.46 mm with a convolutional backbone and from 1.46 to 2.25 mm with a transformer backbone. Diagnostic accuracy ranged from 82.1% to 95.0%, comparable to a senior radiologist. BioTTA supports accurate, generalizable fetal brain biometry and standardized prenatal brain growth assessment across heterogeneous MRI sources.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Sichuan University",
+    "West China Second University Hospital of Sichuan University",
+    "University of Oxford",
+    "Wellcome Centre for Integrative Neuroimaging"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2,
+     1,
+     3
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Sichuan University",
+    "West China Second University Hospital of Sichuan University",
+    "University of Oxford",
+    "Wellcome Centre for Integrative Neuroimaging"
+   ],
+   "institution_ids": [
+    "011ashp19",
+    "00726et14",
+    "052gg0110",
+    "0172mzb45"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.23966",
@@ -16198,17 +16620,38 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "We introduce SpinDoctor, a method for discovering innocuous prompts for text-to-image models that result in images with a chosen target bias, while retaining the quality of the images and prompts. These prompts present a risk for user manipulation, in that a user who is given these seemingly unbiased prompts might be willing to use them and would receive biased images in return. Our method is flexible: it uses models in a black-box way only and the target image bias can easily be changed, and so our method can be applied with various motivations and in various scenarios. Our method shows some transferability between models-we saw the same bias emerge in 78.6% of cases-such that a victim who uses a prompt generated via our method using one model still likely receives a biased image from another model. In our experiments, a subset of which we corroborated with human evaluation, we were able to find an innocuous prompt that moved generated images in the direction of the desired bias in all but two of 304 experiments, with an average improvement of 34.8% and 33.5% on two open-source text-to-image models.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Duke University",
+    "Carnegie Mellon University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Duke University",
+    "Carnegie Mellon University"
+   ],
+   "institution_ids": [
+    "00py81415",
+    "05x2bcf33"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.23925",
@@ -18120,17 +18563,44 @@
    "cross_list_from": "cs.AI",
    "html_url": null,
    "abstract": "Automated identification of diatoms from microscopic images is a cornerstone of large-scale freshwater biomonitoring, yet the high diversity of species and strong class imbalance pose significant challenges for reliable classification. In this study, we develop a ResNet-18 baseline for a 759-class diatom dataset and investigate how calibrated confidence estimates support selective classification to reduce expert workload without sacrificing taxonomic integrity. While the initial model exhibits overconfidence with an Expected Calibration Error (ECE) of 0.117, post-hoc temperature scaling (T = 2.12) dramatically improves reliability, lowering the ECE to 0.055.By leveraging these calibrated probabilities within a triage framework, we demonstrate that a Selective Macro-F1 score of 99.01% can be maintained at 66.2% coverage (rejection threshold τ = 0.934). Qualitative analysis reveals that the system effectively functions as an intelligent filter, consistently deferring rare taxa-such as AAMB and AASI-and ambiguous morphologies for expert review. Our findings, supported by the torch-uncertainty framework, highlight the potential of simple calibration techniques to make automated diatom identification practical and robust, prioritizing the preservation of rare species metrics essential for ecological assessment. To support reproducibility, our code, environment specifications, and calibration results are available anonymously at https://anonymous.4open. science/r/greenprwksp-B53D/README.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Laboratoire Lorrain de Recherche en Informatique et ses Applications",
+    "Zone Atelier Moselle",
+    "Laboratoire Interdisciplinaire des Environnements Continentaux"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Laboratoire Lorrain de Recherche en Informatique et ses Applications",
+    "Zone Atelier Moselle",
+    "Laboratoire Interdisciplinaire des Environnements Continentaux"
+   ],
+   "institution_ids": [
+    "02vnf0c38",
+    "016vxbe23",
+    "05je79696"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.25977",
@@ -19967,17 +20437,46 @@
    "cross_list_from": "eess.IV",
    "html_url": null,
    "abstract": "Background: Incomplete multiparametric MR examinations limit glioma characterization and downstream AI tools. Generative models can synthesize missing MRI sequences, but anatomical structure and clinically relevant tumor features are challenging to preserve. We propose GliomaINK, an anatomy-guided conditional flow matching framework for cross-sequence 3D brain MRI synthesis. Methods: A 3D SwinUNETR predicted the conditional velocity field while an auxiliary topology-preserving loss encouraged structural consistency. The model was trained on 1,083 patients from the BraTS-AG dataset and independently tested on an in-house clinical cohort. Downstream tasks include image quality, tumor segmentation, IDH1 mutation-status prediction, and overall survival prediction. Two radiologists independently evaluated the anatomical fidelity, pathological representation, and overall image quality of the synthesized images. Results: GliomaINK exhibited the highest PSNR across all six MRI translation directions in both evaluation cohorts. In the BraTS-AG test set, the PSNR reached 25.64±0.55 dB for the T2W-to-T1C synthesis, compared with 13.78±0.32 dB for Pix2Pix and 18.90±0.53 dB for SPADE. For downstream tumor segmentation, the method showed strong performance across tumor subregions with Dice scores reaching 0.928±0.014 for edema, and 0.885±0.040 for enhancing tumor. For the IDH1 mutation-status prediction, GliomaINK achieved the highest AUROC score in four of the six sequence configurations, reaching 0.827±0.088. Conclusion: Anatomy-guided conditional flow matching enables high-fidelity cross-sequence glioma MRI synthesis demonstrating potential for preservation of clinically relevant information in synthesized MRI and improving downstream tasks.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Columbia University Irving Medical Center",
+    "Atal Bihari Vajpayee Institute of Medical Sciences and Dr. Ram Manohar Lohia Hospital",
+    "Stony Brook University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Columbia University Irving Medical Center",
+    "Atal Bihari Vajpayee Institute of Medical Sciences and Dr. Ram Manohar Lohia Hospital",
+    "Stony Brook University"
+   ],
+   "institution_ids": [
+    "01esghr10",
+    "00qa63322",
+    "05qghxh33"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.24044",
@@ -20138,17 +20637,42 @@
    "cross_list_from": "eess.IV",
    "html_url": null,
    "abstract": "Deep learning has achieved strong performance in computational pathology, but explaining whole-slide image (WSI) predictions remains challenging. Existing explanation methods often highlight important regions without identifying their morphological patterns, leaving a gap between patch-level computational evidence and slide-level pathological interpretation. We propose ProtoGTX, a graph-based framework that combines spatial contextualization with a flexible morphological prototype vocabulary. ProtoGTX separates the reference prototypes used to define morphological concepts from the predictive model: the reference vocabulary can be generated from training data by unsupervised clustering or supplied externally, and remains fixed during classifier training. Patch features are first contextualized over a spatial graph, after which learnable prototypes representing morphological concepts are optimized through cross-attention. Their slide-level activation profile is aligned with the morphological composition induced by the fixed reference prototype bank. On the CPTAC and BRACS datasets, ProtoGTX outperforms the evaluated MIL, prototype-based, and graph-based baselines, with particularly pronounced improvements on BRACS. Qualitative analyses further show that spatial contextualization transforms fragmented patch-level prototype assignments into more coherent tissue regions. In BRACS, prototype maps also co-localize with pathologist annotations and regions relevant to slide-level prediction. These results demonstrate that ProtoGTX provides complementary semantic and spatial explanations while retaining a prototype vocabulary that can be defined independently of the predictive model. Code is available at https://github.com/mizuno-group/ProtoGTX.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Tokyo",
+    "Institute of Statistical Mathematics",
+    "Research Organization of Information and Systems"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2,
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Tokyo",
+    "Institute of Statistical Mathematics",
+    "Research Organization of Information and Systems"
+   ],
+   "institution_ids": [
+    "057zh3y96",
+    "03jcejr58",
+    "04p4e8t29"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.24023",
@@ -20176,17 +20700,41 @@
    "cross_list_from": "eess.IV",
    "html_url": null,
    "abstract": "Quasi-static ultrasound elastography (USE) is a non-invasive imaging method for assessing soft tissue mechanical properties. Limited by low resolution, low sampling frequency and lack of phase information in the lateral direction, accurate lateral motion estimation remains a critical bottleneck in USE. Existing methods mainly rely on local image matching and physical constraints (such as tissue incompressibility assumption and effective Poisson's ratio), which lack sufficient contextual information. We present DinoMUSE, a DINO-guided mixture-of-experts (MoE) framework for unsupervised lateral motion estimation in USE. DinoMUSE incorporates high-level visual representations learned by DINOv2 into the motion estimation network to provide global contextual guidance. To facilitate effective interaction between DINOv2 features and local matching features, an MoE-based feature-fusion module adaptively transforms and integrates the two representations. Evaluations against NCC, GLUE, RAFT, and sPICTURE on simulation and in-vivo breast datasets show that DinoMUSE substantially improves lateral estimation accuracy while maintaining competitive axial performance. Specifically, DinoMUSE reduces the mean square error (MSE) of lateral displacement and strain estimation by 60% and 65%, respectively, compared with a SOTA algorithm on the simulation dataset. For in-vivo breast data, DinoMUSE achieves axial strain SNR and CNR of 5.70 and 4.82, and lateral strain SNR and CNR of 4.61 and 2.23, compared to 4.11 and 3.32, and 4.57 and 2.13 for the best competing method, alongside improved lesion visualization. These findings indicate the potential of leveraging transferable visual representations and adaptive feature fusion to improve lateral motion estimation in USE. The code is available at xxxxxxxx.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Tsinghua University",
+    "Southwest Petroleum University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Tsinghua University",
+    "Southwest Petroleum University"
+   ],
+   "institution_ids": [
+    "03cve4549",
+    "03h17x602"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.24020",
@@ -20581,17 +21129,43 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "Collaborative inference serves as a critical methodology in edge intelligence. Existing collaborative inference methods operate by splitting the deep neural network (DNN) model between edge devices and cloud servers. However, these methods need to load different models for multiple split points when the communication or device changes, thus resulting in long switching times and substantial storage overhead on the edge side. To address this issue, we propose a Dynamic Split Network (DS-Net), which not only enables efficient split point switching but also enhances the collaborative speed and accuracy across various scenarios. Specifically, we design a dynamic switching framework that enables flexible selection among multiple split points within a single model, thereby reducing storage, memory, and switching overhead. To mitigate the feature distribution shifts and task-relevant information loss caused by dynamic splitting and high-ratio compression, we further propose a hierarchical compensation mechanism. Local alignment calibrates the decoded feature distribution at each split point, while task-specific global compensation restores task-relevant information at the global level. In addition, we incorporate sample-adaptive global compensation selection into split-point selection based on sample complexity and runtime resource conditions. Experimental results demonstrate that DS-Net reduces memory overhead by 74.6% and achieves millisecond-level switching latency. Moreover, under a 10 Mbps bandwidth constraint on the Nano platform, DS-Net outperforms state-of-the-art collaborative methods by achieving 1.2% higher accuracy on the COCO dataset, reducing latency by 42.5%, and improving throughput by a factor of 1.8×.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Beijing University of Posts and Telecommunications",
+    "Kyung Hee University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Beijing University of Posts and Telecommunications",
+    "Kyung Hee University"
+   ],
+   "institution_ids": [
+    "04w9fbh59",
+    "01zqcg218"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.23949",

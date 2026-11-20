@@ -4659,17 +4659,32 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Token merging is an effective approach to reducing KV-cache memory consumption in autoregressive video generation by clustering temporally redundant tokens and retaining only a small set of representatives. Existing methods, however, typically apply a uniform merging ratio across all attention layers and heads. We observe that different layers and heads exhibit substantially different yet jointly correlated sensitivities to token merging, and that these sensitivity patterns remain consistent across prompts. Based on this observation, we introduce CALM, a Calibrated Allocation for Layer-Head Merging that uses offline calibration to improve online cache compression. Exhaustively evaluating all possible layer-head allocations is prohibitively expensive. To enable efficient calibration, we show that attention-output error strongly correlates with end-to-end video quality and can therefore serve as a lightweight proxy for allocation risk assessment. We evaluate different allocation strategies using this proxy and construct a fixed layer-head risk map offline. Given a cache budget at inference time, CALM uses dynamic programming to determine the best allocation of merging ratios. Experiments across three different autoregressive video models demonstrate that CALM consistently outperforms uniform token merging under the same memory budget, by reducing the LPIPS to original videos by around 21% with higher video-quality scores.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Australian National University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Australian National University"
+   ],
+   "institution_ids": [
+    "019wvm592"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.28192",
@@ -4870,17 +4885,40 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Existing feature lifting approaches for open-vocabulary segmentation rely on simple backprojection to assign features to primitives. In the case of 3D Gaussian splatting reconstruction, the primitives overlap heavily, leading to suboptimal reconstructions, governed by many primitives per ray. Backprojection, however, reduces to a least-squares solvable problem, exactly when no two primitives share a ray. Motivated by this insight, we propose OV-Foam, which uses PowerFoam as the underlying representation. This representation uses a power-diagram to partition the scene, resulting in zero overlap between primitives and a substantial reduction in primitives per ray, which ultimately simplifies the lifting problem and allows for closer-to-optimal feature assignment. We show that the space partitioning primitives of OV-Foam reach near-optimal assignment, and our experiments demonstrate improved open-vocabulary segmentation over Gaussian baselines.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "King Abdullah University of Science and Technology",
+    "Universidad Panamericana"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "King Abdullah University of Science and Technology",
+    "Universidad Panamericana"
+   ],
+   "institution_ids": [
+    "01q3tbs38",
+    "01n1q0h77"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.28131",
@@ -7155,17 +7193,40 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Synthetic aperture radar (SAR) and optical imagery provide complementary structural and appearance information for remote sensing object detection. However, substantial cross-modal discrepancies and indiscriminate channel interaction inevitably introduce redundant or conflicting features. Since different feature channels encode heterogeneous semantic information and contribute unequally to cross-modal fusion, selectively highlighting task-relevant channels while suppressing redundant ones is essential. To address this issue, we propose the Channel Selective Interaction Fusion Network (CSIF-Net), which performs selective channel-level cross-modal interaction. CSIF-Net first employs a frequency decomposition module to construct frequency-aware SAR inputs, facilitating the separation of structural information from noise-related responses. It then models cross-modal channel relationships through a cross-attention channel selection module and dynamically partitions the features into shared and modality-specific components. Finally, a dual-branch fusion module performs cross-modal interaction and channel realignment for shared features while independently enhancing SAR-specific features, thereby exploiting complementary information and suppressing modality interference. Extensive experiments on the OGSOD 1.0 and M4-SAR datasets demonstrate that CSIF-Net achieves state-of-the-art performance in both horizontal and oriented object detection, surpassing the existing methods by 4.01% and 3.18% gains, respectively.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Beijing Normal University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Beijing Normal University"
+   ],
+   "institution_ids": [
+    "022k4wk35"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.27757",
@@ -7902,17 +7963,28 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Multispectral iris presentation attack detection benefits from observing the same iris across multiple near-infrared wavelengths, but existing methods often use wavelength information mainly for conditioning or fusion. This can limit their ability to explicitly model whether the spectral response of a sample is coherent across bands. In this paper, we propose WaveSpec, a multispectral iris PAD framework that performs feature-level spectral coherence adaptation. Each NIR band is first encoded with a DINOv2 backbone. The proposed Set Conditioned Spectral Coherence Adapter then updates each band feature using the consensus of the available spectral set, the band-specific deviation from that consensus, and wavelength identity. The adapted features are projected into structural, spectral, and anomaly representations, adaptively pooled, and classified as bona fide or attack. We evaluate WaveSpec on the MSIrPAD benchmark under a strict cross-artefact protocol, where the model is trained with one presentation attack instrument and tested on unseen attacks. WaveSpec reduces the average D-EER from 8.45% for SpectraIrisPAD to 3.33%, and reduces average BPCER@APCER=1% from 43.16% to 12.07%. Ablation results show that the SCSA adapter and spectral residual are central to the improvement, while a band-subset analysis shows that WaveSpec remains effective under partial spectral observations and performs best when all five bands are available. The method adds only modest computational overhead, with 11.15 ms end-to-end latency per five-band sample on an NVIDIA L40S-48Q GPU.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Norwegian University of Science and Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Norwegian University of Science and Technology"
+   ],
+   "institution_ids": [
+    "05xg72x27"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.27608",
@@ -9742,17 +9814,79 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "Joint-Embedding Predictive Architectures (JEPA) offer an appealing approach to self-supervised learning, but are typically prone to representation collapse. LeJEPA resolves this by introducing a theoretically grounded distribution-matching objective that drives the embedding towards an isotropic Gaussian. However, this approach is fundamentally tied to Euclidean assumptions, and its global target does not reflect domain-specific geometric priors, such as the use of non-Euclidean embedding geometries, e.g., equivariant CNNs or hyperbolic ViTs. We thus introduce LocaLeJEPA, a framework motivated by a manifold-theoretic reformulation of LeJEPA's entropy-maximization property. The accompanying LocaLeReg, a novel locally Euclidean distribution-matching regularizer, enables a stable and scalable implementation of the LocaLeJEPA framework. We then perform extensive experiments in the vision setting on models trained on ImageNet-1K. LocaLeJEPA significantly outperforms LeJEPA when paired with hyperbolic ViT-S/8 and equivariant ResNet-50 backbones, and also with ordinary Euclidean ViT-S/8 and ViT-L/14 backbones. This holds both in terms of linear and k-NN classification performance on ImageNet and on a series of downstream tasks tested. We view the LocaLeJEPA formalism as a principled approach to the JEPA paradigm that better respects intrinsic data geometry while also accommodating generalizations to exotic embedding geometries. Code available at https://github.com/alessioborgi/LocaLeJEPA.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Pennsylvania",
+    "University of Cambridge",
+    "Sapienza University of Rome",
+    "University of Texas Rio Grande Valley",
+    "University of Fribourg",
+    "Broad Institute",
+    "Harvard University",
+    "Brown University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    null,
+    [
+     5
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     6
+    ],
+    [
+     7
+    ],
+    [
+     6,
+     7
+    ]
+   ],
+   "institutions": [
+    "University of Pennsylvania",
+    "University of Cambridge",
+    "Sapienza University of Rome",
+    "University of Texas Rio Grande Valley",
+    "University of Fribourg",
+    "Broad Institute",
+    "Harvard University",
+    "Brown University"
+   ],
+   "institution_ids": [
+    "00b30xv10",
+    "013meh722",
+    "02be6w209",
+    "02p5xjf12",
+    "022fs9h90",
+    "05a0ya142",
+    "03vek6s52",
+    "05gq02987"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.28458",
@@ -10521,17 +10655,34 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "Deep neural networks often fail at small-sample regression, collapsing to low-variance predictions that miss individual differences. Here, we introduce a pairwise comparison framework that reframes regression as aggregated relative rankings. This method improves data efficiency across model architectures and dataset sizes. On the UTKFace dataset (23k images), pairwise learning generates over one billion training comparisons without additional supervision. The paired ranking allows a lightweight ResNet10 trained from scratch on home hardware to achieve a 3.64-year MAE-surpassing previous models, including those with large-scale pretraining. For classification into categories, pairwise supervision consistently outperforms an otherwise identical 10-way crossentropy model on STL10 with 500-2000 labeled examples, improving accuracy by up to 5.2%. Overall, pairwise supervision enhances data efficiency and enables strong regression and classification performance when labeled data are limited, particularly in clinical settings.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of California, Irvine"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Irvine"
+   ],
+   "institution_ids": [
+    "04gyf1771"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.27669",
@@ -10561,17 +10712,46 @@
    "cross_list_from": "cs.AI",
    "html_url": null,
    "abstract": "Individual differences in cognitive abilities vary widely, yet the structural brain features supporting these differences remain poorly understood. Traditional brain-behavior analyses rely on predefined metrics such as volume or cortical thickness and typically assume linear relationships with behavior, limiting sensitivity in small datasets. Here, we introduce a pairwise convolutional ranking framework that learns directly from whole-brain T1-weighted MRI by making comparative rather than absolute predictions, which performs well even with small samples (N=108). We tested this method with four small-scale spatial abilities tasks. Regression analysis predicted performance with high accuracy across all tasks, achieving greater predictive power over standard regression and pointwise deep learning baselines. Iterative cortical-region removal (backward elimination) revealed brain regions supporting individual performance common to all four tasks, as well as task-specific regions. These results demonstrate that pairwise learning extracts meaningful behavioral information from structural MRI, providing prediction and interpretable insight into the neuroanatomy of individual differences.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of California, Irvine",
+    "University of California, Santa Barbara"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Irvine",
+    "University of California, Santa Barbara"
+   ],
+   "institution_ids": [
+    "04gyf1771",
+    "02t274463"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-21"
+     "at": "2026-11-20"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.27668",

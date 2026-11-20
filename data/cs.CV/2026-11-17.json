@@ -644,7 +644,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.21472v1",
+   "html_url": "https://arxiv.org/html/2611.21472v2",
    "abstract": "Mechanical blueberry harvesting requires a balance between removing ripe fruit and avoiding premature removal of unripe berries that could remain on the bush for a later harvest. However, operators generally lack real-time information about the maturity composition of the fruit being collected. This study develops an event-triggered machine-vision system that measures the maturity of harvested blueberries directly on the harvester. When a filled crate is moved by the machine, an RGB image is automatically captured and analysed using a three-class detector that identifies ripe, semi-ripe, and unripe berries. The system operates locally on the existing CPU-only industrial computer and therefore requires neither continuous image processing nor dedicated GPU hardware. During field testing, 79 crate images containing 48,634 visible blueberries in manually verified reference annotations were evaluated. The vision system estimated an overall ripe-fruit fraction of 90.22%, compared with 90.97% determined manually. Per-image ripe-fruit estimates showed a mean absolute error of 0.935 percentage points and a Pearson correlation of r=0.967. Maturity estimates remained similar between the two sides of the harvester for which the light conditions varied despite poorer absolute counting performance under direct sunlight. All field events were processed within the available 14 s per-side crate interval. The proposed approach provides a practical means of quantifying one component of harvest selectivity while the machine is operating. Such information could support operator decision-making and, when combined with measurements of fruit recovery and losses, contribute to future feedback-based control of mechanical harvesting.",
    "affiliations": [
     "Department of Advanced Computing Sciences, Faculty of Science and Engineering, Maastricht University, Maastricht, The Netherlands",
@@ -868,7 +868,7 @@
    "journal_ref": null,
    "venue": "VISAPP 2027",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.21438v1",
+   "html_url": "https://arxiv.org/html/2611.21438v2",
    "abstract": "This article deals with the problem of detecting the position of power lines in airborne laser scanning point clouds. We address both the problem of segmenting power lines from background like ground and vegetation and of identifying individual lines. For segmentation we compare a rule-based approach with one based on transfer learning (Point-SAM). For individual line detection, we derive the mathematical formulas for RANSAC applied to 3D catenaries and compare it with a non-parametric method (TriplClust). All methods are evaluated on a newly created dataset \"PowLiDFR\", which we make publicly available. The samples have been taken from the French project LiDAR HD and cover a variety of terrain layouts and point cloud resolutions. On this dataset, an unsupervised transfer learning outperformed a mere rule-based segmentation, and for individual power line detection, RANSAC was better in following the shape of catenaries than the non-parametric algorithm.",
    "affiliations": [
     "Institute for Pattern Recognition, Niederrhein University of Applied Sciences, Reinarzstr. 49, Krefeld, Germany",
@@ -8404,7 +8404,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.20000v2",
+   "html_url": "https://arxiv.org/html/2611.20000v3",
    "abstract": "The Platonic Representation Hypothesis posits that models trained on different modalities converge toward a shared representation. Related work aligns frozen image and text encoders on natural images without paired data. We test zero-pair alignment on five datasets across four modalities: natural images, environmental audio, chest radiographs, and 3D computed tomography (CT). It succeeds only on COCO and fails on the other four. We analyze the failures and find that alignment must first locate the subspace where the modalities co-vary and then orient the mapping within it. Consistent with previous studies, medical imaging is the hardest case: its shared subspace carries the smallest fraction of the variance. When this fraction is small, alignment needs image-text pairs, and random-matrix theory predicts how many pairs are needed. These findings motivate LightAlign: a few pairs let a ridge regression between two frozen encoders locate and orient the mapping simultaneously, and a classifier fitted only on report text then predicts findings from the mapped images. On 3D CT, LightAlign surpasses models trained end to end on image-report pairs without finding-level labels: with only 200 pairs, LightAlign outperforms CT-CLIP on CT-RATE (0.754 vs. 0.733 AUROC), and with only 100 CT-RATE pairs, it does so on RAD-ChestCT, an out-of-distribution dataset from a different hospital. On CheXpert, it reaches 0.862 mean AUROC with only about 5% as many pairs as models trained on MIMIC-CXR.",
    "affiliations": [
     "Pattern Recognition Lab, Friedrich-Alexander-Universität Erlangen-Nürnberg, Erlangen, Germany",
@@ -9018,11 +9018,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "This manuscript was posted prematurely before all co-authors had agreed to its public release. The authors have decided to withdraw it pending further internal discussion",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.19897v1",
+   "html_url": null,
    "abstract": "Panoramic multi-object tracking (MOT) requires reliable identity association across a 360\\deg field of view, yet bandwidth-constrained operation forces a trade-off between low-resolution (LR) identity ambiguity and costly high-resolution (HR) transmission. We propose HIVE-ECIA, an identity-aware framework that selectively retrieves historical HR evidence to recover fragmented identities without modifying detection boxes or the underlying tracker. An ECIA Base-Guided query policy determines when additional HR evidence is warranted; HIVE ranks historical LR observations to select an informative retrieval timestamp; and ECIA Full integrates the retrieved HR crop through learned gated fusion and conservative identity safeguards. We further introduce DualPano-MOT, a real-world dual-fisheye panoramic evaluation dataset featuring controlled pedestrian interactions, panorama-seam challenges, and occlusions, with model-assisted, manually verified tracking annotations. On held-out QuadTrack sequences and zero-shot DualPano-MOT, HIVE-ECIA improves identity association across four MOT trackers without tracker-specific retraining. Across these trackers, identity switches decrease by up to 21.8% and 23.4%, while the largest IDF1 gains reach 3.81 and 6.74 percentage points, respectively. Under an offline JPEG-based acquisition model, our framework reduces encoded data volume by 89.2% and 79.3% relative to continuous Full-HR acquisition.",
    "affiliations": [
     "Ruhr-Universität Bochum",
@@ -9045,6 +9045,7 @@
     "0363rtq22"
    ],
    "extractor": 24,
+   "withdrawn": true,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -12098,7 +12099,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.19247v1",
+   "html_url": "https://arxiv.org/html/2611.19247v2",
    "abstract": "For more than half a century, video games have pursued better graphics, more natural interaction, and more engaging gameplay. Generative video models (VMs) now bear on all three. Neural networks already draw most of the pixels in shipped games, and recent world models let a lightweight game engine keep the world state while a VM turns the engine's coarse proxy video into final frames. These systems, however, treat the VM as a renderer that only restyles motion the engine has already authored, which leaves most of its generative capacity unused and limits the diversity a game can offer. We present GameWM, a design for next-generation games built on a clear division of labor. The GameWM-engine keeps what must be exact: rules, state, camera, and the layout of the world, which also spares the video model from having to remember it. The GameWM-VM generates what is expensive to author by hand: the look of the world and the detail of the player's interactions. One game mechanic can then be realized in many visually and physically distinct ways, while its outcome stays exactly as the engine computed it. To realize this division of labor, we build GameWM as a complete system: a data engine centered on interactions rather than exploration, an interface through which authored character sheets, scene art, and skill descriptions enter the model, and a model family from 5B to 33B parameters with a real-time causal variant for play. Together they give every player a fresh version of the same game: each player's own character, world, and skills turn the same engine mechanics into a new experience, while every event keeps the timing and outcome the GameWM-engine computed.",
    "affiliations": [],
    "author_affiliations": null,
@@ -14745,7 +14746,7 @@
   {
    "arxiv_id": "2611.18729",
    "announced": "2026-11-17",
-   "title": "SCALE: Towards whole-slide counterfactual explanations in pathology",
+   "title": "SCALE: Towards Whole-Slide Counterfactual Explanations in Cancer Histopathology",
    "authors": [
     "Weiyi Qin",
     "Yingci Liu-Swetz",
@@ -14770,7 +14771,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.18729v1",
+   "html_url": "https://arxiv.org/html/2611.18729v2",
    "abstract": "Cancer diagnosis relies on histopathological evaluation, where tumor morphology guides disease classification and informs treatment decisions. Deep learning (DL) models excel at predicting diagnostic properties from histopathology images. Unlike typical medical images featuring small critical areas, histopathological images are textural, with relevant texture spanning the entire image; this makes it challenging to explain DL predictions by locating relevant image regions. Counterfactual explanations offer a promising alternative by asking \"what changes in the image could have altered the model prediction.\" To achieve this, we propose SCALE, a framework for generating such counterfactual explanations for histopathological DL models. Across nine counterfactual directions spanning multiple cancer types, SCALE generates whole-slide counterfactual explanations that consistently shift predictions toward the intended target while maintaining biological feasibility. Blinded assessment by six board-certified pathologists showed higher morphological plausibility for SCALE (with a win rate of 91.7% over baselines) and promising counterfactual effectiveness (with a target consistency of 96.7%).",
    "affiliations": [
     "Department of Computer Science, Rutgers University, Piscataway, NJ 08854, USA",
@@ -15584,11 +15585,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": null,
+   "comments": "The authors have identified issues in the experimental evaluation that may affect the reported conclusions. The authors have identified methodological issues that require further investigation before the findings can be considered reliable",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.18690v1",
+   "html_url": null,
    "abstract": "Diffusion models for image super-resolution can recover scene content while producing distracting artifacts or unbalanced colors. We study whether a large language model (LLM) can improve perceptual quality by editing a small subset of existing U-Net weights without a clean reference image. The proposed framework provides the editor with architecture code, selected weights, activation summaries, and sampling previews. It permits up to 1,020 candidate trials while limiting accepted changes to three layers and fewer than 0.1% of model parameters. The evaluation protocol uses ResShift, SinSR, and SUPIR and compares GPT-6 Astra with a specified Qwen3-VL model under matched access. Feedback metrics guide editing, while separate quality metrics and blinded human comparisons evaluate the final weights. We also report an executed color calibration experiment using real photographs and two small residual networks. This experiment demonstrates correction of a fixed color shift and reveals that an improving feedback score can accompany worse performance on unseen scenes. A separate lightweight super-resolution experiment isolates modest changes in luminance detail while preserving color. The findings motivate restricted updates and independent evaluation of perceptual weight editing.",
    "affiliations": [
     "Jinan University",
