@@ -5952,7 +5952,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "14 pages, 4 figures, 6 tables",
+   "comments": "14 pages, 5 figures, 6 tables",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -8857,9 +8857,9 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Accepted at the BraTS Inpainting Challenge (MICCAI 2026). To appear in Springer LNCS",
    "journal_ref": null,
-   "venue": null,
+   "venue": "MICCAI 2026",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.08983v1",
    "abstract": "Generative inpainting of brain MRI volumes is essential for synthesizing healthy tissue in pathological regions, improving the accuracy and reliability of automated downstream brain analysis applications such as image registration, brain extraction, and segmentation. However, standard 3D approaches are computationally prohibitive, while efficient 2D slice-wise methods suffer from severe inter-slice discontinuities. Furthermore, traditional models rely on conditional training, requiring task-specific learning of masked inputs. We propose a zero-shot brain MRI inpainting framework utilizing 2.5D unconditional flow priors to capture spatial context along the superior-inferior axis without the overhead of full 3D convolutions. During training, our flow matching model learns the joint distribution of adjacent axial slice triplets, modeling the manifold of healthy brain anatomy while explicitly excluding pathological regions from the loss function. At inference, the model processes the input triplets autoregressively along the depth axis. We employ the Restora-Flow solver to constrain the unconditional prior using the input mask, achieving accurate zero-shot inpainting. Evaluations show our 2.5D strategy resolves the structural discontinuities of 2D baselines, synthesizing plausible healthy tissue while maintaining volumetric consistency across the axial, sagittal, and coronal planes. As a final step, we generate and average an ensemble of multiple stochastic reconstructions to form the final prediction. Quantitative results benchmarked on the official BraTS 2026 Inpainting Challenge validation set demonstrate the effectiveness of our proposed approach, yielding an SSIM of 0.816 ± 0.112, MSE of 0.007 ± 0.005, and PSNR of 22.923 ± 4.343. Code is available at https://github.com/imigraz/brats2026-inpainting.",

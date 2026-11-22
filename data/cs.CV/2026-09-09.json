@@ -963,7 +963,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": null,
+   "comments": "The authors have decided to withdraw the current submission to allow for additional internal review and coordination before making the manuscript publicly available. This involves considerations beyond scientific revisions to the manuscript, making withdrawal of the current submission more appropriate at this stage",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -990,6 +990,7 @@
    "institutions": [
     "Oracle AI"
    ],
+   "withdrawn": true,
    "provenance": {
     "affiliations": {
      "source": "html"
@@ -4431,7 +4432,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Code: https://github.com/wwj-code/OAVC",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -5490,7 +5491,7 @@
     "Computation and Language (cs.CL)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": null,
+   "comments": "Project page: https://dipta007.github.io/OracleZoom/",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -11889,9 +11890,9 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Accepted at RVS-SE, British Machine Vision Conference, 2026",
+   "comments": "to be modified",
    "journal_ref": null,
-   "venue": "BMVC 2026",
+   "venue": null,
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.07780v2",
    "abstract": "Automated drone surveillance has become increasingly important for public safety, critical infrastructure protection,and restricted airspace monitoring. While existing vision-based systems achieve strong performance for drone detection and tracking, reliable payload characterization remains highly challenging under long-range imaging conditions due to limited availability of annotated real-world datasets, and substantial distribution shifts encountered during deployment. Existing approaches formulate payload characterization as a closed-set object detection problem, limiting their ability to recognize previously unseen payloads and generalize beyond the training distribution. To address these challenges, we generate a photorealistic synthetic drone-payload dataset using Unreal Engine 5 and Cosys-AirSim and propose DroneGround: Grounded Vision-Language Payload Characterization, a two-stage framework for robust open-vocabulary payload analysis. DroneGround first employs a YOLO26s detector to localize drones and extract drone-centric image crops, followed by a LoRA-fine-tuned PaliGemma vision-language model that generates seman- tic descriptions of the detected drones and their attached payloads, enabling open-vocabulary payload characterization beyond predefined categories. An occlusion-based grounding module further provides interpretable payload localization by identifying image regions responsible for the generated descriptions. Extensive experiments on both synthetic and real-world drone imagery demonstrate that DroneGround substantially improves robustness under synthetic-to-real distribution shifts, outperforming a conventional closed-set payload detector by improving the F1-score from 82.5% to 96.3%, while achieving significantly better generalization to previously unseen payload categories (80.4%versus 42.7% F1). Dataset and code will be released upon request.",
@@ -18907,7 +18908,7 @@
     "Performance (cs.PF)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "26 pages, 8 figures. Benchmark code: https://github.com/albumentations-team/benchmark",
+   "comments": "31 pages, 6 figures. Expanded the benchmark to 73 recipes and eight input paths, revised the comparisons, and updated the results appendix. Code and data: https://github.com/albumentations-team/benchmark/tree/154baa0da1880013941daad1b6bd35c58097f969",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.PF",

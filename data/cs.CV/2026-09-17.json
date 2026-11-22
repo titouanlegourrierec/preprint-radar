@@ -1162,9 +1162,9 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": null,
+   "comments": "Accepted to WACV 2027. 16 pages, including appendix",
    "journal_ref": null,
-   "venue": null,
+   "venue": "WACV 2027",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.17953v1",
    "abstract": "Vision-Language Models (VLMs) can produce Natural Language Explanations (NLEs) that sound plausible yet remain inconsistent with the visual evidence they cite. We present Explanation-Driven Counterfactual Testing (EDCT), an intervention-based protocol that extracts visual concepts cited in a model's explanation, applies verified minimal edits to them, and tests whether the resulting answer and explanation remain consistent with the edited image. Using this protocol, we create EDCT-Bench, a comprehensive benchmark spanning three complementary domains: knowledge-intensive visual question answering (OK-VQA), safety-critical driving (DriveLM), and 3D spatial reasoning (3DSRBench). Across the evaluated VLMs, EDCT reveals substantial faithfulness gaps, with models frequently producing responses inconsistent with verified visual changes. Finally, our fine-tuning study suggests that EDCT-generated counterfactuals provide high-impact training signals.",

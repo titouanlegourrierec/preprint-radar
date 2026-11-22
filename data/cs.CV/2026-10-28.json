@@ -7251,9 +7251,9 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "10 pages, 6 figures. Code:https://github.com/Xiaoqiovo/CLEAR",
+   "comments": "Accepted at NeurIPS 2026, with acknowledgent details updated. Code:https://github.com/Xiaoqiovo/CLEAR",
    "journal_ref": null,
-   "venue": null,
+   "venue": "NeurIPS 2026",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.36210v1",
    "abstract": "Long-video question answering is challenging since the answer often hinges on a few decisive moments scattered throughout the video, while memory constraints force Multimodal Large Language Models (MLLMs) to sample frames at extremely low rates, resulting in sparsity that risks omitting key evidence. Though aggressively enlarging the context size is intuitive, we argue that performance remains fundamentally constrained by the bias, i.e., the misleading cues caused by spurious linguistic correlations and salient yet irrelevant visual observations. In this paper, we first introduce S-MME, a benchmark designed to systematically diagnose shortcut-biased behavior in MLLMs. To mitigate this failure, we further propose a training-free framework, Counterfactual Long-video Evidence-Aware Reasoning (CLEAR). By treating the full video-question pair as a complete view, CLEAR estimates bias effects via augmented views by only keeping the question or locally salient visual clips. Then, we intervene hidden states to mitigate the discrepancy at inference such that the correct answer can be predicted confidently. With experimental studies across five benchmarks, we show that our method is generalizable and can be integrated in different MLLMs, yielding consistent gains in prediction and robustness. We hope CLEAR can offer a complementary direction in test-time scaling for long-video understanding.",
