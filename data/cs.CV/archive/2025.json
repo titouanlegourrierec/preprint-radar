@@ -4,6 +4,1544 @@
  "year": 2025,
  "papers": [
   {
+   "arxiv_id": "2511.17967",
+   "announced": "2025-11-22",
+   "title": "CADTrack: Learning Contextual Aggregation with Deformable Alignment for Robust RGBT Tracking",
+   "authors": [
+    "Hao Li",
+    "Yuhao Wang",
+    "Xiantao Hu",
+    "Wenning Hao",
+    "Pingping Zhang",
+    "Dong Wang",
+    "Huchuan Lu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by AAAI2026. More modifications may be performed",
+   "journal_ref": null,
+   "venue": "AAAI 2026",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "RGB-Thermal (RGBT) tracking aims to exploit visible and thermal infrared modalities for robust all-weather object tracking. However, existing RGBT trackers struggle to resolve modality discrepancies, which poses great challenges for robust feature representation. This limitation hinders effective cross-modal information propagation and fusion, which significantly reduces the tracking accuracy. To address this limitation, we propose a novel Contextual Aggregation with Deformable Alignment framework called CADTrack for RGBT Tracking. To be specific, we first deploy the Mamba-based Feature Interaction (MFI) that establishes efficient feature interaction via state space models. This interaction module can operate with linear complexity, reducing computational cost and improving feature discrimination. Then, we propose the Contextual Aggregation Module (CAM) that dynamically activates backbone layers through sparse gating based on the Mixture-of-Experts (MoE). This module can encode complementary contextual information from cross-layer features. Finally, we propose the Deformable Alignment Module (DAM) to integrate deformable sampling and temporal propagation, mitigating spatial misalignment and localization drift. With the above components, our CADTrack achieves robust and accurate tracking in complex scenarios. Extensive experiments on five RGBT tracking benchmarks verify the effectiveness of our proposed method. The source code is released at https://github.com/IdolLab/CADTrack.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.17967",
+   "pdf_url": "https://arxiv.org/pdf/2511.17967"
+  },
+  {
+   "arxiv_id": "2511.11025",
+   "announced": "2025-11-22",
+   "title": "AirCopBench: A Benchmark for Multi-drone Collaborative Embodied Perception and Reasoning",
+   "authors": [
+    "Jirong Zha",
+    "Yuxuan Fan",
+    "Tianyu Zhang",
+    "Geng Chen",
+    "Yingfeng Chen",
+    "Chen Gao",
+    "Xinlei Chen"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Multimodal Large Language Models (MLLMs) have shown promise in single-agent vision tasks, yet benchmarks for evaluating multi-agent collaborative perception remain scarce. This gap is critical, as multi-drone systems provide enhanced coverage, robustness, and collaboration compared to single-sensor setups. Existing multi-image benchmarks mainly target basic perception tasks using high-quality single-agent images, thus failing to evaluate MLLMs in more complex, egocentric collaborative scenarios, especially under real-world degraded perception conditions.To address these challenges, we introduce AirCopBench, the first comprehensive benchmark designed to evaluate MLLMs in embodied aerial collaborative perception under challenging perceptual conditions. AirCopBench includes 14.6k+ questions derived from both simulator and real-world data, spanning four key task dimensions: Scene Understanding, Object Understanding, Perception Assessment, and Collaborative Decision, across 14 task types. We construct the benchmark using data from challenging degraded-perception scenarios with annotated collaborative events, generating large-scale questions through model-, rule-, and human-based methods under rigorous quality control. Evaluations on 40 MLLMs show significant performance gaps in collaborative perception tasks, with the best model trailing humans by 24.38% on average and exhibiting inconsistent results across tasks. Fine-tuning experiments further confirm the feasibility of sim-to-real transfer in aerial collaborative perception and reasoning.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.11025",
+   "pdf_url": "https://arxiv.org/pdf/2511.11025"
+  },
+  {
+   "arxiv_id": "2511.17803",
+   "announced": "2025-11-21",
+   "title": "Pillar-0: A New Frontier for Radiology Foundation Models",
+   "authors": [
+    "Kumar Krishna Agrawal",
+    "Longchao Liu",
+    "Long Lian",
+    "Michael Nercessian",
+    "Natalia Harguindeguy",
+    "Yufu Wu",
+    "Peter Mikhael",
+    "Gigin Lin",
+    "Lecia V. Sequist",
+    "Florian Fintelmann",
+    "Trevor Darrell",
+    "Yutong Bai",
+    "Maggie Chung",
+    "Adam Yala"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Radiology plays an integral role in modern medicine, yet rising imaging volumes have far outpaced workforce growth. Foundation models offer a path toward assisting with the full spectrum of radiology tasks, but existing medical models remain limited: they process volumetric CT and MRI as low-fidelity 2D slices, discard critical grayscale contrast information, and lack evaluation frameworks that reflect real clinical practice. We introduce Pillar-0, a radiology foundation model pretrained on 42,990 abdomen-pelvis CTs, 86,411 chest CTs, 14,348 head CTs, and 11,543 breast MRIs from a large academic center, together with RATE, a scalable framework that extracts structured labels for 366 radiologic findings with near-perfect accuracy using LLMs. Across internal test sets of 14,230 abdomen-pelvis CTs, 10,646 chest CTs, 4,906 head CTs, and 1,585 breast MRIs, Pillar-0 establishes a new performance frontier, achieving mean AUROCs of 86.4, 88.0, 90.1, and 82.9, outperforming MedGemma (Google), MedImageInsight (Microsoft), Lingshu (Alibaba), and Merlin (Stanford) by 7.8-15.8 AUROC points and ranking best in 87.2% (319/366) tasks. Pillar-0 similarly outperforms all baselines in an external validation on the Stanford Abdominal CT dataset, including Merlin (82.2 vs 80.6 AUROC). Pillar-0 extends to tasks beyond its pretraining, such as long-horizon lung cancer risk prediction, where it improves upon the state-of-the-art Sybil by 3.0 C-index points on NLST, and generalizes with gains of 5.9 (MGH) and 1.9 (CGMH). In brain hemorrhage detection, Pillar-0 obtained a >95 AUROC when using only 1/20th of the data of the next most sample efficient baseline. Pillar-0 and RATE together provide an open, clinically rigorous foundation for building high-performance radiology systems, enabling applications that were previously infeasible due to computational, data, and evaluation constraints.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.17803",
+   "pdf_url": "https://arxiv.org/pdf/2511.17803"
+  },
+  {
+   "arxiv_id": "2511.17282",
+   "announced": "2025-11-21",
+   "title": "Where Culture Fades: Revealing the Cultural Gap in Text-to-Image Generation",
+   "authors": [
+    "Chuancheng Shi",
+    "Shangze Li",
+    "Shiming Guo",
+    "Simiao Xie",
+    "Wenhua Wu",
+    "Jingtong Dou",
+    "Chao Wu",
+    "Canran Xiao",
+    "Cong Wang",
+    "Zifeng Cheng",
+    "Fei Shen",
+    "Tat-Seng Chua"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Computers and Society (cs.CY)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Multilingual text-to-image (T2I) models have advanced rapidly in terms of visual realism and semantic alignment, and are now widely utilized. Yet outputs vary across cultural contexts: because language carries cultural connotations, images synthesized from multilingual prompts should preserve cross-lingual cultural consistency. We conduct a comprehensive analysis showing that current T2I models often produce culturally neutral or English-biased results under multilingual prompts. Analyses of two representative models indicate that the issue stems not from missing cultural knowledge but from insufficient activation of culture-related representations. We propose a probing method that localizes culture-sensitive signals to a small set of neurons in a few fixed layers. Guided by this finding, we introduce two complementary alignment strategies: (1) inference-time cultural activation that amplifies the identified neurons without backbone fine-tuned; and (2) layer-targeted cultural enhancement that updates only culturally relevant layers. Experiments on our CultureBench demonstrate consistent improvements over strong baselines in cultural consistency while preserving fidelity and diversity.",
+   "affiliations": [
+    "University of Sydney",
+    "Nanjing University of Science and Technology",
+    "Central South University",
+    "Nanjing University",
+    "National University of Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     4
+    ]
+   ],
+   "institutions": [
+    "University of Sydney",
+    "Nanjing University of Science and Technology",
+    "Central South University",
+    "Nanjing University",
+    "National University of Singapore"
+   ],
+   "institution_ids": [
+    "0384j8v12",
+    "00xp9wg62",
+    "00f1zfq44",
+    "01rxvg760",
+    "01tgyzw49"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.17282",
+   "pdf_url": "https://arxiv.org/pdf/2511.17282"
+  },
+  {
+   "arxiv_id": "2511.17158",
+   "announced": "2025-11-21",
+   "title": "Exploring the added value of pretherapeutic MR descriptors in predicting breast cancer pathologic complete response to neoadjuvant chemotherapy",
+   "authors": [
+    "Caroline Malhaire",
+    "Fatine Selhane",
+    "Marie-Judith Saint-Martin",
+    "Vincent Cockenpot",
+    "Pia Akl",
+    "Enora Laas",
+    "Audrey Bellesoeur",
+    "Catherine Ala Eddine",
+    "Melodie Bereby-Kahane",
+    "Julie Manceau",
+    "Delphine Sebbag-Sfez",
+    "Jean-Yves Pierga",
+    "Fabien Reyal",
+    "Anne Vincent-Salomon",
+    "Herve Brisse",
+    "Frederique Frouin"
+   ],
+   "primary_subject": "Medical Physics (physics.med-ph)",
+   "subjects": [
+    "Medical Physics (physics.med-ph)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "European Radiology, 2023, 33 (11), pp.8142-8154",
+   "venue": null,
+   "cross_list_from": "physics.med-ph",
+   "html_url": null,
+   "abstract": "Objectives: To evaluate the association between pretreatment MRI descriptors and breast cancer (BC) pathological complete response (pCR) to neoadjuvant chemotherapy (NAC). Materials & Methods: Patients with BC treated by NAC with a breast MRI between 2016 and 2020 were included in this retrospective observational single-center study. MR studies were described using the standardized BI-RADS and breast edema score on T2-weighted MRI. Univariable and multivariable logistic regression analyses were performed to assess variables association with pCR according to residual cancer burden. Random forest classifiers were trained to predict pCR on a random split including 70% of the database and were validated on the remaining cases. Results: Among 129 BC, 59 (46%) achieved pCR after NAC (luminal (n=7/37, 19%), triple negative (TN) (n=30/55, 55%), HER2+ (n=22/37, 59%). Clinical and biological items associated with pCR were BC subtype (p<0.001), T stage 0/I/II (p=0.008), higher Ki67 (p=0.005) and higher tumor-infiltrating lymphocytes levels (p=0.016). Univariate analysis showed that the following MRI features, oval or round shape (p=0.047), unifocality (p=0.026), non-spiculated margins (p=0.018), no associated non-mass enhancement (NME) (p = 0.024) and a lower MRI size (p = 0.031) were significantly associated with pCR. Unifocality and non-spiculated margins remained independently associated with pCR at multivariable analysis. Adding significant MRI features to clinicobiological variables in random forest classifiers significantly increased sensitivity (0.67 versus 0.62), specificity (0.69 versus 0.67) and precision (0.71 versus 0.67) for pCR prediction. Conclusion: Non-spiculated margins and unifocality are independently associated with pCR and can increase models performance to predict BC response to NAC. Clinical Relevance Statement: A multimodal approach integrating pretreatment MRI features with clinicobiological predictors, including TILs, could be employed to develop machine learning models for identifying patients at risk of non-response. This may enable consideration of alternative therapeutic strategies to optimize treatment outcomes",
+   "affiliations": [
+    "Inserm",
+    "Université Paris Sciences et Lettres",
+    "Université Paris-Saclay",
+    "Institut Curie",
+    "Institut Gustave Roussy",
+    "Centre Léon Bérard",
+    "Hospices Civils de Lyon"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2,
+     3
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     5
+    ],
+    [
+     6
+    ],
+    [
+     3
+    ],
+    null,
+    [
+     1,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     1,
+     3
+    ],
+    null,
+    [
+     3
+    ],
+    null,
+    [
+     1,
+     3
+    ],
+    [
+     0,
+     3
+    ]
+   ],
+   "institutions": [
+    "Inserm",
+    "Université Paris Sciences et Lettres",
+    "Université Paris-Saclay",
+    "Institut Curie",
+    "Institut Gustave Roussy",
+    "Centre Léon Bérard",
+    "Hospices Civils de Lyon"
+   ],
+   "institution_ids": [
+    "02vjkv261",
+    "013cjyk83",
+    "03xjwb503",
+    "04t0gwh46",
+    "0321g0743",
+    "01cmnjq37",
+    "01502ca60"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.17158",
+   "pdf_url": "https://arxiv.org/pdf/2511.17158"
+  },
+  {
+   "arxiv_id": "2511.17052",
+   "announced": "2025-11-21",
+   "title": "PathAgent: Toward Interpretable Analysis of Whole-slide Pathology Images via Large Language Model-based Agentic Reasoning",
+   "authors": [
+    "Jingyun Chen",
+    "Linghan Cai",
+    "Zhikang Wang",
+    "Yi Huang",
+    "Songhan Jiang",
+    "Shenjin Huang",
+    "Hongpeng Wang",
+    "Yongbing Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "11 pages, 6 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Analyzing whole-slide images (WSIs) requires an iterative, evidence-driven reasoning process that parallels how pathologists dynamically zoom, refocus, and self-correct while collecting the evidence. However, existing computational pipelines often lack this explicit reasoning trajectory, resulting in inherently opaque and unjustifiable predictions. To bridge this gap, we present PathAgent, a training-free, large language model (LLM)-based agent framework that emulates the reflective, stepwise analytical approach of human experts. PathAgent can autonomously explore WSI, iteratively and precisely locating significant micro-regions using the Navigator module, extracting morphology visual cues using the Perceptor, and integrating these findings into the continuously evolving natural language trajectories in the Executor. The entire sequence of observations and decisions forms an explicit chain-of-thought, yielding fully interpretable predictions. Evaluated across five challenging datasets, PathAgent exhibits strong zero-shot generalization, surpassing task-specific baselines in both open-ended and constrained visual question-answering tasks. Moreover, a collaborative evaluation with human pathologists confirms PathAgent's promise as a transparent and clinically grounded diagnostic assistant.",
+   "affiliations": [
+    "Harbin Institute of Technology",
+    "Fudan University",
+    "Sichuan University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Harbin Institute of Technology",
+    "Fudan University",
+    "Sichuan University"
+   ],
+   "institution_ids": [
+    "01yqg2h08",
+    "013q1eq08",
+    "011ashp19"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.17052",
+   "pdf_url": "https://arxiv.org/pdf/2511.17052"
+  },
+  {
+   "arxiv_id": "2511.16825",
+   "announced": "2025-11-20",
+   "title": "WorldGen: From Text to Traversable and Interactive 3D Worlds",
+   "authors": [
+    "Dilin Wang",
+    "Hyunyoung Jung",
+    "Tom Monnier",
+    "Kihyuk Sohn",
+    "Chuhang Zou",
+    "Xiaoyu Xiang",
+    "Yu-Ying Yeh",
+    "Di Liu",
+    "Zixuan Huang",
+    "Thu Nguyen-Phuoc",
+    "Yuchen Fan",
+    "Sergiu Oprea",
+    "Ziyan Wang",
+    "Roman Shapovalov",
+    "Nikolaos Sarafianos",
+    "Thibault Groueix",
+    "Antoine Toisoul",
+    "Prithviraj Dhar",
+    "Xiao Chu",
+    "Minghao Chen",
+    "Geon Yeong Park",
+    "Mahima Gupta",
+    "Yassir Azziz",
+    "Rakesh Ranjan",
+    "Andrea Vedaldi"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2511.16825v1",
+   "abstract": "We introduce WorldGen, a system that enables the automatic creation of large-scale, interactive 3D worlds directly from text prompts. Our approach transforms natural language descriptions into traversable, fully textured environments that can be immediately explored or edited within standard game engines. By combining LLM-driven scene layout reasoning, procedural generation, diffusion-based 3D generation, and object-aware scene decomposition, WorldGen bridges the gap between creative intent and functional virtual spaces, allowing creators to design coherent, navigable worlds without manual modeling or specialized 3D expertise. The system is fully modular and supports fine-grained control over layout, scale, and style, producing worlds that are geometrically consistent, visually rich, and efficient to render in real time. This work represents a step towards accessible, generative world-building at scale, advancing the frontier of 3D generative AI for applications in gaming, simulation, and immersive social environments.",
+   "affiliations": [
+    "Reality Labs, Meta"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Meta"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-12"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.16825",
+   "pdf_url": "https://arxiv.org/pdf/2511.16825"
+  },
+  {
+   "arxiv_id": "2511.16668",
+   "announced": "2025-11-20",
+   "title": "V-ReasonBench: Toward Unified Reasoning Benchmark Suite for Video Generation Models",
+   "authors": [
+    "Yang Luo",
+    "Xuanlei Zhao",
+    "Baijiong Lin",
+    "Lingting Zhu",
+    "Liyao Tang",
+    "Yuqi Liu",
+    "Ying-Cong Chen",
+    "Shengju Qian",
+    "Xin Wang",
+    "Yang You"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Project Page: https://oahzxl.github.io/VReasonBench",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recent progress in generative video models, such as Veo-3, has shown surprising zero-shot reasoning abilities, creating a growing need for systematic and reliable evaluation. We introduce V-ReasonBench, a benchmark designed to assess video reasoning across four key dimensions: structured problem-solving, spatial cognition, pattern-based inference, and physical dynamics. The benchmark is built from both synthetic and real-world image sequences and provides a diverse set of answer-verifiable tasks that are reproducible, scalable, and unambiguous. Evaluations of six state-of-the-art video models reveal clear dimension-wise differences, with strong variation in structured, spatial, pattern-based, and physical reasoning. We further compare video models with strong image models, analyze common hallucination behaviors, and study how video duration affects Chain-of-Frames reasoning. Overall, V-ReasonBench offers a unified and reproducible framework for measuring video reasoning and aims to support the development of models with more reliable, human-aligned reasoning skills.",
+   "affiliations": [
+    "National University of Singapore",
+    "Hong Kong University of Science and Technology (Guangzhou)",
+    "University of Hong Kong",
+    "University of Sydney",
+    "Chinese University of Hong Kong"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     1
+    ],
+    null,
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore",
+    "Hong Kong University of Science and Technology (Guangzhou)",
+    "University of Hong Kong",
+    "University of Sydney",
+    "Chinese University of Hong Kong"
+   ],
+   "institution_ids": [
+    "01tgyzw49",
+    "050h0vm43",
+    "02zhqgq86",
+    "0384j8v12",
+    "00t33hh48"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.16668",
+   "pdf_url": "https://arxiv.org/pdf/2511.16668"
+  },
+  {
+   "arxiv_id": "2511.16321",
+   "announced": "2025-11-20",
+   "title": "WWE-UIE: A Wavelet & White Balance Efficient Network for Underwater Image Enhancement",
+   "authors": [
+    "Ching-Heng Cheng",
+    "Jen-Wei Lee",
+    "Chia-Ming Lee",
+    "Chih-Chung Hsu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Underwater Image Enhancement (UIE) aims to restore visibility and correct color distortions caused by wavelength-dependent absorption and scattering. Recent hybrid approaches, which couple domain priors with modern deep neural architectures, have achieved strong performance but incur high computational cost, limiting their practicality in real-time scenarios. In this work, we propose WWE-UIE, a compact and efficient enhancement network that integrates three interpretable priors. First, adaptive white balance alleviates the strong wavelength-dependent color attenuation, particularly the dominance of blue-green tones. Second, a wavelet-based enhancement block (WEB) performs multi-band decomposition, enabling the network to capture both global structures and fine textures, which are critical for underwater restoration. Third, a gradient-aware module (SGFB) leverages Sobel operators with learnable gating to explicitly preserve edge structures degraded by scattering. Extensive experiments on benchmark datasets demonstrate that WWE-UIE achieves competitive restoration quality with substantially fewer parameters and FLOPs, enabling real-time inference on resource-limited platforms. Ablation studies and visualizations further validate the contribution of each component. The source code is available at https://github.com/chingheng0808/WWE-UIE.",
+   "affiliations": [
+    "National Cheng Kung University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "National Cheng Kung University"
+   ],
+   "institution_ids": [
+    "01b8kcc49"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.16321",
+   "pdf_url": "https://arxiv.org/pdf/2511.16321"
+  },
+  {
+   "arxiv_id": "2511.15661",
+   "announced": "2025-11-20",
+   "title": "VisPlay: Self-Evolving Vision-Language Models from Images",
+   "authors": [
+    "Yicheng He",
+    "Chengsong Huang",
+    "Zongxia Li",
+    "Jiaxin Huang",
+    "Yonghui Yang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Computation and Language (cs.CL)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2511.15661v1",
+   "abstract": "Reinforcement learning (RL) provides a principled framework for improving Vision-Language Models (VLMs) on complex reasoning tasks. However, existing RL approaches often rely on human-annotated labels or task-specific heuristics to define verifiable rewards, both of which are costly and difficult to scale. We introduce VisPlay, a self-evolving RL framework that enables VLMs to autonomously improve their reasoning abilities using large amounts of unlabeled image data. Starting from a single base VLM, VisPlay assigns the model into two interacting roles: an Image-Conditioned Questioner that formulates challenging yet answerable visual questions, and a Multimodal Reasoner that generates silver responses. These roles are jointly trained with Group Relative Policy Optimization (GRPO), which incorporates diversity and difficulty rewards to balance the complexity of generated questions with the quality of the silver answers. VisPlay scales efficiently across two model families. When trained on Qwen2.5-VL and MiMo-VL, VisPlay achieves consistent improvements in visual reasoning, compositional generalization, and hallucination reduction across eight benchmarks, including MM-Vet and MMMU, demonstrating a scalable path toward self-evolving multimodal intelligence. The project page is available at https://bruno686.github.io/VisPlay/",
+   "affiliations": [
+    "University of Illinois Urbana-Champaign",
+    "Washington University in St. Louis",
+    "University of Maryland",
+    "National University of Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2,
+     3
+    ],
+    null,
+    [
+     1,
+     2,
+     3
+    ],
+    null
+   ],
+   "institutions": [
+    "University of Illinois Urbana-Champaign",
+    "Washington University in St. Louis",
+    "University of Maryland",
+    "National University of Singapore"
+   ],
+   "institution_ids": [
+    "047426m28",
+    "01yc7t268",
+    null,
+    "01tgyzw49"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-04"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-29"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.15661",
+   "pdf_url": "https://arxiv.org/pdf/2511.15661"
+  },
+  {
+   "arxiv_id": "2511.15704",
+   "announced": "2025-11-19",
+   "title": "In-N-On: Scaling Egocentric Manipulation with in-the-wild and on-task Data",
+   "authors": [
+    "Xiongyi Cai",
+    "Ri-Zhao Qiu",
+    "Geng Chen",
+    "Lai Wei",
+    "Isabella Liu",
+    "Tianshu Huang",
+    "Xuxin Cheng",
+    "Xiaolong Wang"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Project webpage: https://xiongyicai.github.io/In-N-On/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": "https://arxiv.org/html/2511.15704v1",
+   "abstract": "Egocentric videos are a valuable and scalable data source to learn manipulation policies. However, due to significant data heterogeneity, most existing approaches utilize human data for simple pre-training, which does not unlock its full potential. This paper first provides a scalable recipe for collecting and using egocentric data by categorizing human data into two categories: in-the-wild and on-task alongside with systematic analysis on how to use the data. We first curate a dataset, PHSD, which contains over 1,000 hours of diverse in-the-wild egocentric data and over 20 hours of on-task data directly aligned to the target manipulation tasks. This enables learning a large egocentric language-conditioned flow matching policy, Human0. With domain adaptation techniques, Human0 minimizes the gap between humans and humanoids. Empirically, we show Human0 achieves several novel properties from scaling human data, including language following of instructions from only human data, few-shot learning, and improved robustness using on-task data. Project website: https://xiongyicai.github.io/In-N-On/",
+   "affiliations": [
+    "UC San Diego"
+   ],
+   "author_affiliations": null,
+   "institutions": [
+    "University of California San Diego"
+   ],
+   "institution_ids": [
+    "0168r3w48"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-04"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-12"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.15704",
+   "pdf_url": "https://arxiv.org/pdf/2511.15704"
+  },
+  {
+   "arxiv_id": "2511.05923",
+   "announced": "2025-11-19",
+   "title": "Causal Tracing of Object Representations in Large Vision Language Models: Mechanistic Interpretability and Hallucination Mitigation",
+   "authors": [
+    "Qiming Li",
+    "Zekai Ye",
+    "Xiaocheng Feng",
+    "Weihong Zhong",
+    "Weitao Ma",
+    "Xiachong Feng"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "AAAI2026 Oral",
+   "journal_ref": null,
+   "venue": "AAAI 2026",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Despite the remarkable advancements of Large Vision-Language Models (LVLMs), the mechanistic interpretability remains underexplored. Existing analyses are insufficiently comprehensive and lack examination covering visual and textual tokens, model components, and the full range of layers. This limitation restricts actionable insights to improve the faithfulness of model output and the development of downstream tasks, such as hallucination mitigation. To address this limitation, we introduce Fine-grained Cross-modal Causal Tracing (FCCT) framework, which systematically quantifies the causal effects on visual object perception. FCCT conducts fine-grained analysis covering the full range of visual and textual tokens, three core model components including multi-head self-attention (MHSA), feed-forward networks (FFNs), and hidden states, across all decoder layers. Our analysis is the first to demonstrate that MHSAs of the last token in middle layers play a critical role in aggregating cross-modal information, while FFNs exhibit a three-stage hierarchical progression for the storage and transfer of visual object representations. Building on these insights, we propose Intermediate Representation Injection (IRI), a training-free inference-time technique that reinforces visual object information flow by precisely intervening on cross-modal representations at specific components and layers, thereby enhancing perception and mitigating hallucination. Consistent improvements across five widely used benchmarks and LVLMs demonstrate IRI achieves state-of-the-art performance, while preserving inference speed and other foundational performance.",
+   "affiliations": [
+    "Harbin Institute of Technology",
+    "Peng Cheng Laboratory",
+    "University of Hong Kong"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "Harbin Institute of Technology",
+    "Peng Cheng Laboratory",
+    "University of Hong Kong"
+   ],
+   "institution_ids": [
+    "01yqg2h08",
+    "03qdqbt06",
+    "02zhqgq86"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.05923",
+   "pdf_url": "https://arxiv.org/pdf/2511.05923"
+  },
+  {
+   "arxiv_id": "2511.17614",
+   "announced": "2025-11-18",
+   "title": "HSMix: Hard and Soft Mixing Data Augmentation for Medical Image Segmentation",
+   "authors": [
+    "Danyang Sun",
+    "Fadi Dornaika",
+    "Nagore Barrena"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Due to the high cost of annotation or the rarity of some diseases, medical image segmentation is often limited by data scarcity and the resulting overfitting problem. Self-supervised learning and semi-supervised learning can mitigate the data scarcity challenge to some extent. However, both of these paradigms are complex and require either hand-crafted pretexts or well-defined pseudo-labels. In contrast, data augmentation represents a relatively simple and straightforward approach to addressing data scarcity issues. It has led to significant improvements in image recognition tasks. However, the effectiveness of local image editing augmentation techniques in the context of segmentation has been less explored. We propose HSMix, a novel approach to local image editing data augmentation involving hard and soft mixing for medical semantic segmentation. In our approach, a hard-augmented image is created by combining homogeneous regions (superpixels) from two source images. A soft mixing method further adjusts the brightness of these composed regions with brightness mixing based on locally aggregated pixel-wise saliency coefficients. The ground-truth segmentation masks of the two source images undergo the same mixing operations to generate the associated masks for the augmented images. Our method fully exploits both the prior contour and saliency information, thus preserving local semantic information in the augmented images while enriching the augmentation space with more diversity. Our method is a plug-and-play solution that is model agnostic and applicable to a range of medical imaging modalities. Extensive experimental evidence has demonstrated its effectiveness in a variety of medical segmentation tasks. The source code is available in https://github.com/DanielaPlusPlus/HSMix.",
+   "affiliations": [
+    "Ikerbasque",
+    "University of the Basque Country"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Ikerbasque",
+    "University of the Basque Country"
+   ],
+   "institution_ids": [
+    "01cc3fy72",
+    "000xsnr85"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.17614",
+   "pdf_url": "https://arxiv.org/pdf/2511.17614"
+  },
+  {
+   "arxiv_id": "2511.14761",
+   "announced": "2025-11-18",
+   "title": "ARC Is a Vision Problem!",
+   "authors": [
+    "Keya Hu",
+    "Ali Cy",
+    "Linlu Qiu",
+    "Xiaoman Delores Ding",
+    "Runqian Wang",
+    "Yeyin Eva Zhu",
+    "Jacob Andreas",
+    "Kaiming He"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Technical Report. Project webpage: https://github.com/lillian039/VARC",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2511.14761v1",
+   "abstract": "The Abstraction and Reasoning Corpus (ARC) is designed to promote research on abstract reasoning, a fundamental aspect of human intelligence. Common approaches to ARC treat it as a language-oriented problem, addressed by large language models (LLMs) or recurrent reasoning models. However, although the puzzle-like tasks in ARC are inherently visual, existing research has rarely approached the problem from a vision-centric perspective. In this work, we formulate ARC within a vision paradigm, framing it as an image-to-image translation problem. To incorporate visual priors, we represent the inputs on a \"canvas\" that can be processed like natural images. It is then natural for us to apply standard vision architectures, such as a vanilla Vision Transformer (ViT), to perform image-to-image mapping. Our model is trained from scratch solely on ARC data and generalizes to unseen tasks through test-time training. Our framework, termed Vision ARC (VARC), achieves 60.4% accuracy on the ARC-1 benchmark, substantially outperforming existing methods that are also trained from scratch. Our results are competitive with those of leading LLMs and close the gap to average human performance.",
+   "affiliations": [
+    "MIT"
+   ],
+   "author_affiliations": null,
+   "institutions": [
+    "Massachusetts Institute of Technology"
+   ],
+   "institution_ids": [
+    "042nb2s44"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-04"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-12"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.14761",
+   "pdf_url": "https://arxiv.org/pdf/2511.14761"
+  },
+  {
+   "arxiv_id": "2511.14394",
+   "announced": "2025-11-18",
+   "title": "BEDLAM2.0: Synthetic Humans and Cameras in Motion",
+   "authors": [
+    "Joachim Tesch",
+    "Giorgio Becherini",
+    "Prerana Achar",
+    "Anastasios Yiannakidis",
+    "Muhammed Kocabas",
+    "Priyanka Patel",
+    "Michael J. Black"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "NeurIPS 2025 (Datasets and Benchmarks track, oral). Project website: https://bedlam2.is.tue.mpg.de",
+   "journal_ref": null,
+   "venue": "NeurIPS 2025",
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2511.14394v1",
+   "abstract": "Inferring 3D human motion from video remains a challenging problem with many applications. While traditional methods estimate the human in image coordinates, many applications require human motion to be estimated in world coordinates. This is particularly challenging when there is both human and camera motion. Progress on this topic has been limited by the lack of rich video data with ground truth human and camera movement. We address this with BEDLAM2.0, a new dataset that goes beyond the popular BEDLAM dataset in important ways. In addition to introducing more diverse and realistic cameras and camera motions, BEDLAM2.0 increases diversity and realism of body shape, motions, clothing, hair, and 3D environments. Additionally, it adds shoes, which were missing in BEDLAM. BEDLAM has become a key resource for training 3D human pose and motion regressors today and we show that BEDLAM2.0 is significantly better, particularly for training methods that estimate humans in world coordinates. We compare state-of-the art methods trained on BEDLAM and BEDLAM2.0, and find that BEDLAM2.0 significantly improves accuracy over BEDLAM. For research purposes, we provide the rendered videos, ground truth body parameters, and camera motions. We also provide the 3D assets to which we have rights and links to those from third parties.",
+   "affiliations": [
+    "Max Planck Institute for Intelligent Systems, Tübingen, Germany",
+    "Meshcapade GmbH"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "Max Planck Institute for Intelligent Systems",
+    "Meshcapade GmbH"
+   ],
+   "institution_ids": [
+    "04fq9j139",
+    null
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-04"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-12"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.14394",
+   "pdf_url": "https://arxiv.org/pdf/2511.14394"
+  },
+  {
+   "arxiv_id": "2511.13655",
+   "announced": "2025-11-17",
+   "title": "OlmoEarth: Stable Latent Image Modeling for Multimodal Earth Observation",
+   "authors": [
+    "Henry Herzog",
+    "Favyen Bastani",
+    "Yawen Zhang",
+    "Gabriel Tseng",
+    "Joseph Redmon",
+    "Hadrien Sablon",
+    "Ryan Park",
+    "Jacob Morrison",
+    "Alexandra Buraczynski",
+    "Karen Farley",
+    "Joshua Hansen",
+    "Andrew Howe",
+    "Patrick Alan Johnson",
+    "Mark Otterlee",
+    "Ted Schmitt",
+    "Hunter Pitelka",
+    "Stephen Daspit",
+    "Rachel Ratner",
+    "Christopher Wilhelm",
+    "Sebastian Wood",
+    "Mike Jacobi",
+    "Hannah Kerner",
+    "Evan Shelhamer",
+    "Ali Farhadi",
+    "Ranjay Krishna",
+    "Patrick Beukema"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Earth observation data presents a unique challenge: it is spatial like images, sequential like video or text, and highly multimodal. We present OlmoEarth: a multimodal, spatio-temporal foundation model that employs a novel self-supervised learning formulation, masking strategy, and loss all designed for the Earth observation domain. OlmoEarth achieves state-of-the-art performance compared to 12 other foundation models across a variety of research benchmarks and real-world tasks from external partners. When evaluating embeddings OlmoEarth achieves the best performance on 15 out of 24 tasks, and with full fine-tuning it is the best on 19 of 29 tasks. We deploy OlmoEarth as the backbone of an end-to-end platform for data collection, labeling, training, and inference of Earth observation models. The OlmoEarth Platform puts frontier foundation models and powerful data management tools into the hands of non-profits and NGOs working to solve the world's biggest problems. OlmoEarth source code, training data, and pre-trained weights are available at $https://github.com/allenai/olmoearth_pretrain$.",
+   "affiliations": [
+    "Allen Institute for Artificial Intelligence",
+    "University of Washington",
+    "Arizona State University",
+    "University of British Columbia"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Allen Institute for Artificial Intelligence",
+    "University of Washington",
+    "Arizona State University",
+    "University of British Columbia"
+   ],
+   "institution_ids": [
+    "05w520734",
+    "00cvxb145",
+    "03efmqc40",
+    "03rmrcq20"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-15"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.13655",
+   "pdf_url": "https://arxiv.org/pdf/2511.13655"
+  },
+  {
+   "arxiv_id": "2511.13648",
+   "announced": "2025-11-17",
+   "title": "PhysX-Anything: Simulation-Ready Physical 3D Assets from Single Image",
+   "authors": [
+    "Ziang Cao",
+    "Fangzhou Hong",
+    "Zhaoxi Chen",
+    "Liang Pan",
+    "Ziwei Liu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Robotics (cs.RO)"
+   ],
+   "comments": "Project page: https://physx-anything.github.io/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2511.13648v1",
+   "abstract": "3D modeling is shifting from static visual representations toward physical, articulated assets that can be directly used in simulation and interaction. However, most existing 3D generation methods overlook key physical and articulation properties, thereby limiting their utility in embodied AI. To bridge this gap, we introduce PhysX-Anything, the first simulation-ready physical 3D generative framework that, given a single in-the-wild image, produces high-quality sim-ready 3D assets with explicit geometry, articulation, and physical attributes. Specifically, we propose the first VLM-based physical 3D generative model, along with a new 3D representation that efficiently tokenizes geometry. It reduces the number of tokens by 193x, enabling explicit geometry learning within standard VLM token budgets without introducing any special tokens during fine-tuning and significantly improving generative quality. In addition, to overcome the limited diversity of existing physical 3D datasets, we construct a new dataset, PhysX-Mobility, which expands the object categories in prior physical 3D datasets by over 2x and includes more than 2K common real-world objects with rich physical annotations. Extensive experiments on PhysX-Mobility and in-the-wild images demonstrate that PhysX-Anything delivers strong generative performance and robust generalization. Furthermore, simulation-based experiments in a MuJoCo-style environment validate that our sim-ready assets can be directly used for contact-rich robotic policy learning. We believe PhysX-Anything can substantially empower a broad range of downstream applications, especially in embodied AI and physics-based simulation.",
+   "affiliations": [
+    "S-Lab, Nanyang Technological University",
+    "Shanghai AI Lab"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Nanyang Technological University",
+    "Shanghai Artificial Intelligence Laboratory"
+   ],
+   "institution_ids": [
+    "02e7b5302",
+    "03wkvpx79"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-04"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-12"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.13648",
+   "pdf_url": "https://arxiv.org/pdf/2511.13648"
+  },
+  {
+   "arxiv_id": "2511.13575",
+   "announced": "2025-11-17",
+   "title": "Hierarchical Prompt Learning for Image- and Text-Based Person Re-Identification",
+   "authors": [
+    "Linhan Zhou",
+    "Shuang Li",
+    "Neng Dong",
+    "Yonghang Tai",
+    "Yafei Zhang",
+    "Huafeng Li"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "9 pages, 4 figures, accepted by AAAI 2026",
+   "journal_ref": null,
+   "venue": "AAAI 2026",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Person re-identification (ReID) aims to retrieve target pedestrian images given either visual queries (image-to-image, I2I) or textual descriptions (text-to-image, T2I). Although both tasks share a common retrieval objective, they pose distinct challenges: I2I emphasizes discriminative identity learning, while T2I requires accurate cross-modal semantic alignment. Existing methods often treat these tasks separately, which may lead to representation entanglement and suboptimal performance. To address this, we propose a unified framework named Hierarchical Prompt Learning (HPL), which leverages task-aware prompt modeling to jointly optimize both tasks. Specifically, we first introduce a Task-Routed Transformer, which incorporates dual classification tokens into a shared visual encoder to route features for I2I and T2I branches respectively. On top of this, we develop a hierarchical prompt generation scheme that integrates identity-level learnable tokens with instance-level pseudo-text tokens. These pseudo-tokens are derived from image or text features via modality-specific inversion networks, injecting fine-grained, instance-specific semantics into the prompts. Furthermore, we propose a Cross-Modal Prompt Regularization strategy to enforce semantic alignment in the prompt token space, ensuring that pseudo-prompts preserve source-modality characteristics while enhancing cross-modal transferability. Extensive experiments on multiple ReID benchmarks validate the effectiveness of our method, achieving state-of-the-art performance on both I2I and T2I tasks.",
+   "affiliations": [
+    "Kunming University of Science and Technology",
+    "Chongqing University of Posts and Telecommunications",
+    "Nanjing University of Science and Technology",
+    "Yunnan Normal University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Kunming University of Science and Technology",
+    "Chongqing University of Posts and Telecommunications",
+    "Nanjing University of Science and Technology",
+    "Yunnan Normal University"
+   ],
+   "institution_ids": [
+    "00xyeez13",
+    "03dgaqz26",
+    "00xp9wg62",
+    "00sc9n023"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.13575",
+   "pdf_url": "https://arxiv.org/pdf/2511.13575"
+  },
+  {
+   "arxiv_id": "2511.12917",
+   "announced": "2025-11-17",
+   "title": "Explore How to Inject Beneficial Noise in MLLMs",
+   "authors": [
+    "Ruishu Zhu",
+    "Sida Huang",
+    "Ziheng Jiao",
+    "Hongyuan Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by AAAI 2026",
+   "journal_ref": null,
+   "venue": "AAAI 2026",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Multimodal Large Language Models (MLLMs) have played an increasingly important role in multimodal intelligence. However, the existing fine-tuning methods often ignore cross-modal heterogeneity, limiting their full potential. In this work, we propose a novel fine-tuning strategy by injecting beneficial random noise, which outperforms previous methods and even surpasses full fine-tuning, with minimal additional parameters. The proposed Multimodal Noise Generator (MuNG) enables efficient modality fine-tuning by injecting customized noise into the frozen MLLMs. Specifically, we reformulate the reasoning process of MLLMs from a variational inference perspective, upon which we design a multimodal noise generator that dynamically analyzes cross-modal relationships in image-text pairs to generate task-adaptive beneficial noise. Injecting this type of noise into the MLLMs effectively suppresses irrelevant semantic components, leading to significantly improved cross-modal representation alignment and enhanced performance on downstream tasks. Experiments on two mainstream MLLMs, QwenVL and LLaVA, demonstrate that our method surpasses full-parameter fine-tuning and other existing fine-tuning approaches, while requiring adjustments to only about 1~2% additional parameters. The relevant code is uploaded in the supplementary.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.12917",
+   "pdf_url": "https://arxiv.org/pdf/2511.12917"
+  },
+  {
+   "arxiv_id": "2511.10390",
+   "announced": "2025-11-16",
+   "title": "MonkeyOCR v1.5 Technical Report: Unlocking Robust Document Parsing for Complex Patterns",
+   "authors": [
+    "Jiarui Zhang",
+    "Yuliang Liu",
+    "Zijun Wu",
+    "Guosheng Pang",
+    "Zhili Ye",
+    "Yupei Zhong",
+    "Junteng Ma",
+    "Tao Wei",
+    "Haiyang Xu",
+    "Weikai Chen",
+    "Zeen Wang",
+    "Qiangjun Ji",
+    "Fanxi Zhou",
+    "Qi Zhang",
+    "Yuanrui Hu",
+    "Jiahao Liu",
+    "Zhang Li",
+    "Ziyang Zhang",
+    "Qiang Liu",
+    "Xiang Bai"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Document parsing is a core task in document intelligence, supporting applications such as information extraction, retrieval-augmented generation, and automated document analysis. However, real-world documents often feature complex layouts with multi-level tables, embedded images or formulas, and cross-page structures, which remain challenging for existing OCR systems. We introduce MonkeyOCR v1.5, a unified vision-language framework that enhances both layout understanding and content recognition through a two-stage pipeline. The first stage employs a large multimodal model to jointly predict layout and reading order, leveraging visual information to ensure sequential consistency. The second stage performs localized recognition of text, formulas, and tables within detected regions, maintaining high visual fidelity while reducing error propagation. To address complex table structures, we propose a visual consistency-based reinforcement learning scheme that evaluates recognition quality via render-and-compare alignment, improving structural accuracy without manual annotations. Additionally, two specialized modules, Image-Decoupled Table Parsing and Type-Guided Table Merging, are introduced to enable reliable parsing of tables containing embedded images and reconstruction of tables crossing pages or columns. Comprehensive experiments on OmniDocBench v1.5 demonstrate that MonkeyOCR v1.5 achieves state-of-the-art performance, outperforming PPOCR-VL and MinerU 2.5 while showing exceptional robustness in visually complex document scenarios. A trial link can be found at https://github.com/Yuliang-Liu/MonkeyOCR .",
+   "affiliations": [
+    "Kingsoft",
+    "Huazhong University of Science and Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Kingsoft",
+    "Huazhong University of Science and Technology"
+   ],
+   "institution_ids": [
+    "01stnfn33",
+    "00p991c53"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.10390",
+   "pdf_url": "https://arxiv.org/pdf/2511.10390"
+  },
+  {
    "arxiv_id": "2511.12267",
    "announced": "2025-11-15",
    "title": "ZoomEarth: Active Perception for Ultra-High-Resolution Geospatial Vision-Language Tasks",
@@ -981,6 +2519,93 @@
    "pdf_url": "https://arxiv.org/pdf/2511.07278"
   },
   {
+   "arxiv_id": "2511.07206",
+   "announced": "2025-11-10",
+   "title": "Geometric implicit neural representations for signed distance functions",
+   "authors": [
+    "Luiz Schirmer",
+    "Tiago Novello",
+    "Vinícius da Silva",
+    "Guilherme Schardong",
+    "Daniel Perazzo",
+    "Hélio Lopes",
+    "Nuno Gonçalves",
+    "Luiz Velho"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Computational Geometry (cs.CG)",
+    "Graphics (cs.GR)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Implicit neural representations (INRs) have emerged as a promising framework for representing signals in low-dimensional spaces. This survey reviews the existing literature on the specialized INR problem of approximating signed distance functions (SDFs) for surface scenes, using either oriented point clouds or a set of posed images. We refer to neural SDFs that incorporate differential geometry tools, such as normals and curvatures, in their loss functions as geometric INRs. The key idea behind this 3D reconstruction approach is to include additional regularization terms in the loss function, ensuring that the INR satisfies certain global properties that the function should hold -- such as having unit gradient in the case of SDFs. We explore key methodological components, including the definition of INR, the construction of geometric loss functions, and sampling schemes from a differential geometry perspective. Our review highlights the significant advancements enabled by geometric INRs in surface reconstruction from oriented point clouds and posed images.",
+   "affiliations": [
+    "Universidade do Vale do Rio dos Sinos",
+    "Instituto Nacional de Matemática Pura e Aplicada",
+    "Pontifícia Universidade Católica do Rio de Janeiro",
+    "University of Coimbra",
+    "Imprensa Nacional Casa da Moeda"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Universidade do Vale do Rio dos Sinos",
+    "Instituto Nacional de Matemática Pura e Aplicada",
+    "Pontifícia Universidade Católica do Rio de Janeiro",
+    "University of Coimbra",
+    "Imprensa Nacional Casa da Moeda"
+   ],
+   "institution_ids": [
+    "05ctmmy43",
+    "028caqe42",
+    "01dg47b60",
+    "04z8k9a98",
+    "05tej8j73"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2511.07206",
+   "pdf_url": "https://arxiv.org/pdf/2511.07206"
+  },
+  {
    "arxiv_id": "2511.06593",
    "announced": "2025-11-10",
    "title": "Spatial-Frequency Enhanced Mamba for Multi-Modal Image Fusion",
@@ -1932,7 +3557,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -3837,7 +5462,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -7477,7 +9102,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -7687,6 +9312,81 @@
    },
    "abs_url": "https://arxiv.org/abs/2510.22319",
    "pdf_url": "https://arxiv.org/pdf/2510.22319"
+  },
+  {
+   "arxiv_id": "2510.25970",
+   "announced": "2025-10-29",
+   "title": "SplitFlow: Flow Decomposition for Inversion-Free Text-to-Image Editing",
+   "authors": [
+    "Sung-Hoon Yoon",
+    "Minghan Li",
+    "Gaspard Beaudouin",
+    "Congcong Wen",
+    "Muhammad Rafay Azhar",
+    "Mengyu Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Camera-ready version for NeurIPS 2025, 10 pages (main paper)",
+   "journal_ref": null,
+   "venue": "NeurIPS 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Rectified flow models have become a de facto standard in image generation due to their stable sampling trajectories and high-fidelity outputs. Despite their strong generative capabilities, they face critical limitations in image editing tasks: inaccurate inversion processes for mapping real images back into the latent space, and gradient entanglement issues during editing often result in outputs that do not faithfully reflect the target prompt. Recent efforts have attempted to directly map source and target distributions via ODE-based approaches without inversion; however,these methods still yield suboptimal editing quality. In this work, we propose a flow decomposition-and-aggregation framework built upon an inversion-free formulation to address these limitations. Specifically, we semantically decompose the target prompt into multiple sub-prompts, compute an independent flow for each, and aggregate them to form a unified editing trajectory. While we empirically observe that decomposing the original flow enhances diversity in the target space, generating semantically aligned outputs still requires consistent guidance toward the full target prompt. To this end, we design a projection and soft-aggregation mechanism for flow, inspired by gradient conflict resolution in multi-task learning. This approach adaptively weights the sub-target velocity fields, suppressing semantic redundancy while emphasizing distinct directions, thereby preserving both diversity and consistency in the final edited output. Experimental results demonstrate that our method outperforms existing zero-shot editing approaches in terms of semantic fidelity and attribute disentanglement. The code is available at https://github.com/Harvard-AI-and-Robotics-Lab/SplitFlow.",
+   "affiliations": [
+    "Harvard University",
+    "École nationale des ponts et chaussées",
+    "Institut Polytechnique de Paris",
+    "New York University Abu Dhabi"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Harvard University",
+    "École nationale des ponts et chaussées",
+    "Institut Polytechnique de Paris",
+    "New York University Abu Dhabi"
+   ],
+   "institution_ids": [
+    "03vek6s52",
+    "02nwvxz07",
+    "042tfbd02",
+    "00e5k0821"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.25970",
+   "pdf_url": "https://arxiv.org/pdf/2510.25970"
   },
   {
    "arxiv_id": "2510.25345",
@@ -9654,7 +11354,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -9944,6 +11644,88 @@
    },
    "abs_url": "https://arxiv.org/abs/2510.17800",
    "pdf_url": "https://arxiv.org/pdf/2510.17800"
+  },
+  {
+   "arxiv_id": "2510.17777",
+   "announced": "2025-10-20",
+   "title": "SparseVILA: Decoupling Visual Sparsity for Efficient VLM Inference",
+   "authors": [
+    "Samir Khaki",
+    "Junxian Guo",
+    "Jiaming Tang",
+    "Shang Yang",
+    "Yukang Chen",
+    "Konstantinos N. Plataniotis",
+    "Yao Lu",
+    "Song Han",
+    "Zhijian Liu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Vision Language Models (VLMs) have rapidly advanced in integrating visual and textual reasoning, powering applications across high-resolution image understanding, long-video analysis, and multi-turn conversation. However, their scalability remains limited by the growing number of visual tokens that dominate inference latency. We present SparseVILA, a new paradigm for efficient VLM inference that decouples visual sparsity across the prefilling and decoding stages. SparseVILA distributes sparsity across stages by pruning redundant visual tokens during prefill and retrieving only query-relevant tokens during decoding. This decoupled design matches leading prefill pruning methods while preserving multi-turn fidelity by retaining most of the visual cache so that query-aware tokens can be retrieved at each conversation round. Built on an AWQ-optimized inference pipeline, SparseVILA achieves up to 4.0 times faster prefilling, 2.5 times faster decoding, and an overall 2.6 times end-to-end speedup on long-context video tasks -- while improving accuracy on document-understanding and reasoning tasks. By decoupling query-agnostic pruning and query-aware retrieval, SparseVILA establishes a new direction for efficient multimodal inference, offering a training-free, architecture-agnostic framework for accelerating large VLMs without sacrificing capability.",
+   "affiliations": [
+    "Nvidia",
+    "Massachusetts Institute of Technology",
+    "University of Toronto"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "NVIDIA",
+    "Massachusetts Institute of Technology",
+    "University of Toronto"
+   ],
+   "institution_ids": [
+    "03jdj4y14",
+    "042nb2s44",
+    "03dbr7087"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.17777",
+   "pdf_url": "https://arxiv.org/pdf/2510.17777"
   },
   {
    "arxiv_id": "2510.17771",
@@ -12034,7 +13816,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -16055,7 +17837,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -17179,6 +18961,84 @@
    },
    "abs_url": "https://arxiv.org/abs/2510.23478",
    "pdf_url": "https://arxiv.org/pdf/2510.23478"
+  },
+  {
+   "arxiv_id": "2510.23116",
+   "announced": "2025-10-01",
+   "title": "Residual Diffusion Bridge Model for Image Restoration",
+   "authors": [
+    "Hebaixu Wang",
+    "Jing Zhang",
+    "Haoyang Chen",
+    "Haonan Guo",
+    "Di Wang",
+    "Jiayi Ma",
+    "Bo Du"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by CVPR 2026 as Highlight",
+   "journal_ref": null,
+   "venue": "CVPR 2026",
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2510.23116v1",
+   "abstract": "Diffusion bridge models establish probabilistic paths between arbitrary paired distributions and exhibit great potential for universal image restoration. Most existing methods merely treat them as simple variants of stochastic interpolants, lacking a unified analytical perspective. Besides, they indiscriminately reconstruct images through global noise injection and removal, inevitably distorting undegraded regions due to imperfect reconstruction. To address these challenges, we propose the Residual Diffusion Bridge Model (RDBM). Specifically, we theoretically reformulate the stochastic differential equations of generalized diffusion bridge and derive the analytical formulas of its forward and reverse processes. Crucially, we leverage the residuals from given distributions to modulate the noise injection and removal, enabling adaptive restoration of degraded regions while preserving intact others. Moreover, we unravel the fundamental mathematical essence of existing bridge models, all of which are special cases of RDBM and empirically demonstrate the optimality of our proposed models. Extensive experiments are conducted to demonstrate the state-of-the-art performance of our method both qualitatively and quantitatively across diverse image restoration tasks. Code is publicly available at https://github.com/MiliLab/RDBM.",
+   "affiliations": [
+    "Wuhan University",
+    "Zhongguancun Academy"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Wuhan University",
+    "Zhongguancun Academy"
+   ],
+   "institution_ids": [
+    "033vjfk17",
+    null
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.23116",
+   "pdf_url": "https://arxiv.org/pdf/2510.23116"
   },
   {
    "arxiv_id": "2510.23095",
@@ -18803,6 +20663,99 @@
    },
    "abs_url": "https://arxiv.org/abs/2510.17790",
    "pdf_url": "https://arxiv.org/pdf/2510.17790"
+  },
+  {
+   "arxiv_id": "2510.17568",
+   "announced": "2025-10-01",
+   "title": "PAGE-4D: Disentangled pose and geometry estimation for vggt-4d perception",
+   "authors": [
+    "Kaichen Zhou",
+    "Yuhan Wang",
+    "Grace Chen",
+    "Xinhai Chang",
+    "Gaspard Beaudouin",
+    "Fangneng Zhan",
+    "Paul Pu Liang",
+    "Mengyu Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "ICLR 2026, VGGT-4D, Dynamic VGGT",
+   "journal_ref": null,
+   "venue": "ICLR 2026",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recent 3D feed-forward models, such as the Visual Geometry Grounded Transformer (VGGT), have shown strong capability in inferring 3D attributes of static scenes. However, since they are typically trained on static datasets, these models often struggle in real-world scenarios involving complex dynamic elements, such as moving humans or deformable objects like umbrellas. To address this limitation, we introduce PAGE-4D, a feedforward model that extends VGGT to dynamic scenes, enabling camera pose estimation, depth prediction and point cloud reconstruction - all without post-processing. A central challenge in multitask 4D reconstruction is the inherent conflict between tasks: accurate camera pose estimation requires suppressing dynamic regions, while geometry reconstruction requires modeling them. To resolve this tension, we propose a dynamics aware aggregator that disentangles static and dynamic information by predicting a dynamics-aware mask - suppressing motion cues for pose estimation while amplifying them for geometry reconstruction. Extensive experiments show that PAGE-4D consistently outperforms the original VGGT in dynamic scenarios, achieving superior results in camera pose estimation, monocular and video depth estimation, and dense point map reconstruction. Necessary code and additional demos are available at Link: https://page4d.github.io/, including both the training-and-inference masking variant and the training-only masking variant (= VGGT architecture at inference). Keywords: VGGT-4D, 4D Perception, Dynamic Scene Reconstruction.",
+   "affiliations": [
+    "Harvard University",
+    "MIT Media Lab",
+    "Massachusetts Institute of Technology",
+    "Imperial College London",
+    "École nationale des ponts et chaussées"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     1,
+     3,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     4
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Harvard University",
+    "MIT Media Lab",
+    "Massachusetts Institute of Technology",
+    "Imperial College London",
+    "École nationale des ponts et chaussées"
+   ],
+   "institution_ids": [
+    "03vek6s52",
+    "0253jyq40",
+    "042nb2s44",
+    "041kmwe10",
+    "02nwvxz07"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.17568",
+   "pdf_url": "https://arxiv.org/pdf/2510.17568"
   },
   {
    "arxiv_id": "2510.17439",
@@ -21003,6 +22956,123 @@
    },
    "abs_url": "https://arxiv.org/abs/2510.11369",
    "pdf_url": "https://arxiv.org/pdf/2510.11369"
+  },
+  {
+   "arxiv_id": "2510.11341",
+   "announced": "2025-10-01",
+   "title": "InternSVG: Towards Unified SVG Tasks with Multimodal Large Language Models",
+   "authors": [
+    "Haomin Wang",
+    "Jinhui Yin",
+    "Qi Wei",
+    "Wenguang Zeng",
+    "Lixin Gu",
+    "Shenglong Ye",
+    "Zhangwei Gao",
+    "Yaohui Wang",
+    "Yanting Zhang",
+    "Yuanqi Li",
+    "Yanwen Guo",
+    "Wenhai Wang",
+    "Kai Chen",
+    "Yu Qiao",
+    "Hongjie Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2510.11341v1",
+   "abstract": "General SVG modeling remains challenging due to fragmented datasets, limited transferability of methods across tasks, and the difficulty of handling structural complexity. In response, we leverage the strong transfer and generalization capabilities of multimodal large language models (MLLMs) to achieve unified modeling for SVG understanding, editing, and generation. We present the InternSVG family, an integrated data-benchmark-model suite. At its core is SAgoge, the largest and most comprehensive multimodal dataset for SVG tasks, encompassing both static graphics and dynamic animations. It covers icons, long-sequence illustrations, scientific diagrams, and dynamic animations, supporting tasks of varied difficulty levels and providing deeper hierarchies with richer attributes compared to previous datasets. Based on this resource, we introduce SArena, a companion benchmark with comprehensive task definitions and standardized evaluation that aligns with the domains and difficulty spectrum covered by SAgoge. Building on these foundations, we propose InternSVG, a unified MLLM for SVG understanding, editing, and generation with SVG-specific special tokens, subword-based embedding initialization, and a two-stage training strategy that progresses from short static SVGs to long-sequence illustrations and complex animations. This unified formulation induces positive transfer and improves overall performance. Experiments on SArena and prior benchmark confirm that InternSVG achieves substantial gains and consistently outperforms leading open and proprietary counterparts.",
+   "affiliations": [
+    "Shanghai Jiao Tong University",
+    "Shanghai AI Laboratory",
+    "Nanjing University",
+    "Donghua University",
+    "The Chinese University of Hong Kong"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     3
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     4
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "Shanghai Artificial Intelligence Laboratory",
+    "Nanjing University",
+    "Donghua University",
+    "Chinese University of Hong Kong"
+   ],
+   "institution_ids": [
+    "0220qvk04",
+    "03wkvpx79",
+    "01rxvg760",
+    "035psfh38",
+    "00t33hh48"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.11341",
+   "pdf_url": "https://arxiv.org/pdf/2510.11341"
   },
   {
    "arxiv_id": "2510.11027",
@@ -23789,133 +25859,6 @@
    "pdf_url": "https://arxiv.org/pdf/2509.26625"
   },
   {
-   "arxiv_id": "2509.25816",
-   "announced": "2025-09-30",
-   "title": "Overview of GeoLifeCLEF 2023: Species Composition Prediction with High Spatial Resolution at Continental Scale Using Remote Sensing",
-   "authors": [
-    "Christophe Botella",
-    "Benjamin Deneu",
-    "Diego Marcos",
-    "Maximilien Servajean",
-    "Theo Larcher",
-    "Cesar Leblanc",
-    "Joaquim Estopinan",
-    "Pierre Bonnet",
-    "Alexis Joly"
-   ],
-   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
-   "subjects": [
-    "Computer Vision and Pattern Recognition (cs.CV)"
-   ],
-   "comments": "18 pages, 7 figures, CLEF 2023 Conference and Labs of the Evaluation Forum, September 18 to 21, 2023, Thessaloniki, Greece",
-   "journal_ref": null,
-   "venue": null,
-   "cross_list_from": null,
-   "html_url": null,
-   "abstract": "Understanding the spatio-temporal distribution of species is a cornerstone of ecology and conservation. By pairing species observations with geographic and environmental predictors, researchers can model the relationship between an environment and the species which may be found there. To advance the state-of-the-art in this area with deep learning models and remote sensing data, we organized an open machine learning challenge called GeoLifeCLEF 2023. The training dataset comprised 5 million plant species observations (single positive label per sample) distributed across Europe and covering most of its flora, high-resolution rasters: remote sensing imagery, land cover, elevation, in addition to coarse-resolution data: climate, soil and human footprint variables. In this multi-label classification task, we evaluated models ability to predict the species composition in 22 thousand small plots based on standardized surveys. This paper presents an overview of the competition, synthesizes the approaches used by the participating teams, and analyzes the main results. In particular, we highlight the biases faced by the methods fitted to single positive labels when it comes to the multi-label evaluation, and the new and effective learning strategy combining single and multi-label data in training.",
-   "affiliations": [
-    "Centre National de la Recherche Scientifique",
-    "Université de Montpellier",
-    "Laboratoire d'Informatique, de Robotique et de Microélectronique de Montpellier",
-    "Centre de Coopération Internationale en Recherche Agronomique pour le Développement",
-    "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
-    "UMR Botanique et Modélisation de l’Architecture des Plantes et des végétations",
-    "Institut de Recherche pour le Développement",
-    "Université Paul-Valéry Montpellier"
-   ],
-   "author_affiliations": [
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     3,
-     1,
-     4,
-     2,
-     5,
-     6
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     7,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     3,
-     1,
-     4,
-     2,
-     5,
-     6
-    ],
-    [
-     0,
-     3,
-     1,
-     4,
-     2,
-     5,
-     6
-    ],
-    [
-     3,
-     5
-    ],
-    [
-     0,
-     1,
-     2
-    ]
-   ],
-   "institutions": [
-    "Centre National de la Recherche Scientifique",
-    "Université de Montpellier",
-    "Laboratoire d'Informatique, de Robotique et de Microélectronique de Montpellier",
-    "Centre de Coopération Internationale en Recherche Agronomique pour le Développement",
-    "Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement",
-    "UMR Botanique et Modélisation de l’Architecture des Plantes et des végétations",
-    "Institut de Recherche pour le Développement",
-    "Université Paul-Valéry Montpellier"
-   ],
-   "institution_ids": [
-    "02feahw73",
-    "051escj72",
-    "013yean28",
-    "05kpkpg04",
-    "003vg9w96",
-    "020nks034",
-    "05q3vnk25",
-    "00qhdy563"
-   ],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
-    },
-    "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/2509.25816",
-   "pdf_url": "https://arxiv.org/pdf/2509.25816"
-  },
-  {
    "arxiv_id": "2509.25681",
    "announced": "2025-09-30",
    "title": "dVLA: Diffusion Vision-Language-Action Model with Multimodal Chain-of-Thought",
@@ -24778,6 +26721,54 @@
    },
    "abs_url": "https://arxiv.org/abs/2509.24786",
    "pdf_url": "https://arxiv.org/pdf/2509.24786"
+  },
+  {
+   "arxiv_id": "2509.24734",
+   "announced": "2025-09-29",
+   "title": "A TRIANGLE Enables Multimodal Alignment Beyond Cosine Similarity",
+   "authors": [
+    "Giordano Cicchetti",
+    "Eleonora Grassucci",
+    "Danilo Comminiello"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "NeurIPS 2025",
+   "journal_ref": null,
+   "venue": "NeurIPS 2025",
+   "cross_list_from": "cs.LG",
+   "html_url": "https://arxiv.org/html/2509.24734v1",
+   "abstract": "Multimodal learning plays a pivotal role in advancing artificial intelligence systems by incorporating information from multiple modalities to build a more comprehensive representation. Despite its importance, current state-of-the-art models still suffer from severe limitations that prevent the successful development of a fully multimodal model. Such methods may not provide indicators that all the involved modalities are effectively aligned. As a result, some modalities may not be aligned, undermining the effectiveness of the model in downstream tasks where multiple modalities should provide additional information that the model fails to exploit. In this paper, we present TRIANGLE: TRI-modAl Neural Geometric LEarning, the novel proposed similarity measure that is directly computed in the higher-dimensional space spanned by the modality embeddings. TRIANGLE improves the joint alignment of three modalities via a triangle-area similarity, avoiding additional fusion layers or pairwise similarities. When incorporated in contrastive losses replacing cosine similarity, TRIANGLE significantly boosts the performance of multimodal modeling, while yielding interpretable alignment rationales. Extensive evaluation in three-modal tasks such as video-text and audio-text retrieval or audio-video classification, demonstrates that TRIANGLE achieves state-of-the-art results across different datasets improving the performance of cosine-based methods up to 9 points of Recall@1.",
+   "affiliations": [
+    "Department of Information Engineering, Electronics, and Telecommunications",
+    "Sapienza University of Rome, Italy"
+   ],
+   "author_affiliations": null,
+   "institutions": [
+    "Electronics",
+    "Sapienza University of Rome"
+   ],
+   "institution_ids": [
+    null,
+    "02be6w209"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2509.24734",
+   "pdf_url": "https://arxiv.org/pdf/2509.24734"
   },
   {
    "arxiv_id": "2509.24661",
@@ -28684,7 +30675,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -29708,6 +31699,79 @@
    },
    "abs_url": "https://arxiv.org/abs/2509.09680",
    "pdf_url": "https://arxiv.org/pdf/2509.09680"
+  },
+  {
+   "arxiv_id": "2509.09671",
+   "announced": "2025-09-11",
+   "title": "Dexplore: Scalable Neural Control for Dexterous Manipulation from Reference-Scoped Exploration",
+   "authors": [
+    "Sirui Xu",
+    "Yu-Wei Chao",
+    "Liuyu Bian",
+    "Arsalan Mousavian",
+    "Yu-Xiong Wang",
+    "Liang-Yan Gui",
+    "Wei Yang"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "CoRL 2025",
+   "journal_ref": null,
+   "venue": "CoRL 2025",
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "Hand-object motion-capture (MoCap) repositories offer large-scale, contact-rich demonstrations and hold promise for scaling dexterous robotic manipulation. Yet demonstration inaccuracies and embodiment gaps between human and robot hands limit the straightforward use of these data. Existing methods adopt a three-stage workflow, including retargeting, tracking, and residual correction, which often leaves demonstrations underused and compound errors across stages. We introduce Dexplore, a unified single-loop optimization that jointly performs retargeting and tracking to learn robot control policies directly from MoCap at scale. Rather than treating demonstrations as ground truth, we use them as soft guidance. From raw trajectories, we derive adaptive spatial scopes, and train with reinforcement learning to keep the policy in-scope while minimizing control effort and accomplishing the task. This unified formulation preserves demonstration intent, enables robot-specific strategies to emerge, improves robustness to noise, and scales to large demonstration corpora. We distill the scaled tracking policy into a vision-based, skill-conditioned generative controller that encodes diverse manipulation skills in a rich latent representation, supporting generalization across objects and real-world deployment. Taken together, these contributions position Dexplore as a principled bridge that transforms imperfect demonstrations into effective training signals for dexterous manipulation.",
+   "affiliations": [
+    "University of Illinois Urbana-Champaign",
+    "Nvidia"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Illinois Urbana-Champaign",
+    "NVIDIA"
+   ],
+   "institution_ids": [
+    "047426m28",
+    "03jdj4y14"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2509.09671",
+   "pdf_url": "https://arxiv.org/pdf/2509.09671"
   },
   {
    "arxiv_id": "2509.09555",
@@ -33107,7 +35171,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -36261,7 +38325,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -37392,7 +39456,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -37782,7 +39846,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -38795,7 +40859,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -39695,6 +41759,112 @@
    },
    "abs_url": "https://arxiv.org/abs/2508.16211",
    "pdf_url": "https://arxiv.org/pdf/2508.16211"
+  },
+  {
+   "arxiv_id": "2508.14879",
+   "announced": "2025-08-22",
+   "title": "MeshCoder: LLM-Powered Structured Mesh Code Generation from Point Clouds",
+   "authors": [
+    "Bingquan Dai",
+    "Li Ray Luo",
+    "Qihong Tang",
+    "Jie Wang",
+    "Xinyu Lian",
+    "Hao Xu",
+    "Minghan Qin",
+    "Xudong Xu",
+    "Bo Dai",
+    "Haoqian Wang",
+    "Zhaoyang Lyu",
+    "Jiangmiao Pang"
+   ],
+   "primary_subject": "Graphics (cs.GR)",
+   "subjects": [
+    "Graphics (cs.GR)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.GR",
+   "html_url": null,
+   "abstract": "Reconstructing 3D objects into editable programs is pivotal for applications like reverse engineering and shape editing. However, existing methods often rely on limited domain-specific languages (DSLs) and small-scale datasets, restricting their ability to model complex geometries and structures. To address these challenges, we introduce MeshCoder, a novel framework that reconstructs complex 3D objects from point clouds into editable Blender Python scripts. We develop a comprehensive set of expressive Blender Python APIs capable of synthesizing intricate geometries. Leveraging these APIs, we construct a large-scale paired object-code dataset, where the code for each object is decomposed into distinct semantic parts. Subsequently, we train a multimodal large language model (LLM) that translates 3D point cloud into executable Blender Python scripts. Our approach not only achieves superior performance in shape-to-code reconstruction tasks but also facilitates intuitive geometric and topological editing through convenient code modifications. Furthermore, our code-based representation enhances the reasoning capabilities of LLMs in 3D shape understanding tasks. Together, these contributions establish MeshCoder as a powerful and flexible solution for programmatic 3D shape reconstruction and understanding. The project homepage is available at this link (https://daibingquan.github.io/MeshCoder).",
+   "affiliations": [
+    "Shanghai Artificial Intelligence Laboratory",
+    "Tsinghua University",
+    "Harbin Institute of Technology",
+    "Beijing Institute of Technology",
+    "Hong Kong University of Science and Technology (Guangzhou)"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     4
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Shanghai Artificial Intelligence Laboratory",
+    "Tsinghua University",
+    "Harbin Institute of Technology",
+    "Beijing Institute of Technology",
+    "Hong Kong University of Science and Technology (Guangzhou)"
+   ],
+   "institution_ids": [
+    "03wkvpx79",
+    "03cve4549",
+    "01yqg2h08",
+    "01skt4w74",
+    "050h0vm43"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2508.14879",
+   "pdf_url": "https://arxiv.org/pdf/2508.14879"
   },
   {
    "arxiv_id": "2508.03789",
@@ -42428,7 +44598,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -49745,7 +51915,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -50618,7 +52788,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -56003,7 +58173,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -57250,7 +59420,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -57995,17 +60165,70 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Multimodal large language models (MLLMs) have made remarkable strides, largely driven by their ability to process increasingly long and complex contexts, such as high-resolution images, extended video sequences, and lengthy audio input. While this ability significantly enhances MLLM capabilities, it introduces substantial computational challenges, primarily due to the quadratic complexity of self-attention mechanisms with numerous input tokens. To mitigate these bottlenecks, token compression has emerged as an auspicious and critical approach, efficiently reducing the number of tokens during both training and inference. In this paper, we present the first systematic survey and synthesis of the burgeoning field of multimodal long context token compression. Recognizing that effective compression strategies are deeply tied to the unique characteristics and redundancies of each modality, we categorize existing approaches by their primary data focus, enabling researchers to quickly access and learn methods tailored to their specific area of interest: (1) image-centric compression, which addresses spatial redundancy in visual data; (2) video-centric compression, which tackles spatio-temporal redundancy in dynamic sequences; and (3) audio-centric compression, which handles temporal and spectral redundancy in acoustic signals. Beyond this modality-driven categorization, we further dissect methods based on their underlying mechanisms, including transformation-based, similarity-based, attention-based, and query-based approaches. By providing a comprehensive and structured overview, this survey aims to consolidate current progress, identify key challenges, and inspire future research directions in this rapidly evolving domain.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Westlake University",
+    "Zhejiang University",
+    "Xiamen University",
+    "National University of Singapore",
+    "University of Wisconsin–Madison",
+    "University of Central Florida",
+    "Rice University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     4
+    ],
+    [
+     5
+    ],
+    null,
+    null,
+    [
+     6
+    ],
+    null
+   ],
+   "institutions": [
+    "Westlake University",
+    "Zhejiang University",
+    "Xiamen University",
+    "National University of Singapore",
+    "University of Wisconsin–Madison",
+    "University of Central Florida",
+    "Rice University"
+   ],
+   "institution_ids": [
+    "05hfa4n20",
+    "00a2xv884",
+    "00mcjh785",
+    "01tgyzw49",
+    "01y2jtd41",
+    "036nfer12",
+    "008zs3103"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-11-22"
     }
    },
    "abs_url": "https://arxiv.org/abs/2507.20198",
@@ -61088,7 +63311,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -62262,7 +64485,7 @@
     "Cryptography and Security (cs.CR)"
    ],
    "comments": "Accepted to EMNLP 2025 (Main). 17 pages, 7 figures",
-   "journal_ref": null,
+   "journal_ref": "EMNLP 2025",
    "venue": "EMNLP 2025",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2507.02844v1",
@@ -64219,6 +66442,81 @@
    },
    "abs_url": "https://arxiv.org/abs/2506.22246",
    "pdf_url": "https://arxiv.org/pdf/2506.22246"
+  },
+  {
+   "arxiv_id": "2506.22012",
+   "announced": "2025-06-27",
+   "title": "Noise-Inspired Diffusion Model for Generalizable Low-Dose CT Reconstruction",
+   "authors": [
+    "Qi Gao",
+    "Zhihao Chen",
+    "Dong Zeng",
+    "Junping Zhang",
+    "Jianhua Ma",
+    "Hongming Shan"
+   ],
+   "primary_subject": "Image and Video Processing (eess.IV)",
+   "subjects": [
+    "Image and Video Processing (eess.IV)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted for publication in Medical Image Analysis, 2025",
+   "journal_ref": null,
+   "venue": "MedIA 2025",
+   "cross_list_from": "eess.IV",
+   "html_url": null,
+   "abstract": "The generalization of deep learning-based low-dose computed tomography (CT) reconstruction models to doses unseen in the training data is important and remains challenging. Previous efforts heavily rely on paired data to improve the generalization performance and robustness through collecting either diverse CT data for re-training or a few test data for fine-tuning. Recently, diffusion models have shown promising and generalizable performance in low-dose CT (LDCT) reconstruction, however, they may produce unrealistic structures due to the CT image noise deviating from Gaussian distribution and imprecise prior information from the guidance of noisy LDCT images. In this paper, we propose a noise-inspired diffusion model for generalizable LDCT reconstruction, termed NEED, which tailors diffusion models for noise characteristics of each domain. First, we propose a novel shifted Poisson diffusion model to denoise projection data, which aligns the diffusion process with the noise model in pre-log LDCT projections. Second, we devise a doubly guided diffusion model to refine reconstructed images, which leverages LDCT images and initial reconstructions to more accurately locate prior information and enhance reconstruction fidelity. By cascading these two diffusion models for dual-domain reconstruction, our NEED requires only normal-dose data for training and can be effectively extended to various unseen dose levels during testing via a time step matching strategy. Extensive qualitative, quantitative, and segmentation-based evaluations on two datasets demonstrate that our NEED consistently outperforms state-of-the-art methods in reconstruction and generalization performance. Source code is made available at https://github.com/qgao21/NEED.",
+   "affiliations": [
+    "Fudan University",
+    "Southern Medical University",
+    "Xi'an Jiaotong University",
+    "Frontiers Center for Brain Science of the Ministry of Education"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     3
+    ]
+   ],
+   "institutions": [
+    "Fudan University",
+    "Southern Medical University",
+    "Xi'an Jiaotong University",
+    "Frontiers Center for Brain Science of the Ministry of Education"
+   ],
+   "institution_ids": [
+    "013q1eq08",
+    "01vjw4z39",
+    "017zhmm22",
+    "05n8v1c41"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2506.22012",
+   "pdf_url": "https://arxiv.org/pdf/2506.22012"
   },
   {
    "arxiv_id": "2506.21977",
@@ -67496,7 +69794,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -69425,7 +71723,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -69544,7 +71842,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -70223,7 +72521,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -84059,7 +86357,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -84249,6 +86547,77 @@
    },
    "abs_url": "https://arxiv.org/abs/2505.20256",
    "pdf_url": "https://arxiv.org/pdf/2505.20256"
+  },
+  {
+   "arxiv_id": "2505.20236",
+   "announced": "2025-05-26",
+   "title": "Seeing is Believing, but How Much? A Comprehensive Analysis of Verbalized Calibration in Vision-Language Models",
+   "authors": [
+    "Weihao Xuan",
+    "Qingcheng Zeng",
+    "Heli Qi",
+    "Junjue Wang",
+    "Naoto Yokoya"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2505.20236v1",
+   "abstract": "Uncertainty quantification is essential for assessing the reliability and trustworthiness of modern AI systems. Among existing approaches, verbalized uncertainty, where models express their confidence through natural language, has emerged as a lightweight and interpretable solution in large language models (LLMs). However, its effectiveness in vision-language models (VLMs) remains insufficiently studied. In this work, we conduct a comprehensive evaluation of verbalized confidence in VLMs, spanning three model categories, four task domains, and three evaluation scenarios. Our results show that current VLMs often display notable miscalibration across diverse tasks and settings. Notably, visual reasoning models (i.e., thinking with images) consistently exhibit better calibration, suggesting that modality-specific reasoning is critical for reliable uncertainty estimation. To further address calibration challenges, we introduce Visual Confidence-Aware Prompting, a two-stage prompting strategy that improves confidence alignment in multimodal settings. Overall, our study highlights the inherent miscalibration in VLMs across modalities. More broadly, our findings underscore the fundamental importance of modality alignment and model faithfulness in advancing reliable multimodal systems.",
+   "affiliations": [
+    "The University of Tokyo",
+    "Northwestern University",
+    "Waseda University",
+    "RIKEN AIP"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     3
+    ]
+   ],
+   "institutions": [
+    "University of Tokyo",
+    "Northwestern University",
+    "Waseda University",
+    "RIKEN AIP"
+   ],
+   "institution_ids": [
+    "057zh3y96",
+    "000e0be47",
+    "00ntfnx83",
+    null
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2505.20236",
+   "pdf_url": "https://arxiv.org/pdf/2505.20236"
   },
   {
    "arxiv_id": "2505.20202",
@@ -86210,7 +88579,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -86279,7 +88648,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -87643,7 +90012,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -88750,7 +91119,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -89920,6 +92289,79 @@
    "pdf_url": "https://arxiv.org/pdf/2505.04410"
   },
   {
+   "arxiv_id": "2505.04320",
+   "announced": "2025-05-07",
+   "title": "Multi-turn Consistent Image Editing",
+   "authors": [
+    "Zijun Zhou",
+    "Yingying Deng",
+    "Xiangyu He",
+    "Weiming Dong",
+    "Fan Tang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Many real-world applications, such as interactive photo retouching, artistic content creation, and product design, require flexible and iterative image editing. However, existing image editing methods primarily focus on achieving the desired modifications in a single step, which often struggles with ambiguous user intent, complex transformations, or the need for progressive refinements. As a result, these methods frequently produce inconsistent outcomes or fail to meet user expectations. To address these challenges, we propose a multi-turn image editing framework that enables users to iteratively refine their edits, progressively achieving more satisfactory results. Our approach leverages flow matching for accurate image inversion and a dual-objective Linear Quadratic Regulators (LQR) for stable sampling, effectively mitigating error accumulation. Additionally, by analyzing the layer-wise roles of transformers, we introduce a adaptive attention highlighting method that enhances editability while preserving multi-turn coherence. Extensive experiments demonstrate that our framework significantly improves edit success rates and visual fidelity compared to existing methods.",
+   "affiliations": [
+    "Chinese Academy of Sciences",
+    "Institute of Computing Technology",
+    "University of Science and Technology Beijing",
+    "Institute of Automation"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    "Institute of Computing Technology",
+    "University of Science and Technology Beijing",
+    "Institute of Automation"
+   ],
+   "institution_ids": [
+    "034t30j35",
+    "0090r4d87",
+    "02egmk993",
+    "022c3hy66"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2505.04320",
+   "pdf_url": "https://arxiv.org/pdf/2505.04320"
+  },
+  {
    "arxiv_id": "2505.04109",
    "announced": "2025-05-07",
    "title": "One2Any: One-Reference 6D Pose Estimation for Any Object",
@@ -90742,7 +93184,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -94712,6 +97154,70 @@
    "pdf_url": "https://arxiv.org/pdf/2505.20510"
   },
   {
+   "arxiv_id": "2505.20503",
+   "announced": "2025-05-01",
+   "title": "Embodied AI with Foundation Models for Mobile Service Robots: A Systematic Review",
+   "authors": [
+    "Matthew Lisondra",
+    "Beno Benhabib",
+    "Goldie Nejat"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Artificial Intelligence (cs.AI)",
+    "Computation and Language (cs.CL)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "v2: Expanded systematic review; resubmitted to Robotics",
+   "journal_ref": "Robotics 2026, 15(3), 55",
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "Rapid advancements in foundation models, including Large Language Models, Vision-Language Models, Multimodal Large Language Models, and Vision-Language-Action Models, have opened new avenues for embodied AI in mobile service robotics. By combining foundation models with the principles of embodied AI, where intelligent systems perceive, reason, and act through physical interaction, mobile service robots can achieve more flexible understanding, adaptive behavior, and robust task execution in dynamic real-world environments. Despite this progress, embodied AI for mobile service robots continues to face fundamental challenges related to the translation of natural language instructions into executable robot actions, multimodal perception in human-centered environments, uncertainty estimation for safe decision-making, and computational constraints for real-time onboard deployment. In this paper, we present the first systematic review focused specifically on the integration of foundation models in mobile service robotics. We analyze how recent advances in foundation models address these core challenges through language-conditioned control, multimodal sensor fusion, uncertainty-aware reasoning, and efficient model scaling. We further examine real-world applications in domestic assistance, healthcare, and service automation, highlighting how foundation models enable context-aware, socially responsive, and generalizable robot behaviors. Beyond technical considerations, we discuss ethical, societal, and human-interaction implications associated with deploying foundation model-enabled service robots in human environments. Finally, we outline future research directions emphasizing reliability and lifelong adaptation, privacy-aware and resource-constrained deployment, and governance and human-in-the-loop frameworks required for safe, scalable, and trustworthy mobile service robotics.",
+   "affiliations": [
+    "University of Toronto",
+    "University Health Network",
+    "Toronto Rehabilitation Institute"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     0,
+     2
+    ]
+   ],
+   "institutions": [
+    "University of Toronto",
+    "University Health Network",
+    "Toronto Rehabilitation Institute"
+   ],
+   "institution_ids": [
+    "03dbr7087",
+    "042xt5161",
+    "00mxe0976"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2505.20503",
+   "pdf_url": "https://arxiv.org/pdf/2505.20503"
+  },
+  {
    "arxiv_id": "2505.20322",
    "announced": "2025-05-01",
    "title": "Beyond Prompt Engineering: Robust Behavior Control in LLMs via Steering Target Atoms",
@@ -96301,6 +98807,82 @@
    },
    "abs_url": "https://arxiv.org/abs/2505.18134",
    "pdf_url": "https://arxiv.org/pdf/2505.18134"
+  },
+  {
+   "arxiv_id": "2505.18132",
+   "announced": "2025-05-01",
+   "title": "BiggerGait: Unlocking Gait Recognition with Layer-wise Representations from Large Vision Models",
+   "authors": [
+    "Dingqiang Ye",
+    "Chao Fan",
+    "Zhanbo Huang",
+    "Chengwen Luo",
+    "Jianqiang Li",
+    "Shiqi Yu",
+    "Xiaoming Liu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2505.18132v1",
+   "abstract": "Large vision models (LVM) based gait recognition has achieved impressive performance. However, existing LVM-based approaches may overemphasize gait priors while neglecting the intrinsic value of LVM itself, particularly the rich, distinct representations across its multi-layers. To adequately unlock LVM's potential, this work investigates the impact of layer-wise representations on downstream recognition tasks. Our analysis reveals that LVM's intermediate layers offer complementary properties across tasks, integrating them yields an impressive improvement even without rich well-designed gait priors. Building on this insight, we propose a simple and universal baseline for LVM-based gait recognition, termed BiggerGait. Comprehensive evaluations on CCPG, CAISA-B*, SUSTech1K, and CCGR_MINI validate the superiority of BiggerGait across both within- and cross-domain tasks, establishing it as a simple yet practical baseline for gait representation learning. All the models and code will be publicly available.",
+   "affiliations": [
+    "Department of Computer Science and Engineering, Southern University of Science and Technology",
+    "Michigan State University",
+    "School of Artificial Intelligence, Shenzhen University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Southern University of Science and Technology",
+    "Michigan State University",
+    "Shenzhen University"
+   ],
+   "institution_ids": [
+    "049tv2d57",
+    "05hs6h993",
+    "01vy4gh70"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2505.18132",
+   "pdf_url": "https://arxiv.org/pdf/2505.18132"
   },
   {
    "arxiv_id": "2505.18129",
@@ -98085,7 +100667,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -100153,7 +102735,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -100728,7 +103310,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -106015,7 +108597,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -106285,7 +108867,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -106600,7 +109182,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -112173,7 +114755,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -112727,6 +115309,68 @@
    },
    "abs_url": "https://arxiv.org/abs/2504.03164",
    "pdf_url": "https://arxiv.org/pdf/2504.03164"
+  },
+  {
+   "arxiv_id": "2504.04566",
+   "announced": "2025-04-06",
+   "title": "DyCON: Dynamic Uncertainty-aware Consistency and Contrastive Learning for Semi-supervised Medical Image Segmentation",
+   "authors": [
+    "Maregu Assefa",
+    "Muzammal Naseer",
+    "Iyyakutti Iyappan Ganapathi",
+    "Syed Sadaf Ali",
+    "Mohamed L Seghier",
+    "Naoufel Werghi"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to CVPR 2025",
+   "journal_ref": null,
+   "venue": "CVPR 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Semi-supervised learning in medical image segmentation leverages unlabeled data to reduce annotation burdens through consistency learning. However, current methods struggle with class imbalance and high uncertainty from pathology variations, leading to inaccurate segmentation in 3D medical images. To address these challenges, we present DyCON, a Dynamic Uncertainty-aware Consistency and Contrastive Learning framework that enhances the generalization of consistency methods with two complementary losses: Uncertainty-aware Consistency Loss (UnCL) and Focal Entropy-aware Contrastive Loss (FeCL). UnCL enforces global consistency by dynamically weighting the contribution of each voxel to the consistency loss based on its uncertainty, preserving high-uncertainty regions instead of filtering them out. Initially, UnCL prioritizes learning from uncertain voxels with lower penalties, encouraging the model to explore challenging regions. As training progress, the penalty shift towards confident voxels to refine predictions and ensure global consistency. Meanwhile, FeCL enhances local feature discrimination in imbalanced regions by introducing dual focal mechanisms and adaptive confidence adjustments into the contrastive principle. These mechanisms jointly prioritizes hard positives and negatives while focusing on uncertain sample pairs, effectively capturing subtle lesion variations under class imbalance. Extensive evaluations on four diverse medical image segmentation datasets (ISLES'22, BraTS'19, LA, Pancreas) show DyCON's superior performance against SOTA methods.",
+   "affiliations": [
+    "Khalifa University of Science and Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Khalifa University of Science and Technology"
+   ],
+   "institution_ids": [
+    "05hffr360"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2504.04566",
+   "pdf_url": "https://arxiv.org/pdf/2504.04566"
   },
   {
    "arxiv_id": "2504.04517",
@@ -115166,7 +117810,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -116709,7 +119353,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -120530,7 +123174,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -123781,7 +126425,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -126356,6 +129000,70 @@
    "pdf_url": "https://arxiv.org/pdf/2503.19108"
   },
   {
+   "arxiv_id": "2503.19012",
+   "announced": "2025-03-24",
+   "title": "DiffV2IR: Visible-to-Infrared Diffusion Model via Vision-Language Understanding",
+   "authors": [
+    "Lingyan Ran",
+    "Lidong Wang",
+    "Guangcong Wang",
+    "Peng Wang",
+    "Yanning Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Project page: https://diffv2ir.github.io/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2503.19012v1",
+   "abstract": "The task of translating visible-to-infrared images (V2IR) is inherently challenging due to three main obstacles: 1) achieving semantic-aware translation, 2) managing the diverse wavelength spectrum in infrared imagery, and 3) the scarcity of comprehensive infrared datasets. Current leading methods tend to treat V2IR as a conventional image-to-image synthesis challenge, often overlooking these specific issues. To address this, we introduce DiffV2IR, a novel framework for image translation comprising two key elements: a Progressive Learning Module (PLM) and a Vision-Language Understanding Module (VLUM). PLM features an adaptive diffusion model architecture that leverages multi-stage knowledge learning to infrared transition from full-range to target wavelength. To improve V2IR translation, VLUM incorporates unified Vision-Language Understanding. We also collected a large infrared dataset, IR-500K, which includes 500,000 infrared images compiled by various scenes and objects under various environmental conditions. Through the combination of PLM, VLUM, and the extensive IR-500K dataset, DiffV2IR markedly improves the performance of V2IR. Experiments validate DiffV2IR's excellence in producing high-quality translations, establishing its efficacy and broad applicability. The code, dataset, and DiffV2IR model will be available at https://github.com/LidongWang-26/DiffV2IR.",
+   "affiliations": [
+    "Northwestern Polytechnical University",
+    "Great Bay University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Northwestern Polytechnical University",
+    "Great Bay University"
+   ],
+   "institution_ids": [
+    "01y0j0j86",
+    "01hdgge16"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2503.19012",
+   "pdf_url": "https://arxiv.org/pdf/2503.19012"
+  },
+  {
    "arxiv_id": "2503.18725",
    "announced": "2025-03-24",
    "title": "FG$^2$: Fine-Grained Cross-View Localization by Fine-Grained Feature Matching",
@@ -128666,6 +131374,71 @@
    },
    "abs_url": "https://arxiv.org/abs/2503.16318",
    "pdf_url": "https://arxiv.org/pdf/2503.16318"
+  },
+  {
+   "arxiv_id": "2503.15871",
+   "announced": "2025-03-20",
+   "title": "MASH-VLM: Mitigating Action-Scene Hallucination in Video-LLMs through Disentangled Spatial-Temporal Representations",
+   "authors": [
+    "Kyungho Bae",
+    "Jinhyung Kim",
+    "Sihaeng Lee",
+    "Soonyoung Lee",
+    "Gunhee Lee",
+    "Jinwoo Choi"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted for CVPR 2025",
+   "journal_ref": null,
+   "venue": "CVPR 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this work, we tackle action-scene hallucination in Video Large Language Models (Video-LLMs), where models incorrectly predict actions based on the scene context or scenes based on observed actions. We observe that existing Video-LLMs often suffer from action-scene hallucination due to two main factors. First, existing Video-LLMs intermingle spatial and temporal features by applying an attention operation across all tokens. Second, they use the standard Rotary Position Embedding (RoPE), which causes the text tokens to overemphasize certain types of tokens depending on their sequential orders. To address these issues, we introduce MASH-VLM, Mitigating Action-Scene Hallucination in Video-LLMs through disentangled spatial-temporal representations. Our approach includes two key innovations: (1) DST-attention, a novel attention mechanism that disentangles the spatial and temporal tokens within the LLM by using masked attention to restrict direct interactions between the spatial and temporal tokens; (2) Harmonic-RoPE, which extends the dimensionality of the positional IDs, allowing the spatial and temporal tokens to maintain balanced positions relative to the text tokens. To evaluate the action-scene hallucination in Video-LLMs, we introduce the UNSCENE benchmark with 1,320 videos and 4,078 QA pairs. Extensive experiments demonstrate that MASH-VLM achieves state-of-the-art results on the UNSCENE benchmark, as well as on existing video understanding benchmarks.",
+   "affiliations": [
+    "Kyung Hee University",
+    "LG AI Research"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "Kyung Hee University",
+    "LG AI Research"
+   ],
+   "institution_ids": [
+    "01zqcg218",
+    "00nt82y31"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2503.15871",
+   "pdf_url": "https://arxiv.org/pdf/2503.15871"
   },
   {
    "arxiv_id": "2503.15138",
@@ -131003,6 +133776,63 @@
    },
    "abs_url": "https://arxiv.org/abs/2503.12732",
    "pdf_url": "https://arxiv.org/pdf/2503.12732"
+  },
+  {
+   "arxiv_id": "2503.09403",
+   "announced": "2025-03-17",
+   "title": "Multi-Agent Image Restoration",
+   "authors": [
+    "Xu Jiang",
+    "Gehui Li",
+    "Bin Chen",
+    "Jian Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Image restoration (IR) is challenging due to the complexity of real-world degradations. While many specialized and all-in-one IR models have been developed, they fail to effectively handle complex, mixed degradations. Recent agentic methods RestoreAgent and AgenticIR leverage intelligent, autonomous workflows to alleviate this issue, yet they suffer from suboptimal results and inefficiency due to their resource-intensive finetunings, and ineffective searches and tool execution trials for satisfactory outputs. In this paper, we propose MAIR, a novel Multi-Agent approach for complex IR problems. We introduce a real-world degradation prior, categorizing degradations into three types: (1) scene, (2) imaging, and (3) compression, which are observed to occur sequentially in real world, and reverse them in the opposite order. Built upon this three-stage restoration framework, MAIR emulates a team of collaborative human specialists, including a \"scheduler\" for overall planning and multiple \"experts\" dedicated to specific degradations. This design minimizes search space and trial efforts, improving image quality while reducing inference costs. In addition, a registry mechanism is introduced to enable easy integration of new tools. Experiments on both synthetic and real-world datasets show that proposed MAIR achieves competitive performance and improved efficiency over the previous agentic IR system. Code and models will be made available.",
+   "affiliations": [
+    "Peking University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Peking University"
+   ],
+   "institution_ids": [
+    "02v51f717"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2503.09403",
+   "pdf_url": "https://arxiv.org/pdf/2503.09403"
   },
   {
    "arxiv_id": "2503.09248",
@@ -133409,6 +136239,86 @@
    },
    "abs_url": "https://arxiv.org/abs/2503.08677",
    "pdf_url": "https://arxiv.org/pdf/2503.08677"
+  },
+  {
+   "arxiv_id": "2503.08342",
+   "announced": "2025-03-12",
+   "title": "Attention Reallocation: Towards Zero-cost and Controllable Hallucination Mitigation of MLLMs",
+   "authors": [
+    "Chongjun Tu",
+    "Peng Ye",
+    "Dongzhan Zhou",
+    "Lei Bai",
+    "Gang Yu",
+    "Tao Chen",
+    "Wanli Ouyang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Multi-Modal Large Language Models (MLLMs) stand out in various tasks but still struggle with hallucinations. While recent training-free mitigation methods mostly introduce additional inference overhead via retrospection strategy and contrastive decoding, we propose attention reallocation (AttnReal) to mitigate hallucinations with nearly zero extra cost. Our approach is motivated by the key observations that, MLLM's unreasonable attention distribution causes features to be dominated by historical output tokens, which further contributes to hallucinated responses because of the distribution gap between different token types. Based on the observations, AttnReal recycles excessive attention from output tokens and reallocates it to visual tokens, which reduces MLLM's reliance on language priors and ensures the decoding process depends more on the visual inputs. More interestingly, we find that, by controlling the intensity of AttnReal, we can achieve a wide-range trade-off between the response faithfulness and overall performance. Comprehensive results from different benchmarks validate the effectiveness of AttnReal across six open-source MLLMs and three decoding strategies.",
+   "affiliations": [
+    "Fudan University",
+    "Shanghai Artificial Intelligence Laboratory",
+    "StepFun AI",
+    "Shanghai Innovation Institute",
+    "Chinese University of Hong Kong"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     4,
+     1
+    ]
+   ],
+   "institutions": [
+    "Fudan University",
+    "Shanghai Artificial Intelligence Laboratory",
+    "StepFun AI",
+    "Shanghai Innovation Institute",
+    "Chinese University of Hong Kong"
+   ],
+   "institution_ids": [
+    "013q1eq08",
+    "03wkvpx79",
+    "03fwjkz17",
+    "01fatbw66",
+    "00t33hh48"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2503.08342",
+   "pdf_url": "https://arxiv.org/pdf/2503.08342"
   },
   {
    "arxiv_id": "2503.06955",
@@ -136905,7 +139815,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -147308,7 +150218,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -152278,7 +155188,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -153592,7 +156502,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -160426,7 +163336,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -169559,6 +172469,56 @@
    "pdf_url": "https://arxiv.org/pdf/2501.13826"
   },
   {
+   "arxiv_id": "2501.13528",
+   "announced": "2025-01-23",
+   "title": "Diffusion-based Perceptual Neural Video Compression with Temporal Diffusion Information Reuse",
+   "authors": [
+    "Wenzhuo Ma",
+    "Zhenzhong Chen"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "Image and Video Processing (eess.IV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recently, foundational diffusion models have attracted considerable attention in image compression tasks, whereas their application to video compression remains largely unexplored. In this article, we introduce DiffVC, a diffusion-based perceptual neural video compression framework that effectively integrates foundational diffusion model with the video conditional coding paradigm. This framework uses temporal context from previously decoded frame and the reconstructed latent representation of the current frame to guide the diffusion model in generating high-quality results. To accelerate the iterative inference process of diffusion model, we propose the Temporal Diffusion Information Reuse (TDIR) strategy, which significantly enhances inference efficiency with minimal performance loss by reusing the diffusion information from previous frames. Additionally, to address the challenges posed by distortion differences across various bitrates, we propose the Quantization Parameter-based Prompting (QPP) mechanism, which utilizes quantization parameters as prompts fed into the foundational diffusion model to explicitly modulate intermediate features, thereby enabling a robust variable bitrate diffusion-based neural compression framework. Experimental results demonstrate that our proposed solution delivers excellent performance in both perception metrics and visual quality.",
+   "affiliations": [
+    "Wuhan University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Wuhan University"
+   ],
+   "institution_ids": [
+    "033vjfk17"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2501.13528",
+   "pdf_url": "https://arxiv.org/pdf/2501.13528"
+  },
+  {
    "arxiv_id": "2501.13468",
    "announced": "2025-01-23",
    "title": "Streaming Video Understanding and Multi-round Interaction with Memory-enhanced Knowledge",
@@ -170891,7 +173851,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -171175,6 +174135,74 @@
    },
    "abs_url": "https://arxiv.org/abs/2501.09757",
    "pdf_url": "https://arxiv.org/pdf/2501.09757"
+  },
+  {
+   "arxiv_id": "2501.09756",
+   "announced": "2025-01-16",
+   "title": "SynthLight: Portrait Relighting with Diffusion Model by Learning to Re-render Synthetic Faces",
+   "authors": [
+    "Sumit Chaturvedi",
+    "Mengwei Ren",
+    "Yannick Hold-Geoffroy",
+    "Jingyuan Liu",
+    "Julie Dorsey",
+    "Zhixin Shu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Graphics (cs.GR)"
+   ],
+   "comments": "27 pages, 25 figures, Project Page https://vrroom.github.io/synthlight/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We introduce SynthLight, a diffusion model for portrait relighting. Our approach frames image relighting as a re-rendering problem, where pixels are transformed in response to changes in environmental lighting conditions. Using a physically-based rendering engine, we synthesize a dataset to simulate this lighting-conditioned transformation with 3D head assets under varying lighting. We propose two training and inference strategies to bridge the gap between the synthetic and real image domains: (1) multi-task training that takes advantage of real human portraits without lighting labels; (2) an inference time diffusion sampling procedure based on classifier-free guidance that leverages the input portrait to better preserve details. Our method generalizes to diverse real photographs and produces realistic illumination effects, including specular highlights and cast shadows, while preserving the subject's identity. Our quantitative experiments on Light Stage data demonstrate results comparable to state-of-the-art relighting methods. Our qualitative results on in-the-wild images showcase rich and unprecedented illumination effects. Project Page: https://vrroom.github.io/synthlight/",
+   "affiliations": [
+    "Yale University",
+    "Adobe Systems"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Yale University",
+    "Adobe"
+   ],
+   "institution_ids": [
+    "03v76x132",
+    "059tvcg64"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2501.09756",
+   "pdf_url": "https://arxiv.org/pdf/2501.09756"
   },
   {
    "arxiv_id": "2501.09732",
@@ -171681,7 +174709,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -172050,6 +175078,66 @@
    },
    "abs_url": "https://arxiv.org/abs/2501.08199",
    "pdf_url": "https://arxiv.org/pdf/2501.08199"
+  },
+  {
+   "arxiv_id": "2501.07819",
+   "announced": "2025-01-14",
+   "title": "3UR-LLM: An End-to-End Multimodal Large Language Model for 3D Scene Understanding",
+   "authors": [
+    "Haomiao Xiong",
+    "Yunzhi Zhuge",
+    "Jiawen Zhu",
+    "Lu Zhang",
+    "Huchuan Lu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to IEEE Transactions on Multimedia (TMM)",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Multi-modal Large Language Models (MLLMs) exhibit impressive capabilities in 2D tasks, yet encounter challenges in discerning the spatial positions, interrelations, and causal logic in scenes when transitioning from 2D to 3D representations. We find that the limitations mainly lie in: i) the high annotation cost restricting the scale-up of volumes of 3D scene data, and ii) the lack of a straightforward and effective way to perceive 3D information which results in prolonged training durations and complicates the streamlined framework. To this end, we develop pipeline based on open-source 2D MLLMs and LLMs to generate high-quality 3D-text pairs and construct 3DS-160K , to enhance the pre-training process. Leveraging this high-quality pre-training data, we introduce the 3UR-LLM model, an end-to-end 3D MLLM designed for precise interpretation of 3D scenes, showcasing exceptional capability in navigating the complexities of the physical world. 3UR-LLM directly receives 3D point cloud as input and project 3D features fused with text instructions into a manageable set of tokens. Considering the computation burden derived from these hybrid tokens, we design a 3D compressor module to cohesively compress the 3D spatial cues and textual narrative. 3UR-LLM achieves promising performance with respect to the previous SOTAs, for instance, 3UR-LLM exceeds its counterparts by 7.1% CIDEr on ScanQA, while utilizing fewer training resources. The code and model weights for 3UR-LLM and the 3DS-160K benchmark are available at 3UR-LLM.",
+   "affiliations": [
+    "Dalian University of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Dalian University of Technology"
+   ],
+   "institution_ids": [
+    "023hj5876"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2501.07819",
+   "pdf_url": "https://arxiv.org/pdf/2501.07819"
   },
   {
    "arxiv_id": "2501.07810",
@@ -173328,6 +176416,72 @@
    },
    "abs_url": "https://arxiv.org/abs/2501.03847",
    "pdf_url": "https://arxiv.org/pdf/2501.03847"
+  },
+  {
+   "arxiv_id": "2501.00358",
+   "announced": "2025-01-09",
+   "title": "Embodied VideoAgent: Persistent Memory from Egocentric Videos and Embodied Sensors Enables Dynamic Scene Understanding",
+   "authors": [
+    "Yue Fan",
+    "Xiaojian Ma",
+    "Rongpeng Su",
+    "Jun Guo",
+    "Rujie Wu",
+    "Xi Chen",
+    "Qing Li"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "project page: https://embodied-videoagent.github.io/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This paper investigates the problem of understanding dynamic 3D scenes from egocentric observations, a key challenge in robotics and embodied AI. Unlike prior studies that explored this as long-form video understanding and utilized egocentric video only, we instead propose an LLM-based agent, Embodied VideoAgent, which constructs scene memory from both egocentric video and embodied sensory inputs (e.g. depth and pose sensing). We further introduce a VLM-based approach to automatically update the memory when actions or activities over objects are perceived. Embodied VideoAgent attains significant advantages over counterparts in challenging reasoning and planning tasks in 3D scenes, achieving gains of 4.9% on Ego4D-VQ3D, 5.8% on OpenEQA, and 11.7% on EnvQA. We have also demonstrated its potential in various embodied AI tasks including generating embodied interactions and perception for robot manipulation. The code and demo will be made public.",
+   "affiliations": [
+    "Beijing Institute for General Artificial Intelligence"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Beijing Institute for General Artificial Intelligence"
+   ],
+   "institution_ids": [
+    "02kw1ws04"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2501.00358",
+   "pdf_url": "https://arxiv.org/pdf/2501.00358"
   },
   {
    "arxiv_id": "2501.04699",
@@ -174715,7 +177869,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "openalex"
@@ -177192,6 +180346,96 @@
    "pdf_url": "https://arxiv.org/pdf/2501.13554"
   },
   {
+   "arxiv_id": "2501.13492",
+   "announced": "2025-01-01",
+   "title": "Quantized Spike-driven Transformer",
+   "authors": [
+    "Xuerui Qiu",
+    "Malu Zhang",
+    "Jieyuan Zhang",
+    "Wenjie Wei",
+    "Honglin Cao",
+    "Junsheng Guo",
+    "Rui-Jie Zhu",
+    "Yimeng Shan",
+    "Yang Yang",
+    "Haizhou Li"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by ICLR 2025",
+   "journal_ref": null,
+   "venue": "ICLR 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Spiking neural networks are emerging as a promising energy-efficient alternative to traditional artificial neural networks due to their spike-driven paradigm. However, recent research in the SNN domain has mainly focused on enhancing accuracy by designing large-scale Transformer structures, which typically rely on substantial computational resources, limiting their deployment on resource-constrained devices. To overcome this challenge, we propose a quantized spike-driven Transformer baseline (QSD-Transformer), which achieves reduced resource demands by utilizing a low bit-width parameter. Regrettably, the QSD-Transformer often suffers from severe performance degradation. In this paper, we first conduct empirical analysis and find that the bimodal distribution of quantized spike-driven self-attention (Q-SDSA) leads to spike information distortion (SID) during quantization, causing significant performance degradation. To mitigate this issue, we take inspiration from mutual information entropy and propose a bi-level optimization strategy to rectify the information distribution in Q-SDSA. Specifically, at the lower level, we introduce an information-enhanced LIF to rectify the information distribution in Q-SDSA. At the upper level, we propose a fine-grained distillation scheme for the QSD-Transformer to align the distribution in Q-SDSA with that in the counterpart ANN. By integrating the bi-level optimization strategy, the QSD-Transformer can attain enhanced energy efficiency without sacrificing its high-performance advantage. For instance, when compared to the prior SNN benchmark on ImageNet, the QSD-Transformer achieves 80.3% top-1 accuracy, accompanied by significant reductions of 6.0× and 8.1× in power consumption and model size, respectively. Code is available at https://github.com/bollossom/QSD-Transformer.",
+   "affiliations": [
+    "University of Electronic Science and Technology of China",
+    "China Agricultural University",
+    "University of California, Santa Cruz",
+    "Liaoning Technical University",
+    "Chinese University of Hong Kong, Shenzhen"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ],
+    [
+     4
+    ]
+   ],
+   "institutions": [
+    "University of Electronic Science and Technology of China",
+    "China Agricultural University",
+    "University of California, Santa Cruz",
+    "Liaoning Technical University",
+    "Chinese University of Hong Kong, Shenzhen"
+   ],
+   "institution_ids": [
+    "04qr3zq92",
+    "04v3ywz14",
+    "03s65by71",
+    "01n2bd587",
+    "02d5ks197"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2501.13492",
+   "pdf_url": "https://arxiv.org/pdf/2501.13492"
+  },
+  {
    "arxiv_id": "2501.13400",
    "announced": "2025-01-01",
    "title": "YOLOv8 to YOLO11: A Comprehensive Architecture In-depth Comparative Review",
@@ -178493,6 +181737,78 @@
    "pdf_url": "https://arxiv.org/pdf/2501.11347"
   },
   {
+   "arxiv_id": "2501.11340",
+   "announced": "2025-01-01",
+   "title": "GenVidBench: A 6-Million Benchmark for AI-Generated Video Detection",
+   "authors": [
+    "Zhenliang Ni",
+    "Qiangyu Yan",
+    "Mouxiao Huang",
+    "Tianning Yuan",
+    "Yehui Tang",
+    "Hailin Hu",
+    "Xinghao Chen",
+    "Yunhe Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "AAAI 2026",
+   "journal_ref": null,
+   "venue": "AAAI 2026",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The rapid advancement of video generation models has made it increasingly challenging to distinguish AI-generated videos from real ones. This issue underscores the urgent need for effective AI-generated video detectors to prevent the dissemination of false information via such videos. However, the development of high-performance AI-generated video detectors is currently impeded by the lack of large-scale, high-quality datasets specifically designed for generative video detection. To this end, we introduce GenVidBench, a challenging AI-generated video detection dataset with several key advantages: 1) Large-scale video collection: The dataset contains 6.78 million videos and is currently the largest dataset for AI-generated video detection. 2) Cross-Source and Cross-Generator: The cross-source generation reduces the interference of video content on the detection. The cross-generator ensures diversity in video attributes between the training and test sets, preventing them from being overly similar. 3) State-of-the-Art Video Generators: The dataset includes videos from 11 state-of-the-art AI video generators, ensuring that it covers the latest advancements in the field of video generation. These generators ensure that the datasets are not only large in scale but also diverse, aiding in the development of generalized and effective detection models. Additionally, we present extensive experimental results with advanced video classification models. With GenVidBench, researchers can efficiently develop and evaluate AI-generated video detection models.. Datasets and code are available at https://genvidbench.github.io.",
+   "affiliations": [
+    "Huawei Technologies"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Huawei"
+   ],
+   "institution_ids": [
+    "00cmhce21"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2501.11340",
+   "pdf_url": "https://arxiv.org/pdf/2501.11340"
+  },
+  {
    "arxiv_id": "2501.11319",
    "announced": "2025-01-01",
    "title": "StyleSSP: Sampling StartPoint Enhancement for Training-free Diffusion-based Method for Style Transfer",
@@ -179445,7 +182761,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",

@@ -3410,7 +3410,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
    "comments": "Work accepted to WACV 2023",
-   "journal_ref": null,
+   "journal_ref": "Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), pp. 2488-2497, 2023",
    "venue": "WACV 2023",
    "cross_list_from": null,
    "html_url": null,
@@ -14772,7 +14772,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -16095,7 +16095,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -17754,7 +17754,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -22287,7 +22287,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -30566,7 +30566,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -35515,7 +35515,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -35958,7 +35958,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -36410,7 +36410,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -38091,7 +38091,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -43566,7 +43566,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -58588,6 +58588,61 @@
    "pdf_url": "https://arxiv.org/pdf/2208.13016"
   },
   {
+   "arxiv_id": "2208.12737",
+   "announced": "2022-08-26",
+   "title": "Fast Auto-Differentiable Digitally Reconstructed Radiographs for Solving Inverse Problems in Intraoperative Imaging",
+   "authors": [
+    "Vivek Gopalakrishnan",
+    "Polina Golland"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Graphics (cs.GR)"
+   ],
+   "comments": "Published in Clinical Image-based Procedures (CLIP) workshop at MICCAI 2022",
+   "journal_ref": null,
+   "venue": "MICCAI 2022 Workshop",
+   "cross_list_from": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/2208.12737",
+   "abstract": "The use of digitally reconstructed radiographs (DRRs) to solve inverse problems such as slice-to-volume registration and 3D reconstruction is well-studied in preoperative settings. In intraoperative imaging, the utility of DRRs is limited by the challenges in generating them in real-time and supporting optimization procedures that rely on repeated DRR synthesis. While immense progress has been made in accelerating the generation of DRRs through algorithmic refinements and GPU implementations, DRR-based optimization remains slow because most DRR generators do not offer a straightforward way to obtain gradients with respect to the imaging parameters. To make DRRs interoperable with gradient-based optimization and deep learning frameworks, we have reformulated Siddon's method, the most popular ray-tracing algorithm used in DRR generation, as a series of vectorized tensor operations. We implemented this vectorized version of Siddon's method in PyTorch, taking advantage of the library's strong automatic differentiation engine to make this DRR generator fully differentiable with respect to its parameters. Additionally, using GPU-accelerated tensor computation enables our vectorized implementation to achieve rendering speeds equivalent to state-of-the-art DRR generators implemented in CUDA and C++. We illustrate the resulting method in the context of slice-to-volume registration. Moreover, our simulations suggest that the loss landscapes for the slice-to-volume registration problem are convex in the neighborhood of the optimal solution, and gradient-based registration promises a much faster solution than prevailing gradient-free optimization strategies. The proposed DRR generator enables fast computer vision algorithms to support image guidance in minimally invasive procedures. Our implementation is publically available at https://github.com/v715/DiffDRR.",
+   "affiliations": [
+    "Harvard-MIT Health Sciences and Technology, Massachusetts Institute of Technology, Cambridge, MA, USA",
+    "Computer Science and Artificial Intelligence Laboratory, Massachusetts Institute of Technology, Cambridge, MA, USA"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Massachusetts Institute of Technology",
+    "Massachusetts Institute of Technology"
+   ],
+   "institution_ids": [
+    "042nb2s44",
+    "042nb2s44"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2208.12737",
+   "pdf_url": "https://arxiv.org/pdf/2208.12737"
+  },
+  {
    "arxiv_id": "2208.12398",
    "announced": "2022-08-26",
    "title": "Few-Shot Learning Meets Transformer: Unified Query-Support Transformers for Few-Shot Classification",
@@ -59942,7 +59997,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -65334,7 +65389,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -65769,7 +65824,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -67092,7 +67147,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -83473,7 +83528,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -85900,7 +85955,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -88812,7 +88867,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -89837,7 +89892,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -89985,7 +90040,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -92476,7 +92531,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -92526,7 +92581,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -93254,7 +93309,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -96236,7 +96291,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -103937,7 +103992,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -105243,7 +105298,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -106856,7 +106911,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -115791,7 +115846,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -123929,7 +123984,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -124090,7 +124145,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -124693,7 +124748,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -125131,7 +125186,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -132164,7 +132219,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -142310,7 +142365,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -155722,7 +155777,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -170170,7 +170225,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",

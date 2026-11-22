@@ -2383,6 +2383,49 @@
    "pdf_url": "https://arxiv.org/pdf/2312.12856"
   },
   {
+   "arxiv_id": "2312.12828",
+   "announced": "2023-12-20",
+   "title": "TagCLIP: A Local-to-Global Framework to Enhance Open-Vocabulary Multi-Label Classification of CLIP Without Training",
+   "authors": [
+    "Yuqi Lin",
+    "Minghao Chen",
+    "Kaipeng Zhang",
+    "Hengjia Li",
+    "Mingming Li",
+    "Zheng Yang",
+    "Dongqin Lv",
+    "Binbin Lin",
+    "Haifeng Liu",
+    "Deng Cai"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "Accepted by AAAI2024",
+   "journal_ref": null,
+   "venue": "AAAI 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Contrastive Language-Image Pre-training (CLIP) has demonstrated impressive capabilities in open-vocabulary classification. The class token in the image encoder is trained to capture the global features to distinguish different text descriptions supervised by contrastive loss, making it highly effective for single-label classification. However, it shows poor performance on multi-label datasets because the global feature tends to be dominated by the most prominent class and the contrastive nature of softmax operation aggravates it. In this study, we observe that the multi-label classification results heavily rely on discriminative local features but are overlooked by CLIP. As a result, we dissect the preservation of patch-wise spatial information in CLIP and proposed a local-to-global framework to obtain image tags. It comprises three steps: (1) patch-level classification to obtain coarse scores; (2) dual-masking attention refinement (DMAR) module to refine the coarse scores; (3) class-wise reidentification (CWR) module to remedy predictions from a global perspective. This framework is solely based on frozen CLIP and significantly enhances its multi-label classification performance on various benchmarks without dataset-specific training. Besides, to comprehensively assess the quality and practicality of generated tags, we extend their application to the downstream task, i.e., weakly supervised semantic segmentation (WSSS) with generated tags as image-level pseudo labels. Experiments demonstrate that this classify-then-segment paradigm dramatically outperforms other annotation-free segmentation methods and validates the effectiveness of generated tags. Our code is available at https://github.com/linyq2117/TagCLIP.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2312.12828",
+   "pdf_url": "https://arxiv.org/pdf/2312.12828"
+  },
+  {
    "arxiv_id": "2312.12436",
    "announced": "2023-12-20",
    "title": "A Challenger to GPT-4V? Early Explorations of Gemini in Visual Expertise",
@@ -8656,7 +8699,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -8785,6 +8828,69 @@
    },
    "abs_url": "https://arxiv.org/abs/2312.03079",
    "pdf_url": "https://arxiv.org/pdf/2312.03079"
+  },
+  {
+   "arxiv_id": "2312.03014",
+   "announced": "2023-12-05",
+   "title": "Foundation Models for Weather and Climate Data Understanding: A Comprehensive Survey",
+   "authors": [
+    "Shengchao Chen",
+    "Guodong Long",
+    "Jing Jiang",
+    "Dikai Liu",
+    "Chengqi Zhang"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Atmospheric and Oceanic Physics (physics.ao-ph)"
+   ],
+   "comments": "Ongoing work. Survey Paper. 35 pages, 2 figures, 4 tables. The first work to comprehensively and systematically summarize DL-based weather and climate data understanding, paving the way for the development of weather and climate foundation models",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "As artificial intelligence (AI) continues to rapidly evolve, the realm of Earth and atmospheric sciences is increasingly adopting data-driven models, powered by progressive developments in deep learning (DL). Specifically, DL techniques are extensively utilized to decode the chaotic and nonlinear aspects of Earth systems, and to address climate challenges via understanding weather and climate data. Cutting-edge performance on specific tasks within narrower spatio-temporal scales has been achieved recently through DL. The rise of large models, specifically large language models (LLMs), has enabled fine-tuning processes that yield remarkable outcomes across various downstream tasks, thereby propelling the advancement of general AI. However, we are still navigating the initial stages of crafting general AI for weather and climate. In this survey, we offer an exhaustive, timely overview of state-of-the-art AI methodologies specifically engineered for weather and climate data, with a special focus on time series and text data. Our primary coverage encompasses four critical aspects: types of weather and climate data, principal model architectures, model scopes and applications, and datasets for weather and climate. Furthermore, in relation to the creation and application of foundation models for weather and climate data understanding, we delve into the field's prevailing challenges, offer crucial insights, and propose detailed avenues for future research. This comprehensive approach equips practitioners with the requisite knowledge to make substantial progress in this domain. Our survey encapsulates the most recent breakthroughs in research on large, data-driven models for weather and climate data understanding, emphasizing robust foundations, current advancements, practical applications, crucial resources, and prospective research opportunities.",
+   "affiliations": [
+    "University of Technology Sydney"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Technology Sydney"
+   ],
+   "institution_ids": [
+    "03f0f6041"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2312.03014",
+   "pdf_url": "https://arxiv.org/pdf/2312.03014"
   },
   {
    "arxiv_id": "2312.02981",
@@ -13606,7 +13712,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -14252,7 +14358,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -22827,7 +22933,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -24437,7 +24543,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -25291,7 +25397,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -25601,7 +25707,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -26498,7 +26604,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -34909,7 +35015,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -35897,6 +36003,77 @@
    "pdf_url": "https://arxiv.org/pdf/2311.06242"
   },
   {
+   "arxiv_id": "2311.05779",
+   "announced": "2023-11-09",
+   "title": "Language-guided Robot Grasping: CLIP-based Referring Grasp Synthesis in Clutter",
+   "authors": [
+    "Georgios Tziafas",
+    "Yucheng Xu",
+    "Arushi Goel",
+    "Mohammadreza Kasaei",
+    "Zhibin Li",
+    "Hamidreza Kasaei"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Poster CoRL 2023. Dataset and code available here: https://github.com/gtziafas/OCID-VLG",
+   "journal_ref": null,
+   "venue": "CoRL 2023",
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "Robots operating in human-centric environments require the integration of visual grounding and grasping capabilities to effectively manipulate objects based on user instructions. This work focuses on the task of referring grasp synthesis, which predicts a grasp pose for an object referred through natural language in cluttered scenes. Existing approaches often employ multi-stage pipelines that first segment the referred object and then propose a suitable grasp, and are evaluated in private datasets or simulators that do not capture the complexity of natural indoor scenes. To address these limitations, we develop a challenging benchmark based on cluttered indoor scenes from OCID dataset, for which we generate referring expressions and connect them with 4-DoF grasp poses. Further, we propose a novel end-to-end model (CROG) that leverages the visual grounding capabilities of CLIP to learn grasp synthesis directly from image-text pairs. Our results show that vanilla integration of CLIP with pretrained models transfers poorly in our challenging benchmark, while CROG achieves significant improvements both in terms of grounding and grasping. Extensive robot experiments in both simulation and hardware demonstrate the effectiveness of our approach in challenging interactive object grasping scenarios that include clutter.",
+   "affiliations": [
+    "University of Groningen",
+    "University of Edinburgh",
+    "University College London"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Groningen",
+    "University of Edinburgh",
+    "University College London"
+   ],
+   "institution_ids": [
+    "012p63287",
+    "01nrxwf90",
+    "02jx3x895"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2311.05779",
+   "pdf_url": "https://arxiv.org/pdf/2311.05779"
+  },
+  {
    "arxiv_id": "2311.05556",
    "announced": "2023-11-09",
    "title": "LCM-LoRA: A Universal Stable-Diffusion Acceleration Module",
@@ -36429,7 +36606,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -38271,7 +38448,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -47676,7 +47853,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -51570,7 +51747,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -61562,7 +61739,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -62938,7 +63115,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -65564,7 +65741,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -70304,7 +70481,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -70620,7 +70797,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -73236,7 +73413,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -80473,7 +80650,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -84148,7 +84325,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -91361,7 +91538,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -96587,7 +96764,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -109528,7 +109705,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "openalex"
@@ -120121,7 +120298,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -120685,7 +120862,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -126482,7 +126659,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -127667,7 +127844,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -131990,7 +132167,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -137201,7 +137378,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -137269,7 +137446,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -143814,7 +143991,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -144056,7 +144233,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -145797,7 +145974,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -155004,7 +155181,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -164471,7 +164648,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -167497,7 +167674,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -170363,7 +170540,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -177978,6 +178155,51 @@
    "pdf_url": "https://arxiv.org/pdf/2304.06648"
   },
   {
+   "arxiv_id": "2304.06470",
+   "announced": "2023-04-01",
+   "title": "Qualitative Failures of Image Generation Models and Their Application in Detecting Deepfakes",
+   "authors": [
+    "Ali Borji"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The ability of image and video generation models to create photorealistic images has reached unprecedented heights, making it difficult to distinguish between real and fake images in many cases. However, despite this progress, a gap remains between the quality of generated images and those found in the real world. To address this, we have reviewed a vast body of literature from both academic publications and social media to identify qualitative shortcomings in image generation models, which we have classified into five categories. By understanding these failures, we can identify areas where these models need improvement, as well as develop strategies for detecting deep fakes. The prevalence of deep fakes in today's society is a serious concern, and our findings can help mitigate their negative impact.",
+   "affiliations": [
+    "University of Southern California"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Southern California"
+   ],
+   "institution_ids": [
+    "03taz7m60"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-22"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2304.06470",
+   "pdf_url": "https://arxiv.org/pdf/2304.06470"
+  },
+  {
    "arxiv_id": "2304.06408",
    "announced": "2023-04-01",
    "title": "Intriguing properties of synthetic images: from generative adversarial networks to diffusion models",
@@ -183494,7 +183716,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -186666,7 +186888,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -192864,7 +193086,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -204094,7 +204316,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "openalex"
@@ -206660,7 +206882,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -219551,7 +219773,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -221713,7 +221935,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -228419,7 +228641,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
@@ -232221,7 +232443,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-11-15"
+     "at": "2026-11-22"
     },
     "institutions": {
      "source": "ror",
