@@ -114,7 +114,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23212v1",
+   "html_url": "https://arxiv.org/html/2611.23212v2",
    "abstract": "Histopathological analysis of whole-slide images (WSIs) plays a critical role in cancer diagnosis, and multiple instance learning (MIL) is widely adopted for WSI analysis under weak supervision. As new tumor subtypes are introduced, extending existing MIL models requires learning new classes while retaining knowledge of previously learned ones. This presents a class-incremental learning challenge, where models must acquire new classes with limited access to historical training data and recognize all learned classes without task identifiers at inference. A major obstacle is forgetting, as updates to feature aggregation and prediction modules can degrade performance on previously learned classes. To address this challenge, we propose EviSlide-MIL, a class-incremental WSI framework that integrates multiple learnable queries per class with a shared prediction module. The queries aggregate frozen patch features into class-specific representations, while the shared prediction module limits parameter growth across incremental stages. By freezing queries associated with previously learned classes, EviSlide-MIL preserves their attention patterns for identical inputs, while experience replay and knowledge distillation further mitigate forgetting as shared parameters are updated. Experiments on eight tumor subtypes from The Cancer Genome Atlas demonstrate that EviSlide-MIL achieves improved performance and reduced forgetting compared with competing methods across most learning settings, demonstrating its potential for scalable and knowledge-preserving WSI classification. Code and pretrained models will be released.",
    "affiliations": [],
    "author_affiliations": null,
@@ -1186,7 +1186,7 @@
    "journal_ref": null,
    "venue": "WACV 2027 Workshop",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23088v1",
+   "html_url": "https://arxiv.org/html/2611.23088v2",
    "abstract": "Maritime search and rescue requires locating people in the water quickly, motivating the use of UAVs to survey the search area. During flight, camera motion and the longer exposures used in low light can blur small targets and hinder person detection. Event cameras record brightness changes as they occur, reducing the motion blur associated with longer exposure times. We investigate their use for maritime person detection by generating synthetic events using the v2e event simulator from public MOBDrone rescue videos and retaining the existing annotations. We compare the recurrent vision transformer model RVT-T with YOLOv8n and RT-DETR-R18 trained on exposure-matched images. On 843 test samples from held-out recordings, RVT-T achieves 15.63% person AP50:95, compared with 6.89% for YOLOv8n and 9.44% for RT-DETR-R18 under 100 ms synthetic exposure. Increasing exposure times from 50 to 200 ms progressively reduces frame-based detection accuracy, widening the gap to the event model. To evaluate the feasibility of on-board processing, we deploy our detector on a Jetson Orin Nano platform. The RVT-T model retains its accuracy and requires approximately 136 ms and 2.02 J per sample, allowing real-time processing on the UAV.",
    "affiliations": [
     "EAVISE-PSI, ESAT, KU Leuven, Leuven, Belgium"
@@ -4177,11 +4177,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "11 pages, 5 figures",
+   "comments": "11 pages, 5 figures. Project page: https://anorak-games.github.io/pcrg/",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.22717v2",
+   "html_url": "https://arxiv.org/html/2611.22717v3",
    "abstract": "Reference-to-video diffusion transformers pack the variational autoencoder (VAE) latents of all references and the generated tokens into one full-attention sequence, in which reference tokens make up about half. Because attention cost grows quadratically with sequence length, these tokens take up an even larger share of the attention computation, yet most of them are static, smooth or irrelevant to the output. To accelerate reference-conditioned generation, we propose pruning and caching of reference tokens for video generation (PCRG), a training-free, plug-and-play method that uses two signals the model already computes to assign each reference token to one of three tiers, namely pruned, cached or kept. The first is a low-level redundancy r from VAE latents, since a token whose latent barely changes over time or across its neighbors adds little new content. The second is a high-level importance g from the vision-language-model (VLM) conditioner, where the attention that the prompt and any first or last frames pay to a token tells whether the output needs to read it. Tokens that are not redundant are kept, and redundant tokens are cached if important and pruned otherwise. Pruned tokens leave the sequence before the first step with all rotary position embedding positions unchanged. Cached tokens have their keys and values computed once and reused, and kept tokens are processed as usual. On MiniMax-H3, already distilled to 8 timesteps and quantized to int8, PCRG is 1.57x faster end to end on our V2V-Bench and 1.49x faster on the public VACE-Benchmark, while the quality of VBench drops by only 0.24% and 0.17%, respectively. PCRG shortens the sequence rather than changing how attention is computed or which steps are run, so it also stacks on step caching and sparse attention. On V2V-Bench it reaches 1.86x with TeaCache, 1.82x with Spark at nearly unchanged fidelity and 2.15x with Veda.",
    "affiliations": [
     "Anorak Games"
@@ -8271,11 +8271,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "CVPR 2027 submission",
+   "comments": null,
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.22189v2",
+   "html_url": "https://arxiv.org/html/2611.22189v3",
    "abstract": "In computational pathology, high-magnification whole-slide image analysis preserves tissue detail but requires encoding many patches, whereas lower magnification reduces computation by covering a higher field of view per patch while sacrificing detail. Existing cross-magnification distillation matches features that often encode detail unreachable by low-magnification input, sometimes requiring slide-level labels that limit scalability. To address those issues, we introduce Sparse Regional Evidence Distillation (SRED), which transfers regional event occurrences that encode reachable high-level interactions between details without slide-level labels. We use a sparse autoencoder (SAE) to learn an event dictionary from 20x teacher features. Logical OR pooling records whether each event is detected in any spatially aligned patch, retaining both localized and shared evidence within the corresponding 5x region. A pretrained 5x encoder is fine-tuned to predict these regional targets without slide-level labels. Visual analysis identifies dictionary components responsive to recognizable histological patterns, supporting target interpretation. Compared with native 5x features, SRED improves average macro-F1 by 1.1 points across seven classification and grading cohorts and average C-index by 1.7 points across five survival cohorts. Runtime matches native 5x, with an average 11.58x speedup over 20x.",
    "affiliations": [
     "Department of Computer Science and Software Engineering (CSSE), Concordia University, Montreal, Canada",

@@ -223,7 +223,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Accepted at NeurIPS 2026, Track on Evaluations and Datasets. 53 pages. Project page: https://shagun8.github.io/shadowtransfer/ . Code: https://github.com/shagun8/shadowtransfer . Data: https://huggingface.co/datasets/shagunmittal/ShadowTransfer (DOI 10.57967/hf/11483)",
+   "comments": "Accepted at NeurIPS 2026, Track on Evaluations and Datasets. 53 pages. Project page: https://shagun8.github.io/shadowtransfer/ . Code: https://github.com/shagun8/shadowtransfer . Data: https://huggingface.co/datasets/shagunmittal/ShadowTransfer (DOI https://doi.org/10.57967/hf/11483)",
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
@@ -875,11 +875,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Project page: https://carol-lyh.github.io/Jeveration/ Code: https://github.com/Carol-lyh/Jeveration",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.24738v1",
+   "html_url": "https://arxiv.org/html/2611.24738v2",
    "abstract": "System One models such as Jev return decisions through fast, parallel prediction. In this paper, we introduce Jeveration, showing that the same decision paradigm can also generate high-quality images in a single forward pass. Jeveration builds on a frozen vision-language model, repurposing its visual-semantic knowledge for holistic image generation. The key challenge is to maintain global consistency. A single prompt admits many valid images, yet parallel predictions must converge on a coherent whole. We therefore condition all positions on a shared random state to coordinate parallel predictions, so that each draw yields a different but coherent image. Since the model tends to ignore this state under direct image supervision, we first learn a distribution over discrete image codes to guide single-pass generation. Beyond text-to-image generation, we further unify image-to-image generation and dense prediction within the same architecture, so that one checkpoint supports all three tasks, each in one forward pass. Experiments show that Jeveration generates a 512x512 image in 78 ms, up to 122x faster than existing unified models, while maintaining competitive image quality and dense prediction performance.",
    "affiliations": [
     "National University of Singapore"
@@ -2005,7 +2005,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.24524v1",
+   "html_url": "https://arxiv.org/html/2611.24524v2",
    "abstract": "Generalizable AI-generated video detection remains challenging because natural motion and content variations can resemble synthesis artifacts, making isolated video discrepancies unreliable indicators of authenticity. To address this challenge, we propose Spatial and Contextual Reference-informed Detection (SCRiD), a framework that interprets video variations through complementary spatial and contextual references. Specifically, we introduce Matched-Coordinate Residual Response (MCR) to characterize temporal residual associations under motion and coordinate references with matched subpixel sampling conditions. We further develop Real-Conditioned Score Adaptation (RCSA), which learns a content-conditioned denoising reference from authentic videos and probes its responses across multiple noise scales and quality views to guide feature adaptation. To integrate these complementary sources of evidence, we design Reversible Evidence Exchange (REE) to enable information exchange through reversible symplectic updates. We train SCRiD using synthetic videos from only 4 generators and evaluate it across 88 generator or task subsets spanning 6 benchmarks. Our method achieves average ACC and AP of 72.72% and 74.23%, respectively, outperforming the strongest baseline by 3.24 and 0.81 percentage points.Ablation and robustness experiments further validate the effectiveness of the proposed components and the stability of SCRiD under common post-processing operations.",
    "affiliations": [],
    "author_affiliations": null,
@@ -3910,7 +3910,7 @@
   {
    "arxiv_id": "2611.24259",
    "announced": "2026-11-19",
-   "title": "Do Thinking VLMs Need to Keep Looking at Long Videos? Write It Down, Then Look Away",
+   "title": "Do VLMs Need to Keep Looking at Long Videos? Write It Down, Then Look Away",
    "authors": [
     "Pengyu Li",
     "Zhitao Gao",
@@ -5725,11 +5725,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Accepted to KDD 2027. Project page is at https://whalesong-zrs.github.io/RoughCut-Bench-Project-Page",
+   "comments": "Accepted to KDD 2027. Project page is at https://whalesong-zrs.github.io/RoughCut-Bench-Project-Page. This revision clarifies the speech-driven evaluation protocol, including count aggregation across ten runs, and corrects numerical errors in the result tables",
    "journal_ref": null,
    "venue": "KDD 2027",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.24098v1",
+   "html_url": "https://arxiv.org/html/2611.24098v2",
    "abstract": "Video rough-cut is a core stage in media production workflows, organizing raw media materials into an initial video cut. Despite recent advances in large vision-language models (LVLMs) for video-related tasks, automatic rough-cut remains underexplored, without a comprehensive benchmark for evaluation or mature workflows for producing executable cut plans. To address the evaluation gap, we introduce RoughCut-Bench, which covers two practical settings: (1) a visually driven setting over video cases, covering highlight detection and selection, source-video ordering, and adherence to user requirements when provided; and (2) a speech-driven setting over automatic speech recognition (ASR) transcripts, covering filler removal, expression deduplication, and low-value content trimming. Across these settings, the benchmark contains 101 visually driven cases, including 831 raw videos with 1,476 highlight annotations. It also includes 84 speech-driven cases, each consisting of an ASR transcript with annotated cleanup spans. The evaluation compares cut plans with these annotations in both settings and additionally uses a human-aligned agentic evaluator to assess rendered-cut quality in the visual setting. To apply LVLMs to automatic rough-cut, we further propose agentic workflows that guide them to produce structured cut plans from input materials. Experiments show that current LVLMs remain limited in producing expert-aligned cut plans. Our benchmark, code, and prompts are released at https://whalesong-zrs.github.io/RoughCut-Bench-Project-Page.",
    "affiliations": [
     "ReLER, CCAI, Zhejiang University, ByteDance, Hangzhou, Zhejiang, China",
@@ -11767,7 +11767,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23417v1",
+   "html_url": "https://arxiv.org/html/2611.23417v2",
    "abstract": "We present the Autoregressive View Model (AVM), which generates a scene as a stream of views without constructing an explicit 3D representation. Through a unified in-context interface, AVM conditions on images or videos to generate short clips along a requested camera path. Visual context grounds reconstruction and interpolation, while a learned prior enables extrapolation into unseen regions. AVM retrieves relevant views from inputs and generated history to form a bounded active context. We fine-tune a pretrained bidirectional video diffusion transformer with flow matching in an N-in-1-out formulation. We then tune a causal model on its own rollouts to improve photorealism, reduce denoising steps, and limit long-horizon drift. We scale training to approximately 8M scenes and video clips. We evaluate generation capacity and scene persistence across benchmarks for camera control, text control, visual quality, dynamics, sparse and 4D reconstruction, and long-horizon consistency. The results demonstrate that AVM adapts to diverse input and output settings through one in-context interface.",
    "affiliations": [
     "Meta",

@@ -2264,17 +2264,34 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Video anomaly detection (VAD) is a challenging task for surveillance systems due to the scarcity and diversity of anomalous events. While semi-supervised VAD approaches have advanced the field, many rely on computationally intensive optical flow networks to capture motion dynamics. Convolutional neural networks (CNNs) are also widely used for spatial encoding, but their effective receptive field is highly local. To address these limitations, we introduce MS2CAST, an end-to-end semi-supervised predictive VAD framework. For spatial encoding, we employ a multi-scale cross-attention encoder that fuses the hierarchical feature representations from a vision transformer (MViTv2-S) and a CNN (ConvNeXt-T) to exploit their distinct receptive fields. To model spatiotemporal dynamics without optical flow estimation, we integrate two interchangeable spatiotemporal modules in the latent space. One module (SwinLSTM) incorporates a Swin Transformer, while the other (VMRNN) integrates Vision Mamba blocks. Our objective function combines L1 loss, Gradient Difference Loss (GDL), and Multi-Scale Structural Similarity Index Measure (MS-SSIM) to ensure pixel-wise accuracy, sharpness, and structural integrity. Evaluations across the UCSD Ped2, CUHK Avenue, and ShanghaiTech datasets demonstrate frame-level Receiver Operating Characteristic (ROC) Area Under the Curve (AUC) scores that are competitive with top-tier techniques while maintaining a peak GPU memory usage of under 1 GB.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Milan",
+    "University of Isfahan"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Milan",
+    "University of Isfahan"
+   ],
+   "institution_ids": [
+    "00wjc7c48",
+    "05h9t7759"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-22"
+     "at": "2026-11-23"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-22"
+     "at": "2026-11-23"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.29649",
@@ -2370,17 +2387,69 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "In remote sensing, open-vocabulary segmentation is particularly important for flexible and scalable land-cover understanding across diverse regions, as it improves generalization to novel categories without requiring exhaustive pixel-level annotations. Despite its great promise, progress in this area remains largely constrained by existing datasets with limited category coverage and overly coarse taxonomies, and therefore struggles to support fine-grained semantic understanding required in real-world applications such as urban functional zoning, carbon accounting, and post-disaster assessment. To address these challenges, we present OpenEarth-OVS44, a multimodal benchmark with 290,587 expert-verified segments from 2,832 RGB images and 1,341 strictly registered RGB-SAR pairs at sub-meter spatial resolution, covering 40 cities across France, Japan, and the United States under a unified 44-class taxonomy organized into 9 base categories. Three evaluation tracks are provided: an RGB-only fine-grained benchmark, a multimodal track with diverse synthetic cloudy conditions for weather-robust evaluation, and a held-out cross-region track. Extensive experiments on representative open-vocabulary segmentation models demonstrate that training on OpenEarth-OVS44 substantially improves fine-grained segmentation performance over the strongest training-free baseline, with improvements of up to 7.1 mIoU points on unseen categories and 27.6 mIoU points on seen categories. The dataset and code will be released.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "RIKEN",
+    "RIKEN Center for Advanced Intelligence Project",
+    "University of Tokyo",
+    "East China Normal University",
+    "Tsinghua University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     3
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     4
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "RIKEN",
+    "RIKEN Center for Advanced Intelligence Project",
+    "University of Tokyo",
+    "East China Normal University",
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "01sjwvz98",
+    "03ckxwf91",
+    "057zh3y96",
+    "02n96ep67",
+    "03cve4549"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-22"
+     "at": "2026-11-23"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-22"
+     "at": "2026-11-23"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.29642",
@@ -2454,7 +2523,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-22"
+     "at": "2026-11-23"
     },
     "institutions": {
      "source": "openalex",
@@ -8362,7 +8431,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-22"
+     "at": "2026-11-23"
     },
     "institutions": {
      "source": "openalex",
