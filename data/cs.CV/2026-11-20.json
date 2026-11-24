@@ -1727,6 +1727,7 @@
     "Shujie Li",
     "Shixuan Liu",
     "Haotian Wang",
+    "Jialu Chen",
     "Yuanxing Zhang",
     "Pengfei Wan",
     "Chengwei Qin"
@@ -1735,11 +1736,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "17 pages",
+   "comments": "44 pages",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.26380v1",
+   "html_url": "https://arxiv.org/html/2611.26380v2",
    "abstract": "Egocentric video captioning requires fine-grained detail and accurate timing, yet current multimodal large language models (MLLMs) often miss brief actions, confuse their order, or misinterpret the wearer's motion. Existing caption formats also offer limited support for combining detailed narration with precise timing. We present EgoCaptioner, which pairs a video-level overview of the setting, participants, and the wearer's overall activity with timed steps whose narration adapts to varying perceptual demands and marks key moments at specific timestamps. We develop a coarse-to-fine annotation pipeline that establishes event structure before expanding step descriptions, yielding 50,000 training examples from eight egocentric video sources. Complementary rewards assess factual accuracy and coverage, measure step-level temporal alignment, and penalize fragmented or redundant narration, guiding caption refinement through Group Relative Policy Optimization (GRPO). To improve the reliability of factual supervision, we supplement caption references with pose-derived motion facts when sensor data are available. Across five egocentric benchmarks, EgoCaptioner achieves leading performance among evaluated open-source models in caption quality, caption-conditioned question answering, and temporal alignment. It also surpasses Gemini 3.1 Pro on PhysCapBench and all evaluated proprietary baselines on Minerva-Ego under the caption-to-QA protocol. Ablations support the complementary roles of factual and temporal rewards and show that coarse-to-fine annotation provides more effective supervision than single-pass annotation.",
    "affiliations": [
     "HKUST(GZ)",
@@ -1802,6 +1803,9 @@
      1
     ],
     [
+     1
+    ],
+    [
      0
     ]
    ],
@@ -1827,11 +1831,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-20"
+     "at": "2026-11-24"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-20"
+     "at": "2026-11-24"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.26380",
@@ -2186,7 +2190,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.26316v1",
+   "html_url": "https://arxiv.org/html/2611.26316v2",
    "abstract": "Characterising individual cells is fundamental to computational pathology, as cellular morphology informs tasks such as tumour grading, mitotic assessment and immune profiling. However, most pathology foundation models are trained on tissue patches and capture cellular features only implicitly, while existing cell-level models are either restricted to specific cell populations or rely on computationally expensive architectures with hundreds of millions of parameters. Applying ViTs directly to small cellular crops also presents an architectural challenge: upsampling increases computational cost without adding morphological information and may introduce interpolation artefacts. To address these limitations, we introduce C-LiTE, a lightweight foundation model for cellular representation learning in H&E-stained histopathology, with only 22 million parameters. C-LiTE employs a native-resolution tokenisation strategy tailored to cellular inputs, processing 64 x 64 px cell-centred crops using a 4 x 4 patch embedding to produce a 16 x 16 token grid without image upsampling. To transfer visual knowledge from large-scale pre-training, we adapt the patch embedding weights of a pre-trained ViT-5-S using a pseudoinverse-based transformation, enabling weight initialisation at the finer patch resolution. We further assemble a pre-training dataset of 60 million cell-centred crops from TCGA, balanced across 19 cancer types and 16 tissue types. To our knowledge, this represents the largest public dataset for self-supervised pre-training on H&E images at the cellular level. We evaluate C-LiTE on seven public datasets spanning mitotic figure recognition, nucleus and cell-type classification, and immune cell phenotyping. Under frozen-feature evaluation, C-LiTE achieves a mean macro-F1 of 0.670, approaching CytoFormer (0.682) with approximately 30x fewer parameters.",
    "affiliations": [
     "VISION Lab, Department of Computer Science, University of Warwick, Coventry, UK"
@@ -2995,11 +2999,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "23 pages, 5 figures",
+   "comments": "Code, models, and VSR-17K dataset will be released",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.26178v1",
+   "html_url": "https://arxiv.org/html/2611.26178v2",
    "abstract": "Real-time streaming video generation has gained rapid momentum in live content creation and interactive media. Deploying such systems in practice requires flexible scaling factors to accommodate diverse source resolutions, target displays, and computational budgets. However, extending fixed-scale generative video super-resolution (VSR) to varying target scales poses two challenges: downsampling from a larger fixed scale incurs redundant cost, while re-optimizing the diffusion transformer (DiT) is costly and alters the shared generative prior. To address both, we propose FlexVSR, a decoupled framework for continuous-scale streaming generative VSR with supervision at only a few scales. Our key insight is that naively resampling fixed-scale latents onto a new target grid induces scale-dependent input mismatch, which can be effectively addressed through parameter-efficient, scale-aware adaptation of the latent interface without updating the DiT. To this end, FlexVSR introduces ReLSA (Refined Latent Scale Adaptation), a lightweight latent adapter that constructs and refines target-grid latents before they enter the DiT, enabling a shared frozen VSR prior to generalize across continuous scales with only 0.274M trainable parameters and an adaptation cost of 7.3 H100 GPU-hours, while introducing no additional temporal dependencies and preserving the native causal streaming protocol. Extensive experiments demonstrate competitive or superior reconstruction and temporal quality, lower latency than most native-scale streaming baselines and offline methods, and effective generalization to unseen continuous scales, filling the continuous-scale gap in real-time streaming generative VSR.",
    "affiliations": [
     "Philo AI",
@@ -6311,7 +6315,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.25696v1",
+   "html_url": "https://arxiv.org/html/2611.25696v2",
    "abstract": "Multimodal image fusion traditionally generates a single fused image from paired observations at a specific viewpoint, limiting comprehensive scene perception and adaptability to diverse perceptual objectives. To overcome these limitations, we present LIFT, a novel framework for our proposed language-controlled 3D image fusion (L3D-IF) paradigm that extends multimodal image fusion from 2D images to free-viewpoint 3D scenes, enabling language-guided fusion tailored to diverse perceptual objectives. First, LIFT formulates Semantic Modality Binding (SMB), which interprets language instructions to identify semantic targets and their associated modality preferences and grounds these targets in corresponding regions of a shared Gaussian scene, establishing persistent semantic-to-spatial correspondences for consistent fusion control across viewpoints. Second, Language-Conditioned Gaussian Appearance (LCGA) is developed to achieve scene-wide multimodal appearance modeling by combining adaptive multimodal blending with language- and viewpoint-conditioned appearance refinement, enabling spatially adaptive realization of diverse fusion appearances while preserving source fidelity at pure-modality endpoints. Finally, we construct a Multi-View Language-Supervision (MVLS) dataset that associates language instructions and calibrated viewpoints with modulated fused images, providing effective supervision for learning instruction-dependent fusion from finite multi-view observations. Extensive experiments demonstrate that LIFT achieves coherent multimodal fusion across continuous viewpoints, accurate semantic target localization, and consistent regional fusion control under diverse language instructions.",
    "affiliations": [
     "Hubei Provincial Key Laboratory of Artificial Intelligence and Smart Learning",
@@ -7148,7 +7152,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.25595v1",
+   "html_url": "https://arxiv.org/html/2611.25595v2",
    "abstract": "World action models (WAMs) couple generative video modeling with robotic action prediction but typically require large video and action transformers, limiting deployment efficiency. We present LoopedWAM, a compact WAM that recurrently applies a shared six-block core in each expert, executing 30 transformer layers while storing only 12 blocks per expert. To account for their asymmetric inference costs, the video and action experts can operate at different depths: visual features are computed once per query, whereas action computation repeats at every sampling step. We further propose elastic self-distillation, which trains a single elastic checkpoint, LoopedWAM-E, across action-depth and sampling-step budgets. With only 0.58B policy parameters and no robot pretraining, LoopedWAM achieves 96.1% success on LIBERO, 91.9% on RoboTwin 2.0, and 52.2% on RoboCasaGR1, while using 7.4× less peak GPU memory than Fast-WAM under matched inference measurements. On LIBERO, LoopedWAM-E achieves 96.0% success in 27.6 ms or 95.2% in 24.7 ms on an H100, providing multiple accuracy-latency operating points from a single checkpoint; with two sampling steps and four action loops, it stays within 0.5 points of LoopedWAM on all three benchmarks. Ablations demonstrate that weight-shared depth preserves competitive performance, while aggressive action-depth reduction requires explicit budget-aware training. On a real AgileX PiPER arm, LoopedWAM succeeds in 71.3% of 80 trials across four tasks.",
    "affiliations": [],
    "author_affiliations": null,
@@ -7952,7 +7956,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.25513v1",
+   "html_url": "https://arxiv.org/html/2611.25513v2",
    "abstract": "Category-level 6D pose estimation relates partial RGB-D observations of unseen instances to a canonical frame shared across a category. Object-aware reconstruction helps adaptive keypoints retain the geometry of the visible surface. Common reconstruction targets select observed points by their distance to a registered instance surface. We present MORSEPose, which derives this support directly from standard pose and metric-size annotations. We map observed 3D points to normalized object coordinates and retain those inside a tolerancedilated pose-and-size envelope. This construction is consistent across camera frames and metric scales. When the annotated extent bounds the object surface, the envelope conservatively contains the support of a conventional surface-distance selector. We integrate this target with multi-level RGB-D features, adaptive keypoints, and learnable category context. Experiments on REAL275 and HouseCat6D show that the envelope closely matches surface-based supervision at both point and task levels, remains stable under boundary perturbations and viewpoint changes, and supports competitive category-level pose accuracy across benchmarks.",
    "affiliations": [
     "PIT IN Corp., South Korea"
@@ -10166,11 +10170,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "22 pages, including supplementary material",
+   "comments": "23 pages, including supplementary material",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.25265v1",
+   "html_url": "https://arxiv.org/html/2611.25265v2",
    "abstract": "We propose the radiometric camera, a model that lifts any central geometric camera model to a radiometric one. The lifted model keeps the projection of the geometric model and adds a finite aperture, a free-form focus surface and a generic vignetting function. We calibrate it by inverse rendering directly on the relative irradiance of the sensor, from the same images of standard calibration targets used in geometric calibration. Geometric calibration absorbs the bias of its feature detections. The proposed radiometric calibration uses no features, and our radiometric cameras have lower reprojection errors on held-out test sets. The focus surface extends defocus modeling from the thin lens to any central camera, and we use it in a first multi-view radiometric reconstruction, which recovers the in-focus reflectance of a texture from defocused images. The vignetting is estimated jointly and accurately reproduces a flat field measured through a diffuser. Because every standard camera model lifts to a radiometric one, the radiometric camera naturally and directly extends generative scene models beyond multi-view geometry to multi-view radiometric ones, where phenomena such as lighting and attenuation can be accurately estimated.",
    "affiliations": [
     "Kiel University, Germany"
@@ -11576,7 +11580,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2611.26405v1",
+   "html_url": "https://arxiv.org/html/2611.26405v2",
    "abstract": "Vision-Language-Action (VLA) models have recently been equipped with tactile sensing to perceive visually subtle contact events in contact-rich manipulation. However, adding tactile input yields inconsistent gains, and some visuo-tactile VLA models rely little on tactile input, because much of the tactile change, such as the gel deformation during gripper closure, is predictable from visual observations and executed actions. To address this problem, we introduce TacInno, which isolates the contact dynamics that vision and executed actions cannot explain, termed tactile innovation, and uses tactile innovation only as a training target. Specifically, the TacInno tokenizer, conditioned on visual observations and executed actions, compresses the future tactile change into a discrete code, and the policy, TacInno-VLA, learns to predict the code, adding no module for the code at deployment. TacInno-VLA achieves average success rates of 87.5% across six simulation tasks and 70.5% across four real-world tasks, outperforming the strongest visuo-tactile baseline by 10.7 and 9.0 percentage points, respectively. Ablation studies validate the contributions of visual and action conditioning, multi-frame encoding, and auxiliary code prediction. Together, these results demonstrate the effectiveness of tactile innovation as a supervision signal for contact-rich manipulation.",
    "affiliations": [
     "ShanghaiTech University",

@@ -440,11 +440,11 @@
     "Computation and Language (cs.CL)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "18 pages, 3 figures, 19 tables",
+   "comments": "21 pages, 5 figures, 20 tables. v2: added attention-map figure (Fig. 2), repaired-model maps, scale-free selectivity measures, and a table of pre-specified criteria; revised notation and text; corrected references",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.21539v1",
+   "html_url": "https://arxiv.org/html/2611.21539v2",
    "abstract": "Vision-language models (VLMs) often fail to match a point or an object across two images, even when the answer can be decoded from their own hidden states. We trace this failure from the visual tokens to the answer letter, in Qwen3-VL (2B-32B), InternVL3.5-8B, and Gemma-3-12B, on synthetic shape matching, same-instance point correspondence (HPatches), and semantic correspondence (SPair-71k), and find two distinct failure points, a small set of attention heads that carries the comparison, and a repair that touches 0.02% of the parameters. Two failure points: exact copies are compared but not read out. An answer-position probe exceeds the calibrated output by 15 to 25 points in every family, for nameable and unnameable shapes alike, and steering along the probe's direction moves no more answers than random directions. Semantic correspondences are present in the visual tokens but never reach the answer. One pathway: redistributing the cross-image attention of 16-32 heads, with its mass preserved, removes 17-22 points of synthetic and 15-32 points of HPatches accuracy, against at most 7 for random or attention-matched heads. A lever that training finds on its own: training only these heads' query and key projections raises SPair-71k accuracy by 28.3 points (Qwen3-VL-8B) and 25.1 points (InternVL3.5-8B), beats both layer-matched and attention-matched heads, and transfers to HPatches and BLINK. An unconstrained all-layer adapter routes 21-51% of its gain through the attention of the same heads, against at most 7% for random heads, and does so by changing what they read (83-86% of the effect) rather than their weights. Every decision rule was frozen before its run, and every reported number is recomputed by independent verification scripts.",
    "affiliations": [
     "University of Toronto"
@@ -2402,7 +2402,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.21107v1",
+   "html_url": "https://arxiv.org/html/2611.21107v2",
    "abstract": "Source-free domain adaptation (SFDA) adapts a model trained on a labelled source domain to an unlabelled target domain without access to the source data. Almost the entire SFDA literature assumes mutually exclusive classes, yet many deployed settings are multi-label. This paper formulates SFDA for multi-label classification and establishes the first benchmark for it: five adaptation tasks over six datasets spanning remote sensing, natural, clipart-style and driving imagery, with four single-label SFDA methods extended to provide the first baselines and a published multi-label method run alongside them, over three seeds. The benchmark shows that extending a single-label method is unreliable rather than merely suboptimal: half of the extended baselines fail to improve on the unadapted source model at all, and on two of the five tasks none of them does. The failures are not incidental. Nearest-centroid pseudo-labelling, softmax-based confidence, the diversity term of information maximization and confidence-weighted prototype construction each rely on mutual exclusivity, and each fails differently without it, so replacing the softmax with per-class sigmoids is a valid but insufficient extension. Multi-label Prototype Alignment with Contrastive Teaching (MPACT) is proposed in response, a mean-teacher framework whose objective, prototype construction and alignment term are each reconsidered for overlapping label sets. It attains the best average on every reported metric and is the only method that improves on the unadapted source model on all five tasks. The analysis further introduces a prototype-agreement diagnostic separating feature-space alignment from self-reinforcing agreement with the classifier, and reports a negative result for confidence-based pseudo-label filtering.",
    "affiliations": [
     "VPALab, Faculty of Engineering and Natural Sciences, Sabanci University, Orta Mahalle, Tuzla, Istanbul, 34956, Türkiye",
@@ -6398,7 +6398,7 @@
   {
    "arxiv_id": "2611.20431",
    "announced": "2026-11-17",
-   "title": "UrbanTwin Sim2Real LiDAR Challenge 2026: Site-Calibrated Synthetic Data and Multi-Detector Fusion for Roadside 3D Detection",
+   "title": "Winning Solution to UrbanTwin Sim2Real LiDAR Challenge 2026 (V2X-Real Track): Site-Calibrated Synthetic Data and Multi-Detector Fusion",
    "authors": [
     "Arnav Kumar",
     "Brijesh Soni"
@@ -6412,7 +6412,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.20431v1",
+   "html_url": "https://arxiv.org/html/2611.20431v2",
    "abstract": "This report summarizes the work submitted by team arnav007 (submission ID 1054222) for the UrbanTwin Sim2Real LiDAR Challenge (V2X-Real track) at the IEEE BigData Cup 2026. The primary objective is to train 3D detectors for vehicles, pedestrians, and trucks using only synthetic roadside LiDAR data, and to generate synthetic scans that are realistic enough to be indistinguishable from real ones. A CARLA based pipeline is developed and calibrated to the fixed sensor site, accurately modeling the range image, including no-return beams, based on unlabelled real development scans. A combined inference detector, using multiple 3D detectors (VoxelNeXt, PV-RCNN, and SECOND) trained exclusively on synthetic data, is also proposed. Each scan is aligned to the synthetic ground plane and processed through the detectors at multiple ground heights. The resulting bounding boxes are fused using bird's-eye view (BEV) clustering, followed by class-specific post-processing to refine heading, box size, and filter low-confidence detections. The final submission achieved a combined score of 0.8947. The ablation study shows that per-scan ground leveling more than doubled the real-scan mAP, while fusing boxes across different heights and models further improved performance.",
    "affiliations": [
     "Department of Computer Science and Engineering, The Ohio State University, Columbus, OH, USA"
@@ -8404,7 +8404,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.20000v3",
+   "html_url": "https://arxiv.org/html/2611.20000v4",
    "abstract": "The Platonic Representation Hypothesis posits that models trained on different modalities converge toward a shared representation. Related work aligns frozen image and text encoders on natural images without paired data. We test zero-pair alignment on five datasets across four modalities: natural images, environmental audio, chest radiographs, and 3D computed tomography (CT). It succeeds only on COCO and fails on the other four. We analyze the failures and find that alignment must first locate the subspace where the modalities co-vary and then orient the mapping within it. Consistent with previous studies, medical imaging is the hardest case: its shared subspace carries the smallest fraction of the variance. When this fraction is small, alignment needs image-text pairs, and random-matrix theory predicts how many pairs are needed. These findings motivate LightAlign: a few pairs let a ridge regression between two frozen encoders locate and orient the mapping simultaneously, and a classifier fitted only on report text then predicts findings from the mapped images. On 3D CT, LightAlign surpasses models trained end to end on image-report pairs without finding-level labels: with only 200 pairs, LightAlign outperforms CT-CLIP on CT-RATE (0.754 vs. 0.733 AUROC), and with only 100 CT-RATE pairs, it does so on RAD-ChestCT, an out-of-distribution dataset from a different hospital. On CheXpert, it reaches 0.862 mean AUROC with only about 5% as many pairs as models trained on MIMIC-CXR.",
    "affiliations": [
     "Pattern Recognition Lab, Friedrich-Alexander-Universität Erlangen-Nürnberg, Erlangen, Germany",
@@ -11414,7 +11414,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
    "comments": null,
-   "journal_ref": "IEEE Transactions on Circuits and Systems for Video Technology (TCSVT), 2026",
+   "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2611.19409v1",
@@ -12253,10 +12253,10 @@
   {
    "arxiv_id": "2611.19193",
    "announced": "2026-11-17",
-   "title": "Ref-MIL: Plug-and-Play Posterior Refinement for Multiple Instance Learning in QSM-Based Brain Disease Classification",
+   "title": "PoRef-MIL: Plug-and-Play Posterior Refinement for Multiple Instance Learning in QSM-Based Brain Disease Classification",
    "authors": [
-    "Ang Gaoa",
-    "Rui Jina",
+    "Ang Gao",
+    "Rui Jin",
     "Yin Liu",
     "Pengfei Rong",
     "Feng Liu",
@@ -12273,7 +12273,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.19193v1",
+   "html_url": "https://arxiv.org/html/2611.19193v2",
    "abstract": "Quantitative susceptibility mapping (QSM) is a novel quantitative MRI contrast for studying tissue susceptibility changes in brain disorders, including Parkinson's disease (PD) and multiple sclerosis (MS). However, small cohorts and the lack of local annotations make developing deep learning models for QSM-based diagnosis challenging. In this work, we propose PoRef-MIL, a weakly supervised multiple instance learning (MIL) framework combining iterative slice relabeling and network retraining with a plug-and-play posterior refinement module (PRM). During training, a 2D dual-branch diagnosis network and a subject-level classifier were alternately trained for five rounds. The classifier was used to update slice pseudo-labels for retraining the diagnosis network. The PRM was applied during inference to refine slice probabilities through bidirectional posterior inference and calculate entropy-derived confidence from the refined probabilities, which was then used in sliding-window scoring to obtain subject-level predictions. PoRef-MIL was evaluated on an in-house PD cohort of 287 participants and a public MS cohort of 150 participants. Compared with eight classification methods, PoRef-MIL achieved the highest mean areas under the receiver operating characteristic curve of 0.942 and 0.872, and accuracies of 0.926 and 0.833, for PD and MS classification, respectively. Ablation experiments were conducted to validate the effectiveness of iterative relabeling and PRM, and the plug-and-play feature of the proposed PRM was also evaluated using four state-of-the-art MIL models. Overall, PoRef-MIL offers a promising approach to QSM-based disease classification in small cohorts without manual slice annotations.",
    "affiliations": [],
    "author_affiliations": null,
@@ -12282,7 +12282,7 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-17"
+     "at": "2026-11-24"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.19193",
@@ -14771,7 +14771,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.18729v2",
+   "html_url": "https://arxiv.org/html/2611.18729v3",
    "abstract": "Cancer diagnosis relies on histopathological evaluation, where tumor morphology guides disease classification and informs treatment decisions. Deep learning (DL) models excel at predicting diagnostic properties from histopathology images. Unlike typical medical images featuring small critical areas, histopathological images are textural, with relevant texture spanning the entire image; this makes it challenging to explain DL predictions by locating relevant image regions. Counterfactual explanations offer a promising alternative by asking \"what changes in the image could have altered the model prediction.\" To achieve this, we propose SCALE, a framework for generating such counterfactual explanations for histopathological DL models. Across nine counterfactual directions spanning multiple cancer types, SCALE generates whole-slide counterfactual explanations that consistently shift predictions toward the intended target while maintaining biological feasibility. Blinded assessment by six board-certified pathologists showed higher morphological plausibility for SCALE (with a win rate of 91.7% over baselines) and promising counterfactual effectiveness (with a target consistency of 96.7%).",
    "affiliations": [
     "Department of Computer Science, Rutgers University, Piscataway, NJ 08854, USA",
@@ -18967,7 +18967,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AR",
-   "html_url": "https://arxiv.org/html/2611.18895v1",
+   "html_url": "https://arxiv.org/html/2611.18895v2",
    "abstract": "Synthetic text, images, and video are rising. Software-only detectors are power-hungry, too slow, and costly, and do not scale with demand. When software cannot scale, historically hardware often comes to the rescue. We perform the first reverse engineering of a compression accelerator--Intel QuickAssist Technology (QAT) microarchitecture and--find different amount of time on each, a novel data structure-dependent property. Using this information, we then build Lasso, a low-cost, high-performance detector for AI-generated content that turns the accelerator into a measuring instrument. For text detection, Lasso achieves 100% accuracy on original DetectRL text and retains 92% average accuracy after paraphrasing, compared with 78% for Binoculars and 55% for DetectGPT. Across original, paraphrased, and perturbed text, it achieves 82% average accuracy, outperforming all five baselines. With topic, length, and formatting matched, accuracy reaches 95% for instruction-tuned generators, including when the tested generator is unseen. On RAID, accuracy averages 82% when trained on one generator and tested on another, and 74% across eight held-out domains. Detection takes 0.74 microseconds, a speedup of at least 83,784x across five baselines. At the same time, Lasso consumes over 99% less energy per document than both Binoculars and DetectGPT. At the same time, Lasso detects AI-generated videos, software code, and images with 67.5%, 70% and 78% accuracy, respectively, with low latency and power opening avenues for practical real time and edge device detection of multimodality AI artifacts for the first time. No other compared technique supports detection across all four modalities: text, video, images, and code.",
    "affiliations": [
     "North Carolina State University",
@@ -19018,7 +19018,7 @@
    "journal_ref": null,
    "venue": "EACL 2027",
    "cross_list_from": "cs.AI",
-   "html_url": "https://arxiv.org/html/2611.18891v1",
+   "html_url": "https://arxiv.org/html/2611.18891v2",
    "abstract": "Vision-Language-Action models (VLAs) are obtained by fine-tuning pre-trained Vision-Language Models (VLMs) on robot demonstration data, enabling action prediction from visual observations and language instructions. However, this fine-tuning induces catastrophic forgetting, substantially degrading the semantic and visual grounding capabilities of the original VLM. We address this by merging the parameters of a VLM and its VLA derivative without retraining either model. Concretely, we extract the task vector (the difference between VLA and VLM weights) and decompose it via Singular Value Decomposition. For each component, we learn a scalar mixing coefficient controlling how much of the VLA adaptation is retained, optimised to jointly preserve action prediction and vision-language capabilities. Experiments show that our merged model performs well on both axes simultaneously, consistently outperforming established merging baselines.",
    "affiliations": [
     "Sorbonne Université, CNRS, ISIR, F-75005 Paris, France",

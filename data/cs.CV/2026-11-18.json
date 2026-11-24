@@ -4125,11 +4125,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "25 pages, 8 figures, 19 tables. Code: https://github.com/Carlxuzhl/practice-in-text ; aligned reader: https://huggingface.co/xuzhl/practice-in-text-aligned-reader",
+   "comments": "26 pages, 9 figures, 21 tables. Code: https://github.com/Carlxuzhl/practice-in-text ; aligned reader: https://huggingface.co/xuzhl/practice-in-text-aligned-reader ; v2: adds Appendix L (further tests of reader alignment)",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.22722v1",
+   "html_url": "https://arxiv.org/html/2611.22722v2",
    "abstract": "GUI agents can learn cheaply from a text view of an interface and act on screenshots through a vision-language screen reader. Yet on a simulated mobile platform with a low-cost reader, policies that complete most tasks in text fail on many of the same tasks on screenshots. We ask where a small budget of real screenshots is best spent to close this gap. We find that the reader's misreads are systematic and recur on the same interface elements. Noise matched to the reader's error rates, a natural sim-to-real remedy, misses this structure, and in a pre-specified comparison it did not beat training the policy directly on screenshots. We therefore correct the misreads at their source with reader alignment, which fine-tunes the reader on screenshots paired with their text views. The reader learns to output each screen's text view, as in text practice, and the policy stays unchanged. Spent on the reader, the screenshot budget gives 80.9% full-task success on new task instances, against 55.6% when spent on training the policy. Given the same labeled screenshots, adapting the reader also beats adapting the policy, and a single aligned reader improves every text-trained policy we tried without retraining any of them.",
    "affiliations": [
     "Aligned reader"
@@ -6573,7 +6573,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.22446v1",
+   "html_url": "https://arxiv.org/html/2611.22446v2",
    "abstract": "Conventional knowledge distillation can facilitate the propagation of backdoors from teacher models to student models. However, how this risk manifests in On-Policy Distillation (OPD) remains insufficiently studied. OPD has recently emerged as an important post-training paradigm for Vision-Language Models (VLMs). Unlike traditional offline distillation, OPD does not require teacher-generated responses. Instead, it uses the teacher's probability distributions to supervise response trajectories generated online by the student. Since the initial student model typically generates benign responses and receives no explicit supervision from malicious target responses, OPD appears to offer some inherent resistance to backdoor propagation. In this paper, we challenge this intuition and reveal a more subtle risk of visual backdoor propagation in OPD. Through experiments across multiple model families and datasets, together with theoretical analysis, we identify three main findings. First, unlike the relatively gradual propagation observed in traditional offline distillation, backdoors rarely emerge in OPD at low poisoning ratios. However, the attack success rate rapidly approaches 100% once a critical threshold is exceeded. Second, backdoor propagation does not depend on explicit malicious responses. Instead, it is driven by the continuous accumulation of anomalous probability mass assigned by the teacher. Finally, based on these findings, we propose a novel trigger design that enables visual backdoor propagation with zero explicit trigger injection. These findings further reveal an overlooked mechanism of backdoor propagation in OPD and highlight its potential security risks.",
    "affiliations": [
     "Guangxi University",
@@ -7752,8 +7752,8 @@
     "Shuhao Zhai",
     "Anh Nguyen",
     "Hong Liang",
-    "Baoru Huang",
-    "Liang Li"
+    "Liang Li",
+    "Baoru Huang"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
@@ -7763,7 +7763,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.22244v1",
+   "html_url": "https://arxiv.org/html/2611.22244v2",
    "abstract": "Reconstructing an articulated object with its 3D movable parts, joint parameters and unseen articulation states from an uncalibrated monocular video is essential for robot manipulation and interactive digital twins. Existing per-scene optimisation methods require minutes to hours and external depth or camera poses, whereas feed-forward 3D foundation models reconstruct dense point maps in one pass without segmenting movable parts or inferring joints. Even on these monocular point maps, regressing or fitting continuous joints directly fails on casual videos, since cross-frame attention blurs moving part boundaries in deep layers, underestimates motion along the viewing ray and leaves continuous axes ill-conditioned under small opening angles. To address these challenges, we propose PhyVGGT, a single-pass framework on a frozen 3D foundation model that anchors moving-part matching and closed-form joint estimation to the undistorted geometry of the stationary base. First, our Part and Motion Decoder fuses intermediate per-frame tokens with global tokens and references part queries to a static-base query to segment 3D parts, align point maps on the static base and predict learned Bingham priors. Second, our Kinematic Inference Layer fits an orthogonal Manhattan frame to static surface normals, selects the joint axis in closed form under a Bingham posterior combining pairwise motion scatter with the learned priors, and solves a linear system for the hinge pivot to drive unseen states. Trained solely on synthetic data, PhyVGGT achieves state-of-the-art monocular performance across five benchmarks, outperforming FAMOS and monocular ArtiPoint, surpassing posed RGB-D ArtiPoint in median error, and running in 6.8 s per 48-frame video against hours of per-scene optimisation in Articulat3D. Project page: https://phyvggt.github.io.",
    "affiliations": [
     "Harbin Engineering University, Harbin, China",
@@ -7793,11 +7793,11 @@
      0
     ],
     [
-     1,
-     5
+     0
     ],
     [
-     0
+     1,
+     5
     ]
    ],
    "institutions": [
@@ -7820,11 +7820,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-18"
+     "at": "2026-11-24"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-18"
+     "at": "2026-11-24"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.22244",
@@ -7890,8 +7890,8 @@
     "Long Hu",
     "Xianzhi Li",
     "Hong Liang",
-    "Baoru Huang",
-    "Liang Li"
+    "Liang Li",
+    "Baoru Huang"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
@@ -7901,7 +7901,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.22235v1",
+   "html_url": "https://arxiv.org/html/2611.22235v2",
    "abstract": "Dense collaborative mapping is essential for search and rescue, building inspection, and warehouse automation, where panoramic cameras capture the entire surroundings in a single frame. Unlike pinhole agents that share views only at similar headings, panoramic agents observe overlapping scenes at any 3D orientation, yet searching full rotations also produces mutually consistent false loop closures across distinct symmetric rooms. Moreover, continuous monocular scale drift splits rigidly merged maps at revisited surfaces, while depth noise at short baselines distorts loop translation directions. To address these challenges, we propose CoSphere-SLAM, the first multi-agent Gaussian splatting SLAM framework for panoramic cameras, whose spherical loop closure aligns spherical features over SO(3) via fast Fourier correlation across arbitrary orientations and rejects symmetric false closures through global Sim(3) consensus. Building on these closures, directional global optimization solves a per-keyframe Sim(3) pose graph with log-scale regularization to correct scale drift while separating optical-flow translation directions from depth-based magnitudes. Finally, omnidirectional Gaussian fusion transforms each Gaussian with its keyframe similarity and renders Gaussians at their maximum ray response to jointly refine poses and maps. Experiments on indoor and cross-session multi-agent panoramic benchmarks demonstrate that CoSphere-SLAM achieves state-of-the-art trajectory accuracy and rendering quality among single-agent and multi-agent methods. Project website: https://cosphere-slam.github.io.",
    "affiliations": [
     "Harbin Engineering University, Harbin, China",
@@ -7947,12 +7947,12 @@
      0
     ],
     [
-     1,
-     7
-    ],
-    [
      0,
      8
+    ],
+    [
+     1,
+     7
     ]
    ],
    "institutions": [
@@ -7981,11 +7981,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-18"
+     "at": "2026-11-24"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-18"
+     "at": "2026-11-24"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.22235",
@@ -11126,11 +11126,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "21 pages, 11 figures, including supplementary material",
+   "comments": "21 pages, 11 figures, including supplementary material. This version clarifies implementation details and evaluation protocols in the supplementary material",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
-   "html_url": "https://arxiv.org/html/2611.22591v1",
+   "html_url": "https://arxiv.org/html/2611.22591v2",
    "abstract": "GUI agents can formulate a correct immediate plan in their reasoning yet emit an action that fails to execute it, creating an execution gap. This recurring mismatch undermines reliable task completion, as a single execution error can derail a multi-step workflow. In outcome-supervised reinforcement learning, broadcasting a negative response-level advantage across all generated tokens risks penalizing valid planning together with erroneous execution. To address this credit-assignment conflict, we introduce PACT (Plan-Action Consistency Training), a training framework that combines reference-aligned plan protection and plan-aligned action repair without altering the original scalar action reward. Using annotated reference actions to identify execution gaps, PACT protects the verified plan by masking negative policy-gradient contributions across its token span. Keeping the generated reasoning unchanged as context, it then favors the reference action over the emitted erroneous action through a preference surrogate with stop-gradient pair weights. Compared with the outcome-only baseline, PACT raises AndroidWorld task success from 60.34% to 68.97% (+8.63 pp), while improving rule-based plan-action consistency on AndroidControl High from 83.71% to 89.74% (+6.03 pp). Adapting PACT to desktop agents also improves task success from 40.92% to 44.17% (+3.25 pp) on the full 369-task OSWorld benchmark. Together, these results establish PACT as an effective credit-assignment framework for bridging execution gaps and improving task completion across mobile and desktop GUI environments.",
    "affiliations": [
     "Tsinghua University",
@@ -11345,7 +11345,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2611.22543v1",
+   "html_url": "https://arxiv.org/html/2611.22543v2",
    "abstract": "Visual world models predict future visual states conditioned on actions, but recursive errors in entity poses and spatial relations limit their long-horizon prediction for robot planning and control. We ask whether a separately predicted relational state can correct this drift without restructuring the visual model. This is challenging because graph nodes and visual states share neither elements nor a feature space. We propose Joint Graph--Visual Dynamics Correction (JointGV), a plug-in based on a cross-granularity dynamics hypothesis: despite their different representations, graph-node and visual-state changes describe the same physical transition. JointGV rolls out a task-conditioned scene graph alongside the visual world model, couples their predicted changes, and combines the resulting graph-motion context with graph-predicted node positions to compute a bounded residual. Graph-learning and correction gradients do not propagate into the original visual dynamics. We attach JointGV to DINO-WM (spatial tokens) and DreamerV3 (a global latent state), evaluating both on DMC Cheetah Run and Walker Walk across three seeds and extending the evaluation to contact-rich manipulation with DMC Finger Turn Hard. Across 32-step rollouts, JointGV improves structural and visual-prediction accuracy, reducing joint-position error by 11–28%. For spatial tokens, learned graph--visual change coupling gives lower error than broadcasting the same mean graph-motion context to every token, particularly when non-adjacent parts appear close together in the image. On real-robot inverted-pendulum sequences, JointGV reduces DINO-WM's 32-step pole-angle error from 12.56° to 6.69° and improves DreamerV3 and LeWorldModel as well. In simulated inverted-pendulum control, an actor trained with JointGV-corrected rollouts completes 46 of 50 episodes, compared with none using the original rollouts.",
    "affiliations": [
     "University of Oxford",

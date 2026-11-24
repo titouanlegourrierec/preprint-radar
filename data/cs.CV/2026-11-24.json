@@ -1,0 +1,872 @@
+{
+ "schema_version": 1,
+ "category": "cs.CV",
+ "date": "2026-11-24",
+ "papers": [
+  {
+   "arxiv_id": "2611.28067",
+   "announced": "2026-11-24",
+   "title": "Following the Error Through a Compressed Network:An Angular Measure for FFN Weight Compression in ViT-L/16",
+   "authors": [
+    "Paolo D'Alberto"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Information Theory (cs.IT)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "17 pages, 8 Figures, 13 Tables",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2611.28067v1",
+   "abstract": "We study the compression of the 48 feed-forward network (FFN) matrices of the Vision Transformer ViT-L/16 to 2–8 bits with four schemes: a per-token grid, a fixed Gaussian Lloyd--Max table, a table fitted to the matrix, and a random-sign Hadamard rotation followed by the fixed table. We evaluate on 50,000 images. At 4 bits the top-1 accuracy of the four schemes lies within 0.8 points of the float32 model, while the agreement with its predictions ranges from 98.4% to 94.4%. We use the angular error between the compressed and the float32 residual stream, followed through the blocks, as a portable measure that ranks the schemes as the final classification does and shows where the ranking is built: with rotation the angle grows close to the square root of the number of blocks, the signature of independently accumulating errors, while the other schemes are amplified in the later blocks. The same measure shows that a scheme that is better on one block in isolation can be worse in the whole network. To address this inconsistency we introduce an angular measure of the spectrum of the output of a block, which in isolation orders the schemes as the whole network does where they diverge most. We support these observations with real samples and with statistically generated ones. The scope is one model, the FFN weights only, and float evaluation of compressed weights; no speed-up is claimed. The error measures and the sample generation, however, can be applied to other models and precisions.",
+   "affiliations": [
+    "Advanced Micro Devices, Inc"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Advanced Micro Devices Inc"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-24"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-24"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2611.28067",
+   "pdf_url": "https://arxiv.org/pdf/2611.28067"
+  },
+  {
+   "arxiv_id": "2611.28077",
+   "announced": "2026-11-24",
+   "title": "Fairness Evaluation for Diffusion and Flow Models Should Account for the Generation Path: Implications for Clinical Imaging",
+   "authors": [
+    "Dharini Raghavan",
+    "Amritpal Singh",
+    "Anant Madabhushi"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "Accepted to NeurIPS 2026 GenAI4Health Workshop Position Paper Track",
+   "journal_ref": null,
+   "venue": "NeurIPS 2026 Workshop",
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2611.28077v1",
+   "abstract": "Medical image generation models are often evaluated using images produced by a single sampling procedure. However, diffusion and flow models can use different numbers of sampling steps, sampling schedules, or numerical solvers without changing their trained parameters. These changes may affect the generated images and the clinical measurements derived from them. We argue that fairness results obtained under one sampling procedure should not be assumed to hold under another, particularly when changes in sampling affect clinical task errors differently across patient groups. Building on previous work on medical image quality, accelerated sampling, generation dynamics, and generative model fairness, we examine why the sampling procedure should be considered part of the evaluated system. We define subgroup differences in clinical task error across sampling procedures and provide a mathematical example showing that two groups can have identical outputs under the exact dynamics and a reference sampler but different errors under an alternative sampler. We also extend this result to stochastic generation under shared noise. An exploratory experiment with an age-conditioned image generation model illustrates how changing the number and timing of sampling steps can alter image-derived measurements, although these differences do not establish clinical unfairness. We therefore argue that fairness evaluation should assess the sampling procedure used in practice and examine intermediate generation states when they help explain differences in clinically relevant errors across patient groups. Analysis code is available here https://github.com/rdharini2001/generation-path-fairness",
+   "affiliations": [
+    "Georgia Institute of Technology",
+    "Emory University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Georgia Institute of Technology",
+    "Emory University"
+   ],
+   "institution_ids": [
+    "01zkghx44",
+    "03czfpz43"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-24"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-24"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2611.28077",
+   "pdf_url": "https://arxiv.org/pdf/2611.28077"
+  },
+  {
+   "arxiv_id": "2611.28078",
+   "announced": "2026-11-24",
+   "title": "Adversarial Attacks Expose Path-Dependent Failures in Discrete Medical Image Tokenizers",
+   "authors": [
+    "Ahmed Loughzali",
+    "Akash Yallamati",
+    "Aadiv Reki",
+    "Aslan Shaukat Vaida",
+    "Jeyashree Krishnan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "21 pages, 9 figures, 18 tables. Accepted at the GenAI4Health Workshop @ NeurIPS 2026, Sydney",
+   "journal_ref": null,
+   "venue": "NeurIPS 2026 Workshop",
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2611.28078v1",
+   "abstract": "Discrete image tokenizers convert medical images into token sequences that downstream models either decode into an image for a classifier (the reconstruction path), classify directly (the token path), or feed to a generative multimodal model. We ask whether imperceptible input perturbations can break these systems through the tokenizer alone. We evaluate four tokenizers on three imaging modalities and extend the strongest attack to a deployed generative model. Our central finding is path-dependence: the same tokenizer fails in opposite ways depending on how its output is used. A supervised attack collapses diagnostic accuracy on the reconstruction path, with ROC AUC falling to ≤0.013 at ε=2/255 on all four tokenizers, while sparing the token path. An unsupervised, label-free attack does the reverse; its damage concentrates in the multi-codebook tokenizers, worst in MedITok, whose token-path AUC falls from 0.919 to 0.239. The same label-free attack transfers to LLaVA-Med, a frozen medical vision-language model built on MedITok, making it report proliferative diabetic retinopathy in a healthy retina or call a malignant lesion benign, without access to the question, answer, or language-model gradients. Harm is driven by how far the attack moves the tokenizer's internal representation, not by how many tokens change: on the learned-codebook tokenizers, a control attack that changes nearly all tokens but moves the representation less leaves every path and answer intact. Domain-specific pretraining does not provide robustness: MedITok has the best clean accuracy yet is the most fragile, more so than UniTok, its general-domain counterpart. None of six candidate defenses repairs every failure mode, and several fail once the attacker optimizes against the defense directly. Medical tokenizer robustness must therefore be evaluated per downstream path, against an adaptive adversary.",
+   "affiliations": [
+    "IMT Nord Europe",
+    "University of South Florida",
+    "Purdue University",
+    "Nanyang Technological University",
+    "Algoverse AI Research"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ]
+   ],
+   "institutions": [
+    "IMT Nord Europe",
+    "University of South Florida",
+    "Purdue University",
+    "Nanyang Technological University",
+    "Algoverse AI Research"
+   ],
+   "institution_ids": [
+    "042rh9p26",
+    "032db5x82",
+    null,
+    "02e7b5302",
+    null
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-24"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-24"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2611.28078",
+   "pdf_url": "https://arxiv.org/pdf/2611.28078"
+  },
+  {
+   "arxiv_id": "2611.28079",
+   "announced": "2026-11-24",
+   "title": "Vision-Language Truck Driving Advisories Grounded in Provincial Rules and Forecast Risks",
+   "authors": [
+    "Xintong Jiang",
+    "Shucheng Huang",
+    "Qiaoxuan Zhang",
+    "Jincheng Xu",
+    "Yukun Lu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Robotics (cs.RO)"
+   ],
+   "comments": "6 pages, 4 figures. This manuscript has been submitted to the 38th IEEE Intelligent Vehicles Symposium (IV 2027)",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2611.28079v1",
+   "abstract": "Vision-language models (VLMs) can generate context-aware driving advisories, but their outputs may conflict with road conditions or traffic rules, and they typically address a hazard only once it is visible. This matters for long-haul trucking, where heavy trucks need long stopping distances and a single trip may cross several jurisdictions with different traffic regulations. This paper proposes a data generation and distillation framework that integrates structured scene understanding, risk forecasting, and traffic-rule retrieval to generate truck driving decisions and natural-language advisories, with a consistency check on every record. The records, written by an 8B teacher, are then used to distill a 3B-parameter student model for onboard deployment. We also introduce a dashcam dataset covering four Canadian provinces, comprising 11,142 annotated lane-marking frames and 9,494 driving segments. On held-out driving data across all four provinces, the student passes the consistency check in 94.6% of the segments, against 20.2% for the untuned 8B teacher, and announces 26.2% of the risks in the next 10 to 30 seconds before they appear. Of the generated advisories, 97.7% conform to the provincial traffic rules and guidance. These findings suggest that the framework can produce rule-conforming training data for compact driving advisory models.",
+   "affiliations": [
+    "Dept. of Mechanical Engineering, University of New Brunswick, Fredericton, NB E3B 5A3, Canada",
+    "Dept. of Mechanical and Mechatronics Engineering, University of Waterloo, Waterloo, ON N2L 3G1, Canada"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of New Brunswick",
+    "University of Waterloo"
+   ],
+   "institution_ids": [
+    "05nkf0n29",
+    "01aff2v68"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-24"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-24"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2611.28079",
+   "pdf_url": "https://arxiv.org/pdf/2611.28079"
+  },
+  {
+   "arxiv_id": "2611.28080",
+   "announced": "2026-11-24",
+   "title": "Multimodal Violence Understanding and Temporal Retrieval in Movies with Adaptive Audio-Visual Fusion",
+   "authors": [
+    "Jiaqian Li",
+    "Rohitash Chandra"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2611.28080v1",
+   "abstract": "Violence in films and streaming media remains a concern for audience protection and creates substantial workload for manual content classification. Existing violence-detection methods often rely on limited modalities or short video clips, making it difficult to capture complementary evidence and localise violent events in long, untrimmed videos. In this study, we develop a framework for multimodal video understanding that classifies violence severity, predicts multiple violence types, and locates violent events in time. We combine temporally aligned visual and audio features extracted using pretrained encoders through attention-based adaptive fusion, followed by Transformer-based temporal modelling. Our framework supports three complementary tasks: video-level violence-severity classification, multi-label violence-type prediction, and temporal localisation of violent events. We evaluate the framework on the XD-Violence benchmark and examine its cross-domain performance using AIRTLab. On XD-Violence, our multimodal model achieves 93.27% severity-classification accuracy and a micro-F1 score of 88.60% for multi-label violence-type prediction, outperforming the corresponding unimodal configurations. We achieve a mean temporal intersection-over-union (tIoU) of 0.5075 for temporal localisation. Our cross-domain experiments reveal performance degradation under different recording conditions, while our movie case studies demonstrate the framework's potential to retrieve potentially violent scenes for further review. Our results highlight the practical value of multimodal intelligent systems in supporting human reviewers with the identification, classification, and temporal retrieval of violent content in films and streaming media.",
+   "affiliations": [
+    "Transitional Artificial Intelligence Research Group, School of Mathematics and Statistics, UNSW Sydney, Sydney, Australia",
+    "Centre for Artificial Intelligence and Innovation, Pingla Institute, Sydney, Australia"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "UNSW Sydney",
+    "Pingla Institute"
+   ],
+   "institution_ids": [
+    "03r8z3t63",
+    "03xsfa755"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-24"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-24"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2611.28080",
+   "pdf_url": "https://arxiv.org/pdf/2611.28080"
+  },
+  {
+   "arxiv_id": "2611.28081",
+   "announced": "2026-11-24",
+   "title": "BehaviorICL: Task-Conditioned Decoder States for Visual In-Context Learning",
+   "authors": [
+    "Chenyang Wang",
+    "Jiamo Hu",
+    "Chengrui Wu",
+    "Lingyue Chen",
+    "Jianguo Chen",
+    "Xun Xu",
+    "Xulei Yang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2611.28081v1",
+   "abstract": "The usefulness of an in-context demonstration for a vision-language model (VLM) depends on both the query image and the task posed about it. We study whether the frozen target VLM's own decoder states, read before answer generation, can select such demonstrations. BehaviorICL represents each image and task by a task-conditioned processing signature, the hidden states at the final input position across all decoder layers. Its training-free variant, BehaviorICL-Raw, averages cosine similarities between corresponding layer states and passes the retrieved examples with their reference answers to the same VLM. When the same NICO++ images are asked about their object or their context, Raw retrieves largely different demonstrations for the two questions and outperforms an image retriever given task-matched demonstrations on both VLMs. Across two VLMs and eight classification and visual question answering datasets, Raw gives the highest average accuracy among training-free retrievers on both VLMs and exceeds RICES with a CLIP ViT-L/14 encoder by 3.83 points on Qwen and 1.85 on InternVL. A lightweight shared projection, BehaviorICL-Proj, brings further gains on classification. Analyses of extraction text, decoder depth and bank answers help explain these gains, and attention analysis describes how the task text shifts attention at the extraction position toward the classified object. These results support the target VLM's internal states as a practical basis for visual in-context learning.",
+   "affiliations": [
+    "National University of Singapore",
+    "Nanyang Technological University",
+    "Sun Yat-sen University",
+    "Institute of Advanced Intelligence and Computing (A*STAR IAIC)"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     3
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore",
+    "Nanyang Technological University",
+    "Sun Yat-sen University",
+    "Institute of Advanced Intelligence and Computing"
+   ],
+   "institution_ids": [
+    "01tgyzw49",
+    "02e7b5302",
+    "0064kty71",
+    "01eczt548"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-24"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-24"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2611.28081",
+   "pdf_url": "https://arxiv.org/pdf/2611.28081"
+  },
+  {
+   "arxiv_id": "2611.28083",
+   "announced": "2026-11-24",
+   "title": "OSLA: Observation-Aware Local Alignment and Cross-Scene Relation Learning for Any-Scenario Person Re-Identification",
+   "authors": [
+    "Xinyang Zhang",
+    "Feiyu Han",
+    "Chenhao Wu",
+    "Yang Liu",
+    "Shang Luo",
+    "Yingguang Yang",
+    "Feng Zhang",
+    "Chongyang Zhang",
+    "Hao Zheng",
+    "Kefu Xu",
+    "Congjing Ran",
+    "Bin Chong"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "14 pages, including supplementary material",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2611.28083v1",
+   "abstract": "Any-Scenario Person Re-Identification (AS-ReID) aims to retrieve identities across spectral modalities and aerial-ground viewpoints using a unified model. However, changes in viewpoint and spectrum can make local correspondences unreliable, while conventional sampling may omit cross-camera positive relations needed for training. To address these challenges, we propose OSLA, an observation-aware framework built on supervised CLIP-ReID that combines Local Identity Alignment (LIA) and Cross-Scene Relation Learning (CSR). Specifically, LIA uses historical identity observations and competing-identity information to select reliable cross-scene local correspondences while allowing unmatched regions. Local-to-global distillation transfers identity knowledge from correctly classified historical local features into the global representation. CSR couples observed-cell sampling with spectrum-grouped ranking to jointly organize and optimize cross-camera relations. Sampling across two cameras and two spectra provides same- and cross-spectrum positives, while ranking constrains positive-negative scores separately by gallery spectrum on the final retrieval descriptor. Both modules operate only during training, preserving the original visual encoder and retrieval descriptor at inference. Experiments on WHU-MARS-1000 and WHU-MARS-2337 demonstrate that OSLA achieves absolute Rank-1 gains of 5.0% and 4.8% over UAD, respectively, under the AS-ReID protocol. The code will be available.",
+   "affiliations": [
+    "Huazhong University of Science and Technology",
+    "University of the Chinese Academy of Sciences",
+    "Peking University",
+    "Fuzhou University",
+    "Fullive-AI",
+    "Wuhan University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     4
+    ],
+    [
+     2
+    ],
+    [
+     5
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Huazhong University of Science and Technology",
+    "Chinese Academy of Sciences",
+    "Peking University",
+    "Fuzhou University",
+    "Fullive-AI",
+    "Wuhan University"
+   ],
+   "institution_ids": [
+    "00p991c53",
+    "034t30j35",
+    "02v51f717",
+    "011xvna82",
+    null,
+    "033vjfk17"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-24"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-24"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2611.28083",
+   "pdf_url": "https://arxiv.org/pdf/2611.28083"
+  },
+  {
+   "arxiv_id": "2611.28084",
+   "announced": "2026-11-24",
+   "title": "ReSUL: Learning Regional Sensor Utility for Robust Multisensor Semantic Segmentation",
+   "authors": [
+    "Yiwen Wang",
+    "Jiahao Qin"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "12 pages, 4 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2611.28084v1",
+   "abstract": "A corrupted sensor observation is not necessarily useless: misalignment can place informative scene structure at the wrong location. Robust multisensor segmentation must determine where to retain this evidence, where to exclude it, and where repair can recover its value. We introduce Regional Sensor Utility Learning (ReSUL), which learns these choices through their effect on segmentation risk. ReSUL compares full-sensor predictions, sensor-exclusion paths, and a re-registration path for displaced thermal inputs. A router predicts each path's signed reduction in category-balanced Brier risk relative to a fixed reference, then uses these estimates to allocate spatial mixture weights. This supervision connects spatial allocation to measurable task benefit without requiring fault labels at inference. MFNet experiments compare project-trained models under eleven clean and disturbed input conditions. ReSUL ranks first in 10 of 11 conditions in both ImageNet-1k and ImageNet-22k comparisons. Under severe thermal displacement, it reaches 54.58% and 55.63% mIoU, exceeding the strongest competing method in each group by 7.19 and 5.63 percentage points. Fixed-bank MFNet ablations show that utility supervision improves all eleven condition means over task-only routing. These results support learning how to use disturbed observations through their regional prediction benefit. Code is available at https://github.com/D-ST-Sword/ReSUL.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-24"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2611.28084",
+   "pdf_url": "https://arxiv.org/pdf/2611.28084"
+  },
+  {
+   "arxiv_id": "2611.28085",
+   "announced": "2026-11-24",
+   "title": "UbiEnlight: User-Perception-Aware Real-Time Low-Light Video Enhancement on Mobile Devices and Smartglasses",
+   "authors": [
+    "Minfan Wang",
+    "Sicong Liu",
+    "Teng Li",
+    "Zimu Zhou",
+    "Sixun He",
+    "Bin Guo",
+    "Junzhao Du",
+    "Zhiwen Yu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "31 pages. UbiComp/ISWC 2026",
+   "journal_ref": "Proc. ACM Interact. Mob. Wearable Ubiquitous Technol. 10, 3, Article 161 (September 2026)",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2611.28085v1",
+   "abstract": "Low-light video capture is now common on smartphones and wearables, yet dynamic illumination coupled with mobile/werable user motion causes noise, blur, and flicker that make videos hard to perceive and use, especially for users with night blindness and near-eye displays. Prior work enhances frames with post-hoc temporal constraints or optimizes videos directly; however,low-light and motion degradations are spatiotemporally coupled, so post-hoc consistency after per-frame restoration often leaves flicker and motion artifacts. We present UbiEnlight, the first diffusion-transformer-based on-device system for real-time, temporally stable low-light video enhancement. UbiEnlight builds on two insights: (1) illumination and structure separate more robustly in the frequency domain, enabling a spectrum-guided diffusion transformer that injects Fourier amplitude/phase priors to correct illumination while anchoring structure without optical flow; and (2) user perceptual tolerance varies by context, motivating a perception-aware controller that adapts sampling depth, attention reuse, and frame caching at runtime. We implement UbiEnlight on smartphones and smartglasses, and evaluate it against state-of-the-art baselines. UbiEnlight improves temporal stability by up to 54.76% under dynamic/extreme conditions while sustaining real-time on-device performance.",
+   "affiliations": [
+    "Northwestern Polytechnical University, China",
+    "City University of Hong Kong, China",
+    "Xidian University, China",
+    "Harbin Engineering University, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ]
+   ],
+   "institutions": [
+    "Northwestern Polytechnical University",
+    "City University of Hong Kong",
+    "Xidian University",
+    "Harbin Engineering University"
+   ],
+   "institution_ids": [
+    "01y0j0j86",
+    "03q8dnn23",
+    "05s92vm98",
+    "03x80pn82"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-24"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-24"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2611.28085",
+   "pdf_url": "https://arxiv.org/pdf/2611.28085"
+  },
+  {
+   "arxiv_id": "2611.28087",
+   "announced": "2026-11-24",
+   "title": "Efficient Memory-Constrained Video Object Segmentation via Subspace Optimization",
+   "authors": [
+    "Hai-Anh Le",
+    "Le-Trung Nguyen",
+    "Enzo Tartaglione"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2611.28087v1",
+   "abstract": "Memory-based architectures for video object segmentation (VOS) have achieved remarkable performance by maintaining dense feature representations from past frames in a streaming Memory Bank. However, storing these features over time incurs substantial memory overhead and computational cost. In this work, we identify significant temporal redundancy in memory representations, where consecutive frames exhibit highly overlapping low-rank subspaces that remain stable over time. Building on this observation, we propose Memory Subspace Iteration (MSI), a training-free, model-agnostic plugin that exploits temporal subspace stability to efficiently compress streaming memory features. Extensive experiments on standard VOS benchmarks demonstrate that MSI preserves segmentation accuracy across multiple architectures while reducing the memory bank footprint by up to 25%. Our implementation is available at https://github.com/Hai-Anh-LE/MSI_WACV2027.",
+   "affiliations": [
+    "LTCI, Télécom Paris, Institut Polytechnique de Paris, France",
+    "CNR-ISASI, Italy"
+   ],
+   "author_affiliations": null,
+   "institutions": [
+    "Institut Polytechnique de Paris",
+    "CNR-ISASI"
+   ],
+   "institution_ids": [
+    "042tfbd02",
+    null
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-24"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-24"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2611.28087",
+   "pdf_url": "https://arxiv.org/pdf/2611.28087"
+  },
+  {
+   "arxiv_id": "2611.27996",
+   "announced": "2026-11-24",
+   "title": "Participant-Independent Validation of Smartphone Video and Wearable Inertial Sensing for Coach-Rated Running-Form Classification",
+   "authors": [
+    "Kian Lee",
+    "Eric Zhou"
+   ],
+   "primary_subject": "Human-Computer Interaction (cs.HC)",
+   "subjects": [
+    "Human-Computer Interaction (cs.HC)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "10 pages, 4 figures, 5 tables",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.HC",
+   "html_url": null,
+   "abstract": "Automated running-form assessment could make technique feedback more accessible outside professional coaching and laboratory settings. We evaluated a low-cost pipeline combining side-view smartphone video with wearable inertial measurement unit (IMU) acceleration for coach-rated running-form classification. The dataset comprised 294 labeled recordings from 20 runners and 1,555 windows across four cues: landing position, suspension, triple extension, and upper-body posture. The primary analysis used 100 repeated four-runner holdout splits, recording-level aggregation of window predictions, and LightGBM models with hyperparameters fixed from prior modality-specific searches. Video-only LightGBM achieved mean macro F1 of 0.310, versus 0.168 for a majority-class baseline. Adding IMU features reduced macro F1 to 0.267, a paired mean difference of -0.043. Robustness analysis with Logistic Regression, Linear SVM, Random Forest, XGBoost, and LightGBM found that video-only models had higher mean performance than the majority baseline, whereas fusion effects depended on model family: Linear SVM showed a small positive effect, Logistic Regression was approximately neutral, and tree-based models showed lower performance with fusion. These results indicate a modest participant-independent signal in smartphone pose features. However, apparent IMU-fusion gains depended strongly on validation design, model family, and target category. The gap between recording-level and participant-independent performance underscores the need for runner-holdout evaluation and suggests that simple feature-level fusion does not reliably generalize to unseen runners.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-24"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-24"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2611.27996",
+   "pdf_url": "https://arxiv.org/pdf/2611.27996"
+  },
+  {
+   "arxiv_id": "2611.28001",
+   "announced": "2026-11-24",
+   "title": "Social-Qwen: From Individual Nonverbal Cues and Emotion to Multiparty Social Dynamics Understanding with Instruction Tuning",
+   "authors": [
+    "Tung Nguyen",
+    "Jouh Yeong Chew"
+   ],
+   "primary_subject": "Human-Computer Interaction (cs.HC)",
+   "subjects": [
+    "Human-Computer Interaction (cs.HC)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.HC",
+   "html_url": "https://arxiv.org/html/2611.28001v1",
+   "abstract": "Effective participation in multiparty scenarios requires robots to move beyond individual toward understanding group-level social dynamics, which are inherently complex due to the interplay of nonverbal cues, internal states, and interaction context. Existing approaches often rely on end-to-end deterministic models, while recent state-of-the-art methods such as large Vision-Language Models (VLMs) address this issue to some extent but remain limited by their size and computational cost for real-time applications. Moreover, both approaches are constrained by the scarcity of multiparty interaction data and annotations, which describe how individual nonverbal cues and emotional states contribute to social dynamics which describe collective outcomes such as group engagement. We hypothesize that explicitly modeling individual-level states is essential for accurate group-level understanding. To this end, we present Social-Qwen, a two-stage framework that first analyzes each participant's nonverbal cues and emotions, then infers group-level engagement using instruction-tuned representations. To mitigate the lack of individual annotations in group datasets, we employ knowledge distillation to transfer supervision signals. Experiments on the OUC-CGE dataset show that Social-Qwen significantly outperforms prior end-to-end baselines and achieves state-of-the-art performance in group engagement analysis, demonstrating the promise of instruction tuning for scalable social intelligence in robots. We further evaluate robustness by testing generalization to (1) an in-house dataset spanning multiple social activities and (2) estimating other social dynamics such as group harmony. Results suggest consistent performance, highlighting Social-Qwen as a promising approach toward real-time social intelligence for intelligent agents.",
+   "affiliations": [
+    "Honda Research Institute Japan Co., Ltd"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Honda Research Institute Japan Co., Ltd."
+   ],
+   "institution_ids": [
+    "05at5p855"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-24"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-24"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2611.28001",
+   "pdf_url": "https://arxiv.org/pdf/2611.28001"
+  },
+  {
+   "arxiv_id": "2611.28004",
+   "announced": "2026-11-24",
+   "title": "Constellations of Colour: Mapping Semantic Neighbourhoods in CLIP",
+   "authors": [
+    "Matt DesLauriers"
+   ],
+   "primary_subject": "Human-Computer Interaction (cs.HC)",
+   "subjects": [
+    "Human-Computer Interaction (cs.HC)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "In Proceedings of Explainable AI for the Arts Workshop 2026 (XAIxArts 2026) arXiv:2607.20131",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.HC",
+   "html_url": null,
+   "abstract": "How do vision-language models organise the cultural and perceptual dimensions of colour language? This pictorial presents a research-through-design visualisation of colour semantics in CLIP, a pretrained vision-language model. A dataset of 2,500 named colours is embedded with CLIP's text encoder, projected to a 2D map, and connected via a thresholded minimum spanning tree to create disjoint \"constellations\" of related colour terms. The resulting maps offer a model for navigating the semantic and perceptual relationships between colour terms. The visualisations reveal gradients along familiar axes (hue, lightness, chroma), as well as semantic neighbourhoods, including botanical language (hyacinth, cornflower, tulip), fictional references (\"Robin Hood green\", \"warlock purple\"), and food (butterscotch, toast, toffee). These visualisations give designers and creatives a map for exploring colour linguistically and building palettes by semantic association, pointing towards interpretable, artist-facing colour tools derived from foundation models.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-24"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-24"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2611.28004",
+   "pdf_url": "https://arxiv.org/pdf/2611.28004"
+  },
+  {
+   "arxiv_id": "2611.28008",
+   "announced": "2026-11-24",
+   "title": "Psychological State Monitoring Methods Based on Multimodal Emotion Recognition",
+   "authors": [
+    "Ran Meng"
+   ],
+   "primary_subject": "Human-Computer Interaction (cs.HC)",
+   "subjects": [
+    "Human-Computer Interaction (cs.HC)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "8 pages, 4 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.HC",
+   "html_url": null,
+   "abstract": "The computer-Based Multimodal Emotion Recognition System needs to increase the accuracy and reliability of psychological state monitoring. A hierarchical framework was proposed in this paper to integrate facial images, speech signals and other physiological indicators of emotion in time and space for more complete analysis of human emotions. Synchronously sample data streams from webcams, microphones and wearable sensors, and then preprocess and extract features specific to each type of data. A high-end fusion architecture is adopted to combine early- and late-fusion methods and thus robustly integrate cross-modal information. Experimental validation in a real-world stress-response dataset showed good performance. The overall recognition accuracy and mean F1-score of the fused multimodal system are both about 91% and 0.88, respectively, which are superior to the best unimodal approach (face, 88% accuracy and F1-score 0.88). Temporal analysis shows that the groups for stress tracking are not uniformly adapted and resilient, and ablation experiments have determined which modules contribute significantly to the stability of the system. According to all kinds of quantitative evaluations of precision, recall, accuracy and F1 scores, the proposed method shows good balance and is practical and generally applicable. The research has provided an engineering-feasible, data-driven solution for precise emotion inference and offered methodological support for intelligent mental health assessment and human-centered system design.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-11-24"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-11-24"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2611.28008",
+   "pdf_url": "https://arxiv.org/pdf/2611.28008"
+  },
+  {
+   "arxiv_id": "2611.28010",
+   "announced": "2026-11-24",
+   "title": "Beyond Code and Pixels: Co-Generating Editable and Visually Rich Presentations",
+   "authors": [
+    "Wenrui Zhou",
+    "Jiashun Liu",
+    "Sujie Hu",
+    "Bang Liu",
+    "Ling Pan"
+   ],
+   "primary_subject": "Human-Computer Interaction (cs.HC)",
+   "subjects": [
+    "Human-Computer Interaction (cs.HC)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Multimedia (cs.MM)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.HC",
+   "html_url": "https://arxiv.org/html/2611.28010v1",
+   "abstract": "Generating PPTX presentations is a structured task that requires semantic planning, visual composition, precise layout, and editability, motivating collaboration among specialized agents. However, programmatic methods offer editability but often produce rigid designs, while image-based methods provide visual richness but flatten content into difficult-to-edit pixels. A hybrid system can combine these strengths, but must coordinate interdependent decisions across content, layout, and appearance. To address this challenge, we propose SlidesWeaver, a hybrid multi-agent system that coordinates language and vision agents through shared deck- and slide-level states. Specifically, it uses staged multimodal commitment, diffusion-based composition planning, and two generation schedules for different priorities between composition freedom and accurate text preservation, while preserving native text and geometry. Across 1,728 generations spanning 24 system-model configurations, SlidesWeaver achieves consistently superior overall quality across all evaluated dimensions while maintaining structural control, editability, and practical generation efficiency.",
+   "affiliations": [
+    "The Hong Kong University of Science and Technology (HKUST)",
+    "Tsinghua Shenzhen International Graduate School",
+    "Université de Montréal & Mila"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Hong Kong University of Science and Technology",
+    "Tsinghua Shenzhen International Graduate School",
+    "Université de Montréal"
+   ],
+   "institution_ids": [
+    "00q4vv597",
+    "01vceef04",
+    "0161xgx34"
+   ],
+   "extractor": 24,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-11-24"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-11-24"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2611.28010",
+   "pdf_url": "https://arxiv.org/pdf/2611.28010"
+  }
+ ]
+}

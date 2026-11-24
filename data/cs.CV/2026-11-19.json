@@ -685,7 +685,7 @@
   {
    "arxiv_id": "2611.24792",
    "announced": "2026-11-19",
-   "title": "Training-free motion statistics match self-supervised behavior encoders",
+   "title": "Self-supervised behavior encoders rarely beat a training-free baseline",
    "authors": [
     "Ziwen Chen"
    ],
@@ -694,11 +694,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "10 pages, 7 tables, 1 figure. Code will be released with the conference version",
+   "comments": "27 pages, 5 figures, 35 tables. Code: https://github.com/uranitonium/motion-stats-baseline",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.24792v1",
+   "html_url": "https://arxiv.org/html/2611.24792v2",
    "abstract": "Self-supervised encoders for animal behavior are often trained on, or fed, hand-built movement features. We ask whether they beat those ingredients when compared fairly. A training-free representation, made of generic per-frame measurements summarized over fixed time windows and reduced with PCA, is compared with retrained and released encoders (BAMS, hBehaveMAE) under a preregistered protocol: frozen representations of equal size and one shared classifier. On CalMS21 it reaches 85.8 macro F1 against 82.4 for the best encoder, ties with four labelled videos, and leads when the annotator changes or new behaviors must be learned from a few videos; the reading holds for encoders retrained with three seeds. On the MABe22 mouse triplets it scores 83.7 against 80.3 for the released hBehaveMAE (gap +3.4, 95% interval +2.1 to +4.7). On a second species, the MABe22 fly groups, the same recipe scores 51.6 mean F1 over 50 tasks against 48.2 for BAMS, the best published method. On Shot7M2, the synthetic basketball benchmark built by hBehaveMAE's authors, it scores 68.8 against 64.7 for hBehaveMAE, the best method in that paper, though hBehaveMAE remains better on the shortest movements. Short time windows carry most of the result. Raw keypoints in each body's own frame, summarized over the same windows, already match or beat the encoders on both mouse datasets and on Shot7M2; on the fly groups they fall short, and the measurements add 5.3 points. On these benchmarks, current behavior encoders have yet to beat the hand-built features they learn from, and such baselines should be reported alongside them.",
    "affiliations": [
     "University of Illinois Urbana-Champaign"
@@ -947,7 +947,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.24731v1",
+   "html_url": "https://arxiv.org/html/2611.24731v2",
    "abstract": "Recent advances in world models are opening new possibilities for fine-grained embodied tasks, with hand-object interaction offering a particularly demanding setting. Modeling these interactions involves capturing how hand actions change objects and how the resulting states persist over time. Yet systematic evaluation tailored to these hand-centric capabilities remains underdeveloped. To address this gap, we introduce HandWorldBench, a unified benchmark that systematically evaluates hand-centric world models across human hands, simulated dexterous hands, and real dexterous hands along six dimensions: visual quality, hand fidelity, appearance consistency, instruction following, physical consistency, and temporal coherence. To construct the benchmark, we develop a data curation pipeline that extracts hand-object interaction clips and screens them for quality, yielding 20,500 high-quality egocentric clips from over 600 hours of footage. We then manually select 500 clips covering seven task families for evaluation. Benchmarking eleven models under a unified protocol reveals that stronger hand-pose control does not consistently translate into coherent object-state evolution and persistence or robust cross-embodiment performance, with several specialized hand-control models underperforming general-purpose text/image-to-video generators on dexterous-hand tasks.",
    "affiliations": [
     "Zhongguancun Academy",
@@ -7141,11 +7141,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Update in the paper content, and some major changes in model name",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23991v1",
+   "html_url": null,
    "abstract": "Brain-computer interfaces aim to establish direct communication between neural activity and external systems, making interpretation of brain signals an important problem. In this context, neural visual decoding seeks to infer visual information from neural activity by learning a mapping between brain responses and the corresponding visual stimuli. It investigates how visual information emerges from neural signals and relates to perceptual processing while enabling the reconstruction or retrieval of visual stimuli from neural signals. Our brain primarily follows a hierarchical pathway to process visual information captured by the eye. However, neural representations learned by existing methods differ fundamentally from those produced by the biological visual system. To bridge this gap and mimic the human vision hierarchy, we introduce Sparse Inter-layer Residual Aggregation for Zero-shot (SIRAZ). SIRAZ is a framework that aligns neural visual representations by jointly modeling early visual processes via fovea- and magnocellular-pathway-inspired Difference-of-Gaussians transformations. To align the semantic information with neural information, it extracts multiple intermediate representations of the image at multiple depths and passes them through the Residual Gated Adapter Mechanism. To study the temporal dynamics of neural signals, the Direction-aware Multi-Scale Temporal Attention Encoder is introduced to align the learned neural representation with the final visual representation. The proposed framework achieves 92.5% top-1 and 99.27% top-5 accuracy in the intra-subject setting on the THINGS-EEG dataset, and 50.25% and 75% top-1 and top-5 accuracy in the THINGS-MEG dataset. The results indicate that combining biologically motivated visual representations with the structured modalities of neural dynamics improves cross-modal alignment and zero-shot image retrieval.",
    "affiliations": [
     "Department of Computer Science and Engineering, Indian Institute of Technology Ropar, Rupnagar, 140001, Punjab, India"
@@ -7765,7 +7765,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23944v1",
+   "html_url": "https://arxiv.org/html/2611.23944v2",
    "abstract": "Text-conditioned sign language generation (SLG) depends not only on the generator but also on the space in which signing is generated. Existing approaches generate directly in pose space, in quantized code spaces, or in learned latent spaces trained for reconstruction. We find that these spaces are organized largely by signer identity rather than linguistic content: on CSL-Daily, a test clip's nearest neighbor in raw pose space is the same sentence signed by another person in only 2% of cases. To address this, we propose SIGNTOK, a continuous pose tokenizer whose latent space is shaped by three training-only heads: a kinematics head that predicts motion dynamics, a sentence-level head that aligns signing with the overall text, and a word-level head that aligns short motion windows with content words. Together, these objectives raise the same-sentence cross-signer nearest-neighbor rate to 82%. On three sign language benchmarks, the same generator trained in the SIGNTOK latent instead of pose space raises back-translation BLEU-4 in five of six benchmark-scorer settings at comparable joint accuracy, and word-level alignment gives higher back-translation scores than sentence-level alignment on every benchmark.",
    "affiliations": [
     "Institute of Science Tokyo, Japan",
@@ -9183,7 +9183,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23822v2",
+   "html_url": "https://arxiv.org/html/2611.23822v3",
    "abstract": "The computation of correlation features is crucial for optical flow estimation. Existing methods (e.g., RAFT) perform fixed-radius lookups on a cost volume, yielding a set of correlation features for each position; alternatively, WAFT performs single-point feature indexing, yielding one correlation feature vector per position. None of them designs a suitable correlation feature sampling scheme for each position according to regional characteristics. Our insight is that not every position requires the same sampling scheme. Applying an identical sampling scheme to every position is either redundant or insufficient and ignores the specific characteristics of the corresponding region. This paper rethinks the design of feature sampling and investigates the following question: should the support of feature sampling—i.e., the extent and directions over which evidence is aggregated—be learned separately for each query position? To study this question, we propose SAGE (Sampling with Anisotropic Gaussian Expectation). This method replaces single-point sampling with a per-pixel anisotropic Gaussian expectation on a fixed candidate grid centered on the current optical flow estimate. A positive-definite precision matrix controls the scale, anisotropy, and orientation of the sampling support, with single-point sampling included as its limiting case. Consequently, the sampling support becomes an explicit and analyzable design variable and provides a principled way to analyze how directional feature aggregation affects correspondence learning. Extensive experiments show that SAGE, while adding only 1.5% multiply-accumulate operations (MACs), effectively improves zero-shot cross-dataset generalization. When trained only on FlyingChairs and FlyingThings, SAGE reduces the end-point error (EPE) by 24.2% and 16.4% on Sintel clean and final, and reduces KITTI F1-epe and F1-all by 7.2% and 11.6%.",
    "affiliations": [
     "Ningxia Institute of Science and Technology Development Strategy and Information"
@@ -12174,7 +12174,7 @@
    "title": "Hypnos: A Dual-Phase End-to-End Platform for Scalable Continual Learning at the Edge",
    "authors": [
     "Guilherme Guedes",
-    "Marco Apolinario Lainez",
+    "Marco P. Apolinario",
     "Charlotte Frenkel"
    ],
    "primary_subject": "Hardware Architecture (cs.AR)",
@@ -12187,7 +12187,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AR",
-   "html_url": "https://arxiv.org/html/2611.24637v1",
+   "html_url": "https://arxiv.org/html/2611.24637v2",
    "abstract": "Continual learning (CL) enables neural networks to adapt to non-stationary data streams by mitigating catastrophic forgetting, offering a path to robust, private, and adaptable edge devices. Yet, porting CL to real-world edge devices remains challenging for two reasons: (i) online operation, where sensor data arrives one sample at a time and the device must adapt on-the-fly, and (ii) the low footprint of edge devices, which makes traditional error backpropagation training prohibitive. Inspired by the brain's wake and sleep cycles, the former for rapid adaptation with minimal resources and the latter for long-term consolidation, we introduce Hypnos, an open-source dual-phase platform for efficient CL at the edge. In the wake phase (e.g., daily operation), Hypnos relies on a low-footprint system-on-chip with a RISC-V microcontroller unit (MCU) targeting efficient inference and supporting lightweight gradient-free prototype updates. In the sleep phase (e.g., night-time charging), where wall-plug energy and larger memory budgets are available, a smart charger performs rehearsal-based gradient updates for consolidation. Deployed on a ZCU104 field-programmable gate array (FPGA) and synthesized in a 28-nm process, Hypnos is benchmarked on the CORe50 NICv2-391 protocol. It sets a new state-of-the-art accuracy of 78.6%-81.6% for edge CL systems, with an on-device latency of 7.79s-10.54s per sample depending on activation precision, and requires 3.8× fewer learning steps and 22× less learning compute than quantized latent replay at higher accuracy and comparable latency.",
    "affiliations": [
     "Department of Microelectronics, Delft University of Technology, 2628 CD Delft, The Netherlands"
@@ -12196,7 +12196,9 @@
     [
      0
     ],
-    null,
+    [
+     0
+    ],
     [
      0
     ]
@@ -12211,11 +12213,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-19"
+     "at": "2026-11-24"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-19"
+     "at": "2026-11-24"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.24637",
@@ -12320,7 +12322,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": "https://arxiv.org/html/2611.24423v1",
+   "html_url": "https://arxiv.org/html/2611.24423v2",
    "abstract": "Recent studies report that video diffusion models \"know more than they show\": physical properties decode better from their activations than from their inputs or outputs. But a diffusion model computes its clean-sample estimate from those same activations, so such a comparison measures how easily a readout extracts the information. Whether the model hides anything is a separate question. We set out to find hidden physical knowledge in kinematic text-to-motion diffusion models, where the physics of every intermediate estimate can be computed exactly, and recorded every layer along the sampling trajectories of MDM (two checkpoints) and MotionDiffuse. Against the usual baselines the layers do look ahead of the model's own estimate on balance and flight. With every readout tuned the same way, the estimate closes the gap: for balance and flight, adding a layer gains at most 0.01, a size that a positive control shows we would detect. The fall rate of jumps is the one clear exception. Early in denoising, MDM's layers add about 0.08 in $R^2$ (up to 0.11 in a refit) that the estimate does not yet show, and the gain fades as sampling proceeds; on MotionDiffuse it is small and not robust. The estimate also flags floating samples without training, but aborting them saves under a tenth of the compute. In a video model, plausibility that linear probes miss in Wan 2.1's clean latent becomes readable after one fixed nonlinearity.",
    "affiliations": [
     "Independent Researcher, Toronto, Canada"
