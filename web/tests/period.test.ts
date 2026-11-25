@@ -12,6 +12,7 @@ import {
   monthGrid,
   monthOf,
   PAPER_BUDGET,
+  periodIn,
   periodKey,
   periodOfKey,
   rangeOf,
@@ -100,6 +101,23 @@ describe("selectDays", () => {
     expect(rangeOf("42")).toBeNull();
     expect(rangeOf("toString")).toBeNull();
     expect(rangeOf(null)).toBeNull();
+  });
+});
+
+describe("periodIn", () => {
+  it("keeps a period in another category unless none of its explicit days are there", () => {
+    const week = { kind: "recent" as const, range: "week" as const };
+    expect(periodIn([], week)).toBe(week);
+    const september = between("2026-09-24", "2026-09-01");
+    expect(periodIn(days, september)).toBe(september);
+    // A category whose days start later, as one added since (ARCH-4).
+    expect(periodIn([{ date: "2026-11-25", count: 200 }], september)).toEqual({
+      kind: "recent",
+      range: "week",
+    });
+    const since = { kind: "since" as const, from: "2026-09-20" };
+    expect(periodIn([{ date: "2026-11-25", count: 200 }], since)).toBe(since);
+    expect(periodIn([], since)).toEqual(week);
   });
 });
 

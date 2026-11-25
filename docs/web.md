@@ -168,7 +168,7 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | Parameter | Holds | Default | Read by |
   | --- | --- | --- | --- |
   | `q` | The search words | none | every list, Rankings, the graph |
-  | `cat` | The category | the store's first | every view |
+  | `cat` | The category; another keeps the period, but explicit days it holds none of (`periodIn`, ARCH-4) | the store's first | every view |
   | `from`, `to` | A period of days (`from` alone: one day) | `range` | Papers, the graph and Rankings without `year` |
   | `since` | The days since a day, to the latest (PROD-13) | `range` | the same |
   | `range` | `day`, `week`, `month` (old links' `1`, `5`, `20`, `40`, `all` open the one holding as many days) | `week` | the same |
@@ -308,7 +308,8 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
 - **Citation shards** (`tooling/citation-shards.ts`, `src/citations.ts`): `citations.json`
   by month for the day files and by year for the archive
   (`<category>/citations/2026-09.json`). `hooks/use-citations.ts` loads those of the papers
-  shown and of the reading list, once a page (`citationShard`): 11 KB gzipped for the recent
+  shown and of the reading list, once a page (`citationShard`), in every category for the
+  reading list, whose records do not say theirs (ARCH-4): 11 KB gzipped for the recent
   days instead of 125 KB. A failed one shows no counts and is asked for again when next
   needed (SRCH-10). A paper of a day file and of the archive is in both shards. Shards carry
   the gains of `citation-gains.json` (`gains`): "+12 this week" (`gainLabel`) and Rising

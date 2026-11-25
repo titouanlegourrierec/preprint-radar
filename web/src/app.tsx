@@ -58,7 +58,7 @@ import { useUrlState } from "./hooks/use-url-state";
 import { namedInstitutions } from "./institutions";
 import { hasModifier, isTyping } from "./keyboard";
 import { LOCALE } from "./locale";
-import { between, LONGEST_RANGE, samePeriod, selectDays } from "./period";
+import { between, LONGEST_RANGE, periodIn, samePeriod, selectDays } from "./period";
 import {
   loadShowAbstracts,
   loadSidebarFolded,
@@ -116,7 +116,7 @@ const SUGGESTION_SIZE = 300;
 // What the papers' list never shows, downloaded when first shown (PERF-15): About, the
 // tables of Rankings with the graph's model they rank, the Trends view, the reading list's
 // folders and the notice of a shared one.
-const About = lazyView<object>("page", () =>
+const About = lazyView<{ categories: readonly string[] }>("page", () =>
   import("./components/About").then(({ About }) => About),
 );
 const Trends = lazyView<ComponentProps<typeof TrendsView>>("trends", () =>
@@ -159,6 +159,8 @@ export function App() {
     categories,
     category,
     storeDays,
+    daysOf,
+    oldestDays,
     cohorts,
     archiveYears,
     topRecent,
@@ -256,7 +258,19 @@ export function App() {
     () => [...(load.status === "ready" ? load.index.all() : []), ...readingList.papers],
     [load, readingList.papers],
   );
-  const citations = useCitations(category, shownPapers, storeDays.at(-1)?.date);
+  // Another category keeps the period, unless none of its days are there (ARCH-4).
+  const changeCategory = (value: string) =>
+    update({ category: value, period: periodIn(daysOf(value), state.period) });
+  // The reading list's papers may be of any category, whose counts it asks for all (ARCH-4).
+  const citationSources = useMemo(
+    () =>
+      (state.view === "reading-list" ? categories : category ? [category] : []).map((name) => ({
+        category: name,
+        oldestDay: oldestDays[name],
+      })),
+    [state.view, categories.join(" "), category, oldestDays[category ?? ""]],
+  );
+  const citations = useCitations(citationSources, shownPapers);
   const citationsNote =
     citations.source && citations.asOf
       ? formatCitationsNote(citations.source, citations.asOf)
@@ -666,7 +680,7 @@ export function App() {
         <div class="layout">
           {/* A view that fails to draw leaves the tabs usable (TEST-10). */}
           <ErrorBoundary what="this view">
-            <About />
+            <About categories={categories} />
           </ErrorBoundary>
           {footer}
         </div>
@@ -720,7 +734,7 @@ export function App() {
             }
             categories={categories}
             category={category ?? ""}
-            onCategory={(value) => update({ category: value })}
+            onCategory={changeCategory}
             storeDays={storeDays}
             period={state.period}
             onPeriod={(period) => update({ period })}
@@ -903,7 +917,7 @@ export function App() {
               affiliations={affiliationSuggestions}
               venues={venueCounts}
               subjects={subjects}
-              onCategory={(value) => update({ category: value })}
+              onCategory={changeCategory}
               onPeriod={(period) => update({ period })}
               onFilters={setFilters}
               store={

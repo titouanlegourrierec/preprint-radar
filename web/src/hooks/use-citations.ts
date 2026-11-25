@@ -28,24 +28,42 @@ const NONE: Citations = {
   current: true,
 };
 
+/** A category whose counts are asked for, and its oldest day file (`citationShard`). */
+export interface CitationSource {
+  category: string;
+  oldestDay: string | undefined;
+}
+
 /**
  * Citation counts of the papers shown (the period or archive year, and the reading list),
- * from the shards that hold them. `oldestDay` is the oldest day file of the category.
+ * from the shards that hold them, in each category of `sources`: the reading list's papers
+ * may be of any (ARCH-4), the store's records not saying theirs.
  */
 export function useCitations(
-  category: string | undefined,
+  sources: readonly CitationSource[],
   papers: readonly Filed[],
-  oldestDay: string | undefined,
 ): Citations {
   const [citations, setCitations] = useState<Citations>(NONE);
-  // The shards whose counts `citations` holds.
+  // The shards whose counts `citations` holds, as "cs.CV/2026-09".
   const [loaded, setLoaded] = useState("");
-  const needed = useMemo(() => shardsOf(papers, oldestDay).join(" "), [papers, oldestDay]);
+  const needed = useMemo(
+    () =>
+      sources
+        .flatMap(({ category, oldestDay }) =>
+          shardsOf(papers, oldestDay).map((shard) => `${category}/${shard}`),
+        )
+        .join(" "),
+    [sources, papers],
+  );
   useEffect(() => {
     // While a period loads, the counts shown stay.
-    if (!(category && needed)) return;
+    if (!needed) return;
     let cancelled = false;
-    Promise.all(needed.split(" ").map((shard) => citationShard(category, shard))).then((files) => {
+    const shards = needed.split(" ").map((path) => {
+      const slash = path.indexOf("/");
+      return citationShard(path.slice(0, slash), path.slice(slash + 1));
+    });
+    Promise.all(shards).then((files) => {
       if (cancelled) return;
       const counts = new Map<string, number>();
       const gains = new Map<string, number>();
@@ -72,7 +90,7 @@ export function useCitations(
     return () => {
       cancelled = true;
     };
-  }, [category, needed]);
+  }, [needed]);
   const current = needed === "" || loaded === needed;
   return useMemo(() => ({ ...citations, current }), [citations, current]);
 }

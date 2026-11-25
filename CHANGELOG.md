@@ -10,6 +10,14 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ## Unreleased
 
+### Categories
+
+- Ready for a second category (ARCH-4): each reads its pages within an even share of the
+  daily deadline (ARCH-5); the archive's categories can wait after the daily ones
+  (`PREPRINT_RADAR_ARCHIVE_CATEGORIES`); the reading list shows the counts of every
+  category's papers, another category keeps the period unless it holds none of its days,
+  and About and the site's description name the categories stored.
+
 ## 1.5.0 (2026-11-16): several authors, affiliations and venues at once
 
 ### Search

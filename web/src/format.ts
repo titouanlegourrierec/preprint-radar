@@ -240,6 +240,19 @@ const CATEGORY_NAMES: Readonly<Record<string, string>> = {
   "eess.IV": "Image and Video Processing",
 };
 
+/** "Computer Vision and Pattern Recognition (cs.CV)", or the code of an unknown category. */
+export function categoryTitle(category: string): string {
+  const name = CATEGORY_NAMES[category];
+  return name ? `${name} (${category})` : category;
+}
+
+/** "a", "a and b", "a, b and c". */
+export function listed(items: readonly string[]): string {
+  return items.length < 2
+    ? (items[0] ?? "")
+    : `${items.slice(0, -1).join(", ")} and ${items.at(-1)}`;
+}
+
 /** "cs.CV (Computer Vision and Pattern Recognition)", or the code of an unknown category. */
 export function categoryName(category: string): string {
   const name = CATEGORY_NAMES[category];

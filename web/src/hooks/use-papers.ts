@@ -317,6 +317,12 @@ export function usePapers(
     categories,
     category,
     storeDays,
+    /** A category's days, newest first: what a period kept from another holds (`periodIn`). */
+    daysOf: (name: string): DaySummary[] => storeIndex?.categories[name] ?? [],
+    /** Each category's oldest day file, which names its citation shards. */
+    oldestDays: Object.fromEntries(
+      categories.map((name) => [name, storeIndex?.categories[name]?.at(-1)?.date]),
+    ) as Record<string, string | undefined>,
     archiveYears,
     /** The category's papers of each complete year, as their citations rank them (decision 22). */
     cohorts: (category && storeIndex?.cohorts?.[category]) || undefined,

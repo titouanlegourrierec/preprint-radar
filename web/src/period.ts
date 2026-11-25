@@ -112,6 +112,17 @@ function periodDays(days: readonly DaySummary[], period: Period): DaySummary[] {
  * The days of the period to load (most recent first, as in the store index): its latest
  * ones within {@link PAPER_BUDGET}, and always its latest day, however large.
  */
+/**
+ * The period to keep in another category (ARCH-4): this one, unless its days are explicit
+ * (`from`, `since`) and the category holds none of them, which would show "0 of 0" without
+ * a word; then the default.
+ */
+export function periodIn(days: readonly DaySummary[], period: Period): Period {
+  return period.kind !== "recent" && periodDays(days, period).length === 0
+    ? DEFAULT_PERIOD
+    : period;
+}
+
 export function selectDays(days: readonly DaySummary[], period: Period): DaySummary[] {
   const selected: DaySummary[] = [];
   let papers = 0;

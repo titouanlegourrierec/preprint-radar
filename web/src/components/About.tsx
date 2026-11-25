@@ -1,18 +1,23 @@
+import { categoryTitle, listed } from "../format";
 import { CONTACT_EMAIL, REPOSITORY_URL, reportLink } from "../report";
 
 const CORRECTION_LINK = reportLink();
 
-/** What the site is, where its data comes from, how to get it corrected, and privacy. */
-export function About() {
+/**
+ * What the site is, where its data comes from, how to get it corrected, and privacy;
+ * `categories`, those the store holds.
+ */
+export function About({ categories }: { categories: readonly string[] }) {
   // Whether this build counts visits (UX-47): its page then holds Cloudflare's script.
   const counted = document.querySelector("script[data-cf-beacon]") !== null;
   return (
     <main class="about" id="main">
       <h2>About Preprint Radar</h2>
       <p>
-        Preprint Radar follows the papers announced on arXiv in Computer Vision and Pattern
-        Recognition (cs.CV) every weekday, and keeps the most cited older ones. It lets you search
-        them, and see who wrote them and where. It is a personal project, not affiliated with arXiv.
+        Preprint Radar follows the papers announced on arXiv in{" "}
+        {listed(categories.map(categoryTitle))} every weekday, and keeps the most cited older ones.
+        It lets you search them, and see who wrote them and where. It is a personal project, not
+        affiliated with arXiv.
       </p>
 
       <h3>Where the data comes from</h3>
@@ -50,10 +55,10 @@ export function About() {
           most stars gained in the week) rank it last.
         </li>
         <li>
-          Trends: the phrases of the titles of every cs.CV paper since 2010, from arXiv's catalog,
-          counted every week. A topic rises when its share of the papers grows against the same days
-          a year before; titles alone are counted, not abstracts. A topic's impact and most cited
-          papers come from the citation counts of{" "}
+          Trends: the phrases of the titles of every paper of the category since 2010, from arXiv's
+          catalog, counted every week. A topic rises when its share of the papers grows against the
+          same days a year before; titles alone are counted, not abstracts. A topic's impact and
+          most cited papers come from the citation counts of{" "}
           <a href="https://www.semanticscholar.org">Semantic Scholar</a>.
         </li>
         <li>

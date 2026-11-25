@@ -21,6 +21,7 @@ import { citationShardFiles } from "./tooling/citation-shards";
 import { withCohorts } from "./tooling/cohorts";
 import { contentSecurityPolicy as policy } from "./tooling/content-security-policy";
 import { fileVersions, withVersions } from "./tooling/data-versions";
+import { describing } from "./tooling/description";
 import { feedFiles } from "./tooling/feeds";
 import { LANDING_BUDGET, landingAssets, landingReport } from "./tooling/landing";
 import { splitPaperFile } from "./tooling/light-files";
@@ -368,6 +369,35 @@ function institutionLogos(): Plugin {
   };
 }
 
+/**
+ * The categories the store holds, named in the page's description and the manifest's
+ * (ARCH-4), which say cs.CV in their source.
+ */
+function siteDescription(dataDir: string): Plugin {
+  const categories = () => {
+    const path = resolve(dataDir, "index.json");
+    if (!existsSync(path)) return [];
+    const index = JSON.parse(readFileSync(path, "utf8")) as StoreIndex;
+    return Object.keys(index.categories).sort();
+  };
+  let outDir = "";
+  return {
+    name: "preprint-radar:site-description",
+    apply: "build",
+    configResolved(config) {
+      outDir = resolve(config.root, config.build.outDir);
+    },
+    transformIndexHtml(html) {
+      return describing(html, categories());
+    },
+    // After the public files are copied.
+    closeBundle() {
+      const manifest = resolve(outDir, "manifest.webmanifest");
+      writeFileSync(manifest, describing(readFileSync(manifest, "utf8"), categories()));
+    },
+  };
+}
+
 /** The image of the card a shared link shows, after the card's tags (UX-49). */
 function shareCard(): Plugin {
   const anchor = '<meta name="twitter:card" content="summary_large_image" />';
@@ -444,6 +474,7 @@ export default defineConfig({
     institutionLogos(),
     contentSecurityPolicy(),
     shareCard(),
+    siteDescription(DATA_DIR),
     noThirdPartyLoads(),
     landingBudget(),
   ],
