@@ -73,6 +73,10 @@ jobs:
       pushed: ${{ steps.commit.outputs.pushed }}
     env:
       CATEGORIES: ${{ vars.PREPRINT_RADAR_CATEGORIES || 'cs.CV' }}
+      # The categories with a citation archive, which may wait after a category's daily
+      # papers start (ARCH-4): the archive, its affiliations and the trends, which read its
+      # catalog. The published versions, countries and stars follow every category.
+      ARCHIVE_CATEGORIES: ${{ vars.PREPRINT_RADAR_ARCHIVE_CATEGORIES || vars.PREPRINT_RADAR_CATEGORIES || 'cs.CV' }}
       ARCHIVE_BUDGET: ${{ inputs.budget || vars.PREPRINT_RADAR_ARCHIVE_BUDGET || '22000' }}
       # Off until the maintainer turns it on (repository variable or manual run).
       ARCHIVE_PRUNE: ${{ inputs.prune || vars.PREPRINT_RADAR_ARCHIVE_PRUNE || 'false' }}
@@ -131,7 +135,7 @@ jobs:
           PREPRINT_RADAR_CONTACT: ${{ vars.PREPRINT_RADAR_CONTACT || format('{0}/{1}', github.server_url, github.repository) }}
         run: |
           args=(--budget "$ARCHIVE_BUDGET")
-          for category in $CATEGORIES; do args+=(--category "$category"); done
+          for category in $ARCHIVE_CATEGORIES; do args+=(--category "$category"); done
           if [ "$ARCHIVE_PRUNE" = "true" ]; then args+=(--prune); fi
           uv run --no-dev preprint-radar -v archive "${args[@]}"
 
@@ -162,7 +166,7 @@ jobs:
           PREPRINT_RADAR_CONTACT: ${{ vars.PREPRINT_RADAR_CONTACT || format('{0}/{1}', github.server_url, github.repository) }}
         run: |
           args=(--max-ror 1000 --max-html "$MAX_HTML" --deadline-minutes $((MAX_HTML / 4 + 5)))
-          for category in $CATEGORIES; do args+=(--category "$category"); done
+          for category in $ARCHIVE_CATEGORIES; do args+=(--category "$category"); done
           uv run --no-dev preprint-radar -v archive-affiliations "${args[@]}"
 
       - name: Save the archive's page cache
@@ -190,7 +194,7 @@ jobs:
         timeout-minutes: 10
         run: |
           args=()
-          for category in $CATEGORIES; do args+=(--category "$category"); done
+          for category in $ARCHIVE_CATEGORIES; do args+=(--category "$category"); done
           uv run --no-dev preprint-radar -v trends "${args[@]}"
 
       # The GitHub stars (Hugging Face likes) of the code the stored papers link, in

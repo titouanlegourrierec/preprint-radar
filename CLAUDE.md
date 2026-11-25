@@ -471,7 +471,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     Monday copy, a 90-day artifact (OPS-1, SCALE-4), and the archive's catalog only to keep
     it from eviction (CI-10). Its manual *since* input runs `backfill` instead.
   - `archive.yml` (dispatched Sundays 05:41 UTC; on Saturdays a catch-up when no run
-    succeeded since Sunday, CI-8): the archive, then `scholar` (20 minutes),
+    succeeded since Sunday, CI-8), its archive steps over `PREPRINT_RADAR_ARCHIVE_CATEGORIES`
+    (else the daily categories: a category's archive can start later, ARCH-4): the archive,
+    then `scholar` (20 minutes),
     then `archive-affiliations` (OpenAlex, then 40 HTML pages, 10 minutes, with its own
     page cache `archive-pages-`, OPS-6; its `max_html` input reads up to 800), `countries` (seconds), `trends`
     (offline, under a minute) and `code` (about 5 minutes, with the workflow's

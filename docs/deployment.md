@@ -14,6 +14,8 @@ push a copy instead.
 2. In *Settings → Pages*, set *Source* to **GitHub Actions**.
 3. In *Settings → Secrets and variables → Actions → Variables*, optionally set:
    - `PREPRINT_RADAR_CATEGORIES`: space-separated categories (default `cs.CV`);
+   - `PREPRINT_RADAR_ARCHIVE_CATEGORIES`: those with a citation archive (default: the
+     same), for a category whose archive starts later;
    - `PREPRINT_RADAR_CONTACT`: your e-mail address, sent to arXiv in the User-Agent
      (default: the repository's URL);
    - `PREPRINT_RADAR_CORRECTION_CONTACT`: the address the site gives its readers for

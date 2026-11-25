@@ -9,6 +9,7 @@ import signal
 import time
 from collections.abc import Callable, Generator, Iterable, Sequence
 from contextlib import contextmanager
+from dataclasses import replace
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
@@ -806,7 +807,7 @@ def _run_update(args: argparse.Namespace) -> int:
             HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as ror_client,
         ):
 
-            def update(category: str) -> UpdateReport:
+            def update(category: str, reading: HtmlReading) -> UpdateReport:
                 day = collect.today()
                 if since := catch_up_since(store, category, day):
                     # Days the listing no longer holds, or with papers it dropped (CI-7).
@@ -832,7 +833,7 @@ def _run_update(args: argparse.Namespace) -> int:
                     html=reading,
                 )
 
-            return _per_category(args.command, categories, update)
+            return _per_category(args.command, categories, update, reading)
     finally:
         console.print(f"Index written to {store.write_index()}")
 
@@ -858,31 +859,39 @@ def _run_backfill(args: argparse.Namespace) -> int:
             return _per_category(
                 args.command,
                 categories,
-                lambda category: backfill_category(
+                lambda category, share: backfill_category(
                     category,
                     days,
                     store=store,
                     site_client=site_client,
                     ror_client=ror_client if args.max_ror else None,
                     max_ror_lookups=args.max_ror,
-                    html=reading,
+                    html=share,
                 ),
+                reading,
             )
     finally:
         console.print(f"Index written to {store.write_index()}")
 
 
-def _per_category(command: str, categories: Sequence[str], run: Callable[[str], UpdateReport]) -> int:
+def _per_category(
+    command: str,
+    categories: Sequence[str],
+    run: Callable[[str, HtmlReading], UpdateReport],
+    reading: HtmlReading,
+) -> int:
     """Run ``run`` on each category and publish its report, one failing leaving the others (REL-5).
+
+    Each category reads its pages within its share of the time left (:func:`_share`).
 
     Returns:
         The exit code: 1 when a category failed, or a report says so (:func:`_exit_code`).
     """
     reports: list[UpdateReport] = []
     failed = False
-    for category in categories:
+    for position, category in enumerate(categories):
         try:
-            report = run(category)
+            report = run(category, _share(reading, len(categories) - position))
         except PreprintRadarError as exc:
             logger.error("%s: %s", category, exc)  # noqa: TRY400 - the message is enough
             github_annotation("error", f"preprint-radar {command} failed", str(exc))
@@ -891,6 +900,18 @@ def _per_category(command: str, categories: Sequence[str], run: Callable[[str], 
         _publish_update(report)
         reports.append(report)
     return max(_exit_code(reports), int(failed))
+
+
+def _share(reading: HtmlReading, left: int) -> HtmlReading:
+    """How the next of ``left`` categories reads its pages: an even share of the time left.
+
+    Without it the first category could take the whole deadline on a heavy day, and the
+    others wait (ARCH-5); the time one leaves goes to the next.
+    """
+    if reading.deadline is None or left <= 1:
+        return reading
+    now = time.monotonic()
+    return replace(reading, deadline=now + max(0.0, reading.deadline - now) / left)
 
 
 def _publish_update(report: UpdateReport) -> None:
@@ -929,15 +950,16 @@ def _run_reextract(args: argparse.Namespace) -> int:
             return _per_category(
                 args.command,
                 categories,
-                lambda category: reextract_category(
+                lambda category, share: reextract_category(
                     category,
                     select,
                     store=store,
                     site_client=site_client,
                     ror_client=ror_client if args.max_ror else None,
                     max_ror_lookups=args.max_ror,
-                    html=reading,
+                    html=share,
                 ),
+                reading,
             )
     finally:
         console.print(f"Index written to {store.write_index()}")

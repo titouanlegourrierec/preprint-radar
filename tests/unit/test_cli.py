@@ -1316,6 +1316,30 @@ def test_validate_sets_aside_a_paper_holding_a_contact_detail(
     )
 
 
+def test_update_shares_the_deadline_between_categories(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Each category reads its pages within an even share of the time left, the second
+    # also taking what the first left (ARCH-5).
+    deadlines: list[float] = []
+    clock = iter([1000.0, 1000.0, 1030.0])
+    monkeypatch.setattr("preprint_radar.cli.time.monotonic", lambda: next(clock))
+
+    def update_category(category: str, **options: object) -> UpdateReport:
+        html = options["html"]
+        assert isinstance(html, HtmlReading)
+        assert html.deadline is not None
+        deadlines.append(html.deadline)
+        return UpdateReport(category, 1, 0, 0, 0, 0)
+
+    monkeypatch.setattr("preprint_radar.cli.update_category", update_category)
+    args = ["update", "--data-dir", str(tmp_path / "data"), "--deadline-minutes", "10"]
+
+    assert main([*args, "--category", "cs.CV", "--category", "cs.LG"]) == 0
+    # 600 s from 1000: cs.CV until 1300; cs.LG, starting at 1030, keeps the rest.
+    assert deadlines == [1300.0, 1600.0]
+
+
 @pytest.mark.parametrize(
     ("stopped", "code", "annotation"),
     [

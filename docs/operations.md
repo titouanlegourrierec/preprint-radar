@@ -455,13 +455,24 @@ Not in git, set on 2026-11-02 (PUB-3); check them after any change to the workfl
 ## Add a category
 
 1. Set the repository variable `PREPRINT_RADAR_CATEGORIES` (space-separated, e.g.
-   `cs.CV cs.LG`); both data workflows read it.
-2. *Update data* reads the new listing's five days (about 750 pages) over two runs, 600
-   pages a run at most (`DEFAULT_MAX_HTML`). Use *since* for older days.
+   `cs.CV cs.LG`); both data workflows read it. To start the category's citation archive
+   later (ARCH-4), set `PREPRINT_RADAR_ARCHIVE_CATEGORIES` to the categories already
+   archived first (`cs.CV`): *Archive*'s archive, highly cited affiliations and trends
+   steps read it, its published versions, countries and stars every category.
+2. *Update data* reads the new listing's five days (about 1,250 pages for cs.LG) over a
+   few runs, 600 pages a category and run at most (`DEFAULT_MAX_HTML`), each category
+   within an even share of the step's deadline, the time one leaves going to the next
+   (ARCH-5). Use *since* for older days. A paper of both categories is stored in each;
+   its page is read once, the second from the page cache.
 3. The archive harvests the category's OAI set (`cs.LG` is `cs:cs:LG`, `astro-ph.CO`
    `physics:astro-ph:CO`) into its own archive, of the same budget (22,000 by default,
-   `PREPRINT_RADAR_ARCHIVE_BUDGET`): its first run takes about 45 minutes more.
-4. The About page names cs.CV: update it.
+   `PREPRINT_RADAR_ARCHIVE_BUDGET`): its first run takes about 45 minutes more, its
+   weekly counts as many requests again; check the step's 270 minutes.
+4. The site names the store's categories (About, the page's description and the
+   manifest's, `tooling/description.ts`); the README and `pyproject.toml` name cs.CV:
+   update them.
+5. To back out: drop the category from the variables; its files stay published until
+   `data/<category>/` is deleted on both branches (`make data-commit`, `make data-push`).
 
 ## The site or the repository grows too large
 
