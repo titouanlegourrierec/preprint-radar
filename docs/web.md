@@ -168,7 +168,7 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | Parameter | Holds | Default | Read by |
   | --- | --- | --- | --- |
   | `q` | The search words | none | every list, Rankings, the graph |
-  | `cat` | The category; another keeps the period, but explicit days it holds none of (`periodIn`, ARCH-4) | the store's first | every view |
+  | `cat` | The category; another keeps the period, but explicit days it holds none of (`periodIn`, ARCH-4), which a link's URL then corrects to its recent week | the store's first | every view |
   | `from`, `to` | A period of days (`from` alone: one day) | `range` | Papers, the graph and Rankings without `year` |
   | `since` | The days since a day, to the latest (PROD-13) | `range` | the same |
   | `range` | `day`, `week`, `month` (old links' `1`, `5`, `20`, `40`, `all` open the one holding as many days) | `week` | the same |

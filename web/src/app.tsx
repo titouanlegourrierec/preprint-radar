@@ -189,6 +189,12 @@ export function App() {
     if (!archived || state.year === null || archiveRange === null) return;
     if (formatYears(state.year) !== shownYearsKey) correct({ year: archiveRange });
   }, [archived, state.year, shownYearsKey]);
+  // Explicit days the category holds none of (`?cat=cs.LG&from=…` before its first day)
+  // show its recent week, which the URL then names, as the years above (ARCH-4).
+  const shownPeriod = storeDays.length > 0 ? periodIn(storeDays, state.period) : state.period;
+  useEffect(() => {
+    if (!archived && shownPeriod !== state.period) correct({ period: shownPeriod });
+  }, [archived, shownPeriod, state.period]);
   const readingList = useReadingList(load.status === "ready" ? load.index : null);
   // The reading list's folders (UX-38): the one the URL names, its papers among the saved.
   const folders = useFolders();

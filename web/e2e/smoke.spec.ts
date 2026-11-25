@@ -223,6 +223,14 @@ test("a search's link is copied whole, to open the same papers (SRCH-22)", async
   expect(errors).toEqual([]);
 });
 
+test("a link's days the category holds none of open its recent week (ARCH-4)", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("./?from=2026-01-05&to=2026-01-09");
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  await expect(page).toHaveURL(/\/$/);
+  expect(errors).toEqual([]);
+});
+
 test("a paper link opens the paper", async ({ page }) => {
   await page.goto("./?from=2026-09-24&paper=2609.00004");
   const card = page.locator("article.paper--target");
