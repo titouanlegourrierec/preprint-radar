@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <b>Follow and search the computer vision papers announced on arXiv every weekday,</b><br>
+  <b>Follow and search the computer vision and machine learning papers announced on arXiv every weekday,</b><br>
   with their authors' affiliations, their citations, their code and the topics on the rise.
 </p>
 
@@ -23,10 +23,10 @@
 
 ![The week's papers about world models, with the note that the topic is rising](docs/assets/papers.png)
 
-Preprint Radar collects the papers of arXiv's cs.CV category the day they are announced,
-reads who wrote them where, follows their citations, and keeps the most cited papers since
-2010. A static site searches all of it in your browser: no account, no cookie, no
-server, and what you save stays on your device.
+Preprint Radar collects the papers of arXiv's cs.CV and cs.LG categories the day they are
+announced, reads who wrote them where, follows their citations, and keeps the most cited
+papers since 2010. A static site searches all of it in your browser: no account, no
+cookie, no server, and what you save stays on your device.
 
 ## Features
 
