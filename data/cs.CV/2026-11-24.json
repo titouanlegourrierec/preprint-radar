@@ -305,7 +305,7 @@
   {
    "arxiv_id": "2611.28081",
    "announced": "2026-11-24",
-   "title": "BehaviorICL: Task-Conditioned Decoder States for Visual In-Context Learning",
+   "title": "TaskVICL: Task-Conditioned Decoder States for Visual In-Context Learning",
    "authors": [
     "Chenyang Wang",
     "Jiamo Hu",
@@ -323,7 +323,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.28081v1",
+   "html_url": "https://arxiv.org/html/2611.28081v2",
    "abstract": "The usefulness of an in-context demonstration for a vision-language model (VLM) depends on both the query image and the task posed about it. We study whether the frozen target VLM's own decoder states, read before answer generation, can select such demonstrations. BehaviorICL represents each image and task by a task-conditioned processing signature, the hidden states at the final input position across all decoder layers. Its training-free variant, BehaviorICL-Raw, averages cosine similarities between corresponding layer states and passes the retrieved examples with their reference answers to the same VLM. When the same NICO++ images are asked about their object or their context, Raw retrieves largely different demonstrations for the two questions and outperforms an image retriever given task-matched demonstrations on both VLMs. Across two VLMs and eight classification and visual question answering datasets, Raw gives the highest average accuracy among training-free retrievers on both VLMs and exceeds RICES with a CLIP ViT-L/14 encoder by 3.83 points on Qwen and 1.85 on InternVL. A lightweight shared projection, BehaviorICL-Proj, brings further gains on classification. Analyses of extraction text, decoder depth and bank answers help explain these gains, and attention analysis describes how the task text shifts attention at the extraction position toward the classified object. These results support the target VLM's internal states as a practical basis for visual in-context learning.",
    "affiliations": [
     "National University of Singapore",
@@ -983,7 +983,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.31239v1",
+   "html_url": "https://arxiv.org/html/2611.31239v2",
    "abstract": "Exploring a scene from as little as a single photo requires generating a long, camera-controlled walkthrough that extends far beyond what was captured, yet remains consistent upon return. Memory-based video generation methods preserve what they have already seen, but have no anchor beyond it, where the camera drifts from its path and a text prompt can name objects but not place them. Layout-conditioned methods provide such an anchor and precise control over what appears where, but rely on layouts that are typically authored by hand. Both limitations arise because, beyond what was captured, nothing anchors the video model unless a human authors one. To overcome both, we propose Lyris, a long video generation framework that never leaves the video model without an anchor: a persistent point-cloud memory where the scene has been observed or generated, and a 3D layout that a vision-language model authors where it has not. Our key insight is that the interface between the two models can be surprisingly coarse. A layout of one labeled 3D box per object is simple enough for a vision-language model to author (and for a user to edit), yet expressive enough for a video model to follow once rendered along the camera path. We demonstrate walkthroughs of over three minutes and 50 meters from a single photo, passing through doorways into rooms it never shows. When evaluated on minute-long round trips across four datasets, Lyris outperforms state-of-the-art methods by a wide margin, reducing camera error by 3.8x and improving consistency upon return by 22% on average.",
    "affiliations": [
     "University of Pennsylvania"
@@ -1061,7 +1061,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.31238v1",
+   "html_url": "https://arxiv.org/html/2611.31238v2",
    "abstract": "In human perception, pareidolia is the tendency to perceive a meaningful pattern, such as a face, in a random or ambiguous stimulus.We find a similar phenomenon in modern self-supervised Vision Transformers (ViTs): on white noise, which contains neither objects nor spatial structure, a few directions of their features still form spatially coherent patterns across the patches, imposed by the features themselves.We call this behavior pareidolia, and the span of these directions the pareidolic subspace.On natural images, it holds most of the feature variance in DINOv2 and DINOv3 but little in DINO.This excess explains why DINOv2 and DINOv3, despite stronger dense features, fall far behind DINO in object emergence, the hallmark ability of self-supervised ViTs to identify the patches of an object on their own.Our experiments further show that scaling down their pareidolic subspaces steadily restores their ability to discover objects, so their object emergence is hindered rather than lost.These findings naturally lead to a training-free calibration: Pareidolia Subspace Calibration(PSC) measures the pareidolic subspace only on a noise input and then calibrates the features of natural inputs by scaling its directions down to the variance level of the remaining directions.Across diverse object emergence tasks, PSC improves DINOv2 and DINOv3 by up to 31.7 CorLoc on object discovery, 30.2 maxF on saliency detection and 59.9~J on video object segmentation.To identify the cause of pareidolia, we trace it block by block and find that it forms in the middle blocks of every self-supervised model we examine but stays strong to the last block only in models trained with a patch-level loss; controlled training confirms that an image-level loss alone lets it fade.",
    "affiliations": [
     "Institute of Advanced Intelligence and Computing (IAIC), A*STAR, Singapore",
@@ -2175,7 +2175,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.31025v1",
+   "html_url": "https://arxiv.org/html/2611.31025v2",
    "abstract": "Vision Transformers (ViTs) are a predominant architecture for computer vision, with token reduction emerging as a popular paradigm to improve their efficiency. Prior work compares reduction algorithms, but not how models respond to them, nor how their response changes with model depth. We propose Monte Carlo Token Pruning (MCTP), which estimates each token's impact on the prediction when tokens are explicitly removed during the forward pass. Applying MCTP to recent pretrained models, we observe that most, such as DINOv3, maintain a similar ranking of token importance at every depth (high Coherent Aggregation), while SigLIP 2 does not. This coherence requires predictions to survive pruning, which depends on keeping high-norm \"sink\" tokens: prefix tokens are kept by design, while prefix-free SigLIP 2 forms them on patch tokens, which pruning may remove. We show that in removing DINOv3's prefix tokens, its predictions and coherence collapse, while protecting only 5 tokens for SigLIP 2 cuts the token impact outside the object's bounding box by up to 62%. Beyond this, MCTP offers a post-hoc method to evaluate how a pretrained ViT responds to pruning, and suggests that token reduction methods should keep \"sinks\".",
    "affiliations": [
     "Department of Computer Science, University of Oxford"
@@ -4117,7 +4117,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.30673v1",
+   "html_url": "https://arxiv.org/html/2611.30673v2",
    "abstract": "Identifying subtle errors in generated videos is an important step toward automated video generation, where errors must be detected to assess and refine generated clips. Recent work shows that pretrained vision-language models (VLMs) can localise such errors, but their effectiveness depends strongly on the workflow used: choices about which frames to inspect, which tools and model calls to make, and how to combine predictions can lead to substantially different results. We study VLM harnesses for video error localisation. Instead of relying on manually designed harnesses, we propose Harness Search and Merge (HSM), an algorithm that automatically constructs them by searching over executable evaluation programs. An LLM orchestrator refines candidate harnesses independently on random training subsets, records findings in a memory, and constructively merges complementary candidates. We evaluate HSM on Spotlight, a recently proposed benchmark for localising errors in generated videos. HSM achieves 0.234 +- 0.012 F1, exceeding the strongest benchmark strategy (0.173 +- 0.016), and retains its lead on an unseen video generator (0.213 +- 0.008 versus 0.140 +- 0.003). On IPV-Bench, it achieves strong localisation performance with lower false-alarm rates than existing optimisation baselines. Together, these results show that searching over complete VLM harnesses can outperform existing evaluation strategies, transfer to an unseen video generator, and reduce false alarms on real videos.",
    "affiliations": [
     "Australian Institute for Machine Learning, University of Adelaide"
@@ -4778,7 +4778,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.30597v1",
+   "html_url": "https://arxiv.org/html/2611.30597v2",
    "abstract": "Learning robot manipulation from egocentric human videos requires accurate metric 3D hand motion. Recent methods leverage pretrained video diffusion model (VDM) priors to recover occluded hands directly from full-frame videos, but their appearance-based depth regression generalizes poorly to unseen cameras. In this work, we propose ViDiHand2, a geometry-driven framework that reformulates VDM-based hand depth estimation from direct regression into fine-grained geometric constraint solving. Specifically, we introduce Fine-Grained Geometric Lifting and Clip-Level Ray Fitting, which recover metric depth by enforcing geometric consistency between pixel-aligned 2D joints and the metric structure of MANO hands, while leveraging temporal observations across the clip. Since the lifting relies on these 2D joints, to improve robustness under occlusion and image truncation, we further develop Confidence-Gated Fusion to adaptively combine geometrically lifted joints with MANO predictions according to localization confidence. Finally, we enhance the VDM backbone to better capture spatial-temporal representations and produce the per-frame 2D joint and MANO predictions that both steps rely on. Extensive experiments on seven public datasets demonstrate that ViDiHand2 consistently outperforms 18 baselines, reducing in-the-wild absolute joint error by 42% and detection failures by 8.82x compared with the best baseline on each metric, while running at 57 FPS. The code is available at https://github.com/NTUYWANG103/ViDiHand.",
    "affiliations": [
     "Nanyang Technological University",
@@ -5434,7 +5434,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.30541v1",
+   "html_url": "https://arxiv.org/html/2611.30541v2",
    "abstract": "Proactive streaming video understanding requires models to interpret unfolding events, respond timely, and retrieve relevant historical evidence. To systematically evaluate these capabilities, we introduce SVUBench, a comprehensive proactive streaming video benchmark comprising 12,131 questions and 62,881 answer points across ten proactive tasks spanning Perception, Understanding, and Reasoning. Constructed through model-assisted annotation and human verification, SVUBench introduces two complementary interaction modes. Basic evaluates sustained proactive responses from video onset, while Trajectory requires historical recovery and continuous response updates following task activation during streaming. A Duration-Scaled Challenge further evaluates these capabilities across four video duration tiers. We develop the Proactive Response Score (PRS) with task-adaptive answer windows to jointly assess answer correctness, response timeliness, historical consistency, and content quality. Extensive experiments and analysis reveal the strengths and limitations of existing models, highlighting directions for advancing proactive streaming video understanding.",
    "affiliations": [
     "Fudan University",
@@ -7964,7 +7964,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.30235v1",
+   "html_url": "https://arxiv.org/html/2611.30235v2",
    "abstract": "GUI grounding requires precise clicks at low latency. Recent models such as GUI-Decisions and GUI-Swift predict coordinates in one forward pass using fixed global bins with local refinement. However, screenshot downsampling removes detail needed to locate small controls, while fixed bins cover larger pixel ranges at higher resolutions. We introduce PixelOne, which transfers spatial knowledge from a search teacher to a student that predicts clicks directly from screenshots at native resolution. The teacher uses VideoJEV's text-option scorer to select rows and columns and progressively zoom into candidate regions. The student inherits the teacher's parameters and matches its distributions over explored regions through spatial distillation alongside box supervision. At inference, the same decision head selects a visual token, and a lightweight pixel head predicts the click within it, all in one forward pass. A click-aligned loss encourages pixels inside the target box to score above those outside. Across four benchmarks, PixelOne-Pro-35B-A3B achieves 83.8% mean accuracy, the highest among the evaluated single-forward grounders, with a mean latency of 0.43 s per target.",
    "affiliations": [],
    "author_affiliations": null,
@@ -10382,7 +10382,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.29993v1",
+   "html_url": "https://arxiv.org/html/2611.29993v2",
    "abstract": "Despite their widespread use in tasks such as image classification, object detection and semantic segmentation, the limited interpretability of Convolutional Neural Networks (CNNs) and Vision Transformers (ViTs) can undermine trust and hinder adoption in safety-critical applications. Explainable artificial intelligence (XAI) methods seek to address this by providing human-understandable explanations for model predictions. Class Activation Maps (CAM) constitute one such widely used XAI technique for visualizing discriminative regions. However, existing CAM methods may exhibit limitations in channel weighting, localization, and adaptability across network architectures potentially resulting in noisy or imprecise explanations. To address these issues, we propose ADAPT-CAM, a gradient-based, parameter-adaptive CAM framework. The method combines first-order gradient energy with activation-weighted second-order curvature to derive channel contributions. It further incorporates adaptive local contrast normalization and knee-guided soft channel selection to refine the resulting explanations. Importantly, key parameters are estimated independently for each input, allowing the framework to adapt to variations in feature representations across network architectures. We validate ADAPT-CAM on ImageNet and Oxford 102 Flowers across CNN and ViT architectures. Quantitative results demonstrate competitive or superior performance against established CAM methods across multiple evaluation metrics. In parallel, qualitative comparisons illustrate its ability to highlight discriminative image regions. Further parameter analysis and ablation experiments examine the behaviour and contributions of the individual adaptive components. These findings demonstrate the applicability of ADAPT-CAM across different architectures and datasets.",
    "affiliations": [
     "Department of Computer Science, Air University, Pakistan",
@@ -12200,7 +12200,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.29665v1",
+   "html_url": "https://arxiv.org/html/2611.29665v2",
    "abstract": "Many generation tasks draw the next image from a visual history, such as storyboards, illustrated stories and multi-turn editing. A new request often states what happens next without restating how earlier objects look. Instead of recovering an object's current look from the history, generators often redraw it from the request alone or bring back an outdated look, and the error can carry into later steps. We call this failure prop drift. Existing evaluations rarely isolate it, because similarity to the history rewards copying and a judge that sees a single history cannot tell a look recovered from that history from one the generator happens to prefer. We introduce PROPS, a benchmark of 2,257 pairs of twin histories that end on the same request but show one prop in two different looks. A pair passes only if the generator draws the matching look on each side and carries out the request, so a look preferred by the generator or the judge passes at most one side. All 34 open and closed systems we test show prop drift, and even systems that carry out the requested action on most sides often lose the current look of the prop. Swapping the planners and editors of agents further shows that both history understanding and image generation limit agent performance. We also build PROPS-Train, 80,250 training chains in four tracks whose targets recover an earlier state or carry scripted changes forward, and fine-tuning on it clearly improves all four tested models. Both datasets will be publicly released.",
    "affiliations": [
     "Shanghai Jiao Tong University",
@@ -12734,7 +12734,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.29542v1",
+   "html_url": "https://arxiv.org/html/2611.29542v2",
    "abstract": "Rotating, translating, or rescaling an object in a photograph requires revealing unseen surfaces, preserving visible appearance, and updating shadows and reflections. Reconstructed 3D assets, rendered at the target pose as a 3D state, provide explicit geometric guidance, but their imperfect textures may conflict with the photograph, while standard paired training does not explicitly teach the editor which source to trust. To address this, we propose counterfactual state supervision, which constructs controlled photo--state conflicts through hidden-surface repainting, hidden geometry with re-rendered shadows and reflections, and visible-surface texture replacement. This teaches the editor to follow the 3D state for unseen content while preserving photograph-visible appearance. However, learning this distinction does not ensure that it is maintained during sampling. We therefore introduce symmetric counterfactual correction, which uses state-side and photo-side twins, which share the photograph and the state respectively, to construct directed latent perturbations toward condition-inconsistent targets and train recovery toward the target specified by the current condition. Both strategies operate only during training, requiring no architectural changes or additional inference steps. Experiments on OBJect and SpatialEdit-Bench demonstrate strong spatial editing performance and content preservation, while controlled ablations show improved source selection and sustained responsiveness to conditioning during sampling.",
    "affiliations": [],
    "author_affiliations": null,
@@ -18927,11 +18927,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Arxiv Preprint",
+   "comments": "Project page: https://ceteris11.github.io/PSC-Gen/",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.28756v1",
+   "html_url": "https://arxiv.org/html/2611.28756v2",
    "abstract": "Recent advances in video diffusion models have enabled the synthesis of high-fidelity, visually compelling videos. However, despite being trained on internet-scale video data, understanding underlying physical laws and generating physically plausible dynamics remain challenging. To mitigate this, conditioning video generators on explicit physical reasoning has emerged as a promising direction. Nevertheless, existing conditioning approaches often fail to incorporate detailed physical guidance into generation, resulting in physically implausible motion or visual artifacts. We propose PSC-Gen, a training-free framework that employs an agentic approach to synthesize visual conditions and inject their core dynamics via low-frequency filtering. By iteratively planning physical states and verifying generated keyframes, our Physics Agent constructs visually and physically consistent keyframe sequences. We then interpolate these keyframes into a continuous physical sequence and inject only its low-frequency components, steering the video model to preserve physical dynamics while synthesizing fine visual details. Qualitative and quantitative evaluations across physics-informed and robotic manipulation benchmarks demonstrate that PSC-Gen faithfully follows instructions and generates physically plausible videos.",
    "affiliations": [
     "Seoul National University",
@@ -19538,7 +19538,7 @@
    "journal_ref": null,
    "venue": "WACV 2027 Workshop",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.28712v1",
+   "html_url": "https://arxiv.org/html/2611.28712v2",
    "abstract": "Recognizing cuneiform signs is challenging: sign shapes vary across historical periods, scribal practices, and preservation conditions, while expert annotations are scarce. We study whether domain-specific self-supervised pretraining yields better cuneiform sign representations than generic natural-image pretraining. We pretrain a masked autoencoder, CuneiMAE, on over 900K unlabeled sign crops and compare it with ImageNet-pretrained MAE, CLIP, and DINOv2 on a 218-class sign recognition benchmark. CuneiMAE learns substantially stronger frozen representations (43.7% linear-probe accuracy vs. 25.2% for ImageNet-MAE), with gains over ImageNet-MAE on cross-period transfer. Under fine-tuning, CuneiMAE outperforms ImageNet-pretrained baselines on our internal benchmark, with the largest gains when labels are scarce (+20.4 pp over ImageNet-MAE with 1% of labels). On an external benchmark, CuneiMAE reaches 69.9% top-1 accuracy after fine-tuning, about 8 pp above the ResNet-18 baseline from prior work. Explicit structural priors, such as edge-guided masking and part bottlenecks, do not improve over standard masked reconstruction. Overall, domain-specific self-supervision shows strong performance on cuneiform recognition tasks, particularly when labels are limited.",
    "affiliations": [
     "Ludwig-Maximilians-Universität München",
@@ -21389,7 +21389,7 @@
    "authors": [
     "Jingong Chen",
     "Qingwen Zhang",
-    "Lin Lian",
+    "Linlian Jiang",
     "Xinxin Zuo",
     "Yang Wang",
     "Chulwoo Pack",
@@ -21405,7 +21405,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.28520v1",
+   "html_url": "https://arxiv.org/html/2611.28520v2",
    "abstract": "Video generation models are widely used as 3D priors for novel view synthesis and 3D scene generation. Fine-tuned for perception, generation models also excel at dense prediction such as depth estimation. However, methods that apply video generation models to 3D reconstruction either predict depth without cameras or generate geometry and estimate cameras through many iterative denoising steps, which makes them slower. In this paper, we present VG3R, which turns a pretrained video generation model into a feed-forward 3D reconstruction model. Our key observation is that such a model already captures the depth and camera motion of a video, but not in the form required for reconstruction. We introduce two components: clip-level shift prediction, which corrects depth distortion caused by the unknown shift in decoded inverse depth, and a multi-layer camera head, which predicts per-frame cameras parameters by combining features across transformer blocks. Using Wan2.1 as its video backbone, VG3R reconstructs a scene and estimate the camera of every frame without iterative denoising. It achieves the lowest ATE and reconstruction errors among methods built on video generation models, runs about 4 and 14 times faster than Aether and Geo4D. VG3R also demonstrates competitive depth estimation and 3D reconstruction performance compared with geometry foundation models. Project page: https://github.com/KTH-RPL/VG3R",
    "affiliations": [
     "Concordia University",
@@ -21453,11 +21453,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-24"
+     "at": "2026-11-25"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-24"
+     "at": "2026-11-25"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.28520",
@@ -25212,7 +25212,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2611.31126v1",
+   "html_url": "https://arxiv.org/html/2611.31126v2",
    "abstract": "Vision-language-action (VLA) models leverage pretrained vision-language representations for instruction-conditioned robot control, yet their understanding of task-relevant 3D relations and how these relations evolve during manipulation remains largely implicit. To address this challenge, we introduce WeaveVLA, a framework that enhances VLA action generation by explicitly modeling task-relevant relative 3D relations and maintaining relational context across observations. WeaveVLA employs a task-conditioned sparse graph neural network to encode relative 3D relations among objects, the gripper, and nearby references. Pair-specific recurrent edge states integrate geometric evidence across observations to maintain evolving spatial context. A learned-query readout summarizes the updated graph representations into compact relational tokens, which condition the action expert alongside the original vision-language context. An auxiliary geometry reconstruction objective further encourages spatial structure preservation. We instantiate WeaveVLA on StarVLA-GR00T and $π_{0.5}$, achieving over 98% average success on LIBERO with both backbones. On LIBERO-Plus, WeaveVLA improves success from 74.9% to 82.0% and from 85.7% to 87.8%, respectively, with additional improvements on CALVIN D→D. On three real-world tasks, the StarVLA-GR00T-based variant improves average success from 55.6% to 70.0% under standard conditions and from 33.3% to 53.3% under OOD perturbations, surpassing the $π_{0.5}$ baseline in both settings.",
    "affiliations": [
     "The Hong Kong University of Science and Technology",
@@ -25501,11 +25501,11 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Project Page: https://luo-yihong.github.io/iTDM/",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": "https://arxiv.org/html/2611.30986v1",
+   "html_url": "https://arxiv.org/html/2611.30986v2",
    "abstract": "Forward diffusion reinforcement learning (RL)—enabling deterministic ODE sampling without trajectory backpropagation—has grown increasingly popular for efficiently aligning diffusion models. However, we reveal that existing methods essentially rely on signed reward-weighted regression (RWR), regressing the trainable policy velocity onto rollouts from a behavior distribution. Unbiased baseline subtraction implicitly assumes that the policy velocity equals the behavior marginal velocity—an idealized assumption violated under classifier-free guidance (CFG) rollouts, offline/off-policy updates, and imperfect online self-consistency. This behavior--policy mismatch breaks baseline invariance and injects baseline-induced gradient drift, destabilizing training. To resolve this issue, we propose Instantaneous Trajectory Distribution Matching (iTDM), taking the infinitesimal limit of Trajectory Distribution Matching toward a time-local reward-guided target via the posterior-score identity to yield a sample-level gradient anchored at the behavior velocity without learning an additional reward-tilted target score. Tracking this velocity with an online auxiliary denoiser guarantees exact baseline invariance at the auxiliary optimum, effectively suppressing baseline drift across both online and offline RL. Extensive experiments across compositional generation, text rendering, and preference alignment show that iTDM achieves state-of-the-art in-domain and out-of-domain performance. Notably, on the challenging GenEval2 benchmark, iTDM converges nearly 3× faster than competing methods while scaling smoothly to 0.87 without collapse. Code is available at https://github.com/Luo-Yihong/iTDM",
    "affiliations": [
     "Hong Kong University of Science and Technology"
@@ -26769,7 +26769,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2611.30099v1",
+   "html_url": "https://arxiv.org/html/2611.30099v2",
    "abstract": "Fine-tuning a robot policy for a new target task requires target demonstrations, but only a few are available. Demonstrations of other tasks can fill this gap, and demonstration curation selects the useful ones among these candidates. Retrieval-based curation selects the candidates that are most similar to the target demonstrations. Since it does not use the policy, any candidate that looks similar receives a high score. Performance-aware curation therefore estimates the effect of each candidate on the policy. However, this requires training on the candidates and takes a long time. We propose a third branch, policy-intrinsic curation, which uses the policy and still takes little time. It estimates this effect with forward passes of the pretrained policy and needs no training. We instantiate this branch with PICKER (Policy-Intrinsic Curation from Known Errors). It selects the candidates on which the policy makes errors that agree with those on the target demonstrations. PICKER reaches success rates comparable to those of performance-aware curation and takes about as long as retrieval-based curation. Its selection is also stable across seeds.",
    "affiliations": [
     "Kyung Hee University",

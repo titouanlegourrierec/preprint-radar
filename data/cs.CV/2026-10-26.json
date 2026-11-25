@@ -24,17 +24,37 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Training generalizable embodied agents requires realistic, varied, and simulation-ready indoor environments. Language-guided methods support semantic planning and object-level reasoning, but precise spatial grounding remains difficult. Visual generative models offer rich priors over plausible arrangements, yet their outputs require geometric reasoning to become physically valid 3D scenes. We introduce SceneBloom, an agentic framework that combines visual layout sampling with contract-guided 3D compilation. A hierarchical sampler uses diffusion priors to generate furniture arrangements within functional zones. A compiler then uses relations extracted from each proposal to guide geometric fitting and local pose correction. Across five room types, SceneBloom attains the highest visual quality and physical stability among the compared methods and is the only method with no detected mesh collisions and out-of-bounds objects. Its layouts are also closer to the distribution of real rooms than those of all compared baselines. Object navigation policies trained in these realistic scenes achieve a higher success rate in held-out real scans than those trained on an equal number of real training scans. Code is available at https://github.com/Tinaliu0123/scenebloom.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "New York University",
+    "University of California San Diego"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "New York University",
+    "University of California San Diego"
+   ],
+   "institution_ids": [
+    "0190ak572",
+    "0168r3w48"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.32978",
@@ -178,17 +198,31 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Semantic misinformation can arise when an authentic image is paired with a caption that changes or distorts its narrative. Because the image itself may contain no visible signs of manipulation, methods designed to detect pixel-level artifacts can miss these misleading image-caption pairs. We study this problem using DGM4+, a dataset designed to evaluate the detection of global scene and semantic inconsistencies. We propose a multimodal model that combines image-text representations from SigLIP with visual scene features from DINOv2 through a projection MLP, and adapts Qwen2-VL-7B using LoRA. The model jointly predicts whether an image-caption pair is authentic, identifies the manipulation type, and grounds the misleading caption tokens. On the DGM4+ validation split, the model achieves an F1 score of 0.9679 for binary authenticity classification. These results suggest that parameter-efficient adaptation of vision-language models is promising for detecting semantic inconsistencies, while also motivating further work on precise token-level grounding.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Arizona State University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Arizona State University"
+   ],
+   "institution_ids": [
+    "03efmqc40"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.32967",
@@ -1615,17 +1649,47 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Aerial vision-language navigation (AVLN) requires a UAV to reach a language-described target from partial egocentric observations while reasoning over large outdoor scenes. Existing approaches typically fuse view-centered RGB observations and globally anchored history maps as generic visual embeddings, leaving cross-modal spatial alignment to be learned from sparse navigation supervision. We present SP-Guide, a transformer- based goal-prediction framework that addresses this weakness of alignment through a Spatial Prior Cross-Modal Encoder, an Instruction Enhanced Decoder, and a Goal Convergence Filter for terminal target refinement. Experiments implemented on the CityNav benchmark show that SP-Guide improves success rate over the representative baselines, with the largest gains on unseen environments. These results indicate that physically grounded spatial priors provide an effective inductive bias for robust AVLN.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Harbin Institute of Technology",
+    "China Electronics Technology Group Corporation",
+    "28th Research Institute of China Electronics Technology Group Corporation"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "Harbin Institute of Technology",
+    "China Electronics Technology Group Corporation",
+    "28th Research Institute of China Electronics Technology Group Corporation"
+   ],
+   "institution_ids": [
+    "01yqg2h08",
+    "0098hst83",
+    "05355jx47"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.32697",
@@ -1898,7 +1962,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     },
     "institutions": {
      "source": "openalex",
@@ -2087,7 +2151,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     },
     "institutions": {
      "source": "openalex",
@@ -2609,17 +2673,34 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Developing multiple instance learning pipelines for the classification of whole-slide images involves many interdependent design decisions and expertise in both pathology and machine learning. We present AutoMIL, an open-source framework that applies principles from the field of automated machine learning to tackle this task by automating integral pipeline steps, such as preprocessing, training and evaluation. In a benchmark evaluation with default settings, AutoMIL reached ROC-AUC scores of 0.94 on UBC-OCEAN, 0.99 on PCam and 0.93-0.96 on a TCGA-NSCLC subset, comparable to specialised pipelines in related work. Ensembling mainly improved performance on imbalanced data, showing that an automated pipeline must adapt to dataset characteristics. AutoMIL thus provides an accessible baseline for whole-slide image classification without manual pipeline configuration.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Augsburg"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Augsburg"
+   ],
+   "institution_ids": [
+    "03p14d497"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.32452",
@@ -3245,17 +3326,36 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Alzheimer's disease (AD) is a progressive neurological disorder associated with memory loss, cognitive decline, and behavioral disturbances. Early and accurate diagnosis is essential, yet MRI-based deep learning models often lack interpretability, limiting their clinical use. This study presents an explainable deep learning approach for four-class AD staging using 2D axial MRI images. The method combines eigenvector-based Grad-CAM with gradient smoothing to improve saliency localization and heatmap stability. Principal component analysis is applied to gradient-weighted convolutional layers, while Gaussian noise is added to saliency weights before decomposition. To address class imbalance in the Moderate Dementia category, Wasserstein Generative Adversarial Network with Gradient Penalty (WGAN-GP) generates synthetic samples to balance the four-stage training distribution. Custom convolutional neural networks are trained on the Best Alzheimer MRI Dataset, achieving 97.2% test accuracy, 97.0% balanced accuracy, and a Matthews correlation coefficient of 0.944. The area under the ROC curve ranges from 0.96 to 0.99 across classes. Generated heatmaps highlight the hippocampus and entorhinal cortex, regions associated with Alzheimer's disease biomarkers. These findings suggest that the proposed approach combines strong classification performance with improved model interpretability, although further clinical validation is needed.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Superior University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "Superior University"
+   ],
+   "institution_ids": [
+    "00yh88643"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.32374",
@@ -4753,17 +4853,52 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Continual survival analysis on whole-slide images (WSIs) requires models to integrate knowledge from sequentially arriving cancer cohorts while preserving previously learned information. Model merging offers a data-free alternative by combining independently fine-tuned task experts without retaining previous training data. However, the relative behavior of different merging strategies for WSI-based survival prediction remains insufficiently understood. In this work, we establish an end-to-end benchmark for data-free continual model merging, covering task-specific fine-tuning, sequential merging, and inference under both TASK-IL and CLASS-IL settings. We systematically evaluate six representative merging strategies across four TCGA cancer cohorts and three task orders using C-index, IPCW C-index, Forgetting, and Backward Transfer under a controlled protocol. Results show that no merging strategy consistently dominates across all evaluation criteria, while censoring-aware evaluation can substantially alter the relative ranking of the compared methods. This benchmark provides a unified foundation for developing and evaluating more effective continual model merging methods for WSI-based survival analysis.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Vietnam National University Ho Chi Minh City",
+    "Centre National de la Recherche Scientifique",
+    "CY Cergy Paris Université",
+    "Equipes Traitement de l'Information et Systèmes",
+    "École Nationale Supérieure de l'Électronique et de ses Applications"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2,
+     3,
+     4
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Vietnam National University Ho Chi Minh City",
+    "Centre National de la Recherche Scientifique",
+    "CY Cergy Paris Université",
+    "Equipes Traitement de l'Information et Systèmes",
+    "École Nationale Supérieure de l'Électronique et de ses Applications"
+   ],
+   "institution_ids": [
+    "00waaqh38",
+    "02feahw73",
+    "043htjv09",
+    "0592ata02",
+    "03qeacd72"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.32207",
@@ -5010,7 +5145,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     },
     "institutions": {
      "source": "openalex",
@@ -6228,17 +6363,76 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The Yangtze River Basin is a critical region for freshwater biodiversity conservation. The implementation of the Yangtze River Ten-Year Fishing Ban has increased the importance of effective aquatic biodiversity monitoring and species-level identification. However, fine-grained identification of closely related freshwater fish species remains challenging due to subtle morphological differences. Existing deep learning methods often struggle to balance classification accuracy and inference efficiency, while LLMs may generate unsupported information when producing specialized biological knowledge. To address these challenges, this study proposes FSVL, a fast-slow dual-pathway framework integrating visual recognition with LLM-based Retrieval-Augmented Generation (RAG). A lightweight ResNet50 fast path performs preliminary classification across 51 fish species in the Middle Yangtze River Basin and routes predefined groups of easily confused species to a slow path for refined identification. Guided by taxonomic criteria, the slow path uses YOLOv8n to detect key morphological regions, including the head, dorsal fin, and tail, leveraging morphometric and outline traits to improve discrimination among closely related species. The framework further integrates a retrieval-enhanced Qwen3-14B backend, using soft tokens and Low-Rank Adaptation (LoRA) for parameter-efficient domain knowledge generation. On the evaluated test set of 607 images, the fast classifier achieved 99.67% accuracy, whereas the cascade corrected the two errors, yielding 100.00% overall accuracy; further validation on independent specimens and external conditions remains needed. Across 255 knowledge generation samples, scientific name accuracy rises from 91.37% to 100.00%, genus accuracy from 90.20% to 98.82%, and ROUGE-L from 0.335 to 0.655, supporting intelligent biodiversity monitoring and fisheries management.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Southwest University",
+    "Nanyang Technological University",
+    "Zhejiang University",
+    "Ministry of Agriculture and Rural Affairs",
+    "Yangtze River Fisheries Research Institute",
+    "Chinese Academy of Fishery Sciences"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4,
+     5
+    ],
+    [
+     3,
+     4,
+     5
+    ],
+    [
+     3,
+     4,
+     5
+    ]
+   ],
+   "institutions": [
+    "Southwest University",
+    "Nanyang Technological University",
+    "Zhejiang University",
+    "Ministry of Agriculture and Rural Affairs",
+    "Yangtze River Fisheries Research Institute",
+    "Chinese Academy of Fishery Sciences"
+   ],
+   "institution_ids": [
+    "01kj4z117",
+    "02e7b5302",
+    "00a2xv884",
+    "05ckt8b96",
+    "00rny2m53",
+    "02bwk9n38"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.31880",
@@ -7103,17 +7297,28 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "Masked latent prediction methods such as I-JEPA aim to learn predictable features, but what determines which information they retain is less clear. We built a simulator in which every factor behind an image is known, so a probe can measure how readable each factor remains after training. We trained small encoders (0.7M parameters) with I-JEPA, SimCLR and BYOL on the same pairs of views and probed a factor that both views share. I-JEPA had a predictor with half the encoder's width and depth, the proportions it uses for ViT-B. Its median score was about 40% of SimCLR's. Widening the predictor to the encoder's width reversed this ordering at every training seed, against both other methods. We release the simulator and the trained models.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Weizmann Institute of Science"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Weizmann Institute of Science"
+   ],
+   "institution_ids": [
+    "0316ej306"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.32562",
@@ -7518,7 +7723,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-26"
+     "at": "2026-11-25"
     },
     "institutions": {
      "source": "openalex",

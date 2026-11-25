@@ -2580,7 +2580,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.26218v1",
+   "html_url": "https://arxiv.org/html/2611.26218v2",
    "abstract": "Humanoid agents in everyday environments are expected to react to diverse cues as humans do, with semantically appropriate and physically executable behaviors. Existing cue-driven reaction generation methods support only a narrow range of cue modalities and are limited to purely kinematic generation, leaving the resulting reactions susceptible to physical artifacts. To this end, we present MixReact, the first unified framework for physics-based reactive humanoid control from text, audio, and video cues, integrating a Discrete--Continuous Mixture of Transformers (DisCo-MoT) for state prediction with a History-aware Action Transformer (HAT) for physical execution. DisCo-MoT couples a discrete masked-modeling branch with a continuous autoregressive diffusion branch via one-way mixture attention within a MoT architecture. Guidance from discrete context mitigates collapse into averaged behaviors in one-to-many reaction generation, while direct prediction in continuous state space bypasses the decoding bottleneck of discrete representations. HAT then maps the predicted next state and observed execution history to executable actions, enabling robust closed-loop control in physics-based simulation. Experiments across all three modalities demonstrate consistent improvements over the baselines in fidelity, diversity, and physical consistency, while ablations validate the complementary contributions of the components. Our code will be released to facilitate future research. Project page: https://binlee26.github.io/MixReact_Page/",
    "affiliations": [
     "ShanghaiTech University",
@@ -3460,7 +3460,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.26128v1",
+   "html_url": "https://arxiv.org/html/2611.26128v2",
    "abstract": "Single-particle cryo-electron microscopy (cryo-EM) determines macromolecular structures from noisy particle images. However, rare, transient compositional states and subtle, continuous conformational variation are difficult to resolve. We present CryoGaussian, a Gaussian splatting method for heterogeneous cryo-EM reconstruction that fits an explicit Gaussian density representation directly to the particle images through a differentiable rasterizer rendering orthographic line integrals modulated by the contrast transfer function. The Gaussians are initialized randomly, with their number derived from the estimated spatial support of the molecular density and their minimum size bounded by the Nyquist frequency of the particle images. To capture the compositional and conformational variation across particle images, we learn particle-image and per-Gaussian latents that jointly modulate the base position, amplitude, and scale of each Gaussian. Each structural state is then reconstructed by fitting the Gaussians conditioned on its inferred latent. On CryoBench, CryoGaussian achieves state-of-the-art reconstruction accuracy for both compositional and conformational heterogeneity. On experimental data, it resolves a rare compositional state of the 50S ribosomal subunit (class C4, 1.3% of particles) with rRNA helix 68 docked in the absence of the central protuberance, and continuous conformational motion of the SF3b and helicase subcomplexes of the pre-catalytic spliceosome. We further optimize the rasterizer for additive cryo-EM projection, reducing training time by 12.8-28.0×.",
    "affiliations": [],
    "author_affiliations": null,
@@ -7152,7 +7152,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.25595v2",
+   "html_url": "https://arxiv.org/html/2611.25595v3",
    "abstract": "World action models (WAMs) couple generative video modeling with robotic action prediction but typically require large video and action transformers, limiting deployment efficiency. We present LoopedWAM, a compact WAM that recurrently applies a shared six-block core in each expert, executing 30 transformer layers while storing only 12 blocks per expert. To account for their asymmetric inference costs, the video and action experts can operate at different depths: visual features are computed once per query, whereas action computation repeats at every sampling step. We further propose elastic self-distillation, which trains a single elastic checkpoint, LoopedWAM-E, across action-depth and sampling-step budgets. With only 0.58B policy parameters and no robot pretraining, LoopedWAM achieves 96.1% success on LIBERO, 91.9% on RoboTwin 2.0, and 52.2% on RoboCasaGR1, while using 7.4× less peak GPU memory than Fast-WAM under matched inference measurements. On LIBERO, LoopedWAM-E achieves 96.0% success in 27.6 ms or 95.2% in 24.7 ms on an H100, providing multiple accuracy-latency operating points from a single checkpoint; with two sampling steps and four action loops, it stays within 0.5 points of LoopedWAM on all three benchmarks. Ablations demonstrate that weight-shared depth preserves competitive performance, while aggressive action-depth reduction requires explicit budget-aware training. On a real AgileX PiPER arm, LoopedWAM succeeds in 71.3% of 80 trials across four tasks.",
    "affiliations": [],
    "author_affiliations": null,
@@ -11282,7 +11282,7 @@
     "Yingte Shu",
     "Chao Xu",
     "Kai Han",
-    "Hanting Chen",
+    "Allen Chen",
     "Yunhe Wang"
    ],
    "primary_subject": "Cryptography and Security (cs.CR)",
@@ -11290,11 +11290,11 @@
     "Cryptography and Security (cs.CR)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "23 pages, 2 figures, 13 tables",
+   "comments": "24 pages, 2 figures, 13 tables",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.CR",
-   "html_url": "https://arxiv.org/html/2611.26508v1",
+   "html_url": "https://arxiv.org/html/2611.26508v2",
    "abstract": "Commercial video-generation APIs bill by model and tier, while intermediaries could substitute cheaper models, lower tiers, or cached clips. What can a delivered file establish about its origin? We combine measurements of passive attribution and cryptographic provenance into a graded audit. We test attribution probes and zero-shot detectors under re-encoding, downscaling, and frame-rate changes, and survey C2PA and GB 45438 metadata across 19 commercial endpoints. Only authenticated provenance supports accusations: tier contradictions or duplicate signed instances under fresh-generation contracts, excluding retries and idempotent returns. Unverifiable signed-endpoint deliveries trigger original-file demands under pass-through clauses; archive-reuse and delivery-parameter screens support review only. Six-model container and bitstream accuracy falls from 83.9% on raw files to 45.3% after uniform re-encoding, using different feature sets. Subsampling real references from 24 to 3 fps raises pooled D3 AUROC from 0.845 to 0.988. Only BytePlus authenticates tier claims under our pinned policy, including 187/187 audited deliveries across three Seedance tiers; tested remuxing and re-encoding leave processed Seedance files unverifiable. The audit identifies authenticated contradictions in 100/100 raw 720p signed tier-swap cases, with zero observed false flags on the tested honest pools.",
    "affiliations": [],
    "author_affiliations": null,
@@ -11303,7 +11303,7 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-20"
+     "at": "2026-11-25"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.26508",
@@ -12429,9 +12429,9 @@
     "Zhenjie Su",
     "Zelong Yu",
     "Yuting Zhang",
+    "Chaozhuo Li",
     "Qihua Feng",
     "Zifeng Kang",
-    "Chaozhuo Li",
     "Zhengxuan Hu"
    ],
    "primary_subject": "Machine Learning (cs.LG)",
@@ -12444,7 +12444,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": "https://arxiv.org/html/2611.25594v1",
+   "html_url": "https://arxiv.org/html/2611.25594v2",
    "abstract": "Comparative feedback, in which a judge says which of two candidate outcomes is closer to what happened, is a practical way to train language world models that assign probabilities to an action's outcomes. We show that, fitted with a Bradley-Terry objective, it need not teach the true outcome probabilities and can distort accurate ones. On a simulated robot push with enumerated outcome distributions, this objective takes a model that is accurate on unseen layouts (hazard error 2.4 percentage points, pp) and moves 33 to 43 pp of its probability onto outcomes that none of a condition's enumerated branches produces. The cause is the objective, not the comparisons: its optimum, computed before training, predicts where the model ends up, and a likelihood that knows the judge's rule learns from the same comparisons without the shift. The shift is robust: it recurs on unseen conditions, under five candidate laws and a three-fold denser enumeration, and about 29 pp remain without the physically impossible events. Its cost is conditional: with those events it inflates hazard probabilities, and a threshold inherited from the pre-feedback model costs about 3 pp of utility per decision on trained and 1 to 2 pp on unseen conditions, through false rejects; without them the utility loss averages below 1 pp over six seeds, though a small regret in action choice remains. Audits of readout, response and decision trace the effect from probabilities to actions.",
    "affiliations": [
     "Beijing University of Posts and Telecommunications",
@@ -12489,11 +12489,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-20"
+     "at": "2026-11-25"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-20"
+     "at": "2026-11-25"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.25594",

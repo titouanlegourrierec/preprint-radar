@@ -435,7 +435,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.24806v1",
+   "html_url": "https://arxiv.org/html/2611.24806v2",
    "abstract": "Self-supervised learning has produced powerful visual representations, yet learning strong dense features remains challenging. While consistency between augmented views provides strong image-level supervision, extending this principle to local visual content is less straightforward. Existing approaches often match individual patches across views or identify coherent regions, introducing uncertainties in correspondence estimation and assumptions about how visual content should be grouped. We introduce ReCoCo (Regional Composition Consistency), a principled approach that extends cross-view consistency to the regional level without requiring such correspondences or semantic grouping. ReCoCo represents the content shared between augmented views through compositions of their patch-level predictions over learned visual prototypes. By aligning these compositions, the model learns from regions containing multiple visual concepts without requiring them to be separated beforehand. ReCoCo integrates naturally with teacher-student self-distillation and introduces no additional learned parameters. Extensive experiments demonstrate substantial improvements in frozen-feature segmentation, clustering, and regional retrieval while maintaining competitive image-level recognition, alleviating the trade-off between dense and global representation quality.",
    "affiliations": [
     "Information Processing and Telecommunications Center (IPTC), Universidad Politécnica de Madrid, ES",
@@ -11071,7 +11071,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23578v1",
+   "html_url": "https://arxiv.org/html/2611.23578v2",
    "abstract": "Latent-space planners select actions by comparing the embedding of a predicted future image with that of a goal image. This assumes that distance in the embedding reflects how far the scene is from the goal. We profile this assumption with simulator-executed futures, which removes prediction error. For six frozen DINO and V-JEPA encoders, feature distance barely tracks the object's distance to its goal: the rank correlation is at most 0.11, against 0.87 for object-mask centroids. It is dominated by background and robot patches, and frozen-feature readouts capture the arm far better than the object. Inspired by the ventral (what) and dorsal (where/how) visual streams, we propose DOCK, which learns an object representation whose changes agree with measured physical motion. A grasped object moves with the gripper, so forward kinematics on the joint angles gives a proxy for the object's displacement without annotation. From 9,951 held-object transport trajectories in 21 simulated kitchen scenes, we mine 404K displacement pairs and train three components: an object token pooled from patch features (what), a spatial ruler that makes differences of readout coordinates equal to measured displacements (where), and a dynamics predictor over object tokens (how). Used as a planning cost, the learned representation places the object in 15 of 21 tasks, as many as an oracle that reads the true object position, while mask geometry reaches 10 and frozen feature distance 9. It still solves the most tasks when the unseen robot arm is visible, and its ranking transfers to held-out layouts with unseen object instances and categories without any adaptation.",
    "affiliations": [
     "University of Minnesota"
@@ -11556,11 +11556,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Graphics (cs.GR)"
    ],
-   "comments": "21 pages, 11 figures",
+   "comments": "Withdrawn by the authors due to unresolved data provenance and authorization issues affecting the experimental results, tables, and figures in Sections 4--5 (Tables 1--6 and Figures 4--9). The manuscript was submitted prematurely without complete verification",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.23450v1",
+   "html_url": null,
    "abstract": "Water does not just tint an underwater photograph; it rewrites it. Each pixel mixes attenuated scene radiance, backscattered light, and scene light scattered forward on its way to the camera, and many combinations of scene and water explain the same pixels. Most Gaussian-splatting methods for underwater scenes model only the first two effects and remove the water by dividing by a transmission that decays exponentially with range, so their inversion gain grows without bound. We present NIRJALA (Sanskrit for \"without water\"), a 3D Gaussian Splatting framework that recovers water-free appearance and geometry together. TRIVENI, a three-path image formation model, adds a range-saturating forward-scattering term to direct transmission and backscatter; we prove that this keeps the inversion gain bounded at every range and bound how errors in the estimated backscatter and attenuation propagate into the recovered colours. PRATIBIMBA, a reversible physics anchor, ties a flexible neural water model to a ten-parameter physical model in both directions, so scene content cannot hide inside the water. SAMARASA collects the physics-informed objectives, including a range-binned colour prior. To score water removal against ground truth, we built SAJALA (\"with water\"), a 30-scene suite path-traced in Blender Cycles with water-free images, depth, and normals under controlled water colour and turbidity. On SAJALA, NIRJALA raises PSNR from 24.34 to 24.76 dB and lowers depth AbsRel from 0.109 to 0.091 against the strongest baseline; on real SeaThru-NeRF scenes it lowers LPIPS from 0.194 to 0.175 while rendering at 44 FPS. We also discuss where appearance metrics and geometry disagree underwater, and the limits of our evaluation.",
    "affiliations": [
     "Halo Mind Research Group, India",
@@ -11576,6 +11576,7 @@
     null
    ],
    "extractor": 24,
+   "withdrawn": true,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -12187,7 +12188,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AR",
-   "html_url": "https://arxiv.org/html/2611.24637v2",
+   "html_url": "https://arxiv.org/html/2611.24637v3",
    "abstract": "Continual learning (CL) enables neural networks to adapt to non-stationary data streams by mitigating catastrophic forgetting, offering a path to robust, private, and adaptable edge devices. Yet, porting CL to real-world edge devices remains challenging for two reasons: (i) online operation, where sensor data arrives one sample at a time and the device must adapt on-the-fly, and (ii) the low footprint of edge devices, which makes traditional error backpropagation training prohibitive. Inspired by the brain's wake and sleep cycles, the former for rapid adaptation with minimal resources and the latter for long-term consolidation, we introduce Hypnos, an open-source dual-phase platform for efficient CL at the edge. In the wake phase (e.g., daily operation), Hypnos relies on a low-footprint system-on-chip with a RISC-V microcontroller unit (MCU) targeting efficient inference and supporting lightweight gradient-free prototype updates. In the sleep phase (e.g., night-time charging), where wall-plug energy and larger memory budgets are available, a smart charger performs rehearsal-based gradient updates for consolidation. Deployed on a ZCU104 field-programmable gate array (FPGA) and synthesized in a 28-nm process, Hypnos is benchmarked on the CORe50 NICv2-391 protocol. It sets a new state-of-the-art accuracy of 78.6%-81.6% for edge CL systems, with an on-device latency of 7.79s-10.54s per sample depending on activation precision, and requires 3.8× fewer learning steps and 22× less learning compute than quantized latent replay at higher accuracy and comparable latency.",
    "affiliations": [
     "Department of Microelectronics, Delft University of Technology, 2628 CD Delft, The Netherlands"
@@ -14089,7 +14090,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.CR",
-   "html_url": "https://arxiv.org/html/2611.23350v2",
+   "html_url": "https://arxiv.org/html/2611.23350v3",
    "abstract": "Watermark detectors held by a provider cannot be checked by third parties, and a party that can detect a mark can usually also forge it. We study a two-layer image watermark in which the Fourier transform at the core of the pipeline is performed by a coherent optical 4F unit. Layer 1 carries an Ed25519 signature bound to the image content in Fourier magnitudes, so anyone with the public key verifies offline. Layer 2 is a key-defined carrier written by a secret phase hologram and read by a matched-filter correlator. The optics is a scalar-diffraction simulation with finite modulator bits, pixel aperture, pupil, defocus, misalignment, and sensor noise. No hardware is built. All criteria were fixed in a hashed specification before any optical result. The simulated optical signer reproduces the digital pipeline (field error 1.7e-15, bit agreement 99.997%), verifies at least 99.5% of 877 images under each of 8 post-sensor settings, one unattacked, and accepts none of 40,670 unmarked images. The optical carrier is key-selective: the matched key detects it on 99.8% of the unattacked images, and detection falls to 0% under a scale error of 1% and to 0% under a mask shift of 1 bin. Security rests on the signature and the content binding, for which we separate what is provable from what is measured.",
    "affiliations": [
     "University of California, Los Angeles"
