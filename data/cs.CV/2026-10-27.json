@@ -435,17 +435,50 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "High-resolution video matting requires preserving fine details, such as hair strands and soft transparency, while maintaining consistency across frames. Memory-based methods achieve strong matting quality by matching current-frame features with information stored from earlier frames, but this process becomes increasingly costly as resolution grows. We present MatAnyone-E, an efficient extension of MatAnyone 2 that focuses computation where it is most needed. Our approach first performs low-resolution propagation to identify uncertain regions that require closer inspection and the memory candidates most relevant to them. It then performs high-resolution matching only for these regions using the selected memory, while reusing low-resolution matching results elsewhere. This strategy reduces both the number of locations requiring detailed matching and the amount of memory searched, while preserving the information needed to produce a complete matte. We further reduce the cost of generating high-resolution mattes with a lightweight decoder designed around measured runtime bottlenecks and trained to reproduce the original decoder's representations. Experiments show that MatAnyone-E maintains matting quality comparable to MatAnyone 2 while achieving an estimated 7.4x inference speedup and reducing peak GPU memory usage to 7.6% of the usage of MatAnyone 2 at 4K. With compilation-enabled inference on a single NVIDIA H200 GPU, it reaches 73.07 FPS at 1080p and 28.62 FPS at 4K.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Queensland",
+    "Nanyang Technological University",
+    "University of Adelaide"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Queensland",
+    "Nanyang Technological University",
+    "University of Adelaide"
+   ],
+   "institution_ids": [
+    "00rqy9422",
+    "02e7b5302",
+    "00892tw58"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.35724",
@@ -758,17 +791,55 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Linear hyperspectral unmixing aims at retrieving pure material spectra present in an observed scene and their associated abundance fractions in each pixel. In most practical situations, hyperspectral images are affected by spectral variability (SV) also known as intra-class variability, which is caused by different physical phenomena including atmospheric effects, intrinsic variability of the pure materials and illumination or topographic changes. Nevertheless, the standard hyperspectral unmixing methods that rely on the Linear Mixing Model (LMM) do not consider these phenomena. Thus, neglecting them will spread errors throughout the linear hyperspectral unmixing process. To avoid this problem, this paper proposes two hyperspectral unmixing algorithms dedicated to a parametric model called Structured Additive Variability LMM (SAV-LMM). This mixing model handles SV in an additive manner by incorporating two terms into the standard LMM. Moreover, the designed algorithms are based on Nonnegative Matrix Factorization (NMF) and optimize a cost function which integrates additional penalization accounting for SV. Furthermore, a novel improved initialization scheme, which takes SV into account, is proposed. Experiments conducted on both synthetic and real datasets show the effectiveness of the proposed algorithms for linearly unmixing hyperspectral images with SV compared to the tested state-of-the-art methods.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Université des Sciences et de la Technologie d'Oran Mohamed Boudiaf",
+    "Centre National de la Recherche Scientifique",
+    "Institut de Recherche en Astrophysique et Planétologie",
+    "Université de Toulouse",
+    "Agence Spatiale Algérienne"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     2,
+     3
+    ],
+    [
+     4
+    ]
+   ],
+   "institutions": [
+    "Université des Sciences et de la Technologie d'Oran Mohamed Boudiaf",
+    "Centre National de la Recherche Scientifique",
+    "Institut de Recherche en Astrophysique et Planétologie",
+    "Université de Toulouse",
+    "Agence Spatiale Algérienne"
+   ],
+   "institution_ids": [
+    "02nbj1r55",
+    "02feahw73",
+    "05hm2ja81",
+    "01ahyrz84",
+    "047qzfw27"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.35580",
@@ -2125,17 +2196,49 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Optical coherence tomography (OCT) is a non-invasive imaging modality used for visualization of retinal tissue. However, OCT volumes are affected by speckle noise, which degrades image contrast and obscures fine structural details. Furthermore, modern clinical practice requires large field-of-view, high-resolution OCT volumes, whose storage and transmission are demanding for archiving and teleophthalmology applications. To address aforementioned challenges, we propose a low-rank multi-scale entanglement renormalization ansatz (MERA) tensor network approximation of 3D OCT image volume, where the image volume is represented as contractions of a top core factor encoding global features and multiple interacting low-rank orthogonal or semi-orthogonal factors modeling inter- and intra-B scan correlations. This representation jointly enables compression, denoising, and feature extraction. Unlike deep learning approaches, the proposed approach is training-free and processes each OCT volume independently. We evaluate the proposed framework on OCT image volumes acquired by two different scanners and demonstrate improved visual quality and reduced retinal layer segmentation errors in comparison with several competing methods. We also extract MERA features from two clinical OCT volume datasets. They are subsequently classified using a Grassmann-manifold nearest-subspace classifier. With the subspace dimension as its only hyperparameter, the classifier is theoretically shown to be robust in small-sample clinical scenario. We demonstrate competitive accuracy of classification of retinal diseases in these small-sample settings, where deep learning methods are often limited by the scarcity of labeled data. The proposed structure-aware model-driven representation learning for high-dimensional data under limited supervision provides good generalization performance while maintaining high interpretability.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Ruđer Bošković Institute",
+    "Soochow University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Ruđer Bošković Institute",
+    "Soochow University"
+   ],
+   "institution_ids": [
+    "02mw21745",
+    "05t8y2r12"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.35271",
@@ -4736,17 +4839,45 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Diffusion MRI (dMRI) provides information about white matter microstructure that can support brain age prediction. However, many existing prediction models use diffusion tensor imaging (DTI) scalar metrics that omit orientation information. Deep learning is increasingly used for brain age prediction, but conventional CNNs do not explicitly respect the geometric structure of orientation-dependent features. We present an interpretable brain age prediction framework that combines white matter fiber orientation distributions (WM-FODs) with an SE(3) (Special Euclidean group in 3 dimensions) equivariant CNN. The network operates directly on spherical harmonic (SH) coefficients of the FOD, preserving their transformation properties under rotation. Evaluation in 692 participants aged 36-90 years from the Human Connectome Project Aging dataset showed that the combined framework outperformed the evaluated DTI-based models and conventional CNNs. Averaging predictions from five cross-validation models yielded a mean absolute error of 3.54 years and Pearson's correlation of 0.958. Our results indicated that the performance advantage depended on combining WM-FODs with equivariant processing. Prediction accuracy was highest at a maximum SH order of Lmax = 2 and declined at higher orders. Tract-level occlusion, where each segmented tract was masked in turn, revealed age-dependent patterns of model sensitivity, with importance peaks in frontal projection pathways at 36-44 years, the fornix at 45-54 years, the callosal isthmus at 55-64 years, the middle cerebellar peduncle at 65-74 years, and the callosal genu at 75-90 years. These findings support rotation-equivariant processing of WM-FODs for accurate brain age prediction with anatomically interpretable model sensitivity.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Sydney"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "University of Sydney"
+   ],
+   "institution_ids": [
+    "0384j8v12"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.34825",
@@ -5589,17 +5720,121 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Background The combination of hematoma location, expansion and final volume influence neurological outcome. The aim of this study was to derive and validate a quantitative and interpretable region-based NCCT image feature model for predicting hematoma expansion. Methods The Ethnic/Racial Variations of Intracerebral Hemorrhage(ERICH) study was used for derivation and the Virtual International Trials in Stroke Archive(VISTA) was used for validation. NCCT images at presentation and 24+/-6hours were pre-processed, segmented and categorized into lobar, basal ganglia or thalamic regions. Hematoma expansion was defined by region and according to its effect on clinical outcome. Transport-based morphometry (TBM) produced a unique transport-based representation from each NCCT hematoma image. Linear classifiers applied to transport representations were used to derive a predictive model. The regional TBM model's performance was compared to alternate methods using AUROC analyses. Results The derivation dataset included 574 patients, comprising 162 lobar, 257 basal ganglia and 155 thalamic hematomas. The validation dataset included 196 patients, comprising 31 lobar, 119 basal ganglia and 46 thalamic hematomas. A combined regional model predicted hematoma expansion in the validation dataset with an AUROC of 0.787. The principal image features which varied by location were size, heterogeneity, eccentricity and density distribution towards the hematoma periphery. The regional TBM model outperformed alternative clinician based and machine-learning methods. Conclusions TBM discriminated and visualized regional features of hematoma expansion from presentation NCCT scans. This provides preliminary evidence for regional radiographic features of hematoma expansion. It has the potential to improve hematoma expansion prediction and understanding of hematoma expansion pathophysiology.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Illinois Chicago",
+    "George Washington University",
+    "University of Virginia Health System",
+    "North South University",
+    "Washington University in St. Louis",
+    "University of Arizona",
+    "University of Louisville",
+    "Tufts University",
+    "Tufts Medical Center",
+    "University of Virginia",
+    "University of Cincinnati",
+    "Wake Forest University Health Sciences",
+    "Wake Forest University",
+    "University at Buffalo, State University of New York",
+    "Westchester Medical Center"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     2
+    ],
+    [
+     4
+    ],
+    [
+     5
+    ],
+    [
+     2
+    ],
+    [
+     6
+    ],
+    [
+     7,
+     8
+    ],
+    [
+     2
+    ],
+    [
+     9
+    ],
+    [
+     10
+    ],
+    [
+     11,
+     12
+    ],
+    [
+     13
+    ],
+    [
+     14
+    ],
+    null,
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "University of Illinois Chicago",
+    "George Washington University",
+    "University of Virginia Health System",
+    "North South University",
+    "Washington University in St. Louis",
+    "University of Arizona",
+    "University of Louisville",
+    "Tufts University",
+    "Tufts Medical Center",
+    "University of Virginia",
+    "University of Cincinnati",
+    "Wake Forest University Health Sciences",
+    "Wake Forest University",
+    "University at Buffalo, State University of New York",
+    "Westchester Medical Center"
+   ],
+   "institution_ids": [
+    "02mpq6x41",
+    "00y4zzh67",
+    "00wn7d965",
+    "05wdbfp45",
+    "01yc7t268",
+    "03m2x1q45",
+    "01ckdn478",
+    "05wvpxv85",
+    "002hsbm82",
+    "0153tk833",
+    "01e3m7079",
+    "046r1r105",
+    "0207ad724",
+    "01y64my43",
+    "03fcgva33"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.34645",
@@ -6344,17 +6579,28 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "This study investigates whether predicted bounding boxes are reliable for determining where small-object segmentation should be performed without risking false negatives outside those boxes. The investigation leverages adenovirus particles as small objects, YOLO26x for detection, YO-LO26x-Sem for segmentation, and Mask R-CNN for both detection and segmentation. Segmenta-tion-model predictions were matched to ground-truth adenovirus masks or reference objects using their centroids, with ground-truth mask centroids preferred over ground-truth bounding-box centroids as references for matching. Matched predicted-mask centroids were considered as inside at least one detector-predicted bounding box or outside all such boxes, while ground-truth masks without matched predictions were recorded as having no matched segmentation. For the YOLO26 models, 34 reference objects (47.89%) had matched segmentation centroids inside at least one pre-dicted box, 8 (11.27%) had centroids outside all predicted boxes, and 29 (40.85%) had no matched predicted segmentation. For the Mask R-CNN model, the corresponding counts were 69 (97.18%), 0 (0.00%), and 2 (2.82%). These preliminary experiments demonstrated that restricting segmentation to detector-predicted bounding boxes risks excluding matched segmentation predictions outside those boxes, potentially introducing false negatives.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Limerick"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Limerick"
+   ],
+   "institution_ids": [
+    "00a0n9e72"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.34432",
@@ -7620,17 +7866,32 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Optical character recognition (OCR) systems depend strongly on the scale and diversity of their training data. One approach to document OCR first analyzes the page layout and extracts text-line images, which are then transcribed by a recognition model. Multilingual line-level recognition involving Persian, Arabic, and English presents additional challenges because different writing directions, fonts, and styles may coexist within a single line. This paper introduces MuSTEL, a large-scale synthetic multilingual OCR dataset containing more than 14.5 million annotated text-line images, organized into a training partition and predefined small and large test sets. Samples are generated from natural-language corpora, including multilingual content already present in the source texts. The generation framework incorporates capability-aware font selection, within-line font and style changes, mixed-direction text rendering, highlighting, and underlining. A validated repository of 2,009 font files from 711 families supports broad typographic coverage, while varied backgrounds, blur, geometric distortion, skew, stroke width, and image save quality provide diverse document-like appearances. Statistical analysis characterizes the dataset's language composition, transcription lengths, lexical and character-sequence diversity, image dimensions, typography, and rendering conditions. MuSTEL provides a resource for training and evaluating multilingual line-level OCR systems and investigating recognition robustness across languages, writing directions, and visual conditions.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Amirkabir University of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Amirkabir University of Technology"
+   ],
+   "institution_ids": [
+    "04gzbav43"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.34148",
@@ -8029,17 +8290,34 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Deep learning facilitates rapid single shot three dimensional (3D) reconstruction using fringe projection profilometry (FPP), but recovering accurate surface height from a single high frequency fringe image remains challenging because both long-range spatial consistency and fine geometric details must be preserved. Convolutional networks are limited in modeling long range dependencies, whereas window-based Transformers establish global interactions only progressively with increasing depth. To address these limitations, a hybrid Mamba Transformer network is proposed for fringe to height regression. The network adopts a Swin based U shaped architecture and introduces visual state space modeling at the intermediate resolution encoder stage. An axial and dilated vision state space (ADVSS) block is further developed to enhance prescan feature encoding through local, dilated, and axial depthwise convolutions while retaining four directional selective scanning. This design combines linear complexity long range modeling with direction aware preservation of local fringe structures. Experiments on a publicly available FPP dataset show that the proposed method outperforms hNet, SwinConvUNet, UHRNet, and HiDNet in mean absolute error(MAE), root mean square error (RMSE), absolute relative error, and structural similarity index measure (SSIM). Using only one deformed fringe image, the proposed method achieves an RMSE of 0.548 mm and an SSIM of 0.9985, reducing RMSE by 65.2% and 59.6% relative to UHRNet and HiDNet, respectively. These results demonstrate the effectiveness of combining selective state space modeling with hierarchical window based attention for accurate single-shot FPP reconstruction.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Northeast Forestry University",
+    "Hebei University of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Northeast Forestry University",
+    "Hebei University of Technology"
+   ],
+   "institution_ids": [
+    "02yxnh564",
+    "018hded08"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.33988",
@@ -9090,17 +9368,43 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "This work aims to assess the capabilities of the reinforcement learning algorithm, Proximal Policy Optimization (PPO), in developing a policy capable of controlling the speed and steering angle of a vehicle model to navigate within simulated road lines. The control system's input is a camera, and its outputs are the rotational speed of the rear wheels and the steering angle of the front wheels, controlling the vehicle's speed and direction, respectively. The algorithm is trained and tested in a simulated environment, where it receives image frames from the vehicle's camera, processes them through a feature extraction algorithm, and feeds them into the policy. For each frame, the policy outputs speed and direction commands for the vehicle. The policy is iteratively updated to enhance its performance. The reinforcement learning algorithm successfully generates a policy capable of navigating the vehicle in a simplified environment. Potential improvements are suggested to enhance the system's robustness in more complex scenarios. Creating a simulation environment suitable for testing an advanced reinforcement learning algorithm is a complex task. This project offers a framework for other developers to test different approaches and algorithms. The tested algorithm, PPO, uses proximity intervals - an innovative approach in reinforcement learning. In some scenarios, the algorithm achieved better performance than predecessor algorithms, which are typically harder to implement and require tuning more hyperparameters.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Minho"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Minho"
+   ],
+   "institution_ids": [
+    "037wpkx04"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.33755",
@@ -9135,7 +9439,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
@@ -9831,17 +10135,28 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Identity-document portraits are modified during document production by printing, engraving, and integration into the document template. These transformations may change image texture, contrast, colour, and other visual properties without necessarily changing the underlying biometric or presentation information. In this work, we introduce ONOT/TONO-Print, a small paired benchmark for evaluating face-image quality models under identity-document production shift. The benchmark is based on ONOT and TONO portraits and contains synthetic variants representing five common production techniques: toner, inkjet, dye sublimation, laser engraving, and thermal transfer. A smaller physical subset contains portraits printed and scanned using inkjet and toner devices. The benchmark is used to compare the behaviour of biometric and ICAO-related face-quality components before and after production. Results show that production can introduce substantial domain shift for some quality estimators, while other models remain comparatively stable.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "IU International University of Applied Sciences"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "IU International University of Applied Sciences"
+   ],
+   "institution_ids": [
+    "04fdat027"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.33627",
@@ -12016,17 +12331,57 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Reinforcement Learning with Verifiable Rewards (RLVR) has improved the performance of large Vision-Language Models (VLMs) on image quality assessment (IQA). Existing approaches often attribute these gains to improved reasoning before scoring, supported by increasingly plausible Chain-of-Thought (CoT). However, whether these gains exceed sampling effects and how they depend on explicit reasoning remain unclear. We rigorously investigate these questions through sampling-aware evaluation, controlled reasoning interventions, and shortcut experiments. We find that RL-trained models outperform base models under large-budget $max_g@k$ evaluation, while improvements beyond averaging are concentrated in-distribution. RLVR produces chains that raise base-model performance when transplanted and improves scoring with the chain held fixed. Yet scoring becomes less dependent on the chain during inference, more clearly at 7B than at 32B. Steering the probed quality direction in thinking tokens also has little effect on scoring. Finally, RL can improve scoring accuracy by exploiting textual cues correlated with mean opinion scores (MOSs), which could inflate benchmark performance. Together, these findings show that RLVR raises quality scoring and produces more useful chains, but that better scoring does not imply a stronger reliance on explicit reasoning, while score-based rewards can also encourage reliance on quality-irrelevant shortcuts. We hope this preliminary study can enlighten more and more concrete reasoning schemes in IQA.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Bristol",
+    "China University of Mining and Technology",
+    "Jiangxi University of Finance and Economics",
+    "City University of Hong Kong"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Bristol",
+    "China University of Mining and Technology",
+    "Jiangxi University of Finance and Economics",
+    "City University of Hong Kong"
+   ],
+   "institution_ids": [
+    "0524sp257",
+    "01xt2dr21",
+    "03efmyj29",
+    "03q8dnn23"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.33203",
@@ -12341,7 +12696,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
@@ -13647,7 +14002,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
@@ -14230,7 +14585,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
@@ -15128,17 +15483,37 @@
    "cross_list_from": "cs.AI",
    "html_url": null,
    "abstract": "Objective: The rapid advancement of large language models (LLMs) in healthcare has opened new possibilities for AI-assisted clinical decision-making; however, safe and effective deployment remains challenging because of hallucination and domain misalignment. This study introduces DocTalk, a doctor-assistive question-answering (QA) system designed to generate concise, chart-grounded responses from de-identified discharge summaries. Methods: We developed a high-fidelity data generation pipeline that produces 500 clinically relevant QA pairs through sentence-level decomposition, chain-of-thought-guided question formulation, and expert review. Six open-source LLMs, including three general-purpose and three biomedical models, were evaluated before and after parameter-efficient instruction tuning using Low-Rank Adaptation (LoRA). The framework integrates prompt engineering, in-context learning, and medically aligned evaluation to support factual and interpretable responses. Results: On DocTalk-QA, instruction tuning produced consistent improvements across lexical, semantic, and clinical fidelity metrics. The best-performing tuned model, Llama-3-Med42-8B, achieved ROUGE-L = 0.40, BERTScore-F1 = 0.76, and UMLS-F1 = 0.49. To examine external generalization beyond the DocTalk-QA dataset, the two best-performing models, Llama-3.1-8B-Instruct and Llama-3-Med42-8B, were evaluated on PubMedQA before and after instruction tuning. Accuracy improved from 0.931 to 0.977 for Llama-3.1-8B-Instruct and from 0.935 to 0.943 for Llama-3-Med42-8B. Conclusion: DocTalk was deployed as a secure web-based platform for interactive EHR querying. These findings suggest that clinically grounded instruction tuning can improve medical QA performance and support practical clinical decision support.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Inje University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Inje University"
+   ],
+   "institution_ids": [
+    "04xqwq985"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.34871",
@@ -15704,17 +16079,58 @@
    "cross_list_from": "cs.CL",
    "html_url": null,
    "abstract": "In this paper, we introduce Δτ-Bench, an executable agent benchmark that models the structural evolution of large tool ecosystems. In Δτ-Bench, independently evolving services continually reshape how tasks can be accomplished: familiar tools may disappear or be replaced, while more efficient alternatives emerge amid overlapping functionality and noisy documentation. Against this moving capability frontier, we evaluate whether agents can proactively discover efficient tool-use paths and promptly revise their accumulated procedural knowledge, bringing together demands that existing benchmarks fail to examine. Δτ-Bench comprises 1,588 validated multi-turn tasks across 42 domains and six successive ecosystem states generated through capability-preserving transformations. Our evaluation shows that even the strongest evaluated model or harness achieves only 42.3% task success, while initial gains from existing skill-learning methods can not consistently translate into better adaptation as the ecosystem evolves. These findings motivate Steward, an ecosystem manager that jointly manages tools and procedural knowledge through incremental skill maintenance and dynamic provisioning during task execution. Experiments show that Steward sustains higher task success across ecosystem changes with lower skill-maintenance overhead, while improving both recovery from disrupted workflows and adoption of more efficient alternatives.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University College London",
+    "Zhejiang University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    null,
+    null,
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University College London",
+    "Zhejiang University"
+   ],
+   "institution_ids": [
+    "02jx3x895",
+    "00a2xv884"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.34238",
@@ -16472,17 +16888,58 @@
    "cross_list_from": "eess.IV",
    "html_url": null,
    "abstract": "Crack propagation provides richer information than static crack observations for evaluating structural conditions of concrete infrastructure and planning maintenance strategies. Unlike static crack detection, which can now be largely automated using computer vision, vision-based crack tracking is a coupled cross-view and cross-time problem: the same physical crack must retain its identity as camera viewpoints change, while newly developed growth must be distinguished from existing crack segments in a unified reference view. Existing segmentation and 3D reconstruction methods can recover crack masks or scene geometry, but they do not preserve crack identity across views or quantify temporal extension. To address this gap, this study formulates crack growth monitoring as a cross-view and cross-time crack-instance tracking task and proposes a geometry-assisted, morphology-aware framework. The framework first uses image-based geometric registration to align observations from different viewpoints into a shared structural reference, then applies morphology-aware instantiation to assign physically interpretable crack identities, and finally performs temporal mapping in the unified view to distinguish newly developed growth from existing crack segments. To enable evaluation, a temporally annotated dataset was established and used, covering three representative cracking scenarios: single dominant crack propagation, mixed-mode branching, and multiple-crack interaction, with pixel-level masks and cross-time instance labels. Experimental results show that the proposed framework can establish loose cross-view identity correspondence under changing viewpoints, while strict spatial overlap and growth localization remain limited by early micro-crack segmentability and projection drift, highlighting directions for future crack-monitoring research.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Central South University",
+    "Nvidia",
+    "Hokkaido University",
+    "Newcastle University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ]
+   ],
+   "institutions": [
+    "Central South University",
+    "NVIDIA",
+    "Hokkaido University",
+    "Newcastle University"
+   ],
+   "institution_ids": [
+    "00f1zfq44",
+    "03jdj4y14",
+    "02e16g702",
+    "01kj2bm70"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.33550",
@@ -17308,17 +17765,63 @@
    "cross_list_from": "cs.CL",
    "html_url": null,
    "abstract": "Optical Character Recognition (OCR) is essential for digitizing historical archives, yet standard evaluation metrics such as Character Error Rate (CER) do not necessarily reflect whether meaningful information, such as names, dates, and identifiers, is preserved. In this work, we investigate entitylevel analysis of OCR errors as a complementary perspective for evaluating OCR quality in historical documents. Using a publicly available benchmark of 175 documents from the Berrutti Archive, augmented with 5,209 manually annotated entity mentions that will be released upon acceptance, we compare sequence-recognition OCR systems, OCR-specialized vision-language models, and general-purpose vision-language models. Beyond global transcription accuracy, we analyze entity preservation and recoverability under varying character-level edit tolerances. Our experiments show that OCR rankings depend on the evaluation criterion: while Qwen 3.6 achieves the highest entity coverage across all tested tolerances, several systems with lower exact-match coverage recover substantially when small errors are tolerated, suggesting that many of their errors correspond to localized character-level deviations rather than fundamentally incorrect entity transcriptions. Conversely, some systems remain unable to recover many entities even under relaxed matching. These findings show that OCR quality cannot be fully characterized by aggregate transcription metrics alone and highlight the importance of evaluating how OCR errors affect the preservation and recoverability of meaningful information.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Centre National de la Recherche Scientifique",
+    "Universidad de la República de Uruguay",
+    "Université Paris-Saclay",
+    "Centre Borelli",
+    "Lingnan University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2,
+     3
+    ],
+    [
+     0,
+     1,
+     2,
+     3
+    ],
+    [
+     0,
+     2,
+     3
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     4
+    ]
+   ],
+   "institutions": [
+    "Centre National de la Recherche Scientifique",
+    "Universidad de la República de Uruguay",
+    "Université Paris-Saclay",
+    "Centre Borelli",
+    "Lingnan University"
+   ],
+   "institution_ids": [
+    "02feahw73",
+    "030bbe882",
+    "03xjwb503",
+    "02hcn4061",
+    "0563pg902"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-27"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.33004",

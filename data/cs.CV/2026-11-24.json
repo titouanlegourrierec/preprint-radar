@@ -820,7 +820,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.HC",
-   "html_url": "https://arxiv.org/html/2611.28010v1",
+   "html_url": "https://arxiv.org/html/2611.28010v2",
    "abstract": "Generating PPTX presentations is a structured task that requires semantic planning, visual composition, precise layout, and editability, motivating collaboration among specialized agents. However, programmatic methods offer editability but often produce rigid designs, while image-based methods provide visual richness but flatten content into difficult-to-edit pixels. A hybrid system can combine these strengths, but must coordinate interdependent decisions across content, layout, and appearance. To address this challenge, we propose SlidesWeaver, a hybrid multi-agent system that coordinates language and vision agents through shared deck- and slide-level states. Specifically, it uses staged multimodal commitment, diffusion-based composition planning, and two generation schedules for different priorities between composition freedom and accurate text preservation, while preserving native text and geometry. Across 1,728 generations spanning 24 system-model configurations, SlidesWeaver achieves consistently superior overall quality across all evaluated dimensions while maintaining structural control, editability, and practical generation efficiency.",
    "affiliations": [
     "The Hong Kong University of Science and Technology (HKUST)",
@@ -4511,7 +4511,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.30613v1",
+   "html_url": "https://arxiv.org/html/2611.30613v2",
    "abstract": "Open video generators such as MiniMax-H3 produce short clips of only several to a dozen seconds per run. To synthesize longer sequences, existing methods either rely on agentic systems following preset scripts, or roll out autoregressively from the previous clip's last frame, losing off-screen states and accumulating hallucinations across turns. Consequently, users still cannot take an explicit goal, choose how to accomplish it, and see that choice persist across subsequent clips. We study goal-grounded interactive video generation, where one goal admits multiple valid approaches, the user's chosen approach must be executed on screen, and its consequences must persist across clips. To this end, we propose CineAct, a state-first agentic framework in which language-model agents handle reasoning while frozen image and video generators serve purely as renderers. Before interaction, the Architect initializes the world as a spatial layout with cameras, an asset library, and a scene graph; at each turn, the system deduces the planned state change, generates a target end frame with an image generator and rigorously verifies it, and synthesizes intermediate motion with an FL2V model. We further introduce a multi-space benchmark covering two suites: long-horizon step execution and open-intent branching admissibility. Experiments show that explicit world-state modeling boosts multi-step rollout consistency over the pixel-only baseline (+11.4 automated, +23.1 human points) and raises paired branching success toward a shared goal by +30.8 points.",
    "affiliations": [
     "Shanghai Jiao Tong University",
@@ -7502,7 +7502,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.30304v1",
+   "html_url": "https://arxiv.org/html/2611.30304v2",
    "abstract": "Vision-language models (VLMs) can localize through their text interface, grounding open-vocabulary objects, complex referring expressions, text lines and layout regions with strong semantic understanding. They write the boxes one after another as a single sequence, although the instances of a query, unlike the words of a sentence, form an unordered set with no sequential dependence. The number of decoding steps therefore grows with the number of instances, which makes dense scenes the most expensive. Decoding the instances in parallel avoids this growth, but streams that cannot see each other duplicate some instances and miss others. We propose \\method, which writes a single point into each query as a spatial anchor and asks for the matching instance nearest to that point within a local radius, or \\none. Given the image, the anchored queries are independent, so they are decoded in parallel as leaves of a prefix tree that shares the image and the query, and the model is trained on the same tree. Coarse-to-fine anchors refine only the regions where instances are found, duplicate suppression keeps one box per instance, and set-level reinforcement learning optimizes the set F1. Only the prompt and the attention mask change, not the architecture. On three different VLMs and 12 benchmarks covering detection, OCR, layout and referring, \\method is at most 5.5 F1 below sequential decoding trained on the same data, while its speedup grows with instance density and reaches 21.9× on dense scenes.",
    "affiliations": [
     "Sun Yat-sen University",
@@ -8238,7 +8238,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.30195v1",
+   "html_url": "https://arxiv.org/html/2611.30195v2",
    "abstract": "World action models guide robots by predicting the effects of actions or generating commands from observations. A model may compare hundreds of candidate futures before acting, repeatedly reading weights that must fit in device memory. Post-training quantization reduces the number of bits used to store pretrained weights, but a smaller model is not necessarily a deployable one: temporary tensors can exceed graphics processing unit (GPU) memory limits, while even small prediction errors can change the selected action. This creates two coupled challenges: identifying bit assignments that preserve task performance and determining which of them meet real execution constraints, without exhausting costly task trials. We present PTQ4WAM, a framework for choosing layer-wise bit assignments and execution routes under memory, latency and task-evaluation budgets. Calibration measurements guide candidate proposals, optionally with a language model agent. We profile full-model routes on the GPU before spending task trials on feasible assignments. Fusing group rescaling and reading visual history in place can make an otherwise infeasible assignment deployable. Across 15 workloads from four model families, the median task score is 99.2% of the corresponding 32-bit floating-point (FP32) score. On fixed GPU replays, the median speedup over FP32 is 2.36 times and the median reduction in peak allocated memory is 71.5%. The code will be released soon.",
    "affiliations": [
     "VCIP, College of Computer Science, Nankai University",
@@ -8400,7 +8400,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.30176v1",
+   "html_url": "https://arxiv.org/html/2611.30176v2",
    "abstract": "Multimodal large language models (MLLMs) estimate, understand, and predict human motion, but mainly from RGB cameras. Depth, LiDAR, mmWave, and WiFi complement RGB under poor lighting, through occlusions, and in privacy-sensitive applications, but existing multisensory models cover only some of these sensing tasks. Covering all of them from any sensor subset is challenging, since the tokens of heterogeneous sensors are semantically inconsistent and spatially misaligned, paired multisensory data are scarce, and the tasks need different temporal granularities. We present OmniSenMo, a multisensory language model that takes the human skeleton as a common reference for all sensors. Its skeleton-grounded motion representation turns each sensor into joint tokens, one per body joint, so that any sensor subset is fused joint by joint and expressed in the motion vocabulary that the language model learned from motion capture and text. We pretrain it on all five sensors generated by our multisensory simulator, and Multi-Granularity Observation gives each task the frames it needs. On a cross-action split of MM-Fi, the same model with all five sensors outperforms the models compared on each task, including LEO-Fuse in pose estimation (84.1 vs. 89.0 mm MPJPE) and HoloLLM in unseen-action recognition (69.2% vs. 42.8%). Even without RGB, it outperforms both methods that use RGB, and in a cross-dataset validation on XRF55, it recognizes unseen actions far better than HoloLLM.",
    "affiliations": [
     "University of North Carolina at Charlotte",
@@ -8526,7 +8526,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.30170v1",
+   "html_url": "https://arxiv.org/html/2611.30170v2",
    "abstract": "Graphical user interface (GUI) agents enable automated interactions with mobile, web, and desktop interfaces. However, their large memory footprint and repeated model calls hinder deployment on resource-constrained devices, motivating post-training quantization (PTQ) without full retraining. Quantization can degrade GUI response accuracy and distort the instruction-vision affinities and local spatial relations needed for GUI target selection. Small coordinate errors can cause missed clicks, while early action errors can alter subsequent interface states and disrupt task execution. Local reconstruction error alone does not directly assess whether these responses and relations are preserved. We propose GUI-Q, a PTQ framework that targets response and relation preservation with 4-bit weights and 16-bit activations (W4A16). Task-Sensitive Granularity Allocation (TSGA) allocates finer groups under a scale-byte budget by combining response sensitivity with the measured reduction in activation-weighted distortion. Relation-Preserving Symmetry Selection (RPSS) then selects symmetric or asymmetric grids to preserve instruction-vision affinities and local spatial relations in GUIs. Across three GUI-capable models, GUI-Q improves mean grounding TargetHit by 8.04 to 12.55 points over the strongest evaluated 4-bit configurations, while reducing static peak graphics processing unit (GPU) memory by 49.9% to 56.2% relative to bfloat16 (BF16). Fixed-output replay with packed 4-bit execution provides 1.7 to 2.8 times model-call speedups. The code will be released.",
    "affiliations": [
     "VCIP, College of Computer Science, Nankai University",
@@ -12583,7 +12583,7 @@
   {
    "arxiv_id": "2611.29547",
    "announced": "2026-11-24",
-   "title": "Align the Pair, Not the Sample: Representation Alignment for Faster and Better One-Step Generato",
+   "title": "Align the Pair, Not the Sample: Representation Alignment for Faster and Better One-Step Generators",
    "authors": [
     "Mingxiao Li",
     "Xuantuo Huang",
@@ -12601,7 +12601,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.29547v1",
+   "html_url": "https://arxiv.org/html/2611.29547v2",
    "abstract": "Representation alignment markedly accelerates diffusion training, but one-step generators raise a question that diffusion does not: which training path should receive the loss? A one-step generator sees two kinds of inputs. Corrupted real images come with their clean counterpart, which provides an instance-paired target. Samples generated from pure noise have no corresponding real image, yet this is where the final model operates. We study this question on Priming, which trains one-step generators from scratch by reconstructing corrupted images and then matching feature distributions with optimal transport. Aligning the generative path, the natural choice, collapses recall (0.45→0.15–0.25) in all 17 configurations we test, including five target constructions and loss weights down to 0.05. Aligning the paired reconstruction path with a frozen DINOv2 encoder instead helps in every setting we test. A short analysis explains this asymmetry: when the target carries no instance information about the input, the optimal aligned feature is constant within each class, so the loss pulls samples toward class prototypes. A control confirms this: aligning the paired path to a random same-class image instead of the input's own image removes most of the gain. Inside the generator, paired-path alignment creates an interface block through which post-training routes noise, and the image semantics carried through it predict sample quality across 16 models. The resulting recipe, \\method, accelerates both training stages on ImageNet 256×256: it matches the 160-epoch baseline with 2× fewer priming epochs, surpasses its final quality with 4× fewer post-training updates, and lowers FID to 1.30 (B) and 1.155 (L) at the standard budget. A joint single-stage variant trains native one-step generators and reaches FID 1.22 with 115M parameters.",
    "affiliations": [
     "Shanghai Artificial Intelligence Laboratory",
@@ -15760,7 +15760,7 @@
     "Human-Computer Interaction (cs.HC)"
    ],
    "comments": "Accepted to IEEE Transactions on Visualization and Computer Graphics (TVCG)",
-   "journal_ref": null,
+   "journal_ref": "IEEE Transactions on Visualization and Computer Graphics, 2026",
    "venue": "TVCG",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2611.29163v1",
@@ -15970,7 +15970,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.29146v1",
+   "html_url": "https://arxiv.org/html/2611.29146v2",
    "abstract": "Vision-Language Models (VLMs) tokenize images using fixed spatial grids, so visual token count grows with pixel area rather than scene content. We propose to group neighboring patches based on their visual appearance, allowing tokens to represent coherent image regions rather than fixed spatial windows. We introduce RVLM, a VLM trained to use regions rather than patches as its visual units. Analyzing region construction for general-purpose VLMs, we find that regions must cover the full image, stay spatially connected during end-to-end training, and preserve fine structure such as small text, while semantic grouping adds little. RVLM therefore partitions images using training-free Felzenszwalb-Huttenlocher segmentation, assigns each ViT patch to a region, and pools patches within each region into a variable-length sequence of visual tokens. The patch-to-region assignment is retained to support spatially precise prediction through coarse-to-fine decoding. Across tasks spanning VQA, pointing, counting, segmentation, and depth estimation, RVLM matches or improves example-weighted task performance while using 21.5% fewer visual tokens than an identically trained patch baseline. The advantage grows with image resolution, reaching a 5.3-point gain while using 51.8% fewer visual tokens at the highest-resolution setting. The gains are largest on spatially demanding tasks, where prior token-reduction methods degrade most sharply. RVLM adds no model parameters and improves inference throughput by up to 35.9%. On unseen pathology and satellite images and on video benchmarks without any video training, RVLM performs on par with the patch baseline while using 2-3× fewer visual tokens. These results establish regions as a scalable alternative to patch-based visual representations while preserving the spatial precision required for grounded prediction.",
    "affiliations": [
     "University of Illinois Urbana-Champaign",
@@ -22241,7 +22241,7 @@
    "journal_ref": null,
    "venue": "SSCI 2027",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.28321v1",
+   "html_url": "https://arxiv.org/html/2611.28321v2",
    "abstract": "We propose a multimodal, class-agnostic, density-based object counting framework that specifies the object of interest through visual exemplars, a text description, or both, within a single iterative refinement pipeline. Existing counters typically fall into two groups: methods that fuse two modalities, a hand-drawn bounding box and a text description, to specify the target object, and single-modality methods that rely on either a box exemplar or text alone. A few recent methods replace the box with a point or click. We expand a single click into a precise object mask via a frozen visual-prompt segmentation model, feeding an iterative prototype-refinement process that also fuses a text description at every refinement step. We make two contributions: first, a click-derived exemplar extraction module that removes the bounding-box requirement of prior exemplar-based counters; second, a per-step text-fusion mechanism that combines visual and textual prompts throughout refinement. Combined with text guidance, our model achieves state-of-the-art counting accuracy, outperforming prior click-based counting methods across all metrics and surpassing the box-exemplar base architecture in mean absolute error. The code is available at github.com/ameniifi/Click-and-Count.",
    "affiliations": [
     "Université TÉLUQ, Montréal, Québec, Canada",
@@ -26488,7 +26488,7 @@
   {
    "arxiv_id": "2611.30460",
    "announced": "2026-11-24",
-   "title": "Rethinking the Evaluation of Contrastive Decoding for Hallucination Mitigation in Multimodal Large Language Models",
+   "title": "CONCOR: Benchmarking Contrastive Decoding for Visual Hallucination Mitigation Beyond Final-Output Performance",
    "authors": [
     "Ting Chen",
     "Geng Li",
@@ -26504,7 +26504,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.CL",
-   "html_url": "https://arxiv.org/html/2611.30460v1",
+   "html_url": "https://arxiv.org/html/2611.30460v2",
    "abstract": "Contrastive decoding (CD) mitigates object hallucination in multimodal large language models (MLLMs) by contrasting token distributions under different conditions to adjust token scores. However, existing generative and discriminative benchmarks primarily measure final task scores, which can be confounded by candidate filtering, changes in generation trajectories, and response biases, making it difficult to isolate the effects of the underlying contrastive adjustments. To address these limitations while complementing existing evaluations, we introduce CONCOR (Contrastive Correction Evaluation), a controlled benchmark that directly evaluates the competition between ground-truth and different types of hallucinated candidates using the Contrastive Grounding Margin (CGM). CGM also enables analysis of directional consistency, composition, and reliability of contrastive corrections. Our evaluation reveals that existing CD methods exhibit distinct correction behaviors: some consistently favor ground-truth candidates, whereas others produce strong corrections but also introduce more errors. Crucially, these differences help explain their contrasting responses to increased contrast strength, which improves some methods while degrading others. These findings highlight the importance of evaluating the contrastive correction itself, rather than relying solely on final-output performance, and CONCOR provides a controlled and interpretable framework for understanding and improving CD methods for hallucination mitigation.",
    "affiliations": [
     "Singapore Management University",

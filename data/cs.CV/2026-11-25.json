@@ -1251,11 +1251,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "38 pages. Project page: https://github.com/RoboFlywheel-com/RoboFlywheel-World",
+   "comments": "38 pages, 16 figures. Project Page: https://roboflywheel-com.github.io/RoboFlywheel-World/",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.33013v1",
+   "html_url": "https://arxiv.org/html/2611.33013v2",
    "abstract": "Scaling embodied simulation requires diverse objects with executable physical representations. We present RFW-W, a physical asset universe connecting rigid, articulated, and deformable asset sources to task-conditioned scene composition. Its reported inventories comprise 1,010,386 asset records: 524,611 rigid assets in 1,212 categories (RFW-R), 402,410 articulated assets in 531 categories (RFW-A), and 83,365 jointly verified deformables in 485 categories (RFW-S). These taxonomies contribute 2,228 dataset--category entries. RFW-R couples category-guided generation with collision geometry, composed physical properties, and interaction annotations; RFW-A uses reusable agent-authored procedural generators with explicit part and joint structure; RFW-S uses structure-aware simulation representations, calibration, and independent testing. A common interface preserves physical requirements specific to each asset type for retrieval and scene assembly. Quantitative evaluations demonstrate that RFW-R provides broader asset coverage and stronger scene-fulfillment capabilities than existing datasets. Across five RoboTwin tasks, using 100 demonstrations per task for each asset source, policies trained on RFW-R achieve macro success rates of 71.2% in clean settings and 41.8% under randomization, exceeding the strongest baseline by 15.8 and 10.6 percentage points, respectively. RFW-W provides a scalable and unified asset foundation for generating physically grounded, task-conditioned embodied worlds.",
    "affiliations": [],
    "author_affiliations": null,
@@ -1685,7 +1685,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.32993v1",
+   "html_url": "https://arxiv.org/html/2611.32993v2",
    "abstract": "Structured clinical decisions from volumetric computed tomography (CT) require anatomically grounded predictions and calibrated confidence estimates. However, existing 3D medical multimodal models often suffer from uncalibrated autoregressive decoding and shortcut reliance on irrelevant anatomical regions. We introduce Radev, a decision-native multimodal model that integrates anatomy-guided visual compression, direct candidate prediction, and counterfactual confidence supervision. To bridge global context with fine-grained slice details, a frozen 3D encoder extracts reusable organ-level features, which are dynamically selected by the query to attend to 2D slice features within predicted anatomical bounds. The resulting compact visual tokens enable the language backbone to estimate candidate probabilities in a single forward pass without autoregressive decoding. We further propose Counterfactual-Calibrated Training (CCT) to compare predictions under intact and intervened organ representations. CCT encourages confidence to decrease when removing target-organ evidence degrades decision quality, while penalizing excessive confidence drops under unrelated-organ removal. To facilitate rigorous evaluation, we construct CT-Verdict, a comprehensive benchmark spanning binary finding presence, multiple-choice questions, and ordinal severity assessment across both in-distribution and external cohorts. Extensive experiments demonstrate that Radev significantly outperforms state-of-the-art methods in both decision accuracy and confidence calibration, while generalizing robustly under distribution shifts. Project page at https://juntaojianggavin.github.io/projects/Radev/",
    "affiliations": [
     "Zejiang University",
@@ -2695,7 +2695,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.32890v1",
+   "html_url": "https://arxiv.org/html/2611.32890v2",
    "abstract": "Early identification of cerebral palsy (CP) relies on observational assessments of spontaneous infant movement, such as the General Movement Assessment (GMA) and the Baby Observational Selective Control AppRaisal (BabyOSCAR), which require trained raters and substantial scoring time. Existing automated approaches derive hand-engineered features from two-dimensional keypoints, which describe image-plane motion rather than the three-dimensional behavior of individual joints. We present Baby Biomechanical 3D Body (BB3D), an infant-adapted, biomechanical pipeline that estimates joint-angle trajectories from single-camera video. Against a multi-view markerless motion capture reference in 17 infants, BB3D's median Procrustes-aligned error was 17.5~mm for joint centers and 20.4~mm for marker sites. A spatio-temporal transformer, pretrained on BB3D joint-angle trajectories from 1k+ single-camera recordings, and fine-tuned on 550 videos from 350 infants, predicted each individual BabyOSCAR item with a mean within-site AUC of 0.79 and the BabyOSCAR total with a Spearman correlation of 0.86 on held-out recordings. Without being trained on diagnosis, the predicted total separated infants with CP from those without CP with an AUC of 0.86, exceeding a replicated two-dimensional feature classifier (0.67) but below the expert clinician rater's total (0.97). Predicted scores also carried information about functional ability and body distribution, though less than expert clinician scores. These results show that biomechanically grounded representations of monocular video can support scalable, joint-level assessment of selective motor control in infancy",
    "affiliations": [],
    "author_affiliations": null,
@@ -3127,11 +3127,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Neurons and Cognition (q-bio.NC)"
    ],
-   "comments": "20 pages, 8 figures, 3 tables; appendix with 3 figures and 6 tables. Ancillary file lists the clip split",
+   "comments": "20 pages, 8 figures, 3 tables; appendix with 3 figures and 6 tables. Ancillary file lists the clip split. v2: corrected author affiliations",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.32825v1",
+   "html_url": "https://arxiv.org/html/2611.32825v2",
    "abstract": "Brain encoding models predict neural responses from audiovisual input, but typically overlook how ongoing brain activity shapes an individual's response. We introduce EEG-World, a recurrent world model that forecasts 10 seconds of EEG band-power dynamics from 6 seconds of preceding EEG and the subsequent audiovisual stimulus. Pretrained on continuous EEG, EEG-World learns shared neural dynamics and adapts to unseen individuals through lightweight subject-specific readouts. Using 2,584 hours of EEG from 78 participants, we show that nonlinear recurrent forecasting surpasses strong history-aware linear baselines at scale. EEG-World achieves a forecasting correlation of 0.261 versus 0.233 for the strongest history-and-video linear model, with a 3.3-second forecasting-horizon advantage. Its learned dynamics transfer to unseen participants, outperforming the linear baseline in 23 of 24 individuals after calibration. While ongoing EEG history accounts for most predictive performance, controlled stimulus analyses reveal an additional video-dependent component. This component also enables evaluation of visual representations, with V-JEPA 2 improving clip-locked prediction by 35% over combined CLIP and DINOv2 features. Our results demonstrate the value of transferable neural dynamics for individual EEG forecasting and highlight the importance of separating state-driven from stimulus-driven predictability.",
    "affiliations": [
     "Shenzhen Loop Area Institute, Shenzhen, China",
@@ -5095,7 +5095,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.32549v1",
+   "html_url": "https://arxiv.org/html/2611.32549v2",
    "abstract": "Text-to-motion generation has made great progress in capturing what action to perform, yet it remains limited in controlling how that action is executed. For example, when only the height word of a kick request changes, none of the tested state-of-the-art methods reaches all three of knee, waist and head height. The other words of a caption usually imply an attribute such as height, so neither the training loss nor the standard metrics require a model to use the word that states it. A model has to use this word only when it alone separates two otherwise identical captions. We introduce MinPair, which creates such caption pairs from real motion clips. It starts from rule-based motion descriptors that measure the 3D body motion of each clip. From these descriptors a language model writes MinPair captions, timed body-part captions that say how each body part moves. The same descriptors show in which attributes two clips of the same action differ. A measured minimal pair joins the true caption of one clip with an altered copy in which only one attribute takes the value measured in the other clip. A contrastive pair loss then requires a diffusion denoiser to reconstruct the clip more accurately from its true caption than from the altered copy. Training needs no synthetic motion and inference stays unchanged. Control is tested on 22 target tasks and on caption edits that each change one attribute. MinPair captions alone help motions reach their targets and improve the standard metrics M2M, R@3 and FID, yet a model trained on them still ignores most single-word edits. The pair loss raises the share of followed template edits from 11% to 60%, while the standard metrics do not improve further. With body-part captions, MinPair reaches more targets than state-of-the-art methods that were trained on up to 99 times more motion data.",
    "affiliations": [
     "Cognitive Systems Group, Reutlingen University, Germany"
@@ -7731,11 +7731,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Robotics (cs.RO)"
    ],
-   "comments": null,
+   "comments": "The project repository is available at https://github.com/InSAI-Lab/GOLD-SLAM",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.32335v1",
+   "html_url": "https://arxiv.org/html/2611.32335v2",
    "abstract": "Panoramic cameras capture nearly the entire spherical field of view in a single frame. However, the mismatch between this panoramic coverage and the field of view of LiDAR poses a substantial challenge for panoramic Gaussian splatting SLAM that relies on LiDAR depth priors. We introduce GOLD-SLAM, a Gaussian-splatting Omnidirectional LiDAR-Depth SLAM system that combines high-quality rendering with accurate geometric reconstruction. It performs tracking and mapping in the spherical domain and uses tracked visual features in regions without LiDAR coverage to improve pose estimation. To address insufficient coverage of newly observed surfaces and floating artifacts during incremental mapping, we introduce Depth-Aware Map Extension and Pruning (DAEP). To enable broader evaluation, we collect a new dataset, WHOLE, using a UAV platform across Weak-geometry, High-dynamic, Omnidirectional, Low-light, and Easy scenarios. Extensive experiments on public benchmarks and WHOLE demonstrate competitive rendering quality and improved geometric accuracy relative to perspective systems. Compared with existing panoramic baselines, GOLD-SLAM improves mean PSNR by 5.56-9.10 dB and reduces mean Depth-L1 by 71.9-83.9%. To assess deployment feasibility on resource-constrained platforms such as UAVs, we evaluate an embedded configuration of GOLD-SLAM on a Jetson Orin NX (16 GB), demonstrating online operation at the cost of reconstruction quality.",
    "affiliations": [],
    "author_affiliations": null,
@@ -7996,7 +7996,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.32316v1",
+   "html_url": "https://arxiv.org/html/2611.32316v2",
    "abstract": "Multi-image benchmarks aim to test whether a multimodal large language model (MLLM) combines evidence across images, but many of their items can be answered from a single image. Across about 33k items from 19 public benchmarks, our audit and a two-stage single-image filter find that one image or the question alone settles 24.2% of them. On these items, MLLMs recover from one image a median 78% of the accuracy that all images add over the text alone, so these items reward answering from one image, which we call the single-image shortcut. MLLMs take this shortcut even on items where one image is not enough. On such items, most of their wrong answers repeat an answer they give from one image, at a rate well above chance. We build ASTERISM, to our knowledge the largest audited multi-image benchmark, from these 19 benchmarks by keeping their items that need more than one image. Its 18.7k items, 2.0k of them corrected or rewritten, share one format, one scorer and seven task categories. We also release ASTERISM-Train with 49k training items and ASTERISM-Lite, a hard subset whose items we manually verify one by one. On ASTERISM-Lite, the strongest proprietary MLLM scores 68%. Reinforcement learning with verifiable rewards (RLVR), now common in MLLM post-training, rewards the shortcut as well, because a correct answer read off one image earns as much reward as one that combines images. In line with this, existing RLVR objectives add little to the ASTERISM score. To stop rewarding the shortcut in training as ASTERISM does in evaluation, we propose cross-image credit assignment (CICA), an extension of RLVR that moves the credit toward the tokens that need more than one image. On three open-source MLLMs, CICA raises the ASTERISM score by 2.6 to 6.0 points, more than twice the gain of each general and vision-specific RL objective trained on the same data.",
    "affiliations": [
     "Machine Intelligence Lab, University of Seoul"
@@ -8063,7 +8063,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.32311v1",
+   "html_url": "https://arxiv.org/html/2611.32311v2",
    "abstract": "Immersive scene modeling requires synchronized visual and auditory observations under changing viewpoints and scene conditions. Obtaining such observations and references for controlled scene changes remains challenging. We introduce SynAVID, a synthetic audio-visual immersive dataset comprising eight indoor and outdoor scenes. Each minute-scale episode combines fixed camera arrays and moving trajectories with synchronized, viewpoint-dependent binaural audio. Shared scene dynamics, sound-source events, and observer poses drive visual rendering and geometry-aware acoustic synthesis. We evaluate existing methods for visual reconstruction, binaural audio reconstruction, and audiovisual editing. Mixed-observation configurations generally improve visual reconstruction on fixed and moving test views, while transiently occupied and sparsely observed regions remain challenging. Methods rank differently on spectral, interaural, and perceptual audio metrics. Geometric and instance annotations expose uneven observation support and local Gaussian representations beyond aggregate scores. Paired references assess target edits and surrounding content, while controlled geometry changes produce listener-dependent acoustic responses. The project page is available at https://avery-xu.github.io/synavid-project/.",
    "affiliations": [
     "Shanghai Jiao Tong University",
@@ -8362,16 +8362,17 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "16 pages, 9 figures, 7 tables. Code is available at https://github.com/zzctmd/MaskedVGGT",
+   "comments": "The submitting author requests standard withdrawal after reconsidering the timing of public dissemination of this work",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.32297v1",
+   "html_url": null,
    "abstract": "Multi-view feed-forward models show strong scalability, but their reliance on costly geometric annotations limits data scaling. Existing 3D self-supervised approaches reduce this reliance through cross-view completion (e.g., CroCo, MuM, Muskie) or novel-view synthesis (e.g., RayZer, E-RayZer), typically learning image representations and cross-view interactions jointly. We argue that learning single image representations from scratch is unnecessary for 3D pretraining methods, as doing so fails to benefit from the continuing advances in 2D foundation models (e.g., DINO, CLIP, frontier VLMs). We introduce MaskedVGGT, which freezes a strong pretrained 2D encoder and pretrains only an added, randomly initialized multi-view transformer, focusing on learning interactions across views. MaskedVGGT pretrains the multi-view transformer through masked self-distillation without annotations: a student predicts targets at masked locations based on complete anchor views and heavily masked remaining views, while an exponential-moving-average teacher provides prediction targets based on unmasked inputs. In experiments across model sizes up to 1B parameters, MaskedVGGT pretraining followed by fine-tuning outperforms single-stage supervised VGGT-Ω training with the same training data, model architecture, and total number of optimization updates. MaskedVGGT also outperforms E-RayZer, CroCo, MuM, and Muskie, providing evidence for the effectiveness of building multi-view pretraining on strong 2D representations. Finally, extending pretraining with additional unlabeled videos further improves generalization, and the learned representations transfer to diverse downstream tasks. These results demonstrate an effective division of learning: reuse strong image representations from 2D pretraining and learn cross-view interactions from unlabeled multi-view data without relying on geometric annotations.",
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
    "extractor": 24,
+   "withdrawn": true,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -9399,7 +9400,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.32196v1",
+   "html_url": "https://arxiv.org/html/2611.32196v2",
    "abstract": "Video recasting aims to transform the entities and environments of existing videos into new visual worlds while preserving their essential actions and interactions. However, achieving coherent transformations remains challenging, as coordinated edits can disrupt the original event structure. In this paper, we introduce RecastAgent, an experience-guided agentic framework for source-conditioned video recasting that operates under frozen model weights. Our framework employs an Experience-Guided Planner to choose edit prompts and input video states under qualitative visual critique, allowing the agent to build upon partial progress or backtrack to preserve source structure. Across tasks, an Experience Accumulation module distills completed trajectories into conditional, evidence-linked principles that record both an editing strategy and its scope of validity. We additionally construct a benchmark of 67 source videos with 134 paired-specification tasks across six creative categories for evaluation. Experiments demonstrate that RecastAgent outperforms single-pass and agentic rewriting baselines across Bernini and Ditto. Furthermore, accumulated experience improves performance on held-out test videos and transfers zero-shot to external benchmarks like FiVE-Bench and VE-Bench.",
    "affiliations": [
     "Tongji University",
@@ -9807,7 +9808,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.32172v1",
+   "html_url": "https://arxiv.org/html/2611.32172v2",
    "abstract": "MediaStormBench is a multimodal benchmark for real-world film and television production, with each subset drawn from MediaStorm's day-to-day work. We release its first subset, MediaStormBench-CameraLog (CameraLogBench), on a common foundational task in footage ingest and initial color grading: identifying the Log curve of a clip without metadata. Cameras record Log footage by compressing a wide range of scene light into code values with a vendor-defined logarithmic curve, and color can be restored correctly only once that curve is known. The curve, however, is recorded only in file metadata, easily lost in transcoding and team hand-offs. A colorist then has to try candidate curves one by one against a waveform scope, and a wrong choice shifts the tones and colors of the whole clip. Recovering the curve from the image alone is challenging, because vendor curves cluster tightly in code value and are coupled with unknown exposure. CameraLogBench is built on professionally shot footage and tests whether multimodal models can identify the curve, with a probe that removes the correct option to expose guessing from priors. Because every candidate curve is strictly defined by a published vendor formula, we derive four controls from one implementation of these formulas: graded negatives, synthetic frames of identical scenes, in-context specification digests, and a training-free formula baseline, which together decouple semantic priors from photometric measurement. Across 11 models, real-footage accuracy barely exceeds always guessing the most frequent curve; when the correct option is removed, models almost never abstain, revealing heavy reliance on scene and brand priors. Supplying the vendor specification sharply improves recognition on calibrated charts but hardly helps on natural images without a photometric reference, exposing a gap between reading a specification and measuring pixels.",
    "affiliations": [
     "NTU",
@@ -10368,11 +10369,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Updated author affiliations; the scientific content remains unchanged",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.32134v1",
+   "html_url": "https://arxiv.org/html/2611.32134v2",
    "abstract": "Fine-grained text editing aims to accurately replace text in a specified region while preserving the source text's font, color, and texture, as well as visual consistency in unedited regions. We present EditText, a unified framework for fine-grained text editing that combines target character generation with visual transport from the source image. The model uses dual-condition Fill inputs: a masked image and a source text style reference, both sharing a spatial reference with the target image. The masked image hides the original text and retains unedited content as a source canvas; the style reference supplies appearance cues that guide new character generation together with the target text. We introduce an Attention Transport framework in which Source Weight describes the attention allocated to a condition and the Spatial Aggregation Kernel describes its internal spatial attention distribution. Accurate transfer of source details depends on attention strength, the retention of details in condition features, and spatially accurate aggregation. For selected non-edit queries, we therefore preserve the total attention weight assigned to the masked image while redistributing its attention toward spatially corresponding neighborhoods, enabling selective visual transport. Multi-stage training, combined with a Glyph-aware Structural Loss on local target character structure, teaches the model to generate accurate text, preserve source text appearance, and retain unedited details. We also introduce TBench, a fine-grained text editing benchmark covering Alphabetic, Logographic, and Arabic numerals, to evaluate character updates, appearance preservation, and the preservation of unedited details. On TBench, EditText achieves state-of-the-art non-edit-region SSIM (0.9769) and full-image LPIPS (0.0460).",
    "affiliations": [
     "University of Science and Technology of China, Hefei, China",
@@ -13388,6 +13389,8 @@
     "Haoyu Zhang",
     "Haobo Jia",
     "Zheng Liu",
+    "Bowen Zhang",
+    "Haodong Yang",
     "Anqi Yang",
     "Jiahui Niu",
     "Yue Sun",
@@ -13409,7 +13412,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.31822v1",
+   "html_url": "https://arxiv.org/html/2611.31822v2",
    "abstract": "World action models (WAMs) adapt pretrained video generators for robot control by jointly predicting future camera frames and actions, transferring physical priors learned from video into manipulation policies. However, generating future frames before every action makes test-time inference too slow for closed-loop control, while most existing policies remain restricted to short observation histories. Building on Fast-WAM, which showed that video prediction shapes policy representations during training so that future frame synthesis can be skipped at deployment, we present G0.7, a generalist world action model scaled along two axes: extending the context window from a single observation to up to five minutes of history, and scaling pretraining to a large-scale corpus of robot teleoperation and human egocentric (ego) video. Across public simulation suites and real-robot deployments, direct action decoding (Fast mode) matches imagine-then-act (IDM) inference from the same checkpoint while running in 60 ms per 16-step action chunk on a single RTX 5090 (7.6x faster than IDM) and supporting pause-free real-time chunking. Performance scales consistently with pretraining data, with human ego video driving the largest gains in out-of-distribution generalization: G0.7 achieves a 70.8 mean score across five simulation benchmark suites, 48% and 54% zero-shot pick-and-place success on Galaxea R1 Pro and R1 Lite, 96.7% in-distribution and 93.3% out-of-distribution success on video-conditioned in-context learning tasks, and 86.9% mean task progress across seven real-world post-training tasks including multi-minute box folding, drink preparation, and product bagging.",
    "affiliations": [
     "Galaxea Team"
@@ -13425,11 +13428,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-25"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-25"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.31822",
@@ -16074,7 +16077,7 @@
     "Wisdom Oluchi Ikezogwo",
     "Ainaz Eftekhar",
     "Max Argus",
-    "Jason Ren",
+    "Zhongzheng Ren",
     "Jiafei Duan",
     "Ranjay Krishna"
    ],
@@ -16089,7 +16092,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2611.33158v1",
+   "html_url": "https://arxiv.org/html/2611.33158v2",
    "abstract": "A single policy that controls diverse robots must not only transfer task knowledge across embodiments, but also adapt its behavior to each robot's capabilities. Existing approaches facilitate transfer through shared action representations, but these representations do not necessarily capture how differences in robot morphology should shape manipulation strategies. We introduce OmniAct, a cross-embodiment manipulation policy that conditions directly on each robot's kinematics in a specific scene to produce embodiment-specific behavior. This kinematic graph represents the robot's joint positions, motion axes, and connectivity to its visual observation, allowing the policy to account for how its embodiment related to objects and surfaces in the scene. A flow-matching policy predicts relative joint motions for each node, enabling control across robots with different degrees of freedom and kinematic configurations. To learn how physical structure shapes behavior at scale, we procedurally design and filter one million physically feasible robot embodiments; next, we develop algorithms to generate robot trajectories in simulation for all embodiments; finally, we train across diverse simulated manipulation tasks. On 2,000 embodiment-scene-held-out evaluation episodes, OmniAct achieves 63.0% success, compared to 17.8% for pi 0.5 and 57.9% for the strongest baseline; on the task families GPT-6 Astra was evaluated on, it achieves 64.7% against GPT-6 Astra's 41.1%. On a previously unseen real-world robot, it achieves nearly twice the success rate of the next best method, MolmoAct2. Beyond task success, we observe that OmniAct learns distinct manipulation strategies that exploit the capabilities and accommodate the limitations of different morphologies. Project: https://omniact.github.io/",
    "affiliations": [
     "University of Washington",
@@ -16142,11 +16145,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-25"
+     "at": "2026-11-26"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-25"
+     "at": "2026-11-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.33158",
@@ -17000,11 +17003,11 @@
     "Robotics (cs.RO)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "24 pages, including appendix. Submitted to CVPR 2027",
+   "comments": "24 pages, including appendix",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2611.32185v1",
+   "html_url": "https://arxiv.org/html/2611.32185v2",
    "abstract": "Recovering articulated robot state from video supports metric spatial sensing for manipulation, scene reconstruction, and action planning. Yet the problem is ill-posed: different intrinsics, camera-to-robot poses, and joint angles can explain similar observations. Prior task-specific regressors typically assume known intrinsics, fit one robot through laborious data collection and robot-specific training, and still transfer poorly across scenes. Foundation models apply to any robot zero-shot, but their estimates have large errors. We present OVOK (One Video to Kinetics), a recursive self-improving agentic framework for this task. Under a human-authored protocol, an agentic initializer constructs robot-specific OVOK-4k; a proposer--executor--verifier loop then jointly evolves tools and executable workflows from feedback. Updated tools and workflows are accepted only when the verifier judges a positive improvement. The retained workflow is frozen for accurate inference. Experiments demonstrate that the evolved workflow achieves state-of-the-art results on DREAM-V and RoboKeyGen-V, delivering robust and accurate estimates.",
    "affiliations": [
     "AIR, Tsinghua University",
@@ -17996,7 +17999,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
-   "html_url": "https://arxiv.org/html/2611.31301v1",
+   "html_url": "https://arxiv.org/html/2611.31301v2",
    "abstract": "Audio-video (AV) deepfakes can fake the face, the voice, or both. Most benchmarks only ask whether a clip is real or fake, so they cannot show whether a detector relies on the picture, the voice, or encoding traces. We present MOZAIC, a paired benchmark with a 4-way label in which every source clip is released in all four combinations of real or fake video and real or fake audio so each modality contribution can be measured directly. Fakes cover inner-face swapping, whole-frame video diffusion and voice conversion. MOZAIC has 137,745 clips from 15,014 source pairs and four tasks: T1 AV authenticity, T2 manipulation type, T3 identity verification and T4 explanation. We evaluate 12 AV multimodal LLMs (MLLMs), train four detectors and fine-tune MLLMs with LoRA. Overall, the best MLLM reaches only 35.6% on the four-way T1 and catches far more video-only fakes than voice-only fakes (43.6% vs 7.5%). Trained detectors reach 98.4% on T1, and LoRA fine-tuning raises explanation scores (OmniVinci 4.17 to 7.40, Qwen2.5-Omni 4.42 to 6.98), but the best T1 detector falls to 78.3% when the face-swap generator is held out of training, so generalization and explanation remain open. We release the dataset, the compact MOZAIC-SMALL split, the code and the prompts. https://vectorinstitute.github.io/mozaic/",
    "affiliations": [
     "Vector Institute, Canada",
