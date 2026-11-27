@@ -2109,17 +2109,61 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Reinforcement learning with verifiable rewards (RLVR) has emerged as an effective post-training paradigm for enhancing the video reasoning capability of Large Multimodal Models (LMMs). Despite its empirical effectiveness, we show that outcome-level optimization can introduce an undesirable shortcut amplification effect, whereby models increasingly favor text-prior answers even when they are not supported by the visual evidence. To characterize this behavior, we investigate the training dynamics of video RLVR through the lens of perceptual uncertainty, analyzing how predictive uncertainty evolves under video-conditioned and text-only contexts. Our analysis identifies a perceptual uncertainty collapse phenomenon, in which RL training continuously sharpens the model's answer distribution while the uncertainty reduction attributable to visual evidence progressively diminishes. A further gradient-direction analysis reveals that such confidence enhancement becomes increasingly less aligned with visually grounded uncertainty reduction and is instead dominated by text-prior compression. Motivated by these findings, we propose Bifocal Self-distillation Policy Optimization (BSPO), a self-distillation framework that regulates policy updates with two complementary distributional signals. Specifically, BSPO derives empirical reasoning principles from intra-group correct and incorrect rollouts to identify reasoning-sensitive tokens, and introduces shortcut-aware visual perturbation to penalize predictions that remain invariant when task-relevant visual evidence is weakened. By adaptively reweighting the original RL advantage, BSPO preserves the task-solving benefits of RLVR while promoting updates that are both reasoning-sensitive and visually grounded. Extensive experiments validate the effectiveness of BSPO in improving video reasoning performance and strengthening visual faithfulness.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Harbin Institute of Technology",
+    "Peking University",
+    "Peng Cheng Laboratory",
+    "National University of Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0,
+     2
+    ],
+    [
+     3
+    ],
+    [
+     0,
+     2
+    ]
+   ],
+   "institutions": [
+    "Harbin Institute of Technology",
+    "Peking University",
+    "Peng Cheng Laboratory",
+    "National University of Singapore"
+   ],
+   "institution_ids": [
+    "01yqg2h08",
+    "02v51f717",
+    "03qdqbt06",
+    "01tgyzw49"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-28"
+     "at": "2026-11-27"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-28"
+     "at": "2026-11-27"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.37211",
@@ -6165,7 +6209,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-28"
+     "at": "2026-11-27"
     },
     "institutions": {
      "source": "openalex",
@@ -7648,17 +7692,44 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Image and video generators can produce spatially consistent visual content, but how to use this capability to improve spatial understanding remains underexplored. We study this problem from two perspectives: geometric supervision during training and explicit geometric evidence during inference. To this end, we introduce a unified geometric understanding and generation model (GeoUG) that integrates depth and multi-view generation with spatial understanding. First, we design a multi-scale depth codec that enables metric-depth generation using a pretrained visual autoencoder, and show that joint training yields task-dependent gains in spatial understanding. Second, we introduce 3DCueBench to control geometric difficulty while balancing selected 2D cues, and find that generated depth provides larger reasoning gains on questions requiring fine-grained geometric discrimination. Building on this finding, we develop adaptive interleaved reasoning, in which GeoUG first drafts an answer and then decides whether to generate geometric evidence to confirm or revise it. We train this decision through reinforcement learning, balancing accuracy gains over retaining the draft against generation cost. GeoUG achieves circular accuracies of 97.9%, 90.8%, and 94.2% on CV-Bench-3D, 3DCueBench, and DA-2K with fewer generation calls than always generating.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Hong Kong",
+    "Shanghai Jiao Tong University",
+    "ByteDance"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    null,
+    null,
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Hong Kong",
+    "Shanghai Jiao Tong University",
+    "ByteDance"
+   ],
+   "institution_ids": [
+    "02zhqgq86",
+    "0220qvk04",
+    "04m8av638"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-28"
+     "at": "2026-11-27"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-28"
+     "at": "2026-11-27"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.36022",
@@ -8866,17 +8937,34 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "Open-Set Test-Time Adaptation (OSTTA) operates on non-stationary target streams where covariate and semantic shifts coexist. Existing TTA methods often obtain adaptation signals by updating model parameters or maintaining mutable memories, which can be costly and vulnerable to unknown samples. We present TALOR, a lightweight, backward-free rectification module that uses the source linear head as a geometric anchor. The head-induced basis decomposes each normalized feature into high-gain principal coordinates and low-gain tail coordinates. TALOR estimates a soft-routed affine correction in the principal subspace, combining a regime-level principal bias with a tail-conditioned slope that captures sample-level tail-to-principal coupling. Using weighted ridge regression, it subtracts this drift estimate from the principal coordinates, reconstructs the feature and feeds it into the source head. On the ImageNet-C benchmark with six csOOD datasets, TALOR outperforms the next-best UniEnt by 2.2% H-score while running 2.5x faster and using only 12% of its GPU memory; as a post-correction plug-in, it further boosts COME to 68.4% H-score with only 2% additional memory overhead.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Shenzhen University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Shenzhen University"
+   ],
+   "institution_ids": [
+    "01vy4gh70"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-28"
+     "at": "2026-11-27"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-28"
+     "at": "2026-11-27"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.36870",
@@ -10094,7 +10182,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-28"
+     "at": "2026-11-27"
     },
     "institutions": {
      "source": "openalex",
