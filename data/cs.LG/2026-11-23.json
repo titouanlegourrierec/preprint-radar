@@ -4259,7 +4259,7 @@
   {
    "arxiv_id": "2611.27028",
    "announced": "2026-11-23",
-   "title": "Toward a digital twin of the ICU patient: Forecasting and treatment response in a generative event model",
+   "title": "TWICE: Toward a digital twin of ICU patients with a generative event model for forecasting trajectories and simulating treatment response",
    "authors": [
     "Zhuoyang Lyu",
     "Yiming Li",
@@ -4275,7 +4275,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.27028v1",
+   "html_url": "https://arxiv.org/html/2611.27028v2",
    "abstract": "A digital twin of a patient in intensive care would forecast the patient's course and what a treatment would change. Generative event models, trained to continue a patient's electronic health record (EHR), have been proposed as a path toward such twins. We trained TWICE, a 79M-parameter decoder-only transformer, on the ICU records of one academic health system (127,332 training patients and 1.57 billion tokens). We evaluated it on clinical prediction tasks, generation fidelity, individual trajectories and counterfactual validation. Reading 19 clinical outcomes off 50 simulated futures, with no task-specific training, TWICE matched the best of 144 supervised configurations on held-out patients (mean AUROC 0.836 vs. 0.834). It led on events that change care within a day and trailed on death. With the training data fixed, more and longer simulated futures were worth more than a 6.8-fold larger model. Its generated records matched real ones closely and were as specific to each patient as its own variability allowed. Its predicted risk rose as events approached. Pre-specified controls showed that it reproduced the side effects of drugs and was barely moved by an inert drug. On the values that treatments are given to correct, however, an opposite treatment moved its forecasts like the right one. TWICE forecasts ICU events about as well as task-specific models, and we see it as a step toward a digital twin of the ICU patient.",
    "affiliations": [
     "Department of Biomedical Informatics, Harvard Medical School, Boston, MA, USA",
@@ -9587,7 +9587,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.CL",
-   "html_url": "https://arxiv.org/html/2611.26809v1",
+   "html_url": "https://arxiv.org/html/2611.26809v2",
    "abstract": "Modern language models (LMs) are increasingly deployed with access to search tools at inference. Yet pretraining remains predominantly focused on predicting static text, with search capabilities typically introduced during post-training. We propose Search-Native Pretraining as a practical route to teach search capability during pretraining from ordinary text corpora. Specifically, we augment pretraining corpus at scale with web-search queries and retrieve web response using a local index. Training on this augmented corpus teaches models to generate search calls and incorporate retrieved evidence during language modeling. Across Wikipedia and DCLM-Edu corpora and 360M to 3.3B parameter scales, search-pretrained models (\"QueryLM\") show improved performance on knowledge-intensive tasks and higher steerability toward the retrieved evidence. Crucially, their advantage persists after supervised fine-tuning of both search-pretrained and conventionally pretrained models, indicating that the tested post-training procedures do not fully recover the capabilities developed during pretraining. Throughout our experiments, we find that a 1.4B QueryLM consistently beats or matches the performance of a FLOP-matched 3.3B baseline model across all knowledge intensive tasks. These results establish search-pretraining as a practical way to develop foundational search capabilities during pretraining. We release the training artifacts, including model checkpoints and data.",
    "affiliations": [
     "EPFL",
@@ -9801,7 +9801,7 @@
   {
    "arxiv_id": "2611.26730",
    "announced": "2026-11-23",
-   "title": "SparseHPS: A Unified Model for Human Pose and Shape across Depth Cameras and LiDARs",
+   "title": "SparseHPS: A Unified Model for Human Pose and Shape Estimation across Depth Cameras and LiDARs",
    "authors": [
     "Ilya Zaychuk"
    ],
@@ -9815,7 +9815,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.CV",
-   "html_url": "https://arxiv.org/html/2611.26730v1",
+   "html_url": "https://arxiv.org/html/2611.26730v2",
    "abstract": "Recovering 3D human pose and shape from point clouds is central to motion capture, robotics and self-driving vehicles, because depth cameras and LiDARs sense a person directly in metric 3D and work under any lighting. However, current approaches are each tailored to one sensor type: point density differs by more than ten times between devices, public datasets are labeled with incompatible body models, and LiDAR approaches need long input sequences to offset sparse scans. In this work, we present SparseHPS, a novel sensor-agnostic network that recovers SMPL-X pose, shape and global translation from a human point cloud with one set of weights, for single frames and streams alike. Specifically, SparseHPS encodes the cloud with a LitePT backbone over sparse voxels, represents every joint by a learnable query decoded with one common head, localizes the body by voting over voxels, and draws temporal context from a causal memory of tokens from the seven preceding frames. A single model is trained on ten datasets that mix rendered clouds with real depth-camera and LiDAR captures, all converted to one body model. Experiments demonstrate state-of-the-art results on the SLOPER4D and FreeMotion LiDAR benchmarks, where SparseHPS lowers the root-relative joint error by 22% and 11%, respectively, compared with the strongest prior method, which needs 32 frames. On real Azure Kinect captures of held-out HuMMan subjects, SparseHPS attains a joint error of 34.7 mm. Moreover, the current frame alone already yields the bulk of this accuracy.",
    "affiliations": [],
    "author_affiliations": null,
@@ -9845,11 +9845,11 @@
     "Machine Learning (cs.LG)",
     "Risk Management (q-fin.RM)"
    ],
-   "comments": "34 pages, 7 figures, 12 tables",
+   "comments": "34 pages, 7 figures, 12 tables; v2: introduction clarified, references added",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "q-fin.CP",
-   "html_url": "https://arxiv.org/html/2611.26652v1",
+   "html_url": "https://arxiv.org/html/2611.26652v2",
    "abstract": "Deep hedging learns a hedging strategy by optimising a risk preference over a neural-network policy. The preference is fixed before training, so each new preference requires a new policy and, in actor-critic methods, a new critic. We propose distributional deep hedging, in which the distribution of the hedging profit and loss is learned through its quantiles and the risk preference is applied afterwards, as a weight on those quantiles. We characterise the preferences that admit this representation, which include expected shortfall and its mixtures, and show that the entropic utility is computed from the same quantiles. At the current policy, each of these preferences is bounded below by an expected utility with the same gradient. This bound reduces risk-sensitive hedging to a sequence of risk-neutral problems, from which we derive policy-search and actor-critic algorithms. In numerical experiments, the learned hedges approach references computed by dynamic programming, and a single distributional critic trained without a preference can serve preferences chosen after training.",
    "affiliations": [
     "Quantum Signals SAS, Paris, France",

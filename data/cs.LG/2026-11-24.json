@@ -1405,11 +1405,11 @@
     "Machine Learning (cs.LG)",
     "Computation and Language (cs.CL)"
    ],
-   "comments": null,
+   "comments": "Corrected the institutional affiliation names",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.30702v1",
+   "html_url": "https://arxiv.org/html/2611.30702v2",
    "abstract": "When RL learns from the reactions of many users, the policy usually cannot see what each user wants. We ask what it learns from users who privately want validation: to validate them alone (targeting), or to lower its bar for endorsing everyone (a threshold shift). We answer this in one setting, empathetic RL against LLM-simulated users (RLVER, GRPO, Qwen2.5-7B-Instruct): we vary only the share of validation-seeking users (0–50%; RLVER's default: 24.6%) and evaluate on 1,000 Reddit AITA posts with community fault verdicts. The policy shifts its threshold. Endorsement of at-fault posters rises by 3–4 percentage points per 10 points of share; without such users the Qwen model stays at base, and the effect persists at matched KL and under a goal-blind reward. Signal-detection analysis shows that the criterion for endorsing falls while discrimination between at-fault and not-at-fault posters does not decline. An explicit request to be told if one is wrong gives no measurable protection: at-fault posters who make it receive nearly the same rise as those who do not (+0.11 vs. +0.13). When the goal is stated during training, the policy instead largely targets, endorsing seekers regardless of fault. Standard sycophancy and empathy benchmarks miss the shift; five of six usable released empathetic-RL checkpoints also endorse at-fault posters who ask for honesty more than their base models, though a pre-registered prediction for two held for only one. The user mix is a training hyperparameter to audit and report.",
    "affiliations": [
     "Department of Biomedical Engineering, School of Medicine, Tsinghua University",
@@ -1790,7 +1790,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2611.30577v1",
+   "html_url": "https://arxiv.org/html/2611.30577v2",
    "abstract": "We consider the problem of learning microscopic traffic dynamics and reconstructing vehicle trajectories from section entry/exit timestamps (EET) recorded by cameras and from the positions of a probe vehicle leading the platoon. The dynamics are difficult to recover as each vehicle's position is measured only at two points, and its trajectory between them is unknown. By combining Neural ODEs with a local density approximation, we learn a follow-the-leader model whose speed--density relation is a neural network. With such sparse data, an unconstrained network may learn physically unrealistic relations, such as negative speeds or non-zero speeds on a fully congested road. We therefore introduce a normalization that, applied to a monotone neural network with a learned regime change, enforces the endpoint conditions, guaranteeing an admissible speed--density relation while provably retaining the ability to approximate any admissible one. We validate the method on first- and second-order simulations, recovering the speed--density relation of the first-order model and reconstructing the trajectories of both models, with mean maximum position errors of 2.50~m and 2.51~m, respectively, on a 125~m road segment. On real-world ring-road data, the proposed model still yields an admissible relation, whereas both baselines violate the constraints; the large spread in the data, however, highlights the limitations of a first-order model with homogeneous driver behaviors.",
    "affiliations": [
     "Department of Decision and Control Systems, School of Electrical Engineering and Computer Science, Digital Futures, KTH Royal Institute of Technology, 100-44, Sweden"
@@ -7426,7 +7426,8 @@
    ],
    "primary_subject": "Machine Learning (cs.LG)",
    "subjects": [
-    "Machine Learning (cs.LG)"
+    "Machine Learning (cs.LG)",
+    "Instrumentation and Methods for Astrophysics (astro-ph.IM)"
    ],
    "comments": "10 pages, 1 figure. Accepted at the 9th Workshop on Machine Learning and the Physical Sciences (ML4PS 2026)",
    "journal_ref": null,
@@ -16241,10 +16242,10 @@
   {
    "arxiv_id": "2611.29992",
    "announced": "2026-11-24",
-   "title": "Wavelet determinantal samplers: Optimal approximation rates adapting to regularity",
+   "title": "Sampling with graph wavelet kernels: optimality and adaptivity to regularity and geometry",
    "authors": [
-    "Hoang-Son Tran",
     "Pranav Gupta",
+    "Hoang-Son Tran",
     "Subhroshekhar Ghosh"
    ],
    "primary_subject": "Machine Learning (stat.ML)",
@@ -16257,30 +16258,30 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "stat.ML",
-   "html_url": "https://arxiv.org/html/2611.29992v1",
+   "html_url": "https://arxiv.org/html/2611.29992v2",
    "abstract": "We construct wavelet-based determinantal samplers on manifolds and geometric graphs whose approximation rates adapt to the regularity of the observable. On a Riemannian manifold of dimension m, our wavelet DPPs satisfy variance reduction of order $n^{1-2s/m}$ for linear statistics of both s-Hölder and $H^s$ observables, where 0<s≤1. Using these samplers, we further construct unbiased quadrature rules with root mean square error $O(n^{-1/2-s/m})$ using at most 3n/2 function evaluations, matching the classical optimal randomized integration exponent. For point clouds sampled from an m-dimensional manifold, we develop corresponding determinantal samplers on two standard classes of geometric random graphs: ε-graphs and symmetric k-nearest-neighbour graphs. These samplers satisfy the same variance reduction for linear statistics of s-Hölder observables and yield conditionally unbiased estimators of empirical averages with root mean square error $O(n^{-1/2-s/m})$, using at most 2n function evaluations. In both settings, the rates are governed by the intrinsic dimension m and the regularity s of the observable.",
    "affiliations": [
-    "Department of Mathematics, National University of Singapore",
-    "Division of Applied Mathematics, Brown University"
+    "Division of Applied Mathematics, Brown University",
+    "Department of Mathematics, National University of Singapore"
    ],
    "author_affiliations": null,
    "institutions": [
-    "National University of Singapore",
-    "Brown University"
+    "Brown University",
+    "National University of Singapore"
    ],
    "institution_ids": [
-    "01tgyzw49",
-    "05gq02987"
+    "05gq02987",
+    "01tgyzw49"
    ],
    "extractor": 24,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-11-25"
+     "at": "2026-11-27"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-11-25"
+     "at": "2026-11-27"
     }
    },
    "abs_url": "https://arxiv.org/abs/2611.29992",
@@ -16703,11 +16704,11 @@
     "Materials Science (cond-mat.mtrl-sci)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "38 pages, 8 figures",
+   "comments": "30 pages, 8 figures",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cond-mat.mtrl-sci",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2611.29814v2",
    "abstract": "Modern microscopes can acquire, analyze and act on data far faster than human operators can decide what to measure next. Exploiting this speed in automated experiments requires the instrument to follow the scientific logic of the operator, and one way to encode that logic is through reward functions that become part of the operation process. Here we explore whether such reward functions can be learned from the decision histories of microscope operators. We propose multiple frameworks in which recorded choices among alternative measurement locations serve as comparative evidence about the operator's preferences, and we compare several algorithms for reconstructing the reward including interpretable linear models built on physically meaningful image descriptors, nonlinear functions of the same descriptors, an unsupervised image representation followed by preference modeling, and a preference trained deep kernel inspired model. The result of this analysis is a spatial field of reward functions over the sample that can be used to run the instrument. We also propose a way to benchmark these approaches, based on withheld decisions and on decision histories generated with known objectives. We then examine the possibility that a decision history contains changing priorities throughout the experiment. A hidden Markov model assigns distinct rewards to recurring selection strategies, whereas a continuous-state model tracks smoothly varying preference weights. Controlled sequences generated over real microscopy candidate sets show that both concealed switches and gradual drift can be recovered. These reward functions, learned directly from recorded decisions, provide candidate objectives for future automated microscopy experiments.",
    "affiliations": [],
    "author_affiliations": null,
@@ -22266,7 +22267,7 @@
    "journal_ref": null,
    "venue": "SSCI 2027",
    "cross_list_from": "cs.CV",
-   "html_url": "https://arxiv.org/html/2611.28321v1",
+   "html_url": "https://arxiv.org/html/2611.28321v2",
    "abstract": "We propose a multimodal, class-agnostic, density-based object counting framework that specifies the object of interest through visual exemplars, a text description, or both, within a single iterative refinement pipeline. Existing counters typically fall into two groups: methods that fuse two modalities, a hand-drawn bounding box and a text description, to specify the target object, and single-modality methods that rely on either a box exemplar or text alone. A few recent methods replace the box with a point or click. We expand a single click into a precise object mask via a frozen visual-prompt segmentation model, feeding an iterative prototype-refinement process that also fuses a text description at every refinement step. We make two contributions: first, a click-derived exemplar extraction module that removes the bounding-box requirement of prior exemplar-based counters; second, a per-step text-fusion mechanism that combines visual and textual prompts throughout refinement. Combined with text guidance, our model achieves state-of-the-art counting accuracy, outperforming prior click-based counting methods across all metrics and surpassing the box-exemplar base architecture in mean absolute error. The code is available at github.com/ameniifi/Click-and-Count.",
    "affiliations": [
     "Université TÉLUQ, Montréal, Québec, Canada",
